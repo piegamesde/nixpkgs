@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,17 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-DsvKtiy9sawGKpQu3f5OMUtE2Emq3Br8FupopUcLVew=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  pythonImportsCheck = [
-    "immutabledict"
-  ];
+  pythonImportsCheck = [ "immutabledict" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "A fork of frozendict, an immutable wrapper around dictionaries";

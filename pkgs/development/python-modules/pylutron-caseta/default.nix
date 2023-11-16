@@ -1,13 +1,14 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, setuptools
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -24,29 +25,19 @@ buildPythonPackage rec {
     hash = "sha256-tjmMu7LUne+hLLTXGqHhci9/PZiuQ10mQaARvL2sdIM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    cryptography
-  ];
+  propagatedBuildInputs = [ cryptography ];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytest-timeout
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    async-timeout
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  pythonImportsCheck = [
-    "pylutron_caseta"
-  ];
+  pythonImportsCheck = [ "pylutron_caseta" ];
 
   meta = with lib; {
     description = "Python module o control Lutron Caseta devices";

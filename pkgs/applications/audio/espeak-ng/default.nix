@@ -1,25 +1,26 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoconf
-, automake
-, which
-, libtool
-, pkg-config
-, ronn
-, substituteAll
-, buildPackages
-, mbrolaSupport ? true
-, mbrola
-, pcaudiolibSupport ? true
-, pcaudiolib
-, sonicSupport ? true
-, sonic
-, CoreAudio
-, AudioToolbox
-, AudioUnit
-, alsa-plugins
-, makeWrapper
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  which,
+  libtool,
+  pkg-config,
+  ronn,
+  substituteAll,
+  buildPackages,
+  mbrolaSupport ? true,
+  mbrola,
+  pcaudiolibSupport ? true,
+  pcaudiolib,
+  sonicSupport ? true,
+  sonic,
+  CoreAudio,
+  AudioToolbox,
+  AudioUnit,
+  alsa-plugins,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,42 +34,57 @@ stdenv.mkDerivation rec {
     hash = "sha256-aAJ+k+kkOS6k835mEW7BvgAIYGhUHxf7Q4P5cKO8XTk=";
   };
 
-  patches = lib.optionals mbrolaSupport [
-    # Hardcode correct mbrola paths.
-    (substituteAll {
-      src = ./mbrola.patch;
-      inherit mbrola;
-    })
+  patches =
+    lib.optionals mbrolaSupport
+      [
+        # Hardcode correct mbrola paths.
+        (substituteAll {
+          src = ./mbrola.patch;
+          inherit mbrola;
+        })
+      ];
+
+  nativeBuildInputs = [
+    autoconf
+    automake
+    which
+    libtool
+    pkg-config
+    ronn
+    makeWrapper
   ];
 
-  nativeBuildInputs = [ autoconf automake which libtool pkg-config ronn makeWrapper ];
-
-  buildInputs = lib.optional mbrolaSupport mbrola
+  buildInputs =
+    lib.optional mbrolaSupport mbrola
     ++ lib.optional pcaudiolibSupport pcaudiolib
     ++ lib.optional sonicSupport sonic
     ++ lib.optionals stdenv.isDarwin [
-    CoreAudio
-    AudioToolbox
-    AudioUnit
-  ];
+      CoreAudio
+      AudioToolbox
+      AudioUnit
+    ];
 
   # touch ChangeLog to avoid below error on darwin:
   # Makefile.am: error: required file './ChangeLog.md' not found
-  preConfigure = lib.optionalString stdenv.isDarwin ''
-    touch ChangeLog
-  '' + ''
-    ./autogen.sh
-  '';
+  preConfigure =
+    lib.optionalString stdenv.isDarwin ''
+      touch ChangeLog
+    ''
+    + ''
+      ./autogen.sh
+    '';
 
-  configureFlags = [
-    "--with-mbrola=${if mbrolaSupport then "yes" else "no"}"
-  ];
+  configureFlags = [ "--with-mbrola=${if mbrolaSupport then "yes" else "no"}" ];
 
   # ref https://github.com/void-linux/void-packages/blob/3cf863f894b67b3c93e23ac7830ca46b697d308a/srcpkgs/espeak-ng/template#L29-L31
   postConfigure = lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     substituteInPlace Makefile \
-      --replace 'ESPEAK_DATA_PATH=$(CURDIR) src/espeak-ng' 'ESPEAK_DATA_PATH=$(CURDIR) ${lib.getExe buildPackages.espeak-ng}' \
-      --replace 'espeak-ng-data/%_dict: src/espeak-ng' 'espeak-ng-data/%_dict: ${lib.getExe buildPackages.espeak-ng}' \
+      --replace 'ESPEAK_DATA_PATH=$(CURDIR) src/espeak-ng' 'ESPEAK_DATA_PATH=$(CURDIR) ${
+        lib.getExe buildPackages.espeak-ng
+      }' \
+      --replace 'espeak-ng-data/%_dict: src/espeak-ng' 'espeak-ng-data/%_dict: ${
+        lib.getExe buildPackages.espeak-ng
+      }' \
       --replace '../src/espeak-ng --compile' "${lib.getExe buildPackages.espeak-ng} --compile"
   '';
 

@@ -1,31 +1,32 @@
-{ lib
-, backoff
-, buildPythonPackage
-, fetchFromGitHub
-, geojson
-, google-api-core
-, imagesize
-, nbconvert
-, nbformat
-, ndjson
-, numpy
-, opencv
+{
+  lib,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  geojson,
+  google-api-core,
+  imagesize,
+  nbconvert,
+  nbformat,
+  ndjson,
+  numpy,
+  opencv,
   # , opencv-python
-, packaging
-, pillow
-, pydantic
+  packaging,
+  pillow,
+  pydantic,
   # , pygeotile
-, pyproj
-, pytest-cases
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, rasterio
-, requests
-, shapely
-, tqdm
-, typeguard
-, typing-extensions
+  pyproj,
+  pytest-cases,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  rasterio,
+  requests,
+  shapely,
+  tqdm,
+  typeguard,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -47,13 +48,9 @@ buildPythonPackage rec {
       --replace "--reruns 5 --reruns-delay 10" ""
   '';
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "backoff"
-  ];
+  pythonRelaxDeps = [ "backoff" ];
 
   propagatedBuildInputs = [
     backoff
@@ -94,14 +91,13 @@ buildPythonPackage rec {
     "tests/data"
   ];
 
-  pytestFlagsArray = [
-    # see tox.ini
-    "-k 'not notebooks'"
-  ];
+  pytestFlagsArray =
+    [
+      # see tox.ini
+      "-k 'not notebooks'"
+    ];
 
-  pythonImportsCheck = [
-    "labelbox"
-  ];
+  pythonImportsCheck = [ "labelbox" ];
 
   meta = with lib; {
     description = "Platform API for LabelBox";

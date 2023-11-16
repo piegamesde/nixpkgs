@@ -10,7 +10,7 @@
   ffmpeg-full,
   util-linux,
   python3,
-  getopt
+  getopt,
 }:
 
 let
@@ -30,7 +30,7 @@ let
     pname = "${pname}-client";
     inherit version;
 
-    src = runCommand "cp-source" {} ''
+    src = runCommand "cp-source" { } ''
       cp -r ${src}/client $out
     '';
 
@@ -41,10 +41,17 @@ let
   };
 
   wrapper = import ./wrapper.nix {
-    inherit stdenv ffmpeg-full tone pname nodejs getopt;
+    inherit
+      stdenv
+      ffmpeg-full
+      tone
+      pname
+      nodejs
+      getopt
+    ;
   };
-
-in buildNpmPackage {
+in
+buildNpmPackage {
   inherit pname version src;
 
   buildInputs = [ util-linux ];

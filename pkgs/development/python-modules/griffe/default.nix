@@ -1,13 +1,14 @@
-{ lib
-, aiofiles
-, buildPythonPackage
-, colorama
-, fetchFromGitHub
-, git
-, jsonschema
-, pdm-backend
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiofiles,
+  buildPythonPackage,
+  colorama,
+  fetchFromGitHub,
+  git,
+  jsonschema,
+  pdm-backend,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -26,13 +27,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    pdm-backend
-  ];
+  nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs = [
-    colorama
-  ];
+  propagatedBuildInputs = [ colorama ];
 
   nativeCheckInputs = [
     git
@@ -41,14 +38,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    async = [
-      aiofiles
-    ];
+    async = [ aiofiles ];
   };
 
-  pythonImportsCheck = [
-    "griffe"
-  ];
+  pythonImportsCheck = [ "griffe" ];
 
   meta = with lib; {
     description = "Signatures for entire Python programs";

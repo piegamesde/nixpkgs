@@ -1,13 +1,17 @@
-/*
-  Manages /etc/nix.conf.
+/* Manages /etc/nix.conf.
 
-  See also
-   - ./nix-channel.nix
-   - ./nix-flakes.nix
-   - ./nix-remote-build.nix
-   - nixos/modules/services/system/nix-daemon.nix
- */
-{ config, lib, pkgs, ... }:
+   See also
+    - ./nix-channel.nix
+    - ./nix-flakes.nix
+    - ./nix-remote-build.nix
+    - nixos/modules/services/system/nix-daemon.nix
+*/
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
@@ -36,7 +40,7 @@ let
     toPretty
     types
     versionAtLeast
-    ;
+  ;
 
   cfg = config.nix;
 
@@ -59,19 +63,23 @@ let
     systemFeatures = "system-features";
   };
 
-  semanticConfType = with types;
+  semanticConfType =
+    with types;
     let
-      confAtom = nullOr
-        (oneOf [
-          bool
-          int
-          float
-          str
-          path
-          package
-        ]) // {
-        description = "Nix config atom (null, bool, int, float, str, path or package)";
-      };
+      confAtom =
+        nullOr (
+          oneOf [
+            bool
+            int
+            float
+            str
+            path
+            package
+          ]
+        )
+        // {
+          description = "Nix config atom (null, bool, int, float, str, path or package)";
+        };
     in
     attrsOf (either confAtom (listOf confAtom));
 
@@ -79,22 +87,32 @@ let
     assert isNixAtLeast "2.2";
     let
 
-      mkValueString = v:
-        if v == null then ""
-        else if isInt v then toString v
-        else if isBool v then boolToString v
-        else if isFloat v then floatToString v
-        else if isList v then toString v
-        else if isDerivation v then toString v
-        else if builtins.isPath v then toString v
-        else if isString v then v
-        else if strings.isConvertibleWithToString v then toString v
-        else abort "The nix conf value: ${toPretty {} v} can not be encoded";
+      mkValueString =
+        v:
+        if v == null then
+          ""
+        else if isInt v then
+          toString v
+        else if isBool v then
+          boolToString v
+        else if isFloat v then
+          floatToString v
+        else if isList v then
+          toString v
+        else if isDerivation v then
+          toString v
+        else if builtins.isPath v then
+          toString v
+        else if isString v then
+          v
+        else if strings.isConvertibleWithToString v then
+          toString v
+        else
+          abort "The nix conf value: ${toPretty { } v} can not be encoded";
 
       mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
 
       mkKeyValuePairs = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
-
     in
     pkgs.writeTextFile {
       name = "nix.conf";
@@ -106,36 +124,68 @@ let
         ${cfg.extraOptions}
       '';
       checkPhase = lib.optionalString cfg.checkConfig (
-        if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then ''
-          echo "Ignoring validation for cross-compilation"
-        ''
-        else ''
-          echo "Validating generated nix.conf"
-          ln -s $out ./nix.conf
-          set -e
-          set +o pipefail
-          NIX_CONF_DIR=$PWD \
-            ${cfg.package}/bin/nix show-config ${optionalString (isNixAtLeast "2.3pre") "--no-net"} \
-              ${optionalString (isNixAtLeast "2.4pre") "--option experimental-features nix-command"} \
-            |& sed -e 's/^warning:/error:/' \
-            | (! grep '${if cfg.checkAllErrors then "^error:" else "^error: unknown setting"}')
-          set -o pipefail
-        '');
+        if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then
+          ''
+            echo "Ignoring validation for cross-compilation"
+          ''
+        else
+          ''
+            echo "Validating generated nix.conf"
+            ln -s $out ./nix.conf
+            set -e
+            set +o pipefail
+            NIX_CONF_DIR=$PWD \
+              ${cfg.package}/bin/nix show-config ${optionalString (isNixAtLeast "2.3pre") "--no-net"} \
+                ${optionalString (isNixAtLeast "2.4pre") "--option experimental-features nix-command"} \
+              |& sed -e 's/^warning:/error:/' \
+              | (! grep '${if cfg.checkAllErrors then "^error:" else "^error: unknown setting"}')
+            set -o pipefail
+          ''
+      );
     };
-
 in
 {
-  imports = [
-    (mkRenamedOptionModuleWith { sinceRelease = 2003; from = [ "nix" "useChroot" ]; to = [ "nix" "useSandbox" ]; })
-    (mkRenamedOptionModuleWith { sinceRelease = 2003; from = [ "nix" "chrootDirs" ]; to = [ "nix" "sandboxPaths" ]; })
-  ] ++
-    mapAttrsToList
-      (oldConf: newConf:
+  imports =
+    [
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2003;
+        from = [
+          "nix"
+          "useChroot"
+        ];
+        to = [
+          "nix"
+          "useSandbox"
+        ];
+      })
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2003;
+        from = [
+          "nix"
+          "chrootDirs"
+        ];
+        to = [
+          "nix"
+          "sandboxPaths"
+        ];
+      })
+    ]
+    ++ mapAttrsToList
+      (
+        oldConf: newConf:
         mkRenamedOptionModuleWith {
           sinceRelease = 2205;
-          from = [ "nix" oldConf ];
-          to = [ "nix" "settings" newConf ];
-      })
+          from = [
+            "nix"
+            oldConf
+          ];
+          to = [
+            "nix"
+            "settings"
+            newConf
+          ];
+        }
+      )
       legacyConfMappings;
 
   options = {
@@ -235,7 +285,10 @@ in
             extra-sandbox-paths = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              example = [ "/dev" "/proc" ];
+              example = [
+                "/dev"
+                "/proc"
+              ];
               description = lib.mdDoc ''
                 Directories from the host filesystem to be included
                 in the sandbox.
@@ -292,7 +345,11 @@ in
             trusted-users = mkOption {
               type = types.listOf types.str;
               default = [ "root" ];
-              example = [ "root" "alice" "@wheel" ];
+              example = [
+                "root"
+                "alice"
+                "@wheel"
+              ];
               description = lib.mdDoc ''
                 A list of names of users that have additional rights when
                 connecting to the Nix daemon, such as the ability to specify
@@ -306,7 +363,11 @@ in
 
             system-features = mkOption {
               type = types.listOf types.str;
-              example = [ "kvm" "big-parallel" "gccarch-skylake" ];
+              example = [
+                "kvm"
+                "big-parallel"
+                "gccarch-skylake"
+              ];
               description = lib.mdDoc ''
                 The set of features supported by the machine. Derivations
                 can express dependencies on system features through the
@@ -321,7 +382,12 @@ in
             allowed-users = mkOption {
               type = types.listOf types.str;
               default = [ "*" ];
-              example = [ "@wheel" "@builders" "alice" "bob" ];
+              example = [
+                "@wheel"
+                "@builders"
+                "alice"
+                "bob"
+              ];
               description = lib.mdDoc ''
                 A list of names of users (separated by whitespace) that are
                 allowed to connect to the Nix daemon. As with
@@ -367,11 +433,18 @@ in
       trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
       substituters = mkAfter [ "https://cache.nixos.org/" ];
       system-features = mkDefault (
-        [ "nixos-test" "benchmark" "big-parallel" "kvm" ] ++
-        optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
+        [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ]
+        ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
           # a builder can run code for `gcc.arch` and inferior architectures
-          [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ] ++
-          map (x: "gccarch-${x}") (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [])
+          [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
+          ++ map (x: "gccarch-${x}") (
+            systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
+          )
         )
       );
     };

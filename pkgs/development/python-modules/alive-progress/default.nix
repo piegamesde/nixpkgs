@@ -1,10 +1,11 @@
-{ lib
-, about-time
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, grapheme
-, pytestCheckHook
+{
+  lib,
+  about-time,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  grapheme,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "alive_progress"
-  ];
+  pythonImportsCheck = [ "alive_progress" ];
 
   meta = with lib; {
     description = "A new kind of Progress Bar, with real-time throughput, ETA, and very cool animations";

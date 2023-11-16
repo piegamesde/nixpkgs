@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonAtLeast
-, setuptools-scm
-, ansible-core
-, paramiko
-, pytestCheckHook
-, pytest-xdist
-, pywinrm
-, salt
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  setuptools-scm,
+  ansible-core,
+  paramiko,
+  pytestCheckHook,
+  pytest-xdist,
+  pywinrm,
+  salt,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-UxGzaeBUaSD85GTDv5RbVevnWhJ1aPbWFelLiJE0AUk=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   nativeCheckInputs = [
     ansible-core
@@ -44,22 +43,23 @@ buildPythonPackage rec {
   '';
 
   # docker is required for all disabled tests
-  disabledTests = [
-    # test/test_backends.py
-    "test_command"
-    "test_encoding"
-    "test_ansible_any_error_fatal"
-    "test_user_connection"
-    "test_sudo"
-    "test_docker_encoding"
-  ] ++ lib.optionals (pythonAtLeast "3.11") [
-    # broken because salt package only built for python 3.10
-    "test_backend_importables"
-  ];
+  disabledTests =
+    [
+      # test/test_backends.py
+      "test_command"
+      "test_encoding"
+      "test_ansible_any_error_fatal"
+      "test_user_connection"
+      "test_sudo"
+      "test_docker_encoding"
+    ]
+    ++ lib.optionals (pythonAtLeast "3.11")
+      [
+        # broken because salt package only built for python 3.10
+        "test_backend_importables"
+      ];
 
-  disabledTestPaths = [
-    "test/test_modules.py"
-  ];
+  disabledTestPaths = [ "test/test_modules.py" ];
 
   meta = with lib; {
     description = "Pytest plugin for testing your infrastructure";

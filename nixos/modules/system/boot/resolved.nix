@@ -1,12 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
   cfg = config.services.resolved;
 
-  dnsmasqResolve = config.services.dnsmasq.enable &&
-                   config.services.dnsmasq.resolveLocalQueries;
-
+  dnsmasqResolve = config.services.dnsmasq.enable && config.services.dnsmasq.resolveLocalQueries;
 in
 {
 
@@ -24,7 +27,10 @@ in
 
     services.resolved.fallbackDns = mkOption {
       default = [ ];
-      example = [ "8.8.8.8" "2001:4860:4860::8844" ];
+      example = [
+        "8.8.8.8"
+        "2001:4860:4860::8844"
+      ];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of IPv4 and IPv6 addresses to use as the fallback DNS servers.
@@ -53,7 +59,11 @@ in
     services.resolved.llmnr = mkOption {
       default = "true";
       example = "false";
-      type = types.enum [ "true" "resolve" "false" ];
+      type = types.enum [
+        "true"
+        "resolve"
+        "false"
+      ];
       description = lib.mdDoc ''
         Controls Link-Local Multicast Name Resolution support
         (RFC 4795) on the local host.
@@ -68,7 +78,11 @@ in
     services.resolved.dnssec = mkOption {
       default = "false";
       example = "true";
-      type = types.enum [ "true" "allow-downgrade" "false" ];
+      type = types.enum [
+        "true"
+        "allow-downgrade"
+        "false"
+      ];
       description = lib.mdDoc ''
         If set to
         - `"true"`:
@@ -101,13 +115,13 @@ in
         Extra config to append to resolved.conf.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = !config.networking.useHostResolvConf;
+      {
+        assertion = !config.networking.useHostResolvConf;
         message = "Using host resolv.conf is not supported with systemd-resolved";
       }
     ];
@@ -117,11 +131,9 @@ in
     # add resolve to nss hosts database if enabled and nscd enabled
     # system.nssModules is configured in nixos/modules/system/boot/systemd.nix
     # added with order 501 to allow modules to go before with mkBefore
-    system.nssDatabases.hosts = (mkOrder 501 ["resolve [!UNAVAIL=return]"]);
+    system.nssDatabases.hosts = (mkOrder 501 [ "resolve [!UNAVAIL=return]" ]);
 
-    systemd.additionalUpstreamSystemUnits = [
-      "systemd-resolved.service"
-    ];
+    systemd.additionalUpstreamSystemUnits = [ "systemd-resolved.service" ];
 
     systemd.services.systemd-resolved = {
       wantedBy = [ "multi-user.target" ];
@@ -129,32 +141,30 @@ in
       restartTriggers = [ config.environment.etc."systemd/resolved.conf".source ];
     };
 
-    environment.etc = {
-      "systemd/resolved.conf".text = ''
-        [Resolve]
-        ${optionalString (config.networking.nameservers != [])
-          "DNS=${concatStringsSep " " config.networking.nameservers}"}
-        ${optionalString (cfg.fallbackDns != [])
-          "FallbackDNS=${concatStringsSep " " cfg.fallbackDns}"}
-        ${optionalString (cfg.domains != [])
-          "Domains=${concatStringsSep " " cfg.domains}"}
-        LLMNR=${cfg.llmnr}
-        DNSSEC=${cfg.dnssec}
-        ${config.services.resolved.extraConfig}
-      '';
+    environment.etc =
+      {
+        "systemd/resolved.conf".text = ''
+          [Resolve]
+          ${optionalString (config.networking.nameservers != [ ])
+            "DNS=${concatStringsSep " " config.networking.nameservers}"}
+          ${optionalString (cfg.fallbackDns != [ ]) "FallbackDNS=${concatStringsSep " " cfg.fallbackDns}"}
+          ${optionalString (cfg.domains != [ ]) "Domains=${concatStringsSep " " cfg.domains}"}
+          LLMNR=${cfg.llmnr}
+          DNSSEC=${cfg.dnssec}
+          ${config.services.resolved.extraConfig}
+        '';
 
-      # symlink the dynamic stub resolver of resolv.conf as recommended by upstream:
-      # https://www.freedesktop.org/software/systemd/man/systemd-resolved.html#/etc/resolv.conf
-      "resolv.conf".source = "/run/systemd/resolve/stub-resolv.conf";
-    } // optionalAttrs dnsmasqResolve {
-      "dnsmasq-resolv.conf".source = "/run/systemd/resolve/resolv.conf";
-    };
+        # symlink the dynamic stub resolver of resolv.conf as recommended by upstream:
+        # https://www.freedesktop.org/software/systemd/man/systemd-resolved.html#/etc/resolv.conf
+        "resolv.conf".source = "/run/systemd/resolve/stub-resolv.conf";
+      }
+      // optionalAttrs dnsmasqResolve {
+        "dnsmasq-resolv.conf".source = "/run/systemd/resolve/resolv.conf";
+      };
 
     # If networkmanager is enabled, ask it to interface with resolved.
     networking.networkmanager.dns = "systemd-resolved";
 
     networking.resolvconf.package = pkgs.systemd;
-
   };
-
 }

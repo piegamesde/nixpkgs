@@ -1,8 +1,9 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, makeWrapper
-, xdg-utils
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  makeWrapper,
+  xdg-utils,
 }:
 buildGoModule rec {
   pname = "aws-sso-cli";
@@ -28,10 +29,11 @@ buildGoModule rec {
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
   '';
 
-  checkFlags = [
-    # requires network access
-    "-skip=TestAWSConsoleUrl|TestAWSFederatedUrl"
-  ];
+  checkFlags =
+    [
+      # requires network access
+      "-skip=TestAWSConsoleUrl|TestAWSFederatedUrl"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/synfinatic/aws-sso-cli";

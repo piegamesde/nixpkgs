@@ -1,5 +1,11 @@
-{ lib, fetchurl, buildDunePackage
-, cstruct, fmt, lwt, mirage-kv
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  cstruct,
+  fmt,
+  lwt,
+  mirage-kv,
 }:
 
 buildDunePackage rec {
@@ -13,7 +19,12 @@ buildDunePackage rec {
     hash = "sha256-PYZ2HCPuxOv4FU7EHymsa1oIZU7q8TSzzRvlngYdZ3s=";
   };
 
-  propagatedBuildInputs = [ cstruct fmt lwt mirage-kv ];
+  propagatedBuildInputs = [
+    cstruct
+    fmt
+    lwt
+    mirage-kv
+  ];
 
   meta = {
     description = "MirageOS signatures for filesystem devices";

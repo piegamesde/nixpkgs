@@ -1,27 +1,28 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, python3
-, ninja
-, vala
-, desktop-file-utils
-, gettext
-, libxml2
-, gtk3
-, granite
-, libgee
-, bamf
-, libcanberra-gtk3
-, gnome-desktop
-, mesa
-, mutter
-, gnome-settings-daemon
-, wrapGAppsHook
-, gexiv2
-, systemd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  pkg-config,
+  meson,
+  python3,
+  ninja,
+  vala,
+  desktop-file-utils,
+  gettext,
+  libxml2,
+  gtk3,
+  granite,
+  libgee,
+  bamf,
+  libcanberra-gtk3,
+  gnome-desktop,
+  mesa,
+  mutter,
+  gnome-settings-daemon,
+  wrapGAppsHook,
+  gexiv2,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
@@ -35,11 +36,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0fDbR28gh7F8Bcnofn48BBP1CTsYnfmY5kG72ookOXw=";
   };
 
-  patches = [
-    # We look for plugins in `/run/current-system/sw/lib/` because
-    # there are multiple plugin providers (e.g. gala and wingpanel).
-    ./plugins-dir.patch
-  ];
+  patches =
+    [
+      # We look for plugins in `/run/current-system/sw/lib/` because
+      # there are multiple plugin providers (e.g. gala and wingpanel).
+      ./plugins-dir.patch
+    ];
 
   nativeBuildInputs = [
     desktop-file-utils

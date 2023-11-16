@@ -1,4 +1,10 @@
-{ lib, newScope, fetchFromGitHub, unzip, stdenvNoCC }:
+{
+  lib,
+  newScope,
+  fetchFromGitHub,
+  unzip,
+  stdenvNoCC,
+}:
 let
   base = {
     version = "unstable-2023-02-02";
@@ -12,7 +18,12 @@ let
       maintainers = with maintainers; [ happysalada ];
     };
   };
-  makeNltkDataPackage = {pname, location, hash}:
+  makeNltkDataPackage =
+    {
+      pname,
+      location,
+      hash,
+    }:
     let
       src = fetchFromGitHub {
         owner = "nltk";
@@ -22,35 +33,40 @@ let
         sparseCheckout = [ "packages/${location}/${pname}.zip" ];
       };
     in
-    stdenvNoCC.mkDerivation (base // {
-      inherit pname src;
-      version = base.version;
-      installPhase = ''
-        runHook preInstall
+    stdenvNoCC.mkDerivation (
+      base
+      // {
+        inherit pname src;
+        version = base.version;
+        installPhase = ''
+          runHook preInstall
 
-        mkdir -p $out
-        unzip ${src}/packages/${location}/${pname}.zip
-        mkdir -p $out/${location}
-        cp -R ${pname}/ $out/${location}
+          mkdir -p $out
+          unzip ${src}/packages/${location}/${pname}.zip
+          mkdir -p $out/${location}
+          cp -R ${pname}/ $out/${location}
 
-        runHook postInstall
-      '';
-    });
+          runHook postInstall
+        '';
+      }
+    );
 in
-lib.makeScope newScope (self: {
-  punkt = makeNltkDataPackage ({
-    pname = "punkt";
-    location = "tokenizers";
-    hash = "sha256-rMkgn3xzmSJNv8//kqbPF2Xq3Gf16lgA1Wx8FPYbaQo=";
-  });
-  averaged_perceptron_tagger = makeNltkDataPackage ({
-    pname = "averaged_perceptron_tagger";
-    location = "taggers";
-    hash = "sha256-ilTs4HWPUoHxQb4kWEy3wJ6QsE/98+EQya44gtV2inw=";
-  });
-  stopwords = makeNltkDataPackage ({
-    pname = "stopwords";
-    location = "corpora";
-    hash = "sha256-Rj1jnt6IDEmBbSIHHueyEvPmdE4EZ6/bJ3qehniebbk=";
-  });
-})
+lib.makeScope newScope (
+  self: {
+    punkt = makeNltkDataPackage ({
+      pname = "punkt";
+      location = "tokenizers";
+      hash = "sha256-rMkgn3xzmSJNv8//kqbPF2Xq3Gf16lgA1Wx8FPYbaQo=";
+    });
+    averaged_perceptron_tagger = makeNltkDataPackage ({
+      pname = "averaged_perceptron_tagger";
+      location = "taggers";
+      hash = "sha256-ilTs4HWPUoHxQb4kWEy3wJ6QsE/98+EQya44gtV2inw=";
+    });
+    stopwords = makeNltkDataPackage ({
+      pname = "stopwords";
+      location = "corpora";
+      hash = "sha256-Rj1jnt6IDEmBbSIHHueyEvPmdE4EZ6/bJ3qehniebbk=";
+    });
+  }
+)

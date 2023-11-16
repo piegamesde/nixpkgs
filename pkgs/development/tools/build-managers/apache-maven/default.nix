@@ -1,50 +1,51 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, jdk
-, makeWrapper
-, callPackage
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  jdk,
+  makeWrapper,
+  callPackage,
 }:
 
 assert jdk != null;
 
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "apache-maven";
-  version = "3.9.5";
+stdenvNoCC.mkDerivation (
+  finalAttrs: {
+    pname = "apache-maven";
+    version = "3.9.5";
 
-  src = fetchurl {
-    url = "mirror://apache/maven/maven-3/${finalAttrs.version}/binaries/${finalAttrs.pname}-${finalAttrs.version}-bin.tar.gz";
-    hash = "sha256-X9JysQUEH+geLkL2OZdl4BX8STjvN1O6SvnwEZ2E73w=";
-  };
+    src = fetchurl {
+      url = "mirror://apache/maven/maven-3/${finalAttrs.version}/binaries/${finalAttrs.pname}-${finalAttrs.version}-bin.tar.gz";
+      hash = "sha256-X9JysQUEH+geLkL2OZdl4BX8STjvN1O6SvnwEZ2E73w=";
+    };
 
-  sourceRoot = ".";
+    sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [ makeWrapper ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/maven
-    cp -r ${finalAttrs.pname}-${finalAttrs.version}/* $out/maven
+      mkdir -p $out/maven
+      cp -r ${finalAttrs.pname}-${finalAttrs.version}/* $out/maven
 
-    makeWrapper $out/maven/bin/mvn $out/bin/mvn \
-      --set-default JAVA_HOME "${jdk}"
-    makeWrapper $out/maven/bin/mvnDebug $out/bin/mvnDebug \
-      --set-default JAVA_HOME "${jdk}"
+      makeWrapper $out/maven/bin/mvn $out/bin/mvn \
+        --set-default JAVA_HOME "${jdk}"
+      makeWrapper $out/maven/bin/mvnDebug $out/bin/mvnDebug \
+        --set-default JAVA_HOME "${jdk}"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.buildMavenPackage = callPackage ./build-package.nix {
-    maven = finalAttrs.finalPackage;
-  };
+    passthru.buildMavenPackage = callPackage ./build-package.nix { maven = finalAttrs.finalPackage; };
 
-  meta = with lib; {
-    mainProgram = "mvn";
-    description = "Build automation tool (used primarily for Java projects)";
-    homepage = "https://maven.apache.org/";
-    license = licenses.asl20;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ cko ];
-  };
-})
+    meta = with lib; {
+      mainProgram = "mvn";
+      description = "Build automation tool (used primarily for Java projects)";
+      homepage = "https://maven.apache.org/";
+      license = licenses.asl20;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ cko ];
+    };
+  }
+)

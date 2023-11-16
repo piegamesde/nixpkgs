@@ -1,29 +1,30 @@
-{ lib
-, stdenv
-, affine
-, attrs
-, boto3
-, buildPythonPackage
-, click
-, click-plugins
-, cligj
-, certifi
-, cython_3
-, fetchFromGitHub
-, gdal
-, hypothesis
-, matplotlib
-, ipython
-, numpy
-, oldest-supported-numpy
-, packaging
-, pytest-randomly
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, shapely
-, snuggs
-, wheel
+{
+  lib,
+  stdenv,
+  affine,
+  attrs,
+  boto3,
+  buildPythonPackage,
+  click,
+  click-plugins,
+  cligj,
+  certifi,
+  cython_3,
+  fetchFromGitHub,
+  gdal,
+  hypothesis,
+  matplotlib,
+  ipython,
+  numpy,
+  oldest-supported-numpy,
+  packaging,
+  pytest-randomly,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  shapely,
+  snuggs,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -62,15 +63,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    ipython = [
-      ipython
-    ];
-    plot = [
-      matplotlib
-    ];
-    s3 = [
-      boto3
-    ];
+    ipython = [ ipython ];
+    plot = [ matplotlib ];
+    s3 = [ boto3 ];
   };
 
   nativeCheckInputs = [
@@ -88,17 +83,11 @@ buildPythonPackage rec {
     rm -r rasterio # prevent importing local rasterio
   '';
 
-  pytestFlagsArray = [
-    "-m 'not network'"
-  ];
+  pytestFlagsArray = [ "-m 'not network'" ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    "test_reproject_error_propagation"
-  ];
+  disabledTests = lib.optionals stdenv.isDarwin [ "test_reproject_error_propagation" ];
 
-  pythonImportsCheck = [
-    "rasterio"
-  ];
+  pythonImportsCheck = [ "rasterio" ];
 
   meta = with lib; {
     description = "Python package to read and write geospatial raster data";

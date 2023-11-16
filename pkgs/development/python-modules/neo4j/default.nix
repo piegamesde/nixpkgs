@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytz
-, tomlkit
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytz,
+  tomlkit,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
   # Missing dependencies
   doCheck = false;
 
-  pythonImportsCheck = [
-    "neo4j"
-  ];
+  pythonImportsCheck = [ "neo4j" ];
 
   meta = with lib; {
     description = "Neo4j Bolt Driver for Python";

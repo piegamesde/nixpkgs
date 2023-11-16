@@ -1,7 +1,11 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+with lib; {
   options.services.expressvpn.enable = mkOption {
     type = types.bool;
     default = false;
@@ -21,7 +25,10 @@ with lib;
         RestartSec = 5;
       };
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
     };
   };
 

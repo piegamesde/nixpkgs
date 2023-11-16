@@ -1,6 +1,14 @@
-{ lib, fetchFromGitHub, qmake
-, coreutils, xdg-utils, bash
-, makeWrapper, perlPackages, mkDerivation }:
+{
+  lib,
+  fetchFromGitHub,
+  qmake,
+  coreutils,
+  xdg-utils,
+  bash,
+  makeWrapper,
+  perlPackages,
+  mkDerivation,
+}:
 
 let
   pname = "qdirstat";
@@ -17,7 +25,10 @@ in
 mkDerivation {
   inherit pname version src;
 
-  nativeBuildInputs = [ qmake makeWrapper ];
+  nativeBuildInputs = [
+    qmake
+    makeWrapper
+  ];
 
   buildInputs = [ perlPackages.perl ];
 

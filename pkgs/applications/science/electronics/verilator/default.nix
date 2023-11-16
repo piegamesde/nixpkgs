@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, perl, flex, bison, python3, autoconf,
-  which, cmake, ccache, help2man, makeWrapper, glibcLocales,
-  systemc, git, numactl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  flex,
+  bison,
+  python3,
+  autoconf,
+  which,
+  cmake,
+  ccache,
+  help2man,
+  makeWrapper,
+  glibcLocales,
+  systemc,
+  git,
+  numactl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "verilator";
@@ -14,9 +30,23 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  buildInputs = [ perl python3 systemc ];  # ccache
-  nativeBuildInputs = [ makeWrapper flex bison autoconf help2man git ];
-  nativeCheckInputs = [ which numactl ];  # cmake
+  buildInputs = [
+    perl
+    python3
+    systemc
+  ]; # ccache
+  nativeBuildInputs = [
+    makeWrapper
+    flex
+    bison
+    autoconf
+    help2man
+    git
+  ];
+  nativeCheckInputs = [
+    which
+    numactl
+  ]; # cmake
 
   doCheck = stdenv.isLinux; # darwin tests are broken for now...
   checkTarget = "test";
@@ -39,9 +69,15 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Fast and robust (System)Verilog simulator/compiler and linter";
-    homepage    = "https://www.veripool.org/verilator";
-    license     = with licenses; [ lgpl3Only artistic2 ];
-    platforms   = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice amiloradovsky ];
+    homepage = "https://www.veripool.org/verilator";
+    license = with licenses; [
+      lgpl3Only
+      artistic2
+    ];
+    platforms = platforms.unix;
+    maintainers = with maintainers; [
+      thoughtpolice
+      amiloradovsky
+    ];
   };
 }

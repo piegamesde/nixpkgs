@@ -1,8 +1,9 @@
-{ lib
-, aliyun-python-sdk-core
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  aliyun-python-sdk-core,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-Ea0IUn2mlu0c7QYJZkUrBUrtjUuTHoTeuvZHw/il+4A=";
   };
 
-  propagatedBuildInputs = [
-    aliyun-python-sdk-core
-  ];
+  propagatedBuildInputs = [ aliyun-python-sdk-core ];
 
   # All components are stored in a mono repo
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aliyunsdkiot"
-  ];
+  pythonImportsCheck = [ "aliyunsdkiot" ];
 
   meta = with lib; {
     description = "IoT module of Aliyun Python SDK";

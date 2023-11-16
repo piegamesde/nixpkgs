@@ -1,31 +1,35 @@
-{ lib
-, stdenv
-, makeWrapper
-, matrix-synapse-unwrapped
-, extras ? [
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  matrix-synapse-unwrapped,
+  extras ? [
     "postgres"
     "url-preview"
     "user-search"
-  ] ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform matrix-synapse-unwrapped.python.pkgs.systemd) "systemd"
-, plugins ? [ ]
-, ...
+  ]
+    ++
+      lib.optional (lib.meta.availableOn stdenv.hostPlatform matrix-synapse-unwrapped.python.pkgs.systemd)
+        "systemd",
+  plugins ? [ ],
+  ...
 }:
 
 let
-  extraPackages = lib.concatMap (extra: matrix-synapse-unwrapped.optional-dependencies.${extra}) (lib.unique extras);
+  extraPackages = lib.concatMap (extra: matrix-synapse-unwrapped.optional-dependencies.${extra}) (
+    lib.unique extras
+  );
 
-  pluginsEnv = matrix-synapse-unwrapped.python.buildEnv.override {
-    extraLibs = plugins;
-  };
+  pluginsEnv = matrix-synapse-unwrapped.python.buildEnv.override { extraLibs = plugins; };
 
-  searchPath = lib.makeSearchPathOutput "lib" matrix-synapse-unwrapped.python.sitePackages (extraPackages ++ [ pluginsEnv ]);
+  searchPath = lib.makeSearchPathOutput "lib" matrix-synapse-unwrapped.python.sitePackages (
+    extraPackages ++ [ pluginsEnv ]
+  );
 in
 stdenv.mkDerivation {
   name = (lib.appendToName "wrapped" matrix-synapse-unwrapped).name;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildCommand = ''
     for bin in ${matrix-synapse-unwrapped}/bin/*; do

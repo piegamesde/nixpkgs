@@ -1,19 +1,48 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.system.nixos;
   opt = options.system.nixos;
 
   inherit (lib)
-    concatStringsSep mapAttrsToList toLower
-    literalExpression mkRenamedOptionModule mkDefault mkOption trivial types;
+    concatStringsSep
+    mapAttrsToList
+    toLower
+    literalExpression
+    mkRenamedOptionModule
+    mkDefault
+    mkOption
+    trivial
+    types
+  ;
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
-  escapeIfNecessary = s: if needsEscaping s then s else ''"${lib.escape [ "\$" "\"" "\\" "\`" ] s}"'';
-  attrsToText = attrs:
-    concatStringsSep "\n" (
-      mapAttrsToList (n: v: ''${n}=${escapeIfNecessary (toString v)}'') attrs
-    ) + "\n";
+  escapeIfNecessary =
+    s:
+    if needsEscaping s then
+      s
+    else
+      ''
+        "${
+          lib.escape
+            [
+              "$"
+              ''"''
+              "\\"
+              "`"
+            ]
+            s
+        }"'';
+  attrsToText =
+    attrs:
+    concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNecessary (toString v)}") attrs)
+    + "\n";
 
   osReleaseContents = {
     NAME = "${cfg.distroName}";
@@ -27,24 +56,63 @@ let
     HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
     DOCUMENTATION_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/learn.html";
     SUPPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/community.html";
-    BUG_REPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://github.com/NixOS/nixpkgs/issues";
-  } // lib.optionalAttrs (cfg.variant_id != null) {
-    VARIANT_ID = cfg.variant_id;
-  };
+    BUG_REPORT_URL =
+      lib.optionalString (cfg.distroId == "nixos")
+        "https://github.com/NixOS/nixpkgs/issues";
+  } // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; };
 
   initrdReleaseContents = (removeAttrs osReleaseContents [ "BUILD_ID" ]) // {
     PRETTY_NAME = "${osReleaseContents.PRETTY_NAME} (Initrd)";
   };
   initrdRelease = pkgs.writeText "initrd-release" (attrsToText initrdReleaseContents);
-
 in
 {
   imports = [
     ./label.nix
-    (mkRenamedOptionModule [ "system" "nixosVersion" ] [ "system" "nixos" "version" ])
-    (mkRenamedOptionModule [ "system" "nixosVersionSuffix" ] [ "system" "nixos" "versionSuffix" ])
-    (mkRenamedOptionModule [ "system" "nixosRevision" ] [ "system" "nixos" "revision" ])
-    (mkRenamedOptionModule [ "system" "nixosLabel" ] [ "system" "nixos" "label" ])
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosVersion"
+      ]
+      [
+        "system"
+        "nixos"
+        "version"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosVersionSuffix"
+      ]
+      [
+        "system"
+        "nixos"
+        "versionSuffix"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosRevision"
+      ]
+      [
+        "system"
+        "nixos"
+        "revision"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "system"
+        "nixosLabel"
+      ]
+      [
+        "system"
+        "nixos"
+        "label"
+      ]
+    )
   ];
 
   options.boot.initrd.osRelease = mkOption {
@@ -106,7 +174,9 @@ in
     nixos.variant_id = mkOption {
       type = types.nullOr (types.strMatching "^[a-z0-9._-]+$");
       default = null;
-      description = lib.mdDoc "A lower-case string identifying a specific variant or edition of the operating system";
+      description =
+        lib.mdDoc
+          "A lower-case string identifying a specific variant or edition of the operating system";
       example = "installer";
     };
 
@@ -114,7 +184,8 @@ in
       type = types.str;
       # TODO Remove this and drop the default of the option so people are forced to set it.
       # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
-      apply = v:
+      apply =
+        v:
         lib.warnIf (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
           "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
           v;
@@ -153,9 +224,10 @@ in
     configurationRevision = mkOption {
       type = types.nullOr types.str;
       default = null;
-      description = lib.mdDoc "The Git revision of the top-level flake from which this configuration was built.";
+      description =
+        lib.mdDoc
+          "The Git revision of the top-level flake from which this configuration was built.";
     };
-
   };
 
   config = {
@@ -180,7 +252,6 @@ in
 
       "os-release".text = attrsToText osReleaseContents;
     };
-
   };
 
   # uses version info nixpkgs, which requires a full nixpkgs path

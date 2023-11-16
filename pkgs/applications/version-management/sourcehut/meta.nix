@@ -1,18 +1,19 @@
-{ lib
-, fetchFromSourcehut
-, buildPythonPackage
-, buildGoModule
-, alembic
-, bcrypt
-, dnspython
-, qrcode
-, redis
-, srht
-, stripe
-, prometheus-client
-, zxcvbn
-, python
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildPythonPackage,
+  buildGoModule,
+  alembic,
+  bcrypt,
+  dnspython,
+  qrcode,
+  redis,
+  srht,
+  stripe,
+  prometheus-client,
+  zxcvbn,
+  python,
+  unzip,
 }:
 let
   version = "0.64.8";
@@ -24,13 +25,15 @@ let
     hash = "sha256-eiNvoy68PvjZ3iwdeNPjsXJjxAXb2PMF1/HvJquWa/U=";
   };
 
-  metasrht-api = buildGoModule ({
-    inherit src version;
-    pname = "metasrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-D3stDSb99uXze49kKZgGrAq5Zmg6hkIzIpsQKlnKVtE=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
-
+  metasrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "metasrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-D3stDSb99uXze49kKZgGrAq5Zmg6hkIzIpsQKlnKVtE=";
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 in
 buildPythonPackage rec {
   pname = "metasrht";

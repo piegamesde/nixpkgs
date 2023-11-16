@@ -1,6 +1,7 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
 }:
 
 buildNpmPackage rec {
@@ -14,10 +15,11 @@ buildNpmPackage rec {
     hash = "sha256-VjQuMQr3OJgjgX6FdH/C4mehf8H7XjDZ9Rxs92hyQVo=";
   };
 
-  patches = [
-    # downloads Google fonts during `npm run build`
-    ./remove-google-font-loader.patch
-  ];
+  patches =
+    [
+      # downloads Google fonts during `npm run build`
+      ./remove-google-font-loader.patch
+    ];
 
   npmDepsHash = "sha256-u2lyG95F00S/bvsVwu0hIuUw2UZYQWFakCF31LIijSU=";
 

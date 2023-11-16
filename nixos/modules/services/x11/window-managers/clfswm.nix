@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -11,8 +16,8 @@ in
     services.xserver.windowManager.clfswm = {
       enable = mkEnableOption (lib.mdDoc "clfswm");
       package = mkOption {
-        type        = types.package;
-        default     = pkgs.lispPackages.clfswm;
+        type = types.package;
+        default = pkgs.lispPackages.clfswm;
         defaultText = literalExpression "pkgs.lispPackages.clfswm";
         description = lib.mdDoc ''
           clfswm package to use.

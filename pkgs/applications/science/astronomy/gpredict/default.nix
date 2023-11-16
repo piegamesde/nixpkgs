@@ -1,11 +1,23 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, intltool
-, gtk3, glib, curl, goocanvas2, gpsd
-, hamlib, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  intltool,
+  gtk3,
+  glib,
+  curl,
+  goocanvas2,
+  gpsd,
+  hamlib,
+  wrapGAppsHook,
 }:
 
 let
   version = "2.2.1";
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "gpredict";
   inherit version;
 
@@ -14,18 +26,30 @@ in stdenv.mkDerivation {
     sha256 = "0hwf97kng1zy8rxyglw04x89p0bg07zq30hgghm20yxiw2xc8ng7";
   };
 
-  patches = [
-    # Pull upstream fix for -fno-common toolchains:
-    #   https://github.com/csete/gpredict/issues/195
-    (fetchpatch {
-      name = "fno-common.patch";
-      url = "https://github.com/csete/gpredict/commit/c565bb3d48777bfe17114b5d01cd81150521f056.patch";
-      sha256 = "1jhy9hpqlachq32bkij60q3dxkgi1kkr80rm29jjxqpmambf406a";
-    })
-  ];
+  patches =
+    [
+      # Pull upstream fix for -fno-common toolchains:
+      #   https://github.com/csete/gpredict/issues/195
+      (fetchpatch {
+        name = "fno-common.patch";
+        url = "https://github.com/csete/gpredict/commit/c565bb3d48777bfe17114b5d01cd81150521f056.patch";
+        sha256 = "1jhy9hpqlachq32bkij60q3dxkgi1kkr80rm29jjxqpmambf406a";
+      })
+    ];
 
-  nativeBuildInputs = [ pkg-config intltool wrapGAppsHook ];
-  buildInputs = [ curl glib gtk3 goocanvas2 gpsd hamlib ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    curl
+    glib
+    gtk3
+    goocanvas2
+    gpsd
+    hamlib
+  ];
 
   meta = with lib; {
     description = "Real time satellite tracking and orbit prediction";
@@ -39,6 +63,9 @@ in stdenv.mkDerivation {
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     homepage = "http://gpredict.oz9aec.net/";
-    maintainers = [ maintainers.markuskowa maintainers.cmcdragonkai ];
+    maintainers = [
+      maintainers.markuskowa
+      maintainers.cmcdragonkai
+    ];
   };
 }

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, googleapis-common-protos
-, grpcio
-, protobuf
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  googleapis-common-protos,
+  grpcio,
+  protobuf,
+  requests,
 }:
 
 buildPythonPackage rec {

@@ -1,5 +1,14 @@
-{ lib, stdenv, cmake, python3, fetchFromGitHub, emscripten,
-  gtest, lit, nodejs, filecheck
+{
+  lib,
+  stdenv,
+  cmake,
+  python3,
+  fetchFromGitHub,
+  emscripten,
+  gtest,
+  lit,
+  nodejs,
+  filecheck,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +22,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-bzHNIQy0AN8mIFGG+638p/MBSqlkWuaOzKGSsMDAPH4=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   preConfigure = ''
     if [ $doCheck -eq 1 ]; then
@@ -23,19 +35,34 @@ stdenv.mkDerivation rec {
     fi
   '';
 
-  nativeCheckInputs = [ gtest lit nodejs filecheck ];
+  nativeCheckInputs = [
+    gtest
+    lit
+    nodejs
+    filecheck
+  ];
   checkPhase = ''
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib python3 ../check.py $tests
   '';
 
   tests = [
-    "version" "wasm-opt" "wasm-dis"
-    "crash" "dylink" "ctor-eval"
-    "wasm-metadce" "wasm-reduce" "spec"
-    "lld" "wasm2js" "validator"
-    "example" "unit"
+    "version"
+    "wasm-opt"
+    "wasm-dis"
+    "crash"
+    "dylink"
+    "ctor-eval"
+    "wasm-metadce"
+    "wasm-reduce"
+    "spec"
+    "lld"
+    "wasm2js"
+    "validator"
+    "example"
+    "unit"
     # "binaryenjs" "binaryenjs_wasm" # not building this
-    "lit" "gtest"
+    "lit"
+    "gtest"
   ];
   doCheck = stdenv.isLinux;
 

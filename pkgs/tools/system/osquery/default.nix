@@ -1,14 +1,15 @@
-{ lib
-, cmake
-, fetchFromGitHub
-, git
-, llvmPackages
-, nixosTests
-, overrideCC
-, perl
-, python3
-, stdenv
-, openssl_1_1
+{
+  lib,
+  cmake,
+  fetchFromGitHub,
+  git,
+  llvmPackages,
+  nixosTests,
+  overrideCC,
+  perl,
+  python3,
+  stdenv,
+  openssl_1_1,
 }:
 
 let
@@ -34,10 +35,7 @@ buildStdenv.mkDerivation rec {
     ./Remove-system-controls-table.patch
   ];
 
-
-  buildInputs = [
-    llvmPackages.libunwind
-  ];
+  buildInputs = [ llvmPackages.libunwind ];
   nativeBuildInputs = [
     cmake
     git
@@ -82,6 +80,9 @@ buildStdenv.mkDerivation rec {
     homepage = "https://osquery.io";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ znewman01 lewo ];
+    maintainers = with maintainers; [
+      znewman01
+      lewo
+    ];
   };
 }

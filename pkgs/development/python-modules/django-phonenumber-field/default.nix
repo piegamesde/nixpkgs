@@ -1,13 +1,14 @@
-{ lib
-, babel
-, buildPythonPackage
-, django
-, djangorestframework
-, fetchFromGitHub
-, phonenumbers
-, python
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  fetchFromGitHub,
+  phonenumbers,
+  python,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -26,22 +27,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ] ++ passthru.optional-dependencies.phonenumbers;
+  propagatedBuildInputs = [ django ] ++ passthru.optional-dependencies.phonenumbers;
 
   nativeCheckInputs = [
     babel
     djangorestframework
   ];
 
-  pythonImportsCheck = [
-    "phonenumber_field"
-  ];
+  pythonImportsCheck = [ "phonenumber_field" ];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings tests.settings

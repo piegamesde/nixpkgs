@@ -1,14 +1,15 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, pkg-config
-, cppunit
-, swig
-, boost
-, logLib
-, python
-, libsodium
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  cppunit,
+  swig,
+  boost,
+  logLib,
+  python,
+  libsodium,
 }:
 
 mkDerivation {

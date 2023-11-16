@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -31,7 +32,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Efficient IPFS for the whole world right now";
     homepage = "https://iroh.computer";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ cameronfyfe ];
   };
 }

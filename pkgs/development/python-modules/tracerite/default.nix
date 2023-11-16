@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, html5tagger
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  html5tagger,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -20,13 +21,9 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    html5tagger
-  ];
+  propagatedBuildInputs = [ html5tagger ];
 
   postInstall = ''
     cp tracerite/style.css $out/${python.sitePackages}/tracerite
@@ -35,9 +32,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "tracerite"
-  ];
+  pythonImportsCheck = [ "tracerite" ];
 
   meta = with lib; {
     description = "Tracebacks for Humans (in Jupyter notebooks";

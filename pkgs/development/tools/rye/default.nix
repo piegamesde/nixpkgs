@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, pkg-config
-, openssl
-, stdenv
-, Libsystem
-, SystemConfiguration
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  openssl,
+  stdenv,
+  Libsystem,
+  SystemConfiguration,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -32,15 +33,17 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   };
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
-
-  buildInputs = [
-    openssl
-  ]
-  ++ lib.optionals stdenv.isDarwin [
-    Libsystem
-    SystemConfiguration
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
   ];
+
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      Libsystem
+      SystemConfiguration
+    ];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd rye \
@@ -49,9 +52,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/rye self completion -s zsh)
   '';
 
-  checkFlags = [
-    "--skip=utils::test_is_inside_git_work_tree"
-  ];
+  checkFlags = [ "--skip=utils::test_is_inside_git_work_tree" ];
 
   meta = with lib; {
     description = "A tool to easily manage python dependencies and environments";

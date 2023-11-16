@@ -1,5 +1,15 @@
-{ fetchurl, lib, stdenv, gtk, pkg-config, libofx, intltool, wrapGAppsHook
-, libsoup_3, gnome }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  gtk,
+  pkg-config,
+  libofx,
+  intltool,
+  wrapGAppsHook,
+  libsoup_3,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "homebank";
@@ -9,8 +19,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-fwqSnXde7yalqfKfo8AT8+762/aYLMCGp8dd3bm09Ck=";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook intltool ];
-  buildInputs = [ gtk libofx libsoup_3 gnome.adwaita-icon-theme];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    intltool
+  ];
+  buildInputs = [
+    gtk
+    libofx
+    libsoup_3
+    gnome.adwaita-icon-theme
+  ];
 
   meta = with lib; {
     description = "Free, easy, personal accounting for everyone";

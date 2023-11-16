@@ -1,46 +1,48 @@
-{ egl-wayland
-, libepoxy
-, fetchurl
-, fontutil
-, lib
-, libGL
-, libGLU
-, libX11
-, libXau
-, libXaw
-, libXdmcp
-, libXext
-, libXfixes
-, libXfont2
-, libXmu
-, libXpm
-, libXrender
-, libXres
-, libXt
-, libdrm
-, libtirpc
-, withLibunwind ? true, libunwind
-, libxcb
-, libxkbfile
-, libxshmfence
-, libxcvt
-, mesa
-, meson
-, ninja
-, openssl
-, pkg-config
-, pixman
-, stdenv
-, wayland
-, wayland-protocols
-, wayland-scanner
-, xkbcomp
-, xkeyboard_config
-, xorgproto
-, xtrans
-, zlib
-, defaultFontPath ? ""
-, gitUpdater
+{
+  egl-wayland,
+  libepoxy,
+  fetchurl,
+  fontutil,
+  lib,
+  libGL,
+  libGLU,
+  libX11,
+  libXau,
+  libXaw,
+  libXdmcp,
+  libXext,
+  libXfixes,
+  libXfont2,
+  libXmu,
+  libXpm,
+  libXrender,
+  libXres,
+  libXt,
+  libdrm,
+  libtirpc,
+  withLibunwind ? true,
+  libunwind,
+  libxcb,
+  libxkbfile,
+  libxshmfence,
+  libxcvt,
+  mesa,
+  meson,
+  ninja,
+  openssl,
+  pkg-config,
+  pixman,
+  stdenv,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  xkbcomp,
+  xkeyboard_config,
+  xorgproto,
+  xtrans,
+  zlib,
+  defaultFontPath ? "",
+  gitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -52,9 +54,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-n3wJONKkHpQf+gT5nDXl2yvNPuwDSv6NNdXIEKIusKg=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
     xorgproto
     xtrans
     zlib
-  ] ++ lib.optionals withLibunwind [
-    libunwind
-  ];
+  ] ++ lib.optionals withLibunwind [ libunwind ];
   mesonFlags = [
     (lib.mesonBool "xwayland_eglstream" true)
     (lib.mesonBool "xcsecurity" true)

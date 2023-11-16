@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchurl
-, cython
-, torch
-, torchvision
-, pillow
-, tqdm
-, scikit-learn
-, pywavelets
-, matplotlib
-, pytestCheckHook
-, pytest-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchurl,
+  cython,
+  torch,
+  torchvision,
+  pillow,
+  tqdm,
+  scikit-learn,
+  pywavelets,
+  matplotlib,
+  pytestCheckHook,
+  pytest-mock,
 }:
 let
   MobileNetV3 = fetchurl {
@@ -39,9 +40,7 @@ buildPythonPackage rec {
     hash = "sha256-B2IuNMTZnzBi6IxrHBoMDsmIcqGQpznd/2f1XKo1Oa4=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
   propagatedBuildInputs = [
     torch
@@ -53,7 +52,10 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   preCheck = ''
     # checks fail with: error: [Errno 13] Permission denied: '/homeless-shelter'

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, croniter
-, tzlocal
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  croniter,
+  tzlocal,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

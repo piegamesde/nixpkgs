@@ -1,6 +1,13 @@
-{ lib, stdenv, fetchFromGitHub
-, autoreconfHook, pkg-config
-, fuse, curl, expat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  fuse,
+  curl,
+  expat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "s3backer";
@@ -13,14 +20,22 @@ stdenv.mkDerivation rec {
     owner = "archiecobbs";
   };
 
-  patches = [
-    # from upstream, after latest release
-    # https://github.com/archiecobbs/s3backer/commit/303a669356fa7cd6bc95ac7076ce51b1cab3970a
-    ./fix-darwin-builds.patch
-  ];
+  patches =
+    [
+      # from upstream, after latest release
+      # https://github.com/archiecobbs/s3backer/commit/303a669356fa7cd6bc95ac7076ce51b1cab3970a
+      ./fix-darwin-builds.patch
+    ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ fuse curl expat ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    fuse
+    curl
+    expat
+  ];
 
   # AC_CHECK_DECLS doesn't work with clang
   postPatch = lib.optionalString stdenv.cc.isClang ''

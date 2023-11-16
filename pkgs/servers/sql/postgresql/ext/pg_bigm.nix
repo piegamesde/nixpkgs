@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_bigm";
@@ -11,13 +17,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-3lspEglVWzEUTiRIWqW0DpQe8gDn9R/RxsWuI9znYc8=";
   };
 
-  patches = [
-    # Fix compatiblity with PostgreSQL 16. Remove with the next release.
-    (fetchpatch {
-      url = "https://github.com/pgbigm/pg_bigm/commit/2a9d783c52a1d7a2eb414da6f091f6035da76edf.patch";
-      hash = "sha256-LuMpSUPnT8cPChQfA9sJEKP4aGpsbN5crfTKLnDzMN8=";
-    })
-  ];
+  patches =
+    [
+      # Fix compatiblity with PostgreSQL 16. Remove with the next release.
+      (fetchpatch {
+        url = "https://github.com/pgbigm/pg_bigm/commit/2a9d783c52a1d7a2eb414da6f091f6035da76edf.patch";
+        hash = "sha256-LuMpSUPnT8cPChQfA9sJEKP4aGpsbN5crfTKLnDzMN8=";
+      })
+    ];
 
   buildInputs = [ postgresql ];
 

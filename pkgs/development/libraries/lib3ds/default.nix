@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lib3ds";
@@ -12,10 +17,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ];
 
   meta = {
-    description = "Library for managing 3D-Studio Release 3 and 4 \".3DS\" files";
+    description = ''Library for managing 3D-Studio Release 3 and 4 ".3DS" files'';
     homepage = "https://lib3ds.sourceforge.net/";
     license = "LGPL";
     platforms = lib.platforms.unix;
   };
 }
-

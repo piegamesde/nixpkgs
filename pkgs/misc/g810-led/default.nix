@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, hidapi
-, profile ? "/etc/g810-led/profile"
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  hidapi,
+  profile ? "/etc/g810-led/profile",
 }:
 
 stdenv.mkDerivation rec {
@@ -22,9 +23,7 @@ stdenv.mkDerivation rec {
       --replace "/etc/g810-led/profile" "${profile}"
   '';
 
-  buildInputs = [
-    hidapi
-  ];
+  buildInputs = [ hidapi ];
 
   installPhase = ''
     runHook preInstall

@@ -1,9 +1,10 @@
-{ lib
-, nix-update-script
-, python3
-, fetchFromGitHub
-, cmake
-, ninja
+{
+  lib,
+  nix-update-script,
+  python3,
+  fetchFromGitHub,
+  cmake,
+  ninja,
 }:
 let
   tree-sitter-bitbake = fetchFromGitHub {

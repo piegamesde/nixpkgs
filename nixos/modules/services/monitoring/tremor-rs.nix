@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -7,7 +12,8 @@ let
 
   loggerSettingsFormat = pkgs.formats.yaml { };
   loggerConfigFile = loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
-in {
+in
+{
 
   options = {
     services.tremor-rs = {
@@ -15,7 +21,7 @@ in {
 
       troyFileList = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "List of troy files to load.";
       };
 
@@ -39,7 +45,7 @@ in {
 
       loggerSettings = mkOption {
         description = lib.mdDoc "Tremor logger configuration";
-        default = {};
+        default = { };
         type = loggerSettingsFormat.type;
 
         example = {
@@ -85,14 +91,13 @@ in {
             };
           }
         '';
-
       };
     };
   };
 
   config = mkIf (cfg.enable) {
 
-    environment.systemPackages = [ pkgs.tremor-rs ] ;
+    environment.systemPackages = [ pkgs.tremor-rs ];
 
     systemd.services.tremor-rs = {
       description = "Tremor event- or stream-processing system";
@@ -103,7 +108,9 @@ in {
       environment.TREMOR_PATH = "${pkgs.tremor-rs}/lib:${cfg.tremorLibDir}";
 
       serviceConfig = {
-        ExecStart = "${pkgs.tremor-rs}/bin/tremor --logger-config ${loggerConfigFile} server run ${concatStringsSep " " cfg.troyFileList} --api-host ${cfg.host}:${toString cfg.port}";
+        ExecStart = "${pkgs.tremor-rs}/bin/tremor --logger-config ${loggerConfigFile} server run ${
+            concatStringsSep " " cfg.troyFileList
+          } --api-host ${cfg.host}:${toString cfg.port}";
         DynamicUser = true;
         Restart = "always";
         NoNewPrivileges = true;
@@ -122,7 +129,10 @@ in {
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
       };
     };
   };

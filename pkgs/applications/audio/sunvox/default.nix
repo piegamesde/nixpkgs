@@ -1,15 +1,31 @@
-{ lib, stdenv, fetchurl, unzip, alsa-lib, libX11, libXi, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  alsa-lib,
+  libX11,
+  libXi,
+  SDL2,
+}:
 
 let
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc alsa-lib libX11 libXi SDL2 ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    alsa-lib
+    libX11
+    libXi
+    SDL2
+  ];
   arch =
-    if stdenv.isAarch64
-    then "arm64"
-    else if stdenv.isAarch32
-    then "arm_armhf_raspberry_pi"
-    else if stdenv.is64bit
-    then "x86_64"
-    else "x86";
+    if stdenv.isAarch64 then
+      "arm64"
+    else if stdenv.isAarch32 then
+      "arm_armhf_raspberry_pi"
+    else if stdenv.is64bit then
+      "x86_64"
+    else
+      "x86";
 in
 stdenv.mkDerivation rec {
   pname = "SunVox";
@@ -44,6 +60,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     homepage = "http://www.warmplace.ru/soft/sunvox/";
     maintainers = with maintainers; [ puffnfresh ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

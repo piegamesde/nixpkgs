@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -35,13 +40,23 @@ in
     };
 
     allowUploads = mkOption {
-      type = types.nullOr (types.enum [ "dir" "page" ]);
+      type = types.nullOr (
+        types.enum [
+          "dir"
+          "page"
+        ]
+      );
       default = null;
       description = lib.mdDoc "Enable uploads of external files";
     };
 
     user-icons = mkOption {
-      type = types.nullOr (types.enum [ "gravatar" "identicon" ]);
+      type = types.nullOr (
+        types.enum [
+          "gravatar"
+          "identicon"
+        ]
+      );
       default = null;
       description = lib.mdDoc "Enable specific user icons for history view";
     };
@@ -67,7 +82,9 @@ in
     local-time = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Use the browser's local timezone instead of the server's for displaying dates.";
+      description =
+        lib.mdDoc
+          "Use the browser's local timezone instead of the server's for displaying dates.";
     };
 
     branch = mkOption {
@@ -80,7 +97,9 @@ in
     stateDir = mkOption {
       type = types.path;
       default = "/var/lib/gollum";
-      description = lib.mdDoc "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup.";
+      description =
+        lib.mdDoc
+          "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup.";
     };
 
     package = mkOption {
@@ -154,5 +173,8 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ erictapen bbenno ];
+  meta.maintainers = with lib.maintainers; [
+    erictapen
+    bbenno
+  ];
 }

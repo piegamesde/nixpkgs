@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
 }:
 
 buildPythonPackage rec {
@@ -21,22 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-JaXADzNxRqumjx6FZxJj6ioMVdUMR6S1FQQ6QcP8S5Q=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests-mock
   ];
 
-  pytestFlagsArray = [
-    "tests/losantrest_tests.py"
-  ];
+  pytestFlagsArray = [ "tests/losantrest_tests.py" ];
 
-  pythonImportsCheck = [
-    "losantrest"
-  ];
+  pythonImportsCheck = [ "losantrest" ];
 
   meta = with lib; {
     description = "Python module for consuming the Losant IoT Platform API";

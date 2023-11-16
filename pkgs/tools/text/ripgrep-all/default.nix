@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, makeWrapper
-, ffmpeg
-, pandoc
-, poppler_utils
-, ripgrep
-, Security
-, zip
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  ffmpeg,
+  pandoc,
+  poppler_utils,
+  ripgrep,
+  Security,
+  zip,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -29,12 +30,23 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ makeWrapper poppler_utils ];
+  nativeBuildInputs = [
+    makeWrapper
+    poppler_utils
+  ];
   buildInputs = lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     wrapProgram $out/bin/rga \
-    --prefix PATH ":" "${lib.makeBinPath [ ffmpeg pandoc poppler_utils ripgrep zip ]}"
+    --prefix PATH ":" "${
+      lib.makeBinPath [
+        ffmpeg
+        pandoc
+        poppler_utils
+        ripgrep
+        zip
+      ]
+    }"
   '';
 
   meta = with lib; {
@@ -48,7 +60,10 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/phiresky/ripgrep-all";
     license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ zaninime ma27 ];
+    maintainers = with maintainers; [
+      zaninime
+      ma27
+    ];
     mainProgram = "rga";
   };
 }

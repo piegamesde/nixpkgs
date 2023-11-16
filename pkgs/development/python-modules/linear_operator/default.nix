@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jaxtyping
-, pytestCheckHook
-, scipy
-, setuptools
-, setuptools-scm
-, torch
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jaxtyping,
+  pytestCheckHook,
+  scipy,
+  setuptools,
+  setuptools-scm,
+  torch,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -38,14 +39,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "linear_operator" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # flaky numerical tests
-    "test_svd"
-  ];
+  disabledTests =
+    [
+      # flaky numerical tests
+      "test_svd"
+    ];
 
   meta = with lib; {
     description = "A LinearOperator implementation to wrap the numerical nuts and bolts of GPyTorch";

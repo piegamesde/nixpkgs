@@ -1,32 +1,33 @@
-{ lib
-, aiohttp
-, asn1crypto
-, buildPythonPackage
-, certomancer
-, click
-, cryptography
-, defusedxml
-, fetchFromGitHub
-, fonttools
-, freezegun
-, oscrypto
-, pillow
-, pyhanko-certvalidator
-, pytest-aiohttp
-, pytestCheckHook
-, python-barcode
-, python-pae
-, python-pkcs11
-, pythonOlder
-, pytz
-, pyyaml
-, qrcode
-, requests
-, requests-mock
-, setuptools
-, tzlocal
-, uharfbuzz
-, wheel
+{
+  lib,
+  aiohttp,
+  asn1crypto,
+  buildPythonPackage,
+  certomancer,
+  click,
+  cryptography,
+  defusedxml,
+  fetchFromGitHub,
+  fonttools,
+  freezegun,
+  oscrypto,
+  pillow,
+  pyhanko-certvalidator,
+  pytest-aiohttp,
+  pytestCheckHook,
+  python-barcode,
+  python-pae,
+  python-pkcs11,
+  pythonOlder,
+  pytz,
+  pyyaml,
+  qrcode,
+  requests,
+  requests-mock,
+  setuptools,
+  tzlocal,
+  uharfbuzz,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -66,12 +67,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    extra-pubkey-algs = [
-      oscrypto
-    ];
-    xmp = [
-      defusedxml
-    ];
+    extra-pubkey-algs = [ oscrypto ];
+    xmp = [ defusedxml ];
     opentype = [
       fonttools
       uharfbuzz
@@ -80,12 +77,8 @@ buildPythonPackage rec {
       pillow
       python-barcode
     ];
-    pkcs11 = [
-      python-pkcs11
-    ];
-    async-http = [
-      aiohttp
-    ];
+    pkcs11 = [ python-pkcs11 ];
+    async-http = [ aiohttp ];
   };
 
   nativeCheckInputs = [
@@ -98,10 +91,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  disabledTestPaths = [
-    # ModuleNotFoundError: No module named 'csc_dummy'
-    "pyhanko_tests/test_csc.py"
-  ];
+  disabledTestPaths =
+    [
+      # ModuleNotFoundError: No module named 'csc_dummy'
+      "pyhanko_tests/test_csc.py"
+    ];
 
   disabledTests = [
     # Most of the test require working with local certificates,
@@ -129,9 +123,7 @@ buildPythonPackage rec {
     "test_ts_fetch_requests"
   ];
 
-  pythonImportsCheck = [
-    "pyhanko"
-  ];
+  pythonImportsCheck = [ "pyhanko" ];
 
   meta = with lib; {
     description = "Sign and stamp PDF files";

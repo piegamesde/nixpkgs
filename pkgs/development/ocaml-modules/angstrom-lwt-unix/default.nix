@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildDunePackage, angstrom, lwt }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  angstrom,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "angstrom-lwt-unix";
@@ -7,7 +13,10 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ angstrom lwt ];
+  propagatedBuildInputs = [
+    angstrom
+    lwt
+  ];
 
   doCheck = true;
 

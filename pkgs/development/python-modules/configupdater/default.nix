@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -24,14 +25,15 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "configupdater" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Parser like ConfigParser but for updating configuration files";
     homepage = "https://configupdater.readthedocs.io/en/latest/";
-    license = with licenses; [ mit psfl ];
+    license = with licenses; [
+      mit
+      psfl
+    ];
     maintainers = with maintainers; [ ris ];
   };
 }

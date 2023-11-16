@@ -1,80 +1,89 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, isocodes
-, libdbusmenu
-, libSM
-, libXcursor
-, libXtst
-, libXft
-, pam
-, wayland
-, xmessage
-, xsetroot
-, baloo
-, breeze-qt5
-, kactivities
-, kactivities-stats
-, kcmutils
-, kconfig
-, kcrash
-, kdbusaddons
-, kdeclarative
-, kdelibs4support
-, kdesu
-, kglobalaccel
-, kidletime
-, kinit
-, kjsembed
-, knewstuff
-, knotifyconfig
-, kpackage
-, kpeople
-, krunner
-, kscreenlocker
-, ktexteditor
-, ktextwidgets
-, kwallet
-, kwayland
-, kwin
-, kxmlrpcclient
-, libkscreen
-, libksysguard
-, libqalculate
-, networkmanager-qt
-, phonon
-, plasma-framework
-, prison
-, solid
-, kholidays
-, kquickcharts
-, appstream-qt
-, plasma-wayland-protocols
-, kpipewire
-, libkexiv2
-, kuserfeedback
-, qtgraphicaleffects
-, qtquickcontrols
-, qtquickcontrols2
-, qtscript
-, qttools
-, qtwayland
-, qtx11extras
-, qqc2-desktop-style
-, polkit-qt
-, pipewire
-, libdrm
-, fetchpatch
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  isocodes,
+  libdbusmenu,
+  libSM,
+  libXcursor,
+  libXtst,
+  libXft,
+  pam,
+  wayland,
+  xmessage,
+  xsetroot,
+  baloo,
+  breeze-qt5,
+  kactivities,
+  kactivities-stats,
+  kcmutils,
+  kconfig,
+  kcrash,
+  kdbusaddons,
+  kdeclarative,
+  kdelibs4support,
+  kdesu,
+  kglobalaccel,
+  kidletime,
+  kinit,
+  kjsembed,
+  knewstuff,
+  knotifyconfig,
+  kpackage,
+  kpeople,
+  krunner,
+  kscreenlocker,
+  ktexteditor,
+  ktextwidgets,
+  kwallet,
+  kwayland,
+  kwin,
+  kxmlrpcclient,
+  libkscreen,
+  libksysguard,
+  libqalculate,
+  networkmanager-qt,
+  phonon,
+  plasma-framework,
+  prison,
+  solid,
+  kholidays,
+  kquickcharts,
+  appstream-qt,
+  plasma-wayland-protocols,
+  kpipewire,
+  libkexiv2,
+  kuserfeedback,
+  qtgraphicaleffects,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qtscript,
+  qttools,
+  qtwayland,
+  qtx11extras,
+  qqc2-desktop-style,
+  polkit-qt,
+  pipewire,
+  libdrm,
+  fetchpatch,
 }:
 
-let inherit (lib) getBin getLib; in
+let
+  inherit (lib) getBin getLib;
+in
 
 mkDerivation {
   pname = "plasma-workspace";
-  passthru.providedSessions = [ "plasma" "plasmawayland" ];
+  passthru.providedSessions = [
+    "plasma"
+    "plasmawayland"
+  ];
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     isocodes
     libdbusmenu
@@ -139,11 +148,12 @@ mkDerivation {
     libdrm
   ];
   propagatedUserEnvPkgs = [ qtgraphicaleffects ];
-  outputs = [ "out" "dev" ];
-
-  cmakeFlags = [
-    ''-DNIXPKGS_BREEZE_WALLPAPERS=${getBin breeze-qt5}/share/wallpapers''
+  outputs = [
+    "out"
+    "dev"
   ];
+
+  cmakeFlags = [ "-DNIXPKGS_BREEZE_WALLPAPERS=${getBin breeze-qt5}/share/wallpapers" ];
 
   patches = [
     ./0001-startkde.patch
@@ -159,7 +169,9 @@ mkDerivation {
   # QT_INSTALL_BINS refers to qtbase, and qdbus is in qttools
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace 'ecm_query_qt(QtBinariesDir QT_INSTALL_BINS)' 'set(QtBinariesDir "${lib.getBin qttools}/bin")'
+      --replace 'ecm_query_qt(QtBinariesDir QT_INSTALL_BINS)' 'set(QtBinariesDir "${
+        lib.getBin qttools
+      }/bin")'
   '';
 
   # work around wrapQtAppsHook double-wrapping kcminit_startup,

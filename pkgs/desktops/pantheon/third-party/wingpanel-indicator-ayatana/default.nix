@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, unstableGitUpdater
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, vala
-, gtk3
-, libindicator-gtk3
-, pantheon
-, indicator-application-gtk3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gtk3,
+  libindicator-gtk3,
+  pantheon,
+  indicator-application-gtk3,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,13 +25,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dEk0exLh+TGuQt7be2YRTS2EzPD55+edR8WibthXwhI=";
   };
 
-  patches = [
-    # Tells the indicator the path for libapplication.so
-    (substituteAll {
-      src = ./fix-libapplication-dir.patch;
-      indicator_application = indicator-application-gtk3;
-    })
-  ];
+  patches =
+    [
+      # Tells the indicator the path for libapplication.so
+      (substituteAll {
+        src = ./fix-libapplication-dir.patch;
+        indicator_application = indicator-application-gtk3;
+      })
+    ];
 
   nativeBuildInputs = [
     meson

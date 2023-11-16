@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, snappy }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  snappy,
+}:
 
 buildNimPackage rec {
   pname = "stew";
@@ -10,10 +15,11 @@ buildNimPackage rec {
     hash = "sha256-txlTF0zNV5kV4KfE744oB3aVLCfWS9BdoKxUmTQTTRY=";
   };
   doCheck = false;
-  meta = with lib;
-    src.meta // {
-      description =
-        "Backports, standard library candidates and small utilities that don't yet deserve their own repository";
+  meta =
+    with lib;
+    src.meta
+    // {
+      description = "Backports, standard library candidates and small utilities that don't yet deserve their own repository";
       license = [ lib.licenses.asl20 ];
       maintainers = [ maintainers.ehmry ];
     };

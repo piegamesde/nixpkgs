@@ -1,19 +1,20 @@
-{ lib
-, bc-soci
-, belcard
-, belle-sip
-, cmake
-, doxygen
-, fetchFromGitLab
-, jsoncpp
-, libxml2
-, lime
-, mediastreamer
-, python3
-, sqlite
-, stdenv
-, xercesc
-, zxing-cpp
+{
+  lib,
+  bc-soci,
+  belcard,
+  belle-sip,
+  cmake,
+  doxygen,
+  fetchFromGitLab,
+  jsoncpp,
+  libxml2,
+  lime,
+  mediastreamer,
+  python3,
+  sqlite,
+  stdenv,
+  xercesc,
+  zxing-cpp,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,11 +30,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-kQZePMa7MTaSJLEObM8khfSFYLqhlgTcVyKfTPLwKYU=";
   };
 
-  patches = [
-    # zxing-cpp 2.0+ requires C++ 17
-    # Manual backport as upstream ran formatters in the meantime
-    ./backport-cpp17.patch
-  ];
+  patches =
+    [
+      # zxing-cpp 2.0+ requires C++ 17
+      # Manual backport as upstream ran formatters in the meantime
+      ./backport-cpp17.patch
+    ];
 
   postPatch = ''
     substituteInPlace src/CMakeLists.txt \
@@ -59,7 +61,12 @@ stdenv.mkDerivation rec {
 
     jsoncpp
     libxml2
-    (python3.withPackages (ps: [ ps.pystache ps.six ]))
+    (python3.withPackages (
+      ps: [
+        ps.pystache
+        ps.six
+      ]
+    ))
     sqlite
     xercesc
     zxing-cpp

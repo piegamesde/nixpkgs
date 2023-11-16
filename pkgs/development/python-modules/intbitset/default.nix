@@ -1,8 +1,9 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,13 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-owCy1aSYmFf/HQw5cWJHZqiadR4xWqCAwHhlAxrmN6c=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "intbitset"
-  ];
+  pythonImportsCheck = [ "intbitset" ];
 
   meta = with lib; {
     description = "C-based extension implementing fast integer bit sets";

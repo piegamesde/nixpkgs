@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, lib, installShellFiles }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "golangci-lint";
@@ -37,6 +42,10 @@ buildGoModule rec {
     homepage = "https://golangci-lint.run/";
     changelog = "https://github.com/golangci/golangci-lint/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ anpryl manveru mic92 ];
+    maintainers = with maintainers; [
+      anpryl
+      manveru
+      mic92
+    ];
   };
 }

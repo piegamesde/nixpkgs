@@ -1,4 +1,10 @@
-{ lib, buildKodiAddon, fetchzip, addonUpdateScript, cacert }:
+{
+  lib,
+  buildKodiAddon,
+  fetchzip,
+  addonUpdateScript,
+  cacert,
+}:
 buildKodiAddon rec {
   pname = "certifi";
   namespace = "script.module.certifi";
@@ -9,26 +15,26 @@ buildKodiAddon rec {
     sha256 = "sha256-NQbjx+k9fnQMYLLMR5+N5NSuDcXEzZjlhGPA3qSmjfI=";
   };
 
-  patches = [
-    # Add support for NIX_SSL_CERT_FILE
-    ./env.patch
-  ];
+  patches =
+    [
+      # Add support for NIX_SSL_CERT_FILE
+      ./env.patch
+    ];
 
   postPatch = ''
     # Use our system-wide ca-bundle instead of the bundled one
     ln -snvf "${cacert}/etc/ssl/certs/ca-bundle.crt" "lib/certifi/cacert.pem"
   '';
 
-  propagatedNativeBuildInputs = [
-    # propagate cacerts setup-hook to set up `NIX_SSL_CERT_FILE`
-    cacert
-  ];
+  propagatedNativeBuildInputs =
+    [
+      # propagate cacerts setup-hook to set up `NIX_SSL_CERT_FILE`
+      cacert
+    ];
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript {
-      attrPath = "kodi.packages.certifi";
-    };
+    updateScript = addonUpdateScript { attrPath = "kodi.packages.certifi"; };
   };
 
   meta = with lib; {

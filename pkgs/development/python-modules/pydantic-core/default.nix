@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, cargo
-, rustPlatform
-, rustc
-, libiconv
-, typing-extensions
-, pytestCheckHook
-, hypothesis
-, pytest-timeout
-, pytest-mock
-, dirty-equals
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cargo,
+  rustPlatform,
+  rustc,
+  libiconv,
+  typing-extensions,
+  pytestCheckHook,
+  hypothesis,
+  pytest-timeout,
+  pytest-mock,
+  dirty-equals,
 }:
 
 let
@@ -27,9 +28,7 @@ let
       hash = "sha256-bEVACTlzELXPoCtEHMR1s87KJn/qnE0lO1O4RmdjmPM=";
     };
 
-    patches = [
-      ./01-remove-benchmark-flags.patch
-    ];
+    patches = [ ./01-remove-benchmark-flags.patch ];
 
     cargoDeps = rustPlatform.fetchCargoTarball {
       inherit src;
@@ -45,13 +44,9 @@ let
       typing-extensions
     ];
 
-    buildInputs = lib.optionals stdenv.isDarwin [
-      libiconv
-    ];
+    buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-    propagatedBuildInputs = [
-      typing-extensions
-    ];
+    propagatedBuildInputs = [ typing-extensions ];
 
     pythonImportsCheck = [ "pydantic_core" ];
 
@@ -67,15 +62,17 @@ let
       pytest-mock
     ];
 
-    disabledTests = [
-      # RecursionError: maximum recursion depth exceeded while calling a Python object
-      "test_recursive"
-    ];
+    disabledTests =
+      [
+        # RecursionError: maximum recursion depth exceeded while calling a Python object
+        "test_recursive"
+      ];
 
-    disabledTestPaths = [
-      # no point in benchmarking in nixpkgs build farm
-      "tests/benchmarks"
-    ];
+    disabledTestPaths =
+      [
+        # no point in benchmarking in nixpkgs build farm
+        "tests/benchmarks"
+      ];
 
     meta = with lib; {
       description = "Core validation logic for pydantic written in rust";
@@ -84,4 +81,5 @@ let
       maintainers = with maintainers; [ blaggacao ];
     };
   };
-in pydantic-core
+in
+pydantic-core

@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rust
-, rustPlatform
-, cmake
-, makeWrapper
-, cosmic-icons
-, just
-, pkg-config
-, libxkbcommon
-, glib
-, gtk3
-, libinput
-, fontconfig
-, freetype
-, wayland
-, expat
-, udev
-, which
-, lld
-, util-linuxMinimal
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rust,
+  rustPlatform,
+  cmake,
+  makeWrapper,
+  cosmic-icons,
+  just,
+  pkg-config,
+  libxkbcommon,
+  glib,
+  gtk3,
+  libinput,
+  fontconfig,
+  freetype,
+  wayland,
+  expat,
+  udev,
+  which,
+  lld,
+  util-linuxMinimal,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -51,8 +52,26 @@ rustPlatform.buildRustPackage rec {
     substituteInPlace justfile --replace '#!/usr/bin/env' "#!$(command -v env)"
   '';
 
-  nativeBuildInputs = [ cmake just pkg-config which lld util-linuxMinimal makeWrapper ];
-  buildInputs = [ libxkbcommon libinput fontconfig freetype wayland expat udev glib gtk3 ];
+  nativeBuildInputs = [
+    cmake
+    just
+    pkg-config
+    which
+    lld
+    util-linuxMinimal
+    makeWrapper
+  ];
+  buildInputs = [
+    libxkbcommon
+    libinput
+    fontconfig
+    freetype
+    wayland
+    expat
+    udev
+    glib
+    gtk3
+  ];
 
   dontUseJustBuild = true;
 
@@ -65,7 +84,7 @@ rustPlatform.buildRustPackage rec {
     "target/${rust.lib.toRustTargetSpecShort stdenv.hostPlatform}/release/cosmic-edit"
   ];
 
- postInstall = ''
+  postInstall = ''
     wrapProgram "$out/bin/${pname}" \
       --suffix XDG_DATA_DIRS : "${cosmic-icons}/share"
   '';

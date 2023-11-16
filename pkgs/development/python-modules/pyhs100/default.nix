@@ -1,6 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
-, click, click-datetime, deprecation
-, pytest, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  click,
+  click-datetime,
+  deprecation,
+  pytest,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "pyHS100";

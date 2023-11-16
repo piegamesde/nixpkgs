@@ -1,12 +1,15 @@
-/*
+/* This file is for options that NixOS and nix-darwin have in common.
 
-  This file is for options that NixOS and nix-darwin have in common.
-
-  Platform-specific code is in the respective default.nix files.
-
+   Platform-specific code is in the respective default.nix files.
 */
 
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 let
   inherit (lib)
     filterAttrs
@@ -17,19 +20,60 @@ let
     mkRenamedOptionModule
     types
 
-    ;
+  ;
 
   cfg = config.services.hercules-ci-agent;
 
   inherit (import ./settings.nix { inherit pkgs lib; }) format settingsModule;
-
 in
 {
   imports = [
-    (mkRenamedOptionModule [ "services" "hercules-ci-agent" "extraOptions" ] [ "services" "hercules-ci-agent" "settings" ])
-    (mkRenamedOptionModule [ "services" "hercules-ci-agent" "baseDirectory" ] [ "services" "hercules-ci-agent" "settings" "baseDirectory" ])
-    (mkRenamedOptionModule [ "services" "hercules-ci-agent" "concurrentTasks" ] [ "services" "hercules-ci-agent" "settings" "concurrentTasks" ])
-    (mkRemovedOptionModule [ "services" "hercules-ci-agent" "patchNix" ] "Nix versions packaged in this version of Nixpkgs don't need a patched nix-daemon to work correctly in Hercules CI Agent clusters.")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "extraOptions"
+      ]
+      [
+        "services"
+        "hercules-ci-agent"
+        "settings"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "baseDirectory"
+      ]
+      [
+        "services"
+        "hercules-ci-agent"
+        "settings"
+        "baseDirectory"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "concurrentTasks"
+      ]
+      [
+        "services"
+        "hercules-ci-agent"
+        "settings"
+        "concurrentTasks"
+      ]
+    )
+    (mkRemovedOptionModule
+      [
+        "services"
+        "hercules-ci-agent"
+        "patchNix"
+      ]
+      "Nix versions packaged in this version of Nixpkgs don't need a patched nix-daemon to work correctly in Hercules CI Agent clusters."
+    )
   ];
 
   options.services.hercules-ci-agent = {
@@ -64,11 +108,10 @@ in
       type = types.submoduleWith { modules = [ settingsModule ]; };
     };
 
-    /*
-      Internal and/or computed values.
+    /* Internal and/or computed values.
 
-      These are written as options instead of let binding to allow sharing with
-      default.nix on both NixOS and nix-darwin.
+       These are written as options instead of let binding to allow sharing with
+       default.nix on both NixOS and nix-darwin.
     */
     tomlFile = mkOption {
       type = types.path;
@@ -85,8 +128,13 @@ in
     assertions = [
       {
         assertion =
-          (cfg.settings.nixUserIsTrusted or false) ->
-          builtins.match ".*(^|\n)[ \t]*trusted-users[ \t]*=.*" config.nix.extraOptions == null;
+          (cfg.settings.nixUserIsTrusted or false)
+          ->
+            builtins.match
+              ''
+                .*(^|
+                )[ 	]*trusted-users[ 	]*=.*''
+              config.nix.extraOptions == null;
         message = ''
           hercules-ci-agent: Please do not set `trusted-users` in `nix.extraOptions`.
 
@@ -107,8 +155,7 @@ in
       narinfo-cache-negative-ttl = 0
     '';
     services.hercules-ci-agent = {
-      tomlFile =
-        format.generate "hercules-ci-agent.toml" cfg.settings;
+      tomlFile = format.generate "hercules-ci-agent.toml" cfg.settings;
       settings.config._module.args = {
         packageOption = options.services.hercules-ci-agent.package;
         inherit pkgs;

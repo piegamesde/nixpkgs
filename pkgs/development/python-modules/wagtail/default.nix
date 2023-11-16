@@ -1,25 +1,26 @@
-{ lib
-, anyascii
-, beautifulsoup4
-, buildPythonPackage
-, callPackage
-, django
-, django-filter
-, django-modelcluster
-, django-taggit
-, django-treebeard
-, djangorestframework
-, draftjs-exporter
-, fetchPypi
-, html5lib
-, l18n
-, openpyxl
-, permissionedforms
-, pillow
-, pythonOlder
-, requests
-, telepath
-, willow
+{
+  lib,
+  anyascii,
+  beautifulsoup4,
+  buildPythonPackage,
+  callPackage,
+  django,
+  django-filter,
+  django-modelcluster,
+  django-taggit,
+  django-treebeard,
+  djangorestframework,
+  draftjs-exporter,
+  fetchPypi,
+  html5lib,
+  l18n,
+  openpyxl,
+  permissionedforms,
+  pillow,
+  pythonOlder,
+  requests,
+  telepath,
+  willow,
 }:
 
 buildPythonPackage rec {
@@ -64,7 +65,7 @@ buildPythonPackage rec {
   # on wagtail (wagtail-factories)
   doCheck = false;
 
-  passthru.tests.wagtail = callPackage ./tests.nix {};
+  passthru.tests.wagtail = callPackage ./tests.nix { };
 
   meta = with lib; {
     description = "A Django content management system focused on flexibility and user experience";

@@ -4,12 +4,10 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.security.ipa;
-  pyBool = x:
-    if x
-    then "True"
-    else "False";
+  pyBool = x: if x then "True" else "False";
 
   ldapConf = pkgs.writeText "ldap.conf" ''
     # Turning this off breaks GSSAPI used with krb5 when rdns = false
@@ -19,16 +17,13 @@ with lib; let
     BASE ${cfg.basedn}
     TLS_CACERT /etc/ipa/ca.crt
   '';
-  nssDb =
-    pkgs.runCommand "ipa-nssdb"
-    {
-      nativeBuildInputs = [pkgs.nss.tools];
-    } ''
-      mkdir -p $out
-      certutil -d $out -N --empty-password
-      certutil -d $out -A --empty-password -n "${cfg.realm} IPA CA" -t CT,C,C -i ${cfg.certificate}
-    '';
-in {
+  nssDb = pkgs.runCommand "ipa-nssdb" { nativeBuildInputs = [ pkgs.nss.tools ]; } ''
+    mkdir -p $out
+    certutil -d $out -N --empty-password
+    certutil -d $out -A --empty-password -n "${cfg.realm} IPA CA" -t CT,C,C -i ${cfg.certificate}
+  '';
+in
+{
   options = {
     security.ipa = {
       enable = mkEnableOption (lib.mdDoc "FreeIPA domain integration");
@@ -87,7 +82,7 @@ in {
 
       ifpAllowedUids = mkOption {
         type = types.listOf types.str;
-        default = ["root"];
+        default = [ "root" ];
         description = lib.mdDoc "A list of users allowed to access the ifp dbus interface.";
       };
 
@@ -126,7 +121,10 @@ in {
       }
     ];
 
-    environment.systemPackages = with pkgs; [krb5Full freeipa];
+    environment.systemPackages = with pkgs; [
+      krb5Full
+      freeipa
+    ];
 
     environment.etc = {
       "ipa/default.conf".text = ''
@@ -181,7 +179,7 @@ in {
       '';
     };
 
-    system.activationScripts.ipa = stringAfter ["etc"] ''
+    system.activationScripts.ipa = stringAfter [ "etc" ] ''
       # libcurl requires a hard copy of the certificate
       if ! ${pkgs.diffutils}/bin/diff ${cfg.certificate} /etc/ipa/ca.crt > /dev/null 2>&1; then
         rm -f /etc/ipa/ca.crt
@@ -214,8 +212,7 @@ in {
 
       cache_credentials = ${pyBool cfg.cacheCredentials}
       krb5_store_password_if_offline = ${pyBool cfg.offlinePasswords}
-      ${optionalString ((toLower cfg.domain) != (toLower cfg.realm))
-        "krb5_realm = ${cfg.realm}"}
+      ${optionalString ((toLower cfg.domain) != (toLower cfg.realm)) "krb5_realm = ${cfg.realm}"}
 
       dyndns_update = ${pyBool cfg.dyndns.enable}
       dyndns_iface = ${cfg.dyndns.interface}

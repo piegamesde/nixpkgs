@@ -1,10 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pep8, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pep8,
+  nose,
+}:
 
 buildPythonPackage rec {
   version = "0.8";
   pname = "cgroup-utils";
 
-  buildInputs = [ pep8 nose ];
+  buildInputs = [
+    pep8
+    nose
+  ];
   # Pep8 tests fail...
   doCheck = false;
 

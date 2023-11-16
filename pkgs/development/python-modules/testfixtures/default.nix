@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, sybil
-, twisted
-, zope-component
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  sybil,
+  twisted,
+  zope-component,
 }:
 
 buildPythonPackage rec {
@@ -36,18 +37,15 @@ buildPythonPackage rec {
     zope-component
   ];
 
-  disabledTestPaths = [
-    # Django is too much hasle to setup at the moment
-    "testfixtures/tests/test_django"
-  ];
+  disabledTestPaths =
+    [
+      # Django is too much hasle to setup at the moment
+      "testfixtures/tests/test_django"
+    ];
 
-  pytestFlagsArray = [
-    "testfixtures/tests"
-  ];
+  pytestFlagsArray = [ "testfixtures/tests" ];
 
-  pythonImportsCheck = [
-    "testfixtures"
-  ];
+  pythonImportsCheck = [ "testfixtures" ];
 
   meta = with lib; {
     description = "Collection of helpers and mock objects for unit tests and doc tests";

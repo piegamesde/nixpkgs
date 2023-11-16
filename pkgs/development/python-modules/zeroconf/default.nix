@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, cython
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, ifaddr
-, poetry-core
-, pytest-asyncio
-, pytest-timeout
-, pythonOlder
-, pytestCheckHook
-, setuptools
+{
+  lib,
+  stdenv,
+  cython,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ifaddr,
+  poetry-core,
+  pytest-asyncio,
+  pytest-timeout,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -33,11 +34,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [
-    ifaddr
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    async-timeout
-  ];
+  propagatedBuildInputs = [ ifaddr ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
   nativeCheckInputs = [
     pytest-asyncio

@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -18,16 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-9SrptiheiM5s9YI6Ht68ahDGMFADWfBQgAWUBY3EEJ8=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "OpenAIAuth"
-  ];
+  pythonImportsCheck = [ "OpenAIAuth" ];
 
   meta = with lib; {
     description = "Library for authenticating with the OpenAI API";

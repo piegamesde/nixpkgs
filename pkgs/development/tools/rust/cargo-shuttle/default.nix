@@ -1,11 +1,12 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, zlib
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  zlib,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -27,24 +28,29 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
+  nativeBuildInputs = [ pkg-config ];
+
+  buildInputs =
+    [
+      openssl
+      zlib
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.CoreServices
+      darwin.apple_sdk.frameworks.SystemConfiguration
+    ];
+
+  cargoBuildFlags = [
+    "-p"
+    "cargo-shuttle"
   ];
 
-  buildInputs = [
-    openssl
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreServices
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
-
-  cargoBuildFlags = [ "-p" "cargo-shuttle" ];
-
-  cargoTestFlags = cargoBuildFlags ++ [
-    # other tests are failing for different reasons
-    "init::shuttle_init_tests::"
-  ];
+  cargoTestFlags =
+    cargoBuildFlags
+    ++ [
+      # other tests are failing for different reasons
+      "init::shuttle_init_tests::"
+    ];
 
   meta = with lib; {
     description = "A cargo command for the shuttle platform";

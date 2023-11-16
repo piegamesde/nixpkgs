@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.programs.clash-verge = {
@@ -15,10 +20,12 @@
 
       environment.systemPackages = [
         pkgs.clash-verge
-        (lib.mkIf cfg.autoStart (pkgs.makeAutostartItem {
-          name = "clash-verge";
-          package = pkgs.clash-verge;
-        }))
+        (lib.mkIf cfg.autoStart (
+          pkgs.makeAutostartItem {
+            name = "clash-verge";
+            package = pkgs.clash-verge;
+          }
+        ))
       ];
 
       security.wrappers.clash-verge = lib.mkIf cfg.tunMode {

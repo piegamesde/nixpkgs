@@ -1,11 +1,18 @@
-{ lib, stdenvNoCC, fetchurl, nixosTests }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  nixosTests,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mediawiki";
   version = "1.40.1";
 
   src = fetchurl {
-    url = "https://releases.wikimedia.org/mediawiki/${lib.versions.majorMinor version}/mediawiki-${version}.tar.gz";
+    url = "https://releases.wikimedia.org/mediawiki/${
+        lib.versions.majorMinor version
+      }/mediawiki-${version}.tar.gz";
     hash = "sha256-4F1BneQMatAxRaygfgjPmV0coWZ9l3k7tzlw4sEbCgQ=";
   };
 

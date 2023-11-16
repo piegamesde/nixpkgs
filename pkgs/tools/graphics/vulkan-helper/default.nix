@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, vulkan-loader
-, addOpenGLRunpath
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  vulkan-loader,
+  addOpenGLRunpath,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,9 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-fgB0vlbOhzGV1Sj180GCuTGZlVpAUlBUMAfsrG2FiuA=";
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-  ];
+  nativeBuildInputs = [ addOpenGLRunpath ];
 
   postFixup = ''
     patchelf --add-rpath ${vulkan-loader}/lib $out/bin/vulkan-helper

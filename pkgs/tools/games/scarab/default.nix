@@ -1,17 +1,18 @@
-{ lib
-, buildDotnetModule
-, fetchFromGitHub
-, glibc
-, zlib
-, libX11
-, libICE
-, libSM
-, fontconfig
-, gtk3
-, copyDesktopItems
-, icoutils
-, wrapGAppsHook
-, makeDesktopItem
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  glibc,
+  zlib,
+  libX11,
+  libICE,
+  libSM,
+  fontconfig,
+  gtk3,
+  copyDesktopItems,
+  icoutils,
+  wrapGAppsHook,
+  makeDesktopItem,
 }:
 
 buildDotnetModule rec {
@@ -39,9 +40,7 @@ buildDotnetModule rec {
     gtk3
   ];
 
-  buildInputs = [
-    gtk3
-  ];
+  buildInputs = [ gtk3 ];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -56,19 +55,21 @@ buildDotnetModule rec {
     sizes=(256 128 64 48 32 16)
     for i in ''${!sizes[@]}; do
       size=''${sizes[$i]}x''${sizes[$i]}
-      install -D omegamaggotprime_''$((i+1))_''${size}x32.png $out/share/icons/hicolor/$size/apps/scarab.png
+      install -D omegamaggotprime_$((i+1))_''${size}x32.png $out/share/icons/hicolor/$size/apps/scarab.png
     done
   '';
 
-  desktopItems = [(makeDesktopItem {
-    desktopName = "Scarab";
-    name = "scarab";
-    exec = "Scarab";
-    icon = "scarab";
-    comment = meta.description;
-    type = "Application";
-    categories = [ "Game" ];
-  })];
+  desktopItems = [
+    (makeDesktopItem {
+      desktopName = "Scarab";
+      name = "scarab";
+      exec = "Scarab";
+      icon = "scarab";
+      comment = meta.description;
+      type = "Application";
+      categories = [ "Game" ];
+    })
+  ];
 
   passthru.updateScript = ./update.sh;
 

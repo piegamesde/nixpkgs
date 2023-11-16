@@ -1,16 +1,17 @@
-{ lib
-, absl-py
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, fpylll
-, gmpy
-, protobuf
-, pybind11
-, pytestCheckHook
-, pythonOlder
-, scipy
-, sympy
+{
+  lib,
+  absl-py,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  fpylll,
+  gmpy,
+  protobuf,
+  pybind11,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  sympy,
 }:
 
 buildPythonPackage rec {
@@ -52,14 +53,13 @@ buildPythonPackage rec {
       --replace "protobuf==3.20.*" "protobuf"
   '';
 
-  disabledTestPaths = [
-    # Import issue
-    "paranoid_crypto/lib/randomness_tests/"
-  ];
+  disabledTestPaths =
+    [
+      # Import issue
+      "paranoid_crypto/lib/randomness_tests/"
+    ];
 
-  pythonImportsCheck = [
-    "paranoid_crypto"
-  ];
+  pythonImportsCheck = [ "paranoid_crypto" ];
 
   meta = with lib; {
     description = "Library contains checks for well known weaknesses on cryptographic artifacts";

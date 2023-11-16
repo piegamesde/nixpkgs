@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cmake
-, numpy
-, scikit-build
-, setuptools
-, setuptools-scm
-, wheel
-, pybind11
-, pydantic
-, rich
-, awkward
-, pytestCheckHook
-, scipy
-, zlib
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cmake,
+  numpy,
+  scikit-build,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  pybind11,
+  pydantic,
+  rich,
+  awkward,
+  pytestCheckHook,
+  scipy,
+  zlib,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
   propagatedBuildInputs = [
     pydantic
@@ -55,9 +54,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [
-    "correctionlib"
-  ];
+  pythonImportsCheck = [ "correctionlib" ];
 
   meta = with lib; {
     description = "Provides a well-structured JSON data format for a wide variety of ad-hoc correction factors encountered in a typical HEP analysis";

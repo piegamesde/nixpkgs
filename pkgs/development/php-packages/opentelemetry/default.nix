@@ -1,8 +1,13 @@
-{ lib, buildPecl, fetchFromGitHub }:
+{
+  lib,
+  buildPecl,
+  fetchFromGitHub,
+}:
 
 let
   version = "1.0.0";
-in buildPecl {
+in
+buildPecl {
   inherit version;
   pname = "opentelemetry";
 

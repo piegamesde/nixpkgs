@@ -1,42 +1,42 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pythonRelaxDepsHook
-# pyproject
-, hatchling
-, hatch-requirements-txt
-, hatch-fancy-pypi-readme
-# runtime
-, setuptools
-, fsspec
-, httpx
-, huggingface-hub
-, packaging
-, requests
-, typing-extensions
-, websockets
-# checkInputs
-, pytestCheckHook
-, pytest-asyncio
-, pydub
-, gradio
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  # pyproject
+  hatchling,
+  hatch-requirements-txt,
+  hatch-fancy-pypi-readme,
+  # runtime
+  setuptools,
+  fsspec,
+  httpx,
+  huggingface-hub,
+  packaging,
+  requests,
+  typing-extensions,
+  websockets,
+  # checkInputs
+  pytestCheckHook,
+  pytest-asyncio,
+  pydub,
+  gradio,
 }:
 
 let
 
   # Cyclic dependencies are fun!
   # This is gradio without gradio-client, only needed for checkPhase
-  gradio' = (gradio.override (old: {
-    gradio-client = null;
-  })).overridePythonAttrs (old: {
-    nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pythonRelaxDepsHook ];
-    pythonRemoveDeps = (old.pythonRemoveDeps or []) ++ [ "gradio_client" ];
-    doInstallCheck = false;
-    doCheck = false;
-    pythonImportsCheck = null;
-  });
-
+  gradio' = (gradio.override (old: { gradio-client = null; })).overridePythonAttrs (
+    old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pythonRelaxDepsHook ];
+      pythonRemoveDeps = (old.pythonRemoveDeps or [ ]) ++ [ "gradio_client" ];
+      doInstallCheck = false;
+      doCheck = false;
+      pythonImportsCheck = null;
+    }
+  );
 in
 
 buildPythonPackage rec {
@@ -76,7 +76,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  nativeCheckInputs =[
+  nativeCheckInputs = [
     pytestCheckHook
     pytest-asyncio
     pydub

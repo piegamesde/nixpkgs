@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pythonRelaxDepsHook
-, setuptools
-, click
-, requests
-, packaging
-, dparse
-, ruamel-yaml
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  setuptools,
+  click,
+  requests,
+  packaging,
+  dparse,
+  ruamel-yaml,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -39,9 +40,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [
-    "packaging"
-  ];
+  pythonRelaxDeps = [ "packaging" ];
 
   propagatedBuildInputs = [
     setuptools
@@ -52,9 +51,7 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Disable tests depending on online services
   disabledTests = [
@@ -75,6 +72,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyupio/safety";
     changelog = "https://github.com/pyupio/safety/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ thomasdesr dotlambda ];
+    maintainers = with maintainers; [
+      thomasdesr
+      dotlambda
+    ];
   };
 }

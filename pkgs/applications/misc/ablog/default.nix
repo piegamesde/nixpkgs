@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -29,12 +30,11 @@ python3.pkgs.buildPythonApplication rec {
     watchdog
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
   pytestFlagsArray = [
-    "--rootdir" "src/ablog"
+    "--rootdir"
+    "src/ablog"
   ];
 
   meta = with lib; {

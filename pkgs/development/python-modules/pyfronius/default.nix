@@ -1,9 +1,10 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,17 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-eWe4nXKW9oP9lqehy6BK7ABaIqP3dgRX6ymW1Okfd9g=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pyfronius"
-  ];
+  pythonImportsCheck = [ "pyfronius" ];
 
   meta = with lib; {
     description = "Python module to communicate with Fronius Symo";

@@ -1,15 +1,21 @@
-import ../make-test-python.nix ({ pkgs, ... }:
+import ../make-test-python.nix (
+  { pkgs, ... }:
   {
     name = "stratis";
 
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ nickcao ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ nickcao ]; };
 
-    nodes.machine = { pkgs, ... }: {
-      services.stratis.enable = true;
-      virtualisation.emptyDiskImages = [ 2048 1024 1024 1024 ];
-    };
+    nodes.machine =
+      { pkgs, ... }:
+      {
+        services.stratis.enable = true;
+        virtualisation.emptyDiskImages = [
+          2048
+          1024
+          1024
+          1024
+        ];
+      };
 
     testScript = ''
       machine.wait_for_unit("stratisd")
@@ -36,4 +42,5 @@ import ../make-test-python.nix ({ pkgs, ... }:
       assert "test2" in machine.succeed("cat /mnt/testfs1/test1")
       assert "test1" in machine.succeed("cat /mnt/testfs2/test1")
     '';
-  })
+  }
+)

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fake-useragent
-, faker
-, fetchFromGitHub
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, scrapy
+{
+  lib,
+  buildPythonPackage,
+  fake-useragent,
+  faker,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  scrapy,
 }:
 
 buildPythonPackage rec {
@@ -40,14 +41,13 @@ buildPythonPackage rec {
     scrapy
   ];
 
-  pythonImportsCheck = [
-    "scrapy_fake_useragent"
-  ];
+  pythonImportsCheck = [ "scrapy_fake_useragent" ];
 
-  disabledTests = [
-    # AttributeError: 'RetryUserAgentMiddleware' object has no attribute 'EXCEPTIONS_TO_RETRY'
-    "test_random_ua_set_on_exception"
-  ];
+  disabledTests =
+    [
+      # AttributeError: 'RetryUserAgentMiddleware' object has no attribute 'EXCEPTIONS_TO_RETRY'
+      "test_random_ua_set_on_exception"
+    ];
 
   meta = with lib; {
     description = "Random User-Agent middleware based on fake-useragent";

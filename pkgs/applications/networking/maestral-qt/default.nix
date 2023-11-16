@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, python3
-, qt6
-, nixosTests
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  qt6,
+  nixosTests,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -29,12 +30,10 @@ python3.pkgs.buildPythonApplication rec {
 
   buildInputs = [
     qt6.qtbase
-    qt6.qtsvg  # Needed for the systray icon
+    qt6.qtsvg # Needed for the systray icon
   ];
 
-  nativeBuildInputs = [
-    qt6.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
 
   dontWrapQtApps = true;
 
@@ -59,7 +58,10 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://maestral.app";
     changelog = "https://github.com/samschott/maestral/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg sfrijters ];
+    maintainers = with maintainers; [
+      peterhoeg
+      sfrijters
+    ];
     platforms = platforms.linux;
     mainProgram = "maestral_qt";
   };

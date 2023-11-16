@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, accelerate
-, attrs
-, bentoml
-, bitsandbytes
-, cattrs
-, datasets
-, hatch-fancy-pypi-readme
-, hatch-vcs
-, hatchling
-, inflection
-, mypy-extensions
-, orjson
-, peft
-, ray
-, transformers
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  accelerate,
+  attrs,
+  bentoml,
+  bitsandbytes,
+  cattrs,
+  datasets,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  inflection,
+  mypy-extensions,
+  orjson,
+  peft,
+  ray,
+  transformers,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -57,17 +58,19 @@ buildPythonPackage rec {
       ray
       # vllm
     ];
-    fine-tune = [
-      accelerate
-      bitsandbytes
-      datasets
-      peft
-      transformers
-      # trl
-    ] ++ transformers.optional-dependencies.torch
+    fine-tune =
+      [
+        accelerate
+        bitsandbytes
+        datasets
+        peft
+        transformers
+        # trl
+      ]
+      ++ transformers.optional-dependencies.torch
       ++ transformers.optional-dependencies.tokenizers
       ++ transformers.optional-dependencies.accelerate;
-    full = with passthru.optional-dependencies; ( vllm ++ fine-tune );
+    full = with passthru.optional-dependencies; (vllm ++ fine-tune);
   };
 
   # there is no tests

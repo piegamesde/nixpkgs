@@ -1,10 +1,11 @@
-{ lib
-, python3
-, fetchPypi
-, argparse
-, kubernetes-helm
-, kind
-, docker
+{
+  lib,
+  python3,
+  fetchPypi,
+  argparse,
+  kubernetes-helm,
+  kind,
+  docker,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -22,9 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     kind
     docker
   ];
-  nativeBuildInputs = [
-    python3.pkgs.poetry-core
-  ];
+  nativeBuildInputs = [ python3.pkgs.poetry-core ];
   propagatedBuildInputs = with python3.pkgs; [
     argparse
     halo
@@ -34,9 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     dotmap
     requests
   ];
-  pythonImportsCheck = [
-    "airlift"
-  ];
+  pythonImportsCheck = [ "airlift" ];
   meta = with lib; {
     description = "A flexible, configuration driven CLI for Apache Airflow local development";
     homepage = "https://github.com/jl178/airlift";

@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pydantic
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     sha256 = "0i8jmhd29vvkpfxs9l5wy8525ngs79mnc7si2j9b1nc41xrv91f6";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -47,9 +46,7 @@ buildPythonPackage rec {
       --replace 'aiohttp = "^3.8.1"' 'aiohttp = "^3.8.0"'
   '';
 
-  pythonImportsCheck = [
-    "open_meteo"
-  ];
+  pythonImportsCheck = [ "open_meteo" ];
 
   meta = with lib; {
     description = "Python client for the Open-Meteo API";

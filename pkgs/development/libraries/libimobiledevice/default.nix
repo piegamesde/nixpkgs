@@ -1,23 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, openssl
-, libgcrypt
-, libplist
-, libtasn1
-, libusbmuxd
-, libimobiledevice-glue
-, SystemConfiguration
-, CoreFoundation
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  openssl,
+  libgcrypt,
+  libplist,
+  libtasn1,
+  libusbmuxd,
+  libimobiledevice-glue,
+  SystemConfiguration,
+  CoreFoundation,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libimobiledevice";
   version = "1.3.0+date=2023-04-30";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "libimobiledevice";
@@ -31,17 +35,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [
-    openssl
-    libgcrypt
-    libplist
-    libtasn1
-    libusbmuxd
-    libimobiledevice-glue
-  ] ++ lib.optionals stdenv.isDarwin [
-    SystemConfiguration
-    CoreFoundation
-  ];
+  propagatedBuildInputs =
+    [
+      openssl
+      libgcrypt
+      libplist
+      libtasn1
+      libusbmuxd
+      libimobiledevice-glue
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      SystemConfiguration
+      CoreFoundation
+    ];
 
   preAutoreconf = ''
     export RELEASE_VERSION=${version}

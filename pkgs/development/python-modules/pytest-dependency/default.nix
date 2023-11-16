@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pytest
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pytest,
 }:
 
 buildPythonPackage rec {
@@ -14,13 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-wqiSkGGSZj+FAwpquRME5QjlRs3f5VfWktYexXodlGs=";
   };
 
-  patches = [
-    # Fix build with pytest >= 6.2.0, https://github.com/RKrahl/pytest-dependency/pull/51
-    (fetchpatch {
-      url = "https://github.com/RKrahl/pytest-dependency/commit/0930889a13e2b9baa7617f05dc9b55abede5209d.patch";
-      hash = "sha256-xRreoIz8+yW0mAUb4FvKVlPjALzMAZDmdpbmDKRISE0=";
-    })
-  ];
+  patches =
+    [
+      # Fix build with pytest >= 6.2.0, https://github.com/RKrahl/pytest-dependency/pull/51
+      (fetchpatch {
+        url = "https://github.com/RKrahl/pytest-dependency/commit/0930889a13e2b9baa7617f05dc9b55abede5209d.patch";
+        hash = "sha256-xRreoIz8+yW0mAUb4FvKVlPjALzMAZDmdpbmDKRISE0=";
+      })
+    ];
 
   buildInputs = [ pytest ];
 

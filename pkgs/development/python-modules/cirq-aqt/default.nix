@@ -1,7 +1,8 @@
-{ buildPythonPackage
-, cirq-core
-, requests
-, pytestCheckHook
+{
+  buildPythonPackage,
+  cirq-core,
+  requests,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,15 +21,14 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # cirq's importlib hook doesn't work here
   #pythonImportsCheck = [ "cirq_aqt" ];
 
-  disabledTestPaths = [
-    # No need to test the version number
-    "cirq_aqt/_version_test.py"
-  ];
+  disabledTestPaths =
+    [
+      # No need to test the version number
+      "cirq_aqt/_version_test.py"
+    ];
 }

@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, nix-update-script
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,9 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Sf32vaqcxVdg6/kDidxBSr5XDWg3aNEBpEl31do2ZJ8=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installManPage target/man/hyprdim.1

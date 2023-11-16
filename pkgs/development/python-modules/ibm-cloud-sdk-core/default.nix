@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyjwt
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, requests
-, responses
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyjwt,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  responses,
 }:
 
 buildPythonPackage rec {
@@ -49,9 +50,7 @@ buildPythonPackage rec {
     "test_http_client"
   ];
 
-  disabledTestPaths = [
-    "test/test_container_token_manager.py"
-  ];
+  disabledTestPaths = [ "test/test_container_token_manager.py" ];
 
   meta = with lib; {
     description = "Client library for the IBM Cloud services";

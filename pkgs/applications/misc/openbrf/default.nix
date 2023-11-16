@@ -1,5 +1,17 @@
-{ mkDerivation, lib, stdenv, fetchFromGitHub, fetchpatch, qtbase, vcg, glew, qmake, libGLU, eigen, libGL }:
-
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qtbase,
+  vcg,
+  glew,
+  qmake,
+  libGLU,
+  eigen,
+  libGL,
+}:
 
 mkDerivation {
   pname = "openbrf";
@@ -12,16 +24,22 @@ mkDerivation {
     sha256 = "16254cnr60ihcn7bki7wl1qm6gkvzb99cn66md1pnb7za8nvzf4j";
   };
 
-  patches = [
-    # https://github.com/cfcohen/openbrf/pull/7
-    (fetchpatch {
-      name = "fix-build-against-newer-vcglib.patch";
-      url = "https://github.com/cfcohen/openbrf/commit/6d82a25314a393e72bfbe2ffc3965bcac407df4c.patch";
-      hash = "sha256-rNxAw6Le6QXMSirIAMhMmqVgNJLq6osnEOhWrY3mTpM=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/cfcohen/openbrf/pull/7
+      (fetchpatch {
+        name = "fix-build-against-newer-vcglib.patch";
+        url = "https://github.com/cfcohen/openbrf/commit/6d82a25314a393e72bfbe2ffc3965bcac407df4c.patch";
+        hash = "sha256-rNxAw6Le6QXMSirIAMhMmqVgNJLq6osnEOhWrY3mTpM=";
+      })
+    ];
 
-  buildInputs = [ qtbase vcg glew eigen ];
+  buildInputs = [
+    qtbase
+    vcg
+    glew
+    eigen
+  ];
 
   nativeBuildInputs = [ qmake ];
 
@@ -39,7 +57,15 @@ mkDerivation {
     install -Dm644 reference.brf $out/share/openBrf/reference.brf
 
     patchelf  \
-      --set-rpath "${lib.makeLibraryPath [ qtbase glew stdenv.cc.cc libGLU libGL ]}" \
+      --set-rpath "${
+        lib.makeLibraryPath [
+          qtbase
+          glew
+          stdenv.cc.cc
+          libGLU
+          libGL
+        ]
+      }" \
       $out/share/openBrf/openBrf
 
     mkdir -p "$out/bin"

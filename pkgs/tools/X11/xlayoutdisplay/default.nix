@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, xorg, boost, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xorg,
+  boost,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xlayoutdisplay";
@@ -11,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8K9SoZToJTk/sL4PC4Fcsu9XzGLYfNIZlbIyxc9jf84=";
   };
 
-  buildInputs = with xorg; [ libX11 libXrandr libXcursor boost ];
+  buildInputs = with xorg; [
+    libX11
+    libXrandr
+    libXcursor
+    boost
+  ];
   nativeCheckInputs = [ gtest ];
 
   doCheck = true;

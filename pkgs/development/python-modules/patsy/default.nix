@@ -1,10 +1,11 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, six
-, numpy
-, scipy # optional, allows spline-related features (see patsy's docs)
-, pytestCheckHook
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  six,
+  numpy,
+  scipy, # optional, allows spline-related features (see patsy's docs)
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -22,13 +23,9 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "patsy"
-  ];
+  pythonImportsCheck = [ "patsy" ];
 
   meta = {
     description = "A Python package for describing statistical models";
@@ -37,4 +34,3 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ ilya-kolpakov ];
   };
 }
-

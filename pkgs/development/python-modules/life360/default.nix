@@ -1,9 +1,10 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,16 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-GRQPH7fp8YkkCEpXtvgFxJO6VLFQK/PBaRe0Tfg3KdU=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "life360"
-  ];
+  pythonImportsCheck = [ "life360" ];
 
   meta = with lib; {
     description = "Python module to interact with Life360";

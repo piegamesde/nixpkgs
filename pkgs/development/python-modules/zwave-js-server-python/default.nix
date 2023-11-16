@@ -1,11 +1,12 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pydantic
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pydantic,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "zwave_js_server"
-  ];
+  pythonImportsCheck = [ "zwave_js_server" ];
 
   meta = with lib; {
     description = "Python wrapper for zwave-js-server";

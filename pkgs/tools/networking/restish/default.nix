@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, buildGoModule
-, darwin
-, fetchFromGitHub
-, restish
-, testers
-, xorg
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  darwin,
+  fetchFromGitHub,
+  restish,
+  testers,
+  xorg,
 }:
 
 buildGoModule rec {
@@ -21,16 +22,18 @@ buildGoModule rec {
 
   vendorHash = "sha256-sUBqeLhpWUu1NfAmFQCKFHm8DQaB8LYRrFexvuF8vC8=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Cocoa
-    darwin.apple_sdk.frameworks.Kernel
-  ] ++ lib.optionals stdenv.isLinux [
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libXinerama
-    xorg.libXrandr
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.Cocoa
+      darwin.apple_sdk.frameworks.Kernel
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXinerama
+      xorg.libXrandr
+    ];
 
   ldflags = [
     "-s"
@@ -42,9 +45,7 @@ buildGoModule rec {
     export HOME=$(mktemp -d)
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = restish;
-  };
+  passthru.tests.version = testers.testVersion { package = restish; };
 
   meta = with lib; {
     description = "CLI tool for interacting with REST-ish HTTP APIs";

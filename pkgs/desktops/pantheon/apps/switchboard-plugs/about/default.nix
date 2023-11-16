@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, vala
-, libgee
-, libgtop
-, libgudev
-, libhandy
-, granite
-, gtk3
-, switchboard
-, udisks2
-, fwupd
-, appstream
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  libgee,
+  libgtop,
+  libgudev,
+  libhandy,
+  granite,
+  gtk3,
+  switchboard,
+  udisks2,
+  fwupd,
+  appstream,
 }:
 
 stdenv.mkDerivation rec {
@@ -49,10 +50,11 @@ stdenv.mkDerivation rec {
     udisks2
   ];
 
-  mesonFlags = [
-    # Does not play nice with the nix-snowflake logo
-    "-Dwallpaper=false"
-  ];
+  mesonFlags =
+    [
+      # Does not play nice with the nix-snowflake logo
+      "-Dwallpaper=false"
+    ];
 
   passthru = {
     updateScript = nix-update-script { };
@@ -65,5 +67,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = teams.pantheon.members;
   };
-
 }

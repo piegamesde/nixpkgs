@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,7 +11,8 @@ let
   cfg = config.services.netbird;
   kernel = config.boot.kernelPackages;
   interfaceName = "wt0";
-in {
+in
+{
   meta.maintainers = with maintainers; [ misuzu ];
 
   options.services.netbird = {
@@ -41,9 +47,7 @@ in {
       documentation = [ "https://netbird.io/docs/" ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [
-        openresolv
-      ];
+      path = with pkgs; [ openresolv ];
       serviceConfig = {
         Environment = [
           "NB_CONFIG=/var/lib/netbird/config.json"

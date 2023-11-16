@@ -1,29 +1,36 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, glib
-, gobject-introspection
-, flex
-, bison
-, vala
-, gettext
-, gnome
-, gtk-doc
-, docbook_xsl
-, docbook_xml_dtd_43
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gobject-introspection,
+  flex,
+  bison,
+  vala,
+  gettext,
+  gnome,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_43,
 }:
 
 stdenv.mkDerivation rec {
   pname = "template-glib";
   version = "3.36.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "OxZ6Fzha10WvviD634EGxm0wxb10bVqh2b236AP2pQM=";
   };
 
@@ -42,13 +49,9 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    glib
-  ];
+  buildInputs = [ glib ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" ];
 
   doCheck = true;
 

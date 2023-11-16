@@ -1,4 +1,10 @@
-{ lib, callPackage, mkYarnPackage, fetchYarnDeps, imagemagick }:
+{
+  lib,
+  callPackage,
+  mkYarnPackage,
+  fetchYarnDeps,
+  imagemagick,
+}:
 
 let
   common = callPackage ./common.nix { };
@@ -37,6 +43,9 @@ mkYarnPackage rec {
     description = "Frontend for the Mobilizon server";
     homepage = "https://joinmobilizon.org/";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ minijackson erictapen ];
+    maintainers = with maintainers; [
+      minijackson
+      erictapen
+    ];
   };
 }

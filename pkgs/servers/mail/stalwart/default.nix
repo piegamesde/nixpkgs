@@ -1,15 +1,16 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, protobuf
-, bzip2
-, openssl
-, sqlite
-, zstd
-, stdenv
-, darwin
-, nix-update-script
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  protobuf,
+  bzip2,
+  openssl,
+  sqlite,
+  zstd,
+  stdenv,
+  darwin,
+  nix-update-script,
 }:
 
 let
@@ -46,16 +47,18 @@ rustPlatform.buildRustPackage {
     protobuf
   ];
 
-  buildInputs = [
-    bzip2
-    openssl
-    sqlite
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreFoundation
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  buildInputs =
+    [
+      bzip2
+      openssl
+      sqlite
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.CoreFoundation
+      darwin.apple_sdk.frameworks.Security
+      darwin.apple_sdk.frameworks.SystemConfiguration
+    ];
 
   env = {
     OPENSSL_NO_VENDOR = true;

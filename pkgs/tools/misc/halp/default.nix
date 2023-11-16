@@ -1,11 +1,12 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, stdenv
-, darwin
-, unixtools
-, rust
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  stdenv,
+  darwin,
+  unixtools,
+  rust,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,30 +22,26 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-/mzbLsIc0PW5yx/m9eq3IWYM6i1MKvmOY+17/Bwjguk=";
 
-  patches = [
-    # patch tests to point to the correct target directory
-    ./fix-target-dir.patch
-  ];
+  patches =
+    [
+      # patch tests to point to the correct target directory
+      ./fix-target-dir.patch
+    ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  nativeCheckInputs = [
-    unixtools.script
-  ];
+  nativeCheckInputs = [ unixtools.script ];
 
   # tests are failing on darwin
   doCheck = !stdenv.isDarwin;
 
-  checkFlags = [
-    # requires internet access
-    "--skip=helper::docs::cheat::tests::test_fetch_cheat_sheet"
-  ];
+  checkFlags =
+    [
+      # requires internet access
+      "--skip=helper::docs::cheat::tests::test_fetch_cheat_sheet"
+    ];
 
   postPatch = ''
     substituteInPlace src/helper/args/mod.rs \
@@ -74,7 +71,10 @@ rustPlatform.buildRustPackage rec {
     description = "A CLI tool to get help with CLI tools";
     homepage = "https://github.com/orhun/halp";
     changelog = "https://github.com/orhun/halp/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

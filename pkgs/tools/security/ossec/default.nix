@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ossec-client";
@@ -20,18 +25,18 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   buildPhase = ''
-    echo "en
+        echo "en
 
-agent
-$out
-no
-127.0.0.1
-yes
-yes
-yes
+    agent
+    $out
+    no
+    127.0.0.1
+    yes
+    yes
+    yes
 
 
-"   | ./install.sh
+    "   | ./install.sh
   '';
 
   meta = with lib; {
@@ -42,4 +47,3 @@ yes
     platforms = platforms.linux;
   };
 }
-

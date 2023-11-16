@@ -1,26 +1,27 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build-system
-, setuptools
+  # build-system
+  setuptools,
 
-# dependencies
-, django
+  # dependencies
+  django,
 
-# optional-dependencies
-, azure-storage-blob
-, boto3
-, dropbox
-, google-cloud-storage
-, libcloud
-, paramiko
+  # optional-dependencies
+  azure-storage-blob,
+  boto3,
+  dropbox,
+  google-cloud-storage,
+  libcloud,
+  paramiko,
 
-# tests
-, cryptography
-, moto
-, pytestCheckHook
-, rsa
+  # tests
+  cryptography,
+  moto,
+  pytestCheckHook,
+  rsa,
 }:
 
 buildPythonPackage rec {
@@ -35,41 +36,21 @@ buildPythonPackage rec {
     hash = "sha256-q+vQm1T5/ueGPfwzuUOmSI/nESchqJc4XizJieBsLWc=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   passthru.optional-dependencies = {
-    azure = [
-      azure-storage-blob
-    ];
-    boto3 = [
-      boto3
-    ];
-    dropbox = [
-      dropbox
-    ];
-    google = [
-      google-cloud-storage
-    ];
-    libcloud = [
-      libcloud
-    ];
-    s3 = [
-      boto3
-    ];
-    sftp = [
-      paramiko
-    ];
+    azure = [ azure-storage-blob ];
+    boto3 = [ boto3 ];
+    dropbox = [ dropbox ];
+    google = [ google-cloud-storage ];
+    libcloud = [ libcloud ];
+    s3 = [ boto3 ];
+    sftp = [ paramiko ];
   };
 
-  pythonImportsCheck = [
-    "storages"
-  ];
+  pythonImportsCheck = [ "storages" ];
 
   env.DJANGO_SETTINGS_MODULE = "tests.settings";
 

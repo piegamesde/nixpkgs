@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, glibcLocales
-, unittestCheckHook
- }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  glibcLocales,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "geojson";
@@ -17,13 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-VlP/odzRH6Eg0BMZPBQkbHL/O2cIwWTKJcL5SfZoUWQ=";
   };
 
-  pythonImportsCheck = [
-    "geojson"
-  ];
+  pythonImportsCheck = [ "geojson" ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   meta = {
     homepage = "https://github.com/jazzband/geojson";

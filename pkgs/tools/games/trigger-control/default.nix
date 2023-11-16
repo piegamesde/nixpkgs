@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, makeWrapper
-, pkg-config
-, SDL2
-, dbus
-, libdecor
-, libnotify
-, dejavu_fonts
-, gnome
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  pkg-config,
+  SDL2,
+  dbus,
+  libdecor,
+  libnotify,
+  dejavu_fonts,
+  gnome,
 }:
 
 let
@@ -37,9 +38,7 @@ stdenv.mkDerivation rec {
     SDL2
     dbus
     libnotify
-  ] ++ lib.optionals stdenv.isLinux [
-    libdecor
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ libdecor ];
 
   # The app crashes without a changed fontdir and upstream recommends dejavu as font
   postPatch = ''

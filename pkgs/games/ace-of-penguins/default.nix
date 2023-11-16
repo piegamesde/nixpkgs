@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, copyDesktopItems
-, libX11
-, libXpm
-, libpng
-, makeDesktopItem
-, zlib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  copyDesktopItems,
+  libX11,
+  libXpm,
+  libpng,
+  makeDesktopItem,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,14 +19,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-H+47BTOSGkKHPAYj8z2HOgZ7HuxY8scMAUSRRueaTM4=";
   };
 
-  patches = [
-    # Fixes a bunch of miscompilations in modern environments
-    ./fixup-miscompilations.patch
-  ];
+  patches =
+    [
+      # Fixes a bunch of miscompilations in modern environments
+      ./fixup-miscompilations.patch
+    ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ copyDesktopItems ];
 
   buildInputs = [
     libX11
@@ -34,15 +34,16 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  desktopItems = let
-    generateItem = gameName: {
-      name = "${pname}-${gameName}";
-      exec = "${placeholder "out"}/bin/${gameName}";
-      comment = "Ace of Penguins ${gameName} Card Game";
-      desktopName = gameName;
-      genericName = gameName;
-    };
-  in
+  desktopItems =
+    let
+      generateItem = gameName: {
+        name = "${pname}-${gameName}";
+        exec = "${placeholder "out"}/bin/${gameName}";
+        comment = "Ace of Penguins ${gameName} Card Game";
+        desktopName = gameName;
+        genericName = gameName;
+      };
+    in
     map (x: makeDesktopItem (generateItem x)) [
       "canfield"
       "freecell"

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, common-updater-scripts, coreutils, git, gnused
-, makeWrapper, nix, nixfmt, openjdk, writeScript, nixosTests, jq, cacert, curl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  common-updater-scripts,
+  coreutils,
+  git,
+  gnused,
+  makeWrapper,
+  nix,
+  nixfmt,
+  openjdk,
+  writeScript,
+  nixosTests,
+  jq,
+  cacert,
+  curl,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,7 +42,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) jenkins jenkins-cli; };
+    tests = {
+      inherit (nixosTests) jenkins jenkins-cli;
+    };
 
     updateScript = writeScript "update.sh" ''
       #!${stdenv.shell}
@@ -69,7 +86,12 @@ stdenv.mkDerivation rec {
     homepage = "https://jenkins.io/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;
-    maintainers = with maintainers; [ coconnor earldouglas nequissimus ajs124 ];
+    maintainers = with maintainers; [
+      coconnor
+      earldouglas
+      nequissimus
+      ajs124
+    ];
     changelog = "https://www.jenkins.io/changelog-stable/#v${version}";
     mainProgram = "jenkins-cli";
     platforms = platforms.all;

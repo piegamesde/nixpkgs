@@ -1,3 +1,1 @@
-self: super: {
-  nonDerivation = null;
-}
+self: super: { nonDerivation = null; }

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fontconfig
-, matplotlib
-, pandas
-, pytestCheckHook
-, weasyprint
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fontconfig,
+  matplotlib,
+  pandas,
+  pytestCheckHook,
+  weasyprint,
 }:
 
 buildPythonPackage rec {
@@ -30,10 +31,11 @@ buildPythonPackage rec {
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
   '';
 
-  disabledTests = [
-    # AssertionError, https://github.com/Edinburgh-Genome-Foundry/Flametree/issues/9
-    "test_weasyprint"
-  ];
+  disabledTests =
+    [
+      # AssertionError, https://github.com/Edinburgh-Genome-Foundry/Flametree/issues/9
+      "test_weasyprint"
+    ];
 
   pythonImportsCheck = [ "flametree" ];
 

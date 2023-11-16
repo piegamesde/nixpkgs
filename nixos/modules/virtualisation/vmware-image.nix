@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -13,8 +18,8 @@ let
     "twoGbMaxExtentFlat"
     "streamOptimized"
   ];
-
-in {
+in
+{
   options = {
     vmware = {
       baseImageSize = mkOption {
@@ -57,7 +62,9 @@ in {
     system.build.vmwareImage = import ../../lib/make-disk-image.nix {
       name = cfg.vmDerivationName;
       postVM = ''
-        ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -o compat6=${boolToStr cfg.vmCompat6},subformat=${cfg.vmSubformat} -O vmdk $diskImage $out/${cfg.vmFileName}
+        ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -o compat6=${
+          boolToStr cfg.vmCompat6
+        },subformat=${cfg.vmSubformat} -O vmdk $diskImage $out/${cfg.vmFileName}
         rm $diskImage
       '';
       format = "raw";

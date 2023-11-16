@@ -1,18 +1,19 @@
-{ lib
-, python3
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, glib
-, gtk4
-, librsvg
-, libadwaita
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-, cava
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  glib,
+  gtk4,
+  librsvg,
+  libadwaita,
+  wrapGAppsHook4,
+  appstream-glib,
+  desktop-file-utils,
+  cava,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -44,9 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     libadwaita
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
   # Prevent double wrapping
   dontWrapGApps = true;

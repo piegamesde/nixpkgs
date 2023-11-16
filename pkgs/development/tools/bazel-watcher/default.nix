@@ -1,10 +1,12 @@
-{ buildBazelPackage
-, bazel_5
-, fetchFromGitHub
-, git
-, go
-, python3
-, lib, stdenv
+{
+  buildBazelPackage,
+  bazel_5,
+  fetchFromGitHub,
+  git,
+  go,
+  python3,
+  lib,
+  stdenv,
 }:
 
 let
@@ -26,7 +28,6 @@ let
       EOF
     '';
   };
-
 in
 buildBazelPackage rec {
   pname = "bazel-watcher";
@@ -39,12 +40,21 @@ buildBazelPackage rec {
     sha256 = "sha256-wigrE9u1VuFnqLWyVJK3M7xsjyme2dDG6YTcD9whKnw=";
   };
 
-  nativeBuildInputs = [ go git python3 ];
+  nativeBuildInputs = [
+    go
+    git
+    python3
+  ];
   removeRulesCC = false;
 
   bazel = bazel_5;
   bazelFlags = [ "--override_repository=rules_proto=${rulesProto}" ];
-  bazelBuildFlags = lib.optionals stdenv.cc.isClang [ "--cxxopt=-x" "--cxxopt=c++" "--host_cxxopt=-x" "--host_cxxopt=c++" ];
+  bazelBuildFlags = lib.optionals stdenv.cc.isClang [
+    "--cxxopt=-x"
+    "--cxxopt=c++"
+    "--host_cxxopt=-x"
+    "--host_cxxopt=c++"
+  ];
   bazelTargets = [ "//cmd/ibazel" ];
 
   fetchConfigured = false; # we want to fetch all dependencies, regardless of the current system

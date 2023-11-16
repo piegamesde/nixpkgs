@@ -1,14 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.networking.nat;
 
-  mkDest = externalIP:
-    if externalIP == null
-    then "masquerade"
-    else "snat ${externalIP}";
+  mkDest = externalIP: if externalIP == null then "masquerade" else "snat ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -23,7 +25,8 @@ let
   # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: length (lib.splitString ":" ip) > 2;
 
-  splitIPPorts = IPPorts:
+  splitIPPorts =
+    IPPorts:
     let
       matchIP = if isIPv6 IPPorts then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
       m = builtins.match "${matchIP}:([0-9-]+)" IPPorts;
@@ -33,7 +36,14 @@ let
       ports = if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
     };
 
-  mkTable = { ipVer, dest, ipSet, forwardPorts, dmzHost }:
+  mkTable =
+    {
+      ipVer,
+      dest,
+      ipSet,
+      forwardPorts,
+      dmzHost,
+    }:
     let
       # nftables does not support both port and port range as values in a dnat map.
       # e.g. "dnat th dport map { 80 : 10.0.0.1 . 80, 443 : 10.0.0.2 . 900-1000 }"
@@ -43,87 +53,116 @@ let
 
       # nftables maps for port forward
       # l4proto . dport : addr . port
-      toFwdMap = forwardPorts: toNftSet (map
-        (fwd:
-          with (splitIPPorts fwd.destination);
-          "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
-        )
-        forwardPorts);
+      toFwdMap =
+        forwardPorts:
+        toNftSet (
+          map
+            (
+              fwd:
+              with (splitIPPorts fwd.destination);
+              "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
+            )
+            forwardPorts
+        );
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
 
       # nftables maps for port forward loopback dnat
       # daddr . l4proto . dport : addr . port
-      toFwdLoopDnatMap = forwardPorts: toNftSet (concatMap
-        (fwd: map
-          (loopbackip:
-            with (splitIPPorts fwd.destination);
-            "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
-          )
-          fwd.loopbackIPs)
-        forwardPorts);
+      toFwdLoopDnatMap =
+        forwardPorts:
+        toNftSet (
+          concatMap
+            (
+              fwd:
+              map
+                (
+                  loopbackip:
+                  with (splitIPPorts fwd.destination);
+                  "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
+                )
+                fwd.loopbackIPs
+            )
+            forwardPorts
+        );
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
       fwdLoopDnatRangeMap = toFwdLoopDnatMap fwdPortsRange;
 
       # nftables set for port forward loopback snat
       # daddr . l4proto . dport
-      fwdLoopSnatSet = toNftSet (map
-        (fwd:
-          with (splitIPPorts fwd.destination);
-          "${IP} . ${fwd.proto} . ${ports}"
-        )
-        forwardPorts);
+      fwdLoopSnatSet = toNftSet (
+        map (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}") forwardPorts
+      );
     in
     ''
       chain pre {
         type nat hook prerouting priority dstnat;
 
-        ${optionalString (fwdMap != "") ''
-          iifname "${cfg.externalInterface}" dnat meta l4proto . th dport map { ${fwdMap} } comment "port forward"
-        ''}
-        ${optionalString (fwdRangeMap != "") ''
-          iifname "${cfg.externalInterface}" dnat meta l4proto . th dport map { ${fwdRangeMap} } comment "port forward"
-        ''}
+        ${
+          optionalString (fwdMap != "") ''
+            iifname "${cfg.externalInterface}" dnat meta l4proto . th dport map { ${fwdMap} } comment "port forward"
+          ''
+        }
+        ${
+          optionalString (fwdRangeMap != "") ''
+            iifname "${cfg.externalInterface}" dnat meta l4proto . th dport map { ${fwdRangeMap} } comment "port forward"
+          ''
+        }
 
-        ${optionalString (fwdLoopDnatMap != "") ''
-          dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from other hosts behind NAT"
-        ''}
-        ${optionalString (fwdLoopDnatRangeMap != "") ''
-          dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatRangeMap} } comment "port forward loopback from other hosts behind NAT"
-        ''}
+        ${
+          optionalString (fwdLoopDnatMap != "") ''
+            dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from other hosts behind NAT"
+          ''
+        }
+        ${
+          optionalString (fwdLoopDnatRangeMap != "") ''
+            dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatRangeMap} } comment "port forward loopback from other hosts behind NAT"
+          ''
+        }
 
-        ${optionalString (dmzHost != null) ''
-          iifname "${cfg.externalInterface}" dnat ${dmzHost} comment "dmz"
-        ''}
+        ${
+          optionalString (dmzHost != null) ''
+            iifname "${cfg.externalInterface}" dnat ${dmzHost} comment "dmz"
+          ''
+        }
       }
 
       chain post {
         type nat hook postrouting priority srcnat;
 
-        ${optionalString (ifaceSet != "") ''
-          iifname { ${ifaceSet} } ${oifExpr} ${dest} comment "from internal interfaces"
-        ''}
-        ${optionalString (ipSet != "") ''
-          ${ipVer} saddr { ${ipSet} } ${oifExpr} ${dest} comment "from internal IPs"
-        ''}
+        ${
+          optionalString (ifaceSet != "") ''
+            iifname { ${ifaceSet} } ${oifExpr} ${dest} comment "from internal interfaces"
+          ''
+        }
+        ${
+          optionalString (ipSet != "") ''
+            ${ipVer} saddr { ${ipSet} } ${oifExpr} ${dest} comment "from internal IPs"
+          ''
+        }
 
-        ${optionalString (fwdLoopSnatSet != "") ''
-          iifname != "${cfg.externalInterface}" ${ipVer} daddr . meta l4proto . th dport { ${fwdLoopSnatSet} } masquerade comment "port forward loopback snat"
-        ''}
+        ${
+          optionalString (fwdLoopSnatSet != "") ''
+            iifname != "${cfg.externalInterface}" ${ipVer} daddr . meta l4proto . th dport { ${fwdLoopSnatSet} } masquerade comment "port forward loopback snat"
+          ''
+        }
       }
 
       chain out {
         type nat hook output priority mangle;
 
-        ${optionalString (fwdLoopDnatMap != "") ''
-          dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from the host itself"
-        ''}
-        ${optionalString (fwdLoopDnatRangeMap != "") ''
-          dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatRangeMap} } comment "port forward loopback from the host itself"
-        ''}
+        ${
+          optionalString (fwdLoopDnatMap != "") ''
+            dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatMap} } comment "port forward loopback from the host itself"
+          ''
+        }
+        ${
+          optionalString (fwdLoopDnatRangeMap != "") ''
+            dnat ${ipVer} daddr . meta l4proto . th dport map { ${fwdLoopDnatRangeMap} } comment "port forward loopback from the host itself"
+          ''
+        }
       }
     '';
-
 in
 
 {
@@ -179,6 +218,5 @@ in
         ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
       ''}
     '';
-
   };
 }

@@ -1,14 +1,15 @@
-{ lib
-, config
-, fetchFromGitHub
-, stdenv
-, cmake
-, pkg-config
-, cudaPackages ? { }
-, symlinkJoin
-, tbb
-, hostSystem ? "CPP"
-, deviceSystem ? if config.cudaSupport then "CUDA" else "OMP"
+{
+  lib,
+  config,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  pkg-config,
+  cudaPackages ? { },
+  symlinkJoin,
+  tbb,
+  hostSystem ? "CPP",
+  deviceSystem ? if config.cudaSupport then "CUDA" else "OMP",
 }:
 
 # Policy for device_vector<T>
@@ -21,7 +22,11 @@ assert builtins.elem deviceSystem [
 
 # Policy for host_vector<T>
 # Always lives on CPU, but execution can be made parallel
-assert builtins.elem hostSystem [ "CPP" "OMP" "TBB" ];
+assert builtins.elem hostSystem [
+  "CPP"
+  "OMP"
+  "TBB"
+];
 
 let
   pname = "nvidia-thrust";
@@ -30,7 +35,10 @@ let
   inherit (cudaPackages) backendStdenv cudaFlags;
   cudaCapabilities = map cudaFlags.dropDot cudaFlags.cudaCapabilities;
 
-  tbbSupport = builtins.elem "TBB" [ deviceSystem hostSystem ];
+  tbbSupport = builtins.elem "TBB" [
+    deviceSystem
+    hostSystem
+  ];
   cudaSupport = deviceSystem == "CUDA";
 
   # TODO: Would like to use this:
@@ -69,24 +77,28 @@ stdenv.mkDerivation {
 
   buildInputs = lib.optionals tbbSupport [ tbb ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals cudaSupport [
-    # Goes in native build inputs because thrust looks for headers
-    # in a path relative to nvcc...
-    cudaJoined
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ]
+    ++ lib.optionals cudaSupport
+      [
+        # Goes in native build inputs because thrust looks for headers
+        # in a path relative to nvcc...
+        cudaJoined
+      ];
 
-  cmakeFlags = [
-    "-DTHRUST_INCLUDE_CUB_CMAKE=${if cudaSupport then "ON" else "OFF"}"
-    "-DTHRUST_DEVICE_SYSTEM=${deviceSystem}"
-    "-DTHRUST_HOST_SYSTEM=${hostSystem}"
-    "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"
-    "-DTHRUST_DISABLE_ARCH_BY_DEFAULT=ON"
-  ] ++ lib.optionals cudaFlags.enableForwardCompat [
-    "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON"
-  ] ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
+  cmakeFlags =
+    [
+      "-DTHRUST_INCLUDE_CUB_CMAKE=${if cudaSupport then "ON" else "OFF"}"
+      "-DTHRUST_DEVICE_SYSTEM=${deviceSystem}"
+      "-DTHRUST_HOST_SYSTEM=${hostSystem}"
+      "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"
+      "-DTHRUST_DISABLE_ARCH_BY_DEFAULT=ON"
+    ]
+    ++ lib.optionals cudaFlags.enableForwardCompat [ "-DTHRUST_ENABLE_COMPUTE_FUTURE=ON" ]
+    ++ map (sm: "THRUST_ENABLE_COMPUTE_${sm}") cudaCapabilities;
 
   passthru = {
     inherit cudaSupport cudaPackages cudaJoined;

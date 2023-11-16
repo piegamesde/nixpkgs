@@ -1,20 +1,21 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
   # Python Inputs
-, qiskit-aer
-, qiskit-ibmq-provider
-, qiskit-ignis
-, qiskit-terra
+  qiskit-aer,
+  qiskit-ibmq-provider,
+  qiskit-ignis,
+  qiskit-terra,
   # Optional inputs
-, withOptionalPackages ? true
-, qiskit-finance
-, qiskit-machine-learning
-, qiskit-nature
-, qiskit-optimization
+  withOptionalPackages ? true,
+  qiskit-finance,
+  qiskit-machine-learning,
+  qiskit-nature,
+  qiskit-optimization,
   # Check Inputs
-, pytestCheckHook
+  pytestCheckHook,
 }:
 
 let
@@ -62,6 +63,9 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/QISKit/qiskit/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger pandaman ];
+    maintainers = with maintainers; [
+      drewrisinger
+      pandaman
+    ];
   };
 }

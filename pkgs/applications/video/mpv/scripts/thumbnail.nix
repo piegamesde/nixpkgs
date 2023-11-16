@@ -1,4 +1,9 @@
-{ lib, buildLua, fetchFromGitHub, python3 }:
+{
+  lib,
+  buildLua,
+  fetchFromGitHub,
+  python3,
+}:
 
 buildLua rec {
   pname = "mpv-thumbnail-script";

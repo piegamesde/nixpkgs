@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, buildPythonPackage
-, cython
-, mecab
-, setuptools-scm
-, ipadic
-, unidic
-, unidic-lite
+{
+  lib,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  buildPythonPackage,
+  cython,
+  mecab,
+  setuptools-scm,
+  ipadic,
+  unidic,
+  unidic-lite,
 }:
 
 buildPythonPackage rec {
@@ -26,10 +27,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ cython mecab setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    mecab
+    setuptools-scm
+  ];
 
-  nativeCheckInputs = [ ipadic pytestCheckHook ]
-    ++ passthru.optional-dependencies.unidic-lite;
+  nativeCheckInputs = [
+    ipadic
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.unidic-lite;
 
   passthru.optional-dependencies = {
     unidic-lite = [ unidic-lite ];

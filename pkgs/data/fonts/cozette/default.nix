@@ -1,11 +1,17 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "cozette";
   version = "1.22.2";
 
   src = fetchzip {
-    url = "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts-v-${builtins.replaceStrings ["."] ["-"] version}.zip";
+    url = "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts-v-${
+        builtins.replaceStrings [ "." ] [ "-" ] version
+      }.zip";
     hash = "sha256-Y6StCbAsFJrRZtJu1IAsMYuyNhwe3YIlT41EhSXhCUE=";
   };
 
@@ -28,6 +34,9 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/slavfox/Cozette/blob/v.${version}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ brettlyons marsam ];
+    maintainers = with maintainers; [
+      brettlyons
+      marsam
+    ];
   };
 }

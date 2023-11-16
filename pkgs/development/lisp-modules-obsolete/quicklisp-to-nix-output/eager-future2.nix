@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "eager-future2";
   version = "20191130-git";
 
   description = "Parallel programming library providing the futures/promises synchronization mechanism";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."trivial-garbage" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."trivial-garbage"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/eager-future2/2019-11-30/eager-future2-20191130-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "eager-future2";
 
-  asdFilesToKeep = ["eager-future2.asd"];
+  asdFilesToKeep = [ "eager-future2.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM eager-future2 DESCRIPTION
@@ -28,4 +32,5 @@ rec {
      (NAME bordeaux-threads FILENAME bordeaux-threads)
      (NAME trivial-garbage FILENAME trivial-garbage))
     DEPENDENCIES (alexandria bordeaux-threads trivial-garbage) VERSION
-    20191130-git SIBLINGS (test.eager-future2) PARASITES NIL) */
+    20191130-git SIBLINGS (test.eager-future2) PARASITES NIL)
+*/

@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, nix-update-script
-, testers
-, sonic-server
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix-update-script,
+  testers,
+  sonic-server,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,9 +23,7 @@ rustPlatform.buildRustPackage rec {
   # Found argument '--test-threads' which wasn't expected, or isn't valid in this context
   doCheck = false;
 
-  nativeBuildInputs = [
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs = [ rustPlatform.bindgenHook ];
 
   postPatch = ''
     substituteInPlace src/main.rs --replace "./config.cfg" "$out/etc/sonic/config.cfg"
@@ -57,6 +56,9 @@ rustPlatform.buildRustPackage rec {
     license = licenses.mpl20;
     platforms = platforms.unix;
     mainProgram = "sonic";
-    maintainers = with maintainers; [ pleshevskiy anthonyroussel ];
+    maintainers = with maintainers; [
+      pleshevskiy
+      anthonyroussel
+    ];
   };
 }

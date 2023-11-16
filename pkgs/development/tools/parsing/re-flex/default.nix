@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, boost
-, autoconf
-, automake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  boost,
+  autoconf,
+  automake,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gk+VVfjVPopuzhrEuWNxQxKYjOFbqOGD9YS1npN71Bg=";
   };
 
-  nativeBuildInputs = [ boost autoconf automake ];
+  nativeBuildInputs = [
+    boost
+    autoconf
+    automake
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Genivia/RE-flex";

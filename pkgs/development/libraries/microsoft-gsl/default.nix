@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, gtest
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-cXDFqt2KgMFGfdh6NGE+JmP4R0Wm9LNHM0eIblYe6zU=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ gtest ];
 
   doCheck = true;
@@ -32,6 +36,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Microsoft/GSL";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice yuriaisaka ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      yuriaisaka
+    ];
   };
 }

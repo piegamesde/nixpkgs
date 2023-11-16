@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, pyflakes
-, pytestCheckHook
-, pythonOlder
-, tomli
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  pyflakes,
+  pytestCheckHook,
+  pythonOlder,
+  tomli,
 }:
 buildPythonPackage rec {
   pname = "autoflake";
@@ -17,27 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-Yre2RJppLDybDJFpGbvCFkjacoHoUGvPjT+CgOQx68E=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    pyflakes
-  ]
-  ++ lib.optional (pythonOlder "3.11") tomli;
+  propagatedBuildInputs = [ pyflakes ] ++ lib.optional (pythonOlder "3.11") tomli;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "autoflake"
-  ];
+  pythonImportsCheck = [ "autoflake" ];
 
-  disabledTests = [
-    # AssertionError: True is not false
-    "test_is_literal_or_name"
-  ];
+  disabledTests =
+    [
+      # AssertionError: True is not false
+      "test_is_literal_or_name"
+    ];
 
   meta = with lib; {
     description = "Tool to remove unused imports and unused variables";

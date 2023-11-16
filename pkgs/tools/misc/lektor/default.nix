@@ -1,26 +1,30 @@
-{ lib
-, fetchFromGitHub
-, fetchNpmDeps
-, fetchPypi
-, nodejs
-, npmHooks
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  fetchNpmDeps,
+  fetchPypi,
+  nodejs,
+  npmHooks,
+  python3,
 }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      mistune = super.mistune.overridePythonAttrs (old: rec {
-        version = "2.0.5";
-        src = fetchPypi {
-          inherit (old) pname;
-          inherit version;
-          hash = "sha256-AkYRPLJJLbh1xr5Wl0p8iTMzvybNkokchfYxUc7gnTQ=";
-        };
-      });
+      mistune = super.mistune.overridePythonAttrs (
+        old: rec {
+          version = "2.0.5";
+          src = fetchPypi {
+            inherit (old) pname;
+            inherit version;
+            hash = "sha256-AkYRPLJJLbh1xr5Wl0p8iTMzvybNkokchfYxUc7gnTQ=";
+          };
+        }
+      );
     };
   };
-in python.pkgs.buildPythonApplication rec {
+in
+python.pkgs.buildPythonApplication rec {
   pname = "lektor";
   version = "3.4.0b8";
   format = "pyproject";
@@ -78,9 +82,7 @@ in python.pkgs.buildPythonApplication rec {
     cp -r lektor/translations "$out/${python.sitePackages}/lektor/"
   '';
 
-  pythonImportsCheck = [
-    "lektor"
-  ];
+  pythonImportsCheck = [ "lektor" ];
 
   disabledTests = [
     # Tests require network access

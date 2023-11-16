@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "clsql-postgresql-socket";
   version = "clsql-20210228-git";
 
   description = "Common Lisp SQL PostgreSQL Socket Driver";
 
-  deps = [ args."clsql" args."md5" args."uffi" ];
+  deps = [
+    args."clsql"
+    args."md5"
+    args."uffi"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clsql/2021-02-28/clsql-20210228-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "clsql-postgresql-socket";
 
-  asdFilesToKeep = ["clsql-postgresql-socket.asd"];
+  asdFilesToKeep = [ "clsql-postgresql-socket.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clsql-postgresql-socket DESCRIPTION
@@ -29,4 +33,5 @@ rec {
     DEPENDENCIES (clsql md5 uffi) VERSION clsql-20210228-git SIBLINGS
     (clsql-aodbc clsql-cffi clsql-mysql clsql-odbc clsql-postgresql-socket3
      clsql-postgresql clsql-sqlite clsql-sqlite3 clsql-tests clsql-uffi clsql)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

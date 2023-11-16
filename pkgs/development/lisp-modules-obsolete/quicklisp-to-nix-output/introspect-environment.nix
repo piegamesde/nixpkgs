@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "introspect-environment";
   version = "20210807-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "introspect-environment";
 
-  asdFilesToKeep = ["introspect-environment.asd"];
+  asdFilesToKeep = [ "introspect-environment.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM introspect-environment DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/introspect-environment/2021-08-07/introspect-environment-20210807-git.tgz
     MD5 f9d4e1208146e9435c2ce1b82a87a209 NAME introspect-environment FILENAME
     introspect-environment DEPS NIL DEPENDENCIES NIL VERSION 20210807-git
-    SIBLINGS (introspect-environment-test) PARASITES NIL) */
+    SIBLINGS (introspect-environment-test) PARASITES NIL)
+*/

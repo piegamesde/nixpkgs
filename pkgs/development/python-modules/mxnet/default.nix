@@ -1,19 +1,24 @@
-{ lib
-, buildPythonPackage
-, pkgs
-, requests
-, numpy
-, graphviz
-, python
-, isPy3k
-, isPy310
+{
+  lib,
+  buildPythonPackage,
+  pkgs,
+  requests,
+  numpy,
+  graphviz,
+  python,
+  isPy3k,
+  isPy310,
 }:
 
 buildPythonPackage {
   inherit (pkgs.mxnet) pname version src;
 
   buildInputs = [ pkgs.mxnet ];
-  propagatedBuildInputs = [ requests numpy graphviz ];
+  propagatedBuildInputs = [
+    requests
+    numpy
+    graphviz
+  ];
 
   LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.mxnet ];
 

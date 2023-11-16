@@ -1,16 +1,17 @@
-{ lib
-, writeScript
-, buildPythonApplication
-, fetchFromGitHub
-, pythonOlder
-, setuptools
-, requests
-, protobuf
-, pycryptodome
-, zstandard
-, json5
-, platformdirs
-, cacert
+{
+  lib,
+  writeScript,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+  requests,
+  protobuf,
+  pycryptodome,
+  zstandard,
+  json5,
+  platformdirs,
+  cacert,
 }:
 
 buildPythonApplication rec {

@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -15,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-P/woyAN9cYdxryX1iM36C53c9dL6lo4eoTzBWT2cd3A=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # cyclic dependency with approvaltests
   doCheck = false;

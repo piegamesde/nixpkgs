@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, yarl
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-2NlFXeI+6ooh4D1OxUWwYrmM4zpL9gg8vhnseLjj2dM=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -45,9 +44,7 @@ buildPythonPackage rec {
       --replace 'addopts = "--cov"' ""
   '';
 
-  pythonImportsCheck = [
-    "p1monitor"
-  ];
+  pythonImportsCheck = [ "p1monitor" ];
 
   meta = with lib; {
     description = "Module for interacting with the P1 Monitor";

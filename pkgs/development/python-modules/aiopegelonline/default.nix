@@ -1,11 +1,12 @@
-{ lib
-, aiohttp
-, aioresponses
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-r+5b52N/vliKHx6qOLJ4lWcQt1TPEcn5Dz7cZNhRbNg=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   nativeCheckInputs = [
     aioresponses
@@ -32,9 +31,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "aiopegelonline"
-  ];
+  pythonImportsCheck = [ "aiopegelonline" ];
 
   meta = with lib; {
     description = "Library to retrieve data from PEGELONLINE";

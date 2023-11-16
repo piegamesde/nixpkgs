@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, darwin
-, abseil-cpp
-, meson
-, ninja
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  darwin,
+  abseil-cpp,
+  meson,
+  ninja,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,11 +27,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [
-    abseil-cpp
-  ];
+  propagatedBuildInputs = [ abseil-cpp ];
 
-  buildInputs = lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ ApplicationServices Foundation ]);
+  buildInputs = lib.optionals stdenv.isDarwin (
+    with darwin.apple_sdk.frameworks; [
+      ApplicationServices
+      Foundation
+    ]
+  );
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing";
@@ -38,6 +42,8 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     # https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/blob/master/webrtc/rtc_base/system/arch.h
     # x86-32 disabled due to https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/issues/5
-    platforms = intersectLists platforms.unix (platforms.aarch64 ++ platforms.mips ++ platforms.riscv ++ platforms.x86_64);
+    platforms = intersectLists platforms.unix (
+      platforms.aarch64 ++ platforms.mips ++ platforms.riscv ++ platforms.x86_64
+    );
   };
 }

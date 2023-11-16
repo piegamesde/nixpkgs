@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "parse-float";
   version = "20200218-git";
@@ -8,7 +8,10 @@ rec {
 
   description = "Parse floating point values in strings.";
 
-  deps = [ args."alexandria" args."lisp-unit" ];
+  deps = [
+    args."alexandria"
+    args."lisp-unit"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/parse-float/2020-02-18/parse-float-20200218-git.tgz";
@@ -17,7 +20,7 @@ rec {
 
   packageName = "parse-float";
 
-  asdFilesToKeep = ["parse-float.asd"];
+  asdFilesToKeep = [ "parse-float.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM parse-float DESCRIPTION Parse floating point values in strings.
@@ -27,4 +30,5 @@ rec {
     DEPS
     ((NAME alexandria FILENAME alexandria) (NAME lisp-unit FILENAME lisp-unit))
     DEPENDENCIES (alexandria lisp-unit) VERSION 20200218-git SIBLINGS NIL
-    PARASITES (parse-float-tests)) */
+    PARASITES (parse-float-tests))
+*/

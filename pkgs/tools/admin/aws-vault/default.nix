@@ -1,9 +1,10 @@
-{ buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, lib
-, makeWrapper
-, xdg-utils
+{
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+  makeWrapper,
+  xdg-utils,
 }:
 buildGoModule rec {
   pname = "aws-vault";
@@ -18,7 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-4bJKDEZlO0DzEzTQ7m+SQuzhe+wKmL6wLueqgSz/46s=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   postInstall = ''
     # make xdg-open overrideable at runtime
@@ -29,15 +33,12 @@ buildGoModule rec {
       --zsh $src/contrib/completions/zsh/aws-vault.zsh
   '';
 
-
   doCheck = false;
 
   subPackages = [ "." ];
 
   # set the version. see: aws-vault's Makefile
-  ldflags = [
-    "-X main.Version=v${version}"
-  ];
+  ldflags = [ "-X main.Version=v${version}" ];
 
   doInstallCheck = true;
 
@@ -46,8 +47,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description =
-      "A vault for securely storing and accessing AWS credentials in development environments";
+    description = "A vault for securely storing and accessing AWS credentials in development environments";
     homepage = "https://github.com/99designs/aws-vault";
     license = licenses.mit;
     maintainers = with maintainers; [ zimbatm ];

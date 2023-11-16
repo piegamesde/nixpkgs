@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "metabang-bind";
   version = "20200218-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "metabang-bind";
 
-  asdFilesToKeep = ["metabang-bind.asd"];
+  asdFilesToKeep = [ "metabang-bind.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM metabang-bind DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/metabang-bind/2020-02-18/metabang-bind-20200218-git.tgz
     MD5 25ee72526862a9d794f7b0fc1826029e NAME metabang-bind FILENAME
     metabang-bind DEPS NIL DEPENDENCIES NIL VERSION 20200218-git SIBLINGS
-    (metabang-bind-test) PARASITES NIL) */
+    (metabang-bind-test) PARASITES NIL)
+*/

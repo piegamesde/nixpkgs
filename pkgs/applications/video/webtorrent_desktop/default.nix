@@ -1,4 +1,11 @@
-{ lib, stdenv, electron, buildNpmPackage, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  stdenv,
+  electron,
+  buildNpmPackage,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 buildNpmPackage {
   pname = "webtorrent-desktop";
@@ -58,5 +65,4 @@ buildNpmPackage {
     license = licenses.mit;
     maintainers = [ maintainers.bendlas ];
   };
-
 }

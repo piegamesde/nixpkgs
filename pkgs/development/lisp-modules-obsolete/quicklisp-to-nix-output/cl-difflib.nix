@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-difflib";
   version = "20130128-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-difflib";
 
-  asdFilesToKeep = ["cl-difflib.asd"];
+  asdFilesToKeep = [ "cl-difflib.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-difflib DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-difflib/2013-01-28/cl-difflib-20130128-git.tgz
     MD5 e8a3434843a368373b67d09983d2b809 NAME cl-difflib FILENAME cl-difflib
     DEPS NIL DEPENDENCIES NIL VERSION 20130128-git SIBLINGS (cl-difflib-tests)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

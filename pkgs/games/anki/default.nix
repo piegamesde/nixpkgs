@@ -1,28 +1,29 @@
-{ lib
-, stdenv
+{
+  lib,
+  stdenv,
 
-, buildEnv
-, cargo
-, fetchFromGitHub
-, fetchYarnDeps
-, fixup_yarn_lock
-, installShellFiles
-, lame
-, mpv-unwrapped
-, ninja
-, nodejs
-, nodejs-slim
-, protobuf
-, python3
-, qt6
-, rsync
-, rustPlatform
-, writeShellScriptBin
-, yarn
+  buildEnv,
+  cargo,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  installShellFiles,
+  lame,
+  mpv-unwrapped,
+  ninja,
+  nodejs,
+  nodejs-slim,
+  protobuf,
+  python3,
+  qt6,
+  rsync,
+  rustPlatform,
+  writeShellScriptBin,
+  yarn,
 
-, AVKit
-, CoreAudio
-, swift
+  AVKit,
+  CoreAudio,
+  swift,
 }:
 
 let
@@ -52,9 +53,7 @@ let
     hash = "sha256-3DUiwGTg7Nzd+bPJlc8aUW8bYrl7BF+CcjqkF6nW0qc=";
   };
 
-  anki-build-python = python3.withPackages (ps: with ps; [
-    mypy-protobuf
-  ]);
+  anki-build-python = python3.withPackages (ps: with ps; [ mypy-protobuf ]);
 
   # anki shells out to git to check its revision, and also to update submodules
   # We don't actually need the submodules, so we stub that out
@@ -121,7 +120,11 @@ in
 python3.pkgs.buildPythonApplication {
   inherit pname version;
 
-  outputs = [ "doc" "man" "out" ];
+  outputs = [
+    "doc"
+    "man"
+    "out"
+  ];
 
   inherit src;
 
@@ -146,58 +149,63 @@ python3.pkgs.buildPythonApplication {
     rustPlatform.cargoSetupHook
   ] ++ lib.optional stdenv.isDarwin swift;
 
-  buildInputs = [
-    qt6.qtbase
-  ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
+  buildInputs = [ qt6.qtbase ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
 
-  propagatedBuildInputs = with python3.pkgs; [
-    # This rather long list came from running:
-    #    grep --no-filename -oE "^[^ =]*" python/{requirements.base.txt,requirements.bundle.txt,requirements.qt6_4.txt} | \
-    #      sort | uniq | grep -v "^#$"
-    # in their repo at the git tag for this version
-    # There's probably a more elegant way, but the above extracted all the
-    # names, without version numbers, of their python dependencies. The hope is
-    # that nixpkgs versions are "close enough"
-    # I then removed the ones the check phase failed on (pythonCatchConflictsPhase)
-    beautifulsoup4
-    certifi
-    charset-normalizer
-    click
-    colorama
-    decorator
-    distro
-    flask
-    flask-cors
-    idna
-    importlib-metadata
-    itsdangerous
-    jinja2
-    jsonschema
-    markdown
-    markupsafe
-    orjson
-    pep517
-    pyparsing
-    pyqt6
-    pyqt6-sip
-    pyqt6-webengine
-    pyrsistent
-    pysocks
-    python3.pkgs.protobuf
-    requests
-    send2trash
-    six
-    soupsieve
-    urllib3
-    waitress
-    werkzeug
-    zipp
-  ] ++ lib.optionals stdenv.isDarwin [
-    AVKit
-    CoreAudio
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      # This rather long list came from running:
+      #    grep --no-filename -oE "^[^ =]*" python/{requirements.base.txt,requirements.bundle.txt,requirements.qt6_4.txt} | \
+      #      sort | uniq | grep -v "^#$"
+      # in their repo at the git tag for this version
+      # There's probably a more elegant way, but the above extracted all the
+      # names, without version numbers, of their python dependencies. The hope is
+      # that nixpkgs versions are "close enough"
+      # I then removed the ones the check phase failed on (pythonCatchConflictsPhase)
+      beautifulsoup4
+      certifi
+      charset-normalizer
+      click
+      colorama
+      decorator
+      distro
+      flask
+      flask-cors
+      idna
+      importlib-metadata
+      itsdangerous
+      jinja2
+      jsonschema
+      markdown
+      markupsafe
+      orjson
+      pep517
+      pyparsing
+      pyqt6
+      pyqt6-sip
+      pyqt6-webengine
+      pyrsistent
+      pysocks
+      python3.pkgs.protobuf
+      requests
+      send2trash
+      six
+      soupsieve
+      urllib3
+      waitress
+      werkzeug
+      zipp
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      AVKit
+      CoreAudio
+    ];
+
+  nativeCheckInputs = with python3.pkgs; [
+    pytest
+    mock
+    astroid
   ];
-
-  nativeCheckInputs = with python3.pkgs; [ pytest mock astroid ];
 
   # tests fail with to many open files
   # TODO: verify if this is still true (I can't, no mac)
@@ -283,7 +291,11 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://apps.ankiweb.net";
     license = licenses.agpl3Plus;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [ euank oxij paveloom ];
+    maintainers = with maintainers; [
+      euank
+      oxij
+      paveloom
+    ];
     # Reported to crash at launch on darwin (as of 2.1.65)
     broken = stdenv.isDarwin;
   };

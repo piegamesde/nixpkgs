@@ -1,7 +1,8 @@
-{ runCommandLocal
-, git
-, clang-tools
-, makeHardcodeGsettingsPatch
+{
+  runCommandLocal,
+  git,
+  clang-tools,
+  makeHardcodeGsettingsPatch,
 }:
 
 let
@@ -14,12 +15,9 @@ let
     }:
 
     let
-      patch = makeHardcodeGsettingsPatch {
-        inherit src schemaIdToVariableMapping;
-      };
+      patch = makeHardcodeGsettingsPatch { inherit src schemaIdToVariableMapping; };
     in
-    runCommandLocal
-      "makeHardcodeGsettingsPatch-tests-${name}"
+    runCommandLocal "makeHardcodeGsettingsPatch-tests-${name}"
 
       {
         nativeBuildInputs = [

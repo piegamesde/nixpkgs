@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "tagref";
   version = "1.8.4";

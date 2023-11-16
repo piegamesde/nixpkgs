@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, setuptools
-, setuptools-scm
-, wheel
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,14 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-5FZxyug4Wo5iSKmwejqDKAwtDMQxJxMFjPus3F7Jlz4=";
   };
 
-  patches = [
-    # https://github.com/wheerd/multiset/pull/115
-    (fetchpatch {
-      name = "relax-setuptools-scm-dependency.patch";
-      url = "https://github.com/wheerd/multiset/commit/296187b07691c94b783f65504afc580a355abd96.patch";
-      hash = "sha256-vnZR1cyM/2/JfbLuVOxJuC9oMVVVploUHpbzagmo+AE=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/wheerd/multiset/pull/115
+      (fetchpatch {
+        name = "relax-setuptools-scm-dependency.patch";
+        url = "https://github.com/wheerd/multiset/commit/296187b07691c94b783f65504afc580a355abd96.patch";
+        hash = "sha256-vnZR1cyM/2/JfbLuVOxJuC9oMVVVploUHpbzagmo+AE=";
+      })
+    ];
 
   postPatch = ''
     # Drop broken version specifier
@@ -38,13 +40,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [
-    "multiset"
-  ];
+  pythonImportsCheck = [ "multiset" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "An implementation of a multiset";

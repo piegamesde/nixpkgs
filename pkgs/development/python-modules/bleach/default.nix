@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, six
-, html5lib
-, setuptools
-, tinycss2
-, packaging
-, pythonOlder
-, webencodings
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  six,
+  html5lib,
+  setuptools,
+  tinycss2,
+  packaging,
+  pythonOlder,
+  webencodings,
 }:
 
 buildPythonPackage rec {
@@ -30,23 +31,18 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    css = [
-      tinycss2
-    ];
+    css = [ tinycss2 ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Disable network tests
-    "protocols"
-  ];
+  disabledTests =
+    [
+      # Disable network tests
+      "protocols"
+    ];
 
-  pythonImportsCheck = [
-    "bleach"
-  ];
+  pythonImportsCheck = [ "bleach" ];
 
   meta = with lib; {
     description = "An easy, HTML5, whitelisting HTML sanitizer";

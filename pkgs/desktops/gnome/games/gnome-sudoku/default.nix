@@ -1,21 +1,22 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, vala
-, pkg-config
-, gobject-introspection
-, gettext
-, gtk3
-, gnome
-, wrapGAppsHook
-, libgee
-, json-glib
-, qqwing
-, itstool
-, libxml2
-, desktop-file-utils
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  vala,
+  pkg-config,
+  gobject-introspection,
+  gettext,
+  gtk3,
+  gnome,
+  wrapGAppsHook,
+  libgee,
+  json-glib,
+  qqwing,
+  itstool,
+  libxml2,
+  desktop-file-utils,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +24,9 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-sudoku/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-sudoku/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "ZRjZIzpG1+E4Bax4dme6RwGUjZ7UGke4h5f826Q7j7o=";
   };
 

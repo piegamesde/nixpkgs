@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, libargon2
-, cffi
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  libargon2,
+  cffi,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     cffi
   ];
 
-  propagatedBuildInputs = [
-    cffi
-  ];
+  propagatedBuildInputs = [ cffi ];
 
   env.ARGON2_CFFI_USE_SYSTEM = 1;
 

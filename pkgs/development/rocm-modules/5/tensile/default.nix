@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, buildPythonPackage
-, pytestCheckHook
-, setuptools
-, pyyaml
-, msgpack
-, pandas
-, joblib
-, filelock
-, rocminfo
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  buildPythonPackage,
+  pytestCheckHook,
+  setuptools,
+  pyyaml,
+  msgpack,
+  pandas,
+  joblib,
+  filelock,
+  rocminfo,
 }:
 
 buildPythonPackage rec {

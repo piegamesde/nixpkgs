@@ -1,10 +1,11 @@
-{ lib
-, buildGraalvmNativeImage
-, graalvmCEPackages
-, removeReferencesTo
-, fetchurl
-, writeScript
-, installShellFiles
+{
+  lib,
+  buildGraalvmNativeImage,
+  graalvmCEPackages,
+  removeReferencesTo,
+  fetchurl,
+  writeScript,
+  installShellFiles,
 }:
 
 let
@@ -21,7 +22,10 @@ let
 
     executable = "bb";
 
-    nativeBuildInputs = [ removeReferencesTo installShellFiles ];
+    nativeBuildInputs = [
+      removeReferencesTo
+      installShellFiles
+    ];
 
     extraNativeImageBuildArgs = [
       "-H:+ReportExceptionStackTraces"

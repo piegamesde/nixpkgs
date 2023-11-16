@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 
-# build
-, setuptools-scm
+  # build
+  setuptools-scm,
 
-# runtime
-, booleanoperations
-, cffsubr
-, compreffor
-, cu2qu
-, defcon
-, fonttools
-, skia-pathops
-, ufoLib2
+  # runtime
+  booleanoperations,
+  cffsubr,
+  compreffor,
+  cu2qu,
+  defcon,
+  fonttools,
+  skia-pathops,
+  ufoLib2,
 
-# tests
-, pytestCheckHook
+  # tests
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-e6p/H1Vub0Ln0VhQvwsVLuD/p8uNG5oCPhfQPCTl1nY=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     cu2qu
@@ -42,13 +41,9 @@ buildPythonPackage rec {
     cffsubr
     ufoLib2
     skia-pathops
-  ]
-  ++ fonttools.optional-dependencies.lxml
-  ++ fonttools.optional-dependencies.ufo;
+  ] ++ fonttools.optional-dependencies.lxml ++ fonttools.optional-dependencies.ufo;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pytestFlagsArray = [
     # Do not depend on skia.

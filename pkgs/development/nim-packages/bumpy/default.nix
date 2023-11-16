@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, vmath }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  vmath,
+}:
 
 buildNimPackage rec {
   pname = "bumpy";
@@ -13,9 +18,10 @@ buildNimPackage rec {
 
   propagatedBuildInputs = [ vmath ];
 
-
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "2d collision library";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

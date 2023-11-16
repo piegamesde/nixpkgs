@@ -1,32 +1,33 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
 
-# Native build inputs
-, cython
-, pythonRelaxDepsHook
-, which
+  # Native build inputs
+  cython,
+  pythonRelaxDepsHook,
+  which,
 
-# Propagated build inputs
-, cffi
-, hydra-core
-, omegaconf
-, sacrebleu
-, numpy
-, regex
-, torch
-, tqdm
-, bitarray
-, torchaudio
-, scikit-learn
-, packaging
+  # Propagated build inputs
+  cffi,
+  hydra-core,
+  omegaconf,
+  sacrebleu,
+  numpy,
+  regex,
+  torch,
+  tqdm,
+  bitarray,
+  torchaudio,
+  scikit-learn,
+  packaging,
 
-# Check inputs
-, expecttest
-, hypothesis
-, pytestCheckHook
+  # Check inputs
+  expecttest,
+  hypothesis,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -42,13 +43,14 @@ buildPythonPackage rec {
     hash = "sha256-XX/grU5ljQCwx33miGoFc/7Uj9fZDtmhm4Fz7L4U+Bc=";
   };
 
-  patches = [
-    # https://github.com/facebookresearch/fairseq/pull/5359
-    (fetchpatch {
-      url = "https://github.com/facebookresearch/fairseq/commit/2fa0768c2115b0a4c207cfa3e1b3e4ff3ad9a00c.patch";
-      hash = "sha256-aYYP/knQX6q6vhyA6q9uOOYfRhDAuJCo9QJWfFEDuuA=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/facebookresearch/fairseq/pull/5359
+      (fetchpatch {
+        url = "https://github.com/facebookresearch/fairseq/commit/2fa0768c2115b0a4c207cfa3e1b3e4ff3ad9a00c.patch";
+        hash = "sha256-aYYP/knQX6q6vhyA6q9uOOYfRhDAuJCo9QJWfFEDuuA=";
+      })
+    ];
 
   nativeBuildInputs = [
     cython
@@ -89,9 +91,7 @@ buildPythonPackage rec {
     cd tests
   '';
 
-  pytestFlagsArray = [
-    "--import-mode append"
-  ];
+  pytestFlagsArray = [ "--import-mode append" ];
 
   disabledTests = [
     # this test requires xformers
@@ -107,10 +107,11 @@ buildPythonPackage rec {
     "test_librispeech_s2t_conformer_s_checkpoint"
   ];
 
-  disabledTestPaths = [
-    # ValueError: mutable default ... for field bar is not allowed: use default_factory
-    "test_dataclass_utils.py"
-  ];
+  disabledTestPaths =
+    [
+      # ValueError: mutable default ... for field bar is not allowed: use default_factory
+      "test_dataclass_utils.py"
+    ];
 
   meta = with lib; {
     description = "Facebook AI Research Sequence-to-Sequence Toolkit";

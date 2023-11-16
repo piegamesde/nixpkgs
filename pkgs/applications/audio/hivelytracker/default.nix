@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, SDL
-, SDL_image
-, SDL_ttf
-, gtk3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL,
+  SDL_image,
+  SDL_ttf,
+  gtk3,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,13 +16,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "pete-gordon";
     repo = "hivelytracker";
-    rev = "V${lib.replaceStrings ["."] ["_"] version}";
+    rev = "V${lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "148p320sd8phcpmj4m85ns5zly2dawbp8kgx9ryjfdk24pa88xg6";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     SDL

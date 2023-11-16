@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchgit, autoconf, popt, zlib, rpcsvc-proto, libtirpc }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoconf,
+  popt,
+  zlib,
+  rpcsvc-proto,
+  libtirpc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dbench";
@@ -10,15 +19,23 @@ stdenv.mkDerivation rec {
     sha256 = "16lcbwmmx8z5i73k3dnf54yffrpx7ql3y9k3cpkss9dcyxb1p83i";
   };
 
-  nativeBuildInputs = [ autoconf rpcsvc-proto ];
-  buildInputs = [ popt zlib libtirpc ];
+  nativeBuildInputs = [
+    autoconf
+    rpcsvc-proto
+  ];
+  buildInputs = [
+    popt
+    zlib
+    libtirpc
+  ];
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
   NIX_LDFLAGS = [ "-ltirpc" ];
 
-  patches = [
-    # patch has been also sent upstream and might be included in future versions
-    ./fix-missing-stdint.patch
-  ];
+  patches =
+    [
+      # patch has been also sent upstream and might be included in future versions
+      ./fix-missing-stdint.patch
+    ];
 
   preConfigure = ''
     ./autogen.sh

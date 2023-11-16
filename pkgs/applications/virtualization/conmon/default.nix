@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, glib
-, glibc
-, libseccomp
-, systemd
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  glibc,
+  libseccomp,
+  systemd,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,8 +22,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib libseccomp systemd ]
-    ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ glibc glibc.static ];
+  buildInputs =
+    [
+      glib
+      libseccomp
+      systemd
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isMusl) [
+      glibc
+      glibc.static
+    ];
 
   # manpage requires building the vendored go-md2man
   makeFlags = [ "bin/conmon" ];
@@ -36,7 +45,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  passthru.tests = { inherit (nixosTests) cri-o podman; };
+  passthru.tests = {
+    inherit (nixosTests) cri-o podman;
+  };
 
   meta = with lib; {
     changelog = "https://github.com/containers/conmon/releases/tag/${src.rev}";

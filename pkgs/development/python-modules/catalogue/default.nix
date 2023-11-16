@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, typing-extensions
-, zipp
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  typing-extensions,
+  zipp,
 }:
 
 buildPythonPackage rec {
@@ -25,13 +26,9 @@ buildPythonPackage rec {
     zipp
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "catalogue"
-  ];
+  pythonImportsCheck = [ "catalogue" ];
 
   meta = with lib; {
     description = "Tiny library for adding function or object registries";

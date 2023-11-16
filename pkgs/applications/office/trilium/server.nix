@@ -1,11 +1,18 @@
-{ stdenv, lib, autoPatchelfHook, fetchurl, nixosTests
-, metaCommon }:
+{
+  stdenv,
+  lib,
+  autoPatchelfHook,
+  fetchurl,
+  nixosTests,
+  metaCommon,
+}:
 
 let
   serverSource.url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-server-${version}.tar.xz";
   serverSource.sha256 = "16xyxpxqvzhdq63wc2nzmfabpasypxwm474jf15y3q8kdrca9myv";
   version = "0.60.4";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "trilium-server";
   inherit version;
   meta = metaCommon // {
@@ -14,18 +21,15 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl serverSource;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ stdenv.cc.cc.lib ];
 
-  patches = [
-    # patch logger to use console instead of rolling files
-    ./0001-Use-console-logger-instead-of-rolling-files.patch
-  ];
+  patches =
+    [
+      # patch logger to use console instead of rolling files
+      ./0001-Use-console-logger-instead-of-rolling-files.patch
+    ];
 
   installPhase = ''
     runHook preInstall

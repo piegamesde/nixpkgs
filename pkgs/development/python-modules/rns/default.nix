@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, netifaces
-, pyserial
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  netifaces,
+  pyserial,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "RNS"
-  ];
+  pythonImportsCheck = [ "RNS" ];
 
   meta = with lib; {
     description = "Cryptography-based networking stack for wide-area networks";

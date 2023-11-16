@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, buildGo121Module
+{
+  lib,
+  fetchFromGitHub,
+  buildGo121Module,
 }:
 buildGo121Module rec {
   pname = "uplosi";
@@ -16,7 +17,12 @@ buildGo121Module rec {
   vendorHash = "sha256-RsjUPLe8omoN+XGyNhHDxzNfZR7VVTkh/f/On1oCRqM=";
 
   CGO_ENABLED = "0";
-  ldflags = [ "-s" "-w" "-buildid=" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-buildid="
+    "-X main.version=${version}"
+  ];
   flags = [ "-trimpath" ];
 
   meta = with lib; {
@@ -25,7 +31,10 @@ buildGo121Module rec {
     changelog = "https://github.com/edgelesssys/uplosi/releases/tag/v${version}";
     license = licenses.asl20;
     mainProgram = "uplosi";
-    maintainers = with maintainers; [ katexochen malt3 ];
+    maintainers = with maintainers; [
+      katexochen
+      malt3
+    ];
     platforms = platforms.unix;
   };
 }

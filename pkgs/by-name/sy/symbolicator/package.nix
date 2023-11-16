@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, bzip2
-, openssl
-, zstd
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  openssl,
+  zstd,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -38,9 +39,7 @@ rustPlatform.buildRustPackage rec {
     bzip2
     openssl
     zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   env = {
     SYMBOLICATOR_GIT_VERSION = src.rev;

@@ -1,13 +1,15 @@
 /* Hydra job to build a tarball for Nixpkgs from a Git checkout.  It
    also builds the documentation and tests whether the Nix expressions
-   evaluate correctly. */
+   evaluate correctly.
+*/
 
-{ nixpkgs
-, officialRelease
-, supportedSystems
-, pkgs ? import nixpkgs.outPath {}
-, nix ? pkgs.nix
-, lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; }
+{
+  nixpkgs,
+  officialRelease,
+  supportedSystems,
+  pkgs ? import nixpkgs.outPath { },
+  nix ? pkgs.nix,
+  lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; },
 }:
 
 pkgs.releaseTools.sourceTarball {
@@ -17,11 +19,18 @@ pkgs.releaseTools.sourceTarball {
   inherit officialRelease;
   version = pkgs.lib.fileContents ../../.version;
   versionSuffix = "pre${
-    if nixpkgs ? lastModified
-    then builtins.substring 0 8 (nixpkgs.lastModifiedDate or nixpkgs.lastModified)
-    else toString (nixpkgs.revCount or 0)}.${nixpkgs.shortRev or "dirty"}";
+      if nixpkgs ? lastModified then
+        builtins.substring 0 8 (nixpkgs.lastModifiedDate or nixpkgs.lastModified)
+      else
+        toString (nixpkgs.revCount or 0)
+    }.${nixpkgs.shortRev or "dirty"}";
 
-  buildInputs = with pkgs; [ nix.out jq lib-tests brotli ];
+  buildInputs = with pkgs; [
+    nix.out
+    jq
+    lib-tests
+    brotli
+  ];
 
   configurePhase = ''
     eval "$preConfigure"
@@ -34,8 +43,14 @@ pkgs.releaseTools.sourceTarball {
 
   requiredSystemFeatures = [ "big-parallel" ]; # 1 thread but ~36G RAM (!) see #227945
 
-  nixpkgs-basic-release-checks = import ./nixpkgs-basic-release-checks.nix
-   { inherit nix pkgs nixpkgs supportedSystems; };
+  nixpkgs-basic-release-checks = import ./nixpkgs-basic-release-checks.nix {
+    inherit
+      nix
+      pkgs
+      nixpkgs
+      supportedSystems
+    ;
+  };
 
   dontBuild = false;
 
@@ -66,7 +81,9 @@ pkgs.releaseTools.sourceTarball {
     echo "generating packages.json"
     mkdir -p $out/nix-support
     echo -n '{"version":2,"packages":' > tmp
-    nix-env -f . -I nixpkgs=$src -qa --meta --json --show-trace --arg config 'import ${./packages-config.nix}' "''${opts[@]}" >> tmp
+    nix-env -f . -I nixpkgs=$src -qa --meta --json --show-trace --arg config 'import ${
+      ./packages-config.nix
+    }' "''${opts[@]}" >> tmp
     echo -n '}' >> tmp
     packages=$out/packages.json.br
     < tmp sed "s|$(pwd)/||g" | jq -c | brotli -9 > $packages

@@ -1,4 +1,8 @@
-{ lib, buildNimPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+}:
 
 buildNimPackage rec {
   pname = "asciigraph";
@@ -11,9 +15,10 @@ buildNimPackage rec {
     hash = "sha256-JMBAW8hkE2wuXkRt4aHqFPoz1HX1J4SslvcaQXfpDNk";
   };
 
-
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "Console ascii line graphs in pure Nim";
       license = [ licenses.mit ];
       maintainers = with maintainers; [ sikmir ];

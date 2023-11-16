@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, qt5
-, legendary-gl
-, pypresence
-, pyqt5
-, python
-, qtawesome
-, requests
-, typing-extensions
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  qt5,
+  legendary-gl,
+  pypresence,
+  pyqt5,
+  python,
+  qtawesome,
+  requests,
+  typing-extensions,
 }:
 
 buildPythonApplication rec {
@@ -22,9 +23,7 @@ buildPythonApplication rec {
     hash = "sha256-7KER9gCpqjEKikQTVHsvwX6efCb9L0ut6OBjjLBW2tI=";
   };
 
-  nativeBuildInputs = [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
   propagatedBuildInputs = [
     legendary-gl
@@ -35,10 +34,11 @@ buildPythonApplication rec {
     typing-extensions
   ];
 
-  patches = [
-    # Not able to run pythonRelaxDepsHook because of https://github.com/NixOS/nixpkgs/issues/198342
-    ./legendary-gl-version.patch
-  ];
+  patches =
+    [
+      # Not able to run pythonRelaxDepsHook because of https://github.com/NixOS/nixpkgs/issues/198342
+      ./legendary-gl-version.patch
+    ];
 
   dontWrapQtApps = true;
 

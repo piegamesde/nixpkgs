@@ -1,11 +1,12 @@
-{ lib
-, azure-common
-, azure-mgmt-core
-, buildPythonPackage
-, fetchPypi
-, isodate
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  azure-common,
+  azure-mgmt-core,
+  buildPythonPackage,
+  fetchPypi,
+  isodate,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -24,25 +25,23 @@ buildPythonPackage rec {
     azure-common
     azure-mgmt-core
     isodate
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonNamespaces = [
-    "azure.mgmt"
-  ];
+  pythonNamespaces = [ "azure.mgmt" ];
 
-  pythonImportsCheck = [
-    "azure.mgmt.network"
-  ];
+  pythonImportsCheck = [ "azure.mgmt.network" ];
 
   meta = with lib; {
     description = "Microsoft Azure SDK for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ olcai maxwilson jonringer ];
+    maintainers = with maintainers; [
+      olcai
+      maxwilson
+      jonringer
+    ];
   };
 }

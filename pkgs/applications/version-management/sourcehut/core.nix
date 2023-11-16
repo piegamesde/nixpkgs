@@ -1,27 +1,28 @@
-{ lib
-, fetchFromSourcehut
-, buildPythonPackage
-, flask
-, humanize
-, sqlalchemy
-, sqlalchemy-utils
-, psycopg2
-, markdown
-, mistletoe
-, bleach
-, requests
-, beautifulsoup4
-, pygments
-, cryptography
-, prometheus-client
-, alembic
-, redis
-, celery
-, html5lib
-, importlib-metadata
-, tinycss2
-, sassc
-, minify
+{
+  lib,
+  fetchFromSourcehut,
+  buildPythonPackage,
+  flask,
+  humanize,
+  sqlalchemy,
+  sqlalchemy-utils,
+  psycopg2,
+  markdown,
+  mistletoe,
+  bleach,
+  requests,
+  beautifulsoup4,
+  pygments,
+  cryptography,
+  prometheus-client,
+  alembic,
+  redis,
+  celery,
+  html5lib,
+  importlib-metadata,
+  tinycss2,
+  sassc,
+  minify,
 }:
 
 buildPythonPackage rec {
@@ -36,10 +37,11 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # Fix Unix socket support in RedisQueueCollector
-    patches/redis-socket/core/0001-Fix-Unix-socket-support-in-RedisQueueCollector.patch
-  ];
+  patches =
+    [
+      # Fix Unix socket support in RedisQueueCollector
+      patches/redis-socket/core/0001-Fix-Unix-socket-support-in-RedisQueueCollector.patch
+    ];
 
   propagatedNativeBuildInputs = [
     sassc

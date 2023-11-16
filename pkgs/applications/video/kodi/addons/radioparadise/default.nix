@@ -1,4 +1,10 @@
-{ lib, buildKodiAddon, fetchzip, addonUpdateScript, requests }:
+{
+  lib,
+  buildKodiAddon,
+  fetchzip,
+  addonUpdateScript,
+  requests,
+}:
 
 buildKodiAddon rec {
   pname = "radioparadise";
@@ -10,15 +16,11 @@ buildKodiAddon rec {
     sha256 = "sha256-/X/8Q741piNHue5i/kgV+UYpBECyGzkFuN+PUzdeQnA=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   passthru = {
     pythonPath = "resources/lib";
-    updateScript = addonUpdateScript {
-      attrPath = "kodi.packages.radioparadise";
-    };
+    updateScript = addonUpdateScript { attrPath = "kodi.packages.radioparadise"; };
   };
 
   meta = with lib; {

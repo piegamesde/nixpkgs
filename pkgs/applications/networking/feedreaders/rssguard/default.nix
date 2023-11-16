@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, qtwebengine
-, qttools
-, wrapGAppsHook
-, wrapQtAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qtwebengine,
+  qttools,
+  wrapGAppsHook,
+  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tgXBsby9ML+m4b2hvLXHIb552o5x6l3kO8YTeZRCExI=";
   };
 
-  buildInputs =  [ qtwebengine qttools ];
-  nativeBuildInputs = [ cmake wrapGAppsHook wrapQtAppsHook ];
+  buildInputs = [
+    qtwebengine
+    qttools
+  ];
+  nativeBuildInputs = [
+    cmake
+    wrapGAppsHook
+    wrapQtAppsHook
+  ];
   qmakeFlags = [ "CONFIG+=release" ];
 
   meta = with lib; {

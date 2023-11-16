@@ -1,4 +1,8 @@
-{ lib, buildNimPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+}:
 
 buildNimPackage rec {
   pname = "jsony";
@@ -11,9 +15,10 @@ buildNimPackage rec {
     sha256 = "1720iqsxjhqmhw1zhhs7d2ncdz25r8fqadls1p1iry1wfikjlnba";
   };
 
-
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "A loose, direct to object json parser with hooks";
       license = [ licenses.mit ];
       maintainers = [ maintainers.erdnaxe ];

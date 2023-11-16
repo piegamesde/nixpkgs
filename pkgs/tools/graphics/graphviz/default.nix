@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, autoreconfHook
-, pkg-config
-, cairo
-, expat
-, flex
-, fontconfig
-, gd
-, gts
-, libjpeg
-, libpng
-, libtool
-, pango
-, bash
-, bison
-, xorg
-, ApplicationServices
-, python3
-, fltk
-, exiv2
-, withXorg ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  pkg-config,
+  cairo,
+  expat,
+  flex,
+  fontconfig,
+  gd,
+  gts,
+  libjpeg,
+  libpng,
+  libtool,
+  pango,
+  bash,
+  bison,
+  xorg,
+  ApplicationServices,
+  python3,
+  fltk,
+  exiv2,
+  withXorg ? true,
 }:
 
 let
@@ -45,17 +46,25 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  buildInputs = [
-    libpng
-    libjpeg
-    expat
-    fontconfig
-    gd
-    gts
-    pango
-    bash
-  ] ++ optionals withXorg (with xorg; [ libXrender libXaw libXpm ])
-  ++ optionals stdenv.isDarwin [ ApplicationServices ];
+  buildInputs =
+    [
+      libpng
+      libjpeg
+      expat
+      fontconfig
+      gd
+      gts
+      pango
+      bash
+    ]
+    ++ optionals withXorg (
+      with xorg; [
+        libXrender
+        libXaw
+        libXpm
+      ]
+    )
+    ++ optionals stdenv.isDarwin [ ApplicationServices ];
 
   hardeningDisable = [ "fortify" ];
 
@@ -66,8 +75,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  CPPFLAGS = optionalString (withXorg && stdenv.isDarwin)
-    "-I${cairo.dev}/include/cairo";
+  CPPFLAGS = optionalString (withXorg && stdenv.isDarwin) "-I${cairo.dev}/include/cairo";
 
   doCheck = false; # fails with "Graphviz test suite requires ksh93" which is not in nixpkgs
 
@@ -90,6 +98,9 @@ stdenv.mkDerivation rec {
     description = "Graph visualization tools";
     license = licenses.epl10;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor raskin ];
+    maintainers = with maintainers; [
+      bjornfor
+      raskin
+    ];
   };
 }

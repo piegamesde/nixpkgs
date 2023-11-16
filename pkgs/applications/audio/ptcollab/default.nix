@@ -1,15 +1,16 @@
-{ mkDerivation
-, lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, libvorbis
-, pkg-config
-, qmake
-, qtbase
-, qttools
-, qtmultimedia
-, rtmidi
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  libvorbis,
+  pkg-config,
+  qmake,
+  qtbase,
+  qttools,
+  qtmultimedia,
+  rtmidi,
 }:
 
 mkDerivation rec {

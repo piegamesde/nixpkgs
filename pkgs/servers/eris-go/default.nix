@@ -1,4 +1,10 @@
-{ lib, stdenv, buildGoModule, fetchFromGitea, nixosTests }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitea,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "eris-go";
@@ -16,7 +22,9 @@ buildGoModule rec {
 
   skipNetworkTests = true;
 
-  passthru.tests = { inherit (nixosTests) eris-server; };
+  passthru.tests = {
+    inherit (nixosTests) eris-server;
+  };
 
   meta = src.meta // {
     description = "Implementation of ERIS for Go";

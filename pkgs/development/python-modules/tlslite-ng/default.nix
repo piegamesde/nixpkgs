@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ecdsa
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ecdsa,
 }:
 
 buildPythonPackage rec {
@@ -21,5 +22,4 @@ buildPythonPackage rec {
     license = licenses.lgpl2;
     maintainers = [ ];
   };
-
 }

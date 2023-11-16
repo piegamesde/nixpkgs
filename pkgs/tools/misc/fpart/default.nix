@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, fts }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  fts,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fpart";
@@ -20,7 +26,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Split file trees into bags (called \"partitions\")";
+    description = ''Split file trees into bags (called "partitions")'';
     longDescription = ''
       Fpart is a tool that helps you sort file trees and pack them into bags
       (called "partitions").

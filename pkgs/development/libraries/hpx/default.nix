@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, asio, boost, cmake, hwloc, gperftools, ninja
-, pkg-config, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asio,
+  boost,
+  cmake,
+  hwloc,
+  gperftools,
+  ninja,
+  pkg-config,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hpx";
@@ -12,8 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YJ4wHaPE5E6ngUAYrQB1SkW4IoHW71tUDKKNANVA9Xw=";
   };
 
-  buildInputs = [ asio boost hwloc gperftools ];
-  nativeBuildInputs = [ cmake pkg-config python3 ];
+  buildInputs = [
+    asio
+    boost
+    hwloc
+    gperftools
+  ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ];
 
   strictDeps = true;
 

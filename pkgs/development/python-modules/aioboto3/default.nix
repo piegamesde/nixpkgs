@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, poetry-dynamic-versioning
-, aiobotocore
-, chalice
-, cryptography
-, boto3
-, pytestCheckHook
-, pytest-asyncio
-, requests
-, aiofiles
-, moto
-, dill
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  poetry-dynamic-versioning,
+  aiobotocore,
+  chalice,
+  cryptography,
+  boto3,
+  pytestCheckHook,
+  pytest-asyncio,
+  requests,
+  aiofiles,
+  moto,
+  dill,
 }:
 
 buildPythonPackage rec {
@@ -44,12 +45,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    chalice = [
-      chalice
-    ];
-    s3cse = [
-      cryptography
-    ];
+    chalice = [ chalice ];
+    s3cse = [ cryptography ];
   };
 
   nativeCheckInputs = [

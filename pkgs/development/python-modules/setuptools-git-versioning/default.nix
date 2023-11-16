@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, build
-, coverage
-, git
-, packaging
-, pytestCheckHook
-, pytest-rerunfailures
-, pythonOlder
-, setuptools
-, toml
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  build,
+  coverage,
+  git,
+  packaging,
+  pytestCheckHook,
+  pytest-rerunfailures,
+  pythonOlder,
+  setuptools,
+  toml,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -33,13 +34,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     packaging
     setuptools
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    toml
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ toml ];
 
-  pythonImportsCheck = [
-    "setuptools_git_versioning"
-  ];
+  pythonImportsCheck = [ "setuptools_git_versioning" ];
 
   nativeCheckInputs = [
     build
@@ -56,12 +53,16 @@ buildPythonPackage rec {
   '';
 
   # limit tests because the full suite takes several minutes to run
-  pytestFlagsArray = [ "-m" "important" ];
-
-  disabledTests = [
-    # runs an isolated build that uses internet to download dependencies
-    "test_config_not_used"
+  pytestFlagsArray = [
+    "-m"
+    "important"
   ];
+
+  disabledTests =
+    [
+      # runs an isolated build that uses internet to download dependencies
+      "test_config_not_used"
+    ];
 
   meta = with lib; {
     description = "Use git repo data (latest tag, current commit hash, etc) for building a version number according PEP-440";

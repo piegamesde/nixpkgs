@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, bleach
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  bleach,
 }:
 
 buildPythonPackage rec {
@@ -13,9 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-VuIghgeaDmoxAK6Z5NuvIOslhUhlmOsOmUAIoRQo2ps=";
   };
 
-  propagatedBuildInputs = [
-    bleach
-  ];
+  propagatedBuildInputs = [ bleach ];
 
   # No tests
   doCheck = false;

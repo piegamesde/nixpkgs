@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchurl
-, autoreconfHook
-, gtk-doc
-, vala
-, gobject-introspection
-, wrapGAppsHook
-, gsettings-desktop-schemas
-, gspell
-, gtksourceview4
-, libgee
-, tepl
-, amtk
-, gnome
-, glib
-, pkg-config
-, gettext
-, itstool
-, libxml2
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  gtk-doc,
+  vala,
+  gobject-introspection,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  gspell,
+  gtksourceview4,
+  libgee,
+  tepl,
+  amtk,
+  gnome,
+  glib,
+  pkg-config,
+  gettext,
+  itstool,
+  libxml2,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,7 +26,9 @@ stdenv.mkDerivation rec {
   pname = "gnome-latex";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "iL1TQL0ox+0Bx5ZqOgBzK72QJ3PfWsZZvmrRGAap50Q=";
   };
 
@@ -52,9 +55,7 @@ stdenv.mkDerivation rec {
     tepl
   ];
 
-  configureFlags = [
-    "--disable-dconf-migration"
-  ];
+  configureFlags = [ "--disable-dconf-migration" ];
 
   doCheck = true;
 

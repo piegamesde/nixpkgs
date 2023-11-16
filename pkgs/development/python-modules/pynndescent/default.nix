@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, importlib-metadata
-, joblib
-, llvmlite
-, numba
-, scikit-learn
-, scipy
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  importlib-metadata,
+  joblib,
+  llvmlite,
+  numba,
+  scikit-learn,
+  scipy,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -24,13 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-XV3Gg8A+9V/j3faThZcgyhj4XG5uW7C08UhwJ41SiK0=";
   };
 
-  patches = [
-    # https://github.com/lmcinnes/pynndescent/pull/224
-    (fetchpatch {
-      url = "https://github.com/lmcinnes/pynndescent/commit/86e0d716a3a4d5f4e6a0a3c2952f6fe339524e96.patch";
-      hash = "sha256-dfnT5P9Qsn/nSAr4Ysqo/olbLLfoZXvBRz33yzhN3J4=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/lmcinnes/pynndescent/pull/224
+      (fetchpatch {
+        url = "https://github.com/lmcinnes/pynndescent/commit/86e0d716a3a4d5f4e6a0a3c2952f6fe339524e96.patch";
+        hash = "sha256-dfnT5P9Qsn/nSAr4Ysqo/olbLLfoZXvBRz33yzhN3J4=";
+      })
+    ];
 
   propagatedBuildInputs = [
     joblib
@@ -38,13 +40,9 @@ buildPythonPackage rec {
     numba
     scikit-learn
     scipy
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # numpy.core._exceptions._UFuncNoLoopError
@@ -56,9 +54,7 @@ buildPythonPackage rec {
     "test_weighted_minkowski"
   ];
 
-  pythonImportsCheck = [
-    "pynndescent"
-  ];
+  pythonImportsCheck = [ "pynndescent" ];
 
   meta = with lib; {
     description = "Nearest Neighbor Descent";

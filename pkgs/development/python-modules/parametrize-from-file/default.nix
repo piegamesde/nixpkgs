@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, pytestCheckHook
-, numpy
-, decopatch
-, more-itertools
-, nestedtext
-, pyyaml
-, tidyexc
-, toml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pytestCheckHook,
+  numpy,
+  decopatch,
+  more-itertools,
+  nestedtext,
+  pyyaml,
+  tidyexc,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
       --replace "more_itertools~=8.10" "more_itertools"
   '';
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   nativeCheckInputs = [
     numpy
@@ -49,14 +48,13 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [
-    "parametrize_from_file"
-  ];
+  pythonImportsCheck = [ "parametrize_from_file" ];
 
-  disabledTests = [
-    # https://github.com/kalekundert/parametrize_from_file/issues/19
-    "test_load_suite_params_err"
-  ];
+  disabledTests =
+    [
+      # https://github.com/kalekundert/parametrize_from_file/issues/19
+      "test_load_suite_params_err"
+    ];
 
   meta = with lib; {
     description = "Read unit test parameters from config files";

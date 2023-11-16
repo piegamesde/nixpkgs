@@ -1,8 +1,10 @@
-{ lib, stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-, pillow
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pkgs,
+  pillow,
 }:
 
 buildPythonPackage rec {
@@ -18,38 +20,42 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pillow ];
 
-  patchPhase = let
-    ext = stdenv.hostPlatform.extensions.sharedLibrary; in lib.optionalString (!stdenv.isDarwin) ''
-    # Theses lines are patching the name of dynamic libraries
-    # so pyopengl can find them at runtime.
-    substituteInPlace OpenGL/platform/glx.py \
-      --replace "'GL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
-      --replace "'GLU'" "'${pkgs.libGLU}/lib/libGLU${ext}'" \
-      --replace "'glut'" "'${pkgs.freeglut}/lib/libglut${ext}'" \
-      --replace "'GLESv1_CM'," "'${pkgs.libGL}/lib/libGLESv1_CM${ext}'," \
-      --replace "'GLESv2'," "'${pkgs.libGL}/lib/libGLESv2${ext}',"
-    substituteInPlace OpenGL/platform/egl.py \
-      --replace "('OpenGL','GL')" "('${pkgs.libGL}/lib/libOpenGL${ext}', '${pkgs.libGL}/lib/libGL${ext}')" \
-      --replace "'GLU'," "'${pkgs.libGLU}/lib/libGLU${ext}'," \
-      --replace "'glut'," "'${pkgs.freeglut}/lib/libglut${ext}'," \
-      --replace "'GLESv1_CM'," "'${pkgs.libGL}/lib/libGLESv1_CM${ext}'," \
-      --replace "'GLESv2'," "'${pkgs.libGL}/lib/libGLESv2${ext}'," \
-      --replace "'EGL'," "'${pkgs.libGL}/lib/libEGL${ext}',"
-    substituteInPlace OpenGL/platform/darwin.py \
-      --replace "'OpenGL'," "'${pkgs.libGL}/lib/libGL${ext}'," \
-      --replace "'GLUT'," "'${pkgs.freeglut}/lib/libglut${ext}',"
-    # TODO: patch 'gle' in OpenGL/platform/egl.py
-  '' + ''
-    # https://github.com/NixOS/nixpkgs/issues/76822
-    # pyopengl introduced a new "robust" way of loading libraries in 3.1.4.
-    # The later patch of the filepath does not work anymore because
-    # pyopengl takes the "name" (for us: the path) and tries to add a
-    # few suffix during its loading phase.
-    # The following patch put back the "name" (i.e. the path) in the
-    # list of possible files.
-    substituteInPlace OpenGL/platform/ctypesloader.py \
-      --replace "filenames_to_try = []" "filenames_to_try = [name]"
-  '';
+  patchPhase =
+    let
+      ext = stdenv.hostPlatform.extensions.sharedLibrary;
+    in
+    lib.optionalString (!stdenv.isDarwin) ''
+      # Theses lines are patching the name of dynamic libraries
+      # so pyopengl can find them at runtime.
+      substituteInPlace OpenGL/platform/glx.py \
+        --replace "'GL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
+        --replace "'GLU'" "'${pkgs.libGLU}/lib/libGLU${ext}'" \
+        --replace "'glut'" "'${pkgs.freeglut}/lib/libglut${ext}'" \
+        --replace "'GLESv1_CM'," "'${pkgs.libGL}/lib/libGLESv1_CM${ext}'," \
+        --replace "'GLESv2'," "'${pkgs.libGL}/lib/libGLESv2${ext}',"
+      substituteInPlace OpenGL/platform/egl.py \
+        --replace "('OpenGL','GL')" "('${pkgs.libGL}/lib/libOpenGL${ext}', '${pkgs.libGL}/lib/libGL${ext}')" \
+        --replace "'GLU'," "'${pkgs.libGLU}/lib/libGLU${ext}'," \
+        --replace "'glut'," "'${pkgs.freeglut}/lib/libglut${ext}'," \
+        --replace "'GLESv1_CM'," "'${pkgs.libGL}/lib/libGLESv1_CM${ext}'," \
+        --replace "'GLESv2'," "'${pkgs.libGL}/lib/libGLESv2${ext}'," \
+        --replace "'EGL'," "'${pkgs.libGL}/lib/libEGL${ext}',"
+      substituteInPlace OpenGL/platform/darwin.py \
+        --replace "'OpenGL'," "'${pkgs.libGL}/lib/libGL${ext}'," \
+        --replace "'GLUT'," "'${pkgs.freeglut}/lib/libglut${ext}',"
+      # TODO: patch 'gle' in OpenGL/platform/egl.py
+    ''
+    + ''
+      # https://github.com/NixOS/nixpkgs/issues/76822
+      # pyopengl introduced a new "robust" way of loading libraries in 3.1.4.
+      # The later patch of the filepath does not work anymore because
+      # pyopengl takes the "name" (for us: the path) and tries to add a
+      # few suffix during its loading phase.
+      # The following patch put back the "name" (i.e. the path) in the
+      # list of possible files.
+      substituteInPlace OpenGL/platform/ctypesloader.py \
+        --replace "filenames_to_try = []" "filenames_to_try = [name]"
+    '';
 
   # Need to fix test runner
   # Tests have many dependencies
@@ -72,6 +78,4 @@ buildPythonPackage rec {
     license = "BSD-style";
     platforms = platforms.mesaPlatforms;
   };
-
-
 }

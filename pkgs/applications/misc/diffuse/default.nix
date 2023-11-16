@@ -1,15 +1,17 @@
-{ lib, gitUpdater
-, fetchFromGitHub
-, meson
-, ninja
-, gettext
-, wrapGAppsHook
-, gobject-introspection
-, pango
-, gdk-pixbuf
-, python3
-, atk
-, gtk3
+{
+  lib,
+  gitUpdater,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  gettext,
+  wrapGAppsHook,
+  gobject-introspection,
+  pango,
+  gdk-pixbuf,
+  python3,
+  atk,
+  gtk3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -50,17 +52,13 @@ python3.pkgs.buildPythonApplication rec {
     substituteInPlace src/diffuse/meson.build data/icons/meson.build --replace "/Applications" "$out/Applications";
   '';
 
-  mesonFlags = [
-    "-Db_ndebug=true"
-  ];
+  mesonFlags = [ "-Db_ndebug=true" ];
 
   # to avoid running gtk-update-icon-cache, update-desktop-database and glib-compile-schemas
   DESTDIR = "/";
 
   passthru = {
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
+    updateScript = gitUpdater { rev-prefix = "v"; };
   };
 
   meta = with lib; {

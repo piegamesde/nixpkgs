@@ -1,15 +1,16 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, setuptools-scm
-, setuptools
-, vdf
-, bash
-, steam-run
-, winetricks
-, yad
-, pytestCheckHook
-, nix-update-script
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  setuptools-scm,
+  setuptools,
+  vdf,
+  bash,
+  steam-run,
+  winetricks,
+  yad,
+  pytestCheckHook,
+  nix-update-script,
 }:
 
 buildPythonApplication rec {
@@ -23,10 +24,11 @@ buildPythonApplication rec {
     sha256 = "sha256-gKrdUwX5TzeHHXuwhUyI4REPE6TNiZ6lhonyMCHcBCA=";
   };
 
-  patches = [
-    # Use steam-run to run Proton binaries
-    ./steam-run.patch
-  ];
+  patches =
+    [
+      # Use steam-run to run Proton binaries
+      ./steam-run.patch
+    ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -38,12 +40,14 @@ buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [
-      bash
-      steam-run
-      winetricks
-      yad
-    ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        bash
+        steam-run
+        winetricks
+        yad
+      ]
+    }"
   ];
 
   nativeCheckInputs = [ pytestCheckHook ];
@@ -63,6 +67,9 @@ buildPythonApplication rec {
     homepage = "https://github.com/Matoking/protontricks";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ kira-bruneau ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

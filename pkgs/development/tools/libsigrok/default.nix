@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, libzip
-, glib
-, libusb1
-, libftdi1
-, check
-, libserialport
-, doxygen
-, glibmm
-, python
-, hidapi
-, libieee1284
-, bluez
-, sigrok-firmware-fx2lafw
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libzip,
+  glib,
+  libusb1,
+  libftdi1,
+  check,
+  libserialport,
+  doxygen,
+  glibmm,
+  python,
+  hidapi,
+  libieee1284,
+  bluez,
+  sigrok-firmware-fx2lafw,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,10 +29,26 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ doxygen pkg-config python ];
-  buildInputs = [
-    libzip glib libusb1 libftdi1 check libserialport glibmm hidapi
-  ] ++ lib.optionals stdenv.isLinux [ libieee1284 bluez ];
+  nativeBuildInputs = [
+    doxygen
+    pkg-config
+    python
+  ];
+  buildInputs =
+    [
+      libzip
+      glib
+      libusb1
+      libftdi1
+      check
+      libserialport
+      glibmm
+      hidapi
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      libieee1284
+      bluez
+    ];
 
   strictDeps = true;
 

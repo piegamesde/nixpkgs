@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, autoreconfHook
-, libgpg-error
-, gnupg
-, pkg-config
-, glib
-, pth
-, libassuan
-, file
-, which
-, ncurses
-, texinfo
-, buildPackages
-, qtbase ? null
-, pythonSupport ? false
-, swig2 ? null
-# only for passthru.tests
-, libsForQt5
-, python3
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  libgpg-error,
+  gnupg,
+  pkg-config,
+  glib,
+  pth,
+  libassuan,
+  file,
+  which,
+  ncurses,
+  texinfo,
+  buildPackages,
+  qtbase ? null,
+  pythonSupport ? false,
+  swig2 ? null,
+  # only for passthru.tests
+  libsForQt5,
+  python3,
 }:
 let
   inherit (stdenv.hostPlatform) system;
@@ -40,55 +41,55 @@ stdenv.mkDerivation rec {
     ./test_t-verify_double-plaintext.patch
   ];
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
 
   outputBin = "dev"; # gpgme-config; not so sure about gpgme-tool
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gnupg
-    pkg-config
-    texinfo
-  ] ++ lib.optionals pythonSupport [
-    python3.pythonOnBuildForHost
-    ncurses
-    swig2
-    which
-  ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      gnupg
+      pkg-config
+      texinfo
+    ]
+    ++ lib.optionals pythonSupport [
+      python3.pythonOnBuildForHost
+      ncurses
+      swig2
+      which
+    ];
 
-  buildInputs = lib.optionals pythonSupport [
-    python3
-  ];
+  buildInputs = lib.optionals pythonSupport [ python3 ];
 
   propagatedBuildInputs = [
     glib
     libassuan
     libgpg-error
     pth
-  ] ++ lib.optionals (qtbase != null) [
-    qtbase
-  ];
+  ] ++ lib.optionals (qtbase != null) [ qtbase ];
 
-  nativeCheckInputs = [
-    which
-  ];
+  nativeCheckInputs = [ which ];
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   dontWrapQtApps = true;
 
-  configureFlags = [
-    "--enable-fixed-path=${gnupg}/bin"
-    "--with-libgpg-error-prefix=${libgpg-error.dev}"
-    "--with-libassuan-prefix=${libassuan.dev}"
-  ] ++ lib.optional pythonSupport "--enable-languages=python"
-  # Tests will try to communicate with gpg-agent instance via a UNIX socket
-  # which has a path length limit. Nix on darwin is using a build directory
-  # that already has quite a long path and the resulting socket path doesn't
-  # fit in the limit. https://github.com/NixOS/nix/pull/1085
-  ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ];
+  configureFlags =
+    [
+      "--enable-fixed-path=${gnupg}/bin"
+      "--with-libgpg-error-prefix=${libgpg-error.dev}"
+      "--with-libassuan-prefix=${libassuan.dev}"
+    ]
+    ++ lib.optional pythonSupport "--enable-languages=python"
+    # Tests will try to communicate with gpg-agent instance via a UNIX socket
+    # which has a path length limit. Nix on darwin is using a build directory
+    # that already has quite a long path and the resulting socket path doesn't
+    # fit in the limit. https://github.com/NixOS/nix/pull/1085
+    ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ];
 
   env.NIX_CFLAGS_COMPILE = toString (
     # qgpgme uses Q_ASSERT which retains build inputs at runtime unless
@@ -105,7 +106,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  checkFlags = [ "-C" "tests" ];
+  checkFlags = [
+    "-C"
+    "tests"
+  ];
 
   passthru.tests = {
     python = python3.pkgs.gpgme;
@@ -122,7 +126,10 @@ stdenv.mkDerivation rec {
       encryption, decryption, signing, signature verification and key
       management.
     '';
-    license = with licenses; [ lgpl21Plus gpl3Plus ];
+    license = with licenses; [
+      lgpl21Plus
+      gpl3Plus
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ dotlambda ];
   };

@@ -1,58 +1,59 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchgit
-, SDL2
-, cmake
-, espeak
-, ffmpeg
-, file
-, freetype
-, glib
-, gumbo
-, harfbuzz
-, jbig2dec
-, leptonica
-, libGL
-, libX11
-, libXau
-, libXcomposite
-, libXdmcp
-, libXfixes
-, libdrm
-, libffi
-, libusb1
-, libuvc
-, libvlc
-, libvncserver
-, libxcb
-, libxkbcommon
-, lua5_1
-, luajit
-, makeWrapper
-, mesa
-, mupdf
-, ninja
-, openal
-, openjpeg
-, pcre2
-, pkg-config
-, ruby
-, sqlite
-, tesseract
-, valgrind
-, wayland
-, wayland-protocols
-, xcbutil
-, xcbutilwm
-, xz
-, buildManPages ? true
-, useBuiltinLua ? true
-, useEspeak ? !stdenv.isDarwin
-, useStaticLibuvc ? true
-, useStaticOpenAL ? true
-, useStaticSqlite ? true
-, useTracy ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchgit,
+  SDL2,
+  cmake,
+  espeak,
+  ffmpeg,
+  file,
+  freetype,
+  glib,
+  gumbo,
+  harfbuzz,
+  jbig2dec,
+  leptonica,
+  libGL,
+  libX11,
+  libXau,
+  libXcomposite,
+  libXdmcp,
+  libXfixes,
+  libdrm,
+  libffi,
+  libusb1,
+  libuvc,
+  libvlc,
+  libvncserver,
+  libxcb,
+  libxkbcommon,
+  lua5_1,
+  luajit,
+  makeWrapper,
+  mesa,
+  mupdf,
+  ninja,
+  openal,
+  openjpeg,
+  pcre2,
+  pkg-config,
+  ruby,
+  sqlite,
+  tesseract,
+  valgrind,
+  wayland,
+  wayland-protocols,
+  xcbutil,
+  xcbutilwm,
+  xz,
+  buildManPages ? true,
+  useBuiltinLua ? true,
+  useEspeak ? !stdenv.isDarwin,
+  useStaticLibuvc ? true,
+  useStaticOpenAL ? true,
+  useStaticSqlite ? true,
+  useTracy ? true,
 }:
 
 let
@@ -89,127 +90,132 @@ let
     };
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "arcan";
-  version = "0.6.2.1-unstable-2023-10-14";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "arcan";
+    version = "0.6.2.1-unstable-2023-10-14";
 
-  src = allSources.letoram-arcan-src;
+    src = allSources.letoram-arcan-src;
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkg-config
-  ] ++ lib.optionals buildManPages [
-    ruby
-  ];
+    nativeBuildInputs = [
+      cmake
+      makeWrapper
+      pkg-config
+    ] ++ lib.optionals buildManPages [ ruby ];
 
-  buildInputs = [
-    SDL2
-    ffmpeg
-    file
-    freetype
-    glib
-    gumbo
-    harfbuzz
-    jbig2dec
-    leptonica
-    libGL
-    libX11
-    libXau
-    libXcomposite
-    libXdmcp
-    libXfixes
-    libdrm
-    libffi
-    libusb1
-    libuvc
-    libvlc
-    libvncserver
-    libxcb
-    libxkbcommon
-    mesa
-    mupdf.dev
-    openal
-    openjpeg.dev
-    pcre2
-    sqlite
-    tesseract
-    valgrind
-    wayland
-    wayland-protocols
-    xcbutil
-    xcbutilwm
-    xz
-  ]
-  ++ lib.optionals useEspeak [
-    espeak
-  ];
+    buildInputs = [
+      SDL2
+      ffmpeg
+      file
+      freetype
+      glib
+      gumbo
+      harfbuzz
+      jbig2dec
+      leptonica
+      libGL
+      libX11
+      libXau
+      libXcomposite
+      libXdmcp
+      libXfixes
+      libdrm
+      libffi
+      libusb1
+      libuvc
+      libvlc
+      libvncserver
+      libxcb
+      libxkbcommon
+      mesa
+      mupdf.dev
+      openal
+      openjpeg.dev
+      pcre2
+      sqlite
+      tesseract
+      valgrind
+      wayland
+      wayland-protocols
+      xcbutil
+      xcbutilwm
+      xz
+    ] ++ lib.optionals useEspeak [ espeak ];
 
-  # Emulate external/git/clone.sh
-  postUnpack = let
-    inherit (allSources)
-      letoram-openal-src libuvc-src luajit-src tracy-src;
-    prepareSource = flag: source: destination:
-      lib.optionalString flag ''
-        cp -va ${source}/ ${destination}
-        chmod --recursive 744 ${destination}
+    # Emulate external/git/clone.sh
+    postUnpack =
+      let
+        inherit (allSources)
+          letoram-openal-src
+          libuvc-src
+          luajit-src
+          tracy-src
+        ;
+        prepareSource =
+          flag: source: destination:
+          lib.optionalString flag ''
+            cp -va ${source}/ ${destination}
+            chmod --recursive 744 ${destination}
+          '';
+      in
+      ''
+        pushd $sourceRoot/external/git/
+      ''
+      + prepareSource useStaticOpenAL letoram-openal-src "openal"
+      + prepareSource useStaticLibuvc libuvc-src "libuvc"
+      + prepareSource useBuiltinLua luajit-src "luajit"
+      + prepareSource useTracy tracy-src "tracy"
+      + ''
+        popd
       '';
-  in
-    ''
-      pushd $sourceRoot/external/git/
-    ''
-    + prepareSource useStaticOpenAL letoram-openal-src "openal"
-    + prepareSource useStaticLibuvc libuvc-src "libuvc"
-    + prepareSource useBuiltinLua luajit-src "luajit"
-    + prepareSource useTracy tracy-src "tracy"
-    + ''
+
+    postPatch = ''
+      substituteInPlace ./src/platform/posix/paths.c \
+        --replace "/usr/bin" "$out/bin" \
+        --replace "/usr/share" "$out/share"
+      substituteInPlace ./src/CMakeLists.txt \
+        --replace "SETUID" "# SETUID"
+    '';
+
+    # INFO: Arcan build scripts require the manpages to be generated *before* the
+    # `configure` phase
+    preConfigure = lib.optionalString buildManPages ''
+      pushd doc
+      ruby docgen.rb mangen
       popd
     '';
 
-  postPatch = ''
-    substituteInPlace ./src/platform/posix/paths.c \
-      --replace "/usr/bin" "$out/bin" \
-      --replace "/usr/share" "$out/share"
-    substituteInPlace ./src/CMakeLists.txt \
-      --replace "SETUID" "# SETUID"
-  '';
+    cmakeFlags = [
+      # The upstream project recommends tagging the distribution
+      (lib.cmakeFeature "DISTR_TAG" "Nixpkgs")
+      (lib.cmakeFeature "ENGINE_BUILDTAG" finalAttrs.src.rev)
+      (lib.cmakeFeature "BUILD_PRESET" "everything")
+      (lib.cmakeBool "BUILTIN_LUA" useBuiltinLua)
+      (lib.cmakeBool "DISABLE_JIT" useBuiltinLua)
+      (lib.cmakeBool "STATIC_LIBUVC" useStaticLibuvc)
+      (lib.cmakeBool "STATIC_SQLite3" useStaticSqlite)
+      (lib.cmakeBool "ENABLE_TRACY" useTracy)
+      "../src"
+    ];
 
-  # INFO: Arcan build scripts require the manpages to be generated *before* the
-  # `configure` phase
-  preConfigure = lib.optionalString buildManPages ''
-    pushd doc
-    ruby docgen.rb mangen
-    popd
-  '';
+    hardeningDisable = [ "format" ];
 
-  cmakeFlags = [
-    # The upstream project recommends tagging the distribution
-    (lib.cmakeFeature "DISTR_TAG" "Nixpkgs")
-    (lib.cmakeFeature "ENGINE_BUILDTAG" finalAttrs.src.rev)
-    (lib.cmakeFeature "BUILD_PRESET" "everything")
-    (lib.cmakeBool "BUILTIN_LUA" useBuiltinLua)
-    (lib.cmakeBool "DISABLE_JIT" useBuiltinLua)
-    (lib.cmakeBool "STATIC_LIBUVC" useStaticLibuvc)
-    (lib.cmakeBool "STATIC_SQLite3" useStaticSqlite)
-    (lib.cmakeBool "ENABLE_TRACY" useTracy)
-    "../src"
-  ];
-
-  hardeningDisable = [
-    "format"
-  ];
-
-  meta = {
-    homepage = "https://arcan-fe.com/";
-    description = "Combined Display Server, Multimedia Framework, Game Engine";
-    longDescription = ''
-      Arcan is a portable and fast self-sufficient multimedia engine for
-      advanced visualization and analysis work in a wide range of applications
-      e.g. game development, real-time streaming video, monitoring and
-      surveillance, up to and including desktop compositors and window managers.
-    '';
-    license = with lib.licenses; [ bsd3 gpl2Plus lgpl2Plus ];
-    maintainers = with lib.maintainers; [ AndersonTorres ];
-    platforms = lib.platforms.unix;
-  };
-})
+    meta = {
+      homepage = "https://arcan-fe.com/";
+      description = "Combined Display Server, Multimedia Framework, Game Engine";
+      longDescription = ''
+        Arcan is a portable and fast self-sufficient multimedia engine for
+        advanced visualization and analysis work in a wide range of applications
+        e.g. game development, real-time streaming video, monitoring and
+        surveillance, up to and including desktop compositors and window managers.
+      '';
+      license = with lib.licenses; [
+        bsd3
+        gpl2Plus
+        lgpl2Plus
+      ];
+      maintainers = with lib.maintainers; [ AndersonTorres ];
+      platforms = lib.platforms.unix;
+    };
+  }
+)

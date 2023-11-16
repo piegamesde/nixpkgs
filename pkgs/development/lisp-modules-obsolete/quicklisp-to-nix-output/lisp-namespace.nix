@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "lisp-namespace";
   version = "20211020-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lisp-namespace";
 
-  asdFilesToKeep = ["lisp-namespace.asd"];
+  asdFilesToKeep = [ "lisp-namespace.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lisp-namespace DESCRIPTION
@@ -25,4 +25,5 @@ rec {
     MD5 71d02a1704c93281028316e96ecaead2 NAME lisp-namespace FILENAME
     lisp-namespace DEPS ((NAME alexandria FILENAME alexandria)) DEPENDENCIES
     (alexandria) VERSION 20211020-git SIBLINGS (lisp-namespace.test) PARASITES
-    NIL) */
+    NIL)
+*/

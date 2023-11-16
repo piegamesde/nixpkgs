@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "honeycomb-refinery";
@@ -13,16 +17,21 @@ buildGoModule rec {
 
   NO_REDIS_TEST = true;
 
-  patches = [
-    # Allows turning off the one test requiring a Redis service during build.
-    # We could in principle implement that, but it's significant work to little
-    # payoff.
-    ./0001-add-NO_REDIS_TEST-env-var-that-disables-Redis-requir.patch
-  ];
+  patches =
+    [
+      # Allows turning off the one test requiring a Redis service during build.
+      # We could in principle implement that, but it's significant work to little
+      # payoff.
+      ./0001-add-NO_REDIS_TEST-env-var-that-disables-Redis-requir.patch
+    ];
 
   excludedPackages = [ "cmd/test_redimem" ];
 
-  ldflags = [ "-s" "-w" "-X main.BuildID=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.BuildID=${version}"
+  ];
 
   vendorHash = "sha256-0M05JGLdmKivRTN8ZdhAm+JtXTlYAC31wFS82g3NenI=";
 

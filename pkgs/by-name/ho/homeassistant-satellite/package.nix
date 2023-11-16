@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -20,9 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     wheel
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiohttp
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ aiohttp ];
 
   passthru.optional-dependencies = {
     pulseaudio = with python3.pkgs; [
@@ -33,14 +32,10 @@ python3.pkgs.buildPythonApplication rec {
       numpy
       onnxruntime
     ];
-    webrtc = with python3.pkgs; [
-      webrtc-noise-gain
-    ];
+    webrtc = with python3.pkgs; [ webrtc-noise-gain ];
   };
 
-  pythonImportsCheck = [
-    "homeassistant_satellite"
-  ];
+  pythonImportsCheck = [ "homeassistant_satellite" ];
 
   # no tests
   doCheck = false;

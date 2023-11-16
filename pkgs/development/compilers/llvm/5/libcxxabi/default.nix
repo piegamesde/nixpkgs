@@ -1,4 +1,14 @@
-{ lib, stdenv, llvm_meta, cmake, fetch, libcxx, libunwind, llvm, version }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  cmake,
+  fetch,
+  libcxx,
+  libunwind,
+  llvm,
+  version,
+}:
 
 stdenv.mkDerivation {
   pname = "libcxxabi";
@@ -6,21 +16,25 @@ stdenv.mkDerivation {
 
   src = fetch "libcxxabi" "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv";
 
-  outputs = [ "out" "dev" ];
-
-  postUnpack = ''
-    unpackFile ${libcxx.src}
-    unpackFile ${llvm.src}
-    export cmakeFlags="-DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
-  '' + lib.optionalString stdenv.isDarwin ''
-    export TRIPLE=x86_64-apple-darwin
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
-  '';
-
-  patches = [
-    ./gnu-install-dirs.patch
+  outputs = [
+    "out"
+    "dev"
   ];
+
+  postUnpack =
+    ''
+      unpackFile ${libcxx.src}
+      unpackFile ${llvm.src}
+      export cmakeFlags="-DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      export TRIPLE=x86_64-apple-darwin
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
+      patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
+    '';
+
+  patches = [ ./gnu-install-dirs.patch ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = lib.optional (!stdenv.isDarwin) libunwind;
@@ -64,7 +78,10 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

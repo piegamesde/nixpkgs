@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyasn1
-, pyopenssl
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyasn1,
+  pyopenssl,
 }:
 
 buildPythonPackage rec {
@@ -15,7 +16,6 @@ buildPythonPackage rec {
     rev = version;
     sha256 = "0lhsgs4am4xyjssng5p0vkfwqncczj1dpa0vss4lrhzq86mnn5rz";
   };
-
 
   propagatedBuildInputs = [
     pyasn1
@@ -31,5 +31,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };
-
 }

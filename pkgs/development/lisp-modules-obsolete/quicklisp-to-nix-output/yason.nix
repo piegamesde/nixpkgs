@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "yason";
   version = "v0.7.8";
 
   description = "JSON parser/encoder";
 
-  deps = [ args."alexandria" args."trivial-gray-streams" ];
+  deps = [
+    args."alexandria"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/yason/2019-12-27/yason-v0.7.8.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "yason";
 
-  asdFilesToKeep = ["yason.asd"];
+  asdFilesToKeep = [ "yason.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM yason DESCRIPTION JSON parser/encoder SHA256
@@ -25,4 +28,5 @@ rec {
     ((NAME alexandria FILENAME alexandria)
      (NAME trivial-gray-streams FILENAME trivial-gray-streams))
     DEPENDENCIES (alexandria trivial-gray-streams) VERSION v0.7.8 SIBLINGS NIL
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, pytestCheckHook
-, pythonOlder
-, numpy
-, lxml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  pytestCheckHook,
+  pythonOlder,
+  numpy,
+  lxml,
 }:
 
 buildPythonPackage rec {
@@ -24,12 +25,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ lxml pytestCheckHook ];
-
-  disabledTests = [
-    # requires loading models which aren't part of the Pypi tarball
-    "test_load"
+  nativeCheckInputs = [
+    lxml
+    pytestCheckHook
   ];
+
+  disabledTests =
+    [
+      # requires loading models which aren't part of the Pypi tarball
+      "test_load"
+    ];
 
   pytestFlagsArray = [ "tests/test_minimal.py" ];
 
@@ -40,6 +45,9 @@ buildPythonPackage rec {
     homepage = "https://trimsh.org/";
     changelog = "https://github.com/mikedh/trimesh/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ gebner pbsds ];
+    maintainers = with maintainers; [
+      gebner
+      pbsds
+    ];
   };
 }

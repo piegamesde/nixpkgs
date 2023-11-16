@@ -1,19 +1,20 @@
-{ lib
-, pkgs
-, buildPythonPackage
-, pythonOlder
-, pytestCheckHook
-, pytest-xdist
-, fetchFromGitHub
-, numpy
-, pybind11
-, cirq-core
-, matplotlib
-, networkx
-, scipy
-, setuptools
-, wheel
-, pandas
+{
+  lib,
+  pkgs,
+  buildPythonPackage,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-xdist,
+  fetchFromGitHub,
+  numpy,
+  pybind11,
+  cirq-core,
+  matplotlib,
+  networkx,
+  scipy,
+  setuptools,
+  wheel,
+  pandas,
 }:
 
 buildPythonPackage rec {
@@ -42,9 +43,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   nativeCheckInputs = [
     pytestCheckHook

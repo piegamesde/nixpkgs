@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, hatchling
-, platformdirs
-, traitlets
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  platformdirs,
+  traitlets,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -22,31 +23,26 @@ buildPythonPackage rec {
     hash = "sha256-kQ7oNEC5L19PTPaX6C2bP5FYuzlsFsS0TABsw6VvoL8=";
   };
 
-  patches = [
-    ./tests_respect_pythonpath.patch
-  ];
+  patches = [ ./tests_respect_pythonpath.patch ];
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     platformdirs
     traitlets
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  disabledTests = [
-    # creates a temporary script, which isn't aware of PYTHONPATH
-    "test_argv0"
-  ];
+  disabledTests =
+    [
+      # creates a temporary script, which isn't aware of PYTHONPATH
+      "test_argv0"
+    ];
 
   postCheck = ''
     $out/bin/jupyter --help > /dev/null

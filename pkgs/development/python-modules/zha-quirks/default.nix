@@ -1,11 +1,12 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, zigpy
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  zigpy,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "zhaquirks"
-  ];
+  pythonImportsCheck = [ "zhaquirks" ];
 
   meta = with lib; {
     description = "ZHA Device Handlers are custom quirks implementations for Zigpy";

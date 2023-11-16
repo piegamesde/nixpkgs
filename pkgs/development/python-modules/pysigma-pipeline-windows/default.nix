@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pysigma
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pysigma,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,21 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-279+nP5IeZiIjKNhJ2adbcJSDzcu7yqIB5JNFK5CPF0=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pysigma
-  ];
+  propagatedBuildInputs = [ pysigma ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sigma.pipelines.windows"
-  ];
+  pythonImportsCheck = [ "sigma.pipelines.windows" ];
 
   meta = with lib; {
     description = "Library to support Windows service pipeline for pySigma";

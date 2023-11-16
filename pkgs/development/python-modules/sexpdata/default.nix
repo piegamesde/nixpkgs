@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -17,15 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-b2XxFSkYkMvOXNJpwTvfH4KkzSO8YbbhUKJ1Ee5qfV4=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sexpdata"
-  ];
+  pythonImportsCheck = [ "sexpdata" ];
 
   meta = with lib; {
     description = "S-expression parser for Python";

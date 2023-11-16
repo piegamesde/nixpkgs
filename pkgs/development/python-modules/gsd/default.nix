@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, numpy
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,22 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-ceoHHEX44DrVgatV2EIS6gT9oVZkAx6OTFMZG/x4q64=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "gsd"
-  ];
-
+  pythonImportsCheck = [ "gsd" ];
 
   preCheck = ''
     pushd gsd/test

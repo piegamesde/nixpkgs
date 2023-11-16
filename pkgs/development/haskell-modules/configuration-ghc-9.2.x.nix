@@ -40,7 +40,8 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo =
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -63,17 +64,15 @@ self: super: {
     algebraic-graphs = dontCheck self.algebraic-graphs_0_6_1;
   };
 
-  hls-cabal-plugin = super.hls-cabal-plugin.override {
-    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
-  };
+  hls-cabal-plugin = super.hls-cabal-plugin.override { Cabal-syntax = self.Cabal-syntax_3_8_1_0; };
 
-  ormolu = self.ormolu_0_5_2_0.override {
-    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
-  };
+  ormolu = self.ormolu_0_5_2_0.override { Cabal-syntax = self.Cabal-syntax_3_8_1_0; };
 
   stylish-haskell = doJailbreak super.stylish-haskell_0_14_4_0;
 
-  haskell-language-server = disableCabalFlag "fourmolu" (super.haskell-language-server.override { hls-fourmolu-plugin = null; });
+  haskell-language-server = disableCabalFlag "fourmolu" (
+    super.haskell-language-server.override { hls-fourmolu-plugin = null; }
+  );
   # For GHC < 9.4, some packages need data-array-byte as an extra dependency
   hashable = addBuildDepends [ self.data-array-byte ] super.hashable;
   primitive = addBuildDepends [ self.data-array-byte ] super.primitive;
@@ -87,10 +86,13 @@ self: super: {
   language-javascript_0_7_0_0 = dontCheck super.language-javascript_0_7_0_0;
 
   # Apply patches from head.hackage.
-  language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
-    sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
-  }) (doJailbreak super.language-haskell-extract);
+  language-haskell-extract =
+    appendPatch
+      (pkgs.fetchpatch {
+        url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
+        sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
+      })
+      (doJailbreak super.language-haskell-extract);
 
   # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
@@ -120,8 +122,8 @@ self: super: {
 
   # https://github.com/fpco/inline-c/pull/131
   inline-c-cpp =
-    (if isDarwin then appendConfigureFlags ["--ghc-option=-fcompact-unwind"] else x: x)
-    super.inline-c-cpp;
+    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
+      super.inline-c-cpp;
 
   # A given major version of ghc-exactprint only supports one version of GHC.
   ghc-exactprint = super.ghc-exactprint_1_5_0;

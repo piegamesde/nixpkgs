@@ -1,33 +1,34 @@
-{ lib
-, stdenv
-, botocore
-, buildPythonPackage
-, cryptography
-, cssselect
-, fetchPypi
-, fetchpatch
-, glibcLocales
-, installShellFiles
-, itemadapter
-, itemloaders
-, jmespath
-, lxml
-, packaging
-, parsel
-, pexpect
-, protego
-, pydispatcher
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
-, queuelib
-, service-identity
-, sybil
-, testfixtures
-, tldextract
-, twisted
-, w3lib
-, zope_interface
+{
+  lib,
+  stdenv,
+  botocore,
+  buildPythonPackage,
+  cryptography,
+  cssselect,
+  fetchPypi,
+  fetchpatch,
+  glibcLocales,
+  installShellFiles,
+  itemadapter,
+  itemloaders,
+  jmespath,
+  lxml,
+  packaging,
+  parsel,
+  pexpect,
+  protego,
+  pydispatcher,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+  queuelib,
+  service-identity,
+  sybil,
+  testfixtures,
+  tldextract,
+  twisted,
+  w3lib,
+  zope_interface,
 }:
 
 buildPythonPackage rec {
@@ -43,21 +44,20 @@ buildPythonPackage rec {
     hash = "sha256-PL3tzgw/DgSC1hvi10WGg758188UsO5q37rduA9bNqU=";
   };
 
-  patches = [
-    # Fix compatiblity with Twisted>=23.8. Remove with the next release.
-    (fetchpatch {
-      url = "https://github.com/scrapy/scrapy/commit/aa95ada42cdf570f840f55c463375f8a81b303f8.patch";
-      hash = "sha256-LuhA5BqtjSUgkotplvUCtvGNYOTrl0MJRCXiSBMDFzY=";
-      excludes = [
-        "tests/CrawlerProcess/sleeping.py"
-        "tests/test_crawler.py"
-      ];
-    })
-  ];
+  patches =
+    [
+      # Fix compatiblity with Twisted>=23.8. Remove with the next release.
+      (fetchpatch {
+        url = "https://github.com/scrapy/scrapy/commit/aa95ada42cdf570f840f55c463375f8a81b303f8.patch";
+        hash = "sha256-LuhA5BqtjSUgkotplvUCtvGNYOTrl0MJRCXiSBMDFzY=";
+        excludes = [
+          "tests/CrawlerProcess/sleeping.py"
+          "tests/test_crawler.py"
+        ];
+      })
+    ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   propagatedBuildInputs = [
     cryptography
@@ -98,45 +98,47 @@ buildPythonPackage rec {
     "docs"
   ];
 
-  disabledTests = [
-    # It's unclear if the failures are related to libxml2, https://github.com/NixOS/nixpkgs/pull/123890
-    "test_nested_css"
-    "test_nested_xpath"
-    "test_flavor_detection"
-    "test_follow_whitespace"
-    # Requires network access
-    "AnonymousFTPTestCase"
-    "FTPFeedStorageTest"
-    "FeedExportTest"
-    "test_custom_asyncio_loop_enabled_true"
-    "test_custom_loop_asyncio"
-    "test_custom_loop_asyncio_deferred_signal"
-    "FileFeedStoragePreFeedOptionsTest"  # https://github.com/scrapy/scrapy/issues/5157
-    "test_persist"
-    "test_timeout_download_from_spider_nodata_rcvd"
-    "test_timeout_download_from_spider_server_hangs"
-    "test_unbounded_response"
-    "CookiesMiddlewareTest"
-    # Depends on uvloop
-    "test_asyncio_enabled_reactor_different_loop"
-    "test_asyncio_enabled_reactor_same_loop"
-    # Fails with AssertionError
-    "test_peek_fifo"
-    "test_peek_one_element"
-    "test_peek_lifo"
-    "test_callback_kwargs"
-    # Test fails on Hydra
-    "test_start_requests_laziness"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_xmliter_encoding"
-    "test_download"
-    "test_reactor_default_twisted_reactor_select"
-    "URIParamsSettingTest"
-    "URIParamsFeedOptionTest"
-    # flaky on darwin-aarch64
-    "test_fixed_delay"
-    "test_start_requests_laziness"
-  ];
+  disabledTests =
+    [
+      # It's unclear if the failures are related to libxml2, https://github.com/NixOS/nixpkgs/pull/123890
+      "test_nested_css"
+      "test_nested_xpath"
+      "test_flavor_detection"
+      "test_follow_whitespace"
+      # Requires network access
+      "AnonymousFTPTestCase"
+      "FTPFeedStorageTest"
+      "FeedExportTest"
+      "test_custom_asyncio_loop_enabled_true"
+      "test_custom_loop_asyncio"
+      "test_custom_loop_asyncio_deferred_signal"
+      "FileFeedStoragePreFeedOptionsTest" # https://github.com/scrapy/scrapy/issues/5157
+      "test_persist"
+      "test_timeout_download_from_spider_nodata_rcvd"
+      "test_timeout_download_from_spider_server_hangs"
+      "test_unbounded_response"
+      "CookiesMiddlewareTest"
+      # Depends on uvloop
+      "test_asyncio_enabled_reactor_different_loop"
+      "test_asyncio_enabled_reactor_same_loop"
+      # Fails with AssertionError
+      "test_peek_fifo"
+      "test_peek_one_element"
+      "test_peek_lifo"
+      "test_callback_kwargs"
+      # Test fails on Hydra
+      "test_start_requests_laziness"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      "test_xmliter_encoding"
+      "test_download"
+      "test_reactor_default_twisted_reactor_select"
+      "URIParamsSettingTest"
+      "URIParamsFeedOptionTest"
+      # flaky on darwin-aarch64
+      "test_fixed_delay"
+      "test_start_requests_laziness"
+    ];
 
   postInstall = ''
     installManPage extras/scrapy.1
@@ -145,9 +147,7 @@ buildPythonPackage rec {
       --bash extras/scrapy_bash_completion
   '';
 
-  pythonImportsCheck = [
-    "scrapy"
-  ];
+  pythonImportsCheck = [ "scrapy" ];
 
   __darwinAllowLocalNetworking = true;
 

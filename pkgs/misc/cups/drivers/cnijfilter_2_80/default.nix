@@ -1,10 +1,20 @@
-{ stdenv, lib, fetchzip,
-  autoconf, automake, libtool,
-  cups, popt, libtiff, libpng,
-  ghostscript }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  autoconf,
+  automake,
+  libtool,
+  cups,
+  popt,
+  libtiff,
+  libpng,
+  ghostscript,
+}:
 
 /* this derivation is basically just a transcription of the rpm .spec
-   file included in the tarball */
+   file included in the tarball
+*/
 
 stdenv.mkDerivation {
   pname = "cnijfilter";
@@ -17,7 +27,8 @@ stdenv.mkDerivation {
      instead, if you want to include another version supporting your
      printer, you should try to abstract out the common things (which
      should be pretty much everything except the version and the 'pr'
-     and 'pr_id' values to loop over). */
+     and 'pr_id' values to loop over).
+  */
   version = "2.80";
 
   src = fetchzip {
@@ -25,13 +36,23 @@ stdenv.mkDerivation {
     sha256 = "06s9nl155yxmx56056y22kz1p5b2sb5fhr3gf4ddlczjkd1xch53";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
-  buildInputs = [ libtool
-                  cups popt libtiff libpng
-                  ghostscript ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
+  buildInputs = [
+    libtool
+    cups
+    popt
+    libtiff
+    libpng
+    ghostscript
+  ];
 
-  patches = [ ./patches/missing-include.patch
-              ./patches/libpng15.patch ];
+  patches = [
+    ./patches/missing-include.patch
+    ./patches/libpng15.patch
+  ];
 
   postPatch = ''
     sed -i "s|/usr/lib/cups/backend|$out/lib/cups/backend|" backend/src/Makefile.am;
@@ -97,7 +118,8 @@ stdenv.mkDerivation {
      don't list each other in the DT_NEEDED section.  so, if the
      standard 'patchelf --shrink-rpath' (from
      pkgs/development/tools/misc/patchelf/setup-hook.sh) is run on
-     them, it undoes the --set-rpath.  this prevents that. */
+     them, it undoes the --set-rpath.  this prevents that.
+  */
   dontPatchELF = true;
 
   meta = with lib; {

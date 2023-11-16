@@ -1,17 +1,18 @@
-{ lib
-, aiohttp
-, asn1crypto
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, freezegun
-, oscrypto
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, requests
-, setuptools
-, uritools
+{
+  lib,
+  aiohttp,
+  asn1crypto,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  freezegun,
+  oscrypto,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  setuptools,
+  uritools,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
       --replace ', "pytest-runner",' ""
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     asn1crypto
@@ -52,10 +51,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Requests
-    "tests/test_crl_client.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requests
+      "tests/test_crl_client.py"
+    ];
 
   disabledTests = [
     # Look for nonexisting certificates
@@ -72,9 +72,7 @@ buildPythonPackage rec {
     "test_revocation_mode_soft"
   ];
 
-  pythonImportsCheck = [
-    "pyhanko_certvalidator"
-  ];
+  pythonImportsCheck = [ "pyhanko_certvalidator" ];
 
   meta = with lib; {
     description = "Python library for validating X.509 certificates and paths";

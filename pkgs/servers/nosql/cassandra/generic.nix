@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
-, python
-, makeWrapper
-, gawk
-, bash
-, getopt
-, procps
-, which
-, jre
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python,
+  makeWrapper,
+  gawk,
+  bash,
+  getopt,
+  procps,
+  which,
+  jre,
+  nixosTests,
   # generation is the attribute version suffix such as 3_11 in pkgs.cassandra_3_11
-, generation
-, version
-, sha256
-, extraMeta ? { }
-, callPackage
-, ...
+  generation,
+  version,
+  sha256,
+  extraMeta ? { },
+  callPackage,
+  ...
 }:
 
 let
@@ -109,19 +110,20 @@ stdenv.mkDerivation rec {
         test = nixosTests."cassandra_${generation}";
       in
       {
-        nixos =
-          assert test.testPackage.version == version;
-          test;
+        nixos = assert test.testPackage.version == version; test;
       };
 
     updateScript = callPackage ./update-script.nix { inherit generation; };
   };
 
-  meta = with lib; {
-    homepage = "https://cassandra.apache.org/";
-    description = "A massively scalable open source NoSQL database";
-    platforms = platforms.unix;
-    license = licenses.asl20;
-    maintainers = [ maintainers.roberth ];
-  } // extraMeta;
+  meta =
+    with lib;
+    {
+      homepage = "https://cassandra.apache.org/";
+      description = "A massively scalable open source NoSQL database";
+      platforms = platforms.unix;
+      license = licenses.asl20;
+      maintainers = [ maintainers.roberth ];
+    }
+    // extraMeta;
 }

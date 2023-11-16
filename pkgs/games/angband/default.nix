@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, ncurses5
-, enableSdl2 ? false, SDL2, SDL2_image, SDL2_sound, SDL2_mixer, SDL2_ttf
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  ncurses5,
+  enableSdl2 ? false,
+  SDL2,
+  SDL2_image,
+  SDL2_sound,
+  SDL2_mixer,
+  SDL2_ttf,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,16 +23,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XH2FUTJJaH5TqV2UD1CKKAXE4CRAb6zfg1UQ79a15k0=";
   };
 
-
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ncurses5 ]
-  ++ lib.optionals enableSdl2 [
-    SDL2
-    SDL2_image
-    SDL2_sound
-    SDL2_mixer
-    SDL2_ttf
-  ];
+  buildInputs =
+    [ ncurses5 ]
+    ++ lib.optionals enableSdl2 [
+      SDL2
+      SDL2_image
+      SDL2_sound
+      SDL2_mixer
+      SDL2_ttf
+    ];
 
   configureFlags = lib.optional enableSdl2 "--enable-sdl2";
 

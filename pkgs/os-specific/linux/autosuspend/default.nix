@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 let
@@ -8,12 +9,14 @@ let
     packageOverrides = self: super: {
       # autosuspend is incompatible with tzlocal v5
       # See https://github.com/regebro/tzlocal#api-change
-      tzlocal = super.tzlocal.overridePythonAttrs (prev: {
-        src = prev.src.override {
-          version = "4.3.1";
-          hash = "sha256-7jLvjCCAPBmpbtNmrd09SnKe9jCctcc1mgzC7ut/pGo=";
-        };
-      });
+      tzlocal = super.tzlocal.overridePythonAttrs (
+        prev: {
+          src = prev.src.override {
+            version = "4.3.1";
+            hash = "sha256-7jLvjCCAPBmpbtNmrd09SnKe9jCctcc1mgzC7ut/pGo=";
+          };
+        }
+      );
     };
   };
 in
@@ -72,7 +75,10 @@ python.pkgs.buildPythonApplication rec {
     homepage = "https://autosuspend.readthedocs.io";
     changelog = "https://github.com/languitar/autosuspend/releases/tag/v${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ bzizou anthonyroussel ];
+    maintainers = with maintainers; [
+      bzizou
+      anthonyroussel
+    ];
     mainProgram = "autosuspend";
     platforms = platforms.linux;
   };

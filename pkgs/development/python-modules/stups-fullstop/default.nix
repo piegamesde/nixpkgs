@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, requests
-, stups-cli-support
-, stups-zign
-, pytest
-, pytest-cov
-, isPy3k
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  requests,
+  stups-cli-support,
+  stups-zign,
+  pytest,
+  pytest-cov,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     stups-zign
   ];
 
-  preCheck = "
-    export HOME=$TEMPDIR
-  ";
+  preCheck = "\n    export HOME=$TEMPDIR\n  ";
 
   nativeCheckInputs = [
     pytest

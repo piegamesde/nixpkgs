@@ -1,6 +1,16 @@
 {
-  stdenv, lib, fetchFromGitHub, pkg-config, buildGoModule,
-  libGL, libX11, libXcursor, libXfixes, libxkbcommon, vulkan-headers, wayland,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  buildGoModule,
+  libGL,
+  libX11,
+  libXcursor,
+  libXfixes,
+  libxkbcommon,
+  vulkan-headers,
+  wayland,
 }:
 
 buildGoModule rec {
@@ -15,7 +25,7 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-nXPiwSG2Hs86/raDvTv2p77P6Xwm+t8VT0dvZpXE8Os=";
-  subPackages = ["cmd/gotraceui"];
+  subPackages = [ "cmd/gotraceui" ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -29,7 +39,7 @@ buildGoModule rec {
     libGL
   ];
 
-  ldflags = ["-X gioui.org/app.ID=co.honnef.Gotraceui"];
+  ldflags = [ "-X gioui.org/app.ID=co.honnef.Gotraceui" ];
 
   postInstall = ''
     cp -r share $out/

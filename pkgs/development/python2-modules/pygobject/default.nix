@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, python, buildPythonPackage, pkg-config, glib, isPy3k, pythonAtLeast }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python,
+  buildPythonPackage,
+  pkg-config,
+  glib,
+  isPy3k,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "pygobject";
@@ -7,11 +18,16 @@ buildPythonPackage rec {
   disabled = pythonAtLeast "3.9";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/pygobject/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/pygobject/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "0nkam61rsn7y3wik3vw46wk5q2cjfh2iph57hl9m39rc8jijb7dv";
   };
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   patches = lib.optionals stdenv.isDarwin [
     ./pygobject-2.0-fix-darwin.patch

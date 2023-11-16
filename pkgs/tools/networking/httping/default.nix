@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, fftw ? null
-, gettext
-, libintl
-, ncurses
-, openssl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fftw ? null,
+  gettext,
+  libintl,
+  ncurses,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,19 +21,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-aExTXXtW03UKMuMjTMx1k/MUpcRMh1PdSPkDGH+Od70=";
   };
 
-  patches = [
-    # Pull upstream fix for missing <unistd.h>
-    #   https://github.com/folkertvanheusden/HTTPing/pull/8
-    (fetchpatch {
-      name = "add-unistd.patch";
-      url = "https://github.com/folkertvanheusden/HTTPing/commit/aad3c275686344fe9a235faeac4ee3832f3aa8d5.patch";
-      hash = "sha256-bz3AMQTSfSTwUyf9WbkAFWVmFo06ei+Qd55x+RRDREY=";
-    })
-  ];
+  patches =
+    [
+      # Pull upstream fix for missing <unistd.h>
+      #   https://github.com/folkertvanheusden/HTTPing/pull/8
+      (fetchpatch {
+        name = "add-unistd.patch";
+        url = "https://github.com/folkertvanheusden/HTTPing/commit/aad3c275686344fe9a235faeac4ee3832f3aa8d5.patch";
+        hash = "sha256-bz3AMQTSfSTwUyf9WbkAFWVmFo06ei+Qd55x+RRDREY=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    gettext
-  ];
+  nativeBuildInputs = [ gettext ];
 
   buildInputs = [
     fftw
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       latency of the webserver + network. It supports IPv6.
     '';
     license = licenses.agpl3Only;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

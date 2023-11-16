@@ -1,18 +1,19 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, wrapQtAppsHook
-, qmake
-, pkg-config
-, qtbase
-, qtsvg
-, qttools
-, qtserialport
-, boost
-, libngspice
-, libgit2
-, quazip
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  wrapQtAppsHook,
+  qmake,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtserialport,
+  boost,
+  libngspice,
+  libgit2,
+  quazip,
 }:
 
 let
@@ -39,8 +40,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-smvfuxQWF/LMFFXHOKb3zUZsEet/XoiaxXOR5QMaYzw=";
   };
 
-  buildInputs = [ qtbase qtsvg qtserialport boost libgit2 quazip libngspice ];
-  nativeBuildInputs = [ qmake pkg-config qttools wrapQtAppsHook ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    qtserialport
+    boost
+    libgit2
+    quazip
+    libngspice
+  ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   patches = [
     (fetchpatch {
@@ -61,11 +75,11 @@ stdenv.mkDerivation rec {
     cp -a ${parts}/* parts/
   '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev quazip}/include/QuaZip-Qt${lib.versions.major qtbase.version}-${quazip.version}/quazip";
+  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev quazip}/include/QuaZip-Qt${
+      lib.versions.major qtbase.version
+    }-${quazip.version}/quazip";
 
-  qmakeFlags = [
-    "phoenix.pro"
-  ];
+  qmakeFlags = [ "phoenix.pro" ];
 
   postFixup = ''
     # generate the parts.db file
@@ -78,8 +92,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open source prototyping tool for Arduino-based projects";
     homepage = "https://fritzing.org/";
-    license = with licenses; [ gpl3 cc-by-sa-30 ];
-    maintainers = with maintainers; [ robberer muscaln ];
+    license = with licenses; [
+      gpl3
+      cc-by-sa-30
+    ];
+    maintainers = with maintainers; [
+      robberer
+      muscaln
+    ];
     platforms = platforms.linux;
     mainProgram = "Fritzing";
   };

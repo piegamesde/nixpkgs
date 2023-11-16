@@ -43,7 +43,10 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-+jGKPPnKZHn+l6VAwuae6kICwR7ymkYJjsM2OHQAEmU=";
   };
 
-  nativeBuildInputs = [ python3Packages.flit-core installShellFiles ];
+  nativeBuildInputs = [
+    python3Packages.flit-core
+    installShellFiles
+  ];
   propagatedBuildInputs = otherDependencies ++ pythonDependencies;
 
   postInstall = ''

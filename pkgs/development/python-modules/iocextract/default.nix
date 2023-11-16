@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, regex
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  regex,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -26,22 +27,17 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "iocextract"
-  ];
+  pythonImportsCheck = [ "iocextract" ];
 
-  pytestFlagsArray = [
-    "tests.py"
-  ];
+  pytestFlagsArray = [ "tests.py" ];
 
-  disabledTests = [
-    # AssertionError: 'http://exampledotcom/test' != 'http://example.com/test'
-    "test_refang_data"
-  ];
+  disabledTests =
+    [
+      # AssertionError: 'http://exampledotcom/test' != 'http://example.com/test'
+      "test_refang_data"
+    ];
 
   meta = with lib; {
     description = "Module to extract Indicator of Compromises (IOC)";

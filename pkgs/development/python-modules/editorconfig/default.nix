@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cmake
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
 }:
 
 let
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     chmod +w -R source/tests
   '';
 
-  nativeCheckInputs = [
-    cmake
-  ];
+  nativeCheckInputs = [ cmake ];
 
   dontUseCmakeConfigure = true;
 

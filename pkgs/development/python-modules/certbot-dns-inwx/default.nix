@@ -1,8 +1,9 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, acme
-, certbot
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  acme,
+  certbot,
 }:
 
 buildPythonPackage rec {
@@ -27,7 +28,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "INWX DNS Authenticator plugin for Certbot";
     homepage = "https://github.com/oGGy990/certbot-dns-inwx";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ onny ];
   };
 }

@@ -1,4 +1,15 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk3, pantheon, breeze-icons, gnome-icon-theme, hicolor-icon-theme, papirus-folders, color ? null }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
+  pantheon,
+  breeze-icons,
+  gnome-icon-theme,
+  hicolor-icon-theme,
+  papirus-folders,
+  color ? null,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "papirus-icon-theme";
@@ -11,7 +22,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-FcTNZgCdPlYjpheA3PfZBR3apOkDi4+RafQtXdqchGI=";
   };
 
-  nativeBuildInputs = [ gtk3 papirus-folders ];
+  nativeBuildInputs = [
+    gtk3
+    papirus-folders
+  ];
 
   propagatedBuildInputs = [
     pantheon.elementary-icon-theme
@@ -28,7 +42,9 @@ stdenvNoCC.mkDerivation rec {
     mv {,e}Papirus* $out/share/icons
 
     for theme in $out/share/icons/*; do
-      ${lib.optionalString (color != null) "${papirus-folders}/bin/papirus-folders -t $theme -o -C ${color}"}
+      ${
+        lib.optionalString (color != null) "${papirus-folders}/bin/papirus-folders -t $theme -o -C ${color}"
+      }
       gtk-update-icon-cache --force $theme
     done
 
@@ -41,6 +57,9 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.gpl3Only;
     # darwin gives hash mismatch in source, probably because of file names differing only in case
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo fortuneteller2k ];
+    maintainers = with maintainers; [
+      romildo
+      fortuneteller2k
+    ];
   };
 }

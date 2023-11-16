@@ -1,43 +1,44 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
   # Mitmproxy requirements
-, aioquic
-, asgiref
-, blinker
-, brotli
-, certifi
-, cryptography
-, flask
-, h11
-, h2
-, hyperframe
-, kaitaistruct
-, ldap3
-, mitmproxy-rs
-, msgpack
-, passlib
-, protobuf
-, publicsuffix2
-, pyopenssl
-, pyparsing
-, pyperclip
-, ruamel-yaml
-, setuptools
-, sortedcontainers
-, tornado
-, urwid
-, wsproto
-, zstandard
+  aioquic,
+  asgiref,
+  blinker,
+  brotli,
+  certifi,
+  cryptography,
+  flask,
+  h11,
+  h2,
+  hyperframe,
+  kaitaistruct,
+  ldap3,
+  mitmproxy-rs,
+  msgpack,
+  passlib,
+  protobuf,
+  publicsuffix2,
+  pyopenssl,
+  pyparsing,
+  pyperclip,
+  ruamel-yaml,
+  setuptools,
+  sortedcontainers,
+  tornado,
+  urwid,
+  wsproto,
+  zstandard,
   # Additional check requirements
-, hypothesis
-, parver
-, pytest-asyncio
-, pytest-timeout
-, pytest-xdist
-, pytestCheckHook
-, requests
+  hypothesis,
+  parver,
+  pytest-asyncio,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -115,10 +116,11 @@ buildPythonPackage rec {
     "test_statusbar"
   ];
 
-  disabledTestPaths = [
-    # teardown of half the tests broken
-    "test/mitmproxy/addons/test_onboarding.py"
-  ];
+  disabledTestPaths =
+    [
+      # teardown of half the tests broken
+      "test/mitmproxy/addons/test_onboarding.py"
+    ];
 
   dontUsePytestXdist = true;
 
@@ -128,6 +130,9 @@ buildPythonPackage rec {
     description = "Man-in-the-middle proxy";
     homepage = "https://mitmproxy.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamilchm SuperSandro2000 ];
+    maintainers = with maintainers; [
+      kamilchm
+      SuperSandro2000
+    ];
   };
 }

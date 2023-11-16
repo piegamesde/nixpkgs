@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -33,7 +38,6 @@ let
       Keywords=Text;Editor;
     '';
   };
-
 in
 {
 
@@ -61,7 +65,6 @@ in
         {var}`services.emacs.enable`.
       '';
     };
-
 
     package = mkOption {
       type = types.package;
@@ -92,24 +95,28 @@ in
   };
 
   config = mkIf (cfg.enable || cfg.install) {
-    systemd.user.services.emacs = {
-      description = "Emacs: the extensible, self-documenting text editor";
+    systemd.user.services.emacs =
+      {
+        description = "Emacs: the extensible, self-documenting text editor";
 
-      serviceConfig = {
-        Type = "forking";
-        ExecStart = "${pkgs.bash}/bin/bash -c 'source ${config.system.build.setEnvironment}; exec ${cfg.package}/bin/emacs --daemon'";
-        ExecStop = "${cfg.package}/bin/emacsclient --eval (kill-emacs)";
-        Restart = "always";
+        serviceConfig = {
+          Type = "forking";
+          ExecStart = "${pkgs.bash}/bin/bash -c 'source ${config.system.build.setEnvironment}; exec ${cfg.package}/bin/emacs --daemon'";
+          ExecStop = "${cfg.package}/bin/emacsclient --eval (kill-emacs)";
+          Restart = "always";
+        };
+
+        unitConfig = optionalAttrs cfg.startWithGraphical { After = "graphical-session.target"; };
+      }
+      // optionalAttrs cfg.enable {
+        wantedBy = if cfg.startWithGraphical then [ "graphical-session.target" ] else [ "default.target" ];
       };
 
-      unitConfig = optionalAttrs cfg.startWithGraphical {
-        After = "graphical-session.target";
-      };
-    } // optionalAttrs cfg.enable {
-      wantedBy = if cfg.startWithGraphical then [ "graphical-session.target" ] else [ "default.target" ];
-    };
-
-    environment.systemPackages = [ cfg.package editorScript desktopApplicationFile ];
+    environment.systemPackages = [
+      cfg.package
+      editorScript
+      desktopApplicationFile
+    ];
 
     environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "emacseditor");
   };

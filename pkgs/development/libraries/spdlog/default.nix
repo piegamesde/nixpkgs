@@ -1,14 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, fmt
-, catch2_3
-, staticBuild ? stdenv.hostPlatform.isStatic
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  fmt,
+  catch2_3,
+  staticBuild ? stdenv.hostPlatform.isStatic,
 
-# tests
-, bear, tiledb
+  # tests
+  bear,
+  tiledb,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,18 +19,19 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "gabime";
-    repo  = "spdlog";
-    rev   = "v${version}";
-    hash  = "sha256-cxTaOuLXHRU8xMz9gluYz0a93O0ez2xOxbloyc1m1ns=";
+    repo = "spdlog";
+    rev = "v${version}";
+    hash = "sha256-cxTaOuLXHRU8xMz9gluYz0a93O0ez2xOxbloyc1m1ns=";
   };
 
-  patches = [
-    # Fix a broken test, remove with the next release.
-    (fetchpatch {
-      url = "https://github.com/gabime/spdlog/commit/2ee8bac78e6525a8ad9a9196e65d502ce390d83a.patch";
-      hash = "sha256-L79yOkm3VY01jmxNctfneTLmOA5DEQeNNGC8LbpJiOc=";
-    })
-  ];
+  patches =
+    [
+      # Fix a broken test, remove with the next release.
+      (fetchpatch {
+        url = "https://github.com/gabime/spdlog/commit/2ee8bac78e6525a8ad9a9196e65d502ce390d83a.patch";
+        hash = "sha256-L79yOkm3VY01jmxNctfneTLmOA5DEQeNNGC8LbpJiOc=";
+      })
+    ];
 
   nativeBuildInputs = [ cmake ];
   # Required to build tests, even if they aren't executed
@@ -44,7 +47,11 @@ stdenv.mkDerivation rec {
     "-DSPDLOG_FMT_EXTERNAL=ON"
   ];
 
-  outputs = [ "out" "doc" "dev" ] ;
+  outputs = [
+    "out"
+    "doc"
+    "dev"
+  ];
 
   postInstall = ''
     mkdir -p $out/share/doc/spdlog
@@ -58,10 +65,10 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description    = "Very fast, header only, C++ logging library";
-    homepage       = "https://github.com/gabime/spdlog";
-    license        = licenses.mit;
-    maintainers    = with maintainers; [ obadz ];
-    platforms      = platforms.all;
+    description = "Very fast, header only, C++ logging library";
+    homepage = "https://github.com/gabime/spdlog";
+    license = licenses.mit;
+    maintainers = with maintainers; [ obadz ];
+    platforms = platforms.all;
   };
 }

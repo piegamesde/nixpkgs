@@ -1,4 +1,10 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "talosctl";
@@ -13,7 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-fGl16Wsb1tW9+wZBg5yY73t7n+EJ1dVx5IlzY2B8PJA=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   GOWORK = "off";
 

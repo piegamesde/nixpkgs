@@ -1,17 +1,18 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, cmake
-, extra-cmake-modules
-, libarchive
-, libpcap
-, libslirp
-, pkg-config
-, qtbase
-, qtmultimedia
-, SDL2
-, wayland
-, wrapQtAppsHook
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  extra-cmake-modules,
+  libarchive,
+  libpcap,
+  libslirp,
+  pkg-config,
+  qtbase,
+  qtmultimedia,
+  SDL2,
+  wayland,
+  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -47,7 +48,12 @@ stdenv.mkDerivation rec {
     homepage = "https://melonds.kuribo64.net/";
     description = "Work in progress Nintendo DS emulator";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ artemist benley shamilton xfix ];
+    maintainers = with maintainers; [
+      artemist
+      benley
+      shamilton
+      xfix
+    ];
     platforms = platforms.linux;
     mainProgram = "melonDS";
   };

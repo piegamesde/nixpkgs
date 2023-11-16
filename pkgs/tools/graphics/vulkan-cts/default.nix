@@ -1,25 +1,27 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchurl
-, cmake
-, ffmpeg_4
-, libdrm
-, libglvnd
-, libffi
-, libpng
-, libX11
-, libXau
-, libXdmcp
-, libxcb
-, makeWrapper
-, ninja
-, pkg-config
-, python3
-, vulkan-loader
-, wayland
-, wayland-protocols
-, wayland-scanner
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  ffmpeg_4,
+  libdrm,
+  libglvnd,
+  libffi,
+  libpng,
+  libX11,
+  libXau,
+  libXdmcp,
+  libxcb,
+  makeWrapper,
+  ninja,
+  pkg-config,
+  python3,
+  vulkan-loader,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  zlib,
 }:
 let
   renderdoc = fetchurl {
@@ -35,81 +37,83 @@ let
   # with the vk-cts-sources.py script.
   sources = import ./sources.nix { inherit fetchurl fetchFromGitHub; };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "vulkan-cts";
-  version = "1.3.7.0";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "vulkan-cts";
+    version = "1.3.7.0";
 
-  src = fetchFromGitHub {
-    owner = "KhronosGroup";
-    repo = "VK-GL-CTS";
-    rev = "${finalAttrs.pname}-${finalAttrs.version}";
-    hash = "sha256-f7i7gytk3cKeFQD0FR+nrUR2o0FWaJWKG7OpDz9u42E=";
-  };
+    src = fetchFromGitHub {
+      owner = "KhronosGroup";
+      repo = "VK-GL-CTS";
+      rev = "${finalAttrs.pname}-${finalAttrs.version}";
+      hash = "sha256-f7i7gytk3cKeFQD0FR+nrUR2o0FWaJWKG7OpDz9u42E=";
+    };
 
-  prePatch = ''
-    mkdir -p external/renderdoc/src
+    prePatch = ''
+      mkdir -p external/renderdoc/src
 
-    cp -r ${renderdoc} external/renderdoc/src/renderdoc_app.h
+      cp -r ${renderdoc} external/renderdoc/src/renderdoc_app.h
 
-    ${sources.prePatch}
+      ${sources.prePatch}
 
-    chmod u+w -R external
-  '';
+      chmod u+w -R external
+    '';
 
-  buildInputs = [
-    ffmpeg_4
-    libdrm
-    libffi
-    libglvnd
-    libpng
-    libX11
-    libXau
-    libXdmcp
-    libxcb
-    wayland
-    wayland-protocols
-    zlib
-  ];
+    buildInputs = [
+      ffmpeg_4
+      libdrm
+      libffi
+      libglvnd
+      libpng
+      libX11
+      libXau
+      libXdmcp
+      libxcb
+      wayland
+      wayland-protocols
+      zlib
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    ninja
-    pkg-config
-    python3
-    wayland-scanner
-  ];
+    nativeBuildInputs = [
+      cmake
+      makeWrapper
+      ninja
+      pkg-config
+      python3
+      wayland-scanner
+    ];
 
-  cmakeFlags = [
-    # Fix cts cmake not coping with absolute install dirs
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    cmakeFlags = [
+      # Fix cts cmake not coping with absolute install dirs
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
 
-    "-DWAYLAND_SCANNER=wayland-scanner"
-  ];
+      "-DWAYLAND_SCANNER=wayland-scanner"
+    ];
 
-  postInstall = ''
-    # Check that nothing was installed so far
-    ! test -e $out
+    postInstall = ''
+      # Check that nothing was installed so far
+      ! test -e $out
 
-    mkdir -p $out/bin $out/archive-dir
-    cp -a external/vulkancts/modules/vulkan/deqp-vk external/vulkancts/modules/vulkan/deqp-vksc $out/bin/
-    cp -a external/vulkancts/modules/vulkan/vulkan $out/archive-dir/
-    cp -a external/vulkancts/modules/vulkan/vk-default $out/
+      mkdir -p $out/bin $out/archive-dir
+      cp -a external/vulkancts/modules/vulkan/deqp-vk external/vulkancts/modules/vulkan/deqp-vksc $out/bin/
+      cp -a external/vulkancts/modules/vulkan/vulkan $out/archive-dir/
+      cp -a external/vulkancts/modules/vulkan/vk-default $out/
 
-    wrapProgram $out/bin/deqp-vk \
-      --add-flags '--deqp-vk-library-path=${vulkan-loader}/lib/libvulkan.so' \
-      --add-flags "--deqp-archive-dir=$out/archive-dir"
-  '';
+      wrapProgram $out/bin/deqp-vk \
+        --add-flags '--deqp-vk-library-path=${vulkan-loader}/lib/libvulkan.so' \
+        --add-flags "--deqp-archive-dir=$out/archive-dir"
+    '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
-    description = "Khronos Vulkan Conformance Tests";
-    homepage = "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
-    changelog = "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ Flakebi ];
-  };
-})
+    meta = with lib; {
+      description = "Khronos Vulkan Conformance Tests";
+      homepage = "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
+      changelog = "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
+      license = licenses.asl20;
+      maintainers = with maintainers; [ Flakebi ];
+    };
+  }
+)

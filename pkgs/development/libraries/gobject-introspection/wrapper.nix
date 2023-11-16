@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, buildPackages
-, targetPackages
-, gobject-introspection-unwrapped
-, ...
+{
+  lib,
+  stdenv,
+  buildPackages,
+  targetPackages,
+  gobject-introspection-unwrapped,
+  ...
 }@_args:
 
 # to build, run
@@ -15,37 +16,46 @@
 
 let
   # ensure that `.override` works
-  args = builtins.removeAttrs _args [ "buildPackages" "targetPackages" "gobject-introspection-unwrapped" ];
+  args = builtins.removeAttrs _args [
+    "buildPackages"
+    "targetPackages"
+    "gobject-introspection-unwrapped"
+  ];
   # passing this stdenv to `targetPackages...` breaks due to splicing not working in `.override``
   argsForTarget = builtins.removeAttrs args [ "stdenv" ];
 
   overriddenUnwrappedGir = gobject-introspection-unwrapped.override args;
   # if we have targetPackages.gobject-introspection then propagate that
   overridenTargetUnwrappedGir =
-    if targetPackages ? gobject-introspection-unwrapped
-    then targetPackages.gobject-introspection-unwrapped.override argsForTarget
-    else overriddenUnwrappedGir;
+    if targetPackages ? gobject-introspection-unwrapped then
+      targetPackages.gobject-introspection-unwrapped.override argsForTarget
+    else
+      overriddenUnwrappedGir;
 in
 
 # wrap both pkgsCrossX.buildPackages.gobject-introspection and {pkgs,pkgsSomethingExecutableOnBuildSystem).buildPackages.gobject-introspection
-if (!stdenv.hostPlatform.canExecute stdenv.targetPlatform) && stdenv.targetPlatform.emulatorAvailable buildPackages
+if
+  (!stdenv.hostPlatform.canExecute stdenv.targetPlatform)
+  && stdenv.targetPlatform.emulatorAvailable buildPackages
 then
-  overriddenUnwrappedGir.overrideAttrs
-    (previousAttrs:
-      {
+  overriddenUnwrappedGir.overrideAttrs (
+    previousAttrs: {
 
-        pname = "gobject-introspection-wrapped";
-        passthru = previousAttrs.passthru // {
-          unwrapped = overriddenUnwrappedGir;
-        };
-        dontStrip = true;
-        depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
-        buildCommand = ''
+      pname = "gobject-introspection-wrapped";
+      passthru = previousAttrs.passthru // {
+        unwrapped = overriddenUnwrappedGir;
+      };
+      dontStrip = true;
+      depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
+      buildCommand =
+        ''
           eval fixupPhase
-          ${lib.concatMapStrings (output: ''
-            mkdir -p ${"$" + "${output}"}
-            ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${"$" + "${output}"}
-          '') overriddenUnwrappedGir.outputs}
+          ${lib.concatMapStrings
+            (output: ''
+              mkdir -p ${"$" + "${output}"}
+              ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${"$" + "${output}"}
+            '')
+            overriddenUnwrappedGir.outputs}
 
           cp $dev/bin/g-ir-compiler $dev/bin/.g-ir-compiler-wrapped
           cp $dev/bin/g-ir-scanner $dev/bin/.g-ir-scanner-wrapped
@@ -85,10 +95,11 @@ then
             preConfigureHooks+=(override-pkg-config-gir-variables)
           EOF
         '';
-      })
+    }
+  )
 else
-  overriddenUnwrappedGir.overrideAttrs (previousAttrs:
-    {
+  overriddenUnwrappedGir.overrideAttrs (
+    previousAttrs: {
       pname = "gobject-introspection-wrapped";
       passthru = previousAttrs.passthru // {
         unwrapped = overriddenUnwrappedGir;
@@ -97,9 +108,12 @@ else
       depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
       buildCommand = ''
         eval fixupPhase
-        ${lib.concatMapStrings (output: ''
-          mkdir -p ${"$" + "${output}"}
-          ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${"$" + "${output}"}
-        '') overriddenUnwrappedGir.outputs}
+        ${lib.concatMapStrings
+          (output: ''
+            mkdir -p ${"$" + "${output}"}
+            ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${"$" + "${output}"}
+          '')
+          overriddenUnwrappedGir.outputs}
       '';
-    })
+    }
+  )

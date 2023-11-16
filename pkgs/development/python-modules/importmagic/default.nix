@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -26,5 +27,4 @@ buildPythonPackage rec {
     license = licenses.bsd0;
     maintainers = with maintainers; [ onny ];
   };
-
 }

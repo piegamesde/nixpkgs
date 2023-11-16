@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, dbus
-, pkgsLibpcap
-, pkg-about
-, setuptools
-, tox
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  dbus,
+  pkgsLibpcap,
+  pkg-about,
+  setuptools,
+  tox,
 }:
 
 buildPythonPackage rec {
@@ -44,9 +45,7 @@ buildPythonPackage rec {
   # Project has tests, but I can't get them to run even outside of nix
   doCheck = false;
 
-  pythonImportsCheck = [
-    "libpcap"
-  ];
+  pythonImportsCheck = [ "libpcap" ];
 
   meta = with lib; {
     description = "Python binding for the libpcap C library";

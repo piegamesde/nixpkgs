@@ -1,25 +1,26 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, scikit-learn
-, termcolor
-, tqdm
-, pandas
-, setuptools
-# test dependencies
-, pytestCheckHook
-, pytest-lazy-fixture
-, tensorflow
-, torch
-, datasets
-, torchvision
-, keras
-, fasttext
-, hypothesis
-, wget
-, matplotlib
-, skorch
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  scikit-learn,
+  termcolor,
+  tqdm,
+  pandas,
+  setuptools,
+  # test dependencies
+  pytestCheckHook,
+  pytest-lazy-fixture,
+  tensorflow,
+  torch,
+  datasets,
+  torchvision,
+  keras,
+  fasttext,
+  hypothesis,
+  wget,
+  matplotlib,
+  skorch,
 }:
 
 buildPythonPackage rec {
@@ -66,10 +67,11 @@ buildPythonPackage rec {
     skorch
   ];
 
-  disabledTests = [
-    # Requires the datasets we prevent from downloading
-    "test_create_imagelab"
-  ];
+  disabledTests =
+    [
+      # Requires the datasets we prevent from downloading
+      "test_create_imagelab"
+    ];
 
   disabledTestPaths = [
     # Requires internet

@@ -1,17 +1,18 @@
-{ lib
-, bcrypt
-, buildPythonPackage
-, cryptography
-, fetchpatch
-, fetchPypi
-, gssapi
-, icecream
-, invoke
-, mock
-, pyasn1
-, pynacl
-, pytestCheckHook
-, six
+{
+  lib,
+  bcrypt,
+  buildPythonPackage,
+  cryptography,
+  fetchpatch,
+  fetchPypi,
+  gssapi,
+  icecream,
+  invoke,
+  mock,
+  pyasn1,
+  pynacl,
+  pytestCheckHook,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -24,14 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-ajd3qWGshtvvN1xfW41QAUoaltD9fwVKQ7yIATSw/3c=";
   };
 
-  patches = [
-    # Fix usage of dsa keys
-    # https://github.com/paramiko/paramiko/pull/1606/
-    (fetchpatch {
-      url = "https://github.com/paramiko/paramiko/commit/18e38b99f515056071fb27b9c1a4f472005c324a.patch";
-      hash = "sha256-bPDghPeLo3NiOg+JwD5CJRRLv2VEqmSx1rOF2Tf8ZDA=";
-    })
-  ];
+  patches =
+    [
+      # Fix usage of dsa keys
+      # https://github.com/paramiko/paramiko/pull/1606/
+      (fetchpatch {
+        url = "https://github.com/paramiko/paramiko/commit/18e38b99f515056071fb27b9c1a4f472005c324a.patch";
+        hash = "sha256-bPDghPeLo3NiOg+JwD5CJRRLv2VEqmSx1rOF2Tf8ZDA=";
+      })
+    ];
 
   propagatedBuildInputs = [
     bcrypt
@@ -41,8 +43,14 @@ buildPythonPackage rec {
   ] ++ passthru.optional-dependencies.ed25519; # remove on 3.0 update
 
   passthru.optional-dependencies = {
-    gssapi = [ pyasn1 gssapi ];
-    ed25519 = [ pynacl bcrypt ];
+    gssapi = [
+      pyasn1
+      gssapi
+    ];
+    ed25519 = [
+      pynacl
+      bcrypt
+    ];
     invoke = [ invoke ];
   };
 
@@ -58,9 +66,7 @@ buildPythonPackage rec {
     "tests/test_ssh_gss.py"
   ];
 
-  pythonImportsCheck = [
-    "paramiko"
-  ];
+  pythonImportsCheck = [ "paramiko" ];
 
   __darwinAllowLocalNetworking = true;
 

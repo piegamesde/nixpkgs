@@ -1,12 +1,17 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "lev";
   version = "20150505-git";
 
   description = "libev bindings for Common Lisp";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lev/2015-05-05/lev-20150505-git.tgz";
@@ -15,7 +20,7 @@ rec {
 
   packageName = "lev";
 
-  asdFilesToKeep = ["lev.asd"];
+  asdFilesToKeep = [ "lev.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lev DESCRIPTION libev bindings for Common Lisp SHA256
@@ -26,4 +31,5 @@ rec {
      (NAME cffi FILENAME cffi)
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES (alexandria babel cffi trivial-features) VERSION 20150505-git
-    SIBLINGS NIL PARASITES NIL) */
+    SIBLINGS NIL PARASITES NIL)
+*/

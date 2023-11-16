@@ -1,10 +1,11 @@
-{ buildPythonPackage
-, cirq-core
-, google-api-core
-, protobuf
-, pytestCheckHook
-, freezegun
-, pythonRelaxDepsHook
+{
+  buildPythonPackage,
+  cirq-core,
+  google-api-core,
+  protobuf,
+  pytestCheckHook,
+  freezegun,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
       --replace "protobuf >= 3.15.0, < 4" "protobuf >= 3.15.0"
   '';
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     cirq-core
@@ -48,5 +47,4 @@ buildPythonPackage rec {
     # Calibration issue
     "test_xeb_to_calibration_layer"
   ];
-
 }

@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitLab
-, buildPythonPackage
-, pillow
-, tesseract
-, cuneiform
-, isPy3k
-, substituteAll
-, pytestCheckHook
-, setuptools
-, setuptools-scm
+{
+  lib,
+  fetchFromGitLab,
+  buildPythonPackage,
+  pillow,
+  tesseract,
+  cuneiform,
+  isPy3k,
+  substituteAll,
+  pytestCheckHook,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -38,7 +39,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pillow ];
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

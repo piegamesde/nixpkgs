@@ -1,26 +1,33 @@
-{ lib
-, mkDerivation
-, dbus
-, dbus_cplusplus
-, desktop-file-utils
-, fetchurl
-, glibmm
-, kernel
-, libavc1394
-, libconfig
-, libiec61883
-, libraw1394
-, libxmlxx3
-, pkg-config
-, python3
-, scons
-, which
-, wrapQtAppsHook
+{
+  lib,
+  mkDerivation,
+  dbus,
+  dbus_cplusplus,
+  desktop-file-utils,
+  fetchurl,
+  glibmm,
+  kernel,
+  libavc1394,
+  libconfig,
+  libiec61883,
+  libraw1394,
+  libxmlxx3,
+  pkg-config,
+  python3,
+  scons,
+  which,
+  wrapQtAppsHook,
 }:
 
 let
   inherit (python3.pkgs) pyqt5 dbus-python;
-  python = python3.withPackages (pkgs: with pkgs; [ pyqt5 dbus-python ]);
+  python = python3.withPackages (
+    pkgs:
+    with pkgs; [
+      pyqt5
+      dbus-python
+    ]
+  );
 in
 mkDerivation rec {
   pname = "ffado";
@@ -36,12 +43,17 @@ mkDerivation rec {
       --replace /lib/modules/ "/run/booted-system/kernel-modules/lib/modules/"
   '';
 
-  patches = [
-    # fix installing metainfo file
-    ./fix-build.patch
-  ];
+  patches =
+    [
+      # fix installing metainfo file
+      ./fix-build.patch
+    ];
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -102,7 +114,10 @@ mkDerivation rec {
     homepage = "http://www.ffado.org";
     description = "FireWire audio drivers";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ goibhniu michojel ];
+    maintainers = with maintainers; [
+      goibhniu
+      michojel
+    ];
     platforms = platforms.linux;
   };
 }

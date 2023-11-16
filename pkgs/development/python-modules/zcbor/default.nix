@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 
-# build dependencies
-, setuptools
+  # build dependencies
+  setuptools,
 
-# dependencies
-, cbor2
-, pyyaml
-, regex
+  # dependencies
+  cbor2,
+  pyyaml,
+  regex,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-0mGp7Hnq8ZNEUx/9eQ6UD9/cOuLl6S5Aif1qNh1+jYA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     cbor2

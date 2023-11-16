@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "setuptools-scm-git-archive";
@@ -14,9 +20,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests.py"
-  ];
+  pytestFlagsArray = [ "tests.py" ];
 
   pythonImportsCheck = [ "setuptools_scm_git_archive" ];
 

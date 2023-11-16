@@ -1,4 +1,14 @@
-{ stdenv, lib, fetchurl, makeWrapper, unzip, python3, unar, ffmpeg, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  unzip,
+  python3,
+  unar,
+  ffmpeg,
+  nixosTests,
+}:
 
 let
   runtimeProgDeps = [
@@ -17,17 +27,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AhUMrvnZoo0XMfJ6F9Bi4mC0hk5T3EkQPX/s4tHWcic=";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   buildInputs = [
-    (python3.withPackages (ps: [
-      ps.lxml
-      ps.numpy
-      ps.gevent
-      ps.gevent-websocket
-      ps.pillow
-      ps.setuptools
-    ]))
+    (python3.withPackages (
+      ps: [
+        ps.lxml
+        ps.numpy
+        ps.gevent
+        ps.gevent-websocket
+        ps.pillow
+        ps.setuptools
+      ]
+    ))
   ] ++ runtimeProgDeps;
 
   installPhase = ''

@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, setuptools-scm
-, setuptools
-, typing-extensions
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  setuptools-scm,
+  setuptools,
+  typing-extensions,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,23 +22,17 @@ buildPythonPackage rec {
     hash = "sha256-TBu3Xko0IxFBT2vzrsOxqEG3y4XfPzISEtbkWkIaCvM=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     typing-extensions
     setuptools
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Test can't find cli tool bin path correctly
-  disabledTests = [
-    "test_visa_info"
-  ];
+  disabledTests = [ "test_visa_info" ];
 
   postConfigure = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION="v${version}"

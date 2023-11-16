@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "metatilities-base";
   version = "20191227-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "metatilities-base";
 
-  asdFilesToKeep = ["metatilities-base.asd"];
+  asdFilesToKeep = [ "metatilities-base.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM metatilities-base DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/metatilities-base/2019-12-27/metatilities-base-20191227-git.tgz
     MD5 7968829ca353c4a42784a151317029f1 NAME metatilities-base FILENAME
     metatilities-base DEPS NIL DEPENDENCIES NIL VERSION 20191227-git SIBLINGS
-    (metatilities-base-test) PARASITES NIL) */
+    (metatilities-base-test) PARASITES NIL)
+*/

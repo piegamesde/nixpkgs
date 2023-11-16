@@ -1,26 +1,27 @@
-{ ansicolors
-, attrs
-, autobahn
-, buildPythonPackage
-, fetchFromGitHub
-, jinja2
-, lib
-, mock
-, packaging
-, pexpect
-, psutil
-, pyserial
-, pytestCheckHook
-, pytest-dependency
-, pytest-mock
-, pyudev
-, pyusb
-, pyyaml
-, requests
-, setuptools
-, setuptools-scm
-, wheel
-, xmodem
+{
+  ansicolors,
+  attrs,
+  autobahn,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  lib,
+  mock,
+  packaging,
+  pexpect,
+  psutil,
+  pyserial,
+  pytestCheckHook,
+  pytest-dependency,
+  pytest-mock,
+  pyudev,
+  pyusb,
+  pyyaml,
+  requests,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  xmodem,
 }:
 
 buildPythonPackage rec {

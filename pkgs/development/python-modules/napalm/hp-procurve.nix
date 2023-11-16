@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, napalm
-, netmiko
-, pip
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  napalm,
+  netmiko,
+  pip,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-cO4kxI90krj1knzixRKWxa77OAaxjO8dLTy02VpkV9M=";
   };
 
-  nativeBuildInputs = [
-    pip
-  ];
+  nativeBuildInputs = [ pip ];
 
   # dependency installation in setup.py doesn't work
   patchPhase = ''

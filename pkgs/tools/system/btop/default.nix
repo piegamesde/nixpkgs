@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, darwin
-, removeReferencesTo
-, btop
-, testers
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  darwin,
+  removeReferencesTo,
+  btop,
+  testers,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,8 +24,9 @@ stdenv.mkDerivation rec {
     darwin.apple_sdk_11_0.frameworks.IOKit
   ];
 
-  env.ADDFLAGS = lib.optionalString stdenv.isDarwin
-    "-F${darwin.apple_sdk_11_0.frameworks.IOKit}/Library/Frameworks/";
+  env.ADDFLAGS =
+    lib.optionalString stdenv.isDarwin
+      "-F${darwin.apple_sdk_11_0.frameworks.IOKit}/Library/Frameworks/";
 
   installFlags = [ "PREFIX=$(out)" ];
 
@@ -32,9 +34,7 @@ stdenv.mkDerivation rec {
     ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/bin/btop)
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = btop;
-  };
+  passthru.tests.version = testers.testVersion { package = btop; };
 
   meta = with lib; {
     description = "A monitor of resources";

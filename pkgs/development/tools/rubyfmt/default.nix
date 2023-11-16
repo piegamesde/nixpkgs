@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, autoconf
-, automake
-, bison
-, ruby
-, zlib
-, readline
-, libiconv
-, libobjc
-, libunwind
-, libxcrypt
-, libyaml
-, Foundation
-, Security
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  bison,
+  ruby,
+  zlib,
+  readline,
+  libiconv,
+  libobjc,
+  libunwind,
+  libxcrypt,
+  libyaml,
+  Foundation,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -36,18 +37,20 @@ rustPlatform.buildRustPackage rec {
     ruby
   ];
 
-  buildInputs = [
-    zlib
-    libxcrypt
-    libyaml
-  ] ++ lib.optionals stdenv.isDarwin [
-    readline
-    libiconv
-    libobjc
-    libunwind
-    Foundation
-    Security
-  ];
+  buildInputs =
+    [
+      zlib
+      libxcrypt
+      libyaml
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      readline
+      libiconv
+      libobjc
+      libunwind
+      Foundation
+      Security
+    ];
 
   preConfigure = ''
     pushd librubyfmt/ruby_checkout
@@ -56,10 +59,11 @@ rustPlatform.buildRustPackage rec {
     popd
   '';
 
-  cargoPatches = [
-    # Avoid checking whether ruby gitsubmodule is up-to-date.
-    ./0002-remove-dependency-on-git.patch
-  ];
+  cargoPatches =
+    [
+      # Avoid checking whether ruby gitsubmodule is up-to-date.
+      ./0002-remove-dependency-on-git.patch
+    ];
 
   cargoHash = "sha256-QZ26GmsKyENkzdCGg2peie/aJhEt7KQAF/lwsibonDk=";
 

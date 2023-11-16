@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, python3Packages
-, fetchFromGitHub
-, fetchurl
-, sd
-, cargo
-, curl
-, pkg-config
-, openssl
-, rustPlatform
-, rustc
-, fetchYarnDeps
-, yarn
-, nodejs
-, fixup_yarn_lock
-, glibcLocales
-, libiconv
-, CoreFoundation
-, CoreServices
-, Security
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  fetchurl,
+  sd,
+  cargo,
+  curl,
+  pkg-config,
+  openssl,
+  rustPlatform,
+  rustc,
+  fetchYarnDeps,
+  yarn,
+  nodejs,
+  fixup_yarn_lock,
+  glibcLocales,
+  libiconv,
+  CoreFoundation,
+  CoreServices,
+  Security,
 
-, enableMinimal ? false
+  enableMinimal ? false,
 }:
 
 let
@@ -37,9 +38,9 @@ let
   # on macOS.
   #
   # See https://github.com/NixOS/nixpkgs/pull/198311#issuecomment-1326894295
-  myCargoSetupHook = rustPlatform.cargoSetupHook.overrideAttrs (old: {
-    cargoConfig = lib.optionalString (!stdenv.isDarwin) old.cargoConfig;
-  });
+  myCargoSetupHook = rustPlatform.cargoSetupHook.overrideAttrs (
+    old: { cargoConfig = lib.optionalString (!stdenv.isDarwin) old.cargoConfig; }
+  );
 
   src = fetchFromGitHub {
     owner = "facebook";
@@ -118,7 +119,13 @@ python3Packages.buildPythonApplication {
   # with filesystem paths for the curl calls.
   postUnpack = ''
     mkdir $sourceRoot/hack_pydeps
-    ${lib.concatStrings (map (li: "ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}\n") links)}
+    ${lib.concatStrings (
+      map
+        (li: ''
+          ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}
+        '')
+        links
+    )}
     sed -i "s|https://files.pythonhosted.org/packages/[[:alnum:]]*/[[:alnum:]]*/[[:alnum:]]*/|file://$NIX_BUILD_TOP/$sourceRoot/hack_pydeps/|g" $sourceRoot/setup.py
   '';
 
@@ -131,15 +138,17 @@ python3Packages.buildPythonApplication {
   # 3) If asked, we optionally patch in a hardcoded path to the 'nodejs' package,
   #    so that 'sl web' always works
   # 4) 'sl web' will still work if 'nodejs' is in $PATH, just not OOTB
-  preFixup = ''
-    sitepackages=$out/lib/${python3Packages.python.libPrefix}/site-packages
-    chmod +w $sitepackages
-    cp -r ${isl} $sitepackages/edenscm-isl
-  '' + lib.optionalString (!enableMinimal) ''
-    chmod +w $sitepackages/edenscm-isl/run-isl
-    substituteInPlace $sitepackages/edenscm-isl/run-isl \
-      --replace 'NODE=node' 'NODE=${nodejs}/bin/node'
-  '';
+  preFixup =
+    ''
+      sitepackages=$out/lib/${python3Packages.python.libPrefix}/site-packages
+      chmod +w $sitepackages
+      cp -r ${isl} $sitepackages/edenscm-isl
+    ''
+    + lib.optionalString (!enableMinimal) ''
+      chmod +w $sitepackages/edenscm-isl/run-isl
+      substituteInPlace $sitepackages/edenscm-isl/run-isl \
+        --replace 'NODE=node' 'NODE=${nodejs}/bin/node'
+    '';
 
   postFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/sl \
@@ -154,15 +163,15 @@ python3Packages.buildPythonApplication {
     rustc
   ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    curl
-    libiconv
-    CoreFoundation
-    CoreServices
-    Security
-  ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      curl
+      libiconv
+      CoreFoundation
+      CoreServices
+      Security
+    ];
 
   HGNAME = "sl";
   SAPLING_OSS_BUILD = "true";
@@ -187,7 +196,10 @@ python3Packages.buildPythonApplication {
     description = "A Scalable, User-Friendly Source Control System";
     homepage = "https://sapling-scm.com";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pbar thoughtpolice ];
+    maintainers = with maintainers; [
+      pbar
+      thoughtpolice
+    ];
     platforms = platforms.unix;
     mainProgram = "sl";
   };

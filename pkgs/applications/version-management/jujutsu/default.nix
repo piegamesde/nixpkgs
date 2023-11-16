@@ -1,21 +1,22 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, Security
-, SystemConfiguration
-, pkg-config
-, libiconv
-, openssl
-, gzip
-, libssh2
-, libgit2
-, zstd
-, fetchpatch
-, installShellFiles
-, nix-update-script
-, testers
-, jujutsu
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  Security,
+  SystemConfiguration,
+  pkg-config,
+  libiconv,
+  openssl,
+  gzip,
+  libssh2,
+  libgit2,
+  zstd,
+  fetchpatch,
+  installShellFiles,
+  nix-update-script,
+  testers,
+  jujutsu,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -31,9 +32,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-xA9SDq1Kc0u8qFEPFFCic9uwE2Y/BXJzUHBCs1Czxtw=";
 
-  cargoBuildFlags = [ "--bin" "jj" ]; # don't install the fake editors
+  cargoBuildFlags = [
+    "--bin"
+    "jj"
+  ]; # don't install the fake editors
   useNextest = true; # nextest is the upstream integration framework
-  ZSTD_SYS_USE_PKG_CONFIG = "1";    # disable vendored zlib
+  ZSTD_SYS_USE_PKG_CONFIG = "1"; # disable vendored zlib
   LIBSSH2_SYS_USE_PKG_CONFIG = "1"; # disable vendored libssh2
 
   nativeBuildInputs = [
@@ -42,16 +46,18 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-    zstd
-    libgit2
-    libssh2
-  ] ++ lib.optionals stdenv.isDarwin [
-    Security
-    SystemConfiguration
-    libiconv
-  ];
+  buildInputs =
+    [
+      openssl
+      zstd
+      libgit2
+      libssh2
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Security
+      SystemConfiguration
+      libiconv
+    ];
 
   postInstall = ''
     $out/bin/jj util mangen > ./jj.1
@@ -78,7 +84,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/martinvonz/jj";
     changelog = "https://github.com/martinvonz/jj/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ _0x4A6F thoughtpolice ];
+    maintainers = with maintainers; [
+      _0x4A6F
+      thoughtpolice
+    ];
     mainProgram = "jj";
   };
 }

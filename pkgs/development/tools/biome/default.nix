@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libgit2_1_6
-, zlib
-, stdenv
-, darwin
-, git
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2_1_6,
+  zlib,
+  stdenv,
+  darwin,
+  git,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,20 +23,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-3EkYxq80fkRJ1U4nLtp7dYEEFaqDhgptnNsNghFQAZI=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     libgit2_1_6
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  nativeCheckInputs = [
-    git
-  ];
+  nativeCheckInputs = [ git ];
 
   cargoBuildFlags = [ "-p=biome_cli" ];
   cargoTestFlags = cargoBuildFlags;

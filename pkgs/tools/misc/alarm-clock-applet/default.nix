@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, wrapGAppsHook
-, gst_all_1
-, libnotify
-, libayatana-appindicator
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  wrapGAppsHook,
+  gst_all_1,
+  libnotify,
+  libayatana-appindicator,
 }:
 
 stdenv.mkDerivation rec {
@@ -44,10 +45,11 @@ stdenv.mkDerivation rec {
     libayatana-appindicator
   ];
 
-  cmakeFlags = [
-    # gconf is already deprecated
-    "-DENABLE_GCONF_MIGRATION=OFF"
-  ];
+  cmakeFlags =
+    [
+      # gconf is already deprecated
+      "-DENABLE_GCONF_MIGRATION=OFF"
+    ];
 
   meta = with lib; {
     description = "A fully-featured alarm clock with an indicator";

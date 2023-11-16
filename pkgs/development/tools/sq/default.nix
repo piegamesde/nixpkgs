@@ -1,4 +1,11 @@
-{ lib, buildGo121Module, fetchFromGitHub, installShellFiles, testers, sq }:
+{
+  lib,
+  buildGo121Module,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  sq,
+}:
 
 buildGo121Module rec {
   pname = "sq";

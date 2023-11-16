@@ -1,10 +1,11 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytest-asyncio
-, pytestCheckHook
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-OdAhA+vzIrUnE8Xdv52x7ij0LJKyxawaSY4QORP1TUg=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-  ];
+  propagatedBuildInputs = [ async-timeout ];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -39,9 +38,7 @@ buildPythonPackage rec {
     "test_asyncio_gateway_discovery"
   ];
 
-  pythonImportsCheck = [
-    "screenlogicpy"
-  ];
+  pythonImportsCheck = [ "screenlogicpy" ];
 
   meta = with lib; {
     description = "Python interface for Pentair Screenlogic devices";

@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, proj
-, pythonOlder
-, substituteAll
-, cython
-, pytestCheckHook
-, mock
-, certifi
-, numpy
-, shapely
-, pandas
-, xarray
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  proj,
+  pythonOlder,
+  substituteAll,
+  cython,
+  pytestCheckHook,
+  mock,
+  certifi,
+  numpy,
+  shapely,
+  pandas,
+  xarray,
 }:
 
 buildPythonPackage rec {
@@ -39,9 +40,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ cython ];
   buildInputs = [ proj ];
 
-  propagatedBuildInputs = [
-     certifi
-  ];
+  propagatedBuildInputs = [ certifi ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -105,6 +104,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyproj4/pyproj";
     changelog = "https://github.com/pyproj4/pyproj/blob/${src.rev}/docs/history.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lsix dotlambda ];
+    maintainers = with lib.maintainers; [
+      lsix
+      dotlambda
+    ];
   };
 }

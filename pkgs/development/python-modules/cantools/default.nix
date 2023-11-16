@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, argparse-addons
-, bitstruct
-, can
-, crccheck
-, diskcache
-, matplotlib
-, parameterized
-, pytestCheckHook
-, pythonOlder
-, textparser
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  argparse-addons,
+  bitstruct,
+  can,
+  crccheck,
+  diskcache,
+  matplotlib,
+  parameterized,
+  pytestCheckHook,
+  pythonOlder,
+  textparser,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-k7/m9L1lLzaXY+qRYrAnpi9CSoQA8kI9QRN5GM5oxo4=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     argparse-addons
@@ -45,9 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "cantools"
-  ];
+  pythonImportsCheck = [ "cantools" ];
 
   meta = with lib; {
     homepage = "https://github.com/cantools/cantools";

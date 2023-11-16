@@ -1,17 +1,19 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, flit-core
-, watchdog
-, ephemeral-port-reserve
-, pytest-timeout
-, pytest-xprocess
-, pytestCheckHook
-, markupsafe
-# for passthru.tests
-, moto, sentry-sdk
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  flit-core,
+  watchdog,
+  ephemeral-port-reserve,
+  pytest-timeout,
+  pytest-xprocess,
+  pytestCheckHook,
+  markupsafe,
+  # for passthru.tests
+  moto,
+  sentry-sdk,
 }:
 
 buildPythonPackage rec {
@@ -26,19 +28,17 @@ buildPythonPackage rec {
     hash = "sha256-K4wORHtLnbzIXdl7butNy69si2w74L1lTiVVPgohV9g=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    markupsafe
-  ];
+  propagatedBuildInputs = [ markupsafe ];
 
   passthru.optional-dependencies = {
-    watchdog = lib.optionals (!stdenv.isDarwin) [
-      # watchdog requires macos-sdk 10.13[
-      watchdog
-    ];
+    watchdog =
+      lib.optionals (!stdenv.isDarwin)
+        [
+          # watchdog requires macos-sdk 10.13[
+          watchdog
+        ];
   };
 
   nativeCheckInputs = [
@@ -48,20 +48,20 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    "test_get_machine_id"
-  ];
+  disabledTests = lib.optionals stdenv.isDarwin [ "test_get_machine_id" ];
 
-  disabledTestPaths = [
-    # ConnectionRefusedError: [Errno 111] Connection refused
-    "tests/test_serving.py"
-  ];
+  disabledTestPaths =
+    [
+      # ConnectionRefusedError: [Errno 111] Connection refused
+      "tests/test_serving.py"
+    ];
 
-  pytestFlagsArray = [
-    # don't run tests that are marked with filterwarnings, they fail with
-    # warnings._OptionError: unknown warning category: 'pytest.PytestUnraisableExceptionWarning'
-    "-m 'not filterwarnings'"
-  ];
+  pytestFlagsArray =
+    [
+      # don't run tests that are marked with filterwarnings, they fail with
+      # warnings._OptionError: unknown warning category: 'pytest.PytestUnraisableExceptionWarning'
+      "-m 'not filterwarnings'"
+    ];
 
   passthru.tests = {
     inherit moto sentry-sdk;

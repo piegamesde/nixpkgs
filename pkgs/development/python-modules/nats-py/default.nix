@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, aiohttp
-, buildPythonPackage
-, ed25519
-, fetchFromGitHub
-, nats-server
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, uvloop
+{
+  lib,
+  stdenv,
+  aiohttp,
+  buildPythonPackage,
+  ed25519,
+  fetchFromGitHub,
+  nats-server,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  uvloop,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
       --replace '"--cov=nats", "--cov-report=html"' ""
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -45,20 +44,20 @@ buildPythonPackage rec {
     uvloop
   ];
 
-  disabledTests = [
-    # AssertionError: assert 5 == 0
-    "test_pull_subscribe_limits"
-    "test_fetch_n"
-    "test_subscribe_no_echo"
-    "test_stream_management"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_subscribe_iterate_next_msg"
-    "test_buf_size_force_flush_timeout"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert 5 == 0
+      "test_pull_subscribe_limits"
+      "test_fetch_n"
+      "test_subscribe_no_echo"
+      "test_stream_management"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      "test_subscribe_iterate_next_msg"
+      "test_buf_size_force_flush_timeout"
+    ];
 
-  pythonImportsCheck = [
-    "nats"
-  ];
+  pythonImportsCheck = [ "nats" ];
 
   meta = with lib; {
     description = "Python client for NATS.io";

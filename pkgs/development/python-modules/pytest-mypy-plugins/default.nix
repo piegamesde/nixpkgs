@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, decorator
-, fetchFromGitHub
-, jinja2
-, jsonschema
-, mypy
-, packaging
-, pytest
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, regex
-, tomlkit
+{
+  lib,
+  buildPythonPackage,
+  decorator,
+  fetchFromGitHub,
+  jinja2,
+  jsonschema,
+  mypy,
+  packaging,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  regex,
+  tomlkit,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-kIA2tVOsKsav4tRqZiWCMcRgbRnxAEo7SpmxC2pt9B0=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   propagatedBuildInputs = [
     decorator
@@ -43,9 +42,7 @@ buildPythonPackage rec {
     tomlkit
   ];
 
-  pythonImportsCheck = [
-    "pytest_mypy_plugins"
-  ];
+  pythonImportsCheck = [ "pytest_mypy_plugins" ];
 
   nativeCheckInputs = [
     mypy
@@ -56,9 +53,7 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  disabledTestPaths = [
-    "pytest_mypy_plugins/tests/test_explicit_configs.py"
-  ];
+  disabledTestPaths = [ "pytest_mypy_plugins/tests/test_explicit_configs.py" ];
 
   meta = with lib; {
     description = "Pytest plugin for testing mypy types, stubs, and plugins";

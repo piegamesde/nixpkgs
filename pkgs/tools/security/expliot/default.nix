@@ -1,19 +1,22 @@
-{ lib
-, fetchFromGitLab
-, python3
+{
+  lib,
+  fetchFromGitLab,
+  python3,
 }:
 let
   py = python3.override {
     packageOverrides = self: super: {
 
-      cmd2 = super.cmd2.overridePythonAttrs (oldAttrs: rec {
-        version = "1.5.0";
-        src = oldAttrs.src.override {
-          inherit version;
-          hash = "sha256-cBqMmXXEq8ReXROQarFJ+Vn4EoaRBjRzI6P4msDoKmI=";
-        };
-        doCheck = false;
-      });
+      cmd2 = super.cmd2.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "1.5.0";
+          src = oldAttrs.src.override {
+            inherit version;
+            hash = "sha256-cBqMmXXEq8ReXROQarFJ+Vn4EoaRBjRzI6P4msDoKmI=";
+          };
+          doCheck = false;
+        }
+      );
     };
   };
 in
@@ -39,9 +42,7 @@ buildPythonApplication rec {
     "zeroconf"
   ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     aiocoap
@@ -65,9 +66,7 @@ buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "expliot"
-  ];
+  pythonImportsCheck = [ "expliot" ];
 
   meta = with lib; {
     description = "IoT security testing and exploitation framework";

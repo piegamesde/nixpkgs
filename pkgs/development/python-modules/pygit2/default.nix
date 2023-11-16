@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cacert
-, cached-property
-, cffi
-, fetchPypi
-, isPyPy
-, libgit2
-, pycparser
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cacert,
+  cached-property,
+  cffi,
+  fetchPypi,
+  isPyPy,
+  libgit2,
+  pycparser,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -28,24 +29,16 @@ buildPythonPackage rec {
     export DYLD_LIBRARY_PATH="${libgit2}/lib"
   '';
 
-  buildInputs = [
-    libgit2
-  ];
+  buildInputs = [ libgit2 ];
 
   propagatedBuildInputs = [
     cached-property
     pycparser
-  ] ++ lib.optionals (!isPyPy) [
-    cffi
-  ];
+  ] ++ lib.optionals (!isPyPy) [ cffi ];
 
-  propagatedNativeBuildInputs = lib.optionals (!isPyPy) [
-    cffi
-  ];
+  propagatedNativeBuildInputs = lib.optionals (!isPyPy) [ cffi ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # Disable tests that require networking
@@ -58,9 +51,7 @@ buildPythonPackage rec {
   # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582674047
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  pythonImportsCheck = [
-    "pygit2"
-  ];
+  pythonImportsCheck = [ "pygit2" ];
 
   meta = with lib; {
     description = "A set of Python bindings to the libgit2 shared library";

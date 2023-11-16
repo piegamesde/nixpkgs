@@ -1,24 +1,25 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, matplotlib
-, numpy
-, openpyxl
-, pandas
-, pandas-stubs
-, plotly
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, scikit-learn
-, tenacity
-, tqdm
-, typing-extensions
-, wandb
-, withOptionalDependencies ? false
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  matplotlib,
+  numpy,
+  openpyxl,
+  pandas,
+  pandas-stubs,
+  plotly,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  scikit-learn,
+  tenacity,
+  tqdm,
+  typing-extensions,
+  wandb,
+  withOptionalDependencies ? false,
 }:
 
 buildPythonPackage rec {
@@ -35,15 +36,16 @@ buildPythonPackage rec {
     hash = "sha256-liJyeGxnYIC/jUQKdeATHpVJb/12KGbeM94Y2YQphfY=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    requests
-    tqdm
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ] ++ lib.optionals withOptionalDependencies (builtins.attrValues {
-    inherit (passthru.optional-dependencies) embeddings wandb;
-  });
+  propagatedBuildInputs =
+    [
+      aiohttp
+      requests
+      tqdm
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ++ lib.optionals withOptionalDependencies (
+      builtins.attrValues { inherit (passthru.optional-dependencies) embeddings wandb; }
+    );
 
   passthru.optional-dependencies = {
     datalib = [
@@ -58,14 +60,10 @@ buildPythonPackage rec {
       scikit-learn
       tenacity
     ] ++ passthru.optional-dependencies.datalib;
-    wandb = [
-      wandb
-    ] ++ passthru.optional-dependencies.datalib;
+    wandb = [ wandb ] ++ passthru.optional-dependencies.datalib;
   };
 
-  pythonImportsCheck = [
-    "openai"
-  ];
+  pythonImportsCheck = [ "openai" ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -73,9 +71,7 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pytestFlagsArray = [
-    "openai/tests"
-  ];
+  pytestFlagsArray = [ "openai/tests" ];
 
   OPENAI_API_KEY = "sk-foo";
 

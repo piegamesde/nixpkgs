@@ -1,6 +1,4 @@
-{ lib
-, bundlerApp
-}:
+{ lib, bundlerApp }:
 
 bundlerApp {
   pname = "haste";
@@ -9,9 +7,9 @@ bundlerApp {
 
   meta = with lib; {
     description = "Command line interface to the AnyStyle Parser and Finder";
-    homepage    = "https://rubygems.org/gems/haste";
-    license     = licenses.mit;
+    homepage = "https://rubygems.org/gems/haste";
+    license = licenses.mit;
     maintainers = with maintainers; [ shamilton ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

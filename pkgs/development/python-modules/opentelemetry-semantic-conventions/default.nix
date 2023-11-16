@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, hatchling
-, opentelemetry-api
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  hatchling,
+  opentelemetry-api,
+  pytestCheckHook,
 }:
 
 buildPythonPackage {
@@ -15,13 +16,9 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "opentelemetry.semconv" ];
 

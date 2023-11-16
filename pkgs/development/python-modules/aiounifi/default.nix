@@ -1,17 +1,18 @@
-{ lib
-, aiohttp
-, aioresponses
-, buildPythonPackage
-, fetchFromGitHub
-, orjson
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, segno
-, setuptools
-, trustme
-, wheel
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  segno,
+  setuptools,
+  trustme,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -55,13 +56,9 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  pythonImportsCheck = [
-    "aiounifi"
-  ];
+  pythonImportsCheck = [ "aiounifi" ];
 
   meta = with lib; {
     description = "Python library for communicating with Unifi Controller API";

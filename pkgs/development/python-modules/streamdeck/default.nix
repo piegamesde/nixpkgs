@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, substituteAll
-, pkgs
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  pkgs,
 }:
 
 buildPythonPackage rec {
@@ -15,13 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-aVmWbrBhZ49NfwOp23FD1dxZF+w/q26fIOVs7iQXUxo=";
   };
 
-  patches = [
-    # substitute libusb path
-    (substituteAll {
-      src = ./hardcode-libusb.patch;
-      libusb = "${pkgs.hidapi}/lib/libhidapi-libusb${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches =
+    [
+      # substitute libusb path
+      (substituteAll {
+        src = ./hardcode-libusb.patch;
+        libusb = "${pkgs.hidapi}/lib/libhidapi-libusb${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   pythonImportsCheck = [ "StreamDeck" ];
   doCheck = false;

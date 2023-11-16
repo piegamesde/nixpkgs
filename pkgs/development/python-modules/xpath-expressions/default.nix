@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, lxml
-, poetry-core
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  lxml,
+  poetry-core,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,18 +22,17 @@ buildPythonPackage rec {
     hash = "sha256-UAzDXrz1Tr9/OOjKAg/5Std9Qlrnizei8/3XL3hMSFA=";
   };
 
-  patches = [
-    # https://github.com/orf/xpath-expressions/pull/4
-    (fetchpatch {
-      name = "replace-poetry-with-poetry-core.patch";
-      url = "https://github.com/orf/xpath-expressions/commit/3c5900fd6b2d08dd9468707f35ab42072cf75bd3.patch";
-      hash = "sha256-IeV6ncJyt/w2s5TPpbM5a3pljNT6Bp5PIiqgTg2iTRA=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/orf/xpath-expressions/pull/4
+      (fetchpatch {
+        name = "replace-poetry-with-poetry-core.patch";
+        url = "https://github.com/orf/xpath-expressions/commit/3c5900fd6b2d08dd9468707f35ab42072cf75bd3.patch";
+        hash = "sha256-IeV6ncJyt/w2s5TPpbM5a3pljNT6Bp5PIiqgTg2iTRA=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   nativeCheckInputs = [
     lxml

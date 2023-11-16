@@ -1,7 +1,11 @@
-{ config, lib, callPackages }:
+{
+  config,
+  lib,
+  callPackages,
+}:
 
 let
-  aliases = if config.allowAliases then (import ./aliases.nix lib) else prev: {};
+  aliases = if config.allowAliases then (import ./aliases.nix lib) else prev: { };
 
   # Writers for JSON-like data structures
   dataWriters = callPackages ./data.nix { };

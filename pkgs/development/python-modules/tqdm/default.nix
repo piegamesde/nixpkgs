@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, setuptools-scm
-, wheel
-, pytestCheckHook
-, pytest-asyncio
-, pytest-timeout
-, numpy
-, pandas
-, rich
-, tkinter
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-timeout,
+  numpy,
+  pandas,
+  rich,
+  tkinter,
 }:
 
 buildPythonPackage rec {
@@ -30,29 +31,30 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-timeout
-    # tests of optional features
-    numpy
-    rich
-    tkinter
-  ] ++
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-asyncio
+      pytest-timeout
+      # tests of optional features
+      numpy
+      rich
+      tkinter
+    ]
+    ++
     # pandas is not supported on i686 or risc-v
     lib.optional (!stdenv.isi686 && !stdenv.hostPlatform.isRiscV) pandas;
 
   pytestFlagsArray = [
-    "-W" "ignore::FutureWarning"
+    "-W"
+    "ignore::FutureWarning"
   ];
 
   # Remove performance testing.
   # Too sensitive for on Hydra.
-  disabledTests = [
-    "perf"
-  ];
+  disabledTests = [ "perf" ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   pythonImportsCheck = [ "tqdm" ];
 

@@ -1,14 +1,15 @@
-{ lib
-, python3
-, fetchurl
-, pkg-config
-, gettext
-, mate
-, gtk3
-, glib
-, wrapGAppsHook
-, gobject-introspection
-, mateUpdateScript
+{
+  lib,
+  python3,
+  fetchurl,
+  pkg-config,
+  gettext,
+  mate,
+  gtk3,
+  glib,
+  wrapGAppsHook,
+  gobject-introspection,
+  mateUpdateScript,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -19,7 +20,9 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "RyxILg7y+xYp5h4X2qoaSH9kOSsCmEncmkCCr7OLye4=";
   };
 

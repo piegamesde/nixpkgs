@@ -1,8 +1,9 @@
-{ buildPythonPackage
-, fetchPypi
-, lib
-, pytestCheckHook
-, setuptools
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  pytestCheckHook,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -19,23 +20,21 @@ buildPythonPackage rec {
       --replace "--cov=src -vv" ""
   '';
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # OSError: /build/anyconfig-0.12.0/tests/res/cli/no_template/10/e/10.* should exists but not
-    "test_runs_for_datasets"
-  ];
+  disabledTests =
+    [
+      # OSError: /build/anyconfig-0.12.0/tests/res/cli/no_template/10/e/10.* should exists but not
+      "test_runs_for_datasets"
+    ];
 
-  disabledTestPaths = [
-    # NameError: name 'TT' is not defined
-    "tests/schema/test_jsonschema.py"
-  ];
+  disabledTestPaths =
+    [
+      # NameError: name 'TT' is not defined
+      "tests/schema/test_jsonschema.py"
+    ];
 
   pythonImportsCheck = [ "anyconfig" ];
 

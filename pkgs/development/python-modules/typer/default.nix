@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, click
-, colorama
-, coverage
-, fetchpatch
-, fetchPypi
-, flit-core
-, pytest-sugar
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, rich
-, shellingham
-, typing-extensions
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  click,
+  colorama,
+  coverage,
+  fetchpatch,
+  fetchPypi,
+  flit-core,
+  pytest-sugar,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  rich,
+  shellingham,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -28,18 +29,17 @@ buildPythonPackage rec {
     hash = "sha256-UJIv15rqL0dRqOBAj/ENJmK9DIu/qEdVppnzutopeLI=";
   };
 
-  patches = [
-    # https://github.com/tiangolo/typer/pull/651
-    (fetchpatch {
-      name = "unpin-flit-core-dependency.patch";
-      url = "https://github.com/tiangolo/typer/commit/78a0ee2eec9f54ad496420e177fdaad84984def1.patch";
-      hash = "sha256-VVUzFvF2KCXXkCfCU5xu9acT6OLr+PlQQPeVGONtU4A=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/tiangolo/typer/pull/651
+      (fetchpatch {
+        name = "unpin-flit-core-dependency.patch";
+        url = "https://github.com/tiangolo/typer/commit/78a0ee2eec9f54ad496420e177fdaad84984def1.patch";
+        hash = "sha256-VVUzFvF2KCXXkCfCU5xu9acT6OLr+PlQQPeVGONtU4A=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     click
@@ -71,13 +71,9 @@ buildPythonPackage rec {
     # fails also on Linux
     "test_show_completion"
     "test_install_completion"
-  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
-    "test_install_completion"
-  ];
+  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "test_install_completion" ];
 
-  pythonImportsCheck = [
-    "typer"
-  ];
+  pythonImportsCheck = [ "typer" ];
 
   meta = with lib; {
     description = "Library for building CLI applications";

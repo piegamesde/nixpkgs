@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, calendar, caqti }:
+{
+  lib,
+  buildDunePackage,
+  calendar,
+  caqti,
+}:
 
 buildDunePackage {
   pname = "caqti-type-calendar";
@@ -6,7 +11,10 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ calendar caqti ];
+  propagatedBuildInputs = [
+    calendar
+    caqti
+  ];
 
   meta = caqti.meta // {
     description = "Date and time field types using the calendar library";

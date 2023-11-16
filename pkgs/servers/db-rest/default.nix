@@ -1,9 +1,10 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, nodejs_18
-, nix-update-script
-, fetchpatch
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  nodejs_18,
+  nix-update-script,
+  fetchpatch,
 }:
 buildNpmPackage rec {
   pname = "db-rest";
@@ -18,14 +19,15 @@ buildNpmPackage rec {
     hash = "sha256-kHT8/8ivqcP6YRBvkZ4jpJ/xBMM1PddLgV1Z/MFmSTM=";
   };
 
-  patches = [
-    # add files and bin property to package.json
-    # keep until https://github.com/derhuerst/db-rest/pull/37 is merged and released
-    (fetchpatch {
-      url = "https://github.com/derhuerst/db-rest/commit/7d2c8bebdd5e8152b181748e3c36683ecf9e71c9.patch";
-      hash = "sha256-KyNcvSJLQrX8BO/4814wefeeC+s0pvM2ng44q6diU24=";
-    })
-  ];
+  patches =
+    [
+      # add files and bin property to package.json
+      # keep until https://github.com/derhuerst/db-rest/pull/37 is merged and released
+      (fetchpatch {
+        url = "https://github.com/derhuerst/db-rest/commit/7d2c8bebdd5e8152b181748e3c36683ecf9e71c9.patch";
+        hash = "sha256-KyNcvSJLQrX8BO/4814wefeeC+s0pvM2ng44q6diU24=";
+      })
+    ];
 
   npmDepsHash = "sha256-d/Qs194TU4ooy6GsBsZhrf5H1iPCUnlieBgtuqfAtkQ=";
 

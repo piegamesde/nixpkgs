@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -10,7 +15,7 @@ let
 
   rpcMountpoint = "${nfsStateDir}/rpc_pipefs";
 
-  format = pkgs.formats.ini {};
+  format = pkgs.formats.ini { };
 
   idmapdConfFile = format.generate "idmapd.conf" cfg.idmapd.settings;
   nfsConfFile = pkgs.writeText "nfs.conf" cfg.extraConfig;
@@ -19,7 +24,6 @@ let
   '';
 
   cfg = config.services.nfs;
-
 in
 
 {
@@ -29,7 +33,7 @@ in
     services.nfs = {
       idmapd.settings = mkOption {
         type = format.type;
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           libnfsidmap configuration. Refer to
           <https://linux.die.net/man/5/idmapd.conf>
@@ -90,46 +94,52 @@ in
       "request-key.conf".source = requestKeyConfFile;
     };
 
-    systemd.services.nfs-blkmap =
-      { restartTriggers = [ nfsConfFile ];
-      };
+    systemd.services.nfs-blkmap = {
+      restartTriggers = [ nfsConfFile ];
+    };
 
-    systemd.targets.nfs-client =
-      { wantedBy = [ "multi-user.target" "remote-fs.target" ];
-      };
+    systemd.targets.nfs-client = {
+      wantedBy = [
+        "multi-user.target"
+        "remote-fs.target"
+      ];
+    };
 
-    systemd.services.nfs-idmapd =
-      { restartTriggers = [ idmapdConfFile ];
-      };
+    systemd.services.nfs-idmapd = {
+      restartTriggers = [ idmapdConfFile ];
+    };
 
-    systemd.services.nfs-mountd =
-      { restartTriggers = [ nfsConfFile ];
-        enable = mkDefault false;
-      };
+    systemd.services.nfs-mountd = {
+      restartTriggers = [ nfsConfFile ];
+      enable = mkDefault false;
+    };
 
-    systemd.services.nfs-server =
-      { restartTriggers = [ nfsConfFile ];
-        enable = mkDefault false;
-      };
+    systemd.services.nfs-server = {
+      restartTriggers = [ nfsConfFile ];
+      enable = mkDefault false;
+    };
 
-    systemd.services.auth-rpcgss-module =
-      {
-        unitConfig.ConditionPathExists = [ "" "/etc/krb5.keytab" ];
-      };
+    systemd.services.auth-rpcgss-module = {
+      unitConfig.ConditionPathExists = [
+        ""
+        "/etc/krb5.keytab"
+      ];
+    };
 
-    systemd.services.rpc-gssd =
-      { restartTriggers = [ nfsConfFile ];
-        unitConfig.ConditionPathExists = [ "" "/etc/krb5.keytab" ];
-      };
+    systemd.services.rpc-gssd = {
+      restartTriggers = [ nfsConfFile ];
+      unitConfig.ConditionPathExists = [
+        ""
+        "/etc/krb5.keytab"
+      ];
+    };
 
-    systemd.services.rpc-statd =
-      { restartTriggers = [ nfsConfFile ];
+    systemd.services.rpc-statd = {
+      restartTriggers = [ nfsConfFile ];
 
-        preStart =
-          ''
-            mkdir -p /var/lib/nfs/{sm,sm.bak}
-          '';
-      };
-
+      preStart = ''
+        mkdir -p /var/lib/nfs/{sm,sm.bak}
+      '';
+    };
   };
 }

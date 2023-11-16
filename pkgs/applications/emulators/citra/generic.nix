@@ -1,31 +1,41 @@
-{ pname
-, version
-, src
-, branch
-, compat-list
+{
+  pname,
+  version,
+  src,
+  branch,
+  compat-list,
 
-, lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-, pkg-config
-, libusb1
-, glslang
-, zstd
-, libressl
-, enableSdl2 ? true, SDL2
-, enableQt ? true, qtbase, qtmultimedia, wrapQtAppsHook
-, enableQtTranslation ? enableQt, qttools
-, enableWebService ? true
-, enableCubeb ? true, cubeb
-, enableFfmpegAudioDecoder ? true
-, enableFfmpegVideoDumper ? true
-, ffmpeg_4
-, useDiscordRichPresence ? true, rapidjson
-, enableFdk ? false, fdk_aac
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  pkg-config,
+  libusb1,
+  glslang,
+  zstd,
+  libressl,
+  enableSdl2 ? true,
+  SDL2,
+  enableQt ? true,
+  qtbase,
+  qtmultimedia,
+  wrapQtAppsHook,
+  enableQtTranslation ? enableQt,
+  qttools,
+  enableWebService ? true,
+  enableCubeb ? true,
+  cubeb,
+  enableFfmpegAudioDecoder ? true,
+  enableFfmpegVideoDumper ? true,
+  ffmpeg_4,
+  useDiscordRichPresence ? true,
+  rapidjson,
+  enableFdk ? false,
+  fdk_aac,
 }:
-assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk) "Can't enable both enableFfmpegAudioDecoder and enableFdk";
+assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
+    "Can't enable both enableFfmpegAudioDecoder and enableFdk";
 
 stdenv.mkDerivation rec {
   inherit pname version src;
@@ -36,10 +46,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ] ++ lib.optionals enableQt [ wrapQtAppsHook ];
 
-  buildInputs = [
-    boost
-    libusb1
-  ] ++ lib.optionals enableQt [ qtbase qtmultimedia ]
+  buildInputs =
+    [
+      boost
+      libusb1
+    ]
+    ++ lib.optionals enableQt [
+      qtbase
+      qtmultimedia
+    ]
     ++ lib.optional enableSdl2 SDL2
     ++ lib.optional enableQtTranslation qttools
     ++ lib.optionals enableCubeb cubeb.passthru.backendLibs
@@ -47,19 +62,21 @@ stdenv.mkDerivation rec {
     ++ lib.optional useDiscordRichPresence rapidjson
     ++ lib.optional enableFdk fdk_aac;
 
-  cmakeFlags = [
-    "-DUSE_SYSTEM_BOOST=ON"
-    "-DCITRA_WARNINGS_AS_ERRORS=OFF"
-    "-DCITRA_USE_BUNDLED_FFMPEG=OFF"
-    "-DCITRA_USE_BUNDLED_QT=OFF"
-    "-DUSE_SYSTEM_SDL2=ON"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
+  cmakeFlags =
+    [
+      "-DUSE_SYSTEM_BOOST=ON"
+      "-DCITRA_WARNINGS_AS_ERRORS=OFF"
+      "-DCITRA_USE_BUNDLED_FFMPEG=OFF"
+      "-DCITRA_USE_BUNDLED_QT=OFF"
+      "-DUSE_SYSTEM_SDL2=ON"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
 
-    # We dont want to bother upstream with potentially outdated compat reports
-    "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON"
-    "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
-  ] ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
+      # We dont want to bother upstream with potentially outdated compat reports
+      "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON"
+      "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
+    ]
+    ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
     ++ lib.optional (!enableQt) "-DENABLE_QT=OFF"
     ++ lib.optional enableQtTranslation "-DENABLE_QT_TRANSLATION=ON"
     ++ lib.optional (!enableWebService) "-DENABLE_WEB_SERVICE=OFF"
@@ -69,30 +86,33 @@ stdenv.mkDerivation rec {
     ++ lib.optional useDiscordRichPresence "-DUSE_DISCORD_PRESENCE=ON"
     ++ lib.optional enableFdk "-DENABLE_FDK=ON";
 
-  postPatch = with lib; let
-    branchCaptialized = (lib.toUpper (lib.substring 0 1 branch) + lib.substring 1 (-1) branch);
-  in ''
-    # Fix file not found when looking in var/empty instead of opt
-    mkdir externals/dynarmic/src/dynarmic/ir/var
-    ln -s ../opt externals/dynarmic/src/dynarmic/ir/var/empty
+  postPatch =
+    with lib;
+    let
+      branchCaptialized = (lib.toUpper (lib.substring 0 1 branch) + lib.substring 1 (-1) branch);
+    in
+    ''
+      # Fix file not found when looking in var/empty instead of opt
+      mkdir externals/dynarmic/src/dynarmic/ir/var
+      ln -s ../opt externals/dynarmic/src/dynarmic/ir/var/empty
 
-    # Prep compatibilitylist
-    ln -s ${compat-list} ./dist/compatibility_list/compatibility_list.json
+      # Prep compatibilitylist
+      ln -s ${compat-list} ./dist/compatibility_list/compatibility_list.json
 
-    # We already know the submodules are present
-    substituteInPlace CMakeLists.txt \
-      --replace "check_submodules_present()" ""
+      # We already know the submodules are present
+      substituteInPlace CMakeLists.txt \
+        --replace "check_submodules_present()" ""
 
-    # Add versions
-    echo 'set(BUILD_FULLNAME "${branchCaptialized} ${version}")' >> CMakeModules/GenerateBuildInfo.cmake
+      # Add versions
+      echo 'set(BUILD_FULLNAME "${branchCaptialized} ${version}")' >> CMakeModules/GenerateBuildInfo.cmake
 
-    # Devendoring
-    rm -rf externals/zstd externals/libressl
-    cp -r ${zstd.src} externals/zstd
-    tar xf ${libressl.src} -C externals/
-    mv externals/${libressl.name} externals/libressl
-    chmod -R a+w externals/zstd
-  '';
+      # Devendoring
+      rm -rf externals/zstd externals/libressl
+      cp -r ${zstd.src} externals/zstd
+      tar xf ${libressl.src} -C externals/
+      mv externals/${libressl.name} externals/libressl
+      chmod -R a+w externals/zstd
+    '';
 
   # Fixes https://github.com/NixOS/nixpkgs/issues/171173
   postInstall = lib.optionalString (enableCubeb && enableSdl2) ''

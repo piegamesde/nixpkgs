@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, marshmallow
-, marshmallow-dataclass
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
-, setuptools
-, typing-extensions
-, vcrpy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  marshmallow,
+  marshmallow-dataclass,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+  setuptools,
+  typing-extensions,
+  vcrpy,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-Vr0+y3Zi7DsXzm2COOlMqUVjlZMRJkaVxT8QpSePhuA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     marshmallow
@@ -43,9 +42,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [
-    "pygitguardian"
-  ];
+  pythonImportsCheck = [ "pygitguardian" ];
 
   disabledTests = [
     # Tests require an API key

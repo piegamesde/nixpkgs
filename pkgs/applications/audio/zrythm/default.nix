@@ -1,90 +1,93 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchFromSourcehut
-, SDL2
-, alsa-lib
-, appstream
-, appstream-glib
-, bash-completion
-, boost
-, breeze-icons
-, carla
-, chromaprint
-, cmake
-, curl
-, dbus
-, dconf
-, faust2lv2
-, fftw
-, fftwFloat
-, flex
-, glib
-, graphviz
-, gtk4
-, gtksourceview5
-, guile
-, help2man
-, jq
-, json-glib
-, kissfft
-, libadwaita
-, libaudec
-, libbacktrace
-, libcyaml
-, libepoxy
-, libgtop
-, libjack2
-, libpanel
-, libpulseaudio
-, libsamplerate
-, libsass
-, libsndfile
-, libsoundio
-, libxml2
-, libyaml
-, lilv
-, lv2
-, meson
-, ninja
-, pandoc
-, pcre
-, pcre2
-, pkg-config
-, python3
-, reproc
-, rtaudio
-, rtmidi
-, rubberband
-, sassc
-, serd
-, sord
-, sox
-, sratom
-, texi2html
-, vamp-plugin-sdk
-, wrapGAppsHook
-, xdg-utils
-, xxHash
-, zix
-, zstd
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchFromSourcehut,
+  SDL2,
+  alsa-lib,
+  appstream,
+  appstream-glib,
+  bash-completion,
+  boost,
+  breeze-icons,
+  carla,
+  chromaprint,
+  cmake,
+  curl,
+  dbus,
+  dconf,
+  faust2lv2,
+  fftw,
+  fftwFloat,
+  flex,
+  glib,
+  graphviz,
+  gtk4,
+  gtksourceview5,
+  guile,
+  help2man,
+  jq,
+  json-glib,
+  kissfft,
+  libadwaita,
+  libaudec,
+  libbacktrace,
+  libcyaml,
+  libepoxy,
+  libgtop,
+  libjack2,
+  libpanel,
+  libpulseaudio,
+  libsamplerate,
+  libsass,
+  libsndfile,
+  libsoundio,
+  libxml2,
+  libyaml,
+  lilv,
+  lv2,
+  meson,
+  ninja,
+  pandoc,
+  pcre,
+  pcre2,
+  pkg-config,
+  python3,
+  reproc,
+  rtaudio,
+  rtmidi,
+  rubberband,
+  sassc,
+  serd,
+  sord,
+  sox,
+  sratom,
+  texi2html,
+  vamp-plugin-sdk,
+  wrapGAppsHook,
+  xdg-utils,
+  xxHash,
+  zix,
+  zstd,
 }:
 
 let
   # As of zrythm-1.0.0-beta.4.5.62, Zrythm needs clap
   # https://github.com/falktx/carla/tree/main/source/includes/clap, which is
   # only available on Carla unstable as of 2023-02-24.
-  carla-unstable = carla.overrideAttrs (oldAttrs: rec {
-    pname = "carla";
-    version = "unstable-2023-05-12";
+  carla-unstable = carla.overrideAttrs (
+    oldAttrs: rec {
+      pname = "carla";
+      version = "unstable-2023-05-12";
 
-    src = fetchFromGitHub {
-      owner = "falkTX";
-      repo = pname;
-      rev = "0175570f1d41285f39efe0ee32234458e0ed941c";
-      hash = "sha256-yfVzZV8G4AUDM8+yS9finzobpOb1PUEPgBWFhEY4nFQ=";
-    };
-  });
+      src = fetchFromGitHub {
+        owner = "falkTX";
+        repo = pname;
+        rev = "0175570f1d41285f39efe0ee32234458e0ed941c";
+        hash = "sha256-yfVzZV8G4AUDM8+yS9finzobpOb1PUEPgBWFhEY4nFQ=";
+      };
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "zrythm";
@@ -218,7 +221,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.zrythm.org";
     description = "Automated and intuitive digital audio workstation";
-    maintainers = with maintainers; [ tshaynik magnetophon yuu ];
+    maintainers = with maintainers; [
+      tshaynik
+      magnetophon
+      yuu
+    ];
     platforms = platforms.linux;
     license = licenses.agpl3Plus;
   };

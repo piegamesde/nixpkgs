@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, http-sfv
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, requests
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  http-sfv,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     cryptography
@@ -39,13 +38,9 @@ buildPythonPackage rec {
     requests
   ];
 
-  pytestFlagsArray = [
-    "test/test.py"
-  ];
+  pytestFlagsArray = [ "test/test.py" ];
 
-  pythonImportsCheck = [
-    "http_message_signatures"
-  ];
+  pythonImportsCheck = [ "http_message_signatures" ];
 
   meta = with lib; {
     description = "Requests authentication module for HTTP Signature";

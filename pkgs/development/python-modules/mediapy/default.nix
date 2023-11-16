@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, flit-core
-, ipython
-, matplotlib
-, numpy
-, pillow
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  flit-core,
+  ipython,
+  matplotlib,
+  numpy,
+  pillow,
 }:
 
 buildPythonPackage rec {
@@ -23,8 +24,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ ipython matplotlib numpy pillow ];
-
+  propagatedBuildInputs = [
+    ipython
+    matplotlib
+    numpy
+    pillow
+  ];
 
   pythonImportsCheck = [ "mediapy" ];
 

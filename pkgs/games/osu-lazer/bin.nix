@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchzip
-, appimageTools
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  appimageTools,
 }:
 
 let
@@ -10,30 +11,38 @@ let
   version = "2023.1026.0";
   name = "${pname}-${version}";
 
-  osu-lazer-bin-src = {
-    aarch64-darwin = {
-      url = "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip";
-      sha256 = "sha256-6IaN189cV/ORP77zrjdcCPwPzNR/W6JmrZXVasCx8MQ=";
-    };
-    x86_64-darwin = {
-      url = "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip";
-      sha256 = "sha256-XrlajKT3GLjfj800mULj9iwkF9Bvx9Rlz56K6welq2U=";
-    };
-    x86_64-linux = {
-      url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-      sha256 = "sha256-yr7PtBUBE0tB0giAE8aQCNJvxS/tMzlLWpJ3NyosQZk=";
-    };
-  }.${stdenv.system} or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
+  osu-lazer-bin-src =
+    {
+      aarch64-darwin = {
+        url = "https://github.com/ppy/osu/releases/download/${version}/osu.app.Apple.Silicon.zip";
+        sha256 = "sha256-6IaN189cV/ORP77zrjdcCPwPzNR/W6JmrZXVasCx8MQ=";
+      };
+      x86_64-darwin = {
+        url = "https://github.com/ppy/osu/releases/download/${version}/osu.app.Intel.zip";
+        sha256 = "sha256-XrlajKT3GLjfj800mULj9iwkF9Bvx9Rlz56K6welq2U=";
+      };
+      x86_64-linux = {
+        url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
+        sha256 = "sha256-yr7PtBUBE0tB0giAE8aQCNJvxS/tMzlLWpJ3NyosQZk=";
+      };
+    }
+    .${stdenv.system} or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
 
   linux = appimageTools.wrapType2 rec {
-    inherit name pname version meta;
+    inherit
+      name
+      pname
+      version
+      meta
+    ;
 
     src = fetchurl (osu-lazer-bin-src);
 
     extraPkgs = pkgs: with pkgs; [ icu ];
 
     extraInstallCommands =
-      let contents = appimageTools.extract { inherit pname version src; };
+      let
+        contents = appimageTools.extract { inherit pname version src; };
       in
       ''
         mv -v $out/bin/${pname}-${version} $out/bin/osu\!
@@ -45,7 +54,12 @@ let
   };
 
   darwin = stdenv.mkDerivation rec {
-    inherit name pname version meta;
+    inherit
+      name
+      pname
+      version
+      meta
+    ;
 
     src = fetchzip (osu-lazer-bin-src // { stripRoot = false; });
 
@@ -70,14 +84,19 @@ let
       unfreeRedistributable # osu-framework contains libbass.so in repository
     ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ delan stepbrobd spacefault ];
+    maintainers = with maintainers; [
+      delan
+      stepbrobd
+      spacefault
+    ];
     mainProgram = "osu!";
-    platforms = [ "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
   };
 
   passthru.updateScript = ./update-bin.sh;
 in
-if stdenv.isDarwin
-then darwin
-else linux
-
+if stdenv.isDarwin then darwin else linux

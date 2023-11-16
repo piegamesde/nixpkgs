@@ -1,5 +1,10 @@
 # rygel service.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,13 +13,24 @@ with lib;
     maintainers = teams.gnome.members;
   };
 
-  imports = [
-    # Added 2021-05-07
-    (mkRenamedOptionModule
-      [ "services" "gnome3" "rygel" "enable" ]
-      [ "services" "gnome" "rygel" "enable" ]
-    )
-  ];
+  imports =
+    [
+      # Added 2021-05-07
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "rygel"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "rygel"
+          "enable"
+        ]
+      )
+    ];
 
   ###### interface
   options = {

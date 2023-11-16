@@ -1,26 +1,30 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, check
-, dbus
-, xvfb-run
-, glib
-, gtk
-, gettext
-, libiconv
-, json-glib
-, libintl
-, zathura
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  check,
+  dbus,
+  xvfb-run,
+  glib,
+  gtk,
+  gettext,
+  libiconv,
+  json-glib,
+  libintl,
+  zathura,
 }:
 
 stdenv.mkDerivation rec {
   pname = "girara";
   version = "0.4.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitLab {
     domain = "git.pwmt.org";
@@ -51,9 +55,7 @@ stdenv.mkDerivation rec {
     gtk
   ];
 
-  nativeCheckInputs = [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ xvfb-run ];
 
   doCheck = !stdenv.isDarwin;
 

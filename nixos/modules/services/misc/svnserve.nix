@@ -1,12 +1,16 @@
 # SVN server
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.services.svnserve;
-
 in
 
 {
@@ -20,7 +24,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable svnserve to serve Subversion repositories through the SVN protocol.";
+        description =
+          lib.mdDoc
+            "Whether to enable svnserve to serve Subversion repositories through the SVN protocol.";
       };
 
       svnBaseDir = mkOption {
@@ -29,9 +35,7 @@ in
         description = lib.mdDoc "Base directory from which Subversion repositories are accessed.";
       };
     };
-
   };
-
 
   ###### implementation
 

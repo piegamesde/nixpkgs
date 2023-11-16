@@ -1,22 +1,27 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.services.honk;
 
-  honk-initdb-script = cfg: pkgs.writeShellApplication {
-    name = "honk-initdb-script";
+  honk-initdb-script =
+    cfg:
+    pkgs.writeShellApplication {
+      name = "honk-initdb-script";
 
-    runtimeInputs = with pkgs; [ coreutils ];
+      runtimeInputs = with pkgs; [ coreutils ];
 
-    text = ''
-      PW=$(cat "$CREDENTIALS_DIRECTORY/honk_passwordFile")
+      text = ''
+        PW=$(cat "$CREDENTIALS_DIRECTORY/honk_passwordFile")
 
-      echo -e "${cfg.username}\n''$PW\n${cfg.host}:${toString cfg.port}\n${cfg.servername}" | ${lib.getExe cfg.package} -datadir "$STATE_DIRECTORY" init
-    '';
-  };
+        echo -e "${cfg.username}\n$PW\n${cfg.host}:${toString cfg.port}\n${cfg.servername}" | ${
+          lib.getExe cfg.package
+        } -datadir "$STATE_DIRECTORY" init
+      '';
+    };
 in
 {
   options = {
@@ -102,9 +107,7 @@ in
       before = [ "honk.service" ];
 
       serviceConfig = {
-        LoadCredential = [
-          "honk_passwordFile:${cfg.passwordFile}"
-        ];
+        LoadCredential = [ "honk_passwordFile:${cfg.passwordFile}" ];
         Type = "oneshot";
         StateDirectory = "honk";
         DynamicUser = true;
@@ -114,10 +117,11 @@ in
       };
 
       unitConfig = {
-        ConditionPathExists = [
-          # Skip this service if the database already exists
-          "!%S/honk/honk.db"
-        ];
+        ConditionPathExists =
+          [
+            # Skip this service if the database already exists
+            "!%S/honk/honk.db"
+          ];
       };
     };
 
@@ -129,8 +133,11 @@ in
       preStart = ''
         mkdir -p $STATE_DIRECTORY/views
         ${lib.optionalString (cfg.extraJS != null) "ln -fs ${cfg.extraJS} $STATE_DIRECTORY/views/local.js"}
-        ${lib.optionalString (cfg.extraCSS != null) "ln -fs ${cfg.extraCSS} $STATE_DIRECTORY/views/local.css"}
-        ${lib.getExe cfg.package} -datadir $STATE_DIRECTORY -viewdir ${cfg.package}/share/honk backup $STATE_DIRECTORY/backup
+        ${lib.optionalString (cfg.extraCSS != null)
+          "ln -fs ${cfg.extraCSS} $STATE_DIRECTORY/views/local.css"}
+        ${
+          lib.getExe cfg.package
+        } -datadir $STATE_DIRECTORY -viewdir ${cfg.package}/share/honk backup $STATE_DIRECTORY/backup
         ${lib.getExe cfg.package} -datadir $STATE_DIRECTORY -viewdir ${cfg.package}/share/honk upgrade
         ${lib.getExe cfg.package} -datadir $STATE_DIRECTORY -viewdir ${cfg.package}/share/honk cleanup
       '';

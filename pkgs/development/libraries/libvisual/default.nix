@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, SDL
-, autoreconfHook
-, glib
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL,
+  autoreconfHook,
+  glib,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-qhKHdBf3bTZC2fTHIzAjgNgzF1Y51jpVZB0Bkopd230=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     # pull upstream fix for SDL1 cross-compilation.
@@ -41,13 +45,21 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ SDL glib ];
-
-  configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    # Remove once "sdl-cross-prereq.patch" patch above is removed.
-    "--disable-lv-tool"
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
   ];
+  buildInputs = [
+    SDL
+    glib
+  ];
+
+  configureFlags =
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+      [
+        # Remove once "sdl-cross-prereq.patch" patch above is removed.
+        "--disable-lv-tool"
+      ];
 
   meta = {
     description = "An abstraction library for audio visualisations";

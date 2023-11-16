@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, agate
-, dbt-core
-, psycopg2
+{
+  lib,
+  buildPythonPackage,
+  agate,
+  dbt-core,
+  psycopg2,
 }:
 
 buildPythonPackage {
@@ -24,9 +25,7 @@ buildPythonPackage {
   # tests exist for the dbt tool but not for this package specifically
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dbt.adapters.postgres"
-  ];
+  pythonImportsCheck = [ "dbt.adapters.postgres" ];
 
   meta = with lib; {
     description = "Plugin enabling dbt to work with a Postgres database";

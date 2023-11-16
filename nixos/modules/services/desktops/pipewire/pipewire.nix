@@ -1,23 +1,28 @@
 # pipewire service.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.pipewire;
-  enable32BitAlsaPlugins = cfg.alsa.support32Bit
-                           && pkgs.stdenv.isx86_64
-                           && pkgs.pkgsi686Linux.pipewire != null;
+  enable32BitAlsaPlugins =
+    cfg.alsa.support32Bit && pkgs.stdenv.isx86_64 && pkgs.pkgsi686Linux.pipewire != null;
 
   # The package doesn't output to $out/lib/pipewire directly so that the
   # overlays can use the outputs to replace the originals in FHS environments.
   #
   # This doesn't work in general because of missing development information.
-  jack-libs = pkgs.runCommand "jack-libs" {} ''
+  jack-libs = pkgs.runCommand "jack-libs" { } ''
     mkdir -p "$out/lib"
     ln -s "${cfg.package.jack}/lib" "$out/lib/pipewire"
   '';
-in {
+in
+{
   meta.maintainers = teams.freedesktop.members ++ [ lib.maintainers.k900 ];
 
   ###### interface
@@ -47,7 +52,9 @@ in {
           type = lib.types.bool;
           # this is for backwards compatibility
           default = cfg.alsa.enable || cfg.jack.enable || cfg.pulse.enable;
-          defaultText = lib.literalExpression "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable";
+          defaultText =
+            lib.literalExpression
+              "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable";
           description = lib.mdDoc "Whether to use PipeWire as the primary sound server";
         };
       };
@@ -83,15 +90,29 @@ in {
   };
 
   imports = [
-    (lib.mkRemovedOptionModule ["services" "pipewire" "config"] ''
-      Overriding default Pipewire configuration through NixOS options never worked correctly and is no longer supported.
-      Please create drop-in files in /etc/pipewire/pipewire.conf.d/ to make the desired setting changes instead.
-    '')
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "pipewire"
+        "config"
+      ]
+      ''
+        Overriding default Pipewire configuration through NixOS options never worked correctly and is no longer supported.
+        Please create drop-in files in /etc/pipewire/pipewire.conf.d/ to make the desired setting changes instead.
+      ''
+    )
 
-    (lib.mkRemovedOptionModule ["services" "pipewire" "media-session"] ''
-      pipewire-media-session is no longer supported upstream and has been removed.
-      Please switch to `services.pipewire.wireplumber` instead.
-    '')
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "pipewire"
+        "media-session"
+      ]
+      ''
+        pipewire-media-session is no longer supported upstream and has been removed.
+        Please switch to `services.pipewire.wireplumber` instead.
+      ''
+    )
   ];
 
   ###### implementation
@@ -112,11 +133,9 @@ in {
       }
     ];
 
-    environment.systemPackages = [ cfg.package ]
-                                 ++ lib.optional cfg.jack.enable jack-libs;
+    environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.jack.enable jack-libs;
 
-    systemd.packages = [ cfg.package ]
-                       ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+    systemd.packages = [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
@@ -132,7 +151,9 @@ in {
 
     systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
     systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire-pulse.wantedBy = lib.mkIf (cfg.socketActivation && cfg.pulse.enable) ["sockets.target"];
+    systemd.user.sockets.pipewire-pulse.wantedBy = lib.mkIf (cfg.socketActivation && cfg.pulse.enable) [
+      "sockets.target"
+    ];
 
     services.udev.packages = [ cfg.package ];
 
@@ -141,13 +162,17 @@ in {
       text = ''
         pcm_type.pipewire {
           libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;
-          ${optionalString enable32BitAlsaPlugins
-            "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"}
+          ${
+            optionalString enable32BitAlsaPlugins
+              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;"
+          }
         }
         ctl_type.pipewire {
           libs.native = ${cfg.package.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;
-          ${optionalString enable32BitAlsaPlugins
-            "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"}
+          ${
+            optionalString enable32BitAlsaPlugins
+              "libs.32Bit = ${pkgs.pkgsi686Linux.pipewire.lib}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;"
+          }
         }
       '';
     };
@@ -158,8 +183,9 @@ in {
       source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
     };
 
-    environment.sessionVariables.LD_LIBRARY_PATH =
-      lib.mkIf cfg.jack.enable [ "${cfg.package.jack}/lib" ];
+    environment.sessionVariables.LD_LIBRARY_PATH = lib.mkIf cfg.jack.enable [
+      "${cfg.package.jack}/lib"
+    ];
 
     users = lib.mkIf cfg.systemWide {
       users.pipewire = {

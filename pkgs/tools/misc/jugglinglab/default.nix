@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, jre, makeWrapper, ant, jdk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jre,
+  makeWrapper,
+  ant,
+  jdk,
+}:
 stdenv.mkDerivation rec {
   version = "1.6.3";
   pname = "jugglinglab";
@@ -9,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Gq8V7gLl9IakQi7xaK8TCI/B2+6LlLjoLdcv9zlalIE=";
   };
   buildInputs = [ jre ];
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
   buildPhase = "ant";
 
   installPhase = ''
@@ -27,10 +39,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-      description = "A program to visualize different juggling pattens";
-      homepage = "https://jugglinglab.org/";
-      license = licenses.gpl2;
-      maintainers = with maintainers; [ wnklmnn ];
-      platforms = platforms.all;
+    description = "A program to visualize different juggling pattens";
+    homepage = "https://jugglinglab.org/";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ wnklmnn ];
+    platforms = platforms.all;
   };
 }

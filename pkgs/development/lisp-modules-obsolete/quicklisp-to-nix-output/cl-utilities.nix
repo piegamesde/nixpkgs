@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-utilities";
   version = "1.2.4";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-utilities";
 
-  asdFilesToKeep = ["cl-utilities.asd"];
+  asdFilesToKeep = [ "cl-utilities.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-utilities DESCRIPTION System lacks description SHA256
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-utilities/2010-10-06/cl-utilities-1.2.4.tgz
     MD5 c3a4ba38b627448d3ed40ce888048940 NAME cl-utilities FILENAME
     cl-utilities DEPS NIL DEPENDENCIES NIL VERSION 1.2.4 SIBLINGS NIL PARASITES
-    NIL) */
+    NIL)
+*/

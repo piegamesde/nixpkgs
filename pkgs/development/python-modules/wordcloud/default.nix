@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, matplotlib
-, mock
-, numpy
-, pillow
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  matplotlib,
+  mock,
+  numpy,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Tcle9otT1eBN/RzajwKZDUq8xX0Lhi2t74OvhUrvHZE=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
   propagatedBuildInputs = [
     matplotlib
@@ -48,14 +47,13 @@ buildPythonPackage rec {
     cd test
   '';
 
-  pythonImportsCheck = [
-    "wordcloud"
-  ];
+  pythonImportsCheck = [ "wordcloud" ];
 
-  disabledTests = [
-    # Don't tests CLI
-    "test_cli_as_executable"
-  ];
+  disabledTests =
+    [
+      # Don't tests CLI
+      "test_cli_as_executable"
+    ];
 
   meta = with lib; {
     description = "Word cloud generator in Python";

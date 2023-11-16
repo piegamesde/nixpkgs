@@ -1,8 +1,9 @@
-{ buildOctavePackage
-, lib
-, fetchurl
-, gdcm
-, cmake
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  gdcm,
+  cmake,
 }:
 
 buildOctavePackage rec {
@@ -14,15 +15,11 @@ buildOctavePackage rec {
     sha256 = "sha256-0qNqjpJWWBA0N5IgjV0e0SPQlCvbzIwnIgaWo+2wKw0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   dontUseCmakeConfigure = true;
 
-  propagatedBuildInputs = [
-    gdcm
-  ];
+  propagatedBuildInputs = [ gdcm ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/dicom/index.html";

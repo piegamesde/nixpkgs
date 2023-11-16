@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, distro
-, pysnmp
-, python-gnupg
-, qrcode
-, requests
-, sseclient-py
-, zfec
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  distro,
+  pysnmp,
+  python-gnupg,
+  qrcode,
+  requests,
+  sseclient-py,
+  zfec,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
     zfec
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # disable tests which require being connected to the satellite
@@ -54,9 +53,7 @@ buildPythonPackage rec {
     "test_erasure_recovery"
   ];
 
-  pythonImportsCheck = [
-    "blocksatcli"
-  ];
+  pythonImportsCheck = [ "blocksatcli" ];
 
   meta = with lib; {
     description = "Blockstream Satellite CLI";

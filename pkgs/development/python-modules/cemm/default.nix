@@ -1,14 +1,15 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, yarl
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,15 @@ buildPythonPackage rec {
     hash = "sha256-BorgGHxoEeIGyJKqe9mFRDpcGHhi6/8IV7ubEI8yQE4=";
   };
 
-  patches = [
-    # https://github.com/klaasnicolaas/python-cemm/pull/360
-    (fetchpatch {
-      name = "remove-setuptools-dependency.patch";
-      url = "https://github.com/klaasnicolaas/python-cemm/commit/1e373dac078f18563264e6733baf6a93962cac4b.patch";
-      hash = "sha256-DVNn4BZwi8yNpKFmzt7YSYhzzB4vaAyrd/My8TtYzj0=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/klaasnicolaas/python-cemm/pull/360
+      (fetchpatch {
+        name = "remove-setuptools-dependency.patch";
+        url = "https://github.com/klaasnicolaas/python-cemm/commit/1e373dac078f18563264e6733baf6a93962cac4b.patch";
+        hash = "sha256-DVNn4BZwi8yNpKFmzt7YSYhzzB4vaAyrd/My8TtYzj0=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -40,9 +42,7 @@ buildPythonPackage rec {
       --replace 'addopts = "--cov"' ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -57,9 +57,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "cemm"
-  ];
+  pythonImportsCheck = [ "cemm" ];
 
   meta = with lib; {
     description = "Module for interacting with CEMM devices";

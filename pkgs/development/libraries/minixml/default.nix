@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mxml";
@@ -13,7 +17,7 @@ stdenv.mkDerivation rec {
 
   # remove the -arch flags which are set by default in the build
   configureFlags = lib.optionals stdenv.isDarwin [
-    "--with-archflags=\"-mmacosx-version-min=10.14\""
+    ''--with-archflags="-mmacosx-version-min=10.14"''
   ];
 
   enableParallelBuilding = true;

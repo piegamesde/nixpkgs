@@ -1,15 +1,16 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, yarl
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-L1Ovpxn7Y+reK8YcVBPwoRjKxcyByrPGz5i/csGzKfE=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -43,14 +42,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Ignore the examples as they are prefixed with test_
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples as they are prefixed with test_
+      "examples/"
+    ];
 
-  pythonImportsCheck = [
-    "pytile"
-  ];
+  pythonImportsCheck = [ "pytile" ];
 
   __darwinAllowLocalNetworking = true;
 

@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "autocorrect";
@@ -21,8 +27,14 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  cargoBuildFlags = [ "-p" "autocorrect-cli" ];
-  cargoTestFlags = [ "-p" "autocorrect-cli" ];
+  cargoBuildFlags = [
+    "-p"
+    "autocorrect-cli"
+  ];
+  cargoTestFlags = [
+    "-p"
+    "autocorrect-cli"
+  ];
 
   passthru.updateScript = ./update.sh;
 
@@ -31,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://huacnlee.github.io/autocorrect";
     changelog = "https://github.com/huacnlee/autocorrect/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

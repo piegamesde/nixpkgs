@@ -1,4 +1,15 @@
-{lib, stdenv, fetchurl, cmake, libcap, zlib, bzip2, perl, iconv, darwin}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  libcap,
+  zlib,
+  bzip2,
+  perl,
+  iconv,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cdrkit";
@@ -10,15 +21,30 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib bzip2 perl ] ++
-    lib.optionals stdenv.isLinux [ libcap ] ++
-    lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Carbon IOKit iconv ]);
+  buildInputs =
+    [
+      zlib
+      bzip2
+      perl
+    ]
+    ++ lib.optionals stdenv.isLinux [ libcap ]
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        Carbon
+        IOKit
+        iconv
+      ]
+    );
 
   hardeningDisable = [ "format" ];
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl "-D__THROW=";
 
   # efi-boot-patch extracted from http://arm.koji.fedoraproject.org/koji/rpminfo?rpmID=174244
-  patches = [ ./include-path.patch ./cdrkit-1.1.9-efi-boot.patch ./cdrkit-1.1.11-fno-common.patch ];
+  patches = [
+    ./include-path.patch
+    ./cdrkit-1.1.9-efi-boot.patch
+    ./cdrkit-1.1.11-fno-common.patch
+  ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace libusal/scsi-mac-iokit.c \
@@ -53,7 +79,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-DBITFIELDS_HTOL=0" ];
 
-  makeFlags = [ "PREFIX=\$(out)" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   meta = {
     description = "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";

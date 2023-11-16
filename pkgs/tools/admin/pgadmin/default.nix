@@ -1,16 +1,17 @@
-{ lib
-, python3
-, fetchFromGitHub
-, fetchYarnDeps
-, zlib
-, nixosTests
-, postgresqlTestHook
-, postgresql
-, yarn
-, fixup_yarn_lock
-, nodejs
-, fetchpatch
-, server-mode ? true
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  zlib,
+  nixosTests,
+  postgresqlTestHook,
+  postgresql,
+  yarn,
+  fixup_yarn_lock,
+  nodejs,
+  fetchpatch,
+  server-mode ? true,
 }:
 
 let
@@ -27,67 +28,74 @@ let
 
   # keep the scope, as it is used throughout the derivation and tests
   # this also makes potential future overrides easier
-  pythonPackages = python3.pkgs.overrideScope (final: prev: rec {
-    # pgadmin 7.8 is incompatible with Flask >= 2.3
-    flask = prev.flask.overridePythonAttrs (oldAttrs: rec {
-      version = "2.2.5";
-      src = oldAttrs.src.override {
-        pname = "Flask";
-        inherit version;
-        hash = "sha256-7e6bCn/yZiG9WowQ/0hK4oc3okENmbC7mmhQx/uXeqA=";
-      };
-      format = "setuptools";
-    });
-    # downgrade needed for older Flask
-    httpbin = prev.httpbin.overridePythonAttrs (oldAttrs: rec {
-      version = "0.7.0";
-      src = oldAttrs.src.override {
-        inherit version;
-        hash = "sha256-y7N3kMkVdfTxV1f0KtQdn3KesifV7b6J5OwXVIbbjfo=";
-      };
-      format = "setuptools";
-      patches = [
-        (fetchpatch {
-          # Replaces BaseResponse class with Response class for Werkezug 2.1.0 compatibility
-          # https://github.com/postmanlabs/httpbin/pull/674
-          url = "https://github.com/postmanlabs/httpbin/commit/5cc81ce87a3c447a127e4a1a707faf9f3b1c9b6b.patch";
-          hash = "sha256-SbEWjiqayMFYrbgAPZtSsXqSyCDUz3z127XgcKOcrkE=";
-        })
-      ];
-      pytestFlagsArray = [
-        "test_httpbin.py"
-      ];
-      propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ final.pythonPackages.brotlipy ];
-    });
-    # downgrade needed for older httpbin
-    werkzeug = prev.werkzeug.overridePythonAttrs (oldAttrs: rec {
-      version = "2.2.3";
-      format = "setuptools";
-      src = oldAttrs.src.override {
-        pname = "Werkzeug";
-        inherit version;
-        hash = "sha256-LhzMlBfU2jWLnebxdOOsCUOR6h1PvvLWZ4ZdgZ39Cv4=";
-      };
-    });
-    # Downgrade needed for older Flask
-    flask-security-too = prev.flask-security-too.overridePythonAttrs (oldAttrs: rec {
-      version = "5.1.2";
-      src = oldAttrs.src.override {
-        inherit version;
-        hash = "sha256-lZzm43m30y+2qjxNddFEeg9HDlQP9afq5VtuR25zaLc=";
-      };
-      postPatch = ''
-        # This should be removed after updating to version 5.3.0.
-        sed -i '/filterwarnings =/a ignore:pkg_resources is deprecated:DeprecationWarning' pytest.ini
-      '';
-    });
-  });
+  pythonPackages = python3.pkgs.overrideScope (
+    final: prev: rec {
+      # pgadmin 7.8 is incompatible with Flask >= 2.3
+      flask = prev.flask.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "2.2.5";
+          src = oldAttrs.src.override {
+            pname = "Flask";
+            inherit version;
+            hash = "sha256-7e6bCn/yZiG9WowQ/0hK4oc3okENmbC7mmhQx/uXeqA=";
+          };
+          format = "setuptools";
+        }
+      );
+      # downgrade needed for older Flask
+      httpbin = prev.httpbin.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "0.7.0";
+          src = oldAttrs.src.override {
+            inherit version;
+            hash = "sha256-y7N3kMkVdfTxV1f0KtQdn3KesifV7b6J5OwXVIbbjfo=";
+          };
+          format = "setuptools";
+          patches = [
+            (fetchpatch {
+              # Replaces BaseResponse class with Response class for Werkezug 2.1.0 compatibility
+              # https://github.com/postmanlabs/httpbin/pull/674
+              url = "https://github.com/postmanlabs/httpbin/commit/5cc81ce87a3c447a127e4a1a707faf9f3b1c9b6b.patch";
+              hash = "sha256-SbEWjiqayMFYrbgAPZtSsXqSyCDUz3z127XgcKOcrkE=";
+            })
+          ];
+          pytestFlagsArray = [ "test_httpbin.py" ];
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ final.pythonPackages.brotlipy ];
+        }
+      );
+      # downgrade needed for older httpbin
+      werkzeug = prev.werkzeug.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "2.2.3";
+          format = "setuptools";
+          src = oldAttrs.src.override {
+            pname = "Werkzeug";
+            inherit version;
+            hash = "sha256-LhzMlBfU2jWLnebxdOOsCUOR6h1PvvLWZ4ZdgZ39Cv4=";
+          };
+        }
+      );
+      # Downgrade needed for older Flask
+      flask-security-too = prev.flask-security-too.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "5.1.2";
+          src = oldAttrs.src.override {
+            inherit version;
+            hash = "sha256-lZzm43m30y+2qjxNddFEeg9HDlQP9afq5VtuR25zaLc=";
+          };
+          postPatch = ''
+            # This should be removed after updating to version 5.3.0.
+            sed -i '/filterwarnings =/a ignore:pkg_resources is deprecated:DeprecationWarning' pytest.ini
+          '';
+        }
+      );
+    }
+  );
 
   offlineCache = fetchYarnDeps {
     yarnLock = ./yarn.lock;
     hash = yarnHash;
   };
-
 in
 
 pythonPackages.buildPythonApplication rec {
@@ -130,8 +138,8 @@ pythonPackages.buildPythonApplication rec {
     substituteInPlace pkg/pip/setup_pip.py \
       --replace "req = req.replace('psycopg[c]', 'psycopg[binary]')" "req = req"
     ${lib.optionalString (!server-mode) ''
-    substituteInPlace web/config.py \
-      --replace "SERVER_MODE = True" "SERVER_MODE = False"
+      substituteInPlace web/config.py \
+        --replace "SERVER_MODE = True" "SERVER_MODE = False"
     ''}
   '';
 
@@ -189,7 +197,14 @@ pythonPackages.buildPythonApplication rec {
     cp -v ../pkg/pip/setup_pip.py setup.py
   '';
 
-  nativeBuildInputs = with pythonPackages; [ cython pip sphinx yarn fixup_yarn_lock nodejs ];
+  nativeBuildInputs = with pythonPackages; [
+    cython
+    pip
+    sphinx
+    yarn
+    fixup_yarn_lock
+    nodejs
+  ];
   buildInputs = [
     zlib
     pythonPackages.wheel
@@ -288,23 +303,30 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Administration and development platform for PostgreSQL${optionalString (!server-mode) ". Desktop Mode"}";
+    description = "Administration and development platform for PostgreSQL${
+        optionalString (!server-mode) ". Desktop Mode"
+      }";
     longDescription = ''
       pgAdmin 4 is designed to meet the needs of both novice and experienced Postgres users alike,
       providing a powerful graphical interface that simplifies the creation, maintenance and use of database objects.
-      ${if server-mode then ''
-      This version is build with SERVER_MODE set to True (the default). It will require access to `/var/lib/pgadmin`
-      and `/var/log/pgadmin`. This is the default version for the NixOS module `services.pgadmin`.
-      This should NOT be used in combination with the `pgadmin4-desktopmode` package as they will interfere.
-      '' else ''
-      This version is build with SERVER_MODE set to False. It will require access to `~/.pgadmin/`. This version is suitable
-      for single-user deployment or where access to `/var/lib/pgadmin` cannot be granted or the NixOS module cannot be used.
-      This should NOT be used in combination with the NixOS module `pgadmin` as they will interfere.
-      ''}
+      ${if server-mode then
+        ''
+          This version is build with SERVER_MODE set to True (the default). It will require access to `/var/lib/pgadmin`
+          and `/var/log/pgadmin`. This is the default version for the NixOS module `services.pgadmin`.
+          This should NOT be used in combination with the `pgadmin4-desktopmode` package as they will interfere.
+        ''
+      else
+        ''
+          This version is build with SERVER_MODE set to False. It will require access to `~/.pgadmin/`. This version is suitable
+          for single-user deployment or where access to `/var/lib/pgadmin` cannot be granted or the NixOS module cannot be used.
+          This should NOT be used in combination with the NixOS module `pgadmin` as they will interfere.
+        ''}
     '';
     homepage = "https://www.pgadmin.org/";
     license = licenses.mit;
-    changelog = "https://www.pgadmin.org/docs/pgadmin4/latest/release_notes_${lib.versions.major version}_${lib.versions.minor version}.html";
+    changelog = "https://www.pgadmin.org/docs/pgadmin4/latest/release_notes_${
+        lib.versions.major version
+      }_${lib.versions.minor version}.html";
     maintainers = with maintainers; [ gador ];
     mainProgram = "pgadmin4";
   };

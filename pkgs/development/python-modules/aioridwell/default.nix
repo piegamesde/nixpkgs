@@ -1,18 +1,19 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, poetry-core
-, pyjwt
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
-, titlecase
-, types-pytz
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  poetry-core,
+  pyjwt,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  titlecase,
+  types-pytz,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-psynooRbX34EFYY7FTqy3KdFsv939z/qYfIfyNTVkiM=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -51,19 +50,19 @@ buildPythonPackage rec {
     types-pytz
   ];
 
-  disabledTests = [
-    # AssertionError: assert datetime.date(...
-    "test_get_next_pickup_event"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert datetime.date(...
+      "test_get_next_pickup_event"
+    ];
 
-  disabledTestPaths = [
-    # Ignore the examples directory as the files are prefixed with test_
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples directory as the files are prefixed with test_
+      "examples/"
+    ];
 
-  pythonImportsCheck = [
-    "aioridwell"
-  ];
+  pythonImportsCheck = [ "aioridwell" ];
 
   meta = with lib; {
     description = "Python library for interacting with Ridwell waste recycling";

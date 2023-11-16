@@ -1,6 +1,7 @@
-{ lib
-, appimageTools
-, fetchurl
+{
+  lib,
+  appimageTools,
+  fetchurl,
 }:
 appimageTools.wrapType2 rec {
   pname = "immersed-vr";
@@ -16,9 +17,7 @@ appimageTools.wrapType2 rec {
     mv $out/bin/{${name},${pname}}
   '';
 
-  extraPkgs = pkgs: with pkgs; [
-    libthai
-  ];
+  extraPkgs = pkgs: with pkgs; [ libthai ];
 
   meta = with lib; {
     description = "A VR coworking platform";

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, numpy
-, typeguard
-, typing-extensions
-, cloudpickle
-, equinox
-, jax
-, jaxlib
-, torch
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  numpy,
+  typeguard,
+  typing-extensions,
+  cloudpickle,
+  equinox,
+  jax,
+  jaxlib,
+  torch,
+  pytestCheckHook,
 }:
 
 let
@@ -26,9 +27,7 @@ let
       hash = "sha256-22dIuIjFgqRmV9AQok02skVt7fm17/WpzBm3FrJ6/zs=";
     };
 
-    nativeBuildInputs = [
-      hatchling
-    ];
+    nativeBuildInputs = [ hatchling ];
 
     propagatedBuildInputs = [
       numpy
@@ -61,4 +60,5 @@ let
       maintainers = with maintainers; [ GaetanLepage ];
     };
   };
- in self
+in
+self

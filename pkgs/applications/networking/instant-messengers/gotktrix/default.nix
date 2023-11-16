@@ -1,10 +1,11 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, gtk4
-, glib
-, gobject-introspection
-, pkg-config
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  gtk4,
+  glib,
+  gobject-introspection,
+  pkg-config,
 }:
 
 buildGoModule rec {
@@ -25,7 +26,10 @@ buildGoModule rec {
     glib
   ];
 
-  nativeBuildInputs = [ pkg-config gobject-introspection ];
+  nativeBuildInputs = [
+    pkg-config
+    gobject-introspection
+  ];
 
   # Checking requires a working display
   doCheck = false;

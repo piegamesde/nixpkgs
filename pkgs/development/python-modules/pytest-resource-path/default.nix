@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, colorama
-, pytest
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  colorama,
+  pytest,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -24,21 +25,13 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    colorama
-  ];
+  propagatedBuildInputs = [ colorama ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_resource_path"
-  ];
+  pythonImportsCheck = [ "pytest_resource_path" ];
 
   meta = with lib; {
     description = "Pytest plugin to provide path for uniform access to test resources";

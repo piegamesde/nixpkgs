@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, asyncssh
-, bcrypt
-, buildPythonPackage
-, fetchFromGitHub
-, fsspec
-, mock-ssh-server
-, pytest-asyncio
-, pytestCheckHook
-, setuptools
-, setuptools-scm
+{
+  stdenv,
+  lib,
+  asyncssh,
+  bcrypt,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fsspec,
+  mock-ssh-server,
+  pytest-asyncio,
+  pytestCheckHook,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -44,14 +45,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    # test fails with sandbox enabled
-    "test_checksum"
-  ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin
+      [
+        # test fails with sandbox enabled
+        "test_checksum"
+      ];
 
-  pythonImportsCheck = [
-    "sshfs"
-  ];
+  pythonImportsCheck = [ "sshfs" ];
 
   meta = with lib; {
     description = "SSH/SFTP implementation for fsspec";

@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, kernel, installShellFiles, pkg-config
-, luajit, ncurses, perl, jsoncpp, libb64, openssl, curl, jq, gcc, elfutils, tbb, protobuf, grpc
-, yaml-cpp, nlohmann_json, re2, zstd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  kernel,
+  installShellFiles,
+  pkg-config,
+  luajit,
+  ncurses,
+  perl,
+  jsoncpp,
+  libb64,
+  openssl,
+  curl,
+  jq,
+  gcc,
+  elfutils,
+  tbb,
+  protobuf,
+  grpc,
+  yaml-cpp,
+  nlohmann_json,
+  re2,
+  zstd,
 }:
 
 let
@@ -23,7 +46,6 @@ let
     rev = libsRev;
     sha256 = libsSha256;
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "sysdig";
@@ -36,15 +58,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qcJ9EcePrsKic+wgsck+pTrRdQic0xhzguH4EYVP0gk=";
   };
 
-  patches = [
-    # https://github.com/draios/sysdig/pull/2024
-    (fetchpatch {
-      url = "https://github.com/draios/sysdig/commit/d9515aad2be660b2ba7ec8c0b4fb2467a10434af.patch";
-      sha256 = "sha256-3m+Rn8BZS8U8QTBDJ6x7kQbH6BE3HKgt1iNnRjPEr8k=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/draios/sysdig/pull/2024
+      (fetchpatch {
+        url = "https://github.com/draios/sysdig/commit/d9515aad2be660b2ba7ec8c0b4fb2467a10434af.patch";
+        sha256 = "sha256-3m+Rn8BZS8U8QTBDJ6x7kQbH6BE3HKgt1iNnRjPEr8k=";
+      })
+    ];
 
-  nativeBuildInputs = [ cmake perl installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    installShellFiles
+    pkg-config
+  ];
   buildInputs = [
     luajit
     ncurses
@@ -68,12 +96,14 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "pic" ];
 
   postUnpack = ''
-    cp -r ${fetchFromGitHub {
-      owner = "falcosecurity";
-      repo = "libs";
-      rev = libsRev;
-      sha256 = libsSha256;
-    }} libs
+    cp -r ${
+      fetchFromGitHub {
+        owner = "falcosecurity";
+        repo = "libs";
+        rev = libsRev;
+        sha256 = libsSha256;
+      }
+    } libs
     chmod -R +w libs
     cp -r ${driver} driver-src
     chmod -R +w driver-src
@@ -94,21 +124,24 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF";
 
   env.NIX_CFLAGS_COMPILE =
-   # needed since luajit-2.1.0-beta3
-   "-DluaL_reg=luaL_Reg -DluaL_getn(L,i)=((int)lua_objlen(L,i)) " +
-   # fix compiler warnings been treated as errors
-   "-Wno-error";
+    # needed since luajit-2.1.0-beta3
+    "-DluaL_reg=luaL_Reg -DluaL_getn(L,i)=((int)lua_objlen(L,i)) "
+    +
+      # fix compiler warnings been treated as errors
+      "-Wno-error";
 
-  preConfigure = ''
-    if ! grep -q "${libsRev}" cmake/modules/falcosecurity-libs.cmake; then
-      echo "falcosecurity-libs checksum needs to be updated!"
-      exit 1
-    fi
-    cmakeFlagsArray+=(-DCMAKE_EXE_LINKER_FLAGS="-ltbb -lcurl -lzstd -labsl_synchronization")
-  '' + lib.optionalString (kernel != null) ''
-    export INSTALL_MOD_PATH="$out"
-    export KERNELDIR="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  '';
+  preConfigure =
+    ''
+      if ! grep -q "${libsRev}" cmake/modules/falcosecurity-libs.cmake; then
+        echo "falcosecurity-libs checksum needs to be updated!"
+        exit 1
+      fi
+      cmakeFlagsArray+=(-DCMAKE_EXE_LINKER_FLAGS="-ltbb -lcurl -lzstd -labsl_synchronization")
+    ''
+    + lib.optionalString (kernel != null) ''
+      export INSTALL_MOD_PATH="$out"
+      export KERNELDIR="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    '';
 
   postInstall =
     ''
@@ -136,12 +169,15 @@ stdenv.mkDerivation rec {
       fi
     '';
 
-
   meta = with lib; {
     description = "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";
-    license = with licenses; [ asl20 gpl2 mit ];
-    maintainers = [maintainers.raskin];
-    platforms = ["x86_64-linux"] ++ platforms.darwin;
+    license = with licenses; [
+      asl20
+      gpl2
+      mit
+    ];
+    maintainers = [ maintainers.raskin ];
+    platforms = [ "x86_64-linux" ] ++ platforms.darwin;
     broken = kernel != null && versionOlder kernel.version "4.14";
     homepage = "https://sysdig.com/opensource/";
     downloadPage = "https://github.com/draios/sysdig/releases";

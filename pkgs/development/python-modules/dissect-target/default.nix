@@ -1,40 +1,41 @@
-{ lib
-, stdenv
-, asn1crypto
-, buildPythonPackage
-, defusedxml
-, dissect-cim
-, dissect-clfs
-, dissect-cstruct
-, dissect-esedb
-, dissect-etl
-, dissect-eventlog
-, dissect-evidence
-, dissect-extfs
-, dissect-fat
-, dissect-ffs
-, dissect-hypervisor
-, dissect-ntfs
-, dissect-regf
-, dissect-sql
-, dissect-shellitem
-, dissect-thumbcache
-, dissect-util
-, dissect-volume
-, dissect-xfs
-, fetchFromGitHub
-, flow-record
-, fusepy
-, ipython
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, setuptools
-, setuptools-scm
-, structlog
-, yara-python
-, zstandard
+{
+  lib,
+  stdenv,
+  asn1crypto,
+  buildPythonPackage,
+  defusedxml,
+  dissect-cim,
+  dissect-clfs,
+  dissect-cstruct,
+  dissect-esedb,
+  dissect-etl,
+  dissect-eventlog,
+  dissect-evidence,
+  dissect-extfs,
+  dissect-fat,
+  dissect-ffs,
+  dissect-hypervisor,
+  dissect-ntfs,
+  dissect-regf,
+  dissect-sql,
+  dissect-shellitem,
+  dissect-thumbcache,
+  dissect-util,
+  dissect-volume,
+  dissect-xfs,
+  fetchFromGitHub,
+  flow-record,
+  fusepy,
+  ipython,
+  pycryptodome,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+  structlog,
+  yara-python,
+  zstandard,
 }:
 
 buildPythonPackage rec {
@@ -95,36 +96,35 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
 
-  pythonImportsCheck = [
-    "dissect.target"
-  ];
+  pythonImportsCheck = [ "dissect.target" ];
 
-  disabledTests = [
-    # Test requires rdump
-    "test_exec_target_command"
-    # Issue with tar file
-    "test_tar_sensitive_drive_letter"
-    "test_dpapi_decrypt_blob"
-    "test_notifications_appdb"
-    "test_md"
-    "test_notifications_wpndatabase"
-    "test_nested_md_lvm"
-    # Tests compare dates and times
-    "yum"
-    # Filesystem access, windows defender tests
-    "test_defender_quarantine_recovery"
-  ] ++
-  # test is broken on Darwin
-  lib.optional stdenv.hostPlatform.isDarwin "test_fs_attrs_no_os_listxattr";
+  disabledTests =
+    [
+      # Test requires rdump
+      "test_exec_target_command"
+      # Issue with tar file
+      "test_tar_sensitive_drive_letter"
+      "test_dpapi_decrypt_blob"
+      "test_notifications_appdb"
+      "test_md"
+      "test_notifications_wpndatabase"
+      "test_nested_md_lvm"
+      # Tests compare dates and times
+      "yum"
+      # Filesystem access, windows defender tests
+      "test_defender_quarantine_recovery"
+    ]
+    ++
+    # test is broken on Darwin
+    lib.optional stdenv.hostPlatform.isDarwin "test_fs_attrs_no_os_listxattr";
 
-  disabledTestPaths = [
-    # Tests are using Windows paths
-    "tests/test_plugins_browsers.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests are using Windows paths
+      "tests/test_plugins_browsers.py"
+    ];
 
   meta = with lib; {
     description = "Dissect module that provides a programming API and command line tools";

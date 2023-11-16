@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, python-socks
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  python-socks,
 }:
 
 buildPythonPackage rec {
@@ -18,17 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-Oq0l0xKEJmvPz9H9inQ/YygjBaNkuNCUikO9YGrMZS8=";
   };
 
-  propagatedBuildInputs = [
-    python-socks
-   ];
+  propagatedBuildInputs = [ python-socks ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "websocket"
-  ];
+  pythonImportsCheck = [ "websocket" ];
 
   meta = with lib; {
     description = "Websocket client for Python";

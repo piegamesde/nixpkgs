@@ -1,41 +1,42 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, qttools
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qttools,
 
-, asciidoctor
-, botan2
-, curl
-, libXi
-, libXtst
-, libargon2
-, libusb1
-, minizip
-, pcsclite
-, pkg-config
-, qrencode
-, qtbase
-, qtmacextras
-, qtsvg
-, qtx11extras
-, readline
-, wrapGAppsHook
-, wrapQtAppsHook
-, zlib
+  asciidoctor,
+  botan2,
+  curl,
+  libXi,
+  libXtst,
+  libargon2,
+  libusb1,
+  minizip,
+  pcsclite,
+  pkg-config,
+  qrencode,
+  qtbase,
+  qtmacextras,
+  qtsvg,
+  qtx11extras,
+  readline,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  zlib,
 
-, LocalAuthentication
+  LocalAuthentication,
 
-, withKeePassBrowser ? true
-, withKeePassFDOSecrets ? true
-, withKeePassKeeShare ? true
-, withKeePassNetworking ? true
-, withKeePassSSHAgent ? true
-, withKeePassTouchID ? true
-, withKeePassX11 ? true
-, withKeePassYubiKey ? true
+  withKeePassBrowser ? true,
+  withKeePassFDOSecrets ? true,
+  withKeePassKeeShare ? true,
+  withKeePassNetworking ? true,
+  withKeePassSSHAgent ? true,
+  withKeePassTouchID ? true,
+  withKeePassX11 ? true,
+  withKeePassYubiKey ? true,
 
-, nixosTests
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -49,30 +50,31 @@ stdenv.mkDerivation rec {
     hash = "sha256-xgrkMz7BCBxjfxHsAz/CFLv1d175LnrAJIOZMM3GmU0=";
   };
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang (toString [
-    "-Wno-old-style-cast"
-    "-Wno-error"
-    "-D__BIG_ENDIAN__=${if stdenv.isBigEndian then "1" else "0"}"
-  ]);
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang (
+    toString [
+      "-Wno-old-style-cast"
+      "-Wno-error"
+      "-D__BIG_ENDIAN__=${if stdenv.isBigEndian then "1" else "0"}"
+    ]
+  );
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-rpath ${libargon2}/lib";
 
-  patches = [
-    ./darwin.patch
-  ];
+  patches = [ ./darwin.patch ];
 
-  cmakeFlags = [
-    "-DKEEPASSXC_BUILD_TYPE=Release"
-    "-DWITH_GUI_TESTS=ON"
-    "-DWITH_XC_UPDATECHECK=OFF"
-  ]
-  ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
-  ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux) "-DWITH_XC_FDOSECRETS=ON")
-  ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux) "-DWITH_XC_YUBIKEY=ON")
-  ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
-  ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")
-  ++ (lib.optional withKeePassNetworking "-DWITH_XC_NETWORKING=ON")
-  ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON");
+  cmakeFlags =
+    [
+      "-DKEEPASSXC_BUILD_TYPE=Release"
+      "-DWITH_GUI_TESTS=ON"
+      "-DWITH_XC_UPDATECHECK=OFF"
+    ]
+    ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
+    ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux) "-DWITH_XC_FDOSECRETS=ON")
+    ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux) "-DWITH_XC_YUBIKEY=ON")
+    ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
+    ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")
+    ++ (lib.optional withKeePassNetworking "-DWITH_XC_NETWORKING=ON")
+    ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON");
 
   doCheck = true;
   checkPhase = ''
@@ -83,7 +85,9 @@ stdenv.mkDerivation rec {
     export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
     # testcli, testgui and testkdbx4 are flaky - skip them all
     # testautotype on darwin throws "QWidget: Cannot create a QWidget without QApplication"
-    make test ARGS+="-E 'testcli|testgui${lib.optionalString stdenv.isDarwin "|testautotype|testkdbx4"}' --output-on-failure"
+    make test ARGS+="-E 'testcli|testgui${
+      lib.optionalString stdenv.isDarwin "|testautotype|testkdbx4"
+    }' --output-on-failure"
 
     runHook postCheck
   '';
@@ -94,40 +98,44 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
     qttools
     pkg-config
-  ]
-  ++ lib.optional (!stdenv.isDarwin) wrapGAppsHook;
+  ] ++ lib.optional (!stdenv.isDarwin) wrapGAppsHook;
 
   dontWrapGApps = true;
-  preFixup = ''
-    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '' + lib.optionalString stdenv.isDarwin ''
-    wrapQtApp "$out/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
-  '';
+  preFixup =
+    ''
+      qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      wrapQtApp "$out/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
+    '';
 
   # See https://github.com/keepassxreboot/keepassxc/blob/cd7a53abbbb81e468efb33eb56eefc12739969b8/src/browser/NativeMessageInstaller.cpp#L317
   postInstall = lib.optionalString withKeePassBrowser ''
     mkdir -p "$out/lib/mozilla/native-messaging-hosts"
-    substituteAll "${./firefox-native-messaging-host.json}" "$out/lib/mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json"
+    substituteAll "${
+      ./firefox-native-messaging-host.json
+    }" "$out/lib/mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json"
   '';
 
-  buildInputs = [
-    curl
-    botan2
-    libXi
-    libXtst
-    libargon2
-    minizip
-    pcsclite
-    qrencode
-    qtbase
-    qtsvg
-    readline
-    zlib
-  ]
-  ++ lib.optional (stdenv.isDarwin && withKeePassTouchID) LocalAuthentication
-  ++ lib.optional stdenv.isDarwin qtmacextras
-  ++ lib.optional stdenv.isLinux libusb1
-  ++ lib.optional withKeePassX11 qtx11extras;
+  buildInputs =
+    [
+      curl
+      botan2
+      libXi
+      libXtst
+      libargon2
+      minizip
+      pcsclite
+      qrencode
+      qtbase
+      qtsvg
+      readline
+      zlib
+    ]
+    ++ lib.optional (stdenv.isDarwin && withKeePassTouchID) LocalAuthentication
+    ++ lib.optional stdenv.isDarwin qtmacextras
+    ++ lib.optional stdenv.isLinux libusb1
+    ++ lib.optional withKeePassX11 qtx11extras;
 
   passthru.tests = nixosTests.keepassxc;
 
@@ -142,7 +150,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://keepassxc.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jonafato blankparticle ];
+    maintainers = with maintainers; [
+      jonafato
+      blankparticle
+    ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

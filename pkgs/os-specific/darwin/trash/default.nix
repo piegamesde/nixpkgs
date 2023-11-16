@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, perl, AppKit, Cocoa, ScriptingBridge }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  AppKit,
+  Cocoa,
+  ScriptingBridge,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.2";
@@ -11,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "1d3rc03vgz32faj7qi18iiggxvxlqrj9lsk5jkpa9r1mcs5d89my";
   };
 
-  buildInputs = [ perl Cocoa AppKit ScriptingBridge ];
+  buildInputs = [
+    perl
+    Cocoa
+    AppKit
+    ScriptingBridge
+  ];
 
   patches = [ ./trash.diff ];
 
@@ -26,8 +39,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/ali-rantakari/trash";
-    description = "Small command-line program for OS X that moves files or
-    folders to the trash.";
+    description = ''
+      Small command-line program for OS X that moves files or
+          folders to the trash.'';
     platforms = lib.platforms.darwin;
     license = lib.licenses.mit;
   };

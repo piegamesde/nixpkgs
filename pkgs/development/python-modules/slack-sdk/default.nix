@@ -1,21 +1,22 @@
-{ stdenv
-, lib
-, aiodns
-, aiohttp
-, boto3
-, buildPythonPackage
-, codecov
-, fetchFromGitHub
-, flake8
-, flask-sockets
-, moto
-, pythonOlder
-, psutil
-, pytest-asyncio
-, pytestCheckHook
-, sqlalchemy
-, websocket-client
-, websockets
+{
+  stdenv,
+  lib,
+  aiodns,
+  aiohttp,
+  boto3,
+  buildPythonPackage,
+  codecov,
+  fetchFromGitHub,
+  flake8,
+  flask-sockets,
+  moto,
+  pythonOlder,
+  psutil,
+  pytest-asyncio,
+  pytestCheckHook,
+  sqlalchemy,
+  websocket-client,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -55,10 +56,11 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTestPaths = [
-    # Exclude tests that requires network features
-    "integration_tests"
-  ];
+  disabledTestPaths =
+    [
+      # Exclude tests that requires network features
+      "integration_tests"
+    ];
 
   disabledTests = [
     # Requires network features
@@ -68,9 +70,7 @@ buildPythonPackage rec {
     "test_issue_690_oauth_access"
   ];
 
-  pythonImportsCheck = [
-    "slack_sdk"
-  ];
+  pythonImportsCheck = [ "slack_sdk" ];
 
   meta = with lib; {
     description = "Slack Developer Kit for Python";

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest-mock
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-mock,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,13 +26,9 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    "test_compile__compile_restricted_exec__5"
-  ];
+  disabledTests = lib.optionals (pythonAtLeast "3.11") [ "test_compile__compile_restricted_exec__5" ];
 
-  pythonImportsCheck = [
-    "RestrictedPython"
-  ];
+  pythonImportsCheck = [ "RestrictedPython" ];
 
   meta = with lib; {
     description = "Restricted execution environment for Python to run untrusted code";

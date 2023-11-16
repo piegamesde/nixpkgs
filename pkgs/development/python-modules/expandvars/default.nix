@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   # The PyPi package does not supply any tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "expandvars"
-  ];
+  pythonImportsCheck = [ "expandvars" ];
 
   meta = with lib; {
     description = "Expand system variables Unix style";

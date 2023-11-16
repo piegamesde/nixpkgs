@@ -1,4 +1,14 @@
-{ lib, stdenv, substituteAll, fetchFromGitHub, fetchpatch, glib, glib-networking, libgtop, gnome }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchFromGitHub,
+  fetchpatch,
+  glib,
+  glib-networking,
+  libgtop,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-system-monitor";

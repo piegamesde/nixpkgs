@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, jinja2
-, packaging
-, poetry-core
-, pyparsing
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jinja2,
+  packaging,
+  poetry-core,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-CmIhNZraDawiiKg6WuHUVRMwXSVEizg1KEv7o2ZP1Hc=";
   };
 
-  pythonRelaxDeps = [
-    "packaging"
-  ];
+  pythonRelaxDeps = [ "packaging" ];
 
   nativeBuildInputs = [
     poetry-core
@@ -44,9 +43,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # require network connection
@@ -54,9 +51,7 @@ buildPythonPackage rec {
     "test_sigma_plugin_installation"
   ];
 
-  pythonImportsCheck = [
-    "sigma"
-  ];
+  pythonImportsCheck = [ "sigma" ];
 
   meta = with lib; {
     description = "Library to parse and convert Sigma rules into queries";

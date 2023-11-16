@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "do-urlencode";
   version = "20181018-git";
 
   description = "Percent Encoding (aka URL Encoding) library";
 
-  deps = [ args."alexandria" args."babel" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/do-urlencode/2018-10-18/do-urlencode-20181018-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "do-urlencode";
 
-  asdFilesToKeep = ["do-urlencode.asd"];
+  asdFilesToKeep = [ "do-urlencode.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM do-urlencode DESCRIPTION Percent Encoding (aka URL Encoding) library
@@ -26,4 +30,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME babel FILENAME babel)
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES (alexandria babel trivial-features) VERSION 20181018-git
-    SIBLINGS NIL PARASITES NIL) */
+    SIBLINGS NIL PARASITES NIL)
+*/

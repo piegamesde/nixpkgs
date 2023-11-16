@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "rpl";
@@ -6,7 +10,6 @@ python3Packages.buildPythonApplication rec {
 
   # Tests not included in pip package.
   doCheck = false;
-
 
   src = fetchFromGitHub {
     owner = "rrthomas";
@@ -19,10 +22,11 @@ python3Packages.buildPythonApplication rec {
     ./remove-argparse-manpage.diff # quickfix for ImportError: No module named build_manpages.build_manpages
   ];
 
-  propagatedBuildInputs = [
-    #python3Packages.argparse-manpage # TODO
-    python3Packages.chardet
-  ];
+  propagatedBuildInputs =
+    [
+      #python3Packages.argparse-manpage # TODO
+      python3Packages.chardet
+    ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,8 +35,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Replace strings in files";
-    homepage    = "https://github.com/rrthomas/rpl";
-    license     = licenses.gpl2;
+    homepage = "https://github.com/rrthomas/rpl";
+    license = licenses.gpl2;
     maintainers = with maintainers; [ teto ];
   };
 }

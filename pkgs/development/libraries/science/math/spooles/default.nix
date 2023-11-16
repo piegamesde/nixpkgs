@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spooles";
@@ -11,9 +16,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  patches = [
-    ./spooles.patch
-  ];
+  patches = [ ./spooles.patch ];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace makefile --replace '-Wl,-soname' '-Wl,-install_name'

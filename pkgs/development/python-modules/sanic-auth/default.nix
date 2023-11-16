@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, sanic
-, sanic-testing
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sanic,
+  sanic-testing,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -16,19 +17,18 @@ buildPythonPackage rec {
     sha256 = "0dc24ynqjraqwgvyk0g9bj87zgpq4xnssl24hnsn7l5vlkmk8198";
   };
 
-  propagatedBuildInputs = [
-    sanic
-  ];
+  propagatedBuildInputs = [ sanic ];
 
   nativeCheckInputs = [
     pytestCheckHook
     sanic-testing
   ];
 
-  disabledTests = [
-    # incompatible with sanic>=22.3.0
-    "test_login_required"
-  ];
+  disabledTests =
+    [
+      # incompatible with sanic>=22.3.0
+      "test_login_required"
+    ];
 
   postPatch = ''
     # Support for httpx>=0.20.0
@@ -36,9 +36,7 @@ buildPythonPackage rec {
       --replace "allow_redirects=False" "follow_redirects=False"
   '';
 
-  pythonImportsCheck = [
-    "sanic_auth"
-  ];
+  pythonImportsCheck = [ "sanic_auth" ];
 
   meta = with lib; {
     description = "Simple Authentication for Sanic";

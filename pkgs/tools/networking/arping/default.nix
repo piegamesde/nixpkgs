@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libnet
-, libpcap
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libnet,
+  libpcap,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Yn0EFb23VJvcVluQhwGHg9cdnZ8LKlBEds7cq8Irftc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs = [
     libnet

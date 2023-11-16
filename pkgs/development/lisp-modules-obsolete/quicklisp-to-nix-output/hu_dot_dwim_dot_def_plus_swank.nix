@@ -1,12 +1,20 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "hu_dot_dwim_dot_def_plus_swank";
   version = "hu.dwim.def-20201016-darcs";
 
   description = "System lacks description";
 
-  deps = [ args."alexandria" args."anaphora" args."hu_dot_dwim_dot_asdf" args."hu_dot_dwim_dot_def" args."iterate" args."metabang-bind" args."swank" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."hu_dot_dwim_dot_asdf"
+    args."hu_dot_dwim_dot_def"
+    args."iterate"
+    args."metabang-bind"
+    args."swank"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/hu.dwim.def/2020-10-16/hu.dwim.def-20201016-darcs.tgz";
@@ -15,7 +23,7 @@ rec {
 
   packageName = "hu.dwim.def+swank";
 
-  asdFilesToKeep = ["hu.dwim.def+swank.asd"];
+  asdFilesToKeep = [ "hu.dwim.def+swank.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.def+swank DESCRIPTION System lacks description SHA256
@@ -34,4 +42,5 @@ rec {
     (hu.dwim.def+cl-l10n hu.dwim.def+contextl hu.dwim.def+hu.dwim.common
      hu.dwim.def+hu.dwim.delico hu.dwim.def hu.dwim.def.documentation
      hu.dwim.def.namespace hu.dwim.def.test)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

@@ -24,14 +24,14 @@ buildDotnetModule rec {
     hash = "sha512-nWkPgVYdnBJibyJRdLPe3O3RioDPbzumSritRejmr4CeiPb7aUTON7HjivcV/GKor1guEYu+TJ+QxYrqO/eppg==";
   };
 
-  patches = [./remove-project.patch];
+  patches = [ ./remove-project.patch ];
 
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
 
   nugetDeps = ./deps.nix;
 
   projectFile = "OpenTracker.sln";
-  executables = ["OpenTracker"];
+  executables = [ "OpenTracker" ];
 
   doCheck = true;
   disabledTests = [
@@ -57,12 +57,14 @@ buildDotnetModule rec {
       openssl
       xinput
     ]
-    ++ (with xorg; [
-      libICE
-      libSM
-      libX11
-      libXi
-    ]);
+    ++ (
+      with xorg; [
+        libICE
+        libSM
+        libX11
+        libXi
+      ]
+    );
 
   # Attempts to patchelf unneeded SOs
   autoPatchelfIgnoreMissingDeps = [
@@ -80,8 +82,8 @@ buildDotnetModule rec {
       binaryNativeCode
     ];
     license = licenses.mit;
-    maintainers = [maintainers.ivar];
+    maintainers = [ maintainers.ivar ];
     mainProgram = "OpenTracker";
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }

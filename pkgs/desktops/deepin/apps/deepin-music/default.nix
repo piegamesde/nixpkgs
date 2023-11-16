@@ -1,29 +1,30 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapQtAppsHook
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, udisks2-qt5
-, qtmpris
-, qtdbusextended
-, qtmultimedia
-, qttools
-, kcodecs
-, ffmpeg
-, libvlc
-, libpulseaudio
-, libcue
-, taglib
-, gsettings-qt
-, SDL2
-, gtest
-, qtbase
-, gst_all_1
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  udisks2-qt5,
+  qtmpris,
+  qtdbusextended,
+  qtmultimedia,
+  qttools,
+  kcodecs,
+  ffmpeg,
+  libvlc,
+  libpulseaudio,
+  libcue,
+  taglib,
+  gsettings-qt,
+  SDL2,
+  gtest,
+  qtbase,
+  gst_all_1,
 }:
 
 stdenv.mkDerivation rec {
@@ -51,33 +52,35 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    dtkwidget
-    qt5integration
-    qt5platform-plugins
-    dde-qt-dbus-factory
-    udisks2-qt5
-    qtmpris
-    qtdbusextended
-    qtmultimedia
-    kcodecs
-    ffmpeg
-    libvlc
-    libpulseaudio
-    libcue
-    taglib
-    gsettings-qt
-    SDL2
-    gtest
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-  ]);
+  buildInputs =
+    [
+      dtkwidget
+      qt5integration
+      qt5platform-plugins
+      dde-qt-dbus-factory
+      udisks2-qt5
+      qtmpris
+      qtdbusextended
+      qtmultimedia
+      kcodecs
+      ffmpeg
+      libvlc
+      libpulseaudio
+      libcue
+      taglib
+      gsettings-qt
+      SDL2
+      gtest
+    ]
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+      ]
+    );
 
-  cmakeFlags = [
-    "-DVERSION=${version}"
-  ];
+  cmakeFlags = [ "-DVERSION=${version}" ];
 
   strictDeps = true;
 

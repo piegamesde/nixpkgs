@@ -1,29 +1,30 @@
-{ stdenv
-, lib
-, backports-zoneinfo
-, billiard
-, boto3
-, buildPythonPackage
-, case
-, click
-, click-didyoumean
-, click-plugins
-, click-repl
-, dnspython
-, fetchPypi
-, kombu
-, moto
-, pymongo
-, pytest-celery
-, pytest-click
-, pytest-subtests
-, pytest-timeout
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, tzdata
-, vine
-, nixosTests
+{
+  stdenv,
+  lib,
+  backports-zoneinfo,
+  billiard,
+  boto3,
+  buildPythonPackage,
+  case,
+  click,
+  click-didyoumean,
+  click-plugins,
+  click-repl,
+  dnspython,
+  fetchPypi,
+  kombu,
+  moto,
+  pymongo,
+  pytest-celery,
+  pytest-click,
+  pytest-subtests,
+  pytest-timeout,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  tzdata,
+  vine,
+  nixosTests,
 }:
 
 buildPythonPackage rec {
@@ -48,10 +49,7 @@ buildPythonPackage rec {
     python-dateutil
     tzdata
     vine
-  ]
-  ++ lib.optionals (pythonOlder "3.9") [
-    backports-zoneinfo
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   nativeCheckInputs = [
     boto3
@@ -74,19 +72,19 @@ buildPythonPackage rec {
     "t/unit/apps/test_multi.py"
   ];
 
-  disabledTests = [
-    "msgpack"
-    "test_check_privileges_no_fchown"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # too many open files on hydra
-    "test_cleanup"
-    "test_with_autoscaler_file_descriptor_safety"
-    "test_with_file_descriptor_safety"
-  ];
+  disabledTests =
+    [
+      "msgpack"
+      "test_check_privileges_no_fchown"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # too many open files on hydra
+      "test_cleanup"
+      "test_with_autoscaler_file_descriptor_safety"
+      "test_with_file_descriptor_safety"
+    ];
 
-  pythonImportsCheck = [
-    "celery"
-  ];
+  pythonImportsCheck = [ "celery" ];
 
   passthru.tests = {
     inherit (nixosTests) sourcehut;

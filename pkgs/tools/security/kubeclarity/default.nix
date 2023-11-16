@@ -1,9 +1,10 @@
-{ lib
-, btrfs-progs
-, buildGoModule
-, fetchFromGitHub
-, lvm2
-, pkg-config
+{
+  lib,
+  btrfs-progs,
+  buildGoModule,
+  fetchFromGitHub,
+  lvm2,
+  pkg-config,
 }:
 
 buildGoModule rec {
@@ -19,9 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-kYdKCHqzDbfCGMlTMPSHAQkSLyhkCl/OvV7CF5jdyaY=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     btrfs-progs

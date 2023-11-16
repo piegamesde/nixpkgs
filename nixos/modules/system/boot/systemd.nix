@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 with utils;
 with systemdUtils.unitOptions;
@@ -17,10 +23,12 @@ let
     pathToUnit
     mountToUnit
     automountToUnit
-    sliceToUnit;
+    sliceToUnit
+  ;
 
   upstreamSystemUnits =
-    [ # Targets.
+    [
+      # Targets.
       "basic.target"
       "sysinit.target"
       "sockets.target"
@@ -33,11 +41,13 @@ let
       "nss-lookup.target"
       "nss-user-lookup.target"
       "time-sync.target"
-    ] ++ optionals cfg.package.withCryptsetup [
+    ]
+    ++ optionals cfg.package.withCryptsetup [
       "cryptsetup.target"
       "cryptsetup-pre.target"
       "remote-cryptsetup.target"
-    ] ++ [
+    ]
+    ++ [
       "sigpwr.target"
       "timers.target"
       "paths.target"
@@ -53,7 +63,9 @@ let
       "systemd-udevd-kernel.socket"
       "systemd-udevd.service"
       "systemd-udev-settle.service"
-      ] ++ (optional (!config.boot.isContainer) "systemd-udev-trigger.service") ++ [
+    ]
+    ++ (optional (!config.boot.isContainer) "systemd-udev-trigger.service")
+    ++ [
       # hwdb.bin is managed by NixOS
       # "systemd-hwdb-update.service"
 
@@ -92,7 +104,9 @@ let
       "dev-hugepages.mount"
       "dev-mqueue.mount"
       "sys-fs-fuse-connections.mount"
-      ] ++ (optional (!config.boot.isContainer) "sys-kernel-config.mount") ++ [
+    ]
+    ++ (optional (!config.boot.isContainer) "sys-kernel-config.mount")
+    ++ [
       "sys-kernel-debug.mount"
 
       # Maintaining state across reboots.
@@ -124,7 +138,9 @@ let
       "final.target"
       "kexec.target"
       "systemd-kexec.service"
-    ] ++ lib.optional cfg.package.withUtmp "systemd-update-utmp.service" ++ [
+    ]
+    ++ lib.optional cfg.package.withUtmp "systemd-update-utmp.service"
+    ++ [
 
       # Password entry.
       "systemd-ask-password-console.path"
@@ -134,44 +150,50 @@ let
 
       # Slices / containers.
       "slices.target"
-    ] ++ optionals cfg.package.withImportd [
-      "systemd-importd.service"
-    ] ++ optionals cfg.package.withMachined [
+    ]
+    ++ optionals cfg.package.withImportd [ "systemd-importd.service" ]
+    ++ optionals cfg.package.withMachined [
       "machine.slice"
       "machines.target"
       "systemd-machined.service"
-    ] ++ [
+    ]
+    ++ [
       "systemd-nspawn@.service"
 
       # Misc.
       "systemd-sysctl.service"
-    ] ++ optionals cfg.package.withTimedated [
+    ]
+    ++ optionals cfg.package.withTimedated [
       "dbus-org.freedesktop.timedate1.service"
       "systemd-timedated.service"
-    ] ++ optionals cfg.package.withLocaled [
+    ]
+    ++ optionals cfg.package.withLocaled [
       "dbus-org.freedesktop.locale1.service"
       "systemd-localed.service"
-    ] ++ optionals cfg.package.withHostnamed [
+    ]
+    ++ optionals cfg.package.withHostnamed [
       "dbus-org.freedesktop.hostname1.service"
       "systemd-hostnamed.service"
-    ] ++ optionals cfg.package.withPortabled [
+    ]
+    ++ optionals cfg.package.withPortabled [
       "dbus-org.freedesktop.portable1.service"
       "systemd-portabled.service"
-    ] ++ [
+    ]
+    ++ [
       "systemd-exit.service"
       "systemd-update-done.service"
-    ] ++ cfg.additionalUpstreamSystemUnits;
+    ]
+    ++ cfg.additionalUpstreamSystemUnits;
 
-  upstreamSystemWants =
-    [ "sysinit.target.wants"
-      "sockets.target.wants"
-      "local-fs.target.wants"
-      "multi-user.target.wants"
-      "timers.target.wants"
-    ];
+  upstreamSystemWants = [
+    "sysinit.target.wants"
+    "sockets.target.wants"
+    "local-fs.target.wants"
+    "multi-user.target.wants"
+    "timers.target.wants"
+  ];
 
   proxy_env = config.networking.proxy.envVars;
-
 in
 
 {
@@ -188,49 +210,49 @@ in
 
     systemd.units = mkOption {
       description = lib.mdDoc "Definition of systemd units.";
-      default = {};
+      default = { };
       type = systemdUtils.types.units;
     };
 
     systemd.packages = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.package;
       example = literalExpression "[ pkgs.systemd-cryptsetup-generator ]";
       description = lib.mdDoc "Packages providing systemd units and hooks.";
     };
 
     systemd.targets = mkOption {
-      default = {};
+      default = { };
       type = systemdUtils.types.targets;
       description = lib.mdDoc "Definition of systemd target units.";
     };
 
     systemd.services = mkOption {
-      default = {};
+      default = { };
       type = systemdUtils.types.services;
       description = lib.mdDoc "Definition of systemd service units.";
     };
 
     systemd.sockets = mkOption {
-      default = {};
+      default = { };
       type = systemdUtils.types.sockets;
       description = lib.mdDoc "Definition of systemd socket units.";
     };
 
     systemd.timers = mkOption {
-      default = {};
+      default = { };
       type = systemdUtils.types.timers;
       description = lib.mdDoc "Definition of systemd timer units.";
     };
 
     systemd.paths = mkOption {
-      default = {};
+      default = { };
       type = systemdUtils.types.paths;
       description = lib.mdDoc "Definition of systemd path units.";
     };
 
     systemd.mounts = mkOption {
-      default = [];
+      default = [ ];
       type = systemdUtils.types.mounts;
       description = lib.mdDoc ''
         Definition of systemd mount units.
@@ -240,7 +262,7 @@ in
     };
 
     systemd.automounts = mkOption {
-      default = [];
+      default = [ ];
       type = systemdUtils.types.automounts;
       description = lib.mdDoc ''
         Definition of systemd automount units.
@@ -250,15 +272,17 @@ in
     };
 
     systemd.slices = mkOption {
-      default = {};
+      default = { };
       type = systemdUtils.types.slices;
       description = lib.mdDoc "Definition of slice configurations.";
     };
 
     systemd.generators = mkOption {
       type = types.attrsOf types.path;
-      default = {};
-      example = { systemd-gpt-auto-generator = "/dev/null"; };
+      default = { };
+      example = {
+        systemd-gpt-auto-generator = "/dev/null";
+      };
       description = lib.mdDoc ''
         Definition of systemd generators.
         For each `NAME = VALUE` pair of the attrSet, a link is generated from
@@ -268,7 +292,7 @@ in
 
     systemd.shutdown = mkOption {
       type = types.attrsOf types.path;
-      default = {};
+      default = { };
       description = lib.mdDoc ''
         Definition of systemd shutdown executables.
         For each `NAME = VALUE` pair of the attrSet, a link is generated from
@@ -292,18 +316,42 @@ in
     };
 
     systemd.globalEnvironment = mkOption {
-      type = with types; attrsOf (nullOr (oneOf [ str path package ]));
-      default = {};
-      example = { TZ = "CET"; };
+      type =
+        with types;
+        attrsOf (
+          nullOr (
+            oneOf [
+              str
+              path
+              package
+            ]
+          )
+        );
+      default = { };
+      example = {
+        TZ = "CET";
+      };
       description = lib.mdDoc ''
         Environment variables passed to *all* systemd units.
       '';
     };
 
     systemd.managerEnvironment = mkOption {
-      type = with types; attrsOf (nullOr (oneOf [ str path package ]));
-      default = {};
-      example = { SYSTEMD_LOG_LEVEL = "debug"; };
+      type =
+        with types;
+        attrsOf (
+          nullOr (
+            oneOf [
+              str
+              path
+              package
+            ]
+          )
+        );
+      default = { };
+      example = {
+        SYSTEMD_LOG_LEVEL = "debug";
+      };
       description = lib.mdDoc ''
         Environment variables of PID 1. These variables are
         *not* passed to started units.
@@ -349,7 +397,10 @@ in
     systemd.additionalUpstreamSystemUnits = mkOption {
       default = [ ];
       type = types.listOf types.str;
-      example = [ "debug-shell.service" "systemd-quotacheck.service" ];
+      example = [
+        "debug-shell.service"
+        "systemd-quotacheck.service"
+      ];
       description = lib.mdDoc ''
         Additional units shipped with systemd that shall be enabled.
       '';
@@ -415,30 +466,30 @@ in
     };
   };
 
-
   ###### implementation
 
   config = {
 
     warnings = concatLists (
       mapAttrsToList
-        (name: service:
+        (
+          name: service:
           let
             type = service.serviceConfig.Type or "";
             restart = service.serviceConfig.Restart or "no";
             hasDeprecated = builtins.hasAttr "StartLimitInterval" service.serviceConfig;
           in
-            concatLists [
-              (optional (type == "oneshot" && (restart == "always" || restart == "on-success"))
-                "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
-              )
-              (optional hasDeprecated
-                "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
-              )
-              (optional (service.reloadIfChanged && service.reloadTriggers != [])
-                "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
-              )
-            ]
+          concatLists [
+            (optional (type == "oneshot" && (restart == "always" || restart == "on-success"))
+              "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
+            )
+            (optional hasDeprecated
+              "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
+            )
+            (optional (service.reloadIfChanged && service.reloadTriggers != [ ])
+              "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
+            )
+          ]
         )
         cfg.services
     );
@@ -447,83 +498,102 @@ in
 
     system.nssModules = [ cfg.package.out ];
     system.nssDatabases = {
-      hosts = (mkMerge [
-        (mkOrder 400 ["mymachines"]) # 400 to ensure it comes before resolve (which is mkBefore'd)
-        (mkOrder 999 ["myhostname"]) # after files (which is 998), but before regular nss modules
-      ]);
-      passwd = (mkMerge [
-        (mkAfter [ "systemd" ])
-      ]);
-      group = (mkMerge [
-        (mkAfter [ "[success=merge] systemd" ]) # need merge so that NSS won't stop at file-based groups
-      ]);
+      hosts =
+        (mkMerge [
+          (mkOrder 400 [ "mymachines" ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
+          (mkOrder 999 [ "myhostname" ]) # after files (which is 998), but before regular nss modules
+        ]);
+      passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
+      group =
+        (mkMerge [
+          (mkAfter [ "[success=merge] systemd" ]) # need merge so that NSS won't stop at file-based groups
+        ]);
     };
 
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc = let
-      # generate contents for /etc/systemd/system-${type} from attrset of links and packages
-      hooks = type: links: pkgs.runCommand "system-${type}" {
-          preferLocalBuild = true;
-          packages = cfg.packages;
-      } ''
-        set -e
-        mkdir -p $out
-        for package in $packages
-        do
-          for hook in $package/lib/systemd/system-${type}/*
-          do
-            ln -s $hook $out/
-          done
-        done
-        ${concatStrings (mapAttrsToList (exec: target: "ln -s ${target} $out/${exec};\n") links)}
-      '';
+    environment.etc =
+      let
+        # generate contents for /etc/systemd/system-${type} from attrset of links and packages
+        hooks =
+          type: links:
+          pkgs.runCommand "system-${type}"
+            {
+              preferLocalBuild = true;
+              packages = cfg.packages;
+            }
+            ''
+              set -e
+              mkdir -p $out
+              for package in $packages
+              do
+                for hook in $package/lib/systemd/system-${type}/*
+                do
+                  ln -s $hook $out/
+                done
+              done
+              ${concatStrings (
+                mapAttrsToList
+                  (exec: target: ''
+                    ln -s ${target} $out/${exec};
+                  '')
+                  links
+              )}
+            '';
 
-      enabledUpstreamSystemUnits = filter (n: ! elem n cfg.suppressedSystemUnits) upstreamSystemUnits;
-      enabledUnits = filterAttrs (n: v: ! elem n cfg.suppressedSystemUnits) cfg.units;
+        enabledUpstreamSystemUnits = filter (n: !elem n cfg.suppressedSystemUnits) upstreamSystemUnits;
+        enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedSystemUnits) cfg.units;
+      in
+      ({
+        "systemd/system".source = generateUnits {
+          type = "system";
+          units = enabledUnits;
+          upstreamUnits = enabledUpstreamSystemUnits;
+          upstreamWants = upstreamSystemWants;
+        };
 
-    in ({
-      "systemd/system".source = generateUnits {
-        type = "system";
-        units = enabledUnits;
-        upstreamUnits = enabledUpstreamSystemUnits;
-        upstreamWants = upstreamSystemWants;
-      };
+        "systemd/system.conf".text = ''
+          [Manager]
+          ManagerEnvironment=${
+            lib.concatStringsSep " " (
+              lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment
+            )
+          }
+          ${optionalString config.systemd.enableCgroupAccounting ''
+            DefaultCPUAccounting=yes
+            DefaultIOAccounting=yes
+            DefaultBlockIOAccounting=yes
+            DefaultIPAccounting=yes
+          ''}
+          DefaultLimitCORE=infinity
+          ${optionalString (config.systemd.watchdog.device != null) ''
+            WatchdogDevice=${config.systemd.watchdog.device}
+          ''}
+          ${optionalString (config.systemd.watchdog.runtimeTime != null) ''
+            RuntimeWatchdogSec=${config.systemd.watchdog.runtimeTime}
+          ''}
+          ${optionalString (config.systemd.watchdog.rebootTime != null) ''
+            RebootWatchdogSec=${config.systemd.watchdog.rebootTime}
+          ''}
+          ${optionalString (config.systemd.watchdog.kexecTime != null) ''
+            KExecWatchdogSec=${config.systemd.watchdog.kexecTime}
+          ''}
 
-      "systemd/system.conf".text = ''
-        [Manager]
-        ManagerEnvironment=${lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment)}
-        ${optionalString config.systemd.enableCgroupAccounting ''
-          DefaultCPUAccounting=yes
-          DefaultIOAccounting=yes
-          DefaultBlockIOAccounting=yes
-          DefaultIPAccounting=yes
-        ''}
-        DefaultLimitCORE=infinity
-        ${optionalString (config.systemd.watchdog.device != null) ''
-          WatchdogDevice=${config.systemd.watchdog.device}
-        ''}
-        ${optionalString (config.systemd.watchdog.runtimeTime != null) ''
-          RuntimeWatchdogSec=${config.systemd.watchdog.runtimeTime}
-        ''}
-        ${optionalString (config.systemd.watchdog.rebootTime != null) ''
-          RebootWatchdogSec=${config.systemd.watchdog.rebootTime}
-        ''}
-        ${optionalString (config.systemd.watchdog.kexecTime != null) ''
-          KExecWatchdogSec=${config.systemd.watchdog.kexecTime}
-        ''}
+          ${config.systemd.extraConfig}
+        '';
 
-        ${config.systemd.extraConfig}
-      '';
+        "systemd/sleep.conf".text = ''
+          [Sleep]
+          ${config.systemd.sleep.extraConfig}
+        '';
 
-      "systemd/sleep.conf".text = ''
-        [Sleep]
-        ${config.systemd.sleep.extraConfig}
-      '';
-
-      "systemd/system-generators" = { source = hooks "generators" cfg.generators; };
-      "systemd/system-shutdown" = { source = hooks "shutdown" cfg.shutdown; };
-    });
+        "systemd/system-generators" = {
+          source = hooks "generators" cfg.generators;
+        };
+        "systemd/system-shutdown" = {
+          source = hooks "shutdown" cfg.shutdown;
+        };
+      });
 
     services.dbus.enable = true;
 
@@ -541,51 +611,83 @@ in
     # Target for ‘charon send-keys’ to hook into.
     users.groups.keys.gid = config.ids.gids.keys;
 
-    systemd.targets.keys =
-      { description = "Security Keys";
-        unitConfig.X-StopOnReconfiguration = true;
-      };
+    systemd.targets.keys = {
+      description = "Security Keys";
+      unitConfig.X-StopOnReconfiguration = true;
+    };
 
     systemd.units =
-         mapAttrs' (n: v: nameValuePair "${n}.path"    (pathToUnit    n v)) cfg.paths
+      mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
       // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v)) cfg.services
-      // mapAttrs' (n: v: nameValuePair "${n}.slice"   (sliceToUnit   n v)) cfg.slices
-      // mapAttrs' (n: v: nameValuePair "${n}.socket"  (socketToUnit  n v)) cfg.sockets
-      // mapAttrs' (n: v: nameValuePair "${n}.target"  (targetToUnit  n v)) cfg.targets
-      // mapAttrs' (n: v: nameValuePair "${n}.timer"   (timerToUnit   n v)) cfg.timers
-      // listToAttrs (map
-                   (v: let n = escapeSystemdPath v.where;
-                       in nameValuePair "${n}.mount" (mountToUnit n v)) cfg.mounts)
-      // listToAttrs (map
-                   (v: let n = escapeSystemdPath v.where;
-                       in nameValuePair "${n}.automount" (automountToUnit n v)) cfg.automounts);
+      // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v)) cfg.slices
+      // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v)) cfg.sockets
+      // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
+      // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v)) cfg.timers
+      // listToAttrs (
+        map
+          (
+            v:
+            let
+              n = escapeSystemdPath v.where;
+            in
+            nameValuePair "${n}.mount" (mountToUnit n v)
+          )
+          cfg.mounts
+      )
+      // listToAttrs (
+        map
+          (
+            v:
+            let
+              n = escapeSystemdPath v.where;
+            in
+            nameValuePair "${n}.automount" (automountToUnit n v)
+          )
+          cfg.automounts
+      );
 
-      # Environment of PID 1
-      systemd.managerEnvironment = {
-        # Doesn't contain systemd itself - everything works so it seems to use the compiled-in value for its tools
-        # util-linux is needed for the main fsck utility wrapping the fs-specific ones
-        PATH = lib.makeBinPath (config.system.fsPackages ++ [cfg.package.util-linux]);
-        LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
-        TZDIR = "/etc/zoneinfo";
-        # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
-        SYSTEMD_UNIT_PATH = lib.mkIf (config.boot.extraSystemdUnitPaths != []) "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:";
-      };
+    # Environment of PID 1
+    systemd.managerEnvironment = {
+      # Doesn't contain systemd itself - everything works so it seems to use the compiled-in value for its tools
+      # util-linux is needed for the main fsck utility wrapping the fs-specific ones
+      PATH = lib.makeBinPath (config.system.fsPackages ++ [ cfg.package.util-linux ]);
+      LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
+      TZDIR = "/etc/zoneinfo";
+      # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
+      SYSTEMD_UNIT_PATH =
+        lib.mkIf (config.boot.extraSystemdUnitPaths != [ ])
+          "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:";
+    };
 
-
-    system.requiredKernelConfig = map config.lib.kernelConfig.isEnabled
-      [ "DEVTMPFS" "CGROUPS" "INOTIFY_USER" "SIGNALFD" "TIMERFD" "EPOLL" "NET"
-        "SYSFS" "PROC_FS" "FHANDLE" "CRYPTO_USER_API_HASH" "CRYPTO_HMAC"
-        "CRYPTO_SHA256" "DMIID" "AUTOFS_FS" "TMPFS_POSIX_ACL"
-        "TMPFS_XATTR" "SECCOMP"
-      ];
+    system.requiredKernelConfig = map config.lib.kernelConfig.isEnabled [
+      "DEVTMPFS"
+      "CGROUPS"
+      "INOTIFY_USER"
+      "SIGNALFD"
+      "TIMERFD"
+      "EPOLL"
+      "NET"
+      "SYSFS"
+      "PROC_FS"
+      "FHANDLE"
+      "CRYPTO_USER_API_HASH"
+      "CRYPTO_HMAC"
+      "CRYPTO_SHA256"
+      "DMIID"
+      "AUTOFS_FS"
+      "TMPFS_POSIX_ACL"
+      "TMPFS_XATTR"
+      "SECCOMP"
+    ];
 
     # Generate timer units for all services that have a ‘startAt’ value.
     systemd.timers =
-      mapAttrs (name: service:
-        { wantedBy = [ "timers.target" ];
+      mapAttrs
+        (name: service: {
+          wantedBy = [ "timers.target" ];
           timerConfig.OnCalendar = service.startAt;
         })
-        (filterAttrs (name: service: service.enable && service.startAt != []) cfg.services);
+        (filterAttrs (name: service: service.enable && service.startAt != [ ]) cfg.services);
 
     # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;
@@ -617,7 +719,7 @@ in
 
     # NixOS has kernel modules in a different location, so override that here.
     systemd.services.kmod-static-nodes.unitConfig.ConditionFileNotEmpty = [
-      ""  # required to unset the previous value!
+      "" # required to unset the previous value!
       "/run/booted-system/kernel-modules/lib/modules/%v/modules.devname"
     ];
 
@@ -629,7 +731,9 @@ in
     # https://github.com/systemd/systemd/pull/12226
     boot.kernel.sysctl."kernel.pid_max" = mkIf pkgs.stdenv.is64bit (lib.mkDefault 4194304);
 
-    boot.kernelParams = optional (!cfg.enableUnifiedCgroupHierarchy) "systemd.unified_cgroup_hierarchy=0";
+    boot.kernelParams =
+      optional (!cfg.enableUnifiedCgroupHierarchy)
+        "systemd.unified_cgroup_hierarchy=0";
 
     # Avoid potentially degraded system state due to
     # "Userspace Out-Of-Memory (OOM) Killer was skipped because of a failed condition check (ConditionControlGroupController=v2)."
@@ -652,11 +756,50 @@ in
   };
 
   # FIXME: Remove these eventually.
-  imports =
-    [ (mkRenamedOptionModule [ "boot" "systemd" "sockets" ] [ "systemd" "sockets" ])
-      (mkRenamedOptionModule [ "boot" "systemd" "targets" ] [ "systemd" "targets" ])
-      (mkRenamedOptionModule [ "boot" "systemd" "services" ] [ "systemd" "services" ])
-      (mkRenamedOptionModule [ "jobs" ] [ "systemd" "services" ])
-      (mkRemovedOptionModule [ "systemd" "generator-packages" ] "Use systemd.packages instead.")
-    ];
+  imports = [
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "sockets"
+      ]
+      [
+        "systemd"
+        "sockets"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "targets"
+      ]
+      [
+        "systemd"
+        "targets"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "services"
+      ]
+      [
+        "systemd"
+        "services"
+      ]
+    )
+    (mkRenamedOptionModule [ "jobs" ] [
+      "systemd"
+      "services"
+    ])
+    (mkRemovedOptionModule
+      [
+        "systemd"
+        "generator-packages"
+      ]
+      "Use systemd.packages instead."
+    )
+  ];
 }

@@ -1,10 +1,11 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, setuptools-scm
-, six
-, astroid
-, pytestCheckHook
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools-scm,
+  six,
+  astroid,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,28 +18,26 @@ buildPythonPackage rec {
     hash = "sha256-LgFxuZGyyVmsxsSTGASSNoRKXaHWW6JnLEiAwciUg04=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   nativeCheckInputs = [
     astroid
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Test is currently failing on Hydra, works locally
-    "test_slices"
-  ];
+  disabledTests =
+    [
+      # Test is currently failing on Hydra, works locally
+      "test_slices"
+    ];
 
-  disabledTestPaths = [
-    # incompatible with astroid 2.11.0, pins <= 2.5.3
-    "tests/test_astroid.py"
-  ];
+  disabledTestPaths =
+    [
+      # incompatible with astroid 2.11.0, pins <= 2.5.3
+      "tests/test_astroid.py"
+    ];
 
   pythonImportsCheck = [ "asttokens" ];
 

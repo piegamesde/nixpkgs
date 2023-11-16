@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, yasm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  yasm,
 }:
 
 buildPythonPackage rec {
@@ -24,10 +25,11 @@ buildPythonPackage rec {
     yasm
   ];
 
-  disabledTests = [
-    # TypeError: __init__() missing 3 required positional...
-    "test_dummy"
-  ];
+  disabledTests =
+    [
+      # TypeError: __init__() missing 3 required positional...
+      "test_dummy"
+    ];
 
   pythonImportsCheck = [ "distorm3" ];
 

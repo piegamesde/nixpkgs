@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, gfortran
-, blas
-, lapack
-, mctc-lib
-, mstore
-, multicharge
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gfortran,
+  blas,
+  lapack,
+  mctc-lib,
+  mstore,
+  multicharge,
 }:
 
 assert !blas.isILP64 && !lapack.isILP64;
@@ -23,9 +24,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-VIV9953hx0MZupOARdH+P1h7JtZeJmTlqtO8si+lwdU=";
   };
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
 
-  buildInputs = [ blas lapack mctc-lib mstore multicharge ];
+  buildInputs = [
+    blas
+    lapack
+    mctc-lib
+    mstore
+    multicharge
+  ];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/${pname}.pc \
@@ -39,7 +49,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Generally Applicable Atomic-Charge Dependent London Dispersion Correction";
-    license = with licenses; [ lgpl3Plus gpl3Plus ];
+    license = with licenses; [
+      lgpl3Plus
+      gpl3Plus
+    ];
     homepage = "https://github.com/grimme-lab/dftd4";
     platforms = platforms.linux;
     maintainers = [ maintainers.sheepforce ];

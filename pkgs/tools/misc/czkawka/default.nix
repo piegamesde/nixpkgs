@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, glib
-, cairo
-, pango
-, gdk-pixbuf
-, atk
-, gtk4
-, Foundation
-, wrapGAppsHook4
-, gobject-introspection
-, xvfb-run
-, testers
-, czkawka
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  cairo,
+  pango,
+  gdk-pixbuf,
+  atk,
+  gtk4,
+  Foundation,
+  wrapGAppsHook4,
+  gobject-introspection,
+  xvfb-run,
+  testers,
+  czkawka,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -43,13 +44,9 @@ rustPlatform.buildRustPackage rec {
     gdk-pixbuf
     atk
     gtk4
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Foundation
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Foundation ];
 
-  nativeCheckInputs = [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ xvfb-run ];
 
   checkPhase = ''
     runHook preCheck
@@ -57,8 +54,7 @@ rustPlatform.buildRustPackage rec {
     runHook postCheck
   '';
 
-  doCheck = stdenv.hostPlatform.isLinux
-          && (stdenv.hostPlatform == stdenv.buildPlatform);
+  doCheck = stdenv.hostPlatform.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform);
 
   passthru.tests.version = testers.testVersion {
     package = czkawka;
@@ -82,6 +78,9 @@ rustPlatform.buildRustPackage rec {
     description = "A simple, fast and easy to use app to remove unnecessary files from your computer";
     homepage = "https://github.com/qarmin/czkawka";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ yanganto _0x4A6F ];
+    maintainers = with maintainers; [
+      yanganto
+      _0x4A6F
+    ];
   };
 }

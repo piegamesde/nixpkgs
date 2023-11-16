@@ -1,7 +1,33 @@
-{ stdenv, lib, fetchurl, alsa-lib, atk, cairo, cups, udev, libdrm, mesa
-, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, gtk3, libappindicator-gtk3
-, libnotify, nspr, nss, pango, systemd, xorg, autoPatchelfHook, wrapGAppsHook
-, runtimeShell, gsettings-desktop-schemas }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  alsa-lib,
+  atk,
+  cairo,
+  cups,
+  udev,
+  libdrm,
+  mesa,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libappindicator-gtk3,
+  libnotify,
+  nspr,
+  nss,
+  pango,
+  systemd,
+  xorg,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  runtimeShell,
+  gsettings-desktop-schemas,
+}:
 
 let
   versionSuffix = "20230726175256.4464bfb32d";
@@ -12,7 +38,9 @@ stdenv.mkDerivation rec {
   version = "6.2.2"; # Find latest version from https://prerelease.keybase.io/deb/dists/stable/main/binary-amd64/Packages
 
   src = fetchurl {
-    url = "https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${version + "-" + versionSuffix}_amd64.deb";
+    url = "https://s3.amazonaws.com/prerelease.keybase.io/linux_binaries/deb/keybase_${
+        version + "-" + versionSuffix
+      }_amd64.deb";
     hash = "sha256-X3BJksdddTdxeUqVjzcq3cDRGRqmaYE7Z+eXtHoqbkg=";
   };
 
@@ -110,7 +138,14 @@ stdenv.mkDerivation rec {
     homepage = "https://www.keybase.io/";
     description = "The Keybase official GUI";
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ avaq rvolosatovs puffnfresh np Br1ght0ne shofius ];
+    maintainers = with maintainers; [
+      avaq
+      rvolosatovs
+      puffnfresh
+      np
+      Br1ght0ne
+      shofius
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.bsd3;
   };

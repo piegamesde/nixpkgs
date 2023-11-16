@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "wander";
@@ -13,7 +18,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-SqDGXV8MpvEQFAkcE1NWvWjdzYsvbO5vA6k+hpY0js0=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

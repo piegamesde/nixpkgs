@@ -1,19 +1,20 @@
-{ fetchFromGitHub
-, gdk-pixbuf
-, gobject-introspection
-, gtk3
-, intltool
-, meson
-, ninja
-, pkg-config
-, pulseaudio
-, python3
-, lib
-, stdenv
-, xkeyboard_config
-, xorg
-, wrapGAppsHook
-, glib
+{
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gobject-introspection,
+  gtk3,
+  intltool,
+  meson,
+  ninja,
+  pkg-config,
+  pulseaudio,
+  python3,
+  lib,
+  stdenv,
+  xkeyboard_config,
+  xorg,
+  wrapGAppsHook,
+  glib,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,7 +28,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-rYTWtdYfMow3cIPhJdcmhyaIIU7fgVecWigbsCW0Piw=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   propagatedBuildInputs = [
     glib
@@ -71,7 +75,10 @@ stdenv.mkDerivation rec {
       gtk-doc.
     '';
 
-    license = [ licenses.gpl2 licenses.lgpl2 ];
+    license = [
+      licenses.gpl2
+      licenses.lgpl2
+    ];
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;
   };

@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, emacs
-, tcl
-, tclx
-, espeak-ng
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  emacs,
+  tcl,
+  tclx,
+  espeak-ng,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
     owner = "tvraman";
     repo = pname;
     rev = version;
-    hash= "sha256-juy+nQ7DrG818/uTH6Dv/lrrzu8qzPWwi0sX7JrhHK8=";
+    hash = "sha256-juy+nQ7DrG818/uTH6Dv/lrrzu8qzPWwi0sX7JrhHK8=";
   };
 
   nativeBuildInputs = [

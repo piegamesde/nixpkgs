@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, mongoc
-, openssl
-, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  mongoc,
+  openssl,
+  darwin,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,22 +21,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-I4KG2BHAovin9EaF8lNzJzucARvi0Qptz5Y9gTt3WkE=";
   };
 
-  patches = [
-    # fix pkg-config files
-    # submitted upstream: https://github.com/mongodb/libmongocrypt/pull/634
-    (fetchpatch {
-      url = "https://github.com/mongodb/libmongocrypt/commit/5514cf0a366c4d0dc1b0f2a62201f0f1161054da.diff";
-      hash = "sha256-eMSn6MRnc3yKfU2u/Bg3juWiupDzY1DUGi1/HSRftIs=";
-    })
-  ];
+  patches =
+    [
+      # fix pkg-config files
+      # submitted upstream: https://github.com/mongodb/libmongocrypt/pull/634
+      (fetchpatch {
+        url = "https://github.com/mongodb/libmongocrypt/commit/5514cf0a366c4d0dc1b0f2a62201f0f1161054da.diff";
+        hash = "sha256-eMSn6MRnc3yKfU2u/Bg3juWiupDzY1DUGi1/HSRftIs=";
+      })
+    ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     mongoc
     openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.Security
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Security ];
 
   cmakeFlags = [
     # all three of these are required to use system libbson

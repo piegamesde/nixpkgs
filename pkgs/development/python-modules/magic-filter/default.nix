@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, hatchling
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  hatchling,
 }:
 
 buildPythonPackage rec {
@@ -20,13 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-MSYIZ/bzngRu6mG3EGblUotSCA+6bi+l3EymFA8NRZA=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "magic_filter" ];
 

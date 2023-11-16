@@ -1,32 +1,33 @@
-{ lib
-, aiofiles
-, aiohttp
-, aioshutil
-, buildPythonPackage
-, dateparser
-, fetchFromGitHub
-, ipython
-, orjson
-, packaging
-, pillow
-, poetry-core
-, py
-, pydantic
-, pyjwt
-, pytest-aiohttp
-, pytest-asyncio
-, pytest-benchmark
-, pytest-timeout
-, pytest-xdist
-, pytestCheckHook
-, python-dotenv
-, pythonOlder
-, pytz
-, setuptools
-, setuptools-scm
-, termcolor
-, typer
-, ffmpeg
+{
+  lib,
+  aiofiles,
+  aiohttp,
+  aioshutil,
+  buildPythonPackage,
+  dateparser,
+  fetchFromGitHub,
+  ipython,
+  orjson,
+  packaging,
+  pillow,
+  poetry-core,
+  py,
+  pydantic,
+  pyjwt,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-benchmark,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  python-dotenv,
+  pythonOlder,
+  pytz,
+  setuptools,
+  setuptools-scm,
+  termcolor,
+  typer,
+  ffmpeg,
 }:
 
 buildPythonPackage rec {
@@ -88,13 +89,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "pyunifiprotect"
-  ];
+  pythonImportsCheck = [ "pyunifiprotect" ];
 
-  pytestFlagsArray = [
-    "--benchmark-disable"
-  ];
+  pytestFlagsArray = [ "--benchmark-disable" ];
 
   meta = with lib; {
     description = "Library for interacting with the Unifi Protect API";

@@ -1,12 +1,16 @@
-{ lib
-, fetchFromGitHub
-, symlinkJoin
-, buildGoModule
-, makeWrapper
-, nix-update-script
-, v2ray-geoip
-, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ]
+{
+  lib,
+  fetchFromGitHub,
+  symlinkJoin,
+  buildGoModule,
+  makeWrapper,
+  nix-update-script,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  assets ? [
+    v2ray-geoip
+    v2ray-domain-list-community
+  ],
 }:
 
 buildGoModule rec {
@@ -26,10 +30,14 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-buildid=" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-buildid="
+  ];
   subPackages = [ "main" ];
 
-   installPhase = ''
+  installPhase = ''
     runHook preInstall
     install -Dm555 "$GOPATH"/bin/main $out/bin/xray
     runHook postInstall

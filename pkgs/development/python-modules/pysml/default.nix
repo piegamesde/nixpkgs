@@ -1,11 +1,12 @@
-{ lib
-, async-timeout
-, bitstring
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pyserial-asyncio
-, pythonOlder
+{
+  lib,
+  async-timeout,
+  bitstring,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyserial-asyncio,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-BtOx/kqPuvaaIyh/2/X5pW5BRvpsnMUMr1u6iZzbkt4=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     async-timeout
@@ -35,9 +34,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sml"
-  ];
+  pythonImportsCheck = [ "sml" ];
 
   meta = with lib; {
     description = "Python library for EDL21 smart meters using Smart Message Language (SML)";

@@ -1,14 +1,15 @@
-{ lib
-, asn1crypto
-, attrs
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pyserial
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  asn1crypto,
+  attrs,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pyserial,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -34,13 +35,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dlms_cosem"
-  ];
+  pythonImportsCheck = [ "dlms_cosem" ];
 
   meta = with lib; {
     description = "Python module to parse DLMS/COSEM";

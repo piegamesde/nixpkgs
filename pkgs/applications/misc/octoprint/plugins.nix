@@ -1,20 +1,26 @@
-{ lib
-, config
-, fetchFromGitHub
-, fetchFromGitLab
-, fetchpatch
-, marlin-calc
+{
+  lib,
+  config,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchpatch,
+  marlin-calc,
 }:
 
 self: super:
 let
-  buildPlugin = args: self.buildPythonPackage (args // {
-    pname = "octoprint-plugin-${args.pname}";
-    inherit (args) version;
-    propagatedBuildInputs = (args.propagatedBuildInputs or [ ]) ++ [ super.octoprint ];
-    # none of the following have tests
-    doCheck = false;
-  });
+  buildPlugin =
+    args:
+    self.buildPythonPackage (
+      args
+      // {
+        pname = "octoprint-plugin-${args.pname}";
+        inherit (args) version;
+        propagatedBuildInputs = (args.propagatedBuildInputs or [ ]) ++ [ super.octoprint ];
+        # none of the following have tests
+        doCheck = false;
+      }
+    );
 in
 {
   inherit buildPlugin;
@@ -31,7 +37,8 @@ in
     };
 
     meta = with lib; {
-      description = "Changes the \"Motors off\" button in octoprint's control tab to issue an M84 command to allow compatibility with Repetier firmware Resources";
+      description = ''
+        Changes the "Motors off" button in octoprint's control tab to issue an M84 command to allow compatibility with Repetier firmware Resources'';
       homepage = "https://github.com/ntoff/OctoPrint-M84MotOff";
       license = licenses.agpl3Only;
       maintainers = with maintainers; [ stunkymonkey ];
@@ -274,9 +281,7 @@ in
       sha256 = "sha256-S+lPm85+ZEO/3BXYsrxE4FU29EGWzWrSw3y1DLdByrM=";
     };
 
-    propagatedBuildInputs = with super; [
-      python-periphery
-    ];
+    propagatedBuildInputs = with super; [ python-periphery ];
 
     preConfigure = ''
       # optional; RPi.GPIO is broken on vanilla kernels
@@ -437,25 +442,38 @@ in
       sha256 = "sha256-QP6PkKWKUv4uIaYdqTAsZmK7DVes94Q9K/DrBYrWxzY=";
     };
 
-    patches = [
-      # fix version constraint
-      # https://github.com/FormerLurker/Octolapse/pull/894
-      (fetchpatch {
-        url = "https://github.com/FormerLurker/Octolapse/commit/0bd7db2430aef370f2665c6c7011fc3bb559122e.patch";
-        hash = "sha256-z2aEq5sJGarGtIDbTRCvXdSj+kq8HIVvLRWpKutmJNY=";
-      })
-    ];
+    patches =
+      [
+        # fix version constraint
+        # https://github.com/FormerLurker/Octolapse/pull/894
+        (fetchpatch {
+          url = "https://github.com/FormerLurker/Octolapse/commit/0bd7db2430aef370f2665c6c7011fc3bb559122e.patch";
+          hash = "sha256-z2aEq5sJGarGtIDbTRCvXdSj+kq8HIVvLRWpKutmJNY=";
+        })
+      ];
 
     # Test fails due to code executed on import, see #136513
     #pythonImportsCheck = [ "octoprint_octolapse" ];
 
-    propagatedBuildInputs = with super; [ awesome-slugify setuptools pillow sarge six pillow psutil file-read-backwards ];
+    propagatedBuildInputs = with super; [
+      awesome-slugify
+      setuptools
+      pillow
+      sarge
+      six
+      pillow
+      psutil
+      file-read-backwards
+    ];
 
     meta = with lib; {
       description = "Stabilized timelapses for Octoprint";
       homepage = "https://github.com/FormerLurker/OctoLapse";
       license = licenses.agpl3Plus;
-      maintainers = with maintainers; [ illustris j0hax ];
+      maintainers = with maintainers; [
+        illustris
+        j0hax
+      ];
       # requires pillow >=6.2.0,<7.0.0
       broken = true;
     };
@@ -479,6 +497,5 @@ in
       maintainers = with maintainers; [ j0hax ];
     };
   };
-} // lib.optionalAttrs config.allowAliases {
-  octoprint-dashboard = self.dashboard;
 }
+// lib.optionalAttrs config.allowAliases { octoprint-dashboard = self.dashboard; }

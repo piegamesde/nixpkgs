@@ -1,52 +1,55 @@
-{ autoconf
-, automake
-, cunit
-, fetchFromGitHub
-, fftw
-, lib
-, libtool
-, llvmPackages
-, stdenv
+{
+  autoconf,
+  automake,
+  cunit,
+  fetchFromGitHub,
+  fftw,
+  lib,
+  libtool,
+  llvmPackages,
+  stdenv,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "nfft";
-  version = "3.5.3";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "nfft";
+    version = "3.5.3";
 
-  src = fetchFromGitHub {
-    owner = "NFFT";
-    repo = "nfft";
-    rev = finalAttrs.version;
-    hash = "sha256-HR8ME9PVC+RAv1GIgV2vK6eLU8Wk28+rSzbutThBv3w=";
-  };
+    src = fetchFromGitHub {
+      owner = "NFFT";
+      repo = "nfft";
+      rev = finalAttrs.version;
+      hash = "sha256-HR8ME9PVC+RAv1GIgV2vK6eLU8Wk28+rSzbutThBv3w=";
+    };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    cunit
-    libtool
-  ];
+    nativeBuildInputs = [
+      autoconf
+      automake
+      cunit
+      libtool
+    ];
 
-  preConfigure = ''
-    bash bootstrap.sh
-  '';
+    preConfigure = ''
+      bash bootstrap.sh
+    '';
 
-  configureFlags = [
-    "--enable-all"
-    "--enable-openmp"
-    "--enable-portable-binary"
-  ];
+    configureFlags = [
+      "--enable-all"
+      "--enable-openmp"
+      "--enable-portable-binary"
+    ];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+    buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
-  propagatedBuildInputs = [ fftw ];
+    propagatedBuildInputs = [ fftw ];
 
-  doCheck = true;
+    doCheck = true;
 
-  meta = {
-    description = "Nonequispaced fast Fourier transform";
-    homepage = "https://www-user.tu-chemnitz.de/~potts/nfft/";
-    license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ hmenke ];
-  };
-})
+    meta = {
+      description = "Nonequispaced fast Fourier transform";
+      homepage = "https://www-user.tu-chemnitz.de/~potts/nfft/";
+      license = lib.licenses.gpl2Plus;
+      maintainers = with lib.maintainers; [ hmenke ];
+    };
+  }
+)

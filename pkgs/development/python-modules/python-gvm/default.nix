@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, defusedxml
-, fetchFromGitHub
-, lxml
-, paramiko
-, poetry-core
-, pontos
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  lxml,
+  paramiko,
+  poetry-core,
+  pontos,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-7HneedqHbNB9ZYFUCCQ/puLtA1QlIkTKqji0py9hwBE=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     defusedxml
@@ -36,20 +35,16 @@ buildPythonPackage rec {
     pontos
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # No running SSH available
-    "test_connect_error"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_feed_xml_error"
-  ];
+  disabledTests =
+    [
+      # No running SSH available
+      "test_connect_error"
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "test_feed_xml_error" ];
 
-  pythonImportsCheck = [
-    "gvm"
-  ];
+  pythonImportsCheck = [ "gvm" ];
 
   meta = with lib; {
     description = "Collection of APIs that help with remote controlling a Greenbone Security Manager";

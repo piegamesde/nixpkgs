@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, electron_10, makeDesktopItem, makeWrapper, asar, autoPatchelfHook}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  electron_10,
+  makeDesktopItem,
+  makeWrapper,
+  asar,
+  autoPatchelfHook,
+}:
 
 let
   electron = electron_10;
@@ -8,14 +17,20 @@ stdenv.mkDerivation rec {
   version = "2.4.0";
 
   src = fetchurl {
-    url = "https://github.com/ImaginarySense/Imaginary-Teleprompter-Electron/releases/download/${lib.versions.majorMinor version}/imaginary-teleprompter-${version}.tar.gz";
+    url = "https://github.com/ImaginarySense/Imaginary-Teleprompter-Electron/releases/download/${
+        lib.versions.majorMinor version
+      }/imaginary-teleprompter-${version}.tar.gz";
     sha256 = "bgdtK8l5d26avv1WUw9cfOgZrIL1q/a9890Ams4yidQ=";
   };
 
   dontBuild = true;
   dontStrip = true;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper asar ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    asar
+  ];
   installPhase = ''
     mkdir -p $out/bin $out/opt/teleprompter $out/share/applications
     asar e resources/app.asar $out/opt/teleprompter/resources/app.asar.unpacked
@@ -28,9 +43,9 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItem = makeDesktopItem {
-     name = "teleprompter";
-     exec = "teleprompter";
-     desktopName = "Teleprompter";
+    name = "teleprompter";
+    exec = "teleprompter";
+    desktopName = "Teleprompter";
   };
 
   meta = with lib; {
@@ -41,4 +56,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ Scriptkiddi ];
   };
 }
-

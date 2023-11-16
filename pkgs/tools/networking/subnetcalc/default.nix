@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "subnetcalc";
@@ -11,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5sDEMS4RgHdGQZAT2MVF/Ls0KXwdKzX+05uQpHhCZn8=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   meta = with lib; {
     description = "SubNetCalc is an IPv4/IPv6 subnet address calculator";

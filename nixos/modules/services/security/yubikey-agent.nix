@@ -1,6 +1,11 @@
 # Global configuration for yubikey-agent.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -13,7 +18,11 @@ in
 {
   ###### interface
 
-  meta.maintainers = with maintainers; [ philandstuff rawkode jwoudenberg ];
+  meta.maintainers = with maintainers; [
+    philandstuff
+    rawkode
+    jwoudenberg
+  ];
 
   options = {
 
@@ -50,10 +59,12 @@ in
     systemd.user.services.yubikey-agent = mkIf (pinentryFlavor != null) {
       path = [ pkgs.pinentry.${pinentryFlavor} ];
       wantedBy = [
-        (if pinentryFlavor == "tty" || pinentryFlavor == "curses" then
-          "default.target"
-        else
-          "graphical-session.target")
+        (
+          if pinentryFlavor == "tty" || pinentryFlavor == "curses" then
+            "default.target"
+          else
+            "graphical-session.target"
+        )
       ];
     };
 

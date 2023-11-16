@@ -1,6 +1,7 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -14,9 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-r7cFaETv2gxNRhfw/F3B+7r3JzwvFvIFVSQ6MHQuEi4=";
   };
 
-  nativeCheckInputs = with python3Packages; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   preCheck = ''
     export PYTHONPATH=norminette:$PYTHONPATH

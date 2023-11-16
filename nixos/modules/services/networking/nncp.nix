@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 
 let
@@ -9,7 +14,8 @@ let
   settingsFormat = pkgs.formats.json { };
   jsonCfgFile = settingsFormat.generate "nncp.json" programCfg.settings;
   pkg = programCfg.package;
-in {
+in
+{
   options = {
 
     services.nncp = {
@@ -53,22 +59,26 @@ in {
           example = [ "-autotoss" ];
         };
       };
-
     };
   };
 
   config = mkIf (programCfg.enable or callerCfg.enable or daemonCfg.enable) {
 
-    assertions = [{
-      assertion = with builtins;
-        let
-          callerCongfigured =
-            let neigh = config.programs.nncp.settings.neigh or { };
-            in lib.lists.any (x: hasAttr "calls" x && x.calls != [ ])
-            (attrValues neigh);
-        in !callerCfg.enable || callerCongfigured;
-      message = "NNCP caller enabled but call configuration is missing";
-    }];
+    assertions = [
+      {
+        assertion =
+          with builtins;
+          let
+            callerCongfigured =
+              let
+                neigh = config.programs.nncp.settings.neigh or { };
+              in
+              lib.lists.any (x: hasAttr "calls" x && x.calls != [ ]) (attrValues neigh);
+          in
+          !callerCfg.enable || callerCongfigured;
+        message = "NNCP caller enabled but call configuration is missing";
+      }
+    ];
 
     systemd.services."nncp-caller" = {
       inherit (callerCfg) enable;

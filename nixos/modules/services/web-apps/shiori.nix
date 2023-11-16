@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
   cfg = config.services.shiori;
-in {
+in
+{
   options = {
     services.shiori = {
       enable = mkEnableOption (lib.mdDoc "Shiori simple bookmarks manager");
@@ -47,7 +53,9 @@ in {
       environment.SHIORI_DIR = "/var/lib/shiori";
 
       serviceConfig = {
-        ExecStart = "${package}/bin/shiori serve --address '${address}' --port '${toString port}' --webroot '${webRoot}'";
+        ExecStart = "${package}/bin/shiori serve --address '${address}' --port '${
+            toString port
+          }' --webroot '${webRoot}'";
 
         DynamicUser = true;
         StateDirectory = "shiori";
@@ -83,7 +91,10 @@ in {
         ProtectKernelTunables = true;
 
         RestrictNamespaces = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 
@@ -93,7 +104,13 @@ in {
         SystemCallErrorNumber = "EPERM";
         SystemCallFilter = [
           "@system-service"
-          "~@cpu-emulation" "~@debug" "~@keyring" "~@memlock" "~@obsolete" "~@privileged" "~@setuid"
+          "~@cpu-emulation"
+          "~@debug"
+          "~@keyring"
+          "~@memlock"
+          "~@obsolete"
+          "~@privileged"
+          "~@setuid"
         ];
       };
     };

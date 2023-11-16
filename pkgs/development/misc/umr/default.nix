@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchgit, bash-completion, cmake, pkg-config
-, json_c, libdrm, libpciaccess, llvmPackages, nanomsg, ncurses, SDL2
+{
+  lib,
+  stdenv,
+  fetchgit,
+  bash-completion,
+  cmake,
+  pkg-config,
+  json_c,
+  libdrm,
+  libpciaccess,
+  llvmPackages,
+  nanomsg,
+  ncurses,
+  SDL2,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +24,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-U1VP1AicSGWzBwzz99i7+3awATZocw5jaqtAxuRNaBE=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config llvmPackages.llvm.dev ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    llvmPackages.llvm.dev
+  ];
 
   buildInputs = [
     bash-completion
@@ -36,5 +52,5 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ Flakebi ];
     platforms = platforms.linux;
- };
+  };
 }

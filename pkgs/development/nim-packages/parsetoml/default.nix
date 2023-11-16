@@ -1,4 +1,8 @@
-{ lib, buildNimPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+}:
 
 buildNimPackage rec {
   pname = "parsetoml";
@@ -11,9 +15,10 @@ buildNimPackage rec {
     hash = "sha256-jtqn59x2ZRRgrPir6u/frsDHnl4kvTJWpbejxti8aHY=";
   };
 
-
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "A Nim library to parse TOML files";
       license = [ licenses.mit ];
       maintainers = with maintainers; [ sikmir ];

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -43,18 +48,14 @@ in
       };
       settings = {
         globalOptions = lib.mkOption {
-          type = lib.types.submodule {
-            freeformType = settingsFormat.type;
-          };
+          type = lib.types.submodule { freeformType = settingsFormat.type; };
           default = { };
           description = lib.mdDoc ''
             The global options in `config` file in ini format.
           '';
         };
         inputMethod = lib.mkOption {
-          type = lib.types.submodule {
-            freeformType = settingsFormat.type;
-          };
+          type = lib.types.submodule { freeformType = settingsFormat.type; };
           default = { };
           description = lib.mdDoc ''
             The input method configure in `profile` file in ini format.
@@ -67,7 +68,7 @@ in
             The addon configures in `conf` folder in ini format with global sections.
             Each item is written to the corresponding file.
           '';
-          example = literalExpression "{ pinyin.globalSection.EmojiEnabled = \"True\"; }";
+          example = literalExpression ''{ pinyin.globalSection.EmojiEnabled = "True"; }'';
         };
       };
       ignoreUserConfig = lib.mkOption {
@@ -83,38 +84,47 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [ "i18n" "inputMethod" "fcitx5" "enableRimeData" ] ''
-      RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
-    '')
+    (mkRemovedOptionModule
+      [
+        "i18n"
+        "inputMethod"
+        "fcitx5"
+        "enableRimeData"
+      ]
+      ''
+        RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
+      ''
+    )
   ];
 
   config = mkIf (im.enabled == "fcitx5") {
     i18n.inputMethod.package = fcitx5Package;
 
-    i18n.inputMethod.fcitx5.addons = lib.optionals (cfg.quickPhrase != { }) [
-      (pkgs.writeTextDir "share/fcitx5/data/QuickPhrase.mb"
-        (lib.concatStringsSep "\n"
-          (lib.mapAttrsToList (name: value: "${name} ${value}") cfg.quickPhrase)))
-    ] ++ lib.optionals (cfg.quickPhraseFiles != { }) [
-      (pkgs.linkFarm "quickPhraseFiles" (lib.mapAttrs'
-        (name: value: lib.nameValuePair ("share/fcitx5/data/quickphrase.d/${name}.mb") value)
-        cfg.quickPhraseFiles))
-    ];
+    i18n.inputMethod.fcitx5.addons =
+      lib.optionals (cfg.quickPhrase != { }) [
+        (pkgs.writeTextDir "share/fcitx5/data/QuickPhrase.mb" (
+          lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") cfg.quickPhrase)
+        ))
+      ]
+      ++ lib.optionals (cfg.quickPhraseFiles != { }) [
+        (pkgs.linkFarm "quickPhraseFiles" (
+          lib.mapAttrs' (name: value: lib.nameValuePair ("share/fcitx5/data/quickphrase.d/${name}.mb") value)
+            cfg.quickPhraseFiles
+        ))
+      ];
     environment.etc =
       let
-        optionalFile = p: f: v: lib.optionalAttrs (v != { }) {
-          "xdg/fcitx5/${p}".text = f v;
-        };
+        optionalFile =
+          p: f: v:
+          lib.optionalAttrs (v != { }) { "xdg/fcitx5/${p}".text = f v; };
       in
       lib.attrsets.mergeAttrsList [
         (optionalFile "config" (lib.generators.toINI { }) cfg.settings.globalOptions)
         (optionalFile "profile" (lib.generators.toINI { }) cfg.settings.inputMethod)
         (lib.concatMapAttrs
-          (name: value: optionalFile
-            "conf/${name}.conf"
-            (lib.generators.toINIWithGlobalSection { })
-            value)
-          cfg.settings.addons)
+          (name: value: optionalFile "conf/${name}.conf" (lib.generators.toINIWithGlobalSection { }) value)
+          cfg.settings.addons
+        )
       ];
 
     environment.variables = {
@@ -122,8 +132,6 @@ in
       QT_IM_MODULE = "fcitx";
       XMODIFIERS = "@im=fcitx";
       QT_PLUGIN_PATH = [ "${fcitx5Package}/${pkgs.qt6.qtbase.qtPluginPrefix}" ];
-    } // lib.optionalAttrs cfg.ignoreUserConfig {
-      SKIP_FCITX_USER_PATH = "1";
-    };
+    } // lib.optionalAttrs cfg.ignoreUserConfig { SKIP_FCITX_USER_PATH = "1"; };
   };
 }

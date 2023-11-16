@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonPackage
-, python
-, llvm
-, pythonOlder
-, isPyPy
-, enum34
-, isPy3k
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  llvm,
+  pythonOlder,
+  isPyPy,
+  enum34,
+  isPy3k,
 }:
 
 buildPythonPackage rec {

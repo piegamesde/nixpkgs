@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, dvc
-, dvc-studio-client
-, fetchFromGitHub
-, funcy
-, pytestCheckHook
-, pythonOlder
-, ruamel-yaml
-, scmrepo
-, setuptools-scm
-, tabulate
+{
+  lib,
+  buildPythonPackage,
+  dvc,
+  dvc-studio-client,
+  fetchFromGitHub,
+  funcy,
+  pytestCheckHook,
+  pythonOlder,
+  ruamel-yaml,
+  scmrepo,
+  setuptools-scm,
+  tabulate,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     dvc
@@ -43,9 +42,7 @@ buildPythonPackage rec {
   # Circular dependency with dvc
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dvclive"
-  ];
+  pythonImportsCheck = [ "dvclive" ];
 
   meta = with lib; {
     description = "Library for logging machine learning metrics and other metadata in simple file formats";

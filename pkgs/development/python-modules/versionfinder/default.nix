@@ -1,12 +1,13 @@
-{ lib
-, backoff
-, buildPythonPackage
-, fetchFromGitHub
-, gitpython
-, pip
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gitpython,
+  pip,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -34,19 +35,19 @@ buildPythonPackage rec {
     requests
   ];
 
-  disabledTestPaths = [
-    # Acceptance tests use the network
-    "versionfinder/tests/test_acceptance.py"
-  ];
+  disabledTestPaths =
+    [
+      # Acceptance tests use the network
+      "versionfinder/tests/test_acceptance.py"
+    ];
 
-  disabledTests = [
-    # Tests are out-dated
-    "TestFindPipInfo"
-  ];
+  disabledTests =
+    [
+      # Tests are out-dated
+      "TestFindPipInfo"
+    ];
 
-  pythonImportsCheck = [
-    "versionfinder"
-  ];
+  pythonImportsCheck = [ "versionfinder" ];
 
   meta = with lib; {
     description = "Find the version of another package, whether installed via pip, setuptools or git";

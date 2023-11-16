@@ -1,13 +1,14 @@
-{ stdenv
-, fetchFromGitLab
-, lib
-, darwin
-, nettle
-, nix-update-script
-, rustPlatform
-, pkg-config
-, openssl
-, sqlite
+{
+  stdenv,
+  fetchFromGitLab,
+  lib,
+  darwin,
+  nettle,
+  nix-update-script,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  sqlite,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -56,7 +57,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://sequoia-pgp.org/";
     changelog = "https://gitlab.com/sequoia-pgp/sequoia-sq/-/blob/v${version}/NEWS";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ minijackson doronbehar ];
+    maintainers = with maintainers; [
+      minijackson
+      doronbehar
+    ];
     mainProgram = "sq";
   };
 }

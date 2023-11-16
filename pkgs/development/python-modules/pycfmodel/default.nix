@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, httpx
-, pydantic
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-5KgZnph9BAE2w3Y93abDHQWmxnFdyVOuW/NdzN66hgA=";
   };
 
-  propagatedBuildInputs = [
-    pydantic
-  ];
+  propagatedBuildInputs = [ pydantic ];
 
   nativeCheckInputs = [
     httpx
@@ -39,9 +38,7 @@ buildPythonPackage rec {
     "test_resolve_booleans_different_properties_for_generic_resource"
   ];
 
-  pythonImportsCheck = [
-    "pycfmodel"
-  ];
+  pythonImportsCheck = [ "pycfmodel" ];
 
   meta = with lib; {
     description = "Model for Cloud Formation scripts";

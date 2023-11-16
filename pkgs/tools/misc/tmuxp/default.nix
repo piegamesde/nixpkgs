@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchPypi, installShellFiles }:
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+  installShellFiles,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tmuxp";

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build-system
-, hatchling
+  # build-system
+  hatchling,
 
-# non-propagates
-, django
+  # non-propagates
+  django,
 
-# tests
-, pytest-django
-, pytestCheckHook
+  # tests
+  pytest-django,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -29,17 +30,11 @@ buildPythonPackage rec {
     sed -i '/beautifulsoup4/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  buildInputs = [
-    django
-  ];
+  buildInputs = [ django ];
 
-  pythonImportsCheck = [
-    "bootstrap3"
-  ];
+  pythonImportsCheck = [ "bootstrap3" ];
 
   nativeCheckInputs = [
     pytest-django
@@ -56,5 +51,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ hexa ];
   };
 }
-
-

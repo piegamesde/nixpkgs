@@ -1,4 +1,9 @@
-{ lib, fetchPypi, fetchpatch, buildPythonPackage }:
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+}:
 
 buildPythonPackage rec {
   pname = "rocket-errbot";
@@ -10,10 +15,12 @@ buildPythonPackage rec {
   };
 
   # remove with 1.2.6
-  patches = [ (fetchpatch {
-    url = "https://github.com/errbotio/rocket/pull/1.patch";
-    sha256 = "1s668yv5b86b78vbqwhcl44k2l16c9bhk3199yy9hayf0vkxnwif";
-  }) ];
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/errbotio/rocket/pull/1.patch";
+      sha256 = "1s668yv5b86b78vbqwhcl44k2l16c9bhk3199yy9hayf0vkxnwif";
+    })
+  ];
 
   meta = {
     homepage = "https://github.com/errbotio/rocket";
@@ -21,4 +28,3 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
   };
 }
-

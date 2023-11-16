@@ -21,9 +21,7 @@ buildGo121Module rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-X github.com/tursodatabase/turso-cli/internal/cmd.version=v${version}"
-  ];
+  ldflags = [ "-X github.com/tursodatabase/turso-cli/internal/cmd.version=v${version}" ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -43,6 +41,10 @@ buildGo121Module rec {
     homepage = "https://turso.tech";
     mainProgram = "turso";
     license = licenses.mit;
-    maintainers = with maintainers; [ zestsystem kashw2 fryuni ];
+    maintainers = with maintainers; [
+      zestsystem
+      kashw2
+      fryuni
+    ];
   };
 }

@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.coredns;
   configFile = pkgs.writeText "Corefile" cfg.config;
-in {
+in
+{
   options.services.coredns = {
     enable = mkEnableOption (lib.mdDoc "Coredns dns server");
 
@@ -31,7 +37,7 @@ in {
     };
 
     extraArgs = mkOption {
-      default = [];
+      default = [ ];
       example = [ "-dns.port=53" ];
       type = types.listOf types.str;
       description = lib.mdDoc "Extra arguments to pass to coredns.";
@@ -51,7 +57,9 @@ in {
         AmbientCapabilities = "cap_net_bind_service";
         NoNewPrivileges = true;
         DynamicUser = true;
-        ExecStart = "${getBin cfg.package}/bin/coredns -conf=${configFile} ${lib.escapeShellArgs cfg.extraArgs}";
+        ExecStart = "${getBin cfg.package}/bin/coredns -conf=${configFile} ${
+            lib.escapeShellArgs cfg.extraArgs
+          }";
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
         Restart = "on-failure";
       };

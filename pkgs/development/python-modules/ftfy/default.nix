@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, wcwidth
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  wcwidth,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,23 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-v8IBn4T82FFBkVIyCmN1YEoPFFnCgbWxmbLNDS5yf48=";
   };
 
-  propagatedBuildInputs = [
-    wcwidth
-  ];
+  propagatedBuildInputs = [ wcwidth ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
   '';
 
-  disabledTestPaths = [
-    # Calls poetry and fails to match output exactly
-    "tests/test_cli.py"
-  ];
-
+  disabledTestPaths =
+    [
+      # Calls poetry and fails to match output exactly
+      "tests/test_cli.py"
+    ];
 
   meta = with lib; {
     description = "Given Unicode text, make its representation consistent and possibly less broken";

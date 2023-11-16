@@ -1,35 +1,36 @@
-{ cmake
-, fetchFromGitHub
-, lib
-, llvmPackages_16
-, cubeb
-, curl
-, extra-cmake-modules
-, ffmpeg
-, fmt_8
-, gettext
-, harfbuzz
-, libaio
-, libbacktrace
-, libpcap
-, libsamplerate
-, libXrandr
-, libzip
-, pkg-config
-, qtbase
-, qtsvg
-, qttools
-, qtwayland
-, rapidyaml
-, SDL2
-, soundtouch
-, strip-nondeterminism
-, vulkan-headers
-, vulkan-loader
-, wayland
-, wrapQtAppsHook
-, xz
-, zip
+{
+  cmake,
+  fetchFromGitHub,
+  lib,
+  llvmPackages_16,
+  cubeb,
+  curl,
+  extra-cmake-modules,
+  ffmpeg,
+  fmt_8,
+  gettext,
+  harfbuzz,
+  libaio,
+  libbacktrace,
+  libpcap,
+  libsamplerate,
+  libXrandr,
+  libzip,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtwayland,
+  rapidyaml,
+  SDL2,
+  soundtouch,
+  strip-nondeterminism,
+  vulkan-headers,
+  vulkan-loader,
+  wayland,
+  wrapQtAppsHook,
+  xz,
+  zip,
 }:
 
 let
@@ -92,8 +93,7 @@ llvmPackages_16.stdenv.mkDerivation rec {
     vulkan-loader
     wayland
     xz
-  ]
-  ++ cubeb.passthru.backendLibs;
+  ] ++ cubeb.passthru.backendLibs;
 
   installPhase = ''
     mkdir -p $out/bin
@@ -107,9 +107,9 @@ llvmPackages_16.stdenv.mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath ([
-      vulkan-loader
-    ] ++ cubeb.passthru.backendLibs)}"
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath ([ vulkan-loader ] ++ cubeb.passthru.backendLibs)
+    }"
   ];
 
   meta = with lib; {
@@ -122,8 +122,14 @@ llvmPackages_16.stdenv.mkDerivation rec {
       PC, with many additional features and benefits.
     '';
     homepage = "https://pcsx2.net";
-    license = with licenses; [ gpl3 lgpl3 ];
-    maintainers = with maintainers; [ hrdinka govanify ];
+    license = with licenses; [
+      gpl3
+      lgpl3
+    ];
+    maintainers = with maintainers; [
+      hrdinka
+      govanify
+    ];
     mainProgram = "pcsx2-qt";
     platforms = platforms.x86_64;
   };

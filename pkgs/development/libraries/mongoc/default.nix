@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, openssl
-, zlib
-, zstd
-, icu
-, cyrus_sasl
-, snappy
-, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  openssl,
+  zlib,
+  zstd,
+  icu,
+  cyrus_sasl,
+  snappy,
+  darwin,
 }:
 
 stdenv.mkDerivation rec {
@@ -40,9 +41,7 @@ stdenv.mkDerivation rec {
     icu
     cyrus_sasl
     snappy
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.Security
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Security ];
 
   cmakeFlags = [
     "-DBUILD_VERSION=${version}"

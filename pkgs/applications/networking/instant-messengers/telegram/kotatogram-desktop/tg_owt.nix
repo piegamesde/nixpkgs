@@ -1,48 +1,49 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, cmake
-, ninja
-, yasm
-, libjpeg
-, openssl
-, libopus
-, ffmpeg_4
-, protobuf
-, openh264
-, usrsctp
-, libvpx
-, libX11
-, libXtst
-, libXcomposite
-, libXdamage
-, libXext
-, libXrender
-, libXrandr
-, libXi
-, glib
-, abseil-cpp
-, pipewire
-, mesa
-, libdrm
-, libGL
-, Cocoa
-, AppKit
-, IOKit
-, IOSurface
-, Foundation
-, AVFoundation
-, CoreMedia
-, VideoToolbox
-, CoreGraphics
-, CoreVideo
-, OpenGL
-, Metal
-, MetalKit
-, CoreFoundation
-, ApplicationServices
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  ninja,
+  yasm,
+  libjpeg,
+  openssl,
+  libopus,
+  ffmpeg_4,
+  protobuf,
+  openh264,
+  usrsctp,
+  libvpx,
+  libX11,
+  libXtst,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXrender,
+  libXrandr,
+  libXi,
+  glib,
+  abseil-cpp,
+  pipewire,
+  mesa,
+  libdrm,
+  libGL,
+  Cocoa,
+  AppKit,
+  IOKit,
+  IOSurface,
+  Foundation,
+  AVFoundation,
+  CoreMedia,
+  VideoToolbox,
+  CoreGraphics,
+  CoreVideo,
+  OpenGL,
+  Metal,
+  MetalKit,
+  CoreFoundation,
+  ApplicationServices,
 }:
 
 let
@@ -93,51 +94,62 @@ stdenv.mkDerivation {
     cp -r --no-preserve=mode ${libsrtp} src/third_party/libsrtp
   '';
 
-  outputs = [ "out" "dev" ];
-
-  nativeBuildInputs = [ pkg-config cmake ninja yasm ];
-
-  propagatedBuildInputs = [
-    libjpeg
-    openssl
-    libopus
-    ffmpeg_4
-    protobuf
-    openh264
-    usrsctp
-    libvpx
-    abseil-cpp
-  ] ++ lib.optionals stdenv.isLinux [
-    libX11
-    libXtst
-    libXcomposite
-    libXdamage
-    libXext
-    libXrender
-    libXrandr
-    libXi
-    glib
-    pipewire
-    mesa
-    libdrm
-    libGL
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    AppKit
-    IOKit
-    IOSurface
-    Foundation
-    AVFoundation
-    CoreMedia
-    VideoToolbox
-    CoreGraphics
-    CoreVideo
-    OpenGL
-    Metal
-    MetalKit
-    CoreFoundation
-    ApplicationServices
+  outputs = [
+    "out"
+    "dev"
   ];
+
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    yasm
+  ];
+
+  propagatedBuildInputs =
+    [
+      libjpeg
+      openssl
+      libopus
+      ffmpeg_4
+      protobuf
+      openh264
+      usrsctp
+      libvpx
+      abseil-cpp
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      libX11
+      libXtst
+      libXcomposite
+      libXdamage
+      libXext
+      libXrender
+      libXrandr
+      libXi
+      glib
+      pipewire
+      mesa
+      libdrm
+      libGL
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      AppKit
+      IOKit
+      IOSurface
+      Foundation
+      AVFoundation
+      CoreMedia
+      VideoToolbox
+      CoreGraphics
+      CoreVideo
+      OpenGL
+      Metal
+      MetalKit
+      CoreFoundation
+      ApplicationServices
+    ];
 
   enableParallelBuilding = true;
 

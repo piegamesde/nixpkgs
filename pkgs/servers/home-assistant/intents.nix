@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build
-, hassil
-, jinja2
-, pyyaml
-, regex
-, voluptuous
-, python
-, setuptools
-, wheel
+  # build
+  hassil,
+  jinja2,
+  pyyaml,
+  regex,
+  voluptuous,
+  python,
+  setuptools,
+  wheel,
 
-# tests
-, pytest-xdist
-, pytestCheckHook
+  # tests
+  pytest-xdist,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -59,14 +60,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    "intents/tests"
-  ];
+  pytestFlagsArray = [ "intents/tests" ];
 
-  disabledTests = [
-    # AssertionError: Recognition failed for 'put apples on the list'
-    "test_shopping_list_HassShoppingListAddItem"
-  ];
+  disabledTests =
+    [
+      # AssertionError: Recognition failed for 'put apples on the list'
+      "test_shopping_list_HassShoppingListAddItem"
+    ];
 
   meta = with lib; {
     description = "Intents to be used with Home Assistant";

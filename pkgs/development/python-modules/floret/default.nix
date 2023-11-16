@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pybind11
-, setuptools
-, wheel
-, numpy
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pybind11,
+  setuptools,
+  wheel,
+  numpy,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "floret" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "FastText + Bloom embeddings for compact, full-coverage vectors with spaCy";

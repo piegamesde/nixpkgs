@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, requests
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  requests,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,20 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-Xgd0E/oFO2yyytBjuwr1vDJfKWC0Iw8P6GStCuCni/g=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pysuez"
-  ];
+  pythonImportsCheck = [ "pysuez" ];
 
   meta = with lib; {
     description = "Module to get water consumption data from Suez";

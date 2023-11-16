@@ -1,22 +1,27 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.opensnitch;
-  format = pkgs.formats.json {};
+  format = pkgs.formats.json { };
 
-  predefinedRules = flip mapAttrs cfg.rules (name: cfg: {
-    file = pkgs.writeText "rule" (builtins.toJSON cfg);
-  });
-
-in {
+  predefinedRules = flip mapAttrs cfg.rules (
+    name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); }
+  );
+in
+{
   options = {
     services.opensnitch = {
       enable = mkEnableOption (mdDoc "Opensnitch application firewall");
 
       rules = mkOption {
-        default = {};
+        default = { };
         example = literalExpression ''
           {
             "tor" = {
@@ -41,9 +46,7 @@ in {
           for available options.
         '';
 
-        type = types.submodule {
-          freeformType = format.type;
-        };
+        type = types.submodule { freeformType = format.type; };
       };
 
       settings = mkOption {
@@ -68,11 +71,13 @@ in {
                   output).
                 '';
               };
-
             };
 
             DefaultAction = mkOption {
-              type = types.enum [ "allow" "deny" ];
+              type = types.enum [
+                "allow"
+                "deny"
+              ];
               description = mdDoc ''
                 Default action whether to block or allow application internet
                 access.
@@ -81,7 +86,14 @@ in {
 
             DefaultDuration = mkOption {
               type = types.enum [
-                "once" "always" "until restart" "30s" "5m" "15m" "30m" "1h"
+                "once"
+                "always"
+                "until restart"
+                "30s"
+                "5m"
+                "15m"
+                "30m"
+                "1h"
               ];
               description = mdDoc ''
                 Default duration of firewall rule.
@@ -96,14 +108,25 @@ in {
             };
 
             ProcMonitorMethod = mkOption {
-              type = types.enum [ "ebpf" "proc" "ftrace" "audit" ];
+              type = types.enum [
+                "ebpf"
+                "proc"
+                "ftrace"
+                "audit"
+              ];
               description = mdDoc ''
                 Which process monitoring method to use.
               '';
             };
 
             LogLevel = mkOption {
-              type = types.enum [ 0 1 2 3 4 ];
+              type = types.enum [
+                0
+                1
+                2
+                3
+                4
+              ];
               description = mdDoc ''
                 Default log level from 0 to 4 (debug, info, important, warning,
                 error).
@@ -111,7 +134,10 @@ in {
             };
 
             Firewall = mkOption {
-              type = types.enum [ "iptables" "nftables" ];
+              type = types.enum [
+                "iptables"
+                "nftables"
+              ];
               description = mdDoc ''
                 Which firewall backend to use.
               '';
@@ -132,7 +158,6 @@ in {
                   Max stats per item to keep in backlog.
                 '';
               };
-
             };
           };
         };
@@ -147,44 +172,59 @@ in {
   config = mkIf cfg.enable {
 
     # pkg.opensnitch is referred to elsewhere in the module so we don't need to worry about it being garbage collected
-    services.opensnitch.settings = mapAttrs (_: v: mkDefault v) (builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile "${pkgs.opensnitch}/etc/opensnitchd/default-config.json")));
+    services.opensnitch.settings = mapAttrs (_: v: mkDefault v) (
+      builtins.fromJSON (
+        builtins.unsafeDiscardStringContext (
+          builtins.readFile "${pkgs.opensnitch}/etc/opensnitchd/default-config.json"
+        )
+      )
+    );
 
     systemd = {
       packages = [ pkgs.opensnitch ];
       services.opensnitchd.wantedBy = [ "multi-user.target" ];
     };
 
-    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != {}) (let
-      rules = flip mapAttrsToList predefinedRules (file: content: {
-        inherit (content) file;
-        local = "/var/lib/opensnitch/rules/${file}.json";
-      });
-    in ''
-      # Remove all firewall rules from `/var/lib/opensnitch/rules` that are symlinks to a store-path,
-      # but aren't declared in `cfg.rules` (i.e. all networks that were "removed" from
-      # `cfg.rules`).
-      find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${optionalString (rules != {}) ''
-        -not \( ${concatMapStringsSep " -o " ({ local, ... }:
-          "-name '${baseNameOf local}*'")
-        rules} \) \
-      ''} -delete
-      ${concatMapStrings ({ file, local }: ''
-        ln -sf '${file}' "${local}"
-      '') rules}
+    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != { }) (
+      let
+        rules = flip mapAttrsToList predefinedRules (
+          file: content: {
+            inherit (content) file;
+            local = "/var/lib/opensnitch/rules/${file}.json";
+          }
+        );
+      in
+      ''
+        # Remove all firewall rules from `/var/lib/opensnitch/rules` that are symlinks to a store-path,
+        # but aren't declared in `cfg.rules` (i.e. all networks that were "removed" from
+        # `cfg.rules`).
+        find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
+          optionalString (rules != { }) ''
+            -not \( ${concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules} \) \
+          ''
+        } -delete
+        ${concatMapStrings
+          (
+            { file, local }:
+            ''
+              ln -sf '${file}' "${local}"
+            ''
+          )
+          rules}
 
-      if [ ! -f /etc/opensnitchd/system-fw.json ]; then
-        cp "${pkgs.opensnitch}/etc/opensnitchd/system-fw.json" "/etc/opensnitchd/system-fw.json"
-      fi
-    '');
+        if [ ! -f /etc/opensnitchd/system-fw.json ]; then
+          cp "${pkgs.opensnitch}/etc/opensnitchd/system-fw.json" "/etc/opensnitchd/system-fw.json"
+        fi
+      ''
+    );
 
-    environment.etc = mkMerge [ ({
-      "opensnitchd/default-config.json".source = format.generate "default-config.json" cfg.settings;
-    }) (mkIf (cfg.settings.ProcMonitorMethod == "ebpf") {
-      "opensnitchd/opensnitch.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch.o";
-      "opensnitchd/opensnitch-dns.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch-dns.o";
-      "opensnitchd/opensnitch-procs.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch-procs.o";
-    })];
-
+    environment.etc = mkMerge [
+      ({ "opensnitchd/default-config.json".source = format.generate "default-config.json" cfg.settings; })
+      (mkIf (cfg.settings.ProcMonitorMethod == "ebpf") {
+        "opensnitchd/opensnitch.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch.o";
+        "opensnitchd/opensnitch-dns.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch-dns.o";
+        "opensnitchd/opensnitch-procs.o".source = "${config.boot.kernelPackages.opensnitch-ebpf}/etc/opensnitchd/opensnitch-procs.o";
+      })
+    ];
   };
 }
-

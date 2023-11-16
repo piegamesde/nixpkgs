@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "moptilities";
   version = "20170403-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "moptilities";
 
-  asdFilesToKeep = ["moptilities.asd"];
+  asdFilesToKeep = [ "moptilities.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM moptilities DESCRIPTION Common Lisp MOP utilities SHA256
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/moptilities/2017-04-03/moptilities-20170403-git.tgz
     MD5 b118397be325e60a772ea3631c4f19a4 NAME moptilities FILENAME moptilities
     DEPS ((NAME closer-mop FILENAME closer-mop)) DEPENDENCIES (closer-mop)
-    VERSION 20170403-git SIBLINGS (moptilities-test) PARASITES NIL) */
+    VERSION 20170403-git SIBLINGS (moptilities-test) PARASITES NIL)
+*/

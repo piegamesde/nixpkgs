@@ -1,9 +1,11 @@
-{ lib, stdenv
-, substituteAll
-, fetchFromGitHub
-, fetchpatch
-, libpulseaudio
-, python3
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchFromGitHub,
+  fetchpatch,
+  libpulseaudio,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,14 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iPc95LmDsYizLg45wpU+vFx/N6MR2hewSHqoRsePC/4=";
   };
 
-  patches = [
-    # Fix paths to libpulse and python
-    (substituteAll {
-      src = ./fix-paths.patch;
-      libpulse = "${libpulseaudio}/lib/libpulse.so";
-      python = python3.interpreter;
-    })
-  ];
+  patches =
+    [
+      # Fix paths to libpulse and python
+      (substituteAll {
+        src = ./fix-paths.patch;
+        libpulse = "${libpulseaudio}/lib/libpulse.so";
+        python = python3.interpreter;
+      })
+    ];
 
   dontBuild = true;
 
@@ -34,9 +37,7 @@ stdenv.mkDerivation rec {
     extensionPortalSlug = "sound-output-device-chooser";
   };
 
-  makeFlags = [
-    "INSTALL_DIR=${placeholder "out"}/share/gnome-shell/extensions"
-  ];
+  makeFlags = [ "INSTALL_DIR=${placeholder "out"}/share/gnome-shell/extensions" ];
 
   preInstall = ''
     mkdir -p ${placeholder "out"}/share/gnome-shell/extensions

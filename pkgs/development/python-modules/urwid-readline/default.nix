@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, urwid
-, glibcLocales
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  urwid,
+  glibcLocales,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -15,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-AYAgy8hku17Ye+F9wmsGnq4nVcsp86nFaarDve0e+vQ=";
   };
 
-  propagatedBuildInputs = [
-    urwid
-  ];
+  propagatedBuildInputs = [ urwid ];
 
   nativeCheckInputs = [
     glibcLocales

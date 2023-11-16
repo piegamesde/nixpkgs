@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libtiff, libjpeg, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libtiff,
+  libjpeg,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lcms2";
@@ -9,9 +16,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sgy8vQ9QNDO+Kk6BRiEG+mEFCjUHTcJKTjVnktlxqzk=";
   };
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
-  propagatedBuildInputs = [ libtiff libjpeg zlib ];
+  propagatedBuildInputs = [
+    libtiff
+    libjpeg
+    zlib
+  ];
 
   # See https://trac.macports.org/ticket/60656
   LDFLAGS = if stdenv.hostPlatform.isDarwin then "-Wl,-w" else null;

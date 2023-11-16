@@ -1,11 +1,12 @@
-{ lib
-, fetchurl
-, stdenv
-, fetchzip
-, ant
-, jdk
-, makeWrapper
-, callPackage
+{
+  lib,
+  fetchurl,
+  stdenv,
+  fetchzip,
+  ant,
+  jdk,
+  makeWrapper,
+  callPackage,
 }:
 
 let
@@ -25,7 +26,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-dmNfI6T0MU7UtMH+C/2hiAeDwZlFCB4JofQViZezoqI=";
   };
 
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -65,18 +70,24 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.startwindow = callPackage ./test.nix {};
+  passthru.tests.startwindow = callPackage ./test.nix { };
 
   meta = with lib; {
     description = "Electronic TV Program Guide";
     downloadPage = "https://www.tvbrowser.org/index.php?id=tv-browser";
     homepage = "https://www.tvbrowser.org/";
     changelog = "https://www.tvbrowser.org/index.php?id=news";
-    sourceProvenance = with sourceTypes; [ binaryBytecode fromSource ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      fromSource
+    ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "tvbrowser";
-    maintainers = with maintainers; [ jfrankenau yarny ];
+    maintainers = with maintainers; [
+      jfrankenau
+      yarny
+    ];
     longDescription = ''
       TV-Browser shows TV program data arranged like in printed
       TV programs after downloading it from the internet.

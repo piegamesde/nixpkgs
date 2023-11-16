@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -15,14 +16,19 @@ buildGoModule rec {
   };
   vendorHash = "sha256-2WvlH69iYqIA3d9aFVec8TZL+pMJItoNKSoDBL/NNyg=";
 
-  ldflags = [ "-s" "-w" "-X main._version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main._version=${version}"
+  ];
 
   subPackages = [ "." ];
 
-  checkFlags = [
-    # needs to fetch additional go modules
-    "-skip=TestFinder_ImportedPackage/Modules"
-  ];
+  checkFlags =
+    [
+      # needs to fetch additional go modules
+      "-skip=TestFinder_ImportedPackage/Modules"
+    ];
 
   preCheck = ''
     # run all tests

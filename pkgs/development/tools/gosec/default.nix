@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,9 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-jekw3uc2ZEH9s+26jMFVteHUD0iyURlVq8zBlVPihqs=";
 
-  subPackages = [
-    "cmd/gosec"
-  ];
+  subPackages = [ "cmd/gosec" ];
 
   ldflags = [
     "-s"
@@ -32,6 +31,9 @@ buildGoModule rec {
     homepage = "https://github.com/securego/gosec";
     description = "Golang security checker";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit nilp0inter ];
+    maintainers = with maintainers; [
+      kalbasit
+      nilp0inter
+    ];
   };
 }

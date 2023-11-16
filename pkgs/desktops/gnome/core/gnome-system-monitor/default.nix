@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, gettext
-, fetchurl
-, pkg-config
-, gtkmm3
-, libxml2
-, bash
-, gtk3
-, libhandy
-, glib
-, wrapGAppsHook
-, meson
-, ninja
-, gsettings-desktop-schemas
-, itstool
-, gnome
-, librsvg
-, gdk-pixbuf
-, libgtop
-, systemd
+{
+  lib,
+  stdenv,
+  gettext,
+  fetchurl,
+  pkg-config,
+  gtkmm3,
+  libxml2,
+  bash,
+  gtk3,
+  libhandy,
+  glib,
+  wrapGAppsHook,
+  meson,
+  ninja,
+  gsettings-desktop-schemas,
+  itstool,
+  gnome,
+  librsvg,
+  gdk-pixbuf,
+  libgtop,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,14 +27,17 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-system-monitor/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-system-monitor/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "wrq37dupKCfEyN5EKT5+PITJ5QdvMZhYh/+Jac7EXm4=";
   };
 
-  patches = [
-    # Fix pkexec detection on NixOS.
-    ./fix-paths.patch
-  ];
+  patches =
+    [
+      # Fix pkexec detection on NixOS.
+      ./fix-paths.patch
+    ];
 
   nativeBuildInputs = [
     pkg-config

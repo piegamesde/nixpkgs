@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, click
-, click-default-group
-, boto3
-, pytestCheckHook
-, hypothesis
-, pytest-mock
-, moto
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  click,
+  click-default-group,
+  boto3,
+  pytestCheckHook,
+  hypothesis,
+  pytest-mock,
+  moto,
 }:
 
 buildPythonPackage rec {
@@ -38,14 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "s3_credentials"
-  ];
+  pythonImportsCheck = [ "s3_credentials" ];
 
-  disabledTests = [
-    # AssertionError: assert 'directory/th...ory/...
-    "test_put_objects"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert 'directory/th...ory/...
+      "test_put_objects"
+    ];
 
   meta = with lib; {
     description = "Python CLI utility for creating credentials for accessing S3 buckets";

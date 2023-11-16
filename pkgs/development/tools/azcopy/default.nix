@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 
 buildGoModule rec {
   pname = "azure-storage-azcopy";
@@ -22,7 +27,10 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ colemickens kashw2 ];
+    maintainers = with maintainers; [
+      colemickens
+      kashw2
+    ];
     license = licenses.mit;
     description = "The new Azure Storage data transfer utility - AzCopy v10";
   };

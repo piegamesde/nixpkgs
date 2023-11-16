@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, glib
-, udev
-, libgudev
-, polkit
-, ppp
-, gettext
-, pkg-config
-, libxslt
-, python3
-, libmbim
-, libqmi
-, systemd
-, bash-completion
-, meson
-, ninja
-, vala
-, gobject-introspection
-, dbus
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  glib,
+  udev,
+  libgudev,
+  polkit,
+  ppp,
+  gettext,
+  pkg-config,
+  libxslt,
+  python3,
+  libmbim,
+  libqmi,
+  systemd,
+  bash-completion,
+  meson,
+  ninja,
+  vala,
+  gobject-introspection,
+  dbus,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,11 +34,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-/A4WTsUQVeZDi5ei6qBvqoWYLKdRcZaYZU8/qWOPrvM=";
   };
 
-  patches = [
-    # Since /etc is the domain of NixOS, not Nix, we cannot install files there.
-    # But these are just placeholders so we do not need to install them at all.
-    ./no-dummy-dirs-in-sysconfdir.patch
-  ];
+  patches =
+    [
+      # Since /etc is the domain of NixOS, not Nix, we cannot install files there.
+      # But these are just placeholders so we do not need to install them at all.
+      ./no-dummy-dirs-in-sysconfdir.patch
+    ];
 
   nativeBuildInputs = [
     meson

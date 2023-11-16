@@ -1,22 +1,25 @@
-{ lib
-, fetchPypi
-, fetchpatch
-, runCommand
-, python3
-, encryptionSupport ? true
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  runCommand,
+  python3,
+  encryptionSupport ? true,
 }:
 
 let
   python = python3.override {
     packageOverrides = final: prev: {
       # aiosqlite>=0.16,<0.19
-      aiosqlite = prev.aiosqlite.overridePythonAttrs (old: rec {
-        version = "0.18.0";
-        src = old.src.override {
-          rev = "refs/tags/v${version}";
-          hash = "sha256-yPGSKqjOz1EY5/V0oKz2EiZ90q2O4TINoXdxHuB7Gqk=";
-        };
-      });
+      aiosqlite = prev.aiosqlite.overridePythonAttrs (
+        old: rec {
+          version = "0.18.0";
+          src = old.src.override {
+            rev = "refs/tags/v${version}";
+            hash = "sha256-yPGSKqjOz1EY5/V0oKz2EiZ90q2O4TINoXdxHuB7Gqk=";
+          };
+        }
+      );
       # SQLAlchemy>=1,<1.4
       # SQLAlchemy 2.0's derivation is very different, so don't override, just write it from scratch
       # (see https://github.com/NixOS/nixpkgs/blob/65dbed73949e4c0207e75dcc7271b29f9e457670/pkgs/development/python-modules/sqlalchemy/default.nix)
@@ -59,30 +62,32 @@ let
       ./allow-building-plugins-from-nix-store.patch
     ];
 
-    propagatedBuildInputs = with python.pkgs; [
-      # requirements.txt
-      mautrix
-      aiohttp
-      yarl
-      sqlalchemy
-      asyncpg
-      aiosqlite
-      commonmark
-      ruamel-yaml
-      attrs
-      bcrypt
-      packaging
-      click
-      colorama
-      questionary
-      jinja2
-    ]
-    # optional-requirements.txt
-    ++ lib.optionals encryptionSupport [
-      python-olm
-      pycryptodome
-      unpaddedbase64
-    ];
+    propagatedBuildInputs =
+      with python.pkgs;
+      [
+        # requirements.txt
+        mautrix
+        aiohttp
+        yarl
+        sqlalchemy
+        asyncpg
+        aiosqlite
+        commonmark
+        ruamel-yaml
+        attrs
+        bcrypt
+        packaging
+        click
+        colorama
+        questionary
+        jinja2
+      ]
+      # optional-requirements.txt
+      ++ lib.optionals encryptionSupport [
+        python-olm
+        pycryptodome
+        unpaddedbase64
+      ];
 
     postInstall = ''
       rm $out/example-config.yaml
@@ -100,9 +105,7 @@ let
     # Setuptools is trying to do python -m maubot test
     dontUseSetuptoolsCheck = true;
 
-    pythonImportsCheck = [
-      "maubot"
-    ];
+    pythonImportsCheck = [ "maubot" ];
 
     meta = with lib; {
       description = "A plugin-based Matrix bot system written in Python";
@@ -116,6 +119,5 @@ let
       maintainers = with maintainers; [ chayleaf ];
     };
   };
-
 in
 maubot

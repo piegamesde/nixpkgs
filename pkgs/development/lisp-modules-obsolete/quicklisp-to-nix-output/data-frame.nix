@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "data-frame";
   version = "20210411-git";
@@ -8,7 +8,15 @@ rec {
 
   description = "Data frames for Common Lisp";
 
-  deps = [ args."alexandria" args."anaphora" args."array-operations" args."clunit" args."let-plus" args."num-utils" args."select" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."array-operations"
+    args."clunit"
+    args."let-plus"
+    args."num-utils"
+    args."select"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/data-frame/2021-04-11/data-frame-20210411-git.tgz";
@@ -17,7 +25,7 @@ rec {
 
   packageName = "data-frame";
 
-  asdFilesToKeep = ["data-frame.asd"];
+  asdFilesToKeep = [ "data-frame.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM data-frame DESCRIPTION Data frames for Common Lisp SHA256
@@ -31,4 +39,5 @@ rec {
      (NAME num-utils FILENAME num-utils) (NAME select FILENAME select))
     DEPENDENCIES
     (alexandria anaphora array-operations clunit let-plus num-utils select)
-    VERSION 20210411-git SIBLINGS NIL PARASITES (data-frame/tests)) */
+    VERSION 20210411-git SIBLINGS NIL PARASITES (data-frame/tests))
+*/

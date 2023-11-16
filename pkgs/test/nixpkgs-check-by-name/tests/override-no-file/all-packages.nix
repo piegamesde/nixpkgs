@@ -1,3 +1,1 @@
-self: super: {
-  nonDerivation = self.callPackage ({ }: { }) { };
-}
+self: super: { nonDerivation = self.callPackage ({ }: { }) { }; }

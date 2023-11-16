@@ -1,35 +1,44 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, autoPatchelfHook
-, alsa-lib
-, at-spi2-core
-, libtool
-, libxkbcommon
-, nspr
-, mesa
-, libtiff
-, udev
-, gtk3
-, qtbase
-, xorg
-, cups
-, pango
-, useChineseVersion ? false
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  alsa-lib,
+  at-spi2-core,
+  libtool,
+  libxkbcommon,
+  nspr,
+  mesa,
+  libtiff,
+  udev,
+  gtk3,
+  qtbase,
+  xorg,
+  cups,
+  pango,
+  useChineseVersion ? false,
 }:
 
 stdenv.mkDerivation rec {
   pname = "wpsoffice";
   version = "11.1.0.11708";
 
-  src = if useChineseVersion then fetchurl {
-    url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/${lib.last (lib.splitString "." version)}/wps-office_${version}_amd64.deb";
-    hash = "sha256-GcWRrJ0I1Q6D2VK6YsPmd5Uir5LcIBFJa1amV2sUurk=";
-  } else fetchurl {
-    url = "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${lib.last (lib.splitString "." version)}/wps-office_${version}.XA_amd64.deb";
-    hash = "sha256-J40/wrmMz/r4eb2X/rbxWn04UcSsag7SO3aSqBLFSN4=";
-  };
+  src =
+    if useChineseVersion then
+      fetchurl {
+        url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/${
+            lib.last (lib.splitString "." version)
+          }/wps-office_${version}_amd64.deb";
+        hash = "sha256-GcWRrJ0I1Q6D2VK6YsPmd5Uir5LcIBFJa1amV2sUurk=";
+      }
+    else
+      fetchurl {
+        url = "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${
+            lib.last (lib.splitString "." version)
+          }/wps-office_${version}.XA_amd64.deb";
+        hash = "sha256-J40/wrmMz/r4eb2X/rbxWn04UcSsag7SO3aSqBLFSN4=";
+      };
 
   unpackCmd = "dpkg -x $src .";
   sourceRoot = ".";
@@ -102,6 +111,10 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     hydraPlatforms = [ ];
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ mlatus th0rgal rewine ];
+    maintainers = with maintainers; [
+      mlatus
+      th0rgal
+      rewine
+    ];
   };
 }

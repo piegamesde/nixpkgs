@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, image-editor
-, qtbase
-, qtmultimedia
-, ffmpeg
-, ffmpegthumbnailer
-, libusb1
-, portaudio
-, libv4l
-, gst_all_1
-, systemd
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  image-editor,
+  qtbase,
+  qtmultimedia,
+  ffmpeg,
+  ffmpegthumbnailer,
+  libusb1,
+  portaudio,
+  libv4l,
+  gst_all_1,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
@@ -50,23 +51,27 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    dtkwidget
-    qt5integration
-    qt5platform-plugins
-    image-editor
-    qtbase
-    qtmultimedia
-    ffmpeg
-    ffmpegthumbnailer
-    libusb1
-    portaudio
-    libv4l
-  ] ++ (with gst_all_1 ; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-  ]);
+  buildInputs =
+    [
+      dtkwidget
+      qt5integration
+      qt5platform-plugins
+      image-editor
+      qtbase
+      qtmultimedia
+      ffmpeg
+      ffmpegthumbnailer
+      libusb1
+      portaudio
+      libv4l
+    ]
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+      ]
+    );
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 
@@ -78,7 +83,18 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ ffmpeg ffmpegthumbnailer gst_all_1.gstreamer gst_all_1.gst-plugins-base libusb1 libv4l portaudio systemd ]}"
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        ffmpeg
+        ffmpegthumbnailer
+        gst_all_1.gstreamer
+        gst_all_1.gst-plugins-base
+        libusb1
+        libv4l
+        portaudio
+        systemd
+      ]
+    }"
   ];
 
   preFixup = ''

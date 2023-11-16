@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, nasm, windows }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nasm,
+  windows,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openh264";

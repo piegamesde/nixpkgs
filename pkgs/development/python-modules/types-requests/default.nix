@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, types-urllib3
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  types-urllib3,
 }:
 
 buildPythonPackage rec {
@@ -14,16 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-3FhSp28er2Dq+oGi5Qrvo9HwFcNM8MuhMJMIZrGyKpI=";
   };
 
-  propagatedBuildInputs = [
-    types-urllib3
-  ];
+  propagatedBuildInputs = [ types-urllib3 ];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "requests-stubs"
-  ];
+  pythonImportsCheck = [ "requests-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for requests";

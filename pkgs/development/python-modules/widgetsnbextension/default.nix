@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jupyter-packaging
-, notebook
-, ipywidgets
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-packaging,
+  notebook,
+  ipywidgets,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-PB9eRtwRZt/UCkLWhealE5b9NP+Hh0Kj5HxvDMSio4U=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-  ];
+  nativeBuildInputs = [ jupyter-packaging ];
 
   # No tests in archive
   doCheck = false;

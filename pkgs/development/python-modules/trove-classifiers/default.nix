@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, calver
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  calver,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 let
@@ -24,15 +25,11 @@ let
         --replace '"calver"' ""
     '';
 
-    nativeBuildInputs = [
-      calver
-    ];
+    nativeBuildInputs = [ calver ];
 
     doCheck = false; # avoid infinite recursion with hatchling
 
-    nativeCheckInputs = [
-      pytestCheckHook
-    ];
+    nativeCheckInputs = [ pytestCheckHook ];
 
     pythonImportsCheck = [ "trove_classifiers" ];
 
@@ -47,4 +44,4 @@ let
     };
   };
 in
-  self
+self

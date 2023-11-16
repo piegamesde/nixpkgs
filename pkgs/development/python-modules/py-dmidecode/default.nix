@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, dmidecode
-, fetchPypi
-, poetry-core
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  dmidecode,
+  fetchPypi,
+  poetry-core,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,20 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-nMy/jOlg7yUPfGF27MN0NyVM0vuTIBuJTV2GKNP13UA=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    dmidecode
-  ];
+  propagatedBuildInputs = [ dmidecode ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dmidecode"
-  ];
+  pythonImportsCheck = [ "dmidecode" ];
 
   meta = with lib; {
     description = "Python library that parses the output of dmidecode";

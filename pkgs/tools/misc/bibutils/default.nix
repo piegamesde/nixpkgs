@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, static ? stdenv.hostPlatform.isStatic
+{
+  lib,
+  stdenv,
+  fetchurl,
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,8 +21,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     (if static then "--static" else "--dynamic")
-    "--install-dir" "$(out)/bin"
-    "--install-lib" "$(out)/lib"
+    "--install-dir"
+    "$(out)/bin"
+    "--install-lib"
+    "$(out)/lib"
   ];
   dontAddPrefix = true;
 

@@ -1,12 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, objgraph
-, psutil
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  objgraph,
+  psutil,
+  pytestCheckHook,
 }:
-
 
 buildPythonPackage rec {
   pname = "greenlet";

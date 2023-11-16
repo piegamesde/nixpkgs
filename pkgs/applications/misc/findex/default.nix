@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, keybinder3, gtk3 }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  keybinder3,
+  gtk3,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "findex";
@@ -13,9 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-7A+EF88DJrgsKPOJt2xaBnWSMkyhpFImyZmnHcyp+Dw=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     gtk3

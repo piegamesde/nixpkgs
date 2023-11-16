@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, gtk3
-, libconfig
-, libsoup
-, libsecret
-, openssl
-, gettext
-, glib
-, glib-networking
-, appstream-glib
-, dbus-glib
-, python3Packages
-, meson
-, ninja
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gtk3,
+  libconfig,
+  libsoup,
+  libsecret,
+  openssl,
+  gettext,
+  glib,
+  glib-networking,
+  appstream-glib,
+  dbus-glib,
+  python3Packages,
+  meson,
+  ninja,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {

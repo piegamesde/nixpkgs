@@ -1,35 +1,41 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, undmg
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  undmg,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "warp-terminal";
-  version = "0.2023.11.07.08.02.stable_00";
+stdenvNoCC.mkDerivation (
+  finalAttrs: {
+    pname = "warp-terminal";
+    version = "0.2023.11.07.08.02.stable_00";
 
-  src = fetchurl {
-    url = "https://releases.warp.dev/stable/v${finalAttrs.version}/Warp.dmg";
-    hash = "sha256-oGsoIzNlrknaZtrGWT3oUEzwJIutxB1wnAvxTzF6Fis=";
-  };
-  sourceRoot = ".";
+    src = fetchurl {
+      url = "https://releases.warp.dev/stable/v${finalAttrs.version}/Warp.dmg";
+      hash = "sha256-oGsoIzNlrknaZtrGWT3oUEzwJIutxB1wnAvxTzF6Fis=";
+    };
+    sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [ undmg ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/Applications
-    cp -r *.app $out/Applications
+      mkdir -p $out/Applications
+      cp -r *.app $out/Applications
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Rust-based terminal";
-    homepage = "https://www.warp.dev";
-    license = licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ emilytrau Enzime ];
-    platforms = platforms.darwin;
-  };
-})
+    meta = with lib; {
+      description = "Rust-based terminal";
+      homepage = "https://www.warp.dev";
+      license = licenses.unfree;
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      maintainers = with maintainers; [
+        emilytrau
+        Enzime
+      ];
+      platforms = platforms.darwin;
+    };
+  }
+)

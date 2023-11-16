@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flake8
-, mock
-, nose
-, pytest
-, cryptography
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flake8,
+  mock,
+  nose,
+  pytest,
+  cryptography,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-BmSreJl0LvKyhzl6TUYe9pHtDML1hyBRKNjPYX/9uRk=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-  ];
+  propagatedBuildInputs = [ cryptography ];
 
   nativeCheckInputs = [
     flake8

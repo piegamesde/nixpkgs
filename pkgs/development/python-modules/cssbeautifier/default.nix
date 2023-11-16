@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, jsbeautifier
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  jsbeautifier,
 }:
 
 buildPythonPackage rec {
@@ -15,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-LaQyRy9oFw64VK/5exaiRyH1CQ7javLjEZlZConn9x8=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [ jsbeautifier ];
 

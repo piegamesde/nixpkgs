@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, django-stubs
-, fetchFromGitHub
-, mypy
-, py
-, pytest-mypy-plugins
-, pytestCheckHook
-, pythonOlder
-, requests
-, types-pyyaml
-, types-requests
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  django-stubs,
+  fetchFromGitHub,
+  mypy,
+  py,
+  pytest-mypy-plugins,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  types-pyyaml,
+  types-requests,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -51,4 +52,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ elohmeier ];
   };
 }
-

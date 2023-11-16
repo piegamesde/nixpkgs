@@ -1,13 +1,14 @@
-{ stdenv
-, fetchFromGitHub
-, fetchurl
-, lib
-, curl
-, nlohmann_json
-, openssl
-, pkg-config
-, linkFarmFromDrvs
-, callPackage
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  lib,
+  curl,
+  nlohmann_json,
+  openssl,
+  pkg-config,
+  linkFarmFromDrvs,
+  callPackage,
 }:
 
 let
@@ -53,9 +54,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EYj3jnzTyJRl6N7avNf9VrB8r9U6zIE6wBNeVsMtWCA=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     curl
@@ -86,7 +85,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
     homepage = "https://github.com/microsoft/azure-dcap-client";
-    maintainers = with maintainers; [ trundle veehaitch ];
+    maintainers = with maintainers; [
+      trundle
+      veehaitch
+    ];
     platforms = [ "x86_64-linux" ];
     license = [ licenses.mit ];
   };

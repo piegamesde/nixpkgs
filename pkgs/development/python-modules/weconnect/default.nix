@@ -1,13 +1,14 @@
-{ lib
-, ascii-magic
-, buildPythonPackage
-, fetchFromGitHub
-, pillow
-, pytest-httpserver
-, pytestCheckHook
-, pythonOlder
-, requests
-, oauthlib
+{
+  lib,
+  ascii-magic,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pillow,
+  pytest-httpserver,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  oauthlib,
 }:
 
 buildPythonPackage rec {
@@ -55,9 +56,7 @@ buildPythonPackage rec {
       --replace "required_plugins = pytest-httpserver pytest-cov" ""
   '';
 
-  pythonImportsCheck = [
-    "weconnect"
-  ];
+  pythonImportsCheck = [ "weconnect" ];
 
   meta = with lib; {
     description = "Python client for the Volkswagen WeConnect Services";

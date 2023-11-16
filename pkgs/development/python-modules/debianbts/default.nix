@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pysimplesoap
-, pytestCheckHook
-, pytest-xdist
-, pythonOlder
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pysimplesoap,
+  pytestCheckHook,
+  pytest-xdist,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -24,20 +25,14 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    pysimplesoap
-  ];
+  propagatedBuildInputs = [ pysimplesoap ];
 
   # Most tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "debianbts"
-  ];
+  pythonImportsCheck = [ "debianbts" ];
 
   meta = with lib; {
     description = "Python interface to Debian's Bug Tracking System";

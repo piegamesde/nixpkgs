@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "ssl-proxy";
@@ -26,6 +30,6 @@ buildGoModule rec {
     license = licenses.mit;
     mainProgram = "ssl-proxy";
     maintainers = [ maintainers.konst-aa ];
-    platforms = platforms.linux ++ platforms.darwin ++ platforms.windows ;
+    platforms = platforms.linux ++ platforms.darwin ++ platforms.windows;
   };
 }

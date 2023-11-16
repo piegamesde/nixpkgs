@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.programs.river;
-in {
+in
+{
   options.programs.river = {
     enable = mkEnableOption (lib.mdDoc "river, a dynamic tiling Wayland compositor");
 
@@ -44,8 +46,8 @@ in {
     };
   };
 
-  config =
-    mkIf cfg.enable (mkMerge [
+  config = mkIf cfg.enable (
+    mkMerge [
       {
         environment.systemPackages = optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
 
@@ -53,7 +55,8 @@ in {
         services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [ cfg.package ];
       }
       (import ./wayland-session.nix { inherit lib pkgs; })
-    ]);
+    ]
+  );
 
   meta.maintainers = with lib.maintainers; [ GaetanLepage ];
 }

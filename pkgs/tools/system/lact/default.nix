@@ -1,14 +1,15 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, wrapGAppsHook
-, gdk-pixbuf
-, gtk4
-, libdrm
-, vulkan-loader
-, coreutils
-, hwdata
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  gtk4,
+  libdrm,
+  vulkan-loader,
+  coreutils,
+  hwdata,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -36,10 +37,11 @@ rustPlatform.buildRustPackage rec {
     vulkan-loader
   ];
 
-  checkFlags = [
-    # tries and fails to initialize gtk
-    "--skip=app::root_stack::thermals_page::fan_curve_frame::tests::set_get_curve"
-  ];
+  checkFlags =
+    [
+      # tries and fails to initialize gtk
+      "--skip=app::root_stack::thermals_page::fan_curve_frame::tests::set_get_curve"
+    ];
 
   postPatch = ''
     substituteInPlace lact-daemon/src/server/system.rs \

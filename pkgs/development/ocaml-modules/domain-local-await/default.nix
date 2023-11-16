@@ -1,9 +1,10 @@
-{ lib
-, buildDunePackage
-, fetchurl
-, alcotest
-, mdx
-, thread-table
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  alcotest,
+  mdx,
+  thread-table,
 }:
 
 buildDunePackage rec {
@@ -18,9 +19,7 @@ buildDunePackage rec {
     sha256 = "KijWg0iTSdqbwkXd5Kr3/94urDm8QFSY2lMmGjUuxGo=";
   };
 
-  propagatedBuildInputs = [
-    thread-table
-  ];
+  propagatedBuildInputs = [ thread-table ];
 
   doCheck = true;
 
@@ -29,9 +28,7 @@ buildDunePackage rec {
     mdx
   ];
 
-  nativeCheckInputs = [
-    mdx.bin
-  ];
+  nativeCheckInputs = [ mdx.bin ];
 
   meta = {
     homepage = "https://github.com/ocaml-multicore/ocaml-${pname}";

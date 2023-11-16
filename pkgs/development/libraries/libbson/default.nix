@@ -1,4 +1,10 @@
-{ fetchFromGitHub, perl, lib, stdenv, cmake }:
+{
+  fetchFromGitHub,
+  perl,
+  lib,
+  stdenv,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbson";

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.services.photoprism;
 
@@ -8,13 +13,13 @@ let
     PHOTOPRISM_IMPORT_PATH = cfg.importPath;
     PHOTOPRISM_HTTP_HOST = cfg.address;
     PHOTOPRISM_HTTP_PORT = toString cfg.port;
-  } // (
-    lib.mapAttrs (_: toString) cfg.settings
-  );
+  } // (lib.mapAttrs (_: toString) cfg.settings);
 
   manage =
     let
-      setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList (name: val: "export ${name}=${lib.escapeShellArg val}") env);
+      setupEnv = lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (name: val: "export ${name}=${lib.escapeShellArg val}") env
+      );
     in
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
@@ -96,39 +101,49 @@ in
     systemd.services.photoprism = {
       description = "Photoprism server";
 
-      serviceConfig = {
-        Restart = "on-failure";
-        User = "photoprism";
-        Group = "photoprism";
-        DynamicUser = true;
-        StateDirectory = "photoprism";
-        WorkingDirectory = "/var/lib/photoprism";
-        RuntimeDirectory = "photoprism";
+      serviceConfig =
+        {
+          Restart = "on-failure";
+          User = "photoprism";
+          Group = "photoprism";
+          DynamicUser = true;
+          StateDirectory = "photoprism";
+          WorkingDirectory = "/var/lib/photoprism";
+          RuntimeDirectory = "photoprism";
 
-        LoadCredential = lib.optionalString (cfg.passwordFile != null)
-          "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}";
+          LoadCredential =
+            lib.optionalString (cfg.passwordFile != null)
+              "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}";
 
-        CapabilityBoundingSet = "";
-        LockPersonality = true;
-        PrivateDevices = true;
-        PrivateUsers = true;
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@setuid @keyring" ];
-        UMask = "0066";
-      } // lib.optionalAttrs (cfg.port < 1024) {
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-      };
+          CapabilityBoundingSet = "";
+          LockPersonality = true;
+          PrivateDevices = true;
+          PrivateUsers = true;
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@setuid @keyring"
+          ];
+          UMask = "0066";
+        }
+        // lib.optionalAttrs (cfg.port < 1024) {
+          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        };
 
       wantedBy = [ "multi-user.target" ];
       environment = env;
@@ -152,4 +167,3 @@ in
     };
   };
 }
-

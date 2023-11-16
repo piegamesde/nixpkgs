@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, blas
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  blas,
 }:
 
 let
@@ -12,7 +13,11 @@ stdenv.mkDerivation {
   pname = "mongoose";
   version = "3.2.1";
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "DrTimothyAldenDavis";
@@ -21,13 +26,9 @@ stdenv.mkDerivation {
     hash = "sha256-Ss1R3P1fyRwlGQxJchydV36xLEMAGJabMMiQiKykKrc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    blas
-  ];
+  buildInputs = [ blas ];
 
   dontUseCmakeConfigure = true;
 

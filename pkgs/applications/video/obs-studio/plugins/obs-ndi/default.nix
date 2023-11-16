@@ -1,11 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, obs-studio, cmake, qtbase, ndi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  obs-studio,
+  cmake,
+  qtbase,
+  ndi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-ndi";
   version = "4.10.0";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio qtbase ndi ];
+  buildInputs = [
+    obs-studio
+    qtbase
+    ndi
+  ];
 
   src = fetchFromGitHub {
     owner = "Palakis";
@@ -14,9 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eQ/hQ2AnwyBNOotqlUZq07m4FXoeir2f7cTVq594obc=";
   };
 
-  patches = [
-    ./hardcode-ndi-path.patch
-  ];
+  patches = [ ./hardcode-ndi-path.patch ];
 
   postPatch = ''
     # Add path (variable added in hardcode-ndi-path.patch)

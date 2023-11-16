@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcue";
@@ -19,7 +27,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake bison flex ];
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
+  ];
 
   doCheck = false; # fails all the tests (ctest)
 

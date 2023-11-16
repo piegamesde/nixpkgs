@@ -1,17 +1,18 @@
-{ lib
-, bleak
-, bleak-retry-connector
-, bluetooth-data-tools
-, bluetooth-sensor-state-data
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, home-assistant-bluetooth
-, poetry-core
-, pycryptodomex
-, pytestCheckHook
-, pythonOlder
-, sensor-state-data
+{
+  lib,
+  bleak,
+  bleak-retry-connector,
+  bluetooth-data-tools,
+  bluetooth-sensor-state-data,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  home-assistant-bluetooth,
+  poetry-core,
+  pycryptodomex,
+  pytestCheckHook,
+  pythonOlder,
+  sensor-state-data,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
       --replace 'pycryptodomex = ">=3.18.0"' 'pycryptodomex = ">=3.17.0"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     bleak
@@ -49,13 +48,9 @@ buildPythonPackage rec {
     sensor-state-data
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "xiaomi_ble"
-  ];
+  pythonImportsCheck = [ "xiaomi_ble" ];
 
   meta = with lib; {
     description = "Library for Xiaomi BLE devices";

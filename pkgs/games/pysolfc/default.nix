@@ -1,9 +1,10 @@
-{ lib
-, fetchzip
-, buildPythonApplication
-, python3Packages
-, desktop-file-utils
-, freecell-solver
+{
+  lib,
+  fetchzip,
+  buildPythonApplication,
+  python3Packages,
+  desktop-file-utils,
+  freecell-solver,
 }:
 
 buildPythonApplication rec {
@@ -39,13 +40,13 @@ buildPythonApplication rec {
     pillow
   ];
 
-  patches = [
-    ./pysolfc-datadir.patch
-  ];
+  patches = [ ./pysolfc-datadir.patch ];
 
   nativeBuildInputs = [ desktop-file-utils ];
   postPatch = ''
-    desktop-file-edit --set-key Icon --set-value ${placeholder "out"}/share/icons/pysol01.png data/pysol.desktop
+    desktop-file-edit --set-key Icon --set-value ${
+      placeholder "out"
+    }/share/icons/pysol01.png data/pysol.desktop
     desktop-file-edit --set-key Comment --set-value "${meta.description}" data/pysol.desktop
   '';
 

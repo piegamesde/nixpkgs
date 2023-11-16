@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, pytestCheckHook
-, decorator
-, setuptools
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  pytestCheckHook,
+  decorator,
+  setuptools,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,8 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-3jRjNUCPhN4Orab/n6+v/5vNoR8KDfqpMRM967FGq2E=";
   };
 
-  propagatedBuildInputs = [ decorator setuptools ];
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  propagatedBuildInputs = [
+    decorator
+    setuptools
+  ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   meta = {
     homepage = "https://networkx.github.io/";

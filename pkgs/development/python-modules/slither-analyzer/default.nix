@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, crytic-compile
-, fetchFromGitHub
-, makeWrapper
-, packaging
-, prettytable
-, pythonOlder
-, setuptools
-, solc
-, web3
-, withSolc ? false
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  crytic-compile,
+  fetchFromGitHub,
+  makeWrapper,
+  packaging,
+  prettytable,
+  pythonOlder,
+  setuptools,
+  solc,
+  web3,
+  withSolc ? false,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-lyjHubnYIwGiA6uAt9erKlTr2sCRGHQy/ZkNByFrFgM=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   propagatedBuildInputs = [
     crytic-compile
@@ -57,6 +56,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/trailofbits/slither";
     changelog = "https://github.com/crytic/slither/releases/tag/${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ arturcygan fab hellwolf ];
+    maintainers = with maintainers; [
+      arturcygan
+      fab
+      hellwolf
+    ];
   };
 }

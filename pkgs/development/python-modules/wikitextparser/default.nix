@@ -1,9 +1,10 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, pytestCheckHook
-, regex
-, wcwidth
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pytestCheckHook,
+  regex,
+  wcwidth,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     regex
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "wikitextparser" ];
 

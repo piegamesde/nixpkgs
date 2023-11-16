@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, georss-client
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  georss-client,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,17 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-zqjo70NzpUt5zNEar0P1sl/gMb+ZcS+7GX7QGuFjMYY=";
   };
 
-  propagatedBuildInputs = [
-    georss-client
-  ];
+  propagatedBuildInputs = [ georss-client ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "georss_ingv_centro_nazionale_terremoti_client"
-  ];
+  pythonImportsCheck = [ "georss_ingv_centro_nazionale_terremoti_client" ];
 
   meta = with lib; {
     description = "Python library for accessing the INGV Centro Nazionale Terremoti GeoRSS feed";

@@ -1,8 +1,10 @@
-{ lib, stdenv
-, fetchFromGitHub
-, aws-c-common
-, cmake
-, nix
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  aws-c-common,
+  cmake,
+  nix,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,17 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XtmSThfz4Cu7CygYrLNQifDCQ6l/c/0OR0lX+OxCYJM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    aws-c-common
-  ];
+  buildInputs = [ aws-c-common ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
   passthru.tests = {
     inherit nix;

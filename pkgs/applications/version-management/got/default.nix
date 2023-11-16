@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchurl
-, pkg-config, openssl, libbsd, libevent, libuuid, libossp_uuid, libmd, zlib, ncurses, bison
-, autoPatchelfHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  openssl,
+  libbsd,
+  libevent,
+  libuuid,
+  libossp_uuid,
+  libmd,
+  zlib,
+  ncurses,
+  bison,
+  autoPatchelfHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,11 +24,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-wlcnJr7f3Bd9SEgrKiPlr7pTSjaRj47qwktI2jepINE=";
   };
 
-  nativeBuildInputs = [ pkg-config bison ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [ openssl libbsd libevent libuuid libmd zlib ncurses ]
-  ++ lib.optionals stdenv.isDarwin [ libossp_uuid ];
+  buildInputs = [
+    openssl
+    libbsd
+    libevent
+    libuuid
+    libmd
+    zlib
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [ libossp_uuid ];
 
   configureFlags = [ "--enable-gotd" ];
 
@@ -27,12 +48,14 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace 'xdarwin' 'xhomebrew'
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
-    # error: conflicting types for 'strmode'
-    "-DHAVE_STRMODE=1"
-    # Undefined symbols for architecture arm64: "_bsd_getopt"
-    "-include getopt.h"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.isDarwin [
+      # error: conflicting types for 'strmode'
+      "-DHAVE_STRMODE=1"
+      # Undefined symbols for architecture arm64: "_bsd_getopt"
+      "-include getopt.h"
+    ]
+  );
 
   doInstallCheck = true;
 
@@ -57,6 +80,9 @@ stdenv.mkDerivation rec {
     changelog = "https://gameoftrees.org/releases/CHANGES";
     license = licenses.isc;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ abbe afh ];
+    maintainers = with maintainers; [
+      abbe
+      afh
+    ];
   };
 }

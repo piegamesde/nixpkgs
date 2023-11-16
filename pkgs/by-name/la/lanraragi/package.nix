@@ -1,45 +1,49 @@
-{ lib
-, stdenv
-, buildNpmPackage
-, fetchFromGitHub
-, fetchpatch
-, makeBinaryWrapper
-, perl
-, ghostscript
-, nixosTests
+{
+  lib,
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  makeBinaryWrapper,
+  perl,
+  ghostscript,
+  nixosTests,
 }:
 
 let
   perlEnv = perl.withPackages (_: cpanDeps);
 
-  cpanDeps = with perl.pkgs; [
-    ImageMagick
-    locallib
-    Redis
-    Encode
-    ArchiveLibarchiveExtract
-    ArchiveLibarchivePeek
-    NetDNSNative
-    SortNaturally
-    AuthenPassphrase
-    FileReadBackwards
-    URI
-    LogfileRotate
-    Mojolicious
-    MojoliciousPluginTemplateToolkit
-    MojoliciousPluginRenderFile
-    MojoliciousPluginStatus
-    IOSocketSSL
-    CpanelJSONXS
-    Minion
-    MinionBackendRedis
-    ProcSimple
-    ParallelLoops
-    SysCpuAffinity
-    FileChangeNotify
-    ModulePluggable
-    TimeLocal
-  ] ++ lib.optional stdenv.isLinux LinuxInotify2;
+  cpanDeps =
+    with perl.pkgs;
+    [
+      ImageMagick
+      locallib
+      Redis
+      Encode
+      ArchiveLibarchiveExtract
+      ArchiveLibarchivePeek
+      NetDNSNative
+      SortNaturally
+      AuthenPassphrase
+      FileReadBackwards
+      URI
+      LogfileRotate
+      Mojolicious
+      MojoliciousPluginTemplateToolkit
+      MojoliciousPluginRenderFile
+      MojoliciousPluginStatus
+      IOSocketSSL
+      CpanelJSONXS
+      Minion
+      MinionBackendRedis
+      ProcSimple
+      ParallelLoops
+      SysCpuAffinity
+      FileChangeNotify
+      ModulePluggable
+      TimeLocal
+    ]
+    ++ lib.optional stdenv.isLinux LinuxInotify2;
 in
 buildNpmPackage rec {
   pname = "lanraragi";
@@ -115,7 +119,9 @@ buildNpmPackage rec {
 
   passthru = {
     inherit perlEnv;
-    tests = { inherit (nixosTests) lanraragi; };
+    tests = {
+      inherit (nixosTests) lanraragi;
+    };
   };
 
   meta = {

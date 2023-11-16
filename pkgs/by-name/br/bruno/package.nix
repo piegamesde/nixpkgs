@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, wrapGAppsHook
-, alsa-lib
-, gtk3
-, mesa
-, nspr
-, nss
-, systemd
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  wrapGAppsHook,
+  alsa-lib,
+  gtk3,
+  mesa,
+  nspr,
+  nss,
+  systemd,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +23,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-FhlwwdX845Say6I/g9HYRTexh94DXhc/K9jmqFiHwVY=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -55,7 +60,10 @@ stdenv.mkDerivation rec {
     description = "Open-source IDE For exploring and testing APIs.";
     homepage = "https://www.usebruno.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ water-sucks lucasew ];
+    maintainers = with maintainers; [
+      water-sucks
+      lucasew
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -44,11 +44,10 @@ rec {
     val:
     # The list of valid values
     xs:
-    assertMsg
-    (lib.elem val xs)
-    "${name} must be one of ${
-      lib.generators.toPretty {} xs}, but is: ${
-        lib.generators.toPretty {} val}";
+    assertMsg (lib.elem val xs)
+      "${name} must be one of ${lib.generators.toPretty { } xs}, but is: ${
+        lib.generators.toPretty { } val
+      }";
 
   /* Specialized `assertMsg` for checking if every one of `vals` is one of the elements
      of the list `xs`. Useful for checking lists of supported attributes.
@@ -74,9 +73,8 @@ rec {
     vals:
     # The list of valid values
     xs:
-    assertMsg
-    (lib.all (val: lib.elem val xs) vals)
-    "each element in ${name} must be one of ${
-      lib.generators.toPretty {} xs}, but is: ${
-        lib.generators.toPretty {} vals}";
+    assertMsg (lib.all (val: lib.elem val xs) vals)
+      "each element in ${name} must be one of ${lib.generators.toPretty { } xs}, but is: ${
+        lib.generators.toPretty { } vals
+      }";
 }

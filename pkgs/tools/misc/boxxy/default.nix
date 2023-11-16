@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, oniguruma
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  oniguruma,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,13 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-ZEQsCm13MoFtpIjjtD5UANH5zrPDX4IjEmqJLwnftps=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    oniguruma
-  ];
+  buildInputs = [ oniguruma ];
 
   env = {
     RUSTONIG_SYSTEM_LIBONIG = true;
@@ -35,7 +32,10 @@ rustPlatform.buildRustPackage rec {
     description = "Puts bad Linux applications in a box with only their files";
     homepage = "https://github.com/queer/boxxy";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya figsoda ];
+    maintainers = with maintainers; [
+      dit7ya
+      figsoda
+    ];
     platforms = platforms.linux;
     broken = stdenv.isAarch64;
   };

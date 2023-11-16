@@ -1,10 +1,12 @@
-{ lib, stdenv
-, fetchurl
-, gettext
-, gnome
-, itstool
-, libxml2
-, yelp-tools
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  gnome,
+  itstool,
+  libxml2,
+  yelp-tools,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +14,9 @@ stdenv.mkDerivation rec {
   version = "44.3";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-user-docs/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-user-docs/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "lOBECCNjQ4vNv6hUlImrarKWoJHotlL1chM/102xaSw=";
   };
 
@@ -26,9 +30,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

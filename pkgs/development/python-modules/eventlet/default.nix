@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, dnspython
-, greenlet
-, isPyPy
-, monotonic
-, six
-, nose3
-, iana-etc
-, pytestCheckHook
-, libredirect
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  dnspython,
+  greenlet,
+  isPyPy,
+  monotonic,
+  six,
+  nose3,
+  iana-etc,
+  pytestCheckHook,
+  libredirect,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     dnspython
     greenlet
     six
-  ] ++ lib.optionals (pythonOlder "3.5") [
-    monotonic
-  ];
+  ] ++ lib.optionals (pythonOlder "3.5") [ monotonic ];
 
   nativeCheckInputs = [
     pytestCheckHook

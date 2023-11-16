@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -26,5 +27,4 @@ buildPythonPackage rec {
     homepage = "https://launchpad.net/py3dns";
     license = licenses.psfl;
   };
-
 }

@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools
-, tdlib
-, telegram-text
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+  tdlib,
+  telegram-text,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -35,17 +36,11 @@ buildPythonPackage rec {
     telegram-text
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    "TestGetTdjsonTdlibPath"
-  ];
+  disabledTests = [ "TestGetTdjsonTdlibPath" ];
 
-  pythonImportsCheck = [
-    "telegram.client"
-  ];
+  pythonImportsCheck = [ "telegram.client" ];
 
   meta = with lib; {
     description = "Python client for the Telegram's tdlib";

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, clarifai-grpc
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  clarifai-grpc,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,13 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-/zgHgD2kf3ZG7Mu9AEBfOwqpcD0Ye0LVrFxLeuGurCM=";
   };
 
-  propagatedBuildInputs = [
-    clarifai-grpc
-  ];
+  propagatedBuildInputs = [ clarifai-grpc ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "clarifai" ];
 

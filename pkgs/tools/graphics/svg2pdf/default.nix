@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,7 +21,13 @@ rustPlatform.buildRustPackage rec {
     description = "Convert SVG files to PDFs";
     homepage = "https://github.com/typst/svg2pdf";
     changelog = "https://github.com/typst/svg2pdf/releases/tag/${src.rev}";
-    license = with licenses; [ asl20 mit ];
-    maintainers = with maintainers; [ doronbehar figsoda ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
+    maintainers = with maintainers; [
+      doronbehar
+      figsoda
+    ];
   };
 }

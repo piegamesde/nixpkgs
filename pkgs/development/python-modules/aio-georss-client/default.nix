@@ -1,16 +1,17 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, dateparser
-, fetchFromGitHub
-, haversine
-, mock
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, requests
-, xmltodict
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  dateparser,
+  fetchFromGitHub,
+  haversine,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  xmltodict,
 }:
 
 buildPythonPackage rec {
@@ -44,9 +45,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "aio_georss_client"
-  ];
+  pythonImportsCheck = [ "aio_georss_client" ];
 
   meta = with lib; {
     description = "Python library for accessing GeoRSS feeds";

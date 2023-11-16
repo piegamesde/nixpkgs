@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,16 +21,12 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # Project has not published tests yet
   doCheck = false;
 
-  pythonImportsCheck = [
-    "adafruit_platformdetect"
-  ];
+  pythonImportsCheck = [ "adafruit_platformdetect" ];
 
   meta = with lib; {
     description = "Platform detection for use by Adafruit libraries";

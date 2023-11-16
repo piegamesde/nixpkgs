@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, certifi
-, configparser
-, faker
-, fetchFromGitHub
-, future
-, mock
-, nose
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  configparser,
+  faker,
+  fetchFromGitHub,
+  future,
+  mock,
+  nose,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -44,14 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # example credentials aren't present
-    "tests/unit/credentials_test.py"
-  ];
+  disabledTestPaths =
+    [
+      # example credentials aren't present
+      "tests/unit/credentials_test.py"
+    ];
 
-  pythonImportsCheck = [
-    "minio"
-  ];
+  pythonImportsCheck = [ "minio" ];
 
   meta = with lib; {
     description = "Simple APIs to access any Amazon S3 compatible object storage server";

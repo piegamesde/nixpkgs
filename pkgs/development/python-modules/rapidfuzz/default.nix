@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cmake
-, cython_3
-, ninja
-, scikit-build
-, setuptools
-, numpy
-, hypothesis
-, pandas
-, pytestCheckHook
-, rapidfuzz-cpp
-, taskflow
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  cython_3,
+  ninja,
+  scikit-build,
+  setuptools,
+  numpy,
+  hypothesis,
+  pandas,
+  pytestCheckHook,
+  rapidfuzz-cpp,
+  taskflow,
 }:
 
 buildPythonPackage rec {
@@ -45,15 +46,19 @@ buildPythonPackage rec {
     taskflow
   ];
 
-  preBuild = ''
-    export RAPIDFUZZ_BUILD_EXTENSION=1
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
-    export CMAKE_ARGS="-DCMAKE_CXX_COMPILER_AR=$AR -DCMAKE_CXX_COMPILER_RANLIB=$RANLIB"
-  '';
+  preBuild =
+    ''
+      export RAPIDFUZZ_BUILD_EXTENSION=1
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+      export CMAKE_ARGS="-DCMAKE_CXX_COMPILER_AR=$AR -DCMAKE_CXX_COMPILER_RANLIB=$RANLIB"
+    '';
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang && stdenv.isDarwin) [
-    "-fno-lto"  # work around https://github.com/NixOS/nixpkgs/issues/19098
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals (stdenv.cc.isClang && stdenv.isDarwin) [
+      "-fno-lto" # work around https://github.com/NixOS/nixpkgs/issues/19098
+    ]
+  );
 
   passthru.optional-dependencies = {
     full = [ numpy ];
@@ -69,10 +74,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    # segfaults
-    "test_cdist"
-  ];
+  disabledTests =
+    lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
+      [
+        # segfaults
+        "test_cdist"
+      ];
 
   pythonImportsCheck = [
     "rapidfuzz.distance"

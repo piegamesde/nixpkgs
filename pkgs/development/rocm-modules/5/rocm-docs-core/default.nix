@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gitUpdater
-, buildPythonPackage
-, setuptools
-, beautifulsoup4
-, gitpython
-, pydata-sphinx-theme
-, pygithub
-, sphinx
-, breathe
-, myst-parser
-, sphinx-book-theme
-, sphinx-copybutton
-, sphinx-design
-, sphinx-external-toc
-, sphinx-notfound-page
-, pyyaml
-, fastjsonschema
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  buildPythonPackage,
+  setuptools,
+  beautifulsoup4,
+  gitpython,
+  pydata-sphinx-theme,
+  pygithub,
+  sphinx,
+  breathe,
+  myst-parser,
+  sphinx-book-theme,
+  sphinx-copybutton,
+  sphinx-design,
+  sphinx-external-toc,
+  sphinx-notfound-page,
+  pyyaml,
+  fastjsonschema,
 }:
 
 buildPythonPackage rec {
@@ -58,7 +59,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "ROCm Documentation Python package for ReadTheDocs build standardization";
     homepage = "https://github.com/RadeonOpenCompute/rocm-docs-core";
-    license = with licenses; [ mit cc-by-40 ];
+    license = with licenses; [
+      mit
+      cc-by-40
+    ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
   };

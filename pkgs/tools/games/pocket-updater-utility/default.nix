@@ -1,12 +1,13 @@
-{ pkgs ? import <nixpkgs> { system = builtins.currentSystem; }
-, stdenv ? pkgs.stdenv
-, lib ? pkgs.lib
-, fetchFromGitHub ? pkgs.fetchFromGitHub
-, buildDotnetModule ? pkgs.buildDotnetModule
-, dotnetCorePackages ? pkgs.dotnetCorePackages
-, openssl ? pkgs.openssl
-, zlib ? pkgs.zlib
-, targetPlatform ? pkgs.targetPlatform
+{
+  pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
+  stdenv ? pkgs.stdenv,
+  lib ? pkgs.lib,
+  fetchFromGitHub ? pkgs.fetchFromGitHub,
+  buildDotnetModule ? pkgs.buildDotnetModule,
+  dotnetCorePackages ? pkgs.dotnetCorePackages,
+  openssl ? pkgs.openssl,
+  zlib ? pkgs.zlib,
+  targetPlatform ? pkgs.targetPlatform,
 }:
 
 buildDotnetModule rec {

@@ -1,26 +1,27 @@
-{ lib
-, buildPythonPackage
-, bx-py-utils
-, colorlog
-, fetchFromGitHub
-, fetchPypi
-, importlib-resources
-, jaraco-classes
-, jaraco-collections
-, jaraco-itertools
-, jaraco-context
-, jaraco-net
-, keyring
-, lomond
-, more-itertools
-, platformdirs
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-, requests-toolbelt
-, setuptools
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  bx-py-utils,
+  colorlog,
+  fetchFromGitHub,
+  fetchPypi,
+  importlib-resources,
+  jaraco-classes,
+  jaraco-collections,
+  jaraco-itertools,
+  jaraco-context,
+  jaraco-net,
+  keyring,
+  lomond,
+  more-itertools,
+  platformdirs,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+  requests-toolbelt,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -71,9 +72,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [
-    "jaraco.abode"
-  ];
+  pythonImportsCheck = [ "jaraco.abode" ];
 
   preCheck = ''
     export HOME=$TEMP
@@ -93,6 +92,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/jaraco/jaraco.abode";
     description = "Library interfacing to the Abode home security system";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee dotlambda ];
+    maintainers = with maintainers; [
+      jamiemagee
+      dotlambda
+    ];
   };
 }

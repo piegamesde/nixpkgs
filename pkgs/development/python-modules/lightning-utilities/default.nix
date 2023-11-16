@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build
-, setuptools
+  # build
+  setuptools,
 
-# runtime
-, packaging
-, typing-extensions
+  # runtime
+  packaging,
+  typing-extensions,
 
-# tests
-, pytest-timeout
-, pytestCheckHook
+  # tests
+  pytest-timeout,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -26,18 +27,14 @@ buildPythonPackage rec {
     hash = "sha256-vSeHtvsIt4L4qJCVlTPVjIjd62+08JWBnr9+9+ujOfw=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     packaging
     typing-extensions
   ];
 
-  pythonImportsCheck = [
-    "lightning_utilities"
-  ];
+  pythonImportsCheck = [ "lightning_utilities" ];
 
   nativeCheckInputs = [
     pytest-timeout
@@ -63,7 +60,8 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     # warns about distutils removal in python 3.12
-    "-W" "ignore::DeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
   ];
 
   meta = with lib; {

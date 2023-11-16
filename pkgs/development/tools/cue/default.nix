@@ -1,10 +1,11 @@
-{ buildGoModule
-, fetchFromGitHub
-, fetchpatch
-, lib
-, installShellFiles
-, testers
-, cue
+{
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  installShellFiles,
+  testers,
+  cue,
 }:
 
 buildGoModule rec {
@@ -20,24 +21,34 @@ buildGoModule rec {
 
   vendorHash = "sha256-ku4tPTXdnKau0kqnAAEHDdSF4oAC/6SDkTq8cECOiEk=";
 
-  patches = [
-    # Fix tests with go1.21. See https://github.com/cue-lang/cue/issues/2548.
-    (fetchpatch {
-      url = "https://github.com/cue-lang/cue/commit/3bf3dbd655284d3628399a83a703f4849b5f9374.patch";
-      hash = "sha256-9Zi2mrqB1JTFvadiqWTgzzi1pffZ3gOmTtrDDQWye1Q=";
-    })
-  ];
+  patches =
+    [
+      # Fix tests with go1.21. See https://github.com/cue-lang/cue/issues/2548.
+      (fetchpatch {
+        url = "https://github.com/cue-lang/cue/commit/3bf3dbd655284d3628399a83a703f4849b5f9374.patch";
+        hash = "sha256-9Zi2mrqB1JTFvadiqWTgzzi1pffZ3gOmTtrDDQWye1Q=";
+      })
+    ];
 
   postPatch = ''
     # Disable script tests
     rm -f cmd/cue/cmd/script_test.go
   '';
 
-  excludedPackages = [ "internal/ci/updatetxtar" "internal/cmd/embedpkg" "internal/cmd/qgo" "pkg/gen" ];
+  excludedPackages = [
+    "internal/ci/updatetxtar"
+    "internal/cmd/embedpkg"
+    "internal/cmd/qgo"
+    "pkg/gen"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" "-X cuelang.org/go/cmd/cue/cmd.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X cuelang.org/go/cmd/cue/cmd.version=${version}"
+  ];
 
   postInstall = ''
     # Completions
@@ -57,7 +68,7 @@ buildGoModule rec {
     command = "cue version";
   };
 
-  meta = with lib;  {
+  meta = with lib; {
     description = "A data constraint language which aims to simplify tasks involving defining and using data";
     homepage = "https://cuelang.org/";
     license = lib.licenses.asl20;

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, simplejson
-, mock
-, twisted
-, isPyPy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  simplejson,
+  mock,
+  twisted,
+  isPyPy,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +19,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ simplejson ];
 
-  nativeCheckInputs = [ mock twisted ];
+  nativeCheckInputs = [
+    mock
+    twisted
+  ];
 
   prePatch = lib.optionalString isPyPy ''
     grep -rl 'utf-8-with-signature-unix' ./ | xargs sed -i -e "s|utf-8-with-signature-unix|utf-8|g"
@@ -41,5 +45,4 @@ buildPythonPackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ prusnak ];
   };
-
 }

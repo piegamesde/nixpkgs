@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, SDL
-, SDL_mixer
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_mixer,
 }:
 
 stdenv.mkDerivation rec {

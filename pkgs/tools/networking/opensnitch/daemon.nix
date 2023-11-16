@@ -1,19 +1,20 @@
-{ buildGoModule
-, fetchFromGitHub
-, fetchpatch
-, protobuf
-, go-protobuf
-, pkg-config
-, libnetfilter_queue
-, libnfnetlink
-, lib
-, coreutils
-, iptables
-, makeWrapper
-, protoc-gen-go-grpc
-, testers
-, opensnitch
-, nixosTests
+{
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  protobuf,
+  go-protobuf,
+  pkg-config,
+  libnetfilter_queue,
+  libnfnetlink,
+  lib,
+  coreutils,
+  iptables,
+  makeWrapper,
+  protoc-gen-go-grpc,
+  testers,
+  opensnitch,
+  nixosTests,
 }:
 
 buildGoModule rec {
@@ -70,7 +71,11 @@ buildGoModule rec {
       --replace "/bin/mkdir" "${coreutils}/bin/mkdir"
   '';
 
-  ldflags = [ "-s" "-w" "-X github.com/evilsocket/opensnitch/daemon/core.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/evilsocket/opensnitch/daemon/core.Version=${version}"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/opensnitchd \

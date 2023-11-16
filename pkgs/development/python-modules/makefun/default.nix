@@ -1,8 +1,9 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, setuptools-scm
-, pytestCheckHook
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools-scm,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "makefun" ];
 

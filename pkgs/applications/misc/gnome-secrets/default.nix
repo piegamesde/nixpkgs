@@ -1,18 +1,21 @@
-{ lib, stdenv
-, meson
-, ninja
-, pkg-config
-, gettext
-, fetchFromGitLab
-, python3Packages
-, wrapGAppsHook4
-, gtk4
-, glib
-, gdk-pixbuf
-, gobject-introspection
-, desktop-file-utils
-, appstream-glib
-, libadwaita }:
+{
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  fetchFromGitLab,
+  python3Packages,
+  wrapGAppsHook4,
+  gtk4,
+  glib,
+  gdk-pixbuf,
+  gobject-introspection,
+  desktop-file-utils,
+  appstream-glib,
+  libadwaita,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gnome-secrets";

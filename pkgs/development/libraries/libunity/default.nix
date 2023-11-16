@@ -1,23 +1,28 @@
-{ lib
-, stdenv
-, fetchgit
-, pkg-config
-, glib
-, vala
-, dee
-, gobject-introspection
-, libdbusmenu
-, gtk3
-, intltool
-, python3
-, autoreconfHook
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  glib,
+  vala,
+  dee,
+  gobject-introspection,
+  libdbusmenu,
+  gtk3,
+  intltool,
+  python3,
+  autoreconfHook,
 }:
 
 stdenv.mkDerivation {
   pname = "libunity";
   version = "unstable-2021-02-01";
 
-  outputs = [ "out" "dev" "py" ];
+  outputs = [
+    "out"
+    "dev"
+    "py"
+  ];
 
   # Obtained from https://git.launchpad.net/ubuntu/+source/libunity/log/
   src = fetchgit {
@@ -26,12 +31,13 @@ stdenv.mkDerivation {
     sha256 = "LHUs6kl1srS6Xektx+jmm4SXLR47VuQ9IhYbBxf2Wc8=";
   };
 
-  patches = [
-    # Fix builf with latest Vala
-    # https://code.launchpad.net/~jtojnar/libunity/libunity
-    # Did not send upstream because Ubuntu is stuck on Vala 0.48.
-    ./fix-vala.patch
-  ];
+  patches =
+    [
+      # Fix builf with latest Vala
+      # https://code.launchpad.net/~jtojnar/libunity/libunity
+      # Did not send upstream because Ubuntu is stuck on Vala 0.48.
+      ./fix-vala.patch
+    ];
 
   nativeBuildInputs = [
     autoreconfHook

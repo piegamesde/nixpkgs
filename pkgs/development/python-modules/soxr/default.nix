@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build-system
-, cython_3
-, numpy
-, oldest-supported-numpy
-, setuptools
-, setuptools-scm
-, gnutar
+  # build-system
+  cython_3,
+  numpy,
+  oldest-supported-numpy,
+  setuptools,
+  setuptools-scm,
+  gnutar,
 
-# native
-, libsoxr
+  # native
+  libsoxr,
 
-# tests
-, pytestCheckHook
+  # tests
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -41,13 +42,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [
-    "soxr"
-  ];
+  pythonImportsCheck = [ "soxr" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "High quality, one-dimensional sample-rate conversion library";

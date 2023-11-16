@@ -1,27 +1,29 @@
-{ lib, fetchFromGitHub, buildPythonApplication
-, pythonOlder
-, aiohttp
-, appdirs
-, beautifulsoup4
-, defusedxml
-, devpi-common
-, execnet
-, itsdangerous
-, nginx
-, packaging
-, passlib
-, platformdirs
-, pluggy
-, py
-, pyramid
-, pytestCheckHook
-, repoze_lru
-, setuptools
-, strictyaml
-, waitress
-, webtest
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  pythonOlder,
+  aiohttp,
+  appdirs,
+  beautifulsoup4,
+  defusedxml,
+  devpi-common,
+  execnet,
+  itsdangerous,
+  nginx,
+  packaging,
+  passlib,
+  platformdirs,
+  pluggy,
+  py,
+  pyramid,
+  pytestCheckHook,
+  repoze_lru,
+  setuptools,
+  strictyaml,
+  waitress,
+  webtest,
 }:
-
 
 buildPythonApplication rec {
   pname = "devpi-server";
@@ -44,9 +46,7 @@ buildPythonApplication rec {
       --replace "--flake8" ""
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -99,11 +99,9 @@ buildPythonApplication rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "devpi_server"
-  ];
+  pythonImportsCheck = [ "devpi_server" ];
 
-  meta = with lib;{
+  meta = with lib; {
     homepage = "http://doc.devpi.net";
     description = "Github-style pypi index server and packaging meta tool";
     changelog = "https://github.com/devpi/devpi/blob/${src.rev}/server/CHANGELOG";

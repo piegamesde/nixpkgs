@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, curl, boost, eigen
-, freeimage, freetype, libGLU, libGL, rapidjson, SDL2, alsa-lib
-, vlc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  curl,
+  boost,
+  eigen,
+  freeimage,
+  freetype,
+  libGLU,
+  libGL,
+  rapidjson,
+  SDL2,
+  alsa-lib,
+  vlc,
+}:
 
 stdenv.mkDerivation {
   pname = "emulationstation";
@@ -14,8 +29,23 @@ stdenv.mkDerivation {
     hash = "sha256-J5h/578FVe4DXJx/AvpRnCIUpqBeFtmvFhUDYH5SErQ=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ alsa-lib boost curl eigen freeimage freetype libGLU libGL rapidjson SDL2 vlc ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    alsa-lib
+    boost
+    curl
+    eigen
+    freeimage
+    freetype
+    libGLU
+    libGL
+    rapidjson
+    SDL2
+    vlc
+  ];
 
   installPhase = ''
     install -D ../emulationstation $out/bin/emulationstation

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,15 +13,23 @@ let
   dnscache-root = pkgs.runCommand "dnscache-root" { preferLocalBuild = true; } ''
     mkdir -p $out/{servers,ip}
 
-    ${concatMapStrings (ip: ''
-      touch "$out/ip/"${lib.escapeShellArg ip}
-    '') cfg.clientIps}
+    ${concatMapStrings
+      (ip: ''
+        touch "$out/ip/"${lib.escapeShellArg ip}
+      '')
+      cfg.clientIps}
 
-    ${concatStrings (mapAttrsToList (host: ips: ''
-      ${concatMapStrings (ip: ''
-        echo ${lib.escapeShellArg ip} >> "$out/servers/"${lib.escapeShellArg host}
-      '') ips}
-    '') cfg.domainServers)}
+    ${concatStrings (
+      mapAttrsToList
+        (host: ips: ''
+          ${concatMapStrings
+            (ip: ''
+              echo ${lib.escapeShellArg ip} >> "$out/servers/"${lib.escapeShellArg host}
+            '')
+            ips}
+        '')
+        cfg.domainServers
+    )}
 
     # if a list of root servers was not provided in config, copy it
     # over. (this is also done by dnscache-conf, but we 'rm -rf
@@ -27,8 +40,8 @@ let
       cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
     fi
   '';
-
-in {
+in
+{
 
   ###### interface
 
@@ -51,7 +64,10 @@ in {
         default = [ "127.0.0.1" ];
         type = types.listOf types.str;
         description = lib.mdDoc "Client IP addresses (or prefixes) from which to accept connections.";
-        example = ["192.168" "172.23.75.82"];
+        example = [
+          "192.168"
+          "172.23.75.82"
+        ];
       };
 
       domainServers = mkOption {
@@ -78,7 +94,6 @@ in {
           needed if you want to use e.g. Google DNS as your upstream DNS.
         '';
       };
-
     };
   };
 
@@ -91,7 +106,11 @@ in {
     systemd.services.dnscache = {
       description = "djbdns dnscache server";
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ bash daemontools djbdns ];
+      path = with pkgs; [
+        bash
+        daemontools
+        djbdns
+      ];
       preStart = ''
         rm -rf /var/lib/dnscache
         dnscache-conf dnscache dnscache /var/lib/dnscache ${config.services.dnscache.ip}

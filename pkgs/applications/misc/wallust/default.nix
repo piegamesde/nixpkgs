@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitea
-, rustPlatform
-, nix-update-script
+{
+  lib,
+  fetchFromGitea,
+  rustPlatform,
+  nix-update-script,
 }:
 let
   version = "2.7.1";
@@ -26,7 +27,10 @@ rustPlatform.buildRustPackage {
     description = "A better pywal";
     homepage = "https://codeberg.org/explosion-mental/wallust";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ onemoresuza iynaix ];
+    maintainers = with lib.maintainers; [
+      onemoresuza
+      iynaix
+    ];
     downloadPage = "https://codeberg.org/explosion-mental/wallust/releases/tag/${version}";
     platforms = lib.platforms.unix;
     mainProgram = "wallust";

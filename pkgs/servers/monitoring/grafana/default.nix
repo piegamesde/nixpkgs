@@ -1,10 +1,27 @@
-{ lib, buildGoModule, fetchurl, fetchFromGitHub, nixosTests, tzdata, wire }:
+{
+  lib,
+  buildGoModule,
+  fetchurl,
+  fetchFromGitHub,
+  nixosTests,
+  tzdata,
+  wire,
+}:
 
 buildGoModule rec {
   pname = "grafana";
   version = "10.2.0";
 
-  excludedPackages = [ "alert_webhook_listener" "clean-swagger" "release_publisher" "slow_proxy" "slow_proxy_mac" "macaron" "devenv" "modowners" ];
+  excludedPackages = [
+    "alert_webhook_listener"
+    "clean-swagger"
+    "release_publisher"
+    "slow_proxy"
+    "slow_proxy_mac"
+    "macaron"
+    "devenv"
+    "modowners"
+  ];
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -61,7 +78,9 @@ buildGoModule rec {
   '';
 
   ldflags = [
-    "-s" "-w" "-X main.version=${version}"
+    "-s"
+    "-w"
+    "-X main.version=${version}"
   ];
 
   # Tests start http servers which need to bind to local addresses:
@@ -83,7 +102,9 @@ buildGoModule rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) grafana; };
+    tests = {
+      inherit (nixosTests) grafana;
+    };
     updateScript = ./update.sh;
   };
 
@@ -91,7 +112,14 @@ buildGoModule rec {
     description = "Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB";
     license = licenses.agpl3;
     homepage = "https://grafana.com";
-    maintainers = with maintainers; [ offline fpletz willibutz globin ma27 Frostman ];
+    maintainers = with maintainers; [
+      offline
+      fpletz
+      willibutz
+      globin
+      ma27
+      Frostman
+    ];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "grafana-server";
   };

@@ -1,7 +1,8 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, luaPackages
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  luaPackages,
 }:
 
 stdenvNoCC.mkDerivation {

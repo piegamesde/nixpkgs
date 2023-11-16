@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rss-bridge";
@@ -11,9 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-N1pbveOgJrB1M+WelKD07Jmv9Vz5NqT+IJf//L8UEnU=";
   };
 
-  patches = [
-    ./paths.patch
-  ];
+  patches = [ ./paths.patch ];
 
   installPhase = ''
     mkdir $out/
@@ -24,7 +26,10 @@ stdenv.mkDerivation rec {
     description = "The RSS feed for websites missing it";
     homepage = "https://github.com/RSS-Bridge/rss-bridge";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ dawidsowa mynacol ];
+    maintainers = with maintainers; [
+      dawidsowa
+      mynacol
+    ];
     platforms = platforms.all;
   };
 }

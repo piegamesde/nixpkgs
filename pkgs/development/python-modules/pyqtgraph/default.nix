@@ -1,22 +1,21 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, scipy
-, numpy
-, pyqt5
-, pyopengl
-, qt5
-, pytestCheckHook
-, freefont_ttf
-, makeFontsConf
-, setuptools
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  scipy,
+  numpy,
+  pyqt5,
+  pyopengl,
+  qt5,
+  pytestCheckHook,
+  freefont_ttf,
+  makeFontsConf,
+  setuptools,
 }:
 
 let
-  fontsConf = makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
-  };
+  fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 in
 buildPythonPackage rec {
   pname = "pyqtgraph";
@@ -30,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-kFTNhv8pgIRSJX0ePmp1I0+MGfCaW8b86baIYZ2bZQM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     numpy
@@ -50,20 +47,25 @@ buildPythonPackage rec {
     export FONTCONFIG_FILE=${fontsConf}
   '';
 
-  pytestFlagsArray = [
-    # we only want to run unittests
-    "tests"
-  ];
+  pytestFlagsArray =
+    [
+      # we only want to run unittests
+      "tests"
+    ];
 
-  disabledTests = lib.optionals (!stdenv.hostPlatform.isx86) [
-    # small precision-related differences on other architectures,
-    # upstream doesn't consider it serious.
-    # https://github.com/pyqtgraph/pyqtgraph/issues/2110
-    "test_PolyLineROI"
-  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
-    # https://github.com/pyqtgraph/pyqtgraph/issues/2645
-    "test_rescaleData"
-  ];
+  disabledTests =
+    lib.optionals (!stdenv.hostPlatform.isx86)
+      [
+        # small precision-related differences on other architectures,
+        # upstream doesn't consider it serious.
+        # https://github.com/pyqtgraph/pyqtgraph/issues/2110
+        "test_PolyLineROI"
+      ]
+    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64)
+      [
+        # https://github.com/pyqtgraph/pyqtgraph/issues/2645
+        "test_rescaleData"
+      ];
 
   meta = with lib; {
     description = "Scientific Graphics and GUI Library for Python";
@@ -73,5 +75,4 @@ buildPythonPackage rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ koral ];
   };
-
 }

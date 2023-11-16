@@ -1,21 +1,22 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeWrapper
-, strip-nondeterminism
-, meson
-, ninja
-, pkg-config
-, gradle_7
-, curl
-, cryptopp
-, fontconfig
-, jre
-, libxml2
-, openssl
-, pcsclite
-, podofo
-, ghostscript
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  strip-nondeterminism,
+  meson,
+  ninja,
+  pkg-config,
+  gradle_7,
+  curl,
+  cryptopp,
+  fontconfig,
+  jre,
+  libxml2,
+  openssl,
+  pcsclite,
+  podofo,
+  ghostscript,
 }:
 
 let
@@ -63,7 +64,6 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-jtaH8dBpnx8KMJe+jzJfkvcx1NO4nL5jsRO4+GI+d0c=";
   };
-
 in
 
 stdenv.mkDerivation {
@@ -71,7 +71,10 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -157,7 +160,9 @@ stdenv.mkDerivation {
     strip-nondeterminism "$out/share/cieid/cieid.jar"
   '';
 
-  passthru = { inherit javaDeps; };
+  passthru = {
+    inherit javaDeps;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/M0Rf30/cie-middleware-linux";

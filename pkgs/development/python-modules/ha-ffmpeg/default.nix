@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, async-timeout
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  async-timeout,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-sheNYtmp1panthglpEqJTdaCgGBTUJRswikl5hu9k7s=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-  ];
+  propagatedBuildInputs = [ async-timeout ];
 
   # only manual tests
   doCheck = false;

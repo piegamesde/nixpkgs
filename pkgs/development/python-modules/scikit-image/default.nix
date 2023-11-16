@@ -1,33 +1,34 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonPackage
-, python
-, pythonOlder
-, astropy
-, cloudpickle
-, cython
-, dask
-, imageio
-, lazy-loader
-, matplotlib
-, meson-python
-, networkx
-, numpy
-, packaging
-, pillow
-, pooch
-, pyamg
-, pytestCheckHook
-, pythran
-, pywavelets
-, scikit-learn
-, scipy
-, setuptools
-, simpleitk
-, six
-, tifffile
-, wheel
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  pythonOlder,
+  astropy,
+  cloudpickle,
+  cython,
+  dask,
+  imageio,
+  lazy-loader,
+  matplotlib,
+  meson-python,
+  networkx,
+  numpy,
+  packaging,
+  pillow,
+  pooch,
+  pyamg,
+  pytestCheckHook,
+  pythran,
+  pywavelets,
+  scikit-learn,
+  scipy,
+  setuptools,
+  simpleitk,
+  six,
+  tifffile,
+  wheel,
 }:
 
 let
@@ -46,11 +47,12 @@ let
       hash = "sha256-WJ2WNlcFCEtPr+bV/af6MoBBhbXDpOBEsJu4FmudoIo=";
     };
 
-    patches = [
-      # https://github.com/scikit-image/scikit-image/pull/7052
-      # prepare a patch file because the commit contains additional changes
-      ./suppress-deprecation-warning.patch
-    ];
+    patches =
+      [
+        # https://github.com/scikit-image/scikit-image/pull/7052
+        # prepare a patch file because the commit contains additional changes
+        ./suppress-deprecation-warning.patch
+      ];
 
     postPatch = ''
       patchShebangs skimage/_build_utils/{version,cythoner}.py
@@ -83,9 +85,7 @@ let
     ];
 
     passthru.optional-dependencies = {
-      data = [
-        pooch
-      ];
+      data = [ pooch ];
       optional = [
         astropy
         cloudpickle
@@ -111,26 +111,37 @@ let
       rm -r skimage
     '';
 
-    disabledTestPaths = [
-      # Requires network access (actually some data is loaded via `skimage._shared.testing.fetch` in the global scope, which calls `pytest.skip` when a network is unaccessible, leading to a pytest collection error).
-      "${installedPackageRoot}/skimage/filters/rank/tests/test_rank.py"
-    ];
-    pytestFlagsArray = [ "${installedPackageRoot}" "--pyargs" "skimage" ] ++ builtins.map (testid: "--deselect=" + testid) ([
-      # These tests require network access
-      "skimage/data/test_data.py::test_skin"
-      "skimage/data/tests/test_data.py::test_skin"
-      "skimage/io/tests/test_io.py::test_imread_http_url"
-      "skimage/restoration/tests/test_rolling_ball.py::test_ndim"
-    ] ++ lib.optionals stdenv.isDarwin [
-      # Matplotlib tests are broken inside darwin sandbox
-      "skimage/feature/tests/test_util.py::test_plot_matches"
-      "skimage/filters/tests/test_thresholding.py::TestSimpleImage::test_try_all_threshold"
-      "skimage/io/tests/test_mpl_imshow.py::"
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      # https://github.com/scikit-image/scikit-image/issues/7104
-      "skimage/measure/tests/test_fit.py"
-      "skimage/measure/tests/test_moments.py"
-    ]);
+    disabledTestPaths =
+      [
+        # Requires network access (actually some data is loaded via `skimage._shared.testing.fetch` in the global scope, which calls `pytest.skip` when a network is unaccessible, leading to a pytest collection error).
+        "${installedPackageRoot}/skimage/filters/rank/tests/test_rank.py"
+      ];
+    pytestFlagsArray =
+      [
+        "${installedPackageRoot}"
+        "--pyargs"
+        "skimage"
+      ]
+      ++ builtins.map (testid: "--deselect=" + testid) (
+        [
+          # These tests require network access
+          "skimage/data/test_data.py::test_skin"
+          "skimage/data/tests/test_data.py::test_skin"
+          "skimage/io/tests/test_io.py::test_imread_http_url"
+          "skimage/restoration/tests/test_rolling_ball.py::test_ndim"
+        ]
+        ++ lib.optionals stdenv.isDarwin [
+          # Matplotlib tests are broken inside darwin sandbox
+          "skimage/feature/tests/test_util.py::test_plot_matches"
+          "skimage/filters/tests/test_thresholding.py::TestSimpleImage::test_try_all_threshold"
+          "skimage/io/tests/test_mpl_imshow.py::"
+        ]
+        ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+          # https://github.com/scikit-image/scikit-image/issues/7104
+          "skimage/measure/tests/test_fit.py"
+          "skimage/measure/tests/test_moments.py"
+        ]
+      );
 
     # Check cythonized modules
     pythonImportsCheck = [
@@ -162,4 +173,4 @@ let
     };
   };
 in
-  self
+self

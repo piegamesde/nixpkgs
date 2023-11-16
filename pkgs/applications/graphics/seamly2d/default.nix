@@ -1,6 +1,24 @@
-{ stdenv, lib, qtbase, wrapQtAppsHook, fetchFromGitHub,
-  addOpenGLRunpath, poppler_utils, qtxmlpatterns, qtsvg, mesa, gcc, xvfb-run,
-  fontconfig, freetype, xorg, ccache, qmake, python3, qttools, git
+{
+  stdenv,
+  lib,
+  qtbase,
+  wrapQtAppsHook,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  poppler_utils,
+  qtxmlpatterns,
+  qtsvg,
+  mesa,
+  gcc,
+  xvfb-run,
+  fontconfig,
+  freetype,
+  xorg,
+  ccache,
+  qmake,
+  python3,
+  qttools,
+  git,
 }:
 let
   qtPython = python3.withPackages (pkgs: with pkgs; [ pyqt5 ]);
@@ -41,7 +59,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace common.pri \
-      --replace '$$[QT_INSTALL_HEADERS]/QtXmlPatterns' '${lib.getDev qtxmlpatterns}/include/QtXmlPatterns' \
+      --replace '$$[QT_INSTALL_HEADERS]/QtXmlPatterns' '${
+        lib.getDev qtxmlpatterns
+      }/include/QtXmlPatterns' \
       --replace '$$[QT_INSTALL_HEADERS]/QtSvg' '${lib.getDev qtsvg}/include/QtSvg' \
       --replace '$$[QT_INSTALL_HEADERS]/' '${lib.getDev qtbase}/include/' \
       --replace '$$[QT_INSTALL_HEADERS]' '${lib.getDev qtbase}'

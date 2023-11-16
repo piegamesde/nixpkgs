@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, black
-, codespell
-, isort
-, mypy
-, pre-commit
-, pygobject3
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  black,
+  codespell,
+  isort,
+  mypy,
+  pre-commit,
+  pygobject3,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-A28vH5S5xxY7VIJORbgQ7jAi/wG4WiffNGryiumHWf0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   # This package does not include any tests.
   doCheck = false;

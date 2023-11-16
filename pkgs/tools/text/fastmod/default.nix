@@ -1,8 +1,10 @@
-{ lib, stdenv
-, fetchFromGitHub
-, rustPlatform
-, libiconv
-, Security
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  libiconv,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-RNTnP3RKRZXo3+L54y/8nBunGbsxVY72sbl+ZrqfeMI=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   meta = with lib; {
     description = "A utility that makes sweeping changes to large, shared code bases";

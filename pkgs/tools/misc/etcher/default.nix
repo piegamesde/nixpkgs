@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, bash
-, util-linux
-, autoPatchelfHook
-, dpkg
-, makeWrapper
-, udev
-, electron
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash,
+  util-linux,
+  autoPatchelfHook,
+  dpkg,
+  makeWrapper,
+  udev,
+  electron,
 }:
 
 stdenv.mkDerivation rec {

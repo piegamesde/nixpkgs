@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, python39
-, fetchPypi
-, fetchFromGitHub
-, fetchpatch
-, withXmpp ? !stdenv.isDarwin
-, withMatrix ? true
-, withSlack ? true
-, withEmoji ? true
-, withPid ? true
-, withDbus ? stdenv.isLinux
+{
+  lib,
+  stdenv,
+  python39,
+  fetchPypi,
+  fetchFromGitHub,
+  fetchpatch,
+  withXmpp ? !stdenv.isDarwin,
+  withMatrix ? true,
+  withSlack ? true,
+  withEmoji ? true,
+  withPid ? true,
+  withDbus ? stdenv.isLinux,
 }:
 
 let
@@ -26,13 +27,14 @@ let
           hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
         };
         disabledTestPaths = [
-           "test/aaa_profiling"
-           "test/ext/mypy"
+          "test/aaa_profiling"
+          "test/ext/mypy"
         ];
       };
     };
   };
-in python.pkgs.buildPythonApplication rec {
+in
+python.pkgs.buildPythonApplication rec {
   pname = "ntfy";
   version = "2.7.0";
 
@@ -45,26 +47,27 @@ in python.pkgs.buildPythonApplication rec {
     sha256 = "09f02cn4i1l2aksb3azwfb70axqhn7d0d0vl2r6640hqr74nc1cv";
   };
 
-  nativeCheckInputs = with python.pkgs; [
-    mock
-  ];
+  nativeCheckInputs = with python.pkgs; [ mock ];
 
-  propagatedBuildInputs = with python.pkgs; ([
-    requests ruamel-yaml appdirs
-    ntfy-webpush
-  ] ++ (lib.optionals withXmpp [
-    sleekxmpp dnspython
-  ]) ++ (lib.optionals withMatrix [
-    matrix-client
-  ]) ++ (lib.optionals withSlack [
-    slack-sdk
-  ]) ++ (lib.optionals withEmoji [
-    emoji
-  ]) ++ (lib.optionals withPid [
-    psutil
-  ]) ++ (lib.optionals withDbus [
-    dbus-python
-  ]));
+  propagatedBuildInputs =
+    with python.pkgs;
+    (
+      [
+        requests
+        ruamel-yaml
+        appdirs
+        ntfy-webpush
+      ]
+      ++ (lib.optionals withXmpp [
+        sleekxmpp
+        dnspython
+      ])
+      ++ (lib.optionals withMatrix [ matrix-client ])
+      ++ (lib.optionals withSlack [ slack-sdk ])
+      ++ (lib.optionals withEmoji [ emoji ])
+      ++ (lib.optionals withPid [ psutil ])
+      ++ (lib.optionals withDbus [ dbus-python ])
+    );
 
   patches = [
     # Fix Slack integration no longer working.
@@ -97,6 +100,9 @@ in python.pkgs.buildPythonApplication rec {
     description = "A utility for sending notifications, on demand and when commands finish";
     homepage = "http://ntfy.rtfd.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jfrankenau kamilchm ];
+    maintainers = with maintainers; [
+      jfrankenau
+      kamilchm
+    ];
   };
 }

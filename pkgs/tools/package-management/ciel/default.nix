@@ -1,17 +1,18 @@
-{ lib
-, bash
-, dbus
-, fetchFromGitHub
-, fetchpatch
-, installShellFiles
-, libgit2
-, libssh2
-, openssl
-, pkg-config
-, rustPlatform
-, systemd
-, xz
-, zlib
+{
+  lib,
+  bash,
+  dbus,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  libgit2,
+  libssh2,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  systemd,
+  xz,
+  zlib,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -32,21 +33,34 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
 
   # ciel has plugins which is actually bash scripts.
   # Therefore, bash is required for plugins to work.
-  buildInputs = [ bash systemd dbus openssl libssh2 libgit2 xz zlib ];
-
-  patches = [
-    # cli,completions: use canonicalize path to find libexec location
-    # FIXME: remove this patch after https://github.com/AOSC-Dev/ciel-rs/pull/16 is merged
-    (fetchpatch {
-      name = "use-canonicalize-path-to-find-libexec.patch";
-      url = "https://github.com/AOSC-Dev/ciel-rs/pull/16.patch";
-      sha256 = "sha256-ELK2KpOuoBS774apomUIo8q1eXYs/FX895G7eBdgOQg=";
-    })
+  buildInputs = [
+    bash
+    systemd
+    dbus
+    openssl
+    libssh2
+    libgit2
+    xz
+    zlib
   ];
+
+  patches =
+    [
+      # cli,completions: use canonicalize path to find libexec location
+      # FIXME: remove this patch after https://github.com/AOSC-Dev/ciel-rs/pull/16 is merged
+      (fetchpatch {
+        name = "use-canonicalize-path-to-find-libexec.patch";
+        url = "https://github.com/AOSC-Dev/ciel-rs/pull/16.patch";
+        sha256 = "sha256-ELK2KpOuoBS774apomUIo8q1eXYs/FX895G7eBdgOQg=";
+      })
+    ];
 
   postInstall = ''
     mv -v "$out/bin/ciel-rs" "$out/bin/ciel"

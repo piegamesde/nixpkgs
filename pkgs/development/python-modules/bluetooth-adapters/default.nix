@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, aiohttp
-, async-timeout
-, bleak
-, dbus-fast
-, mac-vendor-lookup
-, myst-parser
-, pytestCheckHook
-, sphinxHook
-, sphinx-rtd-theme
-, usb-devices
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  async-timeout,
+  bleak,
+  dbus-fast,
+  mac-vendor-lookup,
+  myst-parser,
+  pytestCheckHook,
+  sphinxHook,
+  sphinx-rtd-theme,
+  usb-devices,
 }:
 
 buildPythonPackage rec {
@@ -55,13 +56,9 @@ buildPythonPackage rec {
     usb-devices
   ];
 
-  pythonImportsCheck = [
-    "bluetooth_adapters"
-  ];
+  pythonImportsCheck = [ "bluetooth_adapters" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Tools to enumerate and find Bluetooth Adapters";

@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -14,23 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-ryASD+/Sr+3osAH77y6p2nCtfUn6/bZIkCXa6HRcOu4=";
   };
 
-  patches = [
-    # https://github.com/vaab/colour/pull/66 (but does not merge cleanly)
-    ./remove-unmaintained-d2to1.diff
-  ];
+  patches =
+    [
+      # https://github.com/vaab/colour/pull/66 (but does not merge cleanly)
+      ./remove-unmaintained-d2to1.diff
+    ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pytestFlagsArray = [
-    "--doctest-glob=\"*.rst\""
+    ''--doctest-glob="*.rst"''
     "--doctest-modules"
   ];
 
-  pythonImportsCheck = [
-    "colour"
-  ];
+  pythonImportsCheck = [ "colour" ];
 
   meta = with lib; {
     description = "Converts and manipulates common color representation (RGB, HSV, web, ...)";

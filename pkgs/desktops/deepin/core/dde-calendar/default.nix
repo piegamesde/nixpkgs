@@ -1,19 +1,20 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, qttools
-, pkg-config
-, wrapQtAppsHook
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, qtbase
-, qtsvg
-, libical
-, sqlite
-, runtimeShell
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  qttools,
+  pkg-config,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  qtbase,
+  qtsvg,
+  libical,
+  sqlite,
+  runtimeShell,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,9 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-oPrtPOCLZof4BysWfsCYeoqbJf30r7LijGEEXZlsAAY=";
   };
 
-  patches = [
-    ./fix-wrapped-name-not-in-whitelist.diff
-  ];
+  patches = [ ./fix-wrapped-name-not-in-whitelist.diff ];
 
   postPatch = ''
     for file in $(grep -rl "/bin/bash"); do
@@ -67,4 +66,3 @@ stdenv.mkDerivation rec {
     maintainers = teams.deepin.members;
   };
 }
-

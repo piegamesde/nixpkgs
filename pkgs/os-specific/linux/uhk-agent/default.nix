@@ -1,12 +1,13 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, appimageTools
-, electron
-, makeWrapper
-, asar
-, autoPatchelfHook
-, libusb1
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  appimageTools,
+  electron,
+  makeWrapper,
+  asar,
+  autoPatchelfHook,
+  libusb1,
 }:
 
 let
@@ -35,9 +36,7 @@ stdenvNoCC.mkDerivation {
     autoPatchelfHook
   ];
 
-  buildInputs = [
-    libusb1
-  ];
+  buildInputs = [ libusb1 ];
 
   installPhase = ''
     runHook preInstall
@@ -67,7 +66,10 @@ stdenvNoCC.mkDerivation {
     description = "Agent is the configuration application of the Ultimate Hacking Keyboard";
     homepage = "https://github.com/UltimateHackingKeyboard/agent";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ ngiger nickcao ];
+    maintainers = with maintainers; [
+      ngiger
+      nickcao
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

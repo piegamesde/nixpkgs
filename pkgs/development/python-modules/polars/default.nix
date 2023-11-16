@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, rustPlatform
-, cmake
-, libiconv
-, fetchFromGitHub
-, typing-extensions
-, jemalloc
-, rust-jemalloc-sys
-, darwin
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  rustPlatform,
+  cmake,
+  libiconv,
+  fetchFromGitHub,
+  typing-extensions,
+  jemalloc,
+  rust-jemalloc-sys,
+  darwin,
 }:
 let
   pname = "polars";
@@ -21,9 +22,7 @@ let
     hash = "sha256-6tn3Q6oZfMjgQ5l5xCFnGimLSDLOjTWCW5uEbi6yFZY=";
   };
   rust-jemalloc-sys' = rust-jemalloc-sys.override {
-    jemalloc = jemalloc.override {
-      disableInitExecTls = true;
-    };
+    jemalloc = jemalloc.override { disableInitExecTls = true; };
   };
 in
 buildPythonPackage {
@@ -32,12 +31,13 @@ buildPythonPackage {
   disabled = pythonOlder "3.6";
   src = rootSource;
 
-  patches = [
-    # workaround for apparent rustc bug
-    # remove when we're at Rust 1.73
-    # https://github.com/pola-rs/polars/issues/12050
-    ./all_horizontal.patch
-  ];
+  patches =
+    [
+      # workaround for apparent rustc bug
+      # remove when we're at Rust 1.73
+      # https://github.com/pola-rs/polars/issues/12050
+      ./all_horizontal.patch
+    ];
 
   # Cargo.lock file is sometimes behind actual release which throws an error,
   # thus the `sed` command
@@ -62,21 +62,25 @@ buildPythonPackage {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [
-    # needed for libz-ng-sys
-    # TODO: use pkgs.zlib-ng
-    cmake
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ]);
+  nativeBuildInputs =
+    [
+      # needed for libz-ng-sys
+      # TODO: use pkgs.zlib-ng
+      cmake
+    ]
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        maturinBuildHook
+      ]
+    );
 
-  buildInputs = [
-    rust-jemalloc-sys'
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs =
+    [ rust-jemalloc-sys' ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      darwin.apple_sdk.frameworks.Security
+    ];
 
   pythonImportsCheck = [ "polars" ];
   # nativeCheckInputs = [

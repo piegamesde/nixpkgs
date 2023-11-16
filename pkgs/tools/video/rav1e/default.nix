@@ -1,22 +1,23 @@
-{ lib
-, rust
-, stdenv
-, rustPlatform
-, fetchCrate
-, pkg-config
-, cargo-c
-, libgit2
-, nasm
-, zlib
-, libiconv
-, Security
-, buildPackages
+{
+  lib,
+  rust,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  cargo-c,
+  libgit2,
+  nasm,
+  zlib,
+  libiconv,
+  Security,
+  buildPackages,
 }:
 
 let
   rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
-
-in rustPlatform.buildRustPackage rec {
+in
+rustPlatform.buildRustPackage rec {
   pname = "rav1e";
   version = "0.6.6";
 
@@ -29,14 +30,18 @@ in rustPlatform.buildRustPackage rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ cargo-c libgit2 nasm ];
-
-  buildInputs = [
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
+  nativeBuildInputs = [
+    cargo-c
+    libgit2
+    nasm
   ];
+
+  buildInputs =
+    [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ];
 
   # Darwin uses `llvm-strip`, which results in link errors when using `-x` to strip the asm library
   # and linking it with cctools ld64.
@@ -46,12 +51,16 @@ in rustPlatform.buildRustPackage rec {
 
   checkType = "debug";
 
-  postBuild =  ''
-    ${rust.envVars.setEnv} cargo cbuild --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
+  postBuild = ''
+    ${rust.envVars.setEnv} cargo cbuild --release --frozen --prefix=${
+      placeholder "out"
+    } --target ${rustTargetPlatformSpec}
   '';
 
   postInstall = ''
-    ${rust.envVars.setEnv} cargo cinstall --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
+    ${rust.envVars.setEnv} cargo cinstall --release --frozen --prefix=${
+      placeholder "out"
+    } --target ${rustTargetPlatformSpec}
   '';
 
   meta = with lib; {

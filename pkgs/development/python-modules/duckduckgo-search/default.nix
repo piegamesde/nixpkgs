@@ -1,14 +1,15 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, setuptools
-, aiofiles
-, click
-, h2
-, httpx
-, lxml
-, requests
-, socksio
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  setuptools,
+  aiofiles,
+  click,
+  h2,
+  httpx,
+  lxml,
+  requests,
+  socksio,
 }:
 
 buildPythonPackage rec {
@@ -26,15 +27,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiofiles
-    click
-    h2
-    httpx
-    lxml
-    requests
-    socksio
-  ] ++ httpx.optional-dependencies.brotli
+  propagatedBuildInputs =
+    [
+      aiofiles
+      click
+      h2
+      httpx
+      lxml
+      requests
+      socksio
+    ]
+    ++ httpx.optional-dependencies.brotli
     ++ httpx.optional-dependencies.http2
     ++ httpx.optional-dependencies.socks;
 

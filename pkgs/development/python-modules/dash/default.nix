@@ -1,38 +1,39 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
 
-, nodejs
-, yarn
-, fixup_yarn_lock
-, fetchYarnDeps
+  nodejs,
+  yarn,
+  fixup_yarn_lock,
+  fetchYarnDeps,
 
-, setuptools
-, flask
-, werkzeug
-, plotly
-, dash-html-components
-, dash-core-components
-, dash-table
-, importlib-metadata
-, typing-extensions
-, requests
-, retrying
-, ansi2html
-, nest-asyncio
+  setuptools,
+  flask,
+  werkzeug,
+  plotly,
+  dash-html-components,
+  dash-core-components,
+  dash-table,
+  importlib-metadata,
+  typing-extensions,
+  requests,
+  retrying,
+  ansi2html,
+  nest-asyncio,
 
-, celery
-, redis
-, diskcache
-, multiprocess
-, psutil
-, flask-compress
+  celery,
+  redis,
+  diskcache,
+  multiprocess,
+  psutil,
+  flask-compress,
 
-, pytestCheckHook
-, pytest-mock
-, mock
-, pyyaml
+  pytestCheckHook,
+  pytest-mock,
+  mock,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -104,9 +105,7 @@ buildPythonPackage rec {
       multiprocess
       psutil
     ];
-    compress = [
-      flask-compress
-    ];
+    compress = [ flask-compress ];
   };
 
   nativeCheckInputs = [
@@ -129,6 +128,9 @@ buildPythonPackage rec {
     homepage = "https://dash.plot.ly/";
     changelog = "https://github.com/plotly/dash/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ antoinerg tomasajt ];
+    maintainers = with lib.maintainers; [
+      antoinerg
+      tomasajt
+    ];
   };
 }

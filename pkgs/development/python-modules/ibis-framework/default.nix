@@ -1,63 +1,69 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, atpublic
-, bidict
-, black
-, clickhouse-connect
-, dask
-, datafusion
-, db-dtypes
-, duckdb
-, duckdb-engine
-, filelock
-, geoalchemy2
-, geopandas
-, google-cloud-bigquery
-, google-cloud-bigquery-storage
-, graphviz-nox
-, hypothesis
-, multipledispatch
-, numpy
-, oracledb
-, packaging
-, pandas
-, parsy
-, poetry-core
-, poetry-dynamic-versioning
-, polars
-, pooch
-, psycopg2
-, pyarrow
-, pydata-google-auth
-, pydruid
-, pymysql
-, pyspark
-, pytest-benchmark
-, pytest-httpserver
-, pytest-mock
-, pytest-randomly
-, pytest-snapshot
-, pytest-xdist
-, python-dateutil
-, pytz
-, regex
-, rich
-, shapely
-, snowflake-connector-python
-, snowflake-sqlalchemy
-, sqlalchemy
-, sqlalchemy-views
-, sqlglot
-, sqlite
-, toolz
-, trino-python-client
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  atpublic,
+  bidict,
+  black,
+  clickhouse-connect,
+  dask,
+  datafusion,
+  db-dtypes,
+  duckdb,
+  duckdb-engine,
+  filelock,
+  geoalchemy2,
+  geopandas,
+  google-cloud-bigquery,
+  google-cloud-bigquery-storage,
+  graphviz-nox,
+  hypothesis,
+  multipledispatch,
+  numpy,
+  oracledb,
+  packaging,
+  pandas,
+  parsy,
+  poetry-core,
+  poetry-dynamic-versioning,
+  polars,
+  pooch,
+  psycopg2,
+  pyarrow,
+  pydata-google-auth,
+  pydruid,
+  pymysql,
+  pyspark,
+  pytest-benchmark,
+  pytest-httpserver,
+  pytest-mock,
+  pytest-randomly,
+  pytest-snapshot,
+  pytest-xdist,
+  python-dateutil,
+  pytz,
+  regex,
+  rich,
+  shapely,
+  snowflake-connector-python,
+  snowflake-sqlalchemy,
+  sqlalchemy,
+  sqlalchemy-views,
+  sqlglot,
+  sqlite,
+  toolz,
+  trino-python-client,
+  typing-extensions,
 }:
 let
-  testBackends = [ "datafusion" "duckdb" "pandas" "sqlite" ];
+  testBackends = [
+    "datafusion"
+    "duckdb"
+    "pandas"
+    "sqlite"
+  ];
 
   ibisTestingData = fetchFromGitHub {
     name = "ibis-testing-data";
@@ -106,9 +112,7 @@ buildPythonPackage rec {
     sqlglot
     toolz
     typing-extensions
-  ]
-  ++ pooch.optional-dependencies.progress
-  ++ pooch.optional-dependencies.xxhash;
+  ] ++ pooch.optional-dependencies.progress ++ pooch.optional-dependencies.xxhash;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -176,29 +180,80 @@ buildPythonPackage rec {
     rm -r "$IBIS_TEST_DATA_DIRECTORY"
   '';
 
-  pythonImportsCheck = [
-    "ibis"
-  ] ++ map (backend: "ibis.backends.${backend}") testBackends;
+  pythonImportsCheck = [ "ibis" ] ++ map (backend: "ibis.backends.${backend}") testBackends;
 
   passthru = {
     optional-dependencies = {
-      bigquery = [ db-dtypes google-cloud-bigquery google-cloud-bigquery-storage pydata-google-auth ];
-      clickhouse = [ clickhouse-connect sqlalchemy ];
-      dask = [ dask regex ];
+      bigquery = [
+        db-dtypes
+        google-cloud-bigquery
+        google-cloud-bigquery-storage
+        pydata-google-auth
+      ];
+      clickhouse = [
+        clickhouse-connect
+        sqlalchemy
+      ];
+      dask = [
+        dask
+        regex
+      ];
       datafusion = [ datafusion ];
-      druid = [ pydruid sqlalchemy ];
-      duckdb = [ duckdb duckdb-engine packaging sqlalchemy sqlalchemy-views ];
+      druid = [
+        pydruid
+        sqlalchemy
+      ];
+      duckdb = [
+        duckdb
+        duckdb-engine
+        packaging
+        sqlalchemy
+        sqlalchemy-views
+      ];
       flink = [ ];
-      geospatial = [ geoalchemy2 geopandas shapely ];
-      mysql = [ sqlalchemy pymysql sqlalchemy-views ];
-      oracle = [ sqlalchemy oracledb packaging sqlalchemy-views ];
+      geospatial = [
+        geoalchemy2
+        geopandas
+        shapely
+      ];
+      mysql = [
+        sqlalchemy
+        pymysql
+        sqlalchemy-views
+      ];
+      oracle = [
+        sqlalchemy
+        oracledb
+        packaging
+        sqlalchemy-views
+      ];
       pandas = [ regex ];
       polars = [ polars ];
-      postgres = [ psycopg2 sqlalchemy sqlalchemy-views ];
-      pyspark = [ pyspark sqlalchemy ];
-      snowflake = [ snowflake-connector-python snowflake-sqlalchemy sqlalchemy-views ];
-      sqlite = [ regex sqlalchemy sqlite sqlalchemy-views ];
-      trino = [ trino-python-client sqlalchemy sqlalchemy-views ];
+      postgres = [
+        psycopg2
+        sqlalchemy
+        sqlalchemy-views
+      ];
+      pyspark = [
+        pyspark
+        sqlalchemy
+      ];
+      snowflake = [
+        snowflake-connector-python
+        snowflake-sqlalchemy
+        sqlalchemy-views
+      ];
+      sqlite = [
+        regex
+        sqlalchemy
+        sqlite
+        sqlalchemy-views
+      ];
+      trino = [
+        trino-python-client
+        sqlalchemy
+        sqlalchemy-views
+      ];
       visualization = [ graphviz-nox ];
       decompiler = [ black ];
     };

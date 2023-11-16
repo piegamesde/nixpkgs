@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchurl
-, bison
-, flex
-, perl
-, libpng
-, giflib
-, alsa-lib
-, readline
-, libGLU
-, libGL
-, pkg-config
-, gtk3
-, glew
-, SDL
-, SDL_image
-, dos2unix
-, runtimeShell
-, xa
-, file
-, wrapGAppsHook
-, xdg-utils
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+  perl,
+  libpng,
+  giflib,
+  alsa-lib,
+  readline,
+  libGLU,
+  libGL,
+  pkg-config,
+  gtk3,
+  glew,
+  SDL,
+  SDL_image,
+  dos2unix,
+  runtimeShell,
+  xa,
+  file,
+  wrapGAppsHook,
+  xdg-utils,
 }:
 
 stdenv.mkDerivation rec {
@@ -57,7 +58,13 @@ stdenv.mkDerivation rec {
     xdg-utils
   ];
   dontDisableStatic = true;
-  configureFlags = [ "--enable-sdl2ui" "--enable-gtk3ui" "--enable-desktop-files" "--disable-pdf-docs" "--with-gif" ];
+  configureFlags = [
+    "--enable-sdl2ui"
+    "--enable-gtk3ui"
+    "--enable-desktop-files"
+    "--disable-pdf-docs"
+    "--with-gif"
+  ];
 
   LIBS = "-lGL";
 

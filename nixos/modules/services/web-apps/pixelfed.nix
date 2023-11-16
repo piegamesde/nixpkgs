@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,15 +13,33 @@ let
   group = cfg.group;
   pixelfed = cfg.package.override { inherit (cfg) dataDir runtimeDir; };
   # https://github.com/pixelfed/pixelfed/blob/dev/app/Console/Commands/Installer.php#L185-L190
-  extraPrograms = with pkgs; [ jpegoptim optipng pngquant gifsicle ffmpeg ];
+  extraPrograms = with pkgs; [
+    jpegoptim
+    optipng
+    pngquant
+    gifsicle
+    ffmpeg
+  ];
   # Ensure PHP extensions: https://github.com/pixelfed/pixelfed/blob/dev/app/Console/Commands/Installer.php#L135-L147
   phpPackage = cfg.phpPackage.buildEnv {
-    extensions = { enabled, all }:
+    extensions =
+      { enabled, all }:
       enabled
-      ++ (with all; [ bcmath ctype curl mbstring gd intl zip redis imagick ]);
+      ++ (
+        with all; [
+          bcmath
+          ctype
+          curl
+          mbstring
+          gd
+          intl
+          zip
+          redis
+          imagick
+        ]
+      );
   };
-  configFile =
-    pkgs.writeText "pixelfed-env" (lib.generators.toKeyValue { } cfg.settings);
+  configFile = pkgs.writeText "pixelfed-env" (lib.generators.toKeyValue { } cfg.settings);
   # Management script
   pixelfed-manage = pkgs.writeShellScriptBin "pixelfed-manage" ''
     cd ${pixelfed}
@@ -26,16 +49,21 @@ let
     fi
     $sudo ${phpPackage}/bin/php artisan "$@"
   '';
-  dbSocket = {
-    "pgsql" = "/run/postgresql";
-    "mysql" = "/run/mysqld/mysqld.sock";
-  }.${cfg.database.type};
-  dbService = {
-    "pgsql" = "postgresql.service";
-    "mysql" = "mysql.service";
-  }.${cfg.database.type};
+  dbSocket =
+    {
+      "pgsql" = "/run/postgresql";
+      "mysql" = "/run/mysqld/mysqld.sock";
+    }
+    .${cfg.database.type};
+  dbService =
+    {
+      "pgsql" = "postgresql.service";
+      "mysql" = "mysql.service";
+    }
+    .${cfg.database.type};
   redisService = "redis-pixelfed.service";
-in {
+in
+{
   options.services = {
     pixelfed = {
       enable = mkEnableOption (lib.mdDoc "a Pixelfed instance");
@@ -86,7 +114,15 @@ in {
       };
 
       settings = mkOption {
-        type = with types; (attrsOf (oneOf [ bool int str ]));
+        type =
+          with types;
+          (attrsOf (
+            oneOf [
+              bool
+              int
+              str
+            ]
+          ));
         description = lib.mdDoc ''
           .env settings for Pixelfed.
           Secrets should use `secretFile` option instead.
@@ -94,10 +130,9 @@ in {
       };
 
       nginx = mkOption {
-        type = types.nullOr (types.submodule
-          (import ../web-servers/nginx/vhost-options.nix {
-            inherit config lib;
-          }));
+        type = types.nullOr (
+          types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+        );
         default = null;
         example = lib.literalExpression ''
           {
@@ -117,24 +152,27 @@ in {
         '';
       };
 
-      redis.createLocally = mkEnableOption
-        (lib.mdDoc "a local Redis database using UNIX socket authentication")
+      redis.createLocally =
+        mkEnableOption (lib.mdDoc "a local Redis database using UNIX socket authentication")
         // {
           default = true;
         };
 
       database = {
-        createLocally = mkEnableOption
-          (lib.mdDoc "a local database using UNIX socket authentication") // {
-            default = true;
-          };
-        automaticMigrations = mkEnableOption
-          (lib.mdDoc "automatic migrations for database schema and data") // {
+        createLocally = mkEnableOption (lib.mdDoc "a local database using UNIX socket authentication") // {
+          default = true;
+        };
+        automaticMigrations =
+          mkEnableOption (lib.mdDoc "automatic migrations for database schema and data")
+          // {
             default = true;
           };
 
         type = mkOption {
-          type = types.enum [ "mysql" "pgsql" ];
+          type = types.enum [
+            "mysql"
+            "pgsql"
+          ];
           example = "pgsql";
           default = "mysql";
           description = lib.mdDoc ''
@@ -159,7 +197,15 @@ in {
       };
 
       poolConfig = mkOption {
-        type = with types; attrsOf (oneOf [ int str bool ]);
+        type =
+          with types;
+          attrsOf (
+            oneOf [
+              int
+              str
+              bool
+            ]
+          );
         default = { };
 
         description = lib.mdDoc ''
@@ -254,26 +300,30 @@ in {
 
     environment.systemPackages = [ pixelfed-manage ];
 
-    services.mysql =
-      mkIf (cfg.database.createLocally && cfg.database.type == "mysql") {
-        enable = mkDefault true;
-        package = mkDefault pkgs.mariadb;
-        ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+    services.mysql = mkIf (cfg.database.createLocally && cfg.database.type == "mysql") {
+      enable = mkDefault true;
+      package = mkDefault pkgs.mariadb;
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
+        {
           name = user;
-          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        }];
-      };
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
 
-    services.postgresql =
-      mkIf (cfg.database.createLocally && cfg.database.type == "pgsql") {
-        enable = mkDefault true;
-        ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+    services.postgresql = mkIf (cfg.database.createLocally && cfg.database.type == "pgsql") {
+      enable = mkDefault true;
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
+        {
           name = user;
           ensurePermissions = { };
-        }];
-      };
+        }
+      ];
+    };
 
     # Make each individual option overridable with lib.mkDefault.
     services.pixelfed.poolConfig = lib.mapAttrs' (n: v: lib.nameValuePair n (lib.mkDefault v)) {
@@ -308,7 +358,10 @@ in {
 
     systemd.services.phpfpm-pixelfed.after = [ "pixelfed-data-setup.service" ];
     systemd.services.phpfpm-pixelfed.requires =
-      [ "pixelfed-horizon.service" "pixelfed-data-setup.service" ]
+      [
+        "pixelfed-horizon.service"
+        "pixelfed-data-setup.service"
+      ]
       ++ lib.optional cfg.database.createLocally dbService
       ++ lib.optional cfg.redis.createLocally redisService;
     # Ensure image optimizations programs are available.
@@ -316,8 +369,12 @@ in {
 
     systemd.services.pixelfed-horizon = {
       description = "Pixelfed task queueing via Laravel Horizon framework";
-      after = [ "network.target" "pixelfed-data-setup.service" ];
-      requires = [ "pixelfed-data-setup.service" ]
+      after = [
+        "network.target"
+        "pixelfed-data-setup.service"
+      ];
+      requires =
+        [ "pixelfed-data-setup.service" ]
         ++ (lib.optional cfg.database.createLocally dbService)
         ++ (lib.optional cfg.redis.createLocally redisService);
       wantedBy = [ "multi-user.target" ];
@@ -327,8 +384,7 @@ in {
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pixelfed-manage}/bin/pixelfed-manage horizon";
-        StateDirectory =
-          lib.mkIf (cfg.dataDir == "/var/lib/pixelfed") "pixelfed";
+        StateDirectory = lib.mkIf (cfg.dataDir == "/var/lib/pixelfed") "pixelfed";
         User = user;
         Group = group;
         Restart = "on-failure";
@@ -356,25 +412,29 @@ in {
         ExecStart = "${pixelfed-manage}/bin/pixelfed-manage schedule:run";
         User = user;
         Group = group;
-        StateDirectory =
-          lib.mkIf (cfg.dataDir == "/var/lib/pixelfed") "pixelfed";
+        StateDirectory = lib.mkIf (cfg.dataDir == "/var/lib/pixelfed") "pixelfed";
       };
     };
 
     systemd.services.pixelfed-data-setup = {
-      description =
-        "Pixelfed setup: migrations, environment file update, cache reload, data changes";
+      description = "Pixelfed setup: migrations, environment file update, cache reload, data changes";
       wantedBy = [ "multi-user.target" ];
       after = lib.optional cfg.database.createLocally dbService;
       requires = lib.optional cfg.database.createLocally dbService;
-      path = with pkgs; [ bash pixelfed-manage rsync ] ++ extraPrograms;
+      path =
+        with pkgs;
+        [
+          bash
+          pixelfed-manage
+          rsync
+        ]
+        ++ extraPrograms;
 
       serviceConfig = {
         Type = "oneshot";
         User = user;
         Group = group;
-        StateDirectory =
-          lib.mkIf (cfg.dataDir == "/var/lib/pixelfed") "pixelfed";
+        StateDirectory = lib.mkIf (cfg.dataDir == "/var/lib/pixelfed") "pixelfed";
         LoadCredential = "env-secrets:${cfg.secretFile}";
         UMask = "077";
       };

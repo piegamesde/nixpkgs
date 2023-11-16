@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build-system
-, setuptools
+  # build-system
+  setuptools,
 
-# l10n
-, polib
-, lingua
-, chameleon
+  # l10n
+  polib,
+  lingua,
+  chameleon,
 
-# dependencies
-, python-dateutil
+  # dependencies
+  python-dateutil,
 
-# tests
-, importlib-metadata
-, pytestCheckHook
+  # tests
+  importlib-metadata,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -52,9 +53,7 @@ buildPythonPackage rec {
     ./scripts/l10n/generate_mo_files.py
   '';
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ python-dateutil ];
 
   doCheck = false;
 
@@ -64,21 +63,22 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "holidays"
-  ];
+  pythonImportsCheck = [ "holidays" ];
 
-  disabledTests = [
-    # Failure starting with 0.24
-    "test_l10n"
-  ];
+  disabledTests =
+    [
+      # Failure starting with 0.24
+      "test_l10n"
+    ];
 
   meta = with lib; {
     description = "Generate and work with holidays in Python";
     homepage = "https://github.com/dr-prodigy/python-holidays";
     changelog = "https://github.com/dr-prodigy/python-holidays/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab jluttine ];
+    maintainers = with maintainers; [
+      fab
+      jluttine
+    ];
   };
 }
-

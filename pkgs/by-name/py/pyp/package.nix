@@ -1,13 +1,15 @@
-{ lib
-, fetchFromGitHub
-, python3
-, bc
-, jq
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  bc,
+  jq,
 }:
 
 let
   version = "1.1.0";
-in python3.pkgs.buildPythonApplication {
+in
+python3.pkgs.buildPythonApplication {
   pname = "pyp";
   inherit version;
   format = "pyproject";
@@ -19,9 +21,7 @@ in python3.pkgs.buildPythonApplication {
     hash = "sha256-A1Ip41kxH17BakHEWEuymfa24eBEl5FIHAWL+iZFM4I=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.flit-core
-  ];
+  nativeBuildInputs = [ python3.pkgs.flit-core ];
 
   nativeCheckInputs = [
     python3.pkgs.pytestCheckHook
@@ -32,8 +32,8 @@ in python3.pkgs.buildPythonApplication {
   # without this, the tests fail because they are unable to find the pyp tool
   # itself...
   preCheck = ''
-     _OLD_PATH_=$PATH
-     PATH=$out/bin:$PATH
+    _OLD_PATH_=$PATH
+    PATH=$out/bin:$PATH
   '';
 
   # And a cleanup

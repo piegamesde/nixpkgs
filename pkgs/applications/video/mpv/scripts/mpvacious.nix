@@ -1,9 +1,10 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, curl
-, wl-clipboard
-, xclip
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  curl,
+  wl-clipboard,
+  xclip,
 }:
 
 stdenvNoCC.mkDerivation rec {

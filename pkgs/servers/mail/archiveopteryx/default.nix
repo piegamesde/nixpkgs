@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, openssl, perl, zlib, jam }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  perl,
+  zlib,
+  jam,
+}:
 stdenv.mkDerivation rec {
   version = "3.2.0";
   pname = "archiveopteryx";
@@ -9,7 +17,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ jam ];
-  buildInputs = [ openssl perl zlib ];
+  buildInputs = [
+    openssl
+    perl
+    zlib
+  ];
 
   preConfigure = ''
     export INSTALLROOT=installroot
@@ -21,15 +33,18 @@ stdenv.mkDerivation rec {
   '';
 
   # fix build on gcc7+ and gcc11+
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-std=c++11" # c++17+ has errors
-    "-Wno-error=builtin-declaration-mismatch"
-    "-Wno-error=deprecated-copy"
-    "-Wno-error=implicit-fallthrough"
-    "-Wno-error=nonnull"
-  ] ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
-    "-Wno-error=mismatched-new-delete"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-std=c++11" # c++17+ has errors
+      "-Wno-error=builtin-declaration-mismatch"
+      "-Wno-error=deprecated-copy"
+      "-Wno-error=implicit-fallthrough"
+      "-Wno-error=nonnull"
+    ]
+    ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
+      "-Wno-error=mismatched-new-delete"
+    ]
+  );
 
   buildPhase = ''jam "-j$NIX_BUILD_CORES" '';
   installPhase = ''

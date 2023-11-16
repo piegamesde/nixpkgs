@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, makeWrapper
-, jre
-, maven
-, writeScript
-, lemminx
+{
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  jre,
+  maven,
+  writeScript,
+  lemminx,
 }:
 
 maven.buildMavenPackage rec {
@@ -46,18 +47,19 @@ maven.buildMavenPackage rec {
   # disable failing tests which either need internet access or are flaky
   mvnParameters = lib.escapeShellArgs [
     "-Dmaven.gitcommitid.skip=true"
-    "-Dtest=!XMLValidationCommandTest,
-    !XMLValidationExternalResourcesBasedOnDTDTest,
-    !XMLSchemaPublishDiagnosticsTest,
-    !PlatformTest,
-    !XMLValidationExternalResourcesBasedOnXSDTest,
-    !XMLExternalTest,
-    !XMLSchemaCompletionExtensionsTest,
-    !XMLSchemaDiagnosticsTest,
-    !MissingChildElementCodeActionTest,
-    !XSDValidationExternalResourcesTest,
-    !DocumentLifecycleParticipantTest,
-    !DTDValidationExternalResourcesTest"
+    ''
+      -Dtest=!XMLValidationCommandTest,
+          !XMLValidationExternalResourcesBasedOnDTDTest,
+          !XMLSchemaPublishDiagnosticsTest,
+          !PlatformTest,
+          !XMLValidationExternalResourcesBasedOnXSDTest,
+          !XMLExternalTest,
+          !XMLSchemaCompletionExtensionsTest,
+          !XMLSchemaDiagnosticsTest,
+          !MissingChildElementCodeActionTest,
+          !XSDValidationExternalResourcesTest,
+          !DocumentLifecycleParticipantTest,
+          !DTDValidationExternalResourcesTest''
   ];
 
   installPhase = ''
@@ -89,7 +91,7 @@ maven.buildMavenPackage rec {
     echo -e "\nFetching all mvn dependencies to calculate the mvnHash. This may take a while ..."
     nix-build -A lemminx.fetchedMavenDeps 2> lemminx-stderr.log || true
 
-    NEW_MVN_HASH=$(cat lemminx-stderr.log | grep "got:" | awk '{print ''$2}')
+    NEW_MVN_HASH=$(cat lemminx-stderr.log | grep "got:" | awk '{print $2}')
     rm lemminx-stderr.log
     # escaping double quotes looks ugly but is needed for variable substitution
     # use # instead of / as separator because the sha256 might contain the / character

@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
   # Upstream doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "minidump"
-  ];
+  pythonImportsCheck = [ "minidump" ];
 
   meta = with lib; {
     description = "Python library to parse and read Microsoft minidump file format";

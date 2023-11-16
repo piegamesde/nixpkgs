@@ -1,4 +1,9 @@
-{ lib, python3, fetchpatch, fetchPypi }:
+{
+  lib,
+  python3,
+  fetchpatch,
+  fetchPypi,
+}:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "macs2";
@@ -11,14 +16,15 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-jVa8N/uCP8Y4fXgTjOloQFxUoKjNl3ZoJwX9CYMlLRY=";
   };
 
-  patches = [
-    # https://github.com/macs3-project/MACS/pull/590
-    (fetchpatch {
-      name = "remove-pip-build-dependency.patch";
-      url = "https://github.com/macs3-project/MACS/commit/cf95a930daccf9f16e5b9a9224c5a2670cf67939.patch";
-      hash = "sha256-WB3Ubqk5fKtZt97QYo/sZDU/yya9MUo1NL4VsKXR+Yo=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/macs3-project/MACS/pull/590
+      (fetchpatch {
+        name = "remove-pip-build-dependency.patch";
+        url = "https://github.com/macs3-project/MACS/commit/cf95a930daccf9f16e5b9a9224c5a2670cf67939.patch";
+        hash = "sha256-WB3Ubqk5fKtZt97QYo/sZDU/yya9MUo1NL4VsKXR+Yo=";
+      })
+    ];
 
   nativeBuildInputs = with python3.pkgs; [
     cython
@@ -27,15 +33,11 @@ python3.pkgs.buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    numpy
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ numpy ];
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = with python3.pkgs; [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ unittestCheckHook ];
 
   unittestFlagsArray = [
     "-s"

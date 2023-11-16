@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "select";
   version = "20210411-git";
@@ -8,7 +8,12 @@ rec {
 
   description = "DSL for array slices.";
 
-  deps = [ args."alexandria" args."anaphora" args."fiveam" args."let-plus" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."fiveam"
+    args."let-plus"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/select/2021-04-11/select-20210411-git.tgz";
@@ -17,7 +22,7 @@ rec {
 
   packageName = "select";
 
-  asdFilesToKeep = ["select.asd"];
+  asdFilesToKeep = [ "select.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM select DESCRIPTION DSL for array slices. SHA256
@@ -27,4 +32,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME anaphora FILENAME anaphora)
      (NAME fiveam FILENAME fiveam) (NAME let-plus FILENAME let-plus))
     DEPENDENCIES (alexandria anaphora fiveam let-plus) VERSION 20210411-git
-    SIBLINGS NIL PARASITES (select/tests)) */
+    SIBLINGS NIL PARASITES (select/tests))
+*/

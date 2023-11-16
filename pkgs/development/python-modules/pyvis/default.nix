@@ -1,13 +1,14 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, buildPythonPackage
-, networkx
-, jinja2
-, ipython
-, jsonpickle
-, pytestCheckHook
-, numpy
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  networkx,
+  jinja2,
+  ipython,
+  jsonpickle,
+  pytestCheckHook,
+  numpy,
 }:
 
 buildPythonPackage rec {
@@ -34,10 +35,11 @@ buildPythonPackage rec {
     numpy
   ];
 
-  disabledTestPaths = [
-    # jupyter integration test with selenium and webdriver_manager
-    "pyvis/tests/test_html.py"
-  ];
+  disabledTestPaths =
+    [
+      # jupyter integration test with selenium and webdriver_manager
+      "pyvis/tests/test_html.py"
+    ];
 
   pythonImportsCheck = [ "pyvis" ];
 

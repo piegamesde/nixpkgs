@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
-, bearer
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  bearer,
 }:
 
 buildGoModule rec {
@@ -18,9 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-ikrpFnn+CTuhttd3gVyoKU3RIBRR/zL8YjvE0tjIH6I=";
 
-  subPackages = [
-    "cmd/bearer"
-  ];
+  subPackages = [ "cmd/bearer" ];
 
   ldflags = [
     "-s"

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, simplejson
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  simplejson,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -18,22 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-Q0bt/Fw7efaUvM1tYJmjIrvrYo2/LNhu6lWkVs5RJPA=";
   };
 
-  propagatedBuildInputs = [
-    simplejson
-  ];
+  propagatedBuildInputs = [ simplejson ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "uritemplate"
-  ];
+  pythonImportsCheck = [ "uritemplate" ];
 
   meta = with lib; {
     description = "Implementation of RFC 6570 URI templates";
     homepage = "https://github.com/python-hyper/uritemplate";
-    license = with licenses; [ asl20 bsd3 ];
+    license = with licenses; [
+      asl20
+      bsd3
+    ];
     maintainers = with maintainers; [ matthiasbeyer ];
   };
 }

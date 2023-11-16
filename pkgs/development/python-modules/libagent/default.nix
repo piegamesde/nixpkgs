@@ -1,21 +1,22 @@
-{ lib
-, fetchFromGitHub
-, bech32
-, buildPythonPackage
-, cryptography
-, ed25519
-, ecdsa
-, gnupg
-, semver
-, mnemonic
-, unidecode
-, mock
-, pytest
-, backports-shutil-which
-, configargparse
-, python-daemon
-, pymsgbox
-, pynacl
+{
+  lib,
+  fetchFromGitHub,
+  bech32,
+  buildPythonPackage,
+  cryptography,
+  ed25519,
+  ecdsa,
+  gnupg,
+  semver,
+  mnemonic,
+  unidecode,
+  mock,
+  pytest,
+  backports-shutil-which,
+  configargparse,
+  python-daemon,
+  pymsgbox,
+  pynacl,
 }:
 
 # XXX: when changing this package, please test the package onlykey-agent.
@@ -53,7 +54,10 @@ buildPythonPackage rec {
     cryptography
   ];
 
-  nativeCheckInputs = [ mock pytest ];
+  nativeCheckInputs = [
+    mock
+    pytest
+  ];
 
   checkPhase = ''
     py.test libagent/tests

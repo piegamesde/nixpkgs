@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -43,14 +44,13 @@ python3.pkgs.buildPythonApplication rec {
     "tests/config/test_pluggy.py"
   ];
 
-  disabledTests = [
-    # Assertion fails
-    "test_multiple_resources_with_wildcard_resources_are_detected"
-  ];
+  disabledTests =
+    [
+      # Assertion fails
+      "test_multiple_resources_with_wildcard_resources_are_detected"
+    ];
 
-  pythonImportsCheck = [
-    "cfripper"
-  ];
+  pythonImportsCheck = [ "cfripper" ];
 
   meta = with lib; {
     description = "Tool for analysing CloudFormation templates";

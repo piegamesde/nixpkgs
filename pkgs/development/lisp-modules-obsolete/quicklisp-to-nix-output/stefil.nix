@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "stefil";
   version = "20181210-git";
@@ -8,7 +8,12 @@ rec {
 
   description = "Stefil - Simple Test Framework In Lisp";
 
-  deps = [ args."alexandria" args."iterate" args."metabang-bind" args."swank" ];
+  deps = [
+    args."alexandria"
+    args."iterate"
+    args."metabang-bind"
+    args."swank"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/stefil/2018-12-10/stefil-20181210-git.tgz";
@@ -17,7 +22,7 @@ rec {
 
   packageName = "stefil";
 
-  asdFilesToKeep = ["stefil.asd"];
+  asdFilesToKeep = [ "stefil.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM stefil DESCRIPTION Stefil - Simple Test Framework In Lisp SHA256
@@ -27,4 +32,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME iterate FILENAME iterate)
      (NAME metabang-bind FILENAME metabang-bind) (NAME swank FILENAME swank))
     DEPENDENCIES (alexandria iterate metabang-bind swank) VERSION 20181210-git
-    SIBLINGS NIL PARASITES (stefil-test)) */
+    SIBLINGS NIL PARASITES (stefil-test))
+*/

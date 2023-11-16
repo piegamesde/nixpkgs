@@ -4,12 +4,13 @@
   fetchFromGitHub,
   lib,
   ninja,
-  python3Packages ? {},
+  python3Packages ? { },
   pythonSupport ? false,
   stdenv,
   symlinkJoin,
   which,
-}: let
+}:
+let
   inherit (lib) lists strings;
   inherit (cudaPackages) backendStdenv cudaFlags;
 
@@ -22,9 +23,7 @@
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-redist";
-    paths = with cudaPackages;
-      [cuda_nvcc]
-      ++ cuda-common-redist;
+    paths = with cudaPackages; [ cuda_nvcc ] ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -32,7 +31,8 @@
     paths = cuda-common-redist;
   };
 in
-  stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (
+  finalAttrs: {
     pname = "tiny-cuda-nn";
     version = "1.6";
     strictDeps = true;
@@ -54,16 +54,16 @@ in
         ninja
         which
       ]
-      ++ lists.optionals pythonSupport (with python3Packages; [
-        pip
-        setuptools
-        wheel
-      ]);
+      ++ lists.optionals pythonSupport (
+        with python3Packages; [
+          pip
+          setuptools
+          wheel
+        ]
+      );
 
     buildInputs =
-      [
-        cuda-redist
-      ]
+      [ cuda-redist ]
       ++ lib.optionals pythonSupport (
         with python3Packages; [
           pybind11
@@ -71,11 +71,7 @@ in
         ]
       );
 
-    propagatedBuildInputs = lib.optionals pythonSupport (
-      with python3Packages; [
-        torch
-      ]
-    );
+    propagatedBuildInputs = lib.optionals pythonSupport (with python3Packages; [ torch ]);
 
     # NOTE: We cannot use pythonImportsCheck for this module because it uses torch to immediately
     #   initailize CUDA and GPU access is not allowed in the nix build environment.
@@ -152,7 +148,8 @@ in
       description = "Lightning fast C++/CUDA neural network framework";
       homepage = "https://github.com/NVlabs/tiny-cuda-nn";
       license = licenses.bsd3;
-      maintainers = with maintainers; [connorbaker];
+      maintainers = with maintainers; [ connorbaker ];
       platforms = platforms.linux;
     };
-  })
+  }
+)

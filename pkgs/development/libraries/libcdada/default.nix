@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,9 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vUasCukDRZYB67eu87ckEZG9i6rsNf0aKY2kZsVezRE=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   configureFlags = [
     "--without-tests"

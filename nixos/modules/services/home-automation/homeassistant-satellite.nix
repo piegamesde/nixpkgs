@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 let
@@ -16,20 +17,20 @@ let
     mkIf
     mkPackageOptionMD
     types
-    ;
+  ;
 
-  inherit (builtins)
-    toString
-    ;
+  inherit (builtins) toString;
 
   # override the package with the relevant vad dependencies
-  package = cfg.package.overridePythonAttrs (oldAttrs: {
-    propagatedBuildInputs = oldAttrs.propagatedBuildInputs
-      ++ lib.optional (cfg.vad == "webrtcvad") cfg.package.optional-dependencies.webrtc
-      ++ lib.optional (cfg.vad == "silero") cfg.package.optional-dependencies.silerovad
-      ++ lib.optional (cfg.pulseaudio.enable) cfg.package.optional-dependencies.pulseaudio;
-  });
-
+  package = cfg.package.overridePythonAttrs (
+    oldAttrs: {
+      propagatedBuildInputs =
+        oldAttrs.propagatedBuildInputs
+        ++ lib.optional (cfg.vad == "webrtcvad") cfg.package.optional-dependencies.webrtc
+        ++ lib.optional (cfg.vad == "silero") cfg.package.optional-dependencies.silerovad
+        ++ lib.optional (cfg.pulseaudio.enable) cfg.package.optional-dependencies.pulseaudio;
+    }
+  );
 in
 
 {
@@ -74,7 +75,10 @@ in
     };
 
     protocol = mkOption {
-      type = enum [ "http" "https" ];
+      type = enum [
+        "http"
+        "https"
+      ];
       default = "http";
       example = "https";
       description = mdDoc ''
@@ -110,7 +114,11 @@ in
     };
 
     vad = mkOption {
-      type = enum [ "disabled" "webrtcvad" "silero" ];
+      type = enum [
+        "disabled"
+        "webrtcvad"
+        "silero"
+      ];
       default = "disabled";
       example = "silero";
       description = mdDoc ''
@@ -155,20 +163,10 @@ in
   config = mkIf cfg.enable {
     systemd.services."homeassistant-satellite" = {
       description = "Home Assistant Satellite";
-      after = [
-        "network-online.target"
-      ];
-      wants = [
-        "network-online.target"
-      ];
-      wantedBy = [
-        "multi-user.target"
-      ];
-      path = with pkgs; [
-        ffmpeg-headless
-      ] ++ lib.optionals (!cfg.pulseaudio.enable) [
-        alsa-utils
-      ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      path = with pkgs; [ ffmpeg-headless ] ++ lib.optionals (!cfg.pulseaudio.enable) [ alsa-utils ];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -180,8 +178,13 @@ in
             --protocol ${cfg.protocol} \
             --token-file ${cfg.tokenFile} \
             --vad ${cfg.vad} \
-            ${lib.optionalString cfg.pulseaudio.enable "--pulseaudio"}${lib.optionalString (cfg.pulseaudio.socket != null) "=${cfg.pulseaudio.socket}"} \
-            ${lib.optionalString (cfg.pulseaudio.enable && cfg.pulseaudio.duckingVolume != null) "--ducking-volume=${toString cfg.pulseaudio.duckingVolume}"} \
+            ${lib.optionalString cfg.pulseaudio.enable "--pulseaudio"}${
+              lib.optionalString (cfg.pulseaudio.socket != null) "=${cfg.pulseaudio.socket}"
+            } \
+            ${
+              lib.optionalString (cfg.pulseaudio.enable && cfg.pulseaudio.duckingVolume != null)
+                "--ducking-volume=${toString cfg.pulseaudio.duckingVolume}"
+            } \
             ${lib.optionalString (cfg.pulseaudio.enable && cfg.pulseaudio.echoCancellation) "--echo-cancel"} \
             ${lib.optionalString (cfg.sounds.awake != null) "--awake-sound=${toString cfg.sounds.awake}"} \
             ${lib.optionalString (cfg.sounds.done != null) "--done-sound=${toString cfg.sounds.done}"} \
@@ -210,9 +213,7 @@ in
         ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
-        SupplementaryGroups = [
-          "audio"
-        ];
+        SupplementaryGroups = [ "audio" ];
         SystemCallArchitectures = "native";
         SystemCallFilter = [
           "@system-service"

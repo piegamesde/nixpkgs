@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, tzlocal
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  tzlocal,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Gm32DqzsO3oKpSqPLvJRrj3Sp8fIuYdOc+eRY21Vo2E=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ python-dateutil ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -30,9 +29,7 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-  pythonImportsCheck = [
-    "croniter"
-  ];
+  pythonImportsCheck = [ "croniter" ];
 
   meta = with lib; {
     description = "Library to iterate over datetime object with cron like format";

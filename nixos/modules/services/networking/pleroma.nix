@@ -1,7 +1,15 @@
-{ config, options, lib, pkgs, stdenv, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  stdenv,
+  ...
+}:
 let
   cfg = config.services.pleroma;
-in {
+in
+{
   options = {
     services.pleroma = with lib; {
       enable = mkEnableOption (lib.mdDoc "pleroma");
@@ -29,7 +37,9 @@ in {
         type = types.str;
         default = "/var/lib/pleroma";
         readOnly = true;
-        description = lib.mdDoc "Directory where the pleroma service will save the uploads and static files.";
+        description =
+          lib.mdDoc
+            "Directory where the pleroma service will save the uploads and static files.";
       };
 
       configs = mkOption {
@@ -53,7 +63,7 @@ in {
 
           Have a look to Pleroma section in the NixOS manual for more
           information.
-          '';
+        '';
       };
 
       secretConfigFile = mkOption {
@@ -78,7 +88,7 @@ in {
         group = cfg.group;
         isSystemUser = true;
       };
-      groups."${cfg.group}" = {};
+      groups."${cfg.group}" = { };
     };
 
     environment.systemPackages = [ cfg.package ];
@@ -97,7 +107,10 @@ in {
 
     systemd.services.pleroma = {
       description = "Pleroma social network";
-      after = [ "network-online.target" "postgresql.service" ];
+      after = [
+        "network-online.target"
+        "postgresql.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."/pleroma/config.exs".source ];
       environment.RELEASE_COOKIE = "/var/lib/pleroma/.cookie";
@@ -117,15 +130,17 @@ in {
         # has not been updated. But the no-op process is pretty fast.
         # Better be safe than sorry migration-wise.
         ExecStartPre =
-          let preScript = pkgs.writers.writeBashBin "pleromaStartPre" ''
-            if [ ! -f /var/lib/pleroma/.cookie ]
-            then
-              echo "Creating cookie file"
-              dd if=/dev/urandom bs=1 count=16 | hexdump -e '16/1 "%02x"' > /var/lib/pleroma/.cookie
-            fi
-            ${cfg.package}/bin/pleroma_ctl migrate
-          '';
-          in "${preScript}/bin/pleromaStartPre";
+          let
+            preScript = pkgs.writers.writeBashBin "pleromaStartPre" ''
+              if [ ! -f /var/lib/pleroma/.cookie ]
+              then
+                echo "Creating cookie file"
+                dd if=/dev/urandom bs=1 count=16 | hexdump -e '16/1 "%02x"' > /var/lib/pleroma/.cookie
+              fi
+              ${cfg.package}/bin/pleroma_ctl migrate
+            '';
+          in
+          "${preScript}/bin/pleromaStartPre";
 
         ExecStart = "${cfg.package}/bin/pleroma start";
         ExecStop = "${cfg.package}/bin/pleroma stop";
@@ -144,7 +159,6 @@ in {
       # disksup requires bash
       path = [ pkgs.bash ];
     };
-
   };
   meta.maintainers = with lib.maintainers; [ picnoir ];
   meta.doc = ./pleroma.md;

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonApplication }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonApplication,
+}:
 
 buildPythonApplication rec {
   pname = "fypp";

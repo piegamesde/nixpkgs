@@ -1,19 +1,20 @@
-{ lib
-, buildDotnetModule
-, fetchFromGitHub
-, fetchurl
-, gtk3
-, libX11
-, libXrandr
-, libappindicator
-, libevdev
-, libnotify
-, udev
-, copyDesktopItems
-, makeDesktopItem
-, nixosTests
-, wrapGAppsHook
-, dpkg
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  fetchurl,
+  gtk3,
+  libX11,
+  libXrandr,
+  libappindicator,
+  libevdev,
+  libnotify,
+  udev,
+  copyDesktopItems,
+  makeDesktopItem,
+  nixosTests,
+  wrapGAppsHook,
+  dpkg,
 }:
 
 buildDotnetModule rec {
@@ -34,10 +35,18 @@ buildDotnetModule rec {
 
   dotnetInstallFlags = [ "--framework=net6.0" ];
 
-  projectFile = [ "OpenTabletDriver.Console" "OpenTabletDriver.Daemon" "OpenTabletDriver.UX.Gtk" ];
+  projectFile = [
+    "OpenTabletDriver.Console"
+    "OpenTabletDriver.Daemon"
+    "OpenTabletDriver.UX.Gtk"
+  ];
   nugetDeps = ./deps.nix;
 
-  executables = [ "OpenTabletDriver.Console" "OpenTabletDriver.Daemon" "OpenTabletDriver.UX.Gtk" ];
+  executables = [
+    "OpenTabletDriver.Console"
+    "OpenTabletDriver.Daemon"
+    "OpenTabletDriver.UX.Gtk"
+  ];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -114,7 +123,10 @@ buildDotnetModule rec {
     homepage = "https://github.com/OpenTabletDriver/OpenTabletDriver";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ thiagokokada ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "otd";
   };
 }

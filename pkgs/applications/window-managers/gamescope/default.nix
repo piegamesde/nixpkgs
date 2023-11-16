@@ -1,35 +1,36 @@
-{ stdenv
-, fetchFromGitHub
-, meson
-, pkg-config
-, ninja
-, xorg
-, libdrm
-, vulkan-loader
-, vulkan-headers
-, wayland
-, wayland-scanner
-, wayland-protocols
-, libxkbcommon
-, glm
-, gbenchmark
-, libcap
-, SDL2
-, pipewire
-, udev
-, pixman
-, libinput
-, seatd
-, xwayland
-, glslang
-, hwdata
-, openvr
-, stb
-, wlroots
-, libliftoff
-, libdisplay-info
-, lib
-, makeBinaryWrapper
+{
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  xorg,
+  libdrm,
+  vulkan-loader,
+  vulkan-headers,
+  wayland,
+  wayland-scanner,
+  wayland-protocols,
+  libxkbcommon,
+  glm,
+  gbenchmark,
+  libcap,
+  SDL2,
+  pipewire,
+  udev,
+  pixman,
+  libinput,
+  seatd,
+  xwayland,
+  glslang,
+  hwdata,
+  openvr,
+  stb,
+  wlroots,
+  libliftoff,
+  libdisplay-info,
+  lib,
+  makeBinaryWrapper,
 }:
 let
   pname = "gamescope";
@@ -52,15 +53,11 @@ stdenv.mkDerivation {
     hash = "sha256-u4pnKd5ZEC3CS3E2i8E8Wposd8Tu4ZUoQXFmr0runwE=";
   };
 
-  patches = [
-    ./use-pkgconfig.patch
-  ];
+  patches = [ ./use-pkgconfig.patch ];
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     meson
@@ -106,7 +103,10 @@ stdenv.mkDerivation {
     libdisplay-info
   ];
 
-  outputs = [ "out" "lib" ];
+  outputs = [
+    "out"
+    "lib"
+  ];
 
   postUnpack = ''
     rm -rf source/subprojects/vkroots
@@ -116,7 +116,13 @@ stdenv.mkDerivation {
   # --debug-layers flag expects these in the path
   postInstall = ''
     wrapProgram "$out/bin/gamescope" \
-      --prefix PATH : ${with xorg; lib.makeBinPath [xprop xwininfo]}
+      --prefix PATH : ${
+        with xorg;
+        lib.makeBinPath [
+          xprop
+          xwininfo
+        ]
+      }
 
     # Install Vulkan layer in lib output
     install -d $lib/share/vulkan
@@ -128,7 +134,12 @@ stdenv.mkDerivation {
     description = "SteamOS session compositing window manager";
     homepage = "https://github.com/ValveSoftware/gamescope";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nrdxp pedrohlc Scrumplex zhaofengli ];
+    maintainers = with maintainers; [
+      nrdxp
+      pedrohlc
+      Scrumplex
+      zhaofengli
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python2Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python2Packages,
+}:
 
 python2Packages.buildPythonApplication rec {
   pname = "volatility";
@@ -13,7 +17,11 @@ python2Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  propagatedBuildInputs = with python2Packages; [ pycrypto distorm3 pillow ];
+  propagatedBuildInputs = with python2Packages; [
+    pycrypto
+    distorm3
+    pillow
+  ];
 
   meta = with lib; {
     homepage = "https://www.volatilityfoundation.org/";

@@ -1,32 +1,34 @@
-{ lib
-, buildNpmPackage
-, cargo
-, copyDesktopItems
-, dbus
-, electron_25
-, fetchFromGitHub
-, fetchpatch2
-, glib
-, gnome
-, gtk3
-, jq
-, libsecret
-, makeDesktopItem
-, makeWrapper
-, moreutils
-, napi-rs-cli
-, nodejs_18
-, pkg-config
-, python3
-, rustc
-, rustPlatform
+{
+  lib,
+  buildNpmPackage,
+  cargo,
+  copyDesktopItems,
+  dbus,
+  electron_25,
+  fetchFromGitHub,
+  fetchpatch2,
+  glib,
+  gnome,
+  gtk3,
+  jq,
+  libsecret,
+  makeDesktopItem,
+  makeWrapper,
+  moreutils,
+  napi-rs-cli,
+  nodejs_18,
+  pkg-config,
+  python3,
+  rustc,
+  rustPlatform,
 }:
 
 let
   description = "A secure and free password manager for all of your devices";
   icon = "bitwarden";
   electron = electron_25;
-in buildNpmPackage rec {
+in
+buildNpmPackage rec {
   pname = "bitwarden";
   version = "2023.10.1";
 
@@ -83,7 +85,9 @@ in buildNpmPackage rec {
   ];
 
   preBuild = ''
-    if [[ $(jq --raw-output '.devDependencies.electron' < package.json | grep -E --only-matching '^[0-9]+') != ${lib.escapeShellArg (lib.versions.major electron.version)} ]]; then
+    if [[ $(jq --raw-output '.devDependencies.electron' < package.json | grep -E --only-matching '^[0-9]+') != ${
+      lib.escapeShellArg (lib.versions.major electron.version)
+    } ]]; then
       echo 'ERROR: electron version mismatch'
       exit 1
     fi
@@ -110,9 +114,7 @@ in buildNpmPackage rec {
     (gnome.gnome-keyring.override { useWrappedDaemon = false; })
   ];
 
-  checkFlags = [
-    "--skip=password::password::tests::test"
-  ];
+  checkFlags = [ "--skip=password::password::tests::test" ];
 
   checkPhase = ''
     runHook preCheck
@@ -172,7 +174,10 @@ in buildNpmPackage rec {
     inherit description;
     homepage = "https://bitwarden.com";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ amarshall kiwi ];
+    maintainers = with lib.maintainers; [
+      amarshall
+      kiwi
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

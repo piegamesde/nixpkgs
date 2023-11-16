@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "bluetuith";
@@ -13,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-d0O54KNGLXU8FGr1eSEp30JMWNVo91Le2MI8UnAfTuU=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "TUI-based bluetooth connection manager";

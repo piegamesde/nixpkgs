@@ -1,9 +1,11 @@
 let
-  pkgs = import ../../../. {};
-in pkgs.mkShell {
+  pkgs = import ../../../. { };
+in
+pkgs.mkShell {
   nativeBuildInputs = [
-    (pkgs.sbcl.withPackages
-      (ps: with ps; [
+    (pkgs.sbcl.withPackages (
+      ps:
+      with ps; [
         alexandria
         str
         dexador
@@ -11,6 +13,7 @@ in pkgs.mkShell {
         sqlite
         arrow-macros
         jzon
-      ]))
+      ]
+    ))
   ];
 }

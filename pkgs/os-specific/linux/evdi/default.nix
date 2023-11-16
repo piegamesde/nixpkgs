@@ -1,9 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, kernel, libdrm, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  libdrm,
+  python3,
+}:
 
 let
-  python3WithLibs = python3.withPackages (ps: with ps; [
-    pybind11
-  ]);
+  python3WithLibs = python3.withPackages (ps: with ps; [ pybind11 ]);
 in
 stdenv.mkDerivation rec {
   pname = "evdi";
@@ -24,14 +29,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  buildInputs = [ kernel libdrm python3WithLibs ];
+  buildInputs = [
+    kernel
+    libdrm
+    python3WithLibs
+  ];
 
   makeFlags = kernel.makeFlags ++ [
     "KVER=${kernel.modDirVersion}"
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
   ];
 
-  hardeningDisable = [ "format" "pic" "fortify" ];
+  hardeningDisable = [
+    "format"
+    "pic"
+    "fortify"
+  ];
 
   installPhase = ''
     install -Dm755 module/evdi.ko $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/gpu/drm/evdi/evdi.ko
@@ -45,7 +58,10 @@ stdenv.mkDerivation rec {
     description = "Extensible Virtual Display Interface";
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;
-    license = with licenses; [ lgpl21Only gpl2Only ];
+    license = with licenses; [
+      lgpl21Only
+      gpl2Only
+    ];
     homepage = "https://www.displaylink.com/";
     broken = kernel.kernelOlder "4.19" || kernel.kernelAtLeast "6.6";
   };

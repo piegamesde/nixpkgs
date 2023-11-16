@@ -1,7 +1,13 @@
-{ stdenv, lib, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+}:
 
-let version = "0.7";
-in stdenv.mkDerivation {
+let
+  version = "0.7";
+in
+stdenv.mkDerivation {
   pname = "iomelt";
   inherit version;
   src = fetchurl {
@@ -19,9 +25,9 @@ in stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A simple yet effective way to benchmark disk IO in Linux systems";
-    homepage    = "http://www.iomelt.com";
+    homepage = "http://www.iomelt.com";
     maintainers = with maintainers; [ ];
     license = licenses.artistic2;
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

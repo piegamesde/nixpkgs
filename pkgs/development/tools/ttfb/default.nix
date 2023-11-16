@@ -1,10 +1,11 @@
-{ darwin
-, fetchCrate
-, lib
-, openssl
-, pkg-config
-, rustPlatform
-, stdenv
+{
+  darwin,
+  fetchCrate,
+  lib,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,11 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = {
     description = "CLI-Tool to measure the TTFB (time to first byte) of HTTP(S) requests";
@@ -42,4 +39,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ phip1611 ];
   };
 }
-

@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, SDL
-, SDL_mixer
-, directoryListingUpdater
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_mixer,
+  directoryListingUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,7 +33,10 @@ stdenv.mkDerivation rec {
     homepage = "https://lgames.sourceforge.io/LTris/";
     description = "Tetris clone from the LGames series";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ciil ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      ciil
+    ];
     inherit (SDL.meta) platforms;
     broken = stdenv.isDarwin;
   };

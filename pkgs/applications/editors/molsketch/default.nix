@@ -1,13 +1,14 @@
-{ lib
-, mkDerivation
-, fetchurl
-, cmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, hicolor-icon-theme
-, openbabel
-, desktop-file-utils
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  cmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  hicolor-icon-theme,
+  openbabel,
+  desktop-file-utils,
 }:
 
 mkDerivation rec {
@@ -37,7 +38,12 @@ mkDerivation rec {
     mv $out/lib/molsketch/* $out/lib
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
   buildInputs = [
     hicolor-icon-theme
     openbabel

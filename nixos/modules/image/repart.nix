@@ -1,7 +1,13 @@
 # This module exposes options to build a disk image with a GUID Partition Table
 # (GPT). It uses systemd-repart to build the image.
 
-{ config, pkgs, lib, utils, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  utils,
+  ...
+}:
 
 let
   cfg = config.image.repart;
@@ -25,14 +31,18 @@ let
       };
 
       contents = lib.mkOption {
-        type = with lib.types; attrsOf (submodule {
-          options = {
-            source = lib.mkOption {
-              type = types.path;
-              description = lib.mdDoc "Path of the source file.";
-            };
-          };
-        });
+        type =
+          with lib.types;
+          attrsOf (
+            submodule {
+              options = {
+                source = lib.mkOption {
+                  type = types.path;
+                  description = lib.mdDoc "Path of the source file.";
+                };
+              };
+            }
+          );
         default = { };
         example = lib.literalExpression ''
           {
@@ -46,7 +56,15 @@ let
       };
 
       repartConfig = lib.mkOption {
-        type = with lib.types; attrsOf (oneOf [ str int bool ]);
+        type =
+          with lib.types;
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+            ]
+          );
         example = {
           Type = "home";
           SizeMinBytes = "512M";
@@ -124,7 +142,6 @@ in
         configuration as the key.
       '';
     };
-
   };
 
   config = {
@@ -132,7 +149,10 @@ in
     system.build.image =
       let
         fileSystemToolMapping = with pkgs; {
-          "vfat" = [ dosfstools mtools ];
+          "vfat" = [
+            dosfstools
+            mtools
+          ];
           "ext4" = [ e2fsprogs.bin ];
           "squashfs" = [ squashfsTools ];
           "erofs" = [ erofs-utils ];
@@ -140,46 +160,49 @@ in
           "xfs" = [ xfsprogs ];
         };
 
-        fileSystems = lib.filter
-          (f: f != null)
-          (lib.mapAttrsToList (_n: v: v.repartConfig.Format or null) cfg.partitions);
+        fileSystems = lib.filter (f: f != null) (
+          lib.mapAttrsToList (_n: v: v.repartConfig.Format or null) cfg.partitions
+        );
 
         fileSystemTools = builtins.concatMap (f: fileSystemToolMapping."${f}") fileSystems;
-
 
         makeClosure = paths: pkgs.closureInfo { rootPaths = paths; };
 
         # Add the closure of the provided Nix store paths to cfg.partitions so
         # that amend-repart-definitions.py can read it.
-        addClosure = _name: partitionConfig: partitionConfig // (
-          lib.optionalAttrs
-            (partitionConfig.storePaths or [ ] != [ ])
-            { closure = "${makeClosure partitionConfig.storePaths}/store-paths"; }
-        );
-
+        addClosure =
+          _name: partitionConfig:
+          partitionConfig
+          // (lib.optionalAttrs (partitionConfig.storePaths or [ ] != [ ]) {
+            closure = "${makeClosure partitionConfig.storePaths}/store-paths";
+          });
 
         finalPartitions = lib.mapAttrs addClosure cfg.partitions;
 
+        amendRepartDefinitions =
+          pkgs.runCommand "amend-repart-definitions.py"
+            {
+              nativeBuildInputs = with pkgs; [
+                black
+                ruff
+                mypy
+              ];
+              buildInputs = [ pkgs.python3 ];
+            }
+            ''
+              install ${./amend-repart-definitions.py} $out
+              patchShebangs --host $out
 
-        amendRepartDefinitions = pkgs.runCommand "amend-repart-definitions.py"
-          {
-            nativeBuildInputs = with pkgs; [ black ruff mypy ];
-            buildInputs = [ pkgs.python3 ];
-          } ''
-          install ${./amend-repart-definitions.py} $out
-          patchShebangs --host $out
-
-          black --check --diff $out
-          ruff --line-length 88 $out
-          mypy --strict $out
-        '';
+              black --check --diff $out
+              ruff --line-length 88 $out
+              mypy --strict $out
+            '';
 
         format = pkgs.formats.ini { };
 
-        definitionsDirectory = utils.systemdUtils.lib.definitions
-          "repart.d"
-          format
-          (lib.mapAttrs (_n: v: { Partition = v.repartConfig; }) finalPartitions);
+        definitionsDirectory = utils.systemdUtils.lib.definitions "repart.d" format (
+          lib.mapAttrs (_n: v: { Partition = v.repartConfig; }) finalPartitions
+        );
 
         partitions = pkgs.writeText "partitions.json" (builtins.toJSON finalPartitions);
       in
@@ -190,25 +213,25 @@ in
             pkgs.fakeroot
             pkgs.util-linux
           ] ++ fileSystemTools;
-        } ''
-        amendedRepartDefinitions=$(${amendRepartDefinitions} ${partitions} ${definitionsDirectory})
+        }
+        ''
+          amendedRepartDefinitions=$(${amendRepartDefinitions} ${partitions} ${definitionsDirectory})
 
-        mkdir -p $out
-        cd $out
+          mkdir -p $out
+          cd $out
 
-        unshare --map-root-user fakeroot systemd-repart \
-          --dry-run=no \
-          --empty=create \
-          --size=auto \
-          --seed="${cfg.seed}" \
-          --definitions="$amendedRepartDefinitions" \
-          --split="${lib.boolToString cfg.split}" \
-          --json=pretty \
-          image.raw \
-          | tee repart-output.json
-      '';
+          unshare --map-root-user fakeroot systemd-repart \
+            --dry-run=no \
+            --empty=create \
+            --size=auto \
+            --seed="${cfg.seed}" \
+            --definitions="$amendedRepartDefinitions" \
+            --split="${lib.boolToString cfg.split}" \
+            --json=pretty \
+            image.raw \
+            | tee repart-output.json
+        '';
 
     meta.maintainers = with lib.maintainers; [ nikstur ];
-
   };
 }

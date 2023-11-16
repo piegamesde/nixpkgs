@@ -1,7 +1,8 @@
-{ buildPythonPackage
-, sanic-testing
-, pytest-asyncio
-, pytestCheckHook
+{
+  buildPythonPackage,
+  sanic-testing,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage {
@@ -20,7 +21,5 @@ buildPythonPackage {
     sanic-testing
   ];
 
-  pythonImportsCheck = [
-    "sanic_testing"
-  ];
+  pythonImportsCheck = [ "sanic_testing" ];
 }

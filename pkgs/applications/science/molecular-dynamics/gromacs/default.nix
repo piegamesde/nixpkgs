@@ -1,9 +1,20 @@
-{ lib, stdenv, fetchurl, cmake, hwloc, fftw, perl, blas, lapack, mpi, cudatoolkit
-, singlePrec ? true
-, config
-, enableMpi ? false
-, enableCuda ? config.cudaSupport
-, cpuAcceleration ? null
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  hwloc,
+  fftw,
+  perl,
+  blas,
+  lapack,
+  mpi,
+  cudatoolkit,
+  singlePrec ? true,
+  config,
+  enableMpi ? false,
+  enableCuda ? config.cudaSupport,
+  cpuAcceleration ? null,
 }:
 
 let
@@ -11,14 +22,22 @@ let
   # The possible values are defined in CMakeLists.txt:
   # AUTO None SSE2 SSE4.1 AVX_128_FMA AVX_256 AVX2_256
   # AVX2_128 AVX_512 AVX_512_KNL MIC ARM_NEON ARM_NEON_ASIMD
-  SIMD = x: if (cpuAcceleration != null) then x else
-    if stdenv.hostPlatform.system == "i686-linux" then "SSE2" else
-    if stdenv.hostPlatform.system == "x86_64-linux" then "SSE4.1" else
-    if stdenv.hostPlatform.system == "x86_64-darwin" then "SSE4.1" else
-    if stdenv.hostPlatform.system == "aarch64-linux" then "ARM_NEON_ASIMD" else
-    "None";
-
-in stdenv.mkDerivation rec {
+  SIMD =
+    x:
+    if (cpuAcceleration != null) then
+      x
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "SSE2"
+    else if stdenv.hostPlatform.system == "x86_64-linux" then
+      "SSE4.1"
+    else if stdenv.hostPlatform.system == "x86_64-darwin" then
+      "SSE4.1"
+    else if stdenv.hostPlatform.system == "aarch64-linux" then
+      "ARM_NEON_ASIMD"
+    else
+      "None";
+in
+stdenv.mkDerivation rec {
   pname = "gromacs";
   version = "2023.3";
 
@@ -29,7 +48,11 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./pkgconfig.patch ];
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -39,34 +62,36 @@ in stdenv.mkDerivation rec {
     hwloc
     blas
     lapack
-  ] ++ lib.optional enableMpi mpi
-    ++ lib.optional enableCuda cudatoolkit
-  ;
+  ] ++ lib.optional enableMpi mpi ++ lib.optional enableCuda cudatoolkit;
 
   propagatedBuildInputs = lib.optional enableMpi mpi;
   propagatedUserEnvPkgs = lib.optional enableMpi mpi;
 
-  cmakeFlags = [
-    "-DGMX_SIMD:STRING=${SIMD cpuAcceleration}"
-    "-DGMX_OPENMP:BOOL=TRUE"
-    "-DBUILD_SHARED_LIBS=ON"
-  ] ++ (
-    if singlePrec then [
-      "-DGMX_DOUBLE=OFF"
-    ] else [
-      "-DGMX_DOUBLE=ON"
-      "-DGMX_DEFAULT_SUFFIX=OFF"
+  cmakeFlags =
+    [
+      "-DGMX_SIMD:STRING=${SIMD cpuAcceleration}"
+      "-DGMX_OPENMP:BOOL=TRUE"
+      "-DBUILD_SHARED_LIBS=ON"
     ]
-  ) ++ (
-    if enableMpi
-      then [
-        "-DGMX_MPI:BOOL=TRUE"
-        "-DGMX_THREAD_MPI:BOOL=FALSE"
-      ]
-     else [
-       "-DGMX_MPI:BOOL=FALSE"
-     ]
-  ) ++ lib.optional enableCuda "-DGMX_GPU=CUDA";
+    ++ (
+      if singlePrec then
+        [ "-DGMX_DOUBLE=OFF" ]
+      else
+        [
+          "-DGMX_DOUBLE=ON"
+          "-DGMX_DEFAULT_SUFFIX=OFF"
+        ]
+    )
+    ++ (
+      if enableMpi then
+        [
+          "-DGMX_MPI:BOOL=TRUE"
+          "-DGMX_THREAD_MPI:BOOL=FALSE"
+        ]
+      else
+        [ "-DGMX_MPI:BOOL=FALSE" ]
+    )
+    ++ lib.optional enableCuda "-DGMX_GPU=CUDA";
 
   postInstall = ''
     moveToOutput share/cmake $dev
@@ -96,6 +121,9 @@ in stdenv.mkDerivation rec {
       See: https://www.gromacs.org/about.html for details.
     '';
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sheepforce markuskowa ];
+    maintainers = with maintainers; [
+      sheepforce
+      markuskowa
+    ];
   };
 }

@@ -1,43 +1,48 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, substituteAll
-, cairo
-, cinnamon-desktop
-, dbus
-, desktop-file-utils
-, glib
-, gnome
-, gobject-introspection
-, graphene
-, gtk3
-, json-glib
-, libcanberra
-, libdrm
-, libgnomekbd
-, libgudev
-, libinput
-, libstartup_notification
-, libwacom
-, libXdamage
-, libxkbcommon
-, libXtst
-, mesa
-, meson
-, ninja
-, pipewire
-, pkg-config
-, python3
-, udev
-, wrapGAppsHook
-, xorgserver
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  substituteAll,
+  cairo,
+  cinnamon-desktop,
+  dbus,
+  desktop-file-utils,
+  glib,
+  gnome,
+  gobject-introspection,
+  graphene,
+  gtk3,
+  json-glib,
+  libcanberra,
+  libdrm,
+  libgnomekbd,
+  libgudev,
+  libinput,
+  libstartup_notification,
+  libwacom,
+  libXdamage,
+  libxkbcommon,
+  libXtst,
+  mesa,
+  meson,
+  ninja,
+  pipewire,
+  pkg-config,
+  python3,
+  udev,
+  wrapGAppsHook,
+  xorgserver,
 }:
 
 stdenv.mkDerivation rec {
   pname = "muffin";
   version = "5.8.1";
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "linuxmint";

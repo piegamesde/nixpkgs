@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
 
-, loguru
-, poetry-core
-, setuptools
+  loguru,
+  poetry-core,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -27,13 +28,9 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  propagatedBuildInputs = [
-    loguru
-  ];
+  propagatedBuildInputs = [ loguru ];
 
-  pythonImportsCheck = [
-    "mobi"
-  ];
+  pythonImportsCheck = [ "mobi" ];
 
   meta = with lib; {
     description = "Library for unpacking unencrypted mobi files";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtirpc, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libtirpc,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnsl";
@@ -11,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-f9kNzzR8baf5mLgrh+bKO/rBRZA5ZYc1tJdyLE7Bi1w=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ libtirpc ];
 
   meta = with lib; {

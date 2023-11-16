@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "popeye";
@@ -12,7 +16,8 @@ buildGoModule rec {
   };
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X github.com/derailed/popeye/cmd.version=${version}"
     "-X github.com/derailed/popeye/cmd.commit=${version}"
   ];

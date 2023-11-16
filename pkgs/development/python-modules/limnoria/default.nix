@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, chardet
-, cryptography
-, feedparser
-, fetchPypi
-, mock
-, pysocks
-, pytestCheckHook
-, python-dateutil
-, python-gnupg
-, pythonOlder
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  cryptography,
+  feedparser,
+  fetchPypi,
+  mock,
+  pysocks,
+  pytestCheckHook,
+  python-dateutil,
+  python-gnupg,
+  pythonOlder,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -33,13 +34,9 @@ buildPythonPackage rec {
     pysocks
     python-dateutil
     python-gnupg
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    pytz
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ pytz ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -53,10 +50,11 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    # Uses the same names as Supybot
-    "supybot"
-  ];
+  pythonImportsCheck =
+    [
+      # Uses the same names as Supybot
+      "supybot"
+    ];
 
   meta = with lib; {
     description = "A modified version of Supybot, an IRC bot";

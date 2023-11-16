@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, bison, flex, libtool, pkg-config, which
-, libnl, protobuf, protobufc, shadow, installShellFiles
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  bison,
+  flex,
+  libtool,
+  pkg-config,
+  which,
+  libnl,
+  protobuf,
+  protobufc,
+  shadow,
+  installShellFiles,
 }:
 
 stdenv.mkDerivation rec {
@@ -7,15 +20,27 @@ stdenv.mkDerivation rec {
   version = "3.4";
 
   src = fetchFromGitHub {
-    owner           = "google";
-    repo            = "nsjail";
-    rev             = version;
+    owner = "google";
+    repo = "nsjail";
+    rev = version;
     fetchSubmodules = true;
-    hash            = "sha256-/K+qJV5Dq+my45Cpw6czdsWLtO9lnJwZTsOIRt4Iijk=";
+    hash = "sha256-/K+qJV5Dq+my45Cpw6czdsWLtO9lnJwZTsOIRt4Iijk=";
   };
 
-  nativeBuildInputs = [ autoconf bison flex installShellFiles libtool pkg-config which ];
-  buildInputs = [ libnl protobuf protobufc ];
+  nativeBuildInputs = [
+    autoconf
+    bison
+    flex
+    installShellFiles
+    libtool
+    pkg-config
+    which
+  ];
+  buildInputs = [
+    libnl
+    protobuf
+    protobufc
+  ];
   enableParallelBuilding = true;
 
   preBuild = ''
@@ -31,10 +56,14 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A light-weight process isolation tool, making use of Linux namespaces and seccomp-bpf syscall filters";
-    homepage    = "https://nsjail.dev/";
-    changelog   = "https://github.com/google/nsjail/releases/tag/${version}";
-    license     = licenses.asl20;
-    maintainers = with maintainers; [ arturcygan bosu c0bw3b ];
-    platforms   = platforms.linux;
+    homepage = "https://nsjail.dev/";
+    changelog = "https://github.com/google/nsjail/releases/tag/${version}";
+    license = licenses.asl20;
+    maintainers = with maintainers; [
+      arturcygan
+      bosu
+      c0bw3b
+    ];
+    platforms = platforms.linux;
   };
 }

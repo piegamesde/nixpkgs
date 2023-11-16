@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, hatch-jupyter-builder
-, hatch-nodejs-version
-, hatchling
-, pythonRelaxDepsHook
-, jupyter-events
-, jupyter-server
-, jupyter-server-fileid
-, jupyter-ydoc
-, jupyterlab
-, ypy-websocket
-, pytest-asyncio
-, pytest-jupyter
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  hatch-jupyter-builder,
+  hatch-nodejs-version,
+  hatchling,
+  pythonRelaxDepsHook,
+  jupyter-events,
+  jupyter-server,
+  jupyter-server-fileid,
+  jupyter-ydoc,
+  jupyterlab,
+  ypy-websocket,
+  pytest-asyncio,
+  pytest-jupyter,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -42,9 +43,7 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [
-    "ypy-websocket"
-  ];
+  pythonRelaxDeps = [ "ypy-websocket" ];
 
   propagatedBuildInputs = [
     jupyter-events
@@ -60,12 +59,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "jupyter_collaboration"
-  ];
+  pythonImportsCheck = [ "jupyter_collaboration" ];
 
   pytestFlagsArray = [
-    "-W" "ignore::DeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
   ];
 
   preCheck = ''

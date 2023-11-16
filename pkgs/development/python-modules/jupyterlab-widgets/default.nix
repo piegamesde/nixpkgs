@@ -1,5 +1,8 @@
-{ lib, buildPythonPackage, fetchPypi
-, jupyter-packaging
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-packaging,
 }:
 
 buildPythonPackage rec {
@@ -12,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-YAWk6XTHvu6EBg/fujQaMhhJUEbeiuPsZIiOX+Gf20w=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-  ];
+  nativeBuildInputs = [ jupyter-packaging ];
 
   # has no tests
   doCheck = false;

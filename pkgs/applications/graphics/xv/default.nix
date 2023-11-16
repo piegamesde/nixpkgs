@@ -23,7 +23,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ xorg.libX11 xorg.libXt libpng libwebp libtiff jasper ];
+  buildInputs = [
+    xorg.libX11
+    xorg.libXt
+    libpng
+    libwebp
+    libtiff
+    jasper
+  ];
 
   meta = {
     description = "Classic image viewer and editor for X.";

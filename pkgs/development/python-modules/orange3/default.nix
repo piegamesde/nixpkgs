@@ -1,44 +1,45 @@
-{ lib
-, baycomp
-, bottleneck
-, buildPythonPackage
-, chardet
-, copyDesktopItems
-, cython
-, fetchFromGitHub
-, fetchurl
-, httpx
-, joblib
-, keyring
-, keyrings-alt
-, makeDesktopItem
-, matplotlib
-, nix-update-script
-, numpy
-, oldest-supported-numpy
-, openpyxl
-, opentsne
-, orange-canvas-core
-, orange-widget-base
-, pandas
-, pyqtgraph
-, pyqtwebengine
-, python
-, python-louvain
-, pythonOlder
-, pyyaml
-, qt5
-, qtconsole
-, recommonmark
-, requests
-, scikit-learn
-, scipy
-, serverfiles
-, setuptools
-, sphinx
-, wheel
-, xlrd
-, xlsxwriter
+{
+  lib,
+  baycomp,
+  bottleneck,
+  buildPythonPackage,
+  chardet,
+  copyDesktopItems,
+  cython,
+  fetchFromGitHub,
+  fetchurl,
+  httpx,
+  joblib,
+  keyring,
+  keyrings-alt,
+  makeDesktopItem,
+  matplotlib,
+  nix-update-script,
+  numpy,
+  oldest-supported-numpy,
+  openpyxl,
+  opentsne,
+  orange-canvas-core,
+  orange-widget-base,
+  pandas,
+  pyqtgraph,
+  pyqtwebengine,
+  python,
+  python-louvain,
+  pythonOlder,
+  pyyaml,
+  qt5,
+  qtconsole,
+  recommonmark,
+  requests,
+  scikit-learn,
+  scipy,
+  serverfiles,
+  setuptools,
+  sphinx,
+  wheel,
+  xlrd,
+  xlsxwriter,
 }:
 
 let
@@ -106,7 +107,10 @@ let
     # FIXME: ImportError: cannot import name '_variable' from partially initialized module 'Orange.data' (most likely due to a circular import) (/build/source/Orange/data/__init__.py)
     doCheck = false;
 
-    pythonImportsCheck = [ "Orange" "Orange.data._variable" ];
+    pythonImportsCheck = [
+      "Orange"
+      "Orange.data._variable"
+    ];
 
     desktopItems = [
       (makeDesktopItem {
@@ -117,8 +121,19 @@ let
         comment = "Explore, analyze, and visualize your data";
         icon = "orange-canvas";
         mimeTypes = [ "application/x-extension-ows" ];
-        categories = [ "Science" "Education" "ArtificialIntelligence" "DataVisualization" "NumericalAnalysis" "Qt" ];
-        keywords = [ "Machine Learning" "Scientific Visualization" "Statistical Analysis" ];
+        categories = [
+          "Science"
+          "Education"
+          "ArtificialIntelligence"
+          "DataVisualization"
+          "NumericalAnalysis"
+          "Qt"
+        ];
+        keywords = [
+          "Machine Learning"
+          "Scientific Visualization"
+          "Statistical Analysis"
+        ];
       })
     ];
 
@@ -132,37 +147,39 @@ let
 
     passthru = {
       updateScript = nix-update-script { };
-      tests.unittests = self.overridePythonAttrs (old: {
-        pname = "${old.pname}-tests";
-        format = "other";
+      tests.unittests = self.overridePythonAttrs (
+        old: {
+          pname = "${old.pname}-tests";
+          format = "other";
 
-        preCheck = ''
-          export HOME=$(mktemp -d)
-          export QT_PLUGIN_PATH="${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}"
-          export QT_QPA_PLATFORM_PLUGIN_PATH="${qt5.qtbase.bin}/lib/qt-${qt5.qtbase.version}/plugins";
-          export QT_QPA_PLATFORM=offscreen
+          preCheck = ''
+            export HOME=$(mktemp -d)
+            export QT_PLUGIN_PATH="${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}"
+            export QT_QPA_PLATFORM_PLUGIN_PATH="${qt5.qtbase.bin}/lib/qt-${qt5.qtbase.version}/plugins";
+            export QT_QPA_PLATFORM=offscreen
 
-          rm Orange -rf
-          cp -r ${self}/${python.sitePackages}/Orange .
-          chmod +w -R .
+            rm Orange -rf
+            cp -r ${self}/${python.sitePackages}/Orange .
+            chmod +w -R .
 
-          rm Orange/tests/test_url_reader.py # uses network
-          rm Orange/tests/test_ada_boost.py # broken: The 'base_estimator' parameter of AdaBoostRegressor must be an object implementing 'fit' and 'predict' or a str among {'deprecated'}. Got None instead.
-        '';
+            rm Orange/tests/test_url_reader.py # uses network
+            rm Orange/tests/test_ada_boost.py # broken: The 'base_estimator' parameter of AdaBoostRegressor must be an object implementing 'fit' and 'predict' or a str among {'deprecated'}. Got None instead.
+          '';
 
-        checkPhase = ''
-          runHook preCheck
-          ${python.interpreter} -m unittest -b -v ./Orange/**/test*.py
-          runHook postCheck
-        '';
+          checkPhase = ''
+            runHook preCheck
+            ${python.interpreter} -m unittest -b -v ./Orange/**/test*.py
+            runHook postCheck
+          '';
 
-        postInstall = "";
+          postInstall = "";
 
-        doBuild = false;
-        doInstall = false;
+          doBuild = false;
+          doInstall = false;
 
-        nativeBuildInputs = [ self ] ++ old.nativeBuildInputs;
-      });
+          nativeBuildInputs = [ self ] ++ old.nativeBuildInputs;
+        }
+      );
     };
 
     meta = with lib; {

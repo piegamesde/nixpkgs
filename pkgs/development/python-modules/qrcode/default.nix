@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, pillow
-, pypng
-, typing-extensions
-, mock
-, pytestCheckHook
-, testers
-, qrcode
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  pillow,
+  pypng,
+  typing-extensions,
+  mock,
+  pytestCheckHook,
+  testers,
+  qrcode,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-ndlpRUgn4Sfb2TaWsgdHI55tVA4IKTfJDxSslbMPWEU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     typing-extensions
@@ -32,9 +31,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  passthru.optional-dependencies.pil = [
-    pillow
-  ];
+  passthru.optional-dependencies.pil = [ pillow ];
 
   nativeCheckInputs = [
     mock
@@ -54,5 +51,4 @@ buildPythonPackage rec {
     changelog = "https://github.com/lincolnloop/python-qrcode/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
   };
-
 }

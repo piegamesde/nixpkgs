@@ -1,18 +1,34 @@
 # File Roller.
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
-let cfg = config.programs.file-roller;
-
-in {
+let
+  cfg = config.programs.file-roller;
+in
+{
 
   # Added 2019-08-09
   imports = [
     (mkRenamedOptionModule
-      [ "services" "gnome3" "file-roller" "enable" ]
-      [ "programs" "file-roller" "enable" ])
+      [
+        "services"
+        "gnome3"
+        "file-roller"
+        "enable"
+      ]
+      [
+        "programs"
+        "file-roller"
+        "enable"
+      ]
+    )
   ];
 
   ###### interface
@@ -29,11 +45,8 @@ in {
         defaultText = literalExpression "pkgs.gnome.file-roller";
         description = lib.mdDoc "File Roller derivation to use.";
       };
-
     };
-
   };
-
 
   ###### implementation
 
@@ -42,7 +55,5 @@ in {
     environment.systemPackages = [ cfg.package ];
 
     services.dbus.packages = [ cfg.package ];
-
   };
-
 }

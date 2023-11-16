@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytz
-, zope_interface
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytz,
+  zope_interface,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  pythonImportsCheck = [
-    "DateTime"
-  ];
+  pythonImportsCheck = [ "DateTime" ];
 
   meta = with lib; {
     description = "DateTime data type, as known from Zope";
@@ -37,4 +36,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ icyrockcom ];
   };
 }
-

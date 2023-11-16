@@ -1,10 +1,11 @@
-{ lib
-, python3
-, fetchPypi
-, pandoc
-, git
-, scriv
-, testers
+{
+  lib,
+  python3,
+  fetchPypi,
+  pandoc,
+  git,
+  scriv,
+  testers,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -16,15 +17,16 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-vdGtdJGkaUzH2JoxuFsfM57OodlxbEHuLl81giKUn6U=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    attrs
-    click
-    click-log
-    jinja2
-    requests
-  ] ++ lib.optionals (python3.pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      attrs
+      click
+      click-log
+      jinja2
+      requests
+    ]
+    ++ lib.optionals (python3.pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook
@@ -38,10 +40,11 @@ python3.pkgs.buildPythonApplication rec {
     pandoc
     git
   ];
-  disabledTests = [
-    # assumes we have checked out the full repo (including remotes)
-    "test_real_get_github_repos"
-  ];
+  disabledTests =
+    [
+      # assumes we have checked out the full repo (including remotes)
+      "test_real_get_github_repos"
+    ];
 
   passthru.tests = {
     version = testers.testVersion { package = scriv; };

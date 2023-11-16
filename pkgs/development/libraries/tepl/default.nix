@@ -1,27 +1,35 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, mesonEmulatorHook
-, ninja
-, amtk
-, gnome
-, gobject-introspection
-, gtk3
-, gtksourceview4
-, icu
-, pkg-config
-, gtk-doc
-, docbook-xsl-nons
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  amtk,
+  gnome,
+  gobject-introspection,
+  gtk3,
+  gtksourceview4,
+  icu,
+  pkg-config,
+  gtk-doc,
+  docbook-xsl-nons,
 }:
 
 stdenv.mkDerivation rec {
   pname = "tepl";
   version = "6.4.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "XlayBmnQzwX6HWS1jIw0LFkVgSLcUYEA0JPVnfm4cyE=";
   };
 
@@ -33,13 +41,9 @@ stdenv.mkDerivation rec {
     pkg-config
     gtk-doc
     docbook-xsl-nons
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [
-    icu
-  ];
+  buildInputs = [ icu ];
 
   propagatedBuildInputs = [
     amtk

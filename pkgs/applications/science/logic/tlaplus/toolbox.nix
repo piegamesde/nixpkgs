@@ -1,13 +1,14 @@
-{ lib
-, fetchzip
-, makeShellWrapper
-, makeDesktopItem
-, stdenv
-, gtk3
-, libXtst
-, glib
-, zlib
-, wrapGAppsHook
+{
+  lib,
+  fetchzip,
+  makeShellWrapper,
+  makeDesktopItem,
+  stdenv,
+  gtk3,
+  libXtst,
+  glib,
+  zlib,
+  wrapGAppsHook,
 }:
 
 let
@@ -21,8 +22,6 @@ let
     categories = [ "Development" ];
     startupWMClass = "TLA+ Toolbox";
   };
-
-
 in
 stdenv.mkDerivation rec {
   pname = "tla-toolbox";
@@ -57,7 +56,9 @@ stdenv.mkDerivation rec {
 
     patchelf \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath "${lib.makeLibraryPath [ zlib ]}:$(patchelf --print-rpath $(find "$out/toolbox" -name java))" \
+      --set-rpath "${
+        lib.makeLibraryPath [ zlib ]
+      }:$(patchelf --print-rpath $(find "$out/toolbox" -name java))" \
       "$(find "$out/toolbox" -name java)"
 
     patchelf \
@@ -67,7 +68,14 @@ stdenv.mkDerivation rec {
     makeShellWrapper $out/toolbox/toolbox $out/bin/tla-toolbox \
       --chdir "$out/toolbox" \
       --add-flags "-data ~/.tla-toolbox" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ gtk3 libXtst glib zlib ]}"  \
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          gtk3
+          libXtst
+          glib
+          zlib
+        ]
+      }"  \
       "''${gappsWrapperArgs[@]}"
 
     echo -e "\nCreating TLA Toolbox icons..."

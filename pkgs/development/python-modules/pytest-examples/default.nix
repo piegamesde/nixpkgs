@@ -1,13 +1,14 @@
-{ lib
-, black
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, pytest
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, ruff
+{
+  lib,
+  black,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  ruff,
 }:
 
 buildPythonPackage rec {
@@ -30,37 +31,30 @@ buildPythonPackage rec {
       --replace "'ruff'" "'${ruff}/bin/ruff'"
   '';
 
-  pythonRemoveDeps = [
-    "ruff"
-  ];
+  pythonRemoveDeps = [ "ruff" ];
 
   nativeBuildInputs = [
     hatchling
     pythonRelaxDepsHook
   ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   propagatedBuildInputs = [
     black
     ruff
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_examples"
-  ];
+  pythonImportsCheck = [ "pytest_examples" ];
 
-  disabledTests = [
-    # Test fails with latest ruff v0.1.2
-    # See https://github.com/pydantic/pytest-examples/issues/26
-    "test_ruff_error"
-  ];
+  disabledTests =
+    [
+      # Test fails with latest ruff v0.1.2
+      # See https://github.com/pydantic/pytest-examples/issues/26
+      "test_ruff_error"
+    ];
 
   meta = with lib; {
     description = "Pytest plugin for testing examples in docstrings and markdown files";

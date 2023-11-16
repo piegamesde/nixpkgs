@@ -1,10 +1,24 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy
-, pytest, pytest-cov, pytest-mock, freezegun, safety, pre-commit
-, jinja2, future, binaryornot, click, jinja2-time, requests
-, python-slugify
-, pyyaml
-, arrow
-, rich
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  pytest,
+  pytest-cov,
+  pytest-mock,
+  freezegun,
+  safety,
+  pre-commit,
+  jinja2,
+  future,
+  binaryornot,
+  click,
+  jinja2-time,
+  requests,
+  python-slugify,
+  pyyaml,
+  arrow,
+  rich,
 }:
 
 buildPythonPackage rec {

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, plaster
-, pastedeploy
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  plaster,
+  pastedeploy,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -16,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-viYubS5BpyZIddqi/ihQy7BhVyi83JKCj9xyc244FBI=";
   };
 
-  propagatedBuildInputs = [ plaster pastedeploy ];
+  propagatedBuildInputs = [
+    plaster
+    pastedeploy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

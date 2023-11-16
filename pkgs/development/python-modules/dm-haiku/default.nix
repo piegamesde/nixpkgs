@@ -1,11 +1,12 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, callPackage
-, lib
-, jmp
-, tabulate
-, jaxlib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  callPackage,
+  lib,
+  jmp,
+  tabulate,
+  jaxlib,
 }:
 
 buildPythonPackage rec {
@@ -45,9 +46,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  pythonImportsCheck = [
-    "haiku"
-  ];
+  pythonImportsCheck = [ "haiku" ];
 
   postInstall = ''
     mkdir $testsout

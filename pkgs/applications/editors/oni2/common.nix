@@ -1,13 +1,51 @@
-{ lib, stdenv, nodePackages
-# Fetch dependencies
-, fetchFromGitHub, gitMinimal, curlMinimal, cacert, yarn, unzip, xorg, nodejs
-, ripgrep, fontconfig, libGL, libGLU, ncurses, acl, harfbuzz, libjpeg, expat
-, icu58, libpng
-# Build
-, jq, perl, makeWrapper, bash, which, nasm, python2, gn, ninja, cmake, clang
-, fixup_yarn_lock, callPackage }:
+{
+  lib,
+  stdenv,
+  nodePackages,
+  # Fetch dependencies
+  fetchFromGitHub,
+  gitMinimal,
+  curlMinimal,
+  cacert,
+  yarn,
+  unzip,
+  xorg,
+  nodejs,
+  ripgrep,
+  fontconfig,
+  libGL,
+  libGLU,
+  ncurses,
+  acl,
+  harfbuzz,
+  libjpeg,
+  expat,
+  icu58,
+  libpng,
+  # Build
+  jq,
+  perl,
+  makeWrapper,
+  bash,
+  which,
+  nasm,
+  python2,
+  gn,
+  ninja,
+  cmake,
+  clang,
+  fixup_yarn_lock,
+  callPackage,
+}:
 
-{ variant, version, rev, sha256, fetchDepsSha256, license }:
+{
+  variant,
+  version,
+  rev,
+  sha256,
+  fetchDepsSha256,
+  license,
+}:
 
 let
   source = fetchFromGitHub {
@@ -87,7 +125,8 @@ let
     outputHashAlgo = "sha256";
     outputHash = fetchDepsSha256;
   };
-in stdenv.mkDerivation (rec {
+in
+stdenv.mkDerivation (rec {
   pname = "oni2";
   inherit version;
 
@@ -107,32 +146,36 @@ in stdenv.mkDerivation (rec {
     fixup_yarn_lock
   ];
 
-  buildInputs = [
-    nodejs
-    ripgrep
-    fontconfig
-    libGL
-    libGLU
-    ncurses
-    acl
-    harfbuzz
-    libjpeg
-    expat
-    icu58
-    libpng
-  ] ++ (with xorg; [
-    libX11
-    libXext
-    libXi
-    libXxf86vm
-    libXrandr
-    libXinerama
-    libXcursor
-    libICE
-    libSM
-    libXt
-    libxkbfile
-  ]);
+  buildInputs =
+    [
+      nodejs
+      ripgrep
+      fontconfig
+      libGL
+      libGLU
+      ncurses
+      acl
+      harfbuzz
+      libjpeg
+      expat
+      icu58
+      libpng
+    ]
+    ++ (
+      with xorg; [
+        libX11
+        libXext
+        libXi
+        libXxf86vm
+        libXrandr
+        libXinerama
+        libXcursor
+        libICE
+        libSM
+        libXt
+        libxkbfile
+      ]
+    );
 
   unpackPhase = ''
     cp -r ${source}/* ./
@@ -245,7 +288,9 @@ in stdenv.mkDerivation (rec {
     homepage = "https://v2.onivim.io/";
     inherit license;
     maintainers = with maintainers; [ gardspirito ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 })
-

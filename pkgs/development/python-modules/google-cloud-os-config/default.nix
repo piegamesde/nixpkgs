@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, protobuf
-, proto-plus
-, pytestCheckHook
-, pytest-asyncio
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  protobuf,
+  proto-plus,
+  pytestCheckHook,
+  pytest-asyncio,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "google.cloud.osconfig"
-  ];
+  pythonImportsCheck = [ "google.cloud.osconfig" ];
 
   disabledTests = [
     # Test requires a project ID

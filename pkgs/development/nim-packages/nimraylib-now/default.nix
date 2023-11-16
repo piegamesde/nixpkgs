@@ -1,4 +1,9 @@
-{ lib, nimPackages, fetchFromGitHub, raylib }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+  raylib,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "nimraylib-now";

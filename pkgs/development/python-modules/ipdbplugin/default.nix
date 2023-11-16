@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, ipython
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  ipython,
 }:
 
 buildPythonPackage rec {
@@ -14,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "cdcd6bc1e995c3c2c4971ed95f207e680aa44980b716fa43fb675ff2dcc7894f";
   };
 
-  propagatedBuildInputs = [ nose ipython ];
+  propagatedBuildInputs = [
+    nose
+    ipython
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/flavioamieiro/nose-ipdb/tree/master";
@@ -22,5 +26,4 @@ buildPythonPackage rec {
     license = licenses.lgpl2;
     maintainers = [ ];
   };
-
 }

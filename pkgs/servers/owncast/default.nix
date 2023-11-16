@@ -1,16 +1,18 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nixosTests
-, bash
-, which
-, ffmpeg
-, makeBinaryWrapper
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+  bash,
+  which,
+  ffmpeg,
+  makeBinaryWrapper,
 }:
 
 let
   version = "0.1.1";
-in buildGoModule {
+in
+buildGoModule {
   pname = "owncast";
   inherit version;
   src = fetchFromGitHub {
@@ -27,7 +29,13 @@ in buildGoModule {
 
   postInstall = ''
     wrapProgram $out/bin/owncast \
-      --prefix PATH : ${lib.makeBinPath [ bash which ffmpeg ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          bash
+          which
+          ffmpeg
+        ]
+      }
   '';
 
   installCheckPhase = ''
@@ -45,5 +53,4 @@ in buildGoModule {
     platforms = platforms.unix;
     maintainers = with maintainers; [ MayNiklas ];
   };
-
 }

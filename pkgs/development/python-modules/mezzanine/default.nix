@@ -1,23 +1,24 @@
-{ lib
-, beautifulsoup4
-, bleach
-, buildPythonPackage
-, chardet
-, django
-, django-contrib-comments
-, fetchPypi
-, filebrowser_safe
-, future
-, grappelli-safe
-, isPyPy
-, pep8
-, pillow
-, pyflakes
-, pythonOlder
-, pytz
-, requests
-, requests-oauthlib
-, tzlocal
+{
+  lib,
+  beautifulsoup4,
+  bleach,
+  buildPythonPackage,
+  chardet,
+  django,
+  django-contrib-comments,
+  fetchPypi,
+  filebrowser_safe,
+  future,
+  grappelli-safe,
+  isPyPy,
+  pep8,
+  pillow,
+  pyflakes,
+  pythonOlder,
+  pytz,
+  requests,
+  requests-oauthlib,
+  tzlocal,
 }:
 
 buildPythonPackage rec {
@@ -88,4 +89,3 @@ buildPythonPackage rec {
     platforms = platforms.unix;
   };
 }
-

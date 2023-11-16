@@ -1,30 +1,31 @@
-{ lib
-, buildPythonPackage
-, aiohttp
-, async-timeout
-, chacha20poly1305-reuseable
-, cryptography
-, deepdiff
-, fetchFromGitHub
-, ifaddr
-, mediafile
-, miniaudio
-, protobuf
-, pydantic
-, pyfakefs
-, pytest-aiohttp
-, pytest-asyncio
-, pytest-httpserver
-, pytest-timeout
-, pytestCheckHook
-, pythonRelaxDepsHook
-, pythonOlder
-, requests
-, setuptools
-, srptools
-, stdenv
-, tabulate
-, zeroconf
+{
+  lib,
+  buildPythonPackage,
+  aiohttp,
+  async-timeout,
+  chacha20poly1305-reuseable,
+  cryptography,
+  deepdiff,
+  fetchFromGitHub,
+  ifaddr,
+  mediafile,
+  miniaudio,
+  protobuf,
+  pydantic,
+  pyfakefs,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-httpserver,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pythonOlder,
+  requests,
+  setuptools,
+  srptools,
+  stdenv,
+  tabulate,
+  zeroconf,
 }:
 
 buildPythonPackage rec {
@@ -92,10 +93,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = lib.optionals (stdenv.isDarwin) [
-    # tests/protocols/raop/test_raop_functional.py::test_stream_retransmission[raop_properties2-2-True] - assert False
-    "test_stream_retransmission"
-  ];
+  disabledTests =
+    lib.optionals (stdenv.isDarwin)
+      [
+        # tests/protocols/raop/test_raop_functional.py::test_stream_retransmission[raop_properties2-2-True] - assert False
+        "test_stream_retransmission"
+      ];
 
   disabledTestPaths = [
     # Test doesn't work in the sandbox
@@ -105,9 +108,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "pyatv"
-  ];
+  pythonImportsCheck = [ "pyatv" ];
 
   meta = with lib; {
     description = "Python client library for the Apple TV";

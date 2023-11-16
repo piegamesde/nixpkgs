@@ -1,36 +1,42 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchzip
-, python310
-, rtlcss
-, wkhtmltopdf
-, nixosTests
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  python310,
+  rtlcss,
+  wkhtmltopdf,
+  nixosTests,
 }:
 
 let
   python = python310.override {
     packageOverrides = self: super: {
-      flask = super.flask.overridePythonAttrs (old: rec {
-        version = "2.3.3";
-        src = old.src.override {
-          inherit version;
-          hash = "sha256-CcNHqSqn/0qOfzIGeV8w2CZlS684uHPQdEzVccpgnvw=";
-        };
-      });
-      werkzeug = super.werkzeug.overridePythonAttrs (old: rec {
-        version = "2.3.7";
-        src = old.src.override {
-          inherit version;
-          hash = "sha256-K4wORHtLnbzIXdl7butNy69si2w74L1lTiVVPgohV9g=";
-        };
-      });
+      flask = super.flask.overridePythonAttrs (
+        old: rec {
+          version = "2.3.3";
+          src = old.src.override {
+            inherit version;
+            hash = "sha256-CcNHqSqn/0qOfzIGeV8w2CZlS684uHPQdEzVccpgnvw=";
+          };
+        }
+      );
+      werkzeug = super.werkzeug.overridePythonAttrs (
+        old: rec {
+          version = "2.3.7";
+          src = old.src.override {
+            inherit version;
+            hash = "sha256-K4wORHtLnbzIXdl7butNy69si2w74L1lTiVVPgohV9g=";
+          };
+        }
+      );
     };
   };
 
   odoo_version = "16.0";
   odoo_release = "20231024";
-in python.pkgs.buildPythonApplication rec {
+in
+python.pkgs.buildPythonApplication rec {
   pname = "odoo";
   version = "${odoo_version}.${odoo_release}";
 
@@ -47,7 +53,13 @@ in python.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" "${lib.makeBinPath [ wkhtmltopdf rtlcss ]}"
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath [
+      wkhtmltopdf
+      rtlcss
+    ]}"
   ];
 
   propagatedBuildInputs = with python.pkgs; [

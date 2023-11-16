@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jupyter-core
-, notebook
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jupyter-core,
+  notebook,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -24,10 +25,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # This test fails upstream too
-    "tests/test_application.py"
-  ];
+  disabledTestPaths =
+    [
+      # This test fails upstream too
+      "tests/test_application.py"
+    ];
 
   pythonImportsCheck = [ "jupyter_contrib_core" ];
 

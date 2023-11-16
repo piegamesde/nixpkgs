@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchpatch, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "esptool";
@@ -11,15 +16,16 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-hpPL9KNPA+S57SJoKnQewBCOybDbKep0t5RKw9a9GjM=";
   };
 
-  patches = [
-    # https://github.com/espressif/esptool/pull/802
-    (fetchpatch {
-      name = "bitstring-4-compatibility.patch";
-      url = "https://github.com/espressif/esptool/commit/16fa58415be2a7ff059ece40d4545288565d0a23.patch";
-      hash = "sha256-FYa9EvyET4P8VkdyMzJBkdxVYm0tFt2GPnfsjzBnevE=";
-      excludes = [ "setup.py" ];
-    })
-  ];
+  patches =
+    [
+      # https://github.com/espressif/esptool/pull/802
+      (fetchpatch {
+        name = "bitstring-4-compatibility.patch";
+        url = "https://github.com/espressif/esptool/commit/16fa58415be2a7ff059ece40d4545288565d0a23.patch";
+        hash = "sha256-FYa9EvyET4P8VkdyMzJBkdxVYm0tFt2GPnfsjzBnevE=";
+        excludes = [ "setup.py" ];
+      })
+    ];
 
   postPatch = ''
     substituteInPlace test/test_imagegen.py \
@@ -46,9 +52,7 @@ python3.pkgs.buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
-    pyelftools
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pyelftools ];
 
   # tests mentioned in `.github/workflows/test_esptool.yml`
   checkPhase = ''

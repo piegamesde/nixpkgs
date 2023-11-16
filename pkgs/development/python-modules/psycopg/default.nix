@@ -1,36 +1,37 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, fetchurl
-, pythonOlder
-, substituteAll
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  pythonOlder,
+  substituteAll,
 
-# build
-, postgresql
-, setuptools
+  # build
+  postgresql,
+  setuptools,
 
-# propagates
-, backports-zoneinfo
-, typing-extensions
+  # propagates
+  backports-zoneinfo,
+  typing-extensions,
 
-# psycopg-c
-, cython_3
-, tomli
+  # psycopg-c
+  cython_3,
+  tomli,
 
-# docs
-, furo
-, shapely
-, sphinxHook
-, sphinx-autodoc-typehints
+  # docs
+  furo,
+  shapely,
+  sphinxHook,
+  sphinx-autodoc-typehints,
 
-# tests
-, anyio
-, pproxy
-, pytest-randomly
-, pytestCheckHook
-, postgresqlTestHook
+  # tests
+  anyio,
+  pproxy,
+  pytest-randomly,
+  pytestCheckHook,
+  postgresqlTestHook,
 }:
 
 let
@@ -108,9 +109,7 @@ let
       cd psycopg_pool
     '';
 
-    propagatedBuildInputs = [
-      typing-extensions
-    ];
+    propagatedBuildInputs = [ typing-extensions ];
 
     # tested in psycopg
     doCheck = false;
@@ -119,7 +118,6 @@ let
       description = "Connection Pool for Psycopg";
     };
   };
-
 in
 
 buildPythonPackage rec {
@@ -159,9 +157,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     psycopg-c
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    backports-zoneinfo
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   pythonImportsCheck = [
     "psycopg"
@@ -174,27 +170,30 @@ buildPythonPackage rec {
     pool = [ psycopg-pool ];
   };
 
-  nativeCheckInputs = [
-    anyio
-    pproxy
-    pytest-randomly
-    pytestCheckHook
-    postgresql
-  ]
-  ++ lib.optional (stdenv.isLinux) postgresqlTestHook
-  ++ passthru.optional-dependencies.c
-  ++ passthru.optional-dependencies.pool;
+  nativeCheckInputs =
+    [
+      anyio
+      pproxy
+      pytest-randomly
+      pytestCheckHook
+      postgresql
+    ]
+    ++ lib.optional (stdenv.isLinux) postgresqlTestHook
+    ++ passthru.optional-dependencies.c
+    ++ passthru.optional-dependencies.pool;
 
   env = {
     postgresqlEnableTCP = 1;
     PGUSER = "psycopg";
   };
 
-  preCheck = ''
-    cd ..
-  '' + lib.optionalString (stdenv.isLinux) ''
-    export PSYCOPG_TEST_DSN="host=127.0.0.1 user=$PGUSER"
-  '';
+  preCheck =
+    ''
+      cd ..
+    ''
+    + lib.optionalString (stdenv.isLinux) ''
+      export PSYCOPG_TEST_DSN="host=127.0.0.1 user=$PGUSER"
+    '';
 
   disabledTests = [
     # don't depend on mypy for tests
@@ -212,8 +211,10 @@ buildPythonPackage rec {
   ];
 
   pytestFlagsArray = [
-    "-o" "cache_dir=$TMPDIR"
-    "-m" "'not timing'"
+    "-o"
+    "cache_dir=$TMPDIR"
+    "-m"
+    "'not timing'"
   ];
 
   postCheck = ''

@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-18rsa91PiqZv70EK3K6K1l6N2mIpoVpkX29amKCo5cg=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Diff for Docker and OCI container images";

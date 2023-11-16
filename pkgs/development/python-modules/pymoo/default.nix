@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, writeText
-, autograd
-, cma
-, cython
-, deprecated
-, dill
-, matplotlib
-, nbformat
-, notebook
-, numba
-, numpy
-, pandas
-, scipy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  writeText,
+  autograd,
+  cma,
+  cython,
+  deprecated,
+  dill,
+  matplotlib,
+  nbformat,
+  notebook,
+  numba,
+  numpy,
+  pandas,
+  scipy,
 }:
 
 buildPythonPackage rec {
@@ -36,13 +37,14 @@ buildPythonPackage rec {
     hash = "sha256-iGWPepZw3kJzw5HKV09CvemVvkvFQ38GVP+BAryBSs0=";
   };
 
-  patches = [
-    # https://github.com/anyoptimization/pymoo/pull/407
-    (fetchpatch {
-      url = "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
-      hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/anyoptimization/pymoo/pull/407
+      (fetchpatch {
+        url = "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
+        hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -55,9 +57,7 @@ buildPythonPackage rec {
                 "print('Missing alive_progress needed for progress=True!') if progress else None"
   '';
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
   propagatedBuildInputs = [
     autograd
     cma
@@ -81,16 +81,14 @@ buildPythonPackage rec {
     numba
   ];
   # Select some lightweight tests
-  pytestFlagsArray = [
-    "-m 'not long'"
-  ];
+  pytestFlagsArray = [ "-m 'not long'" ];
   disabledTests = [
     # ModuleNotFoundError: No module named 'pymoo.cython.non_dominated_sorting'
     "test_fast_non_dominated_sorting"
     "test_efficient_non_dominated_sort"
   ];
   # Avoid crashing sandboxed build on macOS
-  MATPLOTLIBRC=writeText "" ''
+  MATPLOTLIBRC = writeText "" ''
     backend: Agg
   '';
 

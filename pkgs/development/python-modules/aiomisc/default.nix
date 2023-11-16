@@ -1,23 +1,24 @@
-{ lib
-, aiocontextvars
+{
+  lib,
+  aiocontextvars,
   #, aiocarbon
-, aiohttp
+  aiohttp,
   #, aiohttp-asgi
-, async-timeout
-, buildPythonPackage
-, colorlog
-, croniter
-, fastapi
-, fetchPypi
-, logging-journald
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, raven
+  async-timeout,
+  buildPythonPackage,
+  colorlog,
+  croniter,
+  fastapi,
+  fetchPypi,
+  logging-journald,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  raven,
   #, raven-aiohttp
-, setproctitle
-, setuptools
-, uvloop
+  setproctitle,
+  setuptools,
+  uvloop,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-EPEfBK/1nbwcajqyv5lFX+02WMvbyFnij2w5J91+UK8=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     colorlog
@@ -42,41 +41,35 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    aiocontextvars
-    async-timeout
-    fastapi
-    pytestCheckHook
-    raven
-    setproctitle
-  ] ++ passthru.optional-dependencies.aiohttp
-  ++ passthru.optional-dependencies.cron
-  ++ passthru.optional-dependencies.uvloop;
+  nativeCheckInputs =
+    [
+      aiocontextvars
+      async-timeout
+      fastapi
+      pytestCheckHook
+      raven
+      setproctitle
+    ]
+    ++ passthru.optional-dependencies.aiohttp
+    ++ passthru.optional-dependencies.cron
+    ++ passthru.optional-dependencies.uvloop;
 
   passthru.optional-dependencies = {
-    aiohttp = [
-      aiohttp
-    ];
+    aiohttp = [ aiohttp ];
     #asgi = [
     #  aiohttp-asgi
     #];
-    cron = [
-      croniter
-    ];
+    cron = [ croniter ];
     #carbon = [
     #  aiocarbon
     #];
     #raven = [
     #  raven-aiohttp
     #];
-    uvloop = [
-      uvloop
-    ];
+    uvloop = [ uvloop ];
   };
 
-  pythonImportsCheck = [
-    "aiomisc"
-  ];
+  pythonImportsCheck = [ "aiomisc" ];
 
   # Upstream stopped tagging with 16.2
   doCheck = false;

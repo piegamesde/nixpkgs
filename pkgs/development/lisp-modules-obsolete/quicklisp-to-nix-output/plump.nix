@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "plump";
   version = "20210630-git";
 
   description = "An XML / XHTML / HTML parser that aims to be as lenient as possible.";
 
-  deps = [ args."array-utils" args."documentation-utils" args."trivial-indent" ];
+  deps = [
+    args."array-utils"
+    args."documentation-utils"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/plump/2021-06-30/plump-20210630-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "plump";
 
-  asdFilesToKeep = ["plump.asd"];
+  asdFilesToKeep = [ "plump.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM plump DESCRIPTION
@@ -27,4 +31,5 @@ rec {
      (NAME documentation-utils FILENAME documentation-utils)
      (NAME trivial-indent FILENAME trivial-indent))
     DEPENDENCIES (array-utils documentation-utils trivial-indent) VERSION
-    20210630-git SIBLINGS (plump-dom plump-lexer plump-parser) PARASITES NIL) */
+    20210630-git SIBLINGS (plump-dom plump-lexer plump-parser) PARASITES NIL)
+*/

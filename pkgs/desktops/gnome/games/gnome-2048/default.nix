@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, wrapGAppsHook
-, meson
-, vala
-, pkg-config
-, ninja
-, itstool
-, clutter-gtk
-, libgee
-, libgnome-games-support
-, gnome
-, gtk3
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  wrapGAppsHook,
+  meson,
+  vala,
+  pkg-config,
+  ninja,
+  itstool,
+  clutter-gtk,
+  libgee,
+  libgnome-games-support,
+  gnome,
+  gtk3,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,18 +21,21 @@ stdenv.mkDerivation rec {
   version = "3.38.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-2048/${lib.versions.majorMinor version}/gnome-2048-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-2048/${
+        lib.versions.majorMinor version
+      }/gnome-2048-${version}.tar.xz";
     sha256 = "0s5fg4z5in1h39fcr69j1qc5ynmg7a8mfprk3mc3c0csq3snfwz2";
   };
 
-  patches = [
-    # Fix build with meson 0.61
-    # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/21
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gnome-2048/-/commit/194e22699f7166a016cd39ba26dd719aeecfc868.patch";
-      sha256 = "Qpn/OJJwblRm5Pi453aU2HwbrNjsf+ftmSnns/5qZ9E=";
-    })
-  ];
+  patches =
+    [
+      # Fix build with meson 0.61
+      # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/21
+      (fetchpatch {
+        url = "https://gitlab.gnome.org/GNOME/gnome-2048/-/commit/194e22699f7166a016cd39ba26dd719aeecfc868.patch";
+        sha256 = "Qpn/OJJwblRm5Pi453aU2HwbrNjsf+ftmSnns/5qZ9E=";
+      })
+    ];
 
   nativeBuildInputs = [
     itstool
@@ -50,9 +54,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gnome-2048";
-    };
+    updateScript = gnome.updateScript { packageName = "gnome-2048"; };
   };
 
   meta = with lib; {

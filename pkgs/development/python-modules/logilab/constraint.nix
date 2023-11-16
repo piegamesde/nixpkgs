@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, importlib-metadata
-, logilab-common
-, pip
-, six
-, pytestCheckHook
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-metadata,
+  logilab-common,
+  pip,
+  six,
+  pytestCheckHook,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -30,19 +31,18 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # avoid ModuleNotFoundError: No module named 'logilab.common' due to namespace
     rm -r logilab
   '';
 
-  disabledTests = [
-    # these tests are abstract test classes intended to be inherited
-    "Abstract"
-  ];
+  disabledTests =
+    [
+      # these tests are abstract test classes intended to be inherited
+      "Abstract"
+    ];
 
   pythonImportsCheck = [ "logilab.constraint" ];
 
@@ -54,4 +54,3 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ ];
   };
 }
-

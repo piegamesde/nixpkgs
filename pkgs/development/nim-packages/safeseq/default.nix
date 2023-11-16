@@ -1,4 +1,8 @@
-{ lib, buildNimPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+}:
 buildNimPackage rec {
   pname = "safeseq";
 
@@ -11,9 +15,10 @@ buildNimPackage rec {
     hash = "sha256-JSz2TPrbl5N8l+YDquad78aJMBsx+Lise27cMQKMdAc=";
   };
 
-
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "safeseq library for nim";
       license = [ licenses.gpl2 ];
       maintainers = [ maintainers.marcusramberg ];

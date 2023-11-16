@@ -1,4 +1,14 @@
-{ stdenv, buildNpmPackage, fetchFromGitHub, electron, makeWrapper, python3, makeDesktopItem, nix-update-script, lib }:
+{
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  electron,
+  makeWrapper,
+  python3,
+  makeDesktopItem,
+  nix-update-script,
+  lib,
+}:
 
 buildNpmPackage rec {
   pname = "vieb";
@@ -27,7 +37,10 @@ buildNpmPackage rec {
     icon = "vieb";
     desktopName = "Web Browser";
     genericName = "Web Browser";
-    categories = [ "Network" "WebBrowser" ];
+    categories = [
+      "Network"
+      "WebBrowser"
+    ];
     mimeTypes = [
       "text/html"
       "application/xhtml+xml"
@@ -52,13 +65,17 @@ buildNpmPackage rec {
 
   distPhase = ":"; # disable useless $out/tarballs directory
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://vieb.dev/";
     changelog = "https://github.com/Jelmerro/Vieb/releases/tag/${version}";
     description = "Vim Inspired Electron Browser";
-    maintainers = with maintainers; [ gebner fortuneteller2k tejing ];
+    maintainers = with maintainers; [
+      gebner
+      fortuneteller2k
+      tejing
+    ];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
   };

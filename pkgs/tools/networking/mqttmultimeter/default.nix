@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, dotnetCorePackages
-, dotnet-runtime_6
-, dotnet-runtime_7
-, buildDotnetModule
-, fetchFromGitHub
-, autoPatchelfHook
-, fontconfig
-, xorg
-, libglvnd
-, makeDesktopItem
-, copyDesktopItems
+{
+  lib,
+  stdenv,
+  dotnetCorePackages,
+  dotnet-runtime_6,
+  dotnet-runtime_7,
+  buildDotnetModule,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  fontconfig,
+  xorg,
+  libglvnd,
+  makeDesktopItem,
+  copyDesktopItems,
 }:
 
 # NOTES:
@@ -20,15 +21,16 @@ let
   version = "1.7.0.211";
 
   sdk =
-    if lib.versionAtLeast (lib.versions.majorMinor version) "1.7"
-    then dotnetCorePackages.sdk_7_0
-    else dotnetCorePackages.sdk_6_0;
+    if lib.versionAtLeast (lib.versions.majorMinor version) "1.7" then
+      dotnetCorePackages.sdk_7_0
+    else
+      dotnetCorePackages.sdk_6_0;
 
   runtime =
-    if lib.versionAtLeast (lib.versions.majorMinor version) "1.7"
-    then dotnet-runtime_7
-    else dotnet-runtime_6;
-
+    if lib.versionAtLeast (lib.versions.majorMinor version) "1.7" then
+      dotnet-runtime_7
+    else
+      dotnet-runtime_6;
 in
 buildDotnetModule rec {
   pname = "mqttmultimeter";
@@ -54,7 +56,10 @@ buildDotnetModule rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ stdenv.cc.cc.lib fontconfig ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    fontconfig
+  ];
 
   # don't care about musl and windows versions, as they fail autoPatchelfHook
   postInstall = ''

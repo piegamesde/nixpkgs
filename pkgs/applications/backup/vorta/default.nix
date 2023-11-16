@@ -1,10 +1,11 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, wrapQtAppsHook
-, borgbackup
-, qt5
-, stdenv
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  borgbackup,
+  qt5,
+  stdenv,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -20,9 +21,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    qt5.qtwayland
-  ];
+  buildInputs = lib.optionals stdenv.isLinux [ qt5.qtwayland ];
 
   propagatedBuildInputs = with python3Packages; [
     peewee

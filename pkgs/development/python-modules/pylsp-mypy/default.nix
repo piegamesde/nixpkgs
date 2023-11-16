@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, setuptools
-, mypy
-, pytestCheckHook
-, python-lsp-server
-, pythonOlder
-, tomli
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  mypy,
+  pytestCheckHook,
+  python-lsp-server,
+  pythonOlder,
+  tomli,
 }:
 
 buildPythonPackage rec {
@@ -24,38 +25,32 @@ buildPythonPackage rec {
     hash = "sha256-ZsNIw0xjxnU9Ue0C7TlhzVOCOCKEbCa2CsiiqeMb14I=";
   };
 
-  patches = [
-    # https://github.com/python-lsp/pylsp-mypy/pull/64
-    (fetchpatch {
-      name = "fix-hanging-test.patch";
-      url = "https://github.com/python-lsp/pylsp-mypy/commit/90d28edb474135007804f1e041f88713a95736f9.patch";
-      hash = "sha256-3DVyUXVImRemXCuyoXlYbPJm6p8OnhBdEKmwjx88ets=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/python-lsp/pylsp-mypy/pull/64
+      (fetchpatch {
+        name = "fix-hanging-test.patch";
+        url = "https://github.com/python-lsp/pylsp-mypy/commit/90d28edb474135007804f1e041f88713a95736f9.patch";
+        hash = "sha256-3DVyUXVImRemXCuyoXlYbPJm6p8OnhBdEKmwjx88ets=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     mypy
     python-lsp-server
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pylsp_mypy"
-  ];
+  pythonImportsCheck = [ "pylsp_mypy" ];
 
-  disabledTests = [
-    # Tests wants to call dmypy
-    "test_option_overrides_dmypy"
-  ];
+  disabledTests =
+    [
+      # Tests wants to call dmypy
+      "test_option_overrides_dmypy"
+    ];
 
   meta = with lib; {
     description = "Mypy plugin for the Python LSP Server";

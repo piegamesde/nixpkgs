@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -27,5 +28,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ris ];
   };
-
 }

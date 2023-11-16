@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, python3
-, boost
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  boost,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-p/sVinjEh078PGtJ6JBRA8EmrJVcchBs9L3bRZvCHuo=";
   };
 
-  buildInputs = [ python3 boost ];
+  buildInputs = [
+    python3
+    boost
+  ];
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {

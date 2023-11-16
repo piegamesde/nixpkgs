@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 
-# build-system
-, poetry-core
+  # build-system
+  poetry-core,
 
-# tests
-, pytestCheckHook
-, pyyaml
+  # tests
+  pytestCheckHook,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-OOH/jtuZEnPsn2GBJEpqORrDDp9QmOdTVkDqa+l6fIY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   nativeCheckInputs = [
     pyyaml

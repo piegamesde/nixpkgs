@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, django
-, fetchPypi
-, pytest-django
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchPypi,
+  pytest-django,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,18 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-x1Gj+SQVjCiP6omvwlpxUZefrwG/Ef3HvjuFgJnfpW0=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   nativeCheckInputs = [
     pytest-django
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "treebeard"
-  ];
+  pythonImportsCheck = [ "treebeard" ];
 
   meta = with lib; {
     description = "Efficient tree implementations for Django";

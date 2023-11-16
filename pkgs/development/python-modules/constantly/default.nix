@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  twisted,
+}:
 
 let
   self = buildPythonPackage rec {

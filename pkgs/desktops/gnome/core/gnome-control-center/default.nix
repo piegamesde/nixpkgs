@@ -1,67 +1,68 @@
-{ fetchurl
-, lib
-, stdenv
-, substituteAll
-, accountsservice
-, adwaita-icon-theme
-, colord
-, colord-gtk4
-, cups
-, docbook-xsl-nons
-, fontconfig
-, gdk-pixbuf
-, gettext
-, glib
-, glib-networking
-, gcr
-, glibc
-, gnome-bluetooth
-, gnome-color-manager
-, gnome-desktop
-, gnome-online-accounts
-, gnome-settings-daemon
-, gnome
-, gsettings-desktop-schemas
-, gsound
-, gst_all_1
-, gtk4
-, ibus
-, libgnomekbd
-, libgtop
-, libgudev
-, libadwaita
-, libkrb5
-, libpulseaudio
-, libpwquality
-, librsvg
-, webp-pixbuf-loader
-, libsecret
-, libwacom
-, libxml2
-, libxslt
-, meson
-, modemmanager
-, mutter
-, networkmanager
-, networkmanagerapplet
-, libnma-gtk4
-, ninja
-, pkg-config
-, polkit
-, python3
-, samba
-, shadow
-, shared-mime-info
-, sound-theme-freedesktop
-, tracker
-, tracker-miners
-, tzdata
-, udisks2
-, upower
-, libepoxy
-, gnome-user-share
-, gnome-remote-desktop
-, wrapGAppsHook
+{
+  fetchurl,
+  lib,
+  stdenv,
+  substituteAll,
+  accountsservice,
+  adwaita-icon-theme,
+  colord,
+  colord-gtk4,
+  cups,
+  docbook-xsl-nons,
+  fontconfig,
+  gdk-pixbuf,
+  gettext,
+  glib,
+  glib-networking,
+  gcr,
+  glibc,
+  gnome-bluetooth,
+  gnome-color-manager,
+  gnome-desktop,
+  gnome-online-accounts,
+  gnome-settings-daemon,
+  gnome,
+  gsettings-desktop-schemas,
+  gsound,
+  gst_all_1,
+  gtk4,
+  ibus,
+  libgnomekbd,
+  libgtop,
+  libgudev,
+  libadwaita,
+  libkrb5,
+  libpulseaudio,
+  libpwquality,
+  librsvg,
+  webp-pixbuf-loader,
+  libsecret,
+  libwacom,
+  libxml2,
+  libxslt,
+  meson,
+  modemmanager,
+  mutter,
+  networkmanager,
+  networkmanagerapplet,
+  libnma-gtk4,
+  ninja,
+  pkg-config,
+  polkit,
+  python3,
+  samba,
+  shadow,
+  shared-mime-info,
+  sound-theme-freedesktop,
+  tracker,
+  tracker-miners,
+  tzdata,
+  udisks2,
+  upower,
+  libepoxy,
+  gnome-user-share,
+  gnome-remote-desktop,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -77,7 +78,12 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./paths.patch;
       gcm = gnome-color-manager;
-      inherit glibc libgnomekbd tzdata shadow;
+      inherit
+        glibc
+        libgnomekbd
+        tzdata
+        shadow
+      ;
       inherit cups networkmanagerapplet;
     })
   ];
@@ -94,52 +100,56 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    accountsservice
-    adwaita-icon-theme
-    colord
-    colord-gtk4
-    libepoxy
-    fontconfig
-    gdk-pixbuf
-    glib
-    glib-networking
-    gcr
-    gnome-bluetooth
-    gnome-desktop
-    gnome-online-accounts
-    gnome-remote-desktop # optional, sharing panel
-    gnome-settings-daemon
-    gnome-user-share # optional, sharing panel
-    gsettings-desktop-schemas
-    gsound
-    gtk4
-    ibus
-    libgtop
-    libgudev
-    libadwaita
-    libkrb5
-    libnma-gtk4
-    libpulseaudio
-    libpwquality
-    librsvg
-    libsecret
-    libwacom
-    libxml2
-    modemmanager
-    mutter # schemas for the keybindings
-    networkmanager
-    polkit
-    samba
-    tracker
-    tracker-miners # for search locations dialog
-    udisks2
-    upower
-  ] ++ (with gst_all_1; [
-    # For animations in Mouse panel.
-    gst-plugins-base
-    gst-plugins-good
-  ]);
+  buildInputs =
+    [
+      accountsservice
+      adwaita-icon-theme
+      colord
+      colord-gtk4
+      libepoxy
+      fontconfig
+      gdk-pixbuf
+      glib
+      glib-networking
+      gcr
+      gnome-bluetooth
+      gnome-desktop
+      gnome-online-accounts
+      gnome-remote-desktop # optional, sharing panel
+      gnome-settings-daemon
+      gnome-user-share # optional, sharing panel
+      gsettings-desktop-schemas
+      gsound
+      gtk4
+      ibus
+      libgtop
+      libgudev
+      libadwaita
+      libkrb5
+      libnma-gtk4
+      libpulseaudio
+      libpwquality
+      librsvg
+      libsecret
+      libwacom
+      libxml2
+      modemmanager
+      mutter # schemas for the keybindings
+      networkmanager
+      polkit
+      samba
+      tracker
+      tracker-miners # for search locations dialog
+      udisks2
+      upower
+    ]
+    ++ (
+      with gst_all_1; [
+        # For animations in Mouse panel.
+        gst-plugins-base
+        gst-plugins-good
+      ]
+    );
 
   preConfigure = ''
     # For ITS rules
@@ -149,12 +159,14 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # Pull in WebP support for gnome-backgrounds.
     # In postInstall to run before gappsWrapperArgsHook.
-    export GDK_PIXBUF_MODULE_FILE="${gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-      extraLoaders = [
-        librsvg
-        webp-pixbuf-loader
-      ];
-    }}"
+    export GDK_PIXBUF_MODULE_FILE="${
+      gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+        extraLoaders = [
+          librsvg
+          webp-pixbuf-loader
+        ];
+      }
+    }"
   '';
 
   preFixup = ''

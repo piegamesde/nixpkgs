@@ -1,32 +1,33 @@
-{ rustPlatform
-, fetchFromGitHub
-, lib
+{
+  rustPlatform,
+  fetchFromGitHub,
+  lib,
 
-, makeWrapper
-, installShellFiles
-, stdenv
-, Foundation
+  makeWrapper,
+  installShellFiles,
+  stdenv,
+  Foundation,
 
-, withFile ? true
-, file
-, withJq ? true
-, jq
-, withPoppler ? true
-, poppler_utils
-, withUnar ? true
-, unar
-, withFfmpegthumbnailer ? true
-, ffmpegthumbnailer
-, withFd ? true
-, fd
-, withRipgrep ? true
-, ripgrep
-, withFzf ? true
-, fzf
-, withZoxide ? true
-, zoxide
+  withFile ? true,
+  file,
+  withJq ? true,
+  jq,
+  withPoppler ? true,
+  poppler_utils,
+  withUnar ? true,
+  unar,
+  withFfmpegthumbnailer ? true,
+  ffmpegthumbnailer,
+  withFd ? true,
+  fd,
+  withRipgrep ? true,
+  ripgrep,
+  withFzf ? true,
+  fzf,
+  withZoxide ? true,
+  zoxide,
 
-, nix-update-script
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -42,12 +43,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-YUymZhDp1Pjm+W6m8Vmh2AgMCdaNt6TQQpiJwSg/gPw=";
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
-  postInstall = with lib;
+  postInstall =
+    with lib;
     let
-      runtimePaths = [ ]
+      runtimePaths =
+        [ ]
         ++ optional withFile file
         ++ optional withJq jq
         ++ optional withPoppler poppler_utils
@@ -73,6 +79,9 @@ rustPlatform.buildRustPackage rec {
     description = "Blazing fast terminal file manager written in Rust, based on async I/O";
     homepage = "https://github.com/sxyazi/yazi";
     license = licenses.mit;
-    maintainers = with maintainers; [ xyenon matthiasbeyer ];
+    maintainers = with maintainers; [
+      xyenon
+      matthiasbeyer
+    ];
   };
 }

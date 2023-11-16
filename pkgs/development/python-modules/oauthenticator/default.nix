@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, google-api-python-client
-, google-auth-oauthlib
-, jupyterhub
-, mwoauth
-, pyjwt
-, pytest-asyncio
-, pytestCheckHook
-, requests-mock
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  google-api-python-client,
+  google-auth-oauthlib,
+  jupyterhub,
+  mwoauth,
+  pyjwt,
+  pytest-asyncio,
+  pytestCheckHook,
+  requests-mock,
 }:
 
 buildPythonPackage rec {
@@ -29,21 +30,15 @@ buildPythonPackage rec {
       --replace " --cov=oauthenticator" ""
   '';
 
-  propagatedBuildInputs = [
-    jupyterhub
-  ];
+  propagatedBuildInputs = [ jupyterhub ];
 
   passthru.optional-dependencies = {
-    azuread = [
-      pyjwt
-    ];
+    azuread = [ pyjwt ];
     googlegroups = [
       google-api-python-client
       google-auth-oauthlib
     ];
-    mediawiki = [
-      mwoauth
-    ];
+    mediawiki = [ mwoauth ];
   };
 
   nativeCheckInputs = [
@@ -58,13 +53,11 @@ buildPythonPackage rec {
     "test_mediawiki"
   ];
 
-  pythonImportsCheck = [
-    "oauthenticator"
-  ];
+  pythonImportsCheck = [ "oauthenticator" ];
 
   meta = with lib; {
     description = "Authenticate JupyterHub users with common OAuth providers";
-    homepage =  "https://github.com/jupyterhub/oauthenticator";
+    homepage = "https://github.com/jupyterhub/oauthenticator";
     changelog = "https://github.com/jupyterhub/oauthenticator/blob/${version}/docs/source/reference/changelog.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ixxie ];

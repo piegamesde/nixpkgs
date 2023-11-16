@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, libuuid
-, libsodium
-, keyutils
-, liburcu
-, zlib
-, libaio
-, zstd
-, lz4
-, attr
-, udev
-, valgrind
-, nixosTests
-, fuse3
-, cargo
-, rustc
-, coreutils
-, rustPlatform
-, makeWrapper
-, fuseSupport ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libuuid,
+  libsodium,
+  keyutils,
+  liburcu,
+  zlib,
+  libaio,
+  zstd,
+  lz4,
+  attr,
+  udev,
+  valgrind,
+  nixosTests,
+  fuse3,
+  cargo,
+  rustc,
+  coreutils,
+  rustPlatform,
+  makeWrapper,
+  fuseSupport ? false,
 }:
 let
   version = "1.3.1";
@@ -100,7 +101,10 @@ stdenv.mkDerivation {
     description = "Tool for managing bcachefs filesystems";
     homepage = "https://bcachefs.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ davidak Madouura ];
+    maintainers = with maintainers; [
+      davidak
+      Madouura
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, python3
-, pythonOlder
-, fetchPypi
-, ftfy
-, appdirs
-, requests
-, setuptools-scm
-, types-mock
-, types-appdirs
-, types-requests
-, types-setuptools
-, argparse
-, doit
-, pyinstaller-versionfile
-, tableauserverclient
-, pytestCheckHook
-, mock
+{
+  lib,
+  buildPythonPackage,
+  python3,
+  pythonOlder,
+  fetchPypi,
+  ftfy,
+  appdirs,
+  requests,
+  setuptools-scm,
+  types-mock,
+  types-appdirs,
+  types-requests,
+  types-setuptools,
+  argparse,
+  doit,
+  pyinstaller-versionfile,
+  tableauserverclient,
+  pytestCheckHook,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,25 @@ buildPythonPackage rec {
     sha256 = "sha256-nsQJWDzSzSc1WRk5TBl/E7Mpfk8wGD1CsETAWILKxCM=";
   };
 
-  propagatedBuildInputs = [ ftfy appdirs requests setuptools-scm types-mock types-appdirs argparse doit pyinstaller-versionfile types-requests types-setuptools tableauserverclient ];
+  propagatedBuildInputs = [
+    ftfy
+    appdirs
+    requests
+    setuptools-scm
+    types-mock
+    types-appdirs
+    argparse
+    doit
+    pyinstaller-versionfile
+    types-requests
+    types-setuptools
+    tableauserverclient
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ];
 
   # Remove an unneeded dependency that can't be resolved
   prePatch = ''
@@ -55,7 +72,6 @@ buildPythonPackage rec {
     # Make it executable.
     chmod +x $out/bin/tabcmd
   '';
-
 
   meta = {
     description = "A command line client for working with Tableau Server.";

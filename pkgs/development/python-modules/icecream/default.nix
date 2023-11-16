@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi
-, asttokens, colorama, executing, pygments
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  asttokens,
+  colorama,
+  executing,
+  pygments,
 }:
 
 buildPythonPackage rec {
@@ -11,7 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-CqSnwzdOw2FTodCPgeMIDoPYrB7v2X0vT+lUTo+bSd4=";
   };
 
-  propagatedBuildInputs = [ asttokens colorama executing pygments ];
+  propagatedBuildInputs = [
+    asttokens
+    colorama
+    executing
+    pygments
+  ];
 
   meta = with lib; {
     description = "A little library for sweet and creamy print debugging";

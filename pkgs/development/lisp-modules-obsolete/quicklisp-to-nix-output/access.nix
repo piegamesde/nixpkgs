@@ -1,15 +1,27 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "access";
   version = "20210124-git";
 
   parasites = [ "access-test" ];
 
-  description = "A library providing functions that unify data-structure access for Common Lisp:
-      access and (setf access)";
+  description = ''
+    A library providing functions that unify data-structure access for Common Lisp:
+          access and (setf access)'';
 
-  deps = [ args."alexandria" args."anaphora" args."cl-interpol" args."cl-ppcre" args."cl-unicode" args."closer-mop" args."flexi-streams" args."iterate" args."lisp-unit2" args."named-readtables" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."cl-interpol"
+    args."cl-ppcre"
+    args."cl-unicode"
+    args."closer-mop"
+    args."flexi-streams"
+    args."iterate"
+    args."lisp-unit2"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/access/2021-01-24/access-20210124-git.tgz";
@@ -18,7 +30,7 @@ rec {
 
   packageName = "access";
 
-  asdFilesToKeep = ["access.asd"];
+  asdFilesToKeep = [ "access.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM access DESCRIPTION
@@ -37,4 +49,5 @@ rec {
     DEPENDENCIES
     (alexandria anaphora cl-interpol cl-ppcre cl-unicode closer-mop
      flexi-streams iterate lisp-unit2 named-readtables)
-    VERSION 20210124-git SIBLINGS NIL PARASITES (access-test)) */
+    VERSION 20210124-git SIBLINGS NIL PARASITES (access-test))
+*/

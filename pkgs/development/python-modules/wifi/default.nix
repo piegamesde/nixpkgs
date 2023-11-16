@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pbkdf2
-, pytestCheckHook
-, pythonOlder
-, substituteAll
-, wirelesstools
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pbkdf2,
+  pytestCheckHook,
+  pythonOlder,
+  substituteAll,
+  wirelesstools,
 }:
 
 buildPythonPackage rec {
@@ -26,13 +27,9 @@ buildPythonPackage rec {
       --replace "/sbin/iwlist" "${wirelesstools}/bin/iwlist"
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    pbkdf2
-  ];
+  propagatedBuildInputs = [ pbkdf2 ];
 
   pythonImportsCheck = [ "wifi" ];
 

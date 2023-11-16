@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
-, trio, async-generator, hypothesis, outcome, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  trio,
+  async-generator,
+  hypothesis,
+  outcome,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-trio";

@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools
-, typing-extensions
-, orjson
-, msgpack
-, pyyaml
-, tomli-w
-, tomli
-, pytestCheckHook
-, ciso8601
-, pendulum
-, pytest-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+  typing-extensions,
+  orjson,
+  msgpack,
+  pyyaml,
+  tomli-w,
+  tomli,
+  pytestCheckHook,
+  ciso8601,
+  pendulum,
+  pytest-mock,
 }:
 
 buildPythonPackage rec {
@@ -28,13 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-PvMEwIxurDGwYMCmNFThedxDY4vwATHYwMlXkucNuwM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   passthru.optional-dependencies = {
     orjson = [ orjson ];
@@ -50,9 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "mashumaro"
-  ];
+  pythonImportsCheck = [ "mashumaro" ];
 
   meta = with lib; {
     description = "Fast and well tested serialization library on top of dataclasses";

@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.eris-server;
   stateDirectoryPath = "\${STATE_DIRECTORY}";
-in {
+in
+{
 
   options.services.eris-server = {
 
@@ -65,38 +71,40 @@ in {
         Mountpoint for FUSE namespace that exposes "urn:eris:…" files.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.eris-server = let
-      cmd =
-        "${cfg.package}/bin/eris-go server --coap '${cfg.listenCoap}' --http '${cfg.listenHttp}' ${
-          lib.optionalString cfg.decode "--decode "
-        }${
-          lib.optionalString (cfg.mountpoint != "")
-          ''--mountpoint "${cfg.mountpoint}" ''
-        }${lib.strings.escapeShellArgs cfg.backends}";
-    in {
-      description = "ERIS block server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      script = lib.mkIf (cfg.mountpoint != "") ''
-        export PATH=${config.security.wrapperDir}:$PATH
-        ${cmd}
-      '';
-      serviceConfig = let
-        umounter = lib.mkIf (cfg.mountpoint != "")
-          "-${config.security.wrapperDir}/fusermount -uz ${cfg.mountpoint}";
-      in {
-        ExecStartPre = umounter;
-        ExecStart = lib.mkIf (cfg.mountpoint == "") cmd;
-        ExecStopPost = umounter;
-        Restart = "always";
-        RestartSec = 20;
-        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+    systemd.services.eris-server =
+      let
+        cmd = "${cfg.package}/bin/eris-go server --coap '${cfg.listenCoap}' --http '${cfg.listenHttp}' ${
+            lib.optionalString cfg.decode "--decode "
+          }${lib.optionalString (cfg.mountpoint != "") ''--mountpoint "${cfg.mountpoint}" ''}${
+            lib.strings.escapeShellArgs cfg.backends
+          }";
+      in
+      {
+        description = "ERIS block server";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        script = lib.mkIf (cfg.mountpoint != "") ''
+          export PATH=${config.security.wrapperDir}:$PATH
+          ${cmd}
+        '';
+        serviceConfig =
+          let
+            umounter =
+              lib.mkIf (cfg.mountpoint != "")
+                "-${config.security.wrapperDir}/fusermount -uz ${cfg.mountpoint}";
+          in
+          {
+            ExecStartPre = umounter;
+            ExecStart = lib.mkIf (cfg.mountpoint == "") cmd;
+            ExecStopPost = umounter;
+            Restart = "always";
+            RestartSec = 20;
+            AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+          };
       };
-    };
   };
 
   meta.maintainers = with lib.maintainers; [ ehmry ];

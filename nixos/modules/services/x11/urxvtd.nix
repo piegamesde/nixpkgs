@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # maintainer: siddharthist
 
@@ -6,7 +11,8 @@ with lib;
 
 let
   cfg = config.services.urxvtd;
-in {
+in
+{
   options.services.urxvtd = {
     enable = mkOption {
       type = types.bool;
@@ -46,5 +52,4 @@ in {
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
 }

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildNpmPackage
-, fetchFromGitHub
-, testers
-, balena-cli
-, nodePackages
-, python3
-, udev
-, darwin
+{
+  lib,
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  testers,
+  balena-cli,
+  nodePackages,
+  python3,
+  udev,
+  darwin,
 }:
 
 buildNpmPackage rec {
@@ -31,16 +32,14 @@ buildNpmPackage rec {
   nativeBuildInputs = [
     nodePackages.node-gyp
     python3
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.cctools
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    udev
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Foundation
-    darwin.apple_sdk.frameworks.Cocoa
-  ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [ udev ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.Foundation
+      darwin.apple_sdk.frameworks.Cocoa
+    ];
 
   passthru.tests.version = testers.testVersion {
     package = balena-cli;
@@ -62,7 +61,10 @@ buildNpmPackage rec {
     homepage = "https://github.com/balena-io/balena-cli";
     changelog = "https://github.com/balena-io/balena-cli/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ maintainers.kalebpace maintainers.doronbehar ];
+    maintainers = [
+      maintainers.kalebpace
+      maintainers.doronbehar
+    ];
     mainProgram = "balena";
   };
 }

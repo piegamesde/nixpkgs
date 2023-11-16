@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, lxml
-, robotframework
-, pytestCheckHook
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  robotframework,
+  pytestCheckHook,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Python unittest test suite for Robot Framework";

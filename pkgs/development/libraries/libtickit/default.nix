@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, libtool
-, perl
-, libtermkey
-, unibilium
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libtool,
+  perl,
+  libtermkey,
+  unibilium,
 }:
 let
   version = "0.4.3";
@@ -21,10 +22,11 @@ stdenv.mkDerivation {
     hash = "sha256-QCrym8g5J1qwsFpU/PB8zZIWdM3YzOySknISSbQE4Sc=";
   };
 
-  patches = [
-    # Disabled on darwin, since test assumes TERM=linux
-    ./001-skip-test-18term-builder-on-macos.patch
-  ];
+  patches =
+    [
+      # Disabled on darwin, since test assumes TERM=linux
+      ./001-skip-test-18term-builder-on-macos.patch
+    ];
 
   nativeBuildInputs = [
     pkg-config
@@ -38,13 +40,9 @@ stdenv.mkDerivation {
 
   nativeCheckInputs = [ perl ];
 
-  makeFlags = [
-    "LIBTOOL=${lib.getExe libtool}"
-  ];
+  makeFlags = [ "LIBTOOL=${lib.getExe libtool}" ];
 
-  installFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   enableParallelBuilding = true;
 

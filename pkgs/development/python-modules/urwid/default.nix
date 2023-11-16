@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 
-# build-system
-, setuptools
-, setuptools-scm
-, wheel
+  # build-system
+  setuptools,
+  setuptools-scm,
+  wheel,
 
-# tests
-, glibcLocales
-, pytestCheckHook
+  # tests
+  glibcLocales,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -39,14 +40,13 @@ buildPythonPackage rec {
 
   env.LC_ALL = "en_US.UTF8";
 
-  disabledTestPaths = [
-    # expect call hangs
-    "urwid/tests/test_vterm.py"
-  ];
+  disabledTestPaths =
+    [
+      # expect call hangs
+      "urwid/tests/test_vterm.py"
+    ];
 
-  pythonImportsCheck = [
-    "urwid"
-  ];
+  pythonImportsCheck = [ "urwid" ];
 
   meta = with lib; {
     changelog = "https://github.com/urwid/urwid/releases/tag/${version}";

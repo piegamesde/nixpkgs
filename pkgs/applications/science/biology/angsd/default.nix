@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, htslib
-, zlib
-, bzip2
-, xz
-, curl
-, openssl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  htslib,
+  zlib,
+  bzip2,
+  xz,
+  curl,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,21 +22,32 @@ stdenv.mkDerivation rec {
     rev = version;
   };
 
-  patches = [
-    # Pull pending inclusion upstream patch for parallel buil fixes:
-    #   https://github.com/ANGSD/angsd/pull/590
-    (fetchpatch {
-      name = "parallel-make.patch";
-      url = "https://github.com/ANGSD/angsd/commit/89fd1d898078016df390e07e25b8a3eeadcedf43.patch";
-      hash = "sha256-KQgUfr3v8xc+opAm4qcSV2eaupztv4gzJJHyzJBCxqA=";
-    })
-  ];
+  patches =
+    [
+      # Pull pending inclusion upstream patch for parallel buil fixes:
+      #   https://github.com/ANGSD/angsd/pull/590
+      (fetchpatch {
+        name = "parallel-make.patch";
+        url = "https://github.com/ANGSD/angsd/commit/89fd1d898078016df390e07e25b8a3eeadcedf43.patch";
+        hash = "sha256-KQgUfr3v8xc+opAm4qcSV2eaupztv4gzJJHyzJBCxqA=";
+      })
+    ];
 
-  buildInputs = [ htslib zlib bzip2 xz curl openssl ];
+  buildInputs = [
+    htslib
+    zlib
+    bzip2
+    xz
+    curl
+    openssl
+  ];
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "HTSSRC=systemwide" "prefix=$(out)" ];
+  makeFlags = [
+    "HTSSRC=systemwide"
+    "prefix=$(out)"
+  ];
 
   meta = with lib; {
     description = "Program for analysing NGS data";
@@ -44,4 +56,3 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
   };
 }
-

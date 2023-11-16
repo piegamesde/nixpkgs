@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
-, libiconv
-, openssl
-, pkg-config
-, darwin
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  libiconv,
+  openssl,
+  pkg-config,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,14 +23,25 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-A1z8ccdsaBC9gY4rD/0NnuQHm7x4eVlMPBvkMKGHK54=";
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ libiconv darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      darwin.apple_sdk.frameworks.Security
+    ];
 
   meta = with lib; {
     description = "A Conventional commit cli";
     homepage = "https://github.com/convco/convco";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ hoverbear cafkafk ];
+    maintainers = with maintainers; [
+      hoverbear
+      cafkafk
+    ];
   };
 }

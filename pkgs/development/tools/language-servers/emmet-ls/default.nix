@@ -1,7 +1,8 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, fetchpatch
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  fetchpatch,
 }:
 
 buildNpmPackage rec {
@@ -17,14 +18,15 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-Boaxkad7S6H+eTW5AHwBa/zj/f1oAGGSsmW1QrzuFWc=";
 
-  patches = [
-    # update package-lock.json as it is outdated
-    (fetchpatch {
-      name = "fix-lock-file-to-match-package-json.patch";
-      url = "https://github.com/aca/emmet-ls/commit/111111a2c2113f751fa12a716ccfbeae61c32079.patch";
-      hash = "sha256-/3ZbOBxScnfhL1F66cnIoD2flVeYTJ2sLxNHQ9Yrgjw=";
-    })
-  ];
+  patches =
+    [
+      # update package-lock.json as it is outdated
+      (fetchpatch {
+        name = "fix-lock-file-to-match-package-json.patch";
+        url = "https://github.com/aca/emmet-ls/commit/111111a2c2113f751fa12a716ccfbeae61c32079.patch";
+        hash = "sha256-/3ZbOBxScnfhL1F66cnIoD2flVeYTJ2sLxNHQ9Yrgjw=";
+      })
+    ];
 
   meta = with lib; {
     description = "Emmet support based on LSP";

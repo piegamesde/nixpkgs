@@ -1,6 +1,7 @@
-{ lib
-, buildLua
-, mpv-unwrapped
+{
+  lib,
+  buildLua,
+  mpv-unwrapped,
 }:
 
 buildLua {

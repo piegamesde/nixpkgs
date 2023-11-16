@@ -1,8 +1,46 @@
-{lib, stdenv, fetchFromGitHub, fuse, bison, flex, openssl, python3, ncurses, readline,
- autoconf, automake, libtool, pkg-config, zlib, libaio, libxml2, acl, sqlite,
- liburcu, liburing, attr, makeWrapper, coreutils, gnused, gnugrep, which,
- openssh, gawk, findutils, util-linux, lvm2, btrfs-progs, e2fsprogs, xfsprogs, systemd,
- rsync, getent, rpcsvc-proto, libtirpc, gperftools, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fuse,
+  bison,
+  flex,
+  openssl,
+  python3,
+  ncurses,
+  readline,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  zlib,
+  libaio,
+  libxml2,
+  acl,
+  sqlite,
+  liburcu,
+  liburing,
+  attr,
+  makeWrapper,
+  coreutils,
+  gnused,
+  gnugrep,
+  which,
+  openssh,
+  gawk,
+  findutils,
+  util-linux,
+  lvm2,
+  btrfs-progs,
+  e2fsprogs,
+  xfsprogs,
+  systemd,
+  rsync,
+  getent,
+  rpcsvc-proto,
+  libtirpc,
+  gperftools,
+  nixosTests,
 }:
 let
   # NOTE: On each glusterfs release, it should be checked if gluster added
@@ -14,25 +52,36 @@ let
   #       can help with finding new Python scripts.
 
   buildInputs = [
-    fuse openssl ncurses readline
-    zlib libaio libxml2
-    acl sqlite liburcu attr util-linux libtirpc gperftools
+    fuse
+    openssl
+    ncurses
+    readline
+    zlib
+    libaio
+    libxml2
+    acl
+    sqlite
+    liburcu
+    attr
+    util-linux
+    libtirpc
+    gperftools
     liburing
-    (python3.withPackages (pkgs: [
-      pkgs.flask
-      pkgs.prettytable
-      pkgs.requests
-      pkgs.pyxattr
-    ]))
+    (python3.withPackages (
+      pkgs: [
+        pkgs.flask
+        pkgs.prettytable
+        pkgs.requests
+        pkgs.pyxattr
+      ]
+    ))
     # NOTE: `python3` has to be *AFTER* the above `python3.withPackages`,
     #       to ensure that the packages are available but the `toPythonPath`
     #       shell function used in `postFixup` is also still available.
     python3
   ];
   # Some of the headers reference acl
-  propagatedBuildInputs = [
-    acl
-  ];
+  propagatedBuildInputs = [ acl ];
   # Packages from which GlusterFS calls binaries at run-time from PATH,
   # with comments on which commands are known to be called by it.
   runtimePATHdeps = [
@@ -53,7 +102,8 @@ let
     which # which
     xfsprogs # xfs_info
   ];
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "glusterfs";
   version = "11.1";
 
@@ -65,16 +115,17 @@ in stdenv.mkDerivation rec {
   };
   inherit buildInputs propagatedBuildInputs;
 
-  patches = [
-    # Upstream invokes `openssl version -d` to derive the canonical system path
-    # for certificates, which resolves to a nix store path, so this patch
-    # statically sets the configure.ac value. There's probably a less-brittle
-    # way to do this! (this will likely fail on a version bump)
-    # References:
-    # - https://github.com/gluster/glusterfs/issues/3234
-    # - https://github.com/gluster/glusterfs/commit/a7dc43f533ad4b8ff68bf57704fefc614da65493
-    ./ssl_cert_path.patch
-  ];
+  patches =
+    [
+      # Upstream invokes `openssl version -d` to derive the canonical system path
+      # for certificates, which resolves to a nix store path, so this patch
+      # statically sets the configure.ac value. There's probably a less-brittle
+      # way to do this! (this will likely fail on a version bump)
+      # References:
+      # - https://github.com/gluster/glusterfs/issues/3234
+      # - https://github.com/gluster/glusterfs/commit/a7dc43f533ad4b8ff68bf57704fefc614da65493
+      ./ssl_cert_path.patch
+    ];
 
   postPatch = ''
     sed -e '/chmod u+s/d' -i contrib/fuse-util/Makefile.am
@@ -102,11 +153,18 @@ in stdenv.mkDerivation rec {
     export PYTHON=${python3}/bin/python
   '';
 
-  configureFlags = [
-    "--localstatedir=/var"
-  ];
+  configureFlags = [ "--localstatedir=/var" ];
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config bison flex makeWrapper rpcsvc-proto ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+    bison
+    flex
+    makeWrapper
+    rpcsvc-proto
+  ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 

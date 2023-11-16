@@ -1,6 +1,15 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, docutils
-, libpthreadstubs, libpciaccess
-, withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light, valgrind-light
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  docutils,
+  libpthreadstubs,
+  libpciaccess,
+  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light,
+  valgrind-light,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,22 +21,32 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RsU/QHNeo9JtYUKX8VX2ExpRBiSiQnT2VPZGnKkFM5o=";
   };
 
-  outputs = [ "out" "dev" "bin" ];
-
-  nativeBuildInputs = [ pkg-config meson ninja docutils ];
-  buildInputs = [ libpthreadstubs libpciaccess ]
-    ++ lib.optional withValgrind valgrind-light;
-
-  mesonFlags = [
-    "-Dinstall-test-programs=true"
-    "-Dcairo-tests=disabled"
-    (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
-    (lib.mesonEnable "valgrind" withValgrind)
-  ] ++ lib.optionals stdenv.hostPlatform.isAarch [
-    "-Dtegra=enabled"
-  ] ++ lib.optionals (!stdenv.hostPlatform.isLinux) [
-    "-Detnaviv=disabled"
+  outputs = [
+    "out"
+    "dev"
+    "bin"
   ];
+
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    docutils
+  ];
+  buildInputs = [
+    libpthreadstubs
+    libpciaccess
+  ] ++ lib.optional withValgrind valgrind-light;
+
+  mesonFlags =
+    [
+      "-Dinstall-test-programs=true"
+      "-Dcairo-tests=disabled"
+      (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
+      (lib.mesonEnable "valgrind" withValgrind)
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
+    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ];
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/mesa/drm";

@@ -1,21 +1,22 @@
-{ bc
-, zip
-, lib
-, fetchFromGitHub
-, bats
-, buildPythonApplication
-, pythonOlder
-, callPackage
-, kicad
-, numpy
-, click
-, markdown2
-, pytestCheckHook
-, commentjson
-, wxPython_4_2
-, pcbnew-transition
-, pybars3
-, versioneer
+{
+  bc,
+  zip,
+  lib,
+  fetchFromGitHub,
+  bats,
+  buildPythonApplication,
+  pythonOlder,
+  callPackage,
+  kicad,
+  numpy,
+  click,
+  markdown2,
+  pytestCheckHook,
+  commentjson,
+  wxPython_4_2,
+  pcbnew-transition,
+  pybars3,
+  versioneer,
 }:
 let
   solidpython = callPackage ./solidpython { };
@@ -64,9 +65,7 @@ buildPythonApplication rec {
     bats
   ];
 
-  pythonImportsCheck = [
-    "kikit"
-  ];
+  pythonImportsCheck = [ "kikit" ];
 
   preCheck = ''
     export PATH=$PATH:$out/bin
@@ -81,7 +80,10 @@ buildPythonApplication rec {
     description = "Automation for KiCAD boards";
     homepage = "https://github.com/yaqwsx/KiKit/";
     changelog = "https://github.com/yaqwsx/KiKit/releases/tag/v${version}";
-    maintainers = with maintainers; [ jfly matusf ];
+    maintainers = with maintainers; [
+      jfly
+      matusf
+    ];
     license = licenses.mit;
   };
 }

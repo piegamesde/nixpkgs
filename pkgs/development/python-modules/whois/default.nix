@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, inetutils
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  inetutils,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,17 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-hs4iCv2OqwLhTj2H4oijRYIyqXrHmewqgnMtU+3Uup0=";
   };
 
-  propagatedBuildInputs = [
-    # whois is needed
-    inetutils
-  ];
+  propagatedBuildInputs =
+    [
+      # whois is needed
+      inetutils
+    ];
 
   # tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "whois"
-  ];
+  pythonImportsCheck = [ "whois" ];
 
   meta = with lib; {
     description = "Python module/library for retrieving WHOIS information";

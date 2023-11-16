@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "wakapi";
@@ -17,7 +21,7 @@ buildGoModule rec {
   excludedPackages = [ "scripts" ];
 
   # Fix up reported version
-  postPatch = ''echo ${version} > version.txt'';
+  postPatch = "echo ${version} > version.txt";
 
   ldflags = [
     "-s"

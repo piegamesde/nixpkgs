@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, buildGo121Module
+{
+  lib,
+  fetchFromGitHub,
+  buildGo121Module,
 }:
 buildGo121Module rec {
   pname = "juicity";
@@ -17,9 +18,7 @@ buildGo121Module rec {
 
   proxyVendor = true;
 
-  ldflags = [
-    "-X=github.com/juicity/juicity/config.Version=${version}"
-  ];
+  ldflags = [ "-X=github.com/juicity/juicity/config.Version=${version}" ];
 
   subPackages = [
     "cmd/server"

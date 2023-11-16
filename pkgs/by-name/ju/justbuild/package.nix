@@ -23,7 +23,8 @@
   curl,
   libarchive,
 }:
-let stdenv = gccStdenv;
+let
+  stdenv = gccStdenv;
 in
 stdenv.mkDerivation rec {
   pname = "justbuild";
@@ -53,30 +54,29 @@ stdenv.mkDerivation rec {
     sha256 = "5bb6b0253ccf64b53d6c7249625a7e3f6c3bc6402abd52d3778bfa48258703a0";
   };
 
-  nativeBuildInputs =
-    [
-      # Tools for the bootstrap process
-      jq
-      pkg-config
-      python3
-      unzip
-      wget
+  nativeBuildInputs = [
+    # Tools for the bootstrap process
+    jq
+    pkg-config
+    python3
+    unzip
+    wget
 
-      # Dependencies of just
-      cli11
-      # Using fmt 10 because this is the same version upstream currently
-      # uses for bundled builds
-      # For future updates: The currently used version can be found in the file
-      # etc/repos.json: https://github.com/just-buildsystem/justbuild/blob/master/etc/repos.json
-      # under the key .repositories.fmt
-      fmt_10
-      microsoft-gsl
-      nlohmann_json
+    # Dependencies of just
+    cli11
+    # Using fmt 10 because this is the same version upstream currently
+    # uses for bundled builds
+    # For future updates: The currently used version can be found in the file
+    # etc/repos.json: https://github.com/just-buildsystem/justbuild/blob/master/etc/repos.json
+    # under the key .repositories.fmt
+    fmt_10
+    microsoft-gsl
+    nlohmann_json
 
-      # Dependencies of the compiled just-mr
-      curl
-      libarchive
-    ];
+    # Dependencies of the compiled just-mr
+    curl
+    libarchive
+  ];
 
   buildInputs = [
     grpc
@@ -91,18 +91,20 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  postPatch = ''
-    sed -ie 's|\./bin/just-mr.py|${python3}/bin/python3 ./bin/just-mr.py|' bin/bootstrap.py
-    sed -ie 's|#!/usr/bin/env python3|#!${python3}/bin/python3|' bin/parallel-bootstrap-traverser.py
-    jq '.repositories.protobuf.pkg_bootstrap.local_path = "${protobuf3_23}"' etc/repos.json > etc/repos.json.patched
-    mv etc/repos.json.patched etc/repos.json
-    jq '.repositories.com_github_grpc_grpc.pkg_bootstrap.local_path = "${grpc}"' etc/repos.json > etc/repos.json.patched
-    mv etc/repos.json.patched etc/repos.json
-    jq '.unknown.PATH = []' etc/toolchain/CC/TARGETS > etc/toolchain/CC/TARGETS.patched
-    mv etc/toolchain/CC/TARGETS.patched etc/toolchain/CC/TARGETS
-  '' + lib.optionalString stdenv.isDarwin ''
-    sed -ie 's|-Wl,-z,stack-size=8388608|-Wl,-stack_size,0x800000|' bin/bootstrap.py
-  '';
+  postPatch =
+    ''
+      sed -ie 's|\./bin/just-mr.py|${python3}/bin/python3 ./bin/just-mr.py|' bin/bootstrap.py
+      sed -ie 's|#!/usr/bin/env python3|#!${python3}/bin/python3|' bin/parallel-bootstrap-traverser.py
+      jq '.repositories.protobuf.pkg_bootstrap.local_path = "${protobuf3_23}"' etc/repos.json > etc/repos.json.patched
+      mv etc/repos.json.patched etc/repos.json
+      jq '.repositories.com_github_grpc_grpc.pkg_bootstrap.local_path = "${grpc}"' etc/repos.json > etc/repos.json.patched
+      mv etc/repos.json.patched etc/repos.json
+      jq '.unknown.PATH = []' etc/toolchain/CC/TARGETS > etc/toolchain/CC/TARGETS.patched
+      mv etc/toolchain/CC/TARGETS.patched etc/toolchain/CC/TARGETS
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      sed -ie 's|-Wl,-z,stack-size=8388608|-Wl,-stack_size,0x800000|' bin/bootstrap.py
+    '';
 
   /* The build phase follows the bootstrap procedure that is explained in
      https://github.com/just-buildsystem/justbuild/blob/master/INSTALL.md
@@ -118,7 +120,6 @@ stdenv.mkDerivation rec {
      The extra build flags (ADD_CFLAGS and ADD_CXXFLAGS) are only needed in the
      current version of just, the next release will contain a fix from upstream.
      https://github.com/just-buildsystem/justbuild/commit/5abcd4140a91236c7bda1c21ce69e76a28da7c8a
-
   */
 
   buildPhase = ''
@@ -181,6 +182,6 @@ stdenv.mkDerivation rec {
     description = "a generic build tool";
     homepage = "https://github.com/just-buildsystem/justbuild";
     license = licenses.asl20;
-    maintainers = with maintainers; [clkamp];
+    maintainers = with maintainers; [ clkamp ];
   };
 }

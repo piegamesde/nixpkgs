@@ -1,14 +1,15 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, ical
-, pydantic
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  ical,
+  pydantic,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -40,9 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "gcal_sync"
-  ];
+  pythonImportsCheck = [ "gcal_sync" ];
 
   meta = with lib; {
     description = "Library for syncing Google Calendar to local storage";

@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "dnscontrol";
@@ -15,7 +19,11 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=main.Version=${version}"
+  ];
 
   preCheck = ''
     # requires network
@@ -27,7 +35,10 @@ buildGoModule rec {
     homepage = "https://dnscontrol.org/";
     changelog = "https://github.com/StackExchange/dnscontrol/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut SuperSandro2000 ];
+    maintainers = with maintainers; [
+      mmahut
+      SuperSandro2000
+    ];
     mainProgram = "dnscontrol";
   };
 }

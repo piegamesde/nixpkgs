@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cryptography
-, pytestCheckHook
-, pythonOlder
-, sphinxHook
-, sphinx-rtd-theme
-, zope_interface
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  pytestCheckHook,
+  pythonOlder,
+  sphinxHook,
+  sphinx-rtd-theme,
+  zope_interface,
 }:
 
 buildPythonPackage rec {
@@ -37,18 +38,17 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  passthru.optional-dependencies.crypto = [
-    cryptography
-  ];
+  passthru.optional-dependencies.crypto = [ cryptography ];
 
   nativeCheckInputs = [
     pytestCheckHook
   ] ++ (lib.flatten (lib.attrValues passthru.optional-dependencies));
 
-  disabledTests = [
-    # requires internet connection
-    "test_get_jwt_set_sslcontext_default"
-  ];
+  disabledTests =
+    [
+      # requires internet connection
+      "test_get_jwt_set_sslcontext_default"
+    ];
 
   pythonImportsCheck = [ "jwt" ];
 

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonApplication, pillow, imgp }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  pillow,
+  imgp,
+}:
 
 buildPythonApplication rec {
   pname = "imgp";

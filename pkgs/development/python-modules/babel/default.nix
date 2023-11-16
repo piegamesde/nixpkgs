@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, pythonAtLeast
-, pythonOlder
-, tzdata
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  pythonAtLeast,
+  pythonOlder,
+  tzdata,
 
-# tests
-, freezegun
-, pytestCheckHook
-, pytz
+  # tests
+  freezegun,
+  pytestCheckHook,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-zC2ZmZzQHURCCuclohyeNxGzqtx5dtYUf2IthYGWNFU=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [
-    pytz
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [ pytz ];
 
   # including backports.zoneinfo for python<3.9 yields infinite recursion
   doCheck = pythonAtLeast "3.9";
@@ -37,15 +36,14 @@ buildPythonPackage rec {
     pytestCheckHook
     # https://github.com/python-babel/babel/issues/988#issuecomment-1521765563
     pytz
-  ] ++ lib.optionals isPyPy [
-    tzdata
-  ];
+  ] ++ lib.optionals isPyPy [ tzdata ];
 
-  disabledTests = [
-    # fails on days switching from and to daylight saving time in EST
-    # https://github.com/python-babel/babel/issues/988
-    "test_format_time"
-  ];
+  disabledTests =
+    [
+      # fails on days switching from and to daylight saving time in EST
+      # https://github.com/python-babel/babel/issues/988
+      "test_format_time"
+    ];
 
   meta = with lib; {
     homepage = "https://babel.pocoo.org/";

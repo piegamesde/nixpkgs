@@ -1,13 +1,14 @@
-{ lib
-, glibc
-, fetchFromGitLab
-, makeWrapper
-, buildGoModule
-, linkFarm
-, writeShellScript
-, containerRuntimePath
-, configTemplate
-, libnvidia-container
+{
+  lib,
+  glibc,
+  fetchFromGitLab,
+  makeWrapper,
+  buildGoModule,
+  linkFarm,
+  writeShellScript,
+  containerRuntimePath,
+  configTemplate,
+  libnvidia-container,
 }:
 let
   isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [
@@ -40,10 +41,15 @@ buildGoModule rec {
   postPatch = ''
     # replace the default hookDefaultFilePath to the $out path
     substituteInPlace cmd/nvidia-container-runtime/main.go \
-      --replace '/usr/bin/nvidia-container-runtime-hook' '${placeholder "out"}/bin/nvidia-container-runtime-hook'
+      --replace '/usr/bin/nvidia-container-runtime-hook' '${
+        placeholder "out"
+      }/bin/nvidia-container-runtime-hook'
   '';
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -55,7 +61,10 @@ buildGoModule rec {
         "TestDuplicateHook"
       ];
     in
-    [ "-skip" "${builtins.concatStringsSep "|" skippedTests}" ];
+    [
+      "-skip"
+      "${builtins.concatStringsSep "|" skippedTests}"
+    ];
 
   postInstall = ''
     mkdir -p $out/etc/nvidia-container-runtime

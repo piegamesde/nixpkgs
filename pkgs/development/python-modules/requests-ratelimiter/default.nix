@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pyrate-limiter
-, requests
-, pytestCheckHook
-, requests-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyrate-limiter,
+  requests,
+  pytestCheckHook,
+  requests-mock,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-w4cBQRpk9UTuGA0lPDsqpQ3UEIQdYe38NYXz+V4+Lvc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pyrate-limiter

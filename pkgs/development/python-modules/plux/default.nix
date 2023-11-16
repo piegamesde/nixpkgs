@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, setuptools
-, stevedore
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  setuptools,
+  stevedore,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -21,27 +22,24 @@ buildPythonPackage rec {
     hash = "sha256-AybMHkCUNJsL51XwiskkIltEtqZ27fGHrpyct8IUjmo=";
   };
 
-  patches = [
-    # https://github.com/localstack/plux/pull/8
-    (fetchpatch {
-      name = "remove-pytest-runner.patch";
-      url = "https://github.com/localstack/plux/commit/3cda22e51f43a86304d0dedd7e554b21aa82c8b0.patch";
-      hash = "sha256-ZFHUTkUYFSTgKbx+c74JQzre0la+hFW9gNOxOehvVoE=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/localstack/plux/pull/8
+      (fetchpatch {
+        name = "remove-pytest-runner.patch";
+        url = "https://github.com/localstack/plux/commit/3cda22e51f43a86304d0dedd7e554b21aa82c8b0.patch";
+        hash = "sha256-ZFHUTkUYFSTgKbx+c74JQzre0la+hFW9gNOxOehvVoE=";
+      })
+    ];
 
   nativeBuildInputs = [
     setuptools
     wheel
   ];
 
-  propagatedBuildInputs = [
-    stevedore
-  ];
+  propagatedBuildInputs = [ stevedore ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "plugin.core" ];
 

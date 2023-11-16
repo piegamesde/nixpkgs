@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, nix-update-script
-, meson
-, ninja
-, nixos-artwork
-, glib
-, pkg-config
-, dbus
-, polkit
-, accountsservice
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  meson,
+  ninja,
+  nixos-artwork,
+  glib,
+  pkg-config,
+  dbus,
+  polkit,
+  accountsservice,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,14 +25,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-j4K8qYwfu6/s4qnTSzwv6KRsk9f+Qr/l1bhLywKMHMU=";
   };
 
-  patches = [
-    # Add pantheon-portals.conf
-    # https://github.com/elementary/default-settings/pull/293
-    (fetchpatch {
-      url = "https://github.com/elementary/default-settings/commit/8201eeb6a356e6059b505756ef7a556a6848ad3b.patch";
-      sha256 = "sha256-qhGj7WQTAWJTC1kouUZhBWKqyO4hQWJghEhLVl8QVUM=";
-    })
-  ];
+  patches =
+    [
+      # Add pantheon-portals.conf
+      # https://github.com/elementary/default-settings/pull/293
+      (fetchpatch {
+        url = "https://github.com/elementary/default-settings/commit/8201eeb6a356e6059b505756ef7a556a6848ad3b.patch";
+        sha256 = "sha256-qhGj7WQTAWJTC1kouUZhBWKqyO4hQWJghEhLVl8QVUM=";
+      })
+    ];
 
   nativeBuildInputs = [
     accountsservice
@@ -52,7 +54,9 @@ stdenv.mkDerivation rec {
   preInstall = ''
     # Install our override for plank dockitems as the desktop file path is different.
     schema_dir=$out/share/glib-2.0/schemas
-    install -D ${./overrides/plank-dockitems.gschema.override} $schema_dir/plank-dockitems.gschema.override
+    install -D ${
+      ./overrides/plank-dockitems.gschema.override
+    } $schema_dir/plank-dockitems.gschema.override
 
     # Our launchers that use paths at /run/current-system/sw/bin
     mkdir -p $out/etc/skel/.config/plank/dock1

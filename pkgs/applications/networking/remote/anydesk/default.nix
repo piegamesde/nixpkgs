@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, genericUpdater, writeShellScript
-, atk, cairo, gdk-pixbuf, glib, gnome2, gtk2, libGLU, libGL, pango, xorg, minizip
-, lsb-release, freetype, fontconfig, polkit, polkit_gnome, pciutils
-, pulseaudio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  genericUpdater,
+  writeShellScript,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  gnome2,
+  gtk2,
+  libGLU,
+  libGL,
+  pango,
+  xorg,
+  minizip,
+  lsb-release,
+  freetype,
+  fontconfig,
+  polkit,
+  polkit_gnome,
+  pciutils,
+  pulseaudio,
+}:
 
 let
   description = "Desktop sharing application, providing remote support and online meetings";
@@ -15,8 +38,8 @@ let
     categories = [ "Network" ];
     startupNotify = false;
   };
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "anydesk";
   version = "6.3.0";
 
@@ -39,14 +62,43 @@ in stdenv.mkDerivation rec {
     };
   };
 
-  buildInputs = [
-    atk cairo gdk-pixbuf glib gtk2 stdenv.cc.cc pango
-    gnome2.gtkglext libGLU libGL minizip freetype
-    fontconfig polkit polkit_gnome pulseaudio
-  ] ++ (with xorg; [
-    libxcb libxkbfile libX11 libXdamage libXext libXfixes libXi libXmu
-    libXrandr libXtst libXt libICE libSM libXrender
-  ]);
+  buildInputs =
+    [
+      atk
+      cairo
+      gdk-pixbuf
+      glib
+      gtk2
+      stdenv.cc.cc
+      pango
+      gnome2.gtkglext
+      libGLU
+      libGL
+      minizip
+      freetype
+      fontconfig
+      polkit
+      polkit_gnome
+      pulseaudio
+    ]
+    ++ (
+      with xorg; [
+        libxcb
+        libxkbfile
+        libX11
+        libXdamage
+        libXext
+        libXfixes
+        libXi
+        libXmu
+        libXrandr
+        libXtst
+        libXt
+        libICE
+        libSM
+        libXrender
+      ]
+    );
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -74,7 +126,12 @@ in stdenv.mkDerivation rec {
       $out/bin/anydesk
 
     wrapProgram $out/bin/anydesk \
-      --prefix PATH : ${lib.makeBinPath [ lsb-release pciutils ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          lsb-release
+          pciutils
+        ]
+      }
 
     substituteInPlace $out/share/applications/*.desktop \
       --subst-var out
@@ -86,6 +143,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ shyim cheriimoya ];
+    maintainers = with maintainers; [
+      shyim
+      cheriimoya
+    ];
   };
 }

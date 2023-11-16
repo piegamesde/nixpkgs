@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, poetry-dynamic-versioning
-, sphinx
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  poetry-dynamic-versioning,
+  sphinx,
 }:
 
 buildPythonPackage rec {

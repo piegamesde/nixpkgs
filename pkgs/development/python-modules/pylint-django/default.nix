@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, django
-, factory-boy
-, fetchFromGitHub
-, pylint-plugin-utils
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  django,
+  factory-boy,
+  fetchFromGitHub,
+  pylint-plugin-utils,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -40,9 +41,7 @@ buildPythonPackage rec {
     "0001_noerror_initial"
   ];
 
-  pythonImportsCheck = [
-    "pylint_django"
-  ];
+  pythonImportsCheck = [ "pylint_django" ];
 
   meta = with lib; {
     description = "Pylint plugin to analyze Django applications";

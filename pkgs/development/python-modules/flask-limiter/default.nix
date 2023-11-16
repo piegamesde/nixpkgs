@@ -1,19 +1,20 @@
-{ lib
-, asgiref
-, buildPythonPackage
-, fetchFromGitHub
-, flask
-, hiro
-, limits
-, ordered-set
-, pymemcache
-, pymongo
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, redis
-, rich
-, typing-extensions
+{
+  lib,
+  asgiref,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flask,
+  hiro,
+  limits,
+  ordered-set,
+  pymemcache,
+  pymongo,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  rich,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -75,14 +76,13 @@ buildPythonPackage rec {
     "test_fallback_to_memory"
   ];
 
-  disabledTestPaths = [
-    # requires running redis/memcached/mongodb
-    "tests/test_storage.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires running redis/memcached/mongodb
+      "tests/test_storage.py"
+    ];
 
-  pythonImportsCheck = [
-    "flask_limiter"
-  ];
+  pythonImportsCheck = [ "flask_limiter" ];
 
   meta = with lib; {
     description = "Rate limiting for flask applications";

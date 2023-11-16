@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.services.xserver.windowManager.dwm;
-
 in
 
 {
@@ -16,10 +20,10 @@ in
     services.xserver.windowManager.dwm = {
       enable = mkEnableOption (lib.mdDoc "dwm");
       package = mkOption {
-        type        = types.package;
-        default     = pkgs.dwm;
+        type = types.package;
+        default = pkgs.dwm;
         defaultText = literalExpression "pkgs.dwm";
-        example     = literalExpression ''
+        example = literalExpression ''
           pkgs.dwm.overrideAttrs (oldAttrs: rec {
             patches = [
               (super.fetchpatch {
@@ -36,23 +40,19 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    services.xserver.windowManager.session = singleton
-      { name = "dwm";
-        start =
-          ''
-            export _JAVA_AWT_WM_NONREPARENTING=1
-            dwm &
-            waitPID=$!
-          '';
-      };
+    services.xserver.windowManager.session = singleton {
+      name = "dwm";
+      start = ''
+        export _JAVA_AWT_WM_NONREPARENTING=1
+        dwm &
+        waitPID=$!
+      '';
+    };
 
     environment.systemPackages = [ cfg.package ];
-
   };
-
 }

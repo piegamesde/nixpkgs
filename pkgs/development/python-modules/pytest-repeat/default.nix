@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -19,21 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-eWc0Ra6ZruMzuBHH0AN660CPkzuImDdf8vT/8eO6aGs=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_repeat"
-  ];
+  pythonImportsCheck = [ "pytest_repeat" ];
 
   meta = with lib; {
     description = "Pytest plugin for repeating tests";

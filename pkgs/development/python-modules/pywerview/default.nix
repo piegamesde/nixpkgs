@@ -1,14 +1,15 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, fetchFromGitHub
-, gssapi
-, impacket
-, ldap3
-, lxml
-, pyasn1
-, pycryptodome
-, pythonOlder
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gssapi,
+  impacket,
+  ldap3,
+  lxml,
+  pyasn1,
+  pycryptodome,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pywerview"
-  ];
+  pythonImportsCheck = [ "pywerview" ];
 
   meta = with lib; {
     description = "Module for PowerSploit's PowerView support";

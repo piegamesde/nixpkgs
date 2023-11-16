@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
   # Python Inputs
-, ipyvue
+  ipyvue,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ipyvue ];
 
-  doCheck = false;  # no tests on PyPi/GitHub
+  doCheck = false; # no tests on PyPi/GitHub
   pythonImportsCheck = [ "ipyvuetify" ];
 
   meta = with lib; {

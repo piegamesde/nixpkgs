@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchpatch, python }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python,
+}:
 
 python.pkgs.buildPythonApplication rec {
   pname = "brotab";
@@ -12,14 +17,15 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-HKKjiW++FwjdorqquSCIdi1InE6KbMbFKZFYHBxzg8Q=";
   };
 
-  patches = [
-    # https://github.com/balta2ar/brotab/pull/102
-    (fetchpatch {
-      name = "remove-unnecessary-pip-import.patch";
-      url = "https://github.com/balta2ar/brotab/commit/825cd48f255c911aabbfb495f6b8fc73f27d3fe5.patch";
-      hash = "sha256-IN28AOLPKPUc3KkxIGFMpZNNXA1+O12NxS+Hl4KMXbg=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/balta2ar/brotab/pull/102
+      (fetchpatch {
+        name = "remove-unnecessary-pip-import.patch";
+        url = "https://github.com/balta2ar/brotab/commit/825cd48f255c911aabbfb495f6b8fc73f27d3fe5.patch";
+        hash = "sha256-IN28AOLPKPUc3KkxIGFMpZNNXA1+O12NxS+Hl4KMXbg=";
+      })
+    ];
 
   propagatedBuildInputs = with python.pkgs; [
     flask
@@ -37,9 +43,7 @@ python.pkgs.buildPythonApplication rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = with python.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
 
   meta = with lib; {
     homepage = "https://github.com/balta2ar/brotab";

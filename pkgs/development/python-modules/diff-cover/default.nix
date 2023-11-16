@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, chardet
-, fetchPypi
-, jinja2
-, jinja2-pluralize
-, pluggy
-, pycodestyle
-, pyflakes
-, pygments
-, pylint
-, pytest-datadir
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, tomli
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  fetchPypi,
+  jinja2,
+  jinja2-pluralize,
+  pluggy,
+  pycodestyle,
+  pyflakes,
+  pygments,
+  pylint,
+  pytest-datadir,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  tomli,
 }:
 
 buildPythonPackage rec {
@@ -54,9 +55,7 @@ buildPythonPackage rec {
     "console"
   ];
 
-  pythonImportsCheck = [
-    "diff_cover"
-  ];
+  pythonImportsCheck = [ "diff_cover" ];
 
   meta = with lib; {
     description = "Automatically find diff lines that need test coverage";

@@ -1,7 +1,8 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, gtk-engine-murrine
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  gtk-engine-murrine,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -15,9 +16,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-NJ5URKYs4rVzddXxkwJK9ih40f8McVEbj3G1tPFAiMs";
   };
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

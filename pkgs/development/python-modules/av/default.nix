@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build
-, cython
-, pkg-config
-, setuptools
+  # build
+  cython,
+  pkg-config,
+  setuptools,
 
-# runtime
-, ffmpeg_5-headless
+  # runtime
+  ffmpeg_5-headless,
 
-# tests
-, numpy
-, pillow
-, pytestCheckHook
+  # tests
+  numpy,
+  pillow,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [
-    ffmpeg_5-headless
-  ];
+  buildInputs = [ ffmpeg_5-headless ];
 
   preCheck = ''
     # ensure we import the built version
@@ -103,10 +102,11 @@ buildPythonPackage rec {
     "--deselect=tests/test_videoframe.py::TestVideoFrameImage::test_roundtrip"
   ];
 
-  disabledTests = [
-    # urlopen fails during DNS resolution
-    "test_writing_to_custom_io"
-  ];
+  disabledTests =
+    [
+      # urlopen fails during DNS resolution
+      "test_writing_to_custom_io"
+    ];
 
   disabledTestPaths = [
     # urlopen fails during DNS resolution

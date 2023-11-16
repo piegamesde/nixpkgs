@@ -1,13 +1,14 @@
-{ lib
-, mkDerivationWith
-, python3Packages
-, fetchFromGitHub
-, fetchpatch
-, wrapQtAppsHook
-, ffmpeg
-, qtbase
-, testers
-, corrscope
+{
+  lib,
+  mkDerivationWith,
+  python3Packages,
+  fetchFromGitHub,
+  fetchpatch,
+  wrapQtAppsHook,
+  ffmpeg,
+  qtbase,
+  testers,
+  corrscope,
 }:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
@@ -22,23 +23,26 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     hash = "sha256-pS7upOYZAjgR3lWxny8TNZEj3Rrbg+L90ANZWFO9UPQ=";
   };
 
-  patches = [
-    # https://github.com/corrscope/corrscope/pull/446
-    (fetchpatch {
-      name = "remove-setuptools-dependency.patch";
-      url = "https://github.com/corrscope/corrscope/commit/70b123173a7a012d9f29d6d3a8960b85caf6cc79.patch";
-      hash = "sha256-YCtb7v8cGP0pdceAKeoempnRzw+LRKQqDb3AfN0z/9s=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/corrscope/corrscope/pull/446
+      (fetchpatch {
+        name = "remove-setuptools-dependency.patch";
+        url = "https://github.com/corrscope/corrscope/commit/70b123173a7a012d9f29d6d3a8960b85caf6cc79.patch";
+        hash = "sha256-YCtb7v8cGP0pdceAKeoempnRzw+LRKQqDb3AfN0z/9s=";
+      })
+    ];
 
   pythonRelaxDeps = [ "attrs" ];
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-  ] ++ (with python3Packages; [
-    poetry-core
-    pythonRelaxDepsHook
-  ]);
+  nativeBuildInputs =
+    [ wrapQtAppsHook ]
+    ++ (
+      with python3Packages; [
+        poetry-core
+        pythonRelaxDepsHook
+      ]
+    );
 
   buildInputs = [
     ffmpeg

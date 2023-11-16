@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
   # needs packages which are not available in nixpkgs
   doCheck = false;
 
-  pythonImportsCheck = [
-    "bids_validator"
-  ];
+  pythonImportsCheck = [ "bids_validator" ];
 
   meta = with lib; {
     description = "Validator for the Brain Imaging Data Structure";

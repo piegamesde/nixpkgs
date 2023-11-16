@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ubuntu-font-family";
@@ -20,10 +24,11 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description = "Ubuntu Font Family";
-    longDescription = "The Ubuntu typeface has been specially
-    created to complement the Ubuntu tone of voice. It has a
-    contemporary style and contains characteristics unique to
-    the Ubuntu brand that convey a precise, reliable and free attitude.";
+    longDescription = ''
+      The Ubuntu typeface has been specially
+          created to complement the Ubuntu tone of voice. It has a
+          contemporary style and contains characteristics unique to
+          the Ubuntu brand that convey a precise, reliable and free attitude.'';
     homepage = "http://font.ubuntu.com/";
     license = licenses.free;
     platforms = platforms.all;

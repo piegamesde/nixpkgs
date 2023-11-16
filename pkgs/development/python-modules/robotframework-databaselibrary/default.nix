@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, robotframework
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  robotframework,
 }:
 
 buildPythonPackage rec {
@@ -24,5 +25,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ talkara ];
   };
-
 }

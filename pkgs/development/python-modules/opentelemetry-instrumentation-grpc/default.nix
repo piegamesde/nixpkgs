@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, hatchling
-, opentelemetry-api
-, opentelemetry-instrumentation
-, opentelemetry-sdk
-, opentelemetry-semantic-conventions
-, opentelemetry-test-utils
-, wrapt
-, pytestCheckHook
-, grpcio
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-instrumentation,
+  opentelemetry-sdk,
+  opentelemetry-semantic-conventions,
+  opentelemetry-test-utils,
+  wrapt,
+  pytestCheckHook,
+  grpcio,
 }:
 
 buildPythonPackage {
@@ -21,9 +22,7 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     opentelemetry-api

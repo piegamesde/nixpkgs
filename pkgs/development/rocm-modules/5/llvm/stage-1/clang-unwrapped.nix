@@ -1,6 +1,7 @@
-{ callPackage
-, rocmUpdateScript
-, llvm
+{
+  callPackage,
+  rocmUpdateScript,
+  llvm,
 }:
 
 callPackage ../base.nix rec {
@@ -19,7 +20,8 @@ callPackage ../base.nix rec {
     ln -s ../cmake/Modules/FindLibEdit.cmake cmake/modules
 
     substituteInPlace CMakeLists.txt \
-      --replace "include(CheckIncludeFile)" "include(CheckIncludeFile)''\nfind_package(LibEdit)"
+      --replace "include(CheckIncludeFile)" "include(CheckIncludeFile)
+    find_package(LibEdit)"
 
     # `No such file or directory: '/build/source/clang/tools/scan-build/bin/scan-build'`
     rm test/Analysis/scan-build/*.test

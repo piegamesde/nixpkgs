@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 
 let
@@ -28,7 +33,7 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = mdDoc ''
         Extra command line options.
 

@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, pam, openldap, perl }:
+{
+  stdenv,
+  fetchurl,
+  pam,
+  openldap,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_ldap";
@@ -14,12 +20,13 @@ stdenv.mkDerivation rec {
     substituteInPlace vers_string --replace "cvslib.pl" "./cvslib.pl"
   '';
 
-  preInstall = "
-    substituteInPlace Makefile --replace '-o root -g root' ''
-  ";
+  preInstall = "\n    substituteInPlace Makefile --replace '-o root -g root' ''\n  ";
 
   nativeBuildInputs = [ perl ];
-  buildInputs = [ pam openldap ];
+  buildInputs = [
+    pam
+    openldap
+  ];
 
   meta = {
     homepage = "https://www.padl.com/OSS/pam_ldap.html";

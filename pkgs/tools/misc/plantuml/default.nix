@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre, graphviz }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  graphviz,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.2023.12";
@@ -29,7 +36,10 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     # "plantuml -license" says GPLv3 or later
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bjornfor Mogria ];
+    maintainers = with maintainers; [
+      bjornfor
+      Mogria
+    ];
     platforms = platforms.unix;
   };
 }

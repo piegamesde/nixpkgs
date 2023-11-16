@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libusb1, ...}:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libusb1,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "libuldaq";
@@ -11,10 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DA1mxu94z5xDpGK9OBwD02HXlOATv/slqZ4lz5GM7QM=";
   };
 
-  patches = [
-    # Patch needed for `make install` to succeed
-    ./0001-uldaq.patch
-  ];
+  patches =
+    [
+      # Patch needed for `make install` to succeed
+      ./0001-uldaq.patch
+    ];
 
   nativeBuildInputs = [ autoreconfHook ];
 

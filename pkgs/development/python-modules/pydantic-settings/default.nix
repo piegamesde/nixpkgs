@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, pydantic
-, python-dotenv
-, pytestCheckHook
-, pytest-examples
-, pytest-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  pydantic,
+  python-dotenv,
+  pytestCheckHook,
+  pytest-examples,
+  pytest-mock,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-3V6daCibvVr8RKo2o+vHC++QgIYKAOyRg11ATrCzM5Y=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     pydantic

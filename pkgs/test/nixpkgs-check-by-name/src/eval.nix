@@ -6,27 +6,20 @@
 # - call_package_path: The <path> from `<attr> = callPackage <path> { ... }`,
 #   or null if it's not defined as with callPackage, or if the <path> is not a path
 # - is_derivation: The result of `lib.isDerivation <attr>`
-{
-  attrsPath,
-  nixpkgsPath,
-}:
+{ attrsPath, nixpkgsPath }:
 let
   attrs = builtins.fromJSON (builtins.readFile attrsPath);
 
   # This overlay mocks callPackage to persist the path of the first argument
   callPackageOverlay = self: super: {
-    callPackage = fn: args:
+    callPackage =
+      fn: args:
       let
         result = super.callPackage fn args;
         variantInfo._attributeVariant = {
           # These names are used by the deserializer on the Rust side
-          CallPackage.path =
-            if builtins.isPath fn then
-              toString fn
-            else
-              null;
-          CallPackage.empty_arg =
-            args == { };
+          CallPackage.path = if builtins.isPath fn then toString fn else null;
+          CallPackage.empty_arg = args == { };
         };
       in
       if builtins.isAttrs result then
@@ -38,7 +31,8 @@ let
         # It's very rare that callPackage doesn't return an attribute set, but it can occur.
         variantInfo;
 
-    _internalCallByNamePackageFile = file:
+    _internalCallByNamePackageFile =
+      file:
       let
         result = super._internalCallByNamePackageFile file;
         variantInfo._attributeVariant = {
@@ -62,21 +56,25 @@ let
     overlays = [ callPackageOverlay ];
   };
 
-  attrInfo = attr:
+  attrInfo =
+    attr:
     let
       value = pkgs.${attr};
     in
     {
-    # These names are used by the deserializer on the Rust side
-    variant = value._attributeVariant or { Other = null; };
-    is_derivation = pkgs.lib.isDerivation value;
-  };
+      # These names are used by the deserializer on the Rust side
+      variant = value._attributeVariant or { Other = null; };
+      is_derivation = pkgs.lib.isDerivation value;
+    };
 
-  attrInfos = builtins.listToAttrs (map (name: {
-    inherit name;
-    value = attrInfo name;
-  }) attrs);
-
+  attrInfos = builtins.listToAttrs (
+    map
+      (name: {
+        inherit name;
+        value = attrInfo name;
+      })
+      attrs
+  );
 in
 # Filter out attributes not in Nixpkgs
 builtins.intersectAttrs pkgs attrInfos

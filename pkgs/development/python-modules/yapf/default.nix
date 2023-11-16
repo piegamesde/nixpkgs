@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, nose
-, importlib-metadata
-, platformdirs
-, tomli
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  nose,
+  importlib-metadata,
+  platformdirs,
+  tomli,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     tomli
   ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   meta = {
     homepage = "https://github.com/google/yapf";
@@ -54,6 +53,9 @@ buildPythonPackage rec {
       takes away some of the drudgery of maintaining your code.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ AndersonTorres siddharthist ];
+    maintainers = with lib.maintainers; [
+      AndersonTorres
+      siddharthist
+    ];
   };
 }

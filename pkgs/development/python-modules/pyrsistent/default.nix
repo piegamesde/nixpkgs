@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, six
-, pytestCheckHook
-, hypothesis
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  six,
+  pytestCheckHook,
+  hypothesis,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -36,5 +40,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ desiderius ];
   };
-
 }

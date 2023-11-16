@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, traitlets
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  traitlets,
+  pytestCheckHook,
 }:
 
 let
@@ -21,17 +22,11 @@ buildPythonPackage {
     hash = "sha256-6GvAyiTm+zQ5sSynuJhAg50PaMTY9EFqVVsD3K2wTkY=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    traitlets
-  ];
+  propagatedBuildInputs = [ traitlets ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Jupyter Python Comm implementation, for usage in ipykernel, xeus-python etc";
@@ -40,4 +35,3 @@ buildPythonPackage {
     maintainers = with maintainers; [ ];
   };
 }
-

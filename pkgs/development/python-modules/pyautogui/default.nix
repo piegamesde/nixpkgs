@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mouseinfo
-, pygetwindow
-, pymsgbox
-, pyperclip
-, pyscreeze
-, pytweening
-, tkinter
-, xlib
-, xvfb-run
-, scrot
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mouseinfo,
+  pygetwindow,
+  pymsgbox,
+  pyperclip,
+  pyscreeze,
+  pytweening,
+  tkinter,
+  xlib,
+  xvfb-run,
+  scrot,
 }:
 buildPythonPackage rec {
   pname = "pyautogui";
@@ -23,17 +24,21 @@ buildPythonPackage rec {
     hash = "sha256-R9tcTqxUaqw63FLOGFRaO/Oz6kD7V6MPHdQ8A29NdXw=";
   };
 
-  nativeCheckInputs = [ xvfb-run scrot ];
+  nativeCheckInputs = [
+    xvfb-run
+    scrot
+  ];
   checkPhase = ''
     xvfb-run python -c 'import pyautogui'
     # The tests depend on some specific things that xvfb cant provide, like keyboard and mouse
     # xvfb-run python -m unittest tests.test_pyautogui
   '';
 
-  patches = [
-    # https://github.com/asweigart/pyautogui/issues/598
-    ./fix-locateOnWindow-and-xlib.patch
-  ];
+  patches =
+    [
+      # https://github.com/asweigart/pyautogui/issues/598
+      ./fix-locateOnWindow-and-xlib.patch
+    ];
 
   propagatedBuildInputs = [
     mouseinfo

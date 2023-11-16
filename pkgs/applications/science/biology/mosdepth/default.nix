@@ -1,4 +1,11 @@
-{ lib, nimPackages, fetchFromGitHub, docopt, hts, pcre }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+  docopt,
+  hts,
+  pcre,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "mosdepth";
@@ -12,7 +19,11 @@ nimPackages.buildNimPackage rec {
     sha256 = "sha256-tG3J51PS6A0WBCZ+j/Nf7aaukFV+DZJsxpbTbvwu0zc=";
   };
 
-  buildInputs = [ docopt hts pcre ];
+  buildInputs = [
+    docopt
+    hts
+    pcre
+  ];
   nimFlags = hts.nimFlags ++ [ "--threads:off" ];
 
   meta = with lib; {

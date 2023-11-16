@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, isPyPy
-, lazy-object-proxy
-, setuptools
-, wheel
-, typing-extensions
-, typed-ast
-, pip
-, pylint
-, pytestCheckHook
-, wrapt
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  isPyPy,
+  lazy-object-proxy,
+  setuptools,
+  wheel,
+  typing-extensions,
+  typed-ast,
+  pip,
+  pylint,
+  pytestCheckHook,
+  wrapt,
 }:
 
 buildPythonPackage rec {
@@ -33,14 +34,13 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    lazy-object-proxy
-    wrapt
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    typing-extensions
-  ] ++ lib.optionals (!isPyPy && pythonOlder "3.8") [
-    typed-ast
-  ];
+  propagatedBuildInputs =
+    [
+      lazy-object-proxy
+      wrapt
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
+    ++ lib.optionals (!isPyPy && pythonOlder "3.8") [ typed-ast ];
 
   nativeCheckInputs = [
     pip
@@ -48,10 +48,11 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  disabledTests = [
-    # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('tests.testdata.python3.data.path_pkg_resources_1.package')`.
-    "test_identify_old_namespace_package_protocol"
-  ];
+  disabledTests =
+    [
+      # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('tests.testdata.python3.data.path_pkg_resources_1.package')`.
+      "test_identify_old_namespace_package_protocol"
+    ];
 
   passthru.tests = {
     inherit pylint;

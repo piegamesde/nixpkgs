@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, autoreconfHook
-, c-ares
-, cryptopp
-, curl
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  c-ares,
+  cryptopp,
+  curl,
+  fetchFromGitHub,
   # build fails with latest ffmpeg, see https://github.com/meganz/MEGAcmd/issues/523.
   # to be re-enabled when patch available
   # , ffmpeg
-, freeimage
-, gcc-unwrapped
-, libmediainfo
-, libraw
-, libsodium
-, libuv
-, libzen
-, pcre-cpp
-, pkg-config
-, readline
-, sqlite
+  freeimage,
+  gcc-unwrapped,
+  libmediainfo,
+  libraw,
+  libsodium,
+  libuv,
+  libzen,
+  pcre-cpp,
+  pkg-config,
+  readline,
+  sqlite,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,7 +35,10 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     c-ares
@@ -73,8 +77,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "MEGA Command Line Interactive and Scriptable Application";
     homepage = "https://mega.io/cmd";
-    license = with licenses; [ bsd2 gpl3Only ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    license = with licenses; [
+      bsd2
+      gpl3Only
+    ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = with maintainers; [ lunik1 ];
   };
 }

@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, importlib-metadata
-, jinja2
-, markdown-it-py
-, poetry-core
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, rich
-, syrupy
-, time-machine
-, tree-sitter
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  jinja2,
+  markdown-it-py,
+  poetry-core,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  rich,
+  syrupy,
+  time-machine,
+  tree-sitter,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -29,17 +30,14 @@ buildPythonPackage rec {
     hash = "sha256-K3JpAVkw6njUT2AGGLL3ACagPK0K6Ny4PvCsbmuNvTo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     importlib-metadata
     markdown-it-py
     rich
     typing-extensions
-  ] ++ markdown-it-py.optional-dependencies.plugins
-    ++ markdown-it-py.optional-dependencies.linkify;
+  ] ++ markdown-it-py.optional-dependencies.plugins ++ markdown-it-py.optional-dependencies.linkify;
 
   passthru.optional-dependencies = {
     syntax = [
@@ -56,10 +54,11 @@ buildPythonPackage rec {
     time-machine
   ] ++ passthru.optional-dependencies.syntax;
 
-  disabledTestPaths = [
-    # snapshot tests require syrupy<4
-    "tests/snapshot_tests/test_snapshots.py"
-  ];
+  disabledTestPaths =
+    [
+      # snapshot tests require syrupy<4
+      "tests/snapshot_tests/test_snapshots.py"
+    ];
 
   disabledTests = [
     # Assertion issues
@@ -70,9 +69,7 @@ buildPythonPackage rec {
     "test_register_language"
   ];
 
-  pythonImportsCheck = [
-    "textual"
-  ];
+  pythonImportsCheck = [ "textual" ];
 
   __darwinAllowLocalNetworking = true;
 

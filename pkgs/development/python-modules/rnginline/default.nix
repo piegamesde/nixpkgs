@@ -1,14 +1,15 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, poetry-core
-, lxml
-, docopt-ng
-, typing-extensions
-, importlib-metadata
-, importlib-resources
-, pytestCheckHook
-, mock
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  poetry-core,
+  lxml,
+  docopt-ng,
+  typing-extensions,
+  importlib-metadata,
+  importlib-resources,
+  pytestCheckHook,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
       --replace 'importlib-metadata = "^6.6.0"' 'importlib-metadata = "^6.0.0"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     docopt-ng

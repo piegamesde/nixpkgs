@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, pytestCheckHook
-, pytest-xdist
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  pytestCheckHook,
+  pytest-xdist,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
     "test_generator_ditch"
   ];
 
-  pythonImportsCheck = [
-    "librouteros"
-  ];
+  pythonImportsCheck = [ "librouteros" ];
 
   meta = with lib; {
     description = "Python implementation of the MikroTik RouterOS API";

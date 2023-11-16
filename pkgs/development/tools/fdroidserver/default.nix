@@ -1,28 +1,29 @@
-{ lib
-, fetchFromGitLab
-, fetchPypi
-, apksigner
-, buildPythonApplication
-, python3
-, pythonRelaxDepsHook
-, installShellFiles
-, androguard
-, babel
-, clint
-, defusedxml
-, gitpython
-, libcloud
-, mwclient
-, paramiko
-, pillow
-, pyasn1
-, pyasn1-modules
-, python-vagrant
-, pyyaml
-, qrcode
-, requests
-, ruamel-yaml
-, yamllint
+{
+  lib,
+  fetchFromGitLab,
+  fetchPypi,
+  apksigner,
+  buildPythonApplication,
+  python3,
+  pythonRelaxDepsHook,
+  installShellFiles,
+  androguard,
+  babel,
+  clint,
+  defusedxml,
+  gitpython,
+  libcloud,
+  mwclient,
+  paramiko,
+  pillow,
+  pyasn1,
+  pyasn1-modules,
+  python-vagrant,
+  pyyaml,
+  qrcode,
+  requests,
+  ruamel-yaml,
+  yamllint,
 }:
 
 buildPythonApplication rec {
@@ -63,9 +64,7 @@ buildPythonApplication rec {
     installShellFiles
   ];
 
-  buildInputs = [
-    babel
-  ];
+  buildInputs = [ babel ];
 
   propagatedBuildInputs = [
     androguard
@@ -82,13 +81,15 @@ buildPythonApplication rec {
     pyyaml
     qrcode
     requests
-    (ruamel-yaml.overrideAttrs (old: {
-      src = fetchPypi {
-        pname = "ruamel.yaml";
-        version = "0.17.21";
-        hash = "sha256-i3zml6LyEnUqNcGsQURx3BbEJMlXO+SSa1b/P10jt68=";
-      };
-    }))
+    (ruamel-yaml.overrideAttrs (
+      old: {
+        src = fetchPypi {
+          pname = "ruamel.yaml";
+          version = "0.17.21";
+          hash = "sha256-i3zml6LyEnUqNcGsQURx3BbEJMlXO+SSa1b/P10jt68=";
+        };
+      }
+    ))
     yamllint
   ];
 
@@ -102,15 +103,16 @@ buildPythonApplication rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "fdroidserver"
-  ];
+  pythonImportsCheck = [ "fdroidserver" ];
 
   meta = with lib; {
     homepage = "https://github.com/f-droid/fdroidserver";
     changelog = "https://github.com/f-droid/fdroidserver/blob/${version}/CHANGELOG.md";
     description = "Server and tools for F-Droid, the Free Software repository system for Android";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ linsui jugendhacker ];
+    maintainers = with maintainers; [
+      linsui
+      jugendhacker
+    ];
   };
 }

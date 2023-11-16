@@ -1,24 +1,25 @@
-{ lib
-, aiohttp
-, aiohttp-jinja2
-, aiohttp-remotes
-, aiohttp-swagger
-, buildPythonPackage
-, clickclick
-, decorator
-, fetchFromGitHub
-, flask
-, inflection
-, jsonschema
-, openapi-spec-validator
-, packaging
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, swagger-ui-bundle
-, testfixtures
+{
+  lib,
+  aiohttp,
+  aiohttp-jinja2,
+  aiohttp-remotes,
+  aiohttp-swagger,
+  buildPythonPackage,
+  clickclick,
+  decorator,
+  fetchFromGitHub,
+  flask,
+  inflection,
+  jsonschema,
+  openapi-spec-validator,
+  packaging,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  swagger-ui-bundle,
+  testfixtures,
 }:
 
 buildPythonPackage rec {
@@ -58,14 +59,13 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  pythonImportsCheck = [
-    "connexion"
-  ];
+  pythonImportsCheck = [ "connexion" ];
 
-  disabledTests = [
-    # AssertionError
-    "test_headers"
-  ];
+  disabledTests =
+    [
+      # AssertionError
+      "test_headers"
+    ];
 
   meta = with lib; {
     description = "Swagger/OpenAPI First framework on top of Flask";

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, dlms-cosem
-, fetchFromGitHub
-, pyserial
-, pyserial-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
-, tailer
+{
+  lib,
+  buildPythonPackage,
+  dlms-cosem,
+  fetchFromGitHub,
+  pyserial,
+  pyserial-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  tailer,
 }:
 
 buildPythonPackage rec {
@@ -32,13 +33,9 @@ buildPythonPackage rec {
     tailer
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dsmr_parser"
-  ];
+  pythonImportsCheck = [ "dsmr_parser" ];
 
   meta = with lib; {
     description = "Python module to parse Dutch Smart Meter Requirements (DSMR)";

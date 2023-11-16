@@ -1,27 +1,28 @@
-{ stdenvNoCC
-, lib
-, makeSetupHook
-, writeShellScriptBin
-, dart
-, git
-, cacert
-, jq
+{
+  stdenvNoCC,
+  lib,
+  makeSetupHook,
+  writeShellScriptBin,
+  dart,
+  git,
+  cacert,
+  jq,
 }:
 
 {
   # The output hash of the dependencies for this project.
-  vendorHash ? ""
+  vendorHash ? "",
   # Commands to run once before using Dart or pub.
-, sdkSetupScript ? ""
+  sdkSetupScript ? "",
   # Commands to run to populate the pub cache.
-, pubGetScript ? "dart pub get"
+  pubGetScript ? "dart pub get",
   # A path to a pubspec.lock file to use instead of the one in the source directory.
-, pubspecLockFile ? null
+  pubspecLockFile ? null,
   # Arguments used in the derivation that builds the Dart package.
   # Passing these is recommended to ensure that the same steps are made to prepare the sources in both this
   # derivation and the one that builds the Dart package.
-, buildDrvArgs ? { }
-, ...
+  buildDrvArgs ? { },
+  ...
 }@args:
 
 # This is a fixed-output derivation and setup hook that can be used to fetch dependencies for Dart projects.
@@ -46,19 +47,17 @@ let
     "postPatch"
   ];
 
-  buildDrvInheritArgs = builtins.foldl'
-    (attrs: arg:
-      if buildDrvArgs ? ${arg}
-      then attrs // { ${arg} = buildDrvArgs.${arg}; }
-      else attrs)
-    { }
-    buildDrvInheritArgNames;
+  buildDrvInheritArgs =
+    builtins.foldl'
+      (attrs: arg: if buildDrvArgs ? ${arg} then attrs // { ${arg} = buildDrvArgs.${arg}; } else attrs)
+      { }
+      buildDrvInheritArgNames;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
   name = (if drvArgs ? name then drvArgs.name else "${drvArgs.pname}-${drvArgs.version}");
 
-  deps =
-    stdenvNoCC.mkDerivation ({
+  deps = stdenvNoCC.mkDerivation (
+    {
       name = "${name}-dart-deps";
 
       nativeBuildInputs = [
@@ -152,26 +151,41 @@ let
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
       outputHash = if vendorHash != "" then vendorHash else lib.fakeSha256;
-    } // (removeAttrs drvArgs [ "name" "pname" ]));
+    }
+    // (removeAttrs drvArgs [
+      "name"
+      "pname"
+    ])
+  );
 
-  depsListDrv = stdenvNoCC.mkDerivation ({
-    name = "${name}-dart-deps-list.json";
-    nativeBuildInputs = [ hook dart jq ];
+  depsListDrv = stdenvNoCC.mkDerivation (
+    {
+      name = "${name}-dart-deps-list.json";
+      nativeBuildInputs = [
+        hook
+        dart
+        jq
+      ];
 
-    configurePhase = ''
-      runHook preConfigure
-      doPubGet dart pub get --offline
-      runHook postConfigure
-    '';
+      configurePhase = ''
+        runHook preConfigure
+        doPubGet dart pub get --offline
+        runHook postConfigure
+      '';
 
-    buildPhase = ''
-      runHook preBuild
-      dart pub deps --json | jq .packages > $out
-      runHook postBuild
-    '';
+      buildPhase = ''
+        runHook preBuild
+        dart pub deps --json | jq .packages > $out
+        runHook postBuild
+      '';
 
-    dontInstall = true;
-  } // (removeAttrs buildDrvInheritArgs [ "name" "pname" ]));
+      dontInstall = true;
+    }
+    // (removeAttrs buildDrvInheritArgs [
+      "name"
+      "pname"
+    ])
+  );
 
   # As of Dart 3.0.0, Pub checks the revision of cached Git-sourced packages.
   # Git must be wrapped to return a positive result, as the real .git directory is wiped
@@ -187,17 +201,24 @@ let
     fi
   '';
 
-  hook = (makeSetupHook {
-    # The setup hook should not be part of the fixed-output derivation.
-    # Updates to the hook script should not change vendor hashes, and it won't
-    # work at all anyway due to https://github.com/NixOS/nix/issues/6660.
-    name = "${name}-dart-deps-setup-hook";
-    substitutions = { inherit gitSourceWrapper deps; };
-    propagatedBuildInputs = [ dart git ];
-    passthru = {
-      files = deps.outPath;
-      depsListFile = depsListDrv.outPath;
-    };
-  }) ./setup-hook.sh;
+  hook =
+    (makeSetupHook {
+      # The setup hook should not be part of the fixed-output derivation.
+      # Updates to the hook script should not change vendor hashes, and it won't
+      # work at all anyway due to https://github.com/NixOS/nix/issues/6660.
+      name = "${name}-dart-deps-setup-hook";
+      substitutions = {
+        inherit gitSourceWrapper deps;
+      };
+      propagatedBuildInputs = [
+        dart
+        git
+      ];
+      passthru = {
+        files = deps.outPath;
+        depsListFile = depsListDrv.outPath;
+      };
+    })
+      ./setup-hook.sh;
 in
 hook

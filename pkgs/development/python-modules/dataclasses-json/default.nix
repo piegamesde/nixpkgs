@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hypothesis
-, marshmallow-enum
-, poetry-core
-, poetry-dynamic-versioning
-, pytestCheckHook
-, pythonOlder
-, typing-inspect
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  marshmallow-enum,
+  poetry-core,
+  poetry-dynamic-versioning,
+  pytestCheckHook,
+  pythonOlder,
+  typing-inspect,
 }:
 
 buildPythonPackage rec {
@@ -44,16 +45,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # fails with the following error and avoid dependency on mypy
-    # mypy_main(None, text_io, text_io, [__file__], clean_exit=True)
-    # TypeError: main() takes at most 4 arguments (5 given)
-    "tests/test_annotations.py"
-  ];
+  disabledTestPaths =
+    [
+      # fails with the following error and avoid dependency on mypy
+      # mypy_main(None, text_io, text_io, [__file__], clean_exit=True)
+      # TypeError: main() takes at most 4 arguments (5 given)
+      "tests/test_annotations.py"
+    ];
 
-  pythonImportsCheck = [
-    "dataclasses_json"
-  ];
+  pythonImportsCheck = [ "dataclasses_json" ];
 
   meta = with lib; {
     description = "Simple API for encoding and decoding dataclasses to and from JSON";

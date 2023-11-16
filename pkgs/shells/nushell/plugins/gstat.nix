@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, rustPlatform
-, openssl
-, nushell
-, pkg-config
-, Security
-, nix-update-script
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  openssl,
+  nushell,
+  pkg-config,
+  Security,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -30,7 +31,10 @@ rustPlatform.buildRustPackage rec {
     description = "A git status plugin for Nushell";
     homepage = "https://github.com/nushell/nushell/tree/${version}/crates/nu_plugin_gstat";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ mrkkrp aidalgol ];
+    maintainers = with maintainers; [
+      mrkkrp
+      aidalgol
+    ];
     platforms = with platforms; all;
   };
 }

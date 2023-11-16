@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jupyterlab
-, nbexec
-, pandas
-, pandas-stubs
-, pdfminer-six
-, pillow
-, pytest-parallel
-, pytestCheckHook
-, pythonOlder
-, types-pillow
-, wand
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jupyterlab,
+  nbexec,
+  pandas,
+  pandas-stubs,
+  pdfminer-six,
+  pillow,
+  pytest-parallel,
+  pytestCheckHook,
+  pythonOlder,
+  types-pillow,
+  wand,
 }:
 
 buildPythonPackage rec {
@@ -53,14 +54,13 @@ buildPythonPackage rec {
     types-pillow
   ];
 
-  pythonImportsCheck = [
-    "pdfplumber"
-  ];
+  pythonImportsCheck = [ "pdfplumber" ];
 
-  disabledTests = [
-    # flaky
-    "test__repr_png_"
-  ];
+  disabledTests =
+    [
+      # flaky
+      "test__repr_png_"
+    ];
 
   disabledTestPaths = [
     # Tests requires pypdfium2

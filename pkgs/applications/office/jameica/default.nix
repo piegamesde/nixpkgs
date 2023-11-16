@@ -1,4 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, wrapGAppsHook, ant, jdk, jre, gtk2, glib, xorg, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeDesktopItem,
+  makeWrapper,
+  wrapGAppsHook,
+  ant,
+  jdk,
+  jre,
+  gtk2,
+  glib,
+  xorg,
+  Cocoa,
+}:
 
 let
   _version = "2.10.2";
@@ -6,11 +20,16 @@ let
   version = "${_version}-${_build}";
 
   swtSystem =
-    if stdenv.hostPlatform.system == "i686-linux" then "linux"
-    else if stdenv.hostPlatform.system == "x86_64-linux" then "linux64"
-    else if stdenv.hostPlatform.system == "aarch64-linux" then "linux-arm64"
-    else if stdenv.hostPlatform.system == "x86_64-darwin" then "macos64"
-    else throw "Unsupported system: ${stdenv.hostPlatform.system}";
+    if stdenv.hostPlatform.system == "i686-linux" then
+      "linux"
+    else if stdenv.hostPlatform.system == "x86_64-linux" then
+      "linux64"
+    else if stdenv.hostPlatform.system == "aarch64-linux" then
+      "linux-arm64"
+    else if stdenv.hostPlatform.system == "x86_64-darwin" then
+      "macos64"
+    else
+      throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   desktopItem = makeDesktopItem {
     name = "jameica";
@@ -26,14 +45,24 @@ stdenv.mkDerivation rec {
   pname = "jameica";
   inherit version;
 
-  nativeBuildInputs = [ ant jdk wrapGAppsHook makeWrapper ];
-  buildInputs = lib.optionals stdenv.isLinux [ gtk2 glib xorg.libXtst ]
+  nativeBuildInputs = [
+    ant
+    jdk
+    wrapGAppsHook
+    makeWrapper
+  ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [
+      gtk2
+      glib
+      xorg.libXtst
+    ]
     ++ lib.optional stdenv.isDarwin Cocoa;
 
   src = fetchFromGitHub {
     owner = "willuhn";
     repo = "jameica";
-    rev = "V_${builtins.replaceStrings ["."] ["_"] _version}_BUILD_${_build}";
+    rev = "V_${builtins.replaceStrings [ "." ] [ "_" ] _version}_BUILD_${_build}";
     sha256 = "1x9sybknzsfxp9z0pvw9dx80732ynyap57y03p7xwwjbcrnjla57";
   };
 
@@ -81,7 +110,15 @@ stdenv.mkDerivation rec {
       binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" "aarch64-linux" ];
-    maintainers = with maintainers; [ flokli r3dl3g ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      flokli
+      r3dl3g
+    ];
   };
 }

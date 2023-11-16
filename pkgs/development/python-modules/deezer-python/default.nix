@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, environs
-, fetchFromGitHub
-, poetry-core
-, pytest-mock
-, pytest-vcr
-, pytestCheckHook
-, pythonOlder
-, requests
-, tornado
+{
+  lib,
+  buildPythonPackage,
+  environs,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-mock,
+  pytest-vcr,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  tornado,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-pzEXiWKMP2Wqme/pqfTMHxWH/4YcCS6u865wslHrUqI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   nativeCheckInputs = [
     environs
@@ -46,9 +45,7 @@ buildPythonPackage rec {
       --replace " --cov=deezer" ""
   '';
 
-  pythonImportsCheck = [
-    "deezer"
-  ];
+  pythonImportsCheck = [ "deezer" ];
 
   meta = with lib; {
     description = "Python wrapper around the Deezer API";

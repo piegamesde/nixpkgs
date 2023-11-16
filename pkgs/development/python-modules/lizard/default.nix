@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, mock
-, jinja2
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  mock,
+  jinja2,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [
-    "lizard"
-  ];
+  pythonImportsCheck = [ "lizard" ];
 
   meta = with lib; {
     description = "Code analyzer without caring the C/C++ header files";
@@ -37,4 +36,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ jpetrucciani ];
   };
 }
-

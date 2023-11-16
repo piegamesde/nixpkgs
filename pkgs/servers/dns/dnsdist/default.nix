@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchurl, pkg-config, systemd
-, boost, libsodium, libedit, re2
-, net-snmp, lua, protobuf, openssl, zlib, h2o
-, nghttp2, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  systemd,
+  boost,
+  libsodium,
+  libedit,
+  re2,
+  net-snmp,
+  lua,
+  protobuf,
+  openssl,
+  zlib,
+  h2o,
+  nghttp2,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,14 +27,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZojwmyxS+b+TXwdp9O4o3Qdg5WItreez9Ob6N3bwerg=";
   };
 
-  patches = [
-    # Disable tests requiring networking:
-    # "Error connecting to new server with address 192.0.2.1:53: connecting socket to 192.0.2.1:53: Network is unreachable"
-    ./disable-network-tests.patch
-  ];
+  patches =
+    [
+      # Disable tests requiring networking:
+      # "Error connecting to new server with address 192.0.2.1:53: connecting socket to 192.0.2.1:53: Network is unreachable"
+      ./disable-network-tests.patch
+    ];
 
-  nativeBuildInputs = [ pkg-config protobuf ];
-  buildInputs = [ systemd boost libsodium libedit re2 net-snmp lua openssl zlib h2o nghttp2 ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+  ];
+  buildInputs = [
+    systemd
+    boost
+    libsodium
+    libedit
+    re2
+    net-snmp
+    lua
+    openssl
+    zlib
+    h2o
+    nghttp2
+  ];
 
   configureFlags = [
     "--with-libsodium"

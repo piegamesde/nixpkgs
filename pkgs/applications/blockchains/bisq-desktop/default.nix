@@ -1,31 +1,34 @@
-{ stdenv
-, lib
-, makeWrapper
-, fetchurl
-, makeDesktopItem
-, copyDesktopItems
-, imagemagick
-, openjdk11
-, dpkg
-, writeScript
-, bash
-, strip-nondeterminism
-, tor
-, zip
-, xz
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  imagemagick,
+  openjdk11,
+  dpkg,
+  writeScript,
+  bash,
+  strip-nondeterminism,
+  tor,
+  zip,
+  xz,
 }:
 
 let
-  bisq-launcher = args: writeScript "bisq-launcher" ''
-    #! ${bash}/bin/bash
+  bisq-launcher =
+    args:
+    writeScript "bisq-launcher" ''
+      #! ${bash}/bin/bash
 
-    # This is just a comment to convince Nix that Tor is a
-    # runtime dependency; The Tor binary is in a *.jar file,
-    # whereas Nix only scans for hashes in uncompressed text.
-    # ${bisq-tor}
+      # This is just a comment to convince Nix that Tor is a
+      # runtime dependency; The Tor binary is in a *.jar file,
+      # whereas Nix only scans for hashes in uncompressed text.
+      # ${bisq-tor}
 
-    JAVA_TOOL_OPTIONS="-XX:+UseG1GC -XX:MaxHeapFreeRatio=10 -XX:MinHeapFreeRatio=5 -XX:+UseStringDeduplication ${args}" bisq-desktop-wrapped "$@"
-  '';
+      JAVA_TOOL_OPTIONS="-XX:+UseG1GC -XX:MaxHeapFreeRatio=10 -XX:MinHeapFreeRatio=5 -XX:+UseStringDeduplication ${args}" bisq-desktop-wrapped "$@"
+    '';
 
   bisq-tor = writeScript "bisq-tor" ''
     #! ${bash}/bin/bash
@@ -59,7 +62,10 @@ stdenv.mkDerivation rec {
       icon = "bisq";
       desktopName = "Bisq ${version}";
       genericName = "Decentralized bitcoin exchange";
-      categories = [ "Network" "P2P" ];
+      categories = [
+        "Network"
+        "P2P"
+      ];
     })
 
     (makeDesktopItem {
@@ -68,7 +74,10 @@ stdenv.mkDerivation rec {
       icon = "bisq";
       desktopName = "Bisq ${version} (HiDPI)";
       genericName = "Decentralized bitcoin exchange";
-      categories = [ "Network" "P2P" ];
+      categories = [
+        "Network"
+        "P2P"
+      ];
     })
   ];
 
@@ -118,7 +127,10 @@ stdenv.mkDerivation rec {
     homepage = "https://bisq.network";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;
-    maintainers = with maintainers; [ juaningan emmanuelrosa ];
+    maintainers = with maintainers; [
+      juaningan
+      emmanuelrosa
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

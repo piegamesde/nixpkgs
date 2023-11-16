@@ -1,35 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapQtAppsHook
-, cmake
-, pkg-config
-, git
-, qtbase
-, qtquickcontrols
-, qtmultimedia
-, openal
-, glew
-, vulkan-headers
-, vulkan-loader
-, libpng
-, libSM
-, ffmpeg
-, libevdev
-, libusb1
-, zlib
-, curl
-, wolfssl
-, python3
-, pugixml
-, flatbuffers
-, llvm_16
-, cubeb
-, faudioSupport ? true
-, faudio
-, SDL2
-, waylandSupport ? true
-, wayland
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  cmake,
+  pkg-config,
+  git,
+  qtbase,
+  qtquickcontrols,
+  qtmultimedia,
+  openal,
+  glew,
+  vulkan-headers,
+  vulkan-loader,
+  libpng,
+  libSM,
+  ffmpeg,
+  libevdev,
+  libusb1,
+  zlib,
+  curl,
+  wolfssl,
+  python3,
+  pugixml,
+  flatbuffers,
+  llvm_16,
+  cubeb,
+  faudioSupport ? true,
+  faudio,
+  SDL2,
+  waylandSupport ? true,
+  wayland,
 }:
 
 let
@@ -79,13 +80,40 @@ stdenv.mkDerivation {
     "-DUSE_FAUDIO=${if faudioSupport then "ON" else "OFF"}"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [
-    qtbase qtquickcontrols qtmultimedia openal glew vulkan-headers vulkan-loader libpng ffmpeg
-    libevdev zlib libusb1 curl wolfssl python3 pugixml flatbuffers llvm_16 libSM
-  ] ++ cubeb.passthru.backendLibs
-    ++ lib.optionals faudioSupport [ faudio SDL2 ]
+  buildInputs =
+    [
+      qtbase
+      qtquickcontrols
+      qtmultimedia
+      openal
+      glew
+      vulkan-headers
+      vulkan-loader
+      libpng
+      ffmpeg
+      libevdev
+      zlib
+      libusb1
+      curl
+      wolfssl
+      python3
+      pugixml
+      flatbuffers
+      llvm_16
+      libSM
+    ]
+    ++ cubeb.passthru.backendLibs
+    ++ lib.optionals faudioSupport [
+      faudio
+      SDL2
+    ]
     ++ lib.optional waylandSupport wayland;
 
   postInstall = ''
@@ -98,9 +126,17 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
-    maintainers = with maintainers; [ abbradar neonfuz ilian zane ];
+    maintainers = with maintainers; [
+      abbradar
+      neonfuz
+      ilian
+      zane
+    ];
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "rpcs3";
   };
 }

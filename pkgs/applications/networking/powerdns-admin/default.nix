@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, mkYarnPackage, nixosTests, writeText, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  mkYarnPackage,
+  nixosTests,
+  writeText,
+  python3,
+}:
 
 let
   version = "0.4.1";
@@ -12,11 +21,49 @@ let
   python = python3;
 
   pythonDeps = with python.pkgs; [
-    flask flask-assets flask-login flask-sqlalchemy flask-migrate flask-seasurf flask-mail flask-session flask-session-captcha flask-sslify
-    mysqlclient psycopg2 sqlalchemy
-    certifi cffi configobj cryptography bcrypt requests python-ldap pyotp qrcode dnspython
-    gunicorn itsdangerous python3-saml pytz rcssmin rjsmin authlib bravado-core
-    lima lxml passlib pyasn1 pytimeparse pyyaml jinja2 itsdangerous webcolors werkzeug zipp zxcvbn
+    flask
+    flask-assets
+    flask-login
+    flask-sqlalchemy
+    flask-migrate
+    flask-seasurf
+    flask-mail
+    flask-session
+    flask-session-captcha
+    flask-sslify
+    mysqlclient
+    psycopg2
+    sqlalchemy
+    certifi
+    cffi
+    configobj
+    cryptography
+    bcrypt
+    requests
+    python-ldap
+    pyotp
+    qrcode
+    dnspython
+    gunicorn
+    itsdangerous
+    python3-saml
+    pytz
+    rcssmin
+    rjsmin
+    authlib
+    bravado-core
+    lima
+    lxml
+    passlib
+    pyasn1
+    pytimeparse
+    pyyaml
+    jinja2
+    itsdangerous
+    webcolors
+    werkzeug
+    zipp
+    zxcvbn
   ];
 
   assets = mkYarnPackage {
@@ -68,7 +115,8 @@ let
     assets.register('js_main', 'generated/main.js')
     assets.register('css_main', 'generated/main.css')
   '';
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "powerdns-admin";
 
   inherit src version;
@@ -128,6 +176,9 @@ in stdenv.mkDerivation {
     description = "A PowerDNS web interface with advanced features";
     homepage = "https://github.com/PowerDNS-Admin/PowerDNS-Admin";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi zhaofengli ];
+    maintainers = with maintainers; [
+      Flakebi
+      zhaofengli
+    ];
   };
 }

@@ -1,20 +1,21 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, prompt-toolkit
-, pygments
-, pyserial
-, pytest-asyncio
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, redis
-, setuptools
-, sqlalchemy
-, twisted
-, typer
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  prompt-toolkit,
+  pygments,
+  pyserial,
+  pytest-asyncio,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  setuptools,
+  sqlalchemy,
+  twisted,
+  typer,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-IgGDYNIRS39t8vHkJSGnDGCTKxpeIYZyedLzyS5pOI0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   passthru.optional-dependencies = {
     repl = [
@@ -43,9 +42,7 @@ buildPythonPackage rec {
       pygments
       click
     ] ++ typer.optional-dependencies.all;
-    serial = [
-      pyserial
-    ];
+    serial = [ pyserial ];
   };
 
   nativeCheckInputs = [
@@ -65,14 +62,13 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "pymodbus"
-  ];
+  pythonImportsCheck = [ "pymodbus" ];
 
-  disabledTests = [
-    # Tests often hang
-    "test_connected"
-  ];
+  disabledTests =
+    [
+      # Tests often hang
+      "test_connected"
+    ];
 
   meta = with lib; {
     description = "Python implementation of the Modbus protocol";

@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, fetchurl
-, intltool
-, pkg-config
-, libwnck
-, libxfce4ui
-, xfce4-panel
-, xfconf
-, gitUpdater
+{
+  stdenv,
+  lib,
+  fetchurl,
+  intltool,
+  pkg-config,
+  libwnck,
+  libxfce4ui,
+  xfce4-panel,
+  xfconf,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +17,9 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     # Use dist tarballs to avoid pulling extra deps and generating images ourselves.
-    url = "mirror://xfce/src/panel-plugins/xfce4-windowck-plugin/${lib.versions.majorMinor version}/xfce4-windowck-plugin-${version}.tar.bz2";
+    url = "mirror://xfce/src/panel-plugins/xfce4-windowck-plugin/${
+        lib.versions.majorMinor version
+      }/xfce4-windowck-plugin-${version}.tar.bz2";
     sha256 = "sha256-p4FEi3gemE072lmw2qsNGE1M7CJSMW9zcKxKmO/kgfQ=";
   };
 

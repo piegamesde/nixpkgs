@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jupyter-console
-, jupyter-core
-, pygments
-, termcolor
-, txzmq
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-console,
+  jupyter-core,
+  pygments,
+  termcolor,
+  txzmq,
 }:
 
 buildPythonPackage rec {

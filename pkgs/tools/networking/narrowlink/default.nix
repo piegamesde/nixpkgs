@@ -1,10 +1,11 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,21 +24,22 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-craOunscE6o8PXtZFCYpkFH/amkuLOK7SrV+XHbS2GM=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.IOKit
-    darwin.apple_sdk_11_0.frameworks.Security
-  ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk_11_0.frameworks.IOKit
+      darwin.apple_sdk_11_0.frameworks.Security
+    ];
 
   meta = {
     description = "Narrowlink securely connects devices and services together, even when both nodes are behind separate NAT";
     homepage = "https://github.com/narrowlink/narrowlink";
-    license = with lib.licenses; [ agpl3Only mpl20 ]; # the gateway component is AGPLv3, the rest is MPLv2
+    license = with lib.licenses; [
+      agpl3Only
+      mpl20
+    ]; # the gateway component is AGPLv3, the rest is MPLv2
     maintainers = with lib.maintainers; [ dit7ya ];
   };
 }

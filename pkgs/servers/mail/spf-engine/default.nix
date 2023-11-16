@@ -1,4 +1,13 @@
-{ lib, buildPythonApplication, fetchurl, flit-core, pyspf, dnspython, authres, pymilter }:
+{
+  lib,
+  buildPythonApplication,
+  fetchurl,
+  flit-core,
+  pyspf,
+  dnspython,
+  authres,
+  pymilter,
+}:
 
 buildPythonApplication rec {
   pname = "spf-engine";
@@ -6,13 +15,20 @@ buildPythonApplication rec {
   format = "pyproject";
 
   src = fetchurl {
-    url = "https://launchpad.net/${pname}/${lib.versions.majorMinor version}/${version}/+download/${pname}-${version}.tar.gz";
+    url = "https://launchpad.net/${pname}/${
+        lib.versions.majorMinor version
+      }/${version}/+download/${pname}-${version}.tar.gz";
     sha256 = "sha256-Gcw7enNIb/TrZEYa0Z04ezHUmfMmc1J+aEH6FlXbhTo=";
   };
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ pyspf dnspython authres pymilter ];
+  propagatedBuildInputs = [
+    pyspf
+    dnspython
+    authres
+    pymilter
+  ];
 
   pythonImportsCheck = [
     "spf_engine"

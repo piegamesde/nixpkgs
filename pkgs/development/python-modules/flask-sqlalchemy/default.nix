@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flask
-, mock
-, flit-core
-, pytestCheckHook
-, pythonOlder
-, sqlalchemy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  mock,
+  flit-core,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-5LaLuIGALdoafYeLL8hMBtHuV/tAuHTT3Jfav6NrgxI=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     flask
@@ -43,9 +42,7 @@ buildPythonPackage rec {
     "test_persist_selectable"
   ];
 
-  pythonImportsCheck = [
-    "flask_sqlalchemy"
-  ];
+  pythonImportsCheck = [ "flask_sqlalchemy" ];
 
   meta = with lib; {
     description = "SQLAlchemy extension for Flask";

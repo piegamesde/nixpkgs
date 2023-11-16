@@ -1,15 +1,16 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, cryptography
-, ifaddr
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, wheel
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  cryptography,
+  ifaddr,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -50,9 +51,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "xknx"
-  ];
+  pythonImportsCheck = [ "xknx" ];
 
   disabledTests = [
     # Test requires network access

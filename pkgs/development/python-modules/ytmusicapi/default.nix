@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, requests
-, setuptools
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -28,15 +29,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   doCheck = false; # requires network access
 
-  pythonImportsCheck = [
-    "ytmusicapi"
-  ];
+  pythonImportsCheck = [ "ytmusicapi" ];
 
   meta = with lib; {
     description = "Python API for YouTube Music";

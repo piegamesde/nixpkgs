@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 }:
 
 buildPythonPackage rec {
@@ -19,5 +20,4 @@ buildPythonPackage rec {
     description = "Check the status of code repositories under a root directory";
     license = licenses.gpl3Plus;
   };
-
 }

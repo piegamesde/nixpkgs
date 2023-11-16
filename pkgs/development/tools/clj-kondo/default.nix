@@ -1,4 +1,8 @@
-{ lib, buildGraalvmNativeImage, fetchurl }:
+{
+  lib,
+  buildGraalvmNativeImage,
+  fetchurl,
+}:
 
 buildGraalvmNativeImage rec {
   pname = "clj-kondo";
@@ -20,6 +24,10 @@ buildGraalvmNativeImage rec {
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.epl10;
     changelog = "https://github.com/clj-kondo/clj-kondo/blob/v${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ jlesquembre bandresen thiagokokada ];
+    maintainers = with maintainers; [
+      jlesquembre
+      bandresen
+      thiagokokada
+    ];
   };
 }

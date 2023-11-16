@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, libgpiod
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libgpiod,
+  cmake,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,11 +26,9 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace 'main_windows.c' 'main_posix.c'
-    '';
+  '';
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    libgpiod
-  ];
+  buildInputs = lib.optionals stdenv.isLinux [ libgpiod ];
 
   installPhase = ''
     runHook preInstall

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.services.keter;
   yaml = pkgs.formats.yaml { };
@@ -9,15 +14,40 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "keter" "keterRoot" ] [ "services" "keter" "root" ])
-    (lib.mkRenamedOptionModule [ "services" "keter" "keterPackage" ] [ "services" "keter" "package" ])
+    (lib.mkRenamedOptionModule
+      [
+        "services"
+        "keter"
+        "keterRoot"
+      ]
+      [
+        "services"
+        "keter"
+        "root"
+      ]
+    )
+    (lib.mkRenamedOptionModule
+      [
+        "services"
+        "keter"
+        "keterPackage"
+      ]
+      [
+        "services"
+        "keter"
+        "package"
+      ]
+    )
   ];
 
   options.services.keter = {
-    enable = lib.mkEnableOption (lib.mdDoc ''keter, a web app deployment manager.
-Note that this module only support loading of webapps:
-Keep an old app running and swap the ports when the new one is booted
-'');
+    enable = lib.mkEnableOption (
+      lib.mdDoc ''
+        keter, a web app deployment manager.
+        Note that this module only support loading of webapps:
+        Keep an old app running and swap the ports when the new one is booted
+      ''
+    );
 
     root = lib.mkOption {
       type = lib.types.str;
@@ -32,7 +62,6 @@ Keep an old app running and swap the ports when the new one is booted
       description = lib.mdDoc "The keter package to be used";
     };
 
-
     globalKeterConfig = lib.mkOption {
       type = lib.types.submodule {
         freeformType = yaml.type;
@@ -40,22 +69,31 @@ Keep an old app running and swap the ports when the new one is booted
           ip-from-header = lib.mkOption {
             default = true;
             type = lib.types.bool;
-            description = lib.mdDoc "You want that ip-from-header in the nginx setup case. It allows nginx setting the original ip address rather then it being localhost (due to reverse proxying)";
+            description =
+              lib.mdDoc
+                "You want that ip-from-header in the nginx setup case. It allows nginx setting the original ip address rather then it being localhost (due to reverse proxying)";
           };
           listeners = lib.mkOption {
-            default = [{ host = "*"; port = 6981; }];
-            type = lib.types.listOf (lib.types.submodule {
-              options = {
-                host = lib.mkOption {
-                  type = lib.types.str;
-                  description = lib.mdDoc "host";
+            default = [
+              {
+                host = "*";
+                port = 6981;
+              }
+            ];
+            type = lib.types.listOf (
+              lib.types.submodule {
+                options = {
+                  host = lib.mkOption {
+                    type = lib.types.str;
+                    description = lib.mdDoc "host";
+                  };
+                  port = lib.mkOption {
+                    type = lib.types.port;
+                    description = lib.mdDoc "port";
+                  };
                 };
-                port = lib.mkOption {
-                  type = lib.types.port;
-                  description = lib.mdDoc "port";
-                };
-              };
-            });
+              }
+            );
             description = lib.mdDoc ''
               You want that ip-from-header in
               the nginx setup case.
@@ -76,7 +114,9 @@ Keep an old app running and swap the ports when the new one is booted
           };
         };
       };
-      description = lib.mdDoc "Global config for keter, see <https://github.com/snoyberg/keter/blob/master/etc/keter-config.yaml> for reference";
+      description =
+        lib.mdDoc
+          "Global config for keter, see <https://github.com/snoyberg/keter/blob/master/etc/keter-config.yaml> for reference";
     };
 
     bundle = {
@@ -114,13 +154,11 @@ Keep an old app running and swap the ports when the new one is booted
         example = "MY_AWS_KEY=$(cat /run/keys/AWS_ACCESS_KEY_ID)";
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable (
     let
       incoming = "${cfg.root}/incoming";
-
 
       globalKeterConfigFile = pkgs.writeTextFile {
         name = "keter-config.yml";
@@ -128,8 +166,13 @@ Keep an old app running and swap the ports when the new one is booted
       };
 
       # If things are expected to change often, put it in the bundle!
-      bundle = pkgs.callPackage ./bundle.nix
-        (cfg.bundle // { keterExecutable = executable; keterDomain = cfg.bundle.domain; });
+      bundle = pkgs.callPackage ./bundle.nix (
+        cfg.bundle
+        // {
+          keterExecutable = executable;
+          keterDomain = cfg.bundle.domain;
+        }
+      );
 
       # This indirection is required to ensure the nix path
       # gets copied over to the target machine in remote deployments.
@@ -143,7 +186,6 @@ Keep an old app running and swap the ports when the new one is booted
         ${cfg.bundle.publicScript}
         exec ${cfg.bundle.executable}
       '';
-
     in
     {
       systemd.services.keter = {
@@ -153,7 +195,10 @@ Keep an old app running and swap the ports when the new one is booted
           mkdir -p ${incoming}
           ${lib.getExe cfg.package} ${globalKeterConfigFile};
         '';
-        wantedBy = [ "multi-user.target" "nginx.service" ];
+        wantedBy = [
+          "multi-user.target"
+          "nginx.service"
+        ];
 
         serviceConfig = {
           Restart = "always";

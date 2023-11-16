@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchurl, fetchpatch, fetchFromGitLab, bundlerEnv
-, ruby_3_0, tzdata, git, nettools, nixosTests, nodejs, openssl
-, gitlabEnterprise ? false, callPackage, yarn
-, fixup_yarn_lock, replace, file, cacert, fetchYarnDeps, makeWrapper, pkg-config
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitLab,
+  bundlerEnv,
+  ruby_3_0,
+  tzdata,
+  git,
+  nettools,
+  nixosTests,
+  nodejs,
+  openssl,
+  gitlabEnterprise ? false,
+  callPackage,
+  yarn,
+  fixup_yarn_lock,
+  replace,
+  file,
+  cacert,
+  fetchYarnDeps,
+  makeWrapper,
+  pkg-config,
 }:
 
 let
@@ -20,8 +40,11 @@ let
     ruby = ruby_3_0;
     gemdir = ./rubyEnv;
     gemset =
-      let x = import (gemdir + "/gemset.nix") src;
-      in x // {
+      let
+        x = import (gemdir + "/gemset.nix") src;
+      in
+      x
+      // {
         gpgme = x.gpgme // {
           nativeBuildInputs = [ pkg-config ];
         };
@@ -35,13 +58,23 @@ let
         };
       };
     groups = [
-      "default" "unicorn" "ed25519" "metrics" "development" "puma" "test" "kerberos"
+      "default"
+      "unicorn"
+      "ed25519"
+      "metrics"
+      "development"
+      "puma"
+      "test"
+      "kerberos"
     ];
     # N.B. omniauth_oauth2_generic and apollo_upload_server both provide a
     # `console` executable.
     ignoreCollisions = true;
 
-    extraConfigPaths = [ "${src}/vendor" "${src}/gems" ];
+    extraConfigPaths = [
+      "${src}/vendor"
+      "${src}/gems"
+    ];
   };
 
   assets = stdenv.mkDerivation {
@@ -53,7 +86,14 @@ let
       sha256 = data.yarn_hash;
     };
 
-    nativeBuildInputs = [ rubyEnv.wrappedRuby rubyEnv.bundler nodejs yarn git cacert ];
+    nativeBuildInputs = [
+      rubyEnv.wrappedRuby
+      rubyEnv.bundler
+      nodejs
+      yarn
+      git
+      cacert
+    ];
 
     patches = [
       # Since version 12.6.0, the rake tasks need the location of git,
@@ -126,13 +166,19 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [
-    rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler tzdata git nettools
+    rubyEnv
+    rubyEnv.wrappedRuby
+    rubyEnv.bundler
+    tzdata
+    git
+    nettools
   ];
 
-  patches = [
-    # Change hardcoded paths to the NixOS equivalent
-    ./remove-hardcoded-locations.patch
-  ];
+  patches =
+    [
+      # Change hardcoded paths to the NixOS equivalent
+      ./remove-hardcoded-locations.patch
+    ];
 
   postPatch = ''
     ${lib.optionalString (!gitlabEnterprise) ''
@@ -200,19 +246,24 @@ stdenv.mkDerivation {
     };
   };
 
-  meta = with lib; {
-    homepage = "http://www.gitlab.com/";
-    platforms = platforms.linux;
-    maintainers = teams.gitlab.members;
-  } // (if gitlabEnterprise then
+  meta =
+    with lib;
     {
-      license = licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
-      description = "GitLab Enterprise Edition";
+      homepage = "http://www.gitlab.com/";
+      platforms = platforms.linux;
+      maintainers = teams.gitlab.members;
     }
-  else
-    {
-      license = licenses.mit;
-      description = "GitLab Community Edition";
-      longDescription = "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
-    });
+    // (
+      if gitlabEnterprise then
+        {
+          license = licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
+          description = "GitLab Enterprise Edition";
+        }
+      else
+        {
+          license = licenses.mit;
+          description = "GitLab Community Edition";
+          longDescription = "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
+        }
+    );
 }

@@ -1,11 +1,12 @@
-{ lib
-, bcrypt
-, buildPythonPackage
-, dvc-objects
-, fetchPypi
-, pythonRelaxDepsHook
-, setuptools-scm
-, sshfs
+{
+  lib,
+  bcrypt,
+  buildPythonPackage,
+  dvc-objects,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+  sshfs,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,16 @@ buildPythonPackage rec {
   # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ bcrypt dvc-objects sshfs ];
+  propagatedBuildInputs = [
+    bcrypt
+    dvc-objects
+    sshfs
+  ];
 
   # bcrypt is enabled for sshfs in nixpkgs
   postPatch = ''

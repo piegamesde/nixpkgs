@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
   # avoid circular dependency with xmlschema which directly depends on this
   doCheck = false;
 
-  pythonImportsCheck = [
-    "elementpath"
-  ];
+  pythonImportsCheck = [ "elementpath" ];
 
   meta = with lib; {
     description = "XPath 1.0/2.0 parsers and selectors for ElementTree and lxml";

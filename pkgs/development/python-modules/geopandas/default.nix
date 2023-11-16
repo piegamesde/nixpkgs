@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fiona
-, packaging
-, pandas
-, pyproj
-, pytestCheckHook
-, pythonOlder
-, rtree
-, shapely
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fiona,
+  packaging,
+  pandas,
+  pyproj,
+  pytestCheckHook,
+  pythonOlder,
+  rtree,
+  shapely,
 }:
 
 buildPythonPackage rec {
@@ -45,18 +46,15 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests = [
-    # Requires network access
-    "test_read_file_url"
-  ];
+  disabledTests =
+    [
+      # Requires network access
+      "test_read_file_url"
+    ];
 
-  pytestFlagsArray = [
-    "geopandas"
-  ];
+  pytestFlagsArray = [ "geopandas" ];
 
-  pythonImportsCheck = [
-    "geopandas"
-  ];
+  pythonImportsCheck = [ "geopandas" ];
 
   meta = with lib; {
     description = "Python geospatial data analysis framework";

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix (
+  { lib, ... }:
   let
     certs = import ./common/acme/server/snakeoil-certs.nix;
     mobilizonDomain = certs.domain;
@@ -7,7 +8,10 @@ import ./make-test-python.nix ({ lib, ... }:
 
   {
     name = "mobilizon";
-    meta.maintainers = with lib.maintainers; [ minijackson erictapen ];
+    meta.maintainers = with lib.maintainers; [
+      minijackson
+      erictapen
+    ];
 
     nodes.server =
       { pkgs, ... }:
@@ -43,4 +47,5 @@ import ./make-test-python.nix ({ lib, ... }:
       server.wait_for_open_port(${toString port})
       server.succeed("curl --fail https://${mobilizonDomain}/")
     '';
-  })
+  }
+)

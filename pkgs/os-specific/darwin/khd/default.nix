@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, Carbon, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  Carbon,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "khd";
@@ -11,15 +18,19 @@ stdenv.mkDerivation rec {
     sha256 = "0nzfhknv1s71870w2dk9dy56a3g5zsbjphmfrz0vsvi438g099r4";
   };
 
-  patches = [
-    # Fixes build issues, remove with >3.0.0
-    (fetchpatch {
-      url = "https://github.com/koekeishiya/khd/commit/4765ae0b4c7d4ca56319dc92ff54393cd9e03fbc.patch";
-      sha256 = "0kvf5hxi5bf6pf125qib7wn7hys0ag66zzpp4srj1qa87lxyf7np";
-    })
-  ];
+  patches =
+    [
+      # Fixes build issues, remove with >3.0.0
+      (fetchpatch {
+        url = "https://github.com/koekeishiya/khd/commit/4765ae0b4c7d4ca56319dc92ff54393cd9e03fbc.patch";
+        sha256 = "0kvf5hxi5bf6pf125qib7wn7hys0ag66zzpp4srj1qa87lxyf7np";
+      })
+    ];
 
-  buildInputs = [ Carbon Cocoa ];
+  buildInputs = [
+    Carbon
+    Cocoa
+  ];
 
   buildPhase = ''
     make install

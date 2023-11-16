@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchgit, fetchurl, git, cmake, pkg-config
-, openssl, boost, grpc, protobuf, libnsl, rocksdb_6_23, snappy }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchurl,
+  git,
+  cmake,
+  pkg-config,
+  openssl,
+  boost,
+  grpc,
+  protobuf,
+  libnsl,
+  rocksdb_6_23,
+  snappy,
+}:
 
 let
   sqlite3 = fetchurl rec {
@@ -88,7 +102,8 @@ let
     leaveDotGit = true;
     fetchSubmodules = false;
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "rippled";
   version = "1.9.4";
 
@@ -100,11 +115,28 @@ in stdenv.mkDerivation rec {
     hash = "sha256-VW/VmnhtF2xyHfEud3D6b3n8uTE0a/nDW1GISs5QfwM=";
   };
 
-  hardeningDisable = ["format"];
-  cmakeFlags = ["-Dstatic=OFF" "-DBoost_NO_BOOST_CMAKE=ON" "-DSNAPPY_INCLUDE_DIR=${snappy}/include" ];
+  hardeningDisable = [ "format" ];
+  cmakeFlags = [
+    "-Dstatic=OFF"
+    "-DBoost_NO_BOOST_CMAKE=ON"
+    "-DSNAPPY_INCLUDE_DIR=${snappy}/include"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake git ];
-  buildInputs = [ openssl openssl.dev boostSharedStatic grpc protobuf libnsl rocksdb_6_23 snappy ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    git
+  ];
+  buildInputs = [
+    openssl
+    openssl.dev
+    boostSharedStatic
+    grpc
+    protobuf
+    libnsl
+    rocksdb_6_23
+    snappy
+  ];
 
   preConfigure = ''
     export HOME=$PWD
@@ -136,7 +168,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Ripple P2P payment network reference server";
     homepage = "https://github.com/ripple/rippled";
-    maintainers = with maintainers; [ offline RaghavSood ];
+    maintainers = with maintainers; [
+      offline
+      RaghavSood
+    ];
     license = licenses.isc;
     platforms = platforms.linux;
   };

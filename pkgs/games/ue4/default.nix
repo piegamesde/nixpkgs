@@ -1,18 +1,44 @@
-{ lib, stdenv, writeScript, fetchurl, requireFile, unzip, clang, mono, which,
-  xorg, xdg-user-dirs }:
+{
+  lib,
+  stdenv,
+  writeScript,
+  fetchurl,
+  requireFile,
+  unzip,
+  clang,
+  mono,
+  which,
+  xorg,
+  xdg-user-dirs,
+}:
 
 let
   deps = import ./cdn-deps.nix { inherit fetchurl; };
-  linkDeps = writeScript "link-deps.sh" (lib.concatMapStringsSep "\n" (hash:
-    let prefix = lib.concatStrings (lib.take 2 (lib.stringToCharacters hash));
-    in ''
-      mkdir -p .git/ue4-gitdeps/${prefix}
-      ln -s ${lib.getAttr hash deps} .git/ue4-gitdeps/${prefix}/${hash}
-    ''
-  ) (lib.attrNames deps));
+  linkDeps = writeScript "link-deps.sh" (
+    lib.concatMapStringsSep "\n"
+      (
+        hash:
+        let
+          prefix = lib.concatStrings (lib.take 2 (lib.stringToCharacters hash));
+        in
+        ''
+          mkdir -p .git/ue4-gitdeps/${prefix}
+          ln -s ${lib.getAttr hash deps} .git/ue4-gitdeps/${prefix}/${hash}
+        ''
+      )
+      (lib.attrNames deps)
+  );
   libPath = lib.makeLibraryPath [
-    xorg.libX11 xorg.libXScrnSaver xorg.libXau xorg.libXcursor xorg.libXext
-    xorg.libXfixes xorg.libXi xorg.libXrandr xorg.libXrender xorg.libXxf86vm
+    xorg.libX11
+    xorg.libXScrnSaver
+    xorg.libXau
+    xorg.libXcursor
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXrender
+    xorg.libXxf86vm
     xorg.libxcb
   ];
 in
@@ -69,7 +95,12 @@ stdenv.mkDerivation rec {
 
     cp -r . "$sharedir"
   '';
-  buildInputs = [ clang mono which xdg-user-dirs ];
+  buildInputs = [
+    clang
+    mono
+    which
+    xdg-user-dirs
+  ];
 
   meta = {
     description = "A suite of integrated tools for game developers to design and build games, simulations, and visualizations";

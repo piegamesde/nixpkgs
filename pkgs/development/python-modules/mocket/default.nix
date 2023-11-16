@@ -1,23 +1,24 @@
-{ lib
-, aiohttp
-, asgiref
-, buildPythonPackage
-, decorator
-, fastapi
-, fetchPypi
-, gevent
-, httptools
-, httpx
-, isPy3k
-, pook
-, pytest-mock
-, pytestCheckHook
-, python-magic
-, pythonOlder
-, redis
-, requests
-, sure
-, urllib3
+{
+  lib,
+  aiohttp,
+  asgiref,
+  buildPythonPackage,
+  decorator,
+  fastapi,
+  fetchPypi,
+  gevent,
+  httptools,
+  httpx,
+  isPy3k,
+  pook,
+  pytest-mock,
+  pytestCheckHook,
+  python-magic,
+  pythonOlder,
+  redis,
+  requests,
+  sure,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -40,9 +41,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    pook = [
-      pook
-    ];
+    pook = [ pook ];
   };
 
   nativeCheckInputs = [
@@ -61,10 +60,11 @@ buildPythonPackage rec {
   # Skip http tests
   SKIP_TRUE_HTTP = true;
 
-  disabledTestPaths = [
-    # Requires a live Redis instance
-    "tests/main/test_redis.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requires a live Redis instance
+      "tests/main/test_redis.py"
+    ];
 
   disabledTests = [
     # tests that require network access (like DNS lookups)
@@ -81,9 +81,7 @@ buildPythonPackage rec {
     "test_gethostbyname"
   ];
 
-  pythonImportsCheck = [
-    "mocket"
-  ];
+  pythonImportsCheck = [ "mocket" ];
 
   meta = with lib; {
     description = "A socket mock framework for all kinds of sockets including web-clients";

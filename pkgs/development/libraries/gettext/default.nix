@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchurl, fetchpatch, libiconv, xz, bash
-, gnulib
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  libiconv,
+  xz,
+  bash,
+  gnulib,
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus
@@ -15,55 +22,72 @@ stdenv.mkDerivation rec {
     url = "mirror://gnu/gettext/${pname}-${version}.tar.gz";
     sha256 = "sha256-6MNlDh2M7odcTzVWQjgsHfgwWL1aEe6FVcDPJ21kbUU=";
   };
-  patches = [
-    ./absolute-paths.diff
-    # fix reproducibile output, in particular in the grub2 build
-    # https://savannah.gnu.org/bugs/index.php?59658
-    ./0001-msginit-Do-not-use-POT-Creation-Date.patch
-  ] ++ lib.optional stdenv.hostPlatform.isWindows (fetchpatch {
-    url = "https://aur.archlinux.org/cgit/aur.git/plain/gettext_formatstring-ruby.patch?h=mingw-w64-gettext&id=e8b577ee3d399518d005e33613f23363a7df07ee";
-    name = "gettext_formatstring-ruby.patch";
-    sha256 = "sha256-6SxZObOMkQDxuKJuJY+mQ/VuJJxSeGbf97J8ZZddCV0=";
-  });
+  patches =
+    [
+      ./absolute-paths.diff
+      # fix reproducibile output, in particular in the grub2 build
+      # https://savannah.gnu.org/bugs/index.php?59658
+      ./0001-msginit-Do-not-use-POT-Creation-Date.patch
+    ]
+    ++ lib.optional stdenv.hostPlatform.isWindows (
+      fetchpatch {
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/gettext_formatstring-ruby.patch?h=mingw-w64-gettext&id=e8b577ee3d399518d005e33613f23363a7df07ee";
+        name = "gettext_formatstring-ruby.patch";
+        sha256 = "sha256-6SxZObOMkQDxuKJuJY+mQ/VuJJxSeGbf97J8ZZddCV0=";
+      }
+    );
 
-  outputs = [ "out" "man" "doc" "info" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+    "info"
+  ];
 
   hardeningDisable = [ "format" ];
 
-  LDFLAGS = lib.optionalString stdenv.isSunOS "-lm -lmd -lmp -luutil -lnvpair -lnsl -lidmap -lavl -lsec";
+  LDFLAGS =
+    lib.optionalString stdenv.isSunOS
+      "-lm -lmd -lmp -luutil -lnvpair -lnsl -lidmap -lavl -lsec";
 
-  configureFlags = [
-     "--disable-csharp" "--with-xz"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    # On cross building, gettext supposes that the wchar.h from libc
-    # does not fulfill gettext needs, so it tries to work with its
-    # own wchar.h file, which does not cope well with the system's
-    # wchar.h and stddef.h (gcc-4.3 - glibc-2.9)
-    "gl_cv_func_wcwidth_works=yes"
-  ];
+  configureFlags =
+    [
+      "--disable-csharp"
+      "--with-xz"
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+      [
+        # On cross building, gettext supposes that the wchar.h from libc
+        # does not fulfill gettext needs, so it tries to work with its
+        # own wchar.h file, which does not cope well with the system's
+        # wchar.h and stddef.h (gcc-4.3 - glibc-2.9)
+        "gl_cv_func_wcwidth_works=yes"
+      ];
 
-  postPatch = ''
-   substituteAllInPlace gettext-runtime/src/gettext.sh.in
-   substituteInPlace gettext-tools/projects/KDE/trigger --replace "/bin/pwd" pwd
-   substituteInPlace gettext-tools/projects/GNOME/trigger --replace "/bin/pwd" pwd
-   substituteInPlace gettext-tools/src/project-id --replace "/bin/pwd" pwd
-  '' + lib.optionalString stdenv.hostPlatform.isCygwin ''
-    sed -i -e "s/\(cldr_plurals_LDADD = \)/\\1..\/gnulib-lib\/libxml_rpl.la /" gettext-tools/src/Makefile.in
-    sed -i -e "s/\(libgettextsrc_la_LDFLAGS = \)/\\1..\/gnulib-lib\/libxml_rpl.la /" gettext-tools/src/Makefile.in
-  '';
+  postPatch =
+    ''
+      substituteAllInPlace gettext-runtime/src/gettext.sh.in
+      substituteInPlace gettext-tools/projects/KDE/trigger --replace "/bin/pwd" pwd
+      substituteInPlace gettext-tools/projects/GNOME/trigger --replace "/bin/pwd" pwd
+      substituteInPlace gettext-tools/src/project-id --replace "/bin/pwd" pwd
+    ''
+    + lib.optionalString stdenv.hostPlatform.isCygwin ''
+      sed -i -e "s/\(cldr_plurals_LDADD = \)/\\1..\/gnulib-lib\/libxml_rpl.la /" gettext-tools/src/Makefile.in
+      sed -i -e "s/\(libgettextsrc_la_LDFLAGS = \)/\\1..\/gnulib-lib\/libxml_rpl.la /" gettext-tools/src/Makefile.in
+    '';
 
   strictDeps = true;
   nativeBuildInputs = [
     xz
     xz.bin
   ];
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isMinGW) [
-    bash
-  ]
-  ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [
-    # HACK, see #10874 (and 14664)
-    libiconv
-  ];
+  buildInputs =
+    lib.optionals (!stdenv.hostPlatform.isMinGW) [ bash ]
+    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin)
+      [
+        # HACK, see #10874 (and 14664)
+        libiconv
+      ];
 
   setupHooks = [
     ../../../build-support/setup-hooks/role.bash
@@ -100,12 +124,13 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/gettext/";
 
-    maintainers = with maintainers; [ zimbatm vrthra ];
+    maintainers = with maintainers; [
+      zimbatm
+      vrthra
+    ];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };
 }
 
-// lib.optionalAttrs stdenv.isDarwin {
-  makeFlags = [ "CFLAGS=-D_FORTIFY_SOURCE=0" ];
-}
+// lib.optionalAttrs stdenv.isDarwin { makeFlags = [ "CFLAGS=-D_FORTIFY_SOURCE=0" ]; }

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, azure-core
-, uamqp
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-core,
+  uamqp,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {

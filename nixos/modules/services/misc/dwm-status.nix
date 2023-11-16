@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -35,7 +40,16 @@ in
       };
 
       order = mkOption {
-        type = types.listOf (types.enum [ "audio" "backlight" "battery" "cpu_load" "network" "time" ]);
+        type = types.listOf (
+          types.enum [
+            "audio"
+            "backlight"
+            "battery"
+            "cpu_load"
+            "network"
+            "time"
+          ]
+        );
         description = lib.mdDoc ''
           List of enabled features in order.
         '';
@@ -48,11 +62,8 @@ in
           Extra config in TOML format.
         '';
       };
-
     };
-
   };
-
 
   ###### implementation
 
@@ -67,7 +78,5 @@ in
 
       serviceConfig.ExecStart = "${cfg.package}/bin/dwm-status ${configFile}";
     };
-
   };
-
 }

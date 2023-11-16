@@ -1,28 +1,34 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cmake
-, boost
-, eigen
-, python
-, catch
-, numpy
-, pytestCheckHook
-, libxcrypt
-, makeSetupHook
-}: let
-  setupHook = makeSetupHook {
-    name = "pybind11-setup-hook";
-    substitutions = {
-      out = placeholder "out";
-      pythonInterpreter = python.pythonOnBuildForHost.interpreter;
-      pythonIncludeDir = "${python}/include/python${python.pythonVersion}";
-      pythonSitePackages = "${python}/${python.sitePackages}";
-    };
-  } ./setup-hook.sh;
-in buildPythonPackage rec {
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  python,
+  catch,
+  numpy,
+  pytestCheckHook,
+  libxcrypt,
+  makeSetupHook,
+}:
+let
+  setupHook =
+    makeSetupHook
+      {
+        name = "pybind11-setup-hook";
+        substitutions = {
+          out = placeholder "out";
+          pythonInterpreter = python.pythonOnBuildForHost.interpreter;
+          pythonIncludeDir = "${python}/include/python${python.pythonVersion}";
+          pythonSitePackages = "${python}/${python.sitePackages}";
+        };
+      }
+      ./setup-hook.sh;
+in
+buildPythonPackage rec {
   pname = "pybind11";
   version = "2.11.1";
 
@@ -53,9 +59,7 @@ in buildPythonPackage rec {
   cmakeFlags = [
     "-DBoost_INCLUDE_DIR=${lib.getDev boost}/include"
     "-DEIGEN3_INCLUDE_DIR=${lib.getDev eigen}/include/eigen3"
-  ] ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang) [
-    "-DPYBIND11_CXX_STANDARD=-std=c++17"
-  ];
+  ] ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang) [ "-DPYBIND11_CXX_STANDARD=-std=c++17" ];
 
   postBuild = ''
     # build tests
@@ -87,11 +91,13 @@ in buildPythonPackage rec {
     "tests/extra_setuptools/test_setuphelper.py"
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    # expects KeyError, gets RuntimeError
-    # https://github.com/pybind/pybind11/issues/4243
-    "test_cross_module_exception_translator"
-  ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin
+      [
+        # expects KeyError, gets RuntimeError
+        # https://github.com/pybind/pybind11/issues/4243
+        "test_cross_module_exception_translator"
+      ];
 
   hardeningDisable = lib.optional stdenv.hostPlatform.isMusl "fortify";
 
@@ -105,6 +111,9 @@ in buildPythonPackage rec {
       bindings of existing C++ code.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ yuriaisaka dotlambda ];
+    maintainers = with maintainers; [
+      yuriaisaka
+      dotlambda
+    ];
   };
 }

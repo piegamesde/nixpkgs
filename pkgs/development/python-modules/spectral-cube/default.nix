@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, aplpy
-, astropy
-, buildPythonPackage
-, casa-formats-io
-, dask
-, fetchPypi
-, joblib
-, pytest-astropy
-, pytestCheckHook
-, pythonOlder
-, radio-beam
-, setuptools-scm
+{
+  lib,
+  stdenv,
+  aplpy,
+  astropy,
+  buildPythonPackage,
+  casa-formats-io,
+  dask,
+  fetchPypi,
+  joblib,
+  pytest-astropy,
+  pytestCheckHook,
+  pythonOlder,
+  radio-beam,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     astropy
@@ -53,13 +52,9 @@ buildPythonPackage rec {
 
   # On x86_darwin, this test fails with "Fatal Python error: Aborted"
   # when sandbox = true.
-  disabledTestPaths = lib.optionals stdenv.isDarwin [
-    "spectral_cube/tests/test_visualization.py"
-  ];
+  disabledTestPaths = lib.optionals stdenv.isDarwin [ "spectral_cube/tests/test_visualization.py" ];
 
-  pythonImportsCheck = [
-    "spectral_cube"
-  ];
+  pythonImportsCheck = [ "spectral_cube" ];
 
   meta = with lib; {
     description = "Library for reading and analyzing astrophysical spectral data cubes";

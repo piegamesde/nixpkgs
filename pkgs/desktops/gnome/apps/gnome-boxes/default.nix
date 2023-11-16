@@ -1,49 +1,50 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, wrapGAppsHook
-, pkg-config
-, gettext
-, itstool
-, libvirt-glib
-, glib
-, gobject-introspection
-, libxml2
-, gtk3
-, libvirt
-, spice-gtk
-, appstream-glib
-, spice-protocol
-, libhandy
-, libsoup_3
-, libosinfo
-, systemd
-, vala
-, libcap
-, yajl
-, gmp
-, gdbm
-, cyrus_sasl
-, gnome
-, librsvg
-, desktop-file-utils
-, mtools
-, cdrkit
-, libcdio
-, libusb1
-, libarchive
-, acl
-, libgudev
-, libcap_ng
-, numactl
-, libapparmor
-, json-glib
-, webkitgtk_4_1
-, vte
-, glib-networking
-, qemu-utils
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  pkg-config,
+  gettext,
+  itstool,
+  libvirt-glib,
+  glib,
+  gobject-introspection,
+  libxml2,
+  gtk3,
+  libvirt,
+  spice-gtk,
+  appstream-glib,
+  spice-protocol,
+  libhandy,
+  libsoup_3,
+  libosinfo,
+  systemd,
+  vala,
+  libcap,
+  yajl,
+  gmp,
+  gdbm,
+  cyrus_sasl,
+  gnome,
+  librsvg,
+  desktop-file-utils,
+  mtools,
+  cdrkit,
+  libcdio,
+  libusb1,
+  libarchive,
+  acl,
+  libgudev,
+  libcap_ng,
+  numactl,
+  libapparmor,
+  json-glib,
+  webkitgtk_4_1,
+  vte,
+  glib-networking,
+  qemu-utils,
 }:
 
 stdenv.mkDerivation rec {
@@ -55,11 +56,12 @@ stdenv.mkDerivation rec {
     sha256 = "ZIpBuODIdfBOOnh+pnA2vJIehYo25jQ6Q9tyQu5z4XE=";
   };
 
-  patches = [
-    # Fix path to libgovf-0.1.so in the gir file. We patch gobject-introspection to hardcode absolute paths but
-    # our Meson patch will only pass the info when install_dir is absolute as well.
-    ./fix-gir-lib-path.patch
-  ];
+  patches =
+    [
+      # Fix path to libgovf-0.1.so in the gir file. We patch gobject-introspection to hardcode absolute paths but
+      # our Meson patch will only pass the info when install_dir is absolute as well.
+      ./fix-gir-lib-path.patch
+    ];
 
   doCheck = true;
 
@@ -80,9 +82,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Required for USB redirection PolicyKit rules file
-  propagatedUserEnvPkgs = [
-    spice-gtk
-  ];
+  propagatedUserEnvPkgs = [ spice-gtk ];
 
   buildInputs = [
     acl
@@ -117,7 +117,14 @@ stdenv.mkDerivation rec {
   ];
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ mtools cdrkit libcdio qemu-utils ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${
+      lib.makeBinPath [
+        mtools
+        cdrkit
+        libcdio
+        qemu-utils
+      ]
+    }")
   '';
 
   passthru = {

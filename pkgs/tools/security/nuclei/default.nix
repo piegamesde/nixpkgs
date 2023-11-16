@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,9 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-pekirk3nYXDLzoy4iBJblYvN9fkViyMUsRFC0Dx1r9M=";
 
-  subPackages = [
-    "cmd/nuclei/"
-  ];
+  subPackages = [ "cmd/nuclei/" ];
 
   # Test files are not part of the release tarball
   doCheck = false;
@@ -35,6 +34,9 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/nuclei";
     changelog = "https://github.com/projectdiscovery/nuclei/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab Misaka13514 ];
+    maintainers = with maintainers; [
+      fab
+      Misaka13514
+    ];
   };
 }

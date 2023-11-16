@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, setuptools
-, jsonschema
-, pyyaml
-, jinja2
-, termcolor
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  setuptools,
+  jsonschema,
+  pyyaml,
+  jinja2,
+  termcolor,
 }:
 
 buildPythonPackage rec {

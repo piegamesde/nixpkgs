@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -17,9 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-wqbAOoRQEE7CDmaH5MRzsSKOdyrxwBY/1wDz3MCfsBc=";
 
   modRoot = ".";
-  subPackages = [
-    "cmd/mapcidr"
-  ];
+  subPackages = [ "cmd/mapcidr" ];
 
   meta = with lib; {
     description = "Small utility program to perform multiple operations for a given subnet/CIDR ranges";

@@ -1,4 +1,13 @@
-{ lib, clangStdenv, stdenv, cmake, autoPatchelfHook, fetchFromGitHub, dotnetCorePackages, buildDotnetModule }:
+{
+  lib,
+  clangStdenv,
+  stdenv,
+  cmake,
+  autoPatchelfHook,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  buildDotnetModule,
+}:
 let
   pname = "netcoredbg";
   version = "2.2.0-961";
@@ -28,8 +37,14 @@ let
     # needed until https://github.com/dotnet/runtime/issues/78286 is resolved
     # patch for darwin from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446457522
     # needed until: ?
-    patches = [ ./arm64.patch ./darwin.patch ];
-    nativeBuildInputs = [ cmake dotnet-sdk ];
+    patches = [
+      ./arm64.patch
+      ./darwin.patch
+    ];
+    nativeBuildInputs = [
+      cmake
+      dotnet-sdk
+    ];
 
     hardeningDisable = [ "strictoverflow" ];
 
@@ -45,7 +60,12 @@ let
   };
 
   managed = buildDotnetModule {
-    inherit pname version src dotnet-sdk;
+    inherit
+      pname
+      version
+      src
+      dotnet-sdk
+    ;
 
     projectFile = "src/managed/ManagedPart.csproj";
     nugetDeps = ./deps.nix;
@@ -78,7 +98,12 @@ stdenv.mkDerivation rec {
   passthru = {
     inherit (managed) fetch-deps;
 
-    updateScript = [ ./update.sh pname version meta.homepage ];
+    updateScript = [
+      ./update.sh
+      pname
+      version
+      meta.homepage
+    ];
   };
 
   meta = with lib; {
@@ -86,6 +111,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Samsung/netcoredbg";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ leo60228 konradmalik ];
+    maintainers = with maintainers; [
+      leo60228
+      konradmalik
+    ];
   };
 }

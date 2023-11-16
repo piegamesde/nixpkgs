@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, substituteAll
-, pkg-config
-, meson
-, ninja
-, gnu-efi
-, python3
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  substituteAll,
+  pkg-config,
+  meson,
+  ninja,
+  gnu-efi,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,9 +27,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    gnu-efi
-  ];
+  buildInputs = [ gnu-efi ];
 
   postPatch = ''
     patchShebangs \

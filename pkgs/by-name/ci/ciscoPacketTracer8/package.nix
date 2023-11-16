@@ -1,30 +1,31 @@
-{ stdenvNoCC
-, lib
-, alsa-lib
-, autoPatchelfHook
-, buildFHSEnv
-, ciscoPacketTracer8
-, copyDesktopItems
-, dbus
-, dpkg
-, expat
-, fontconfig
-, glib
-, libdrm
-, libglvnd
-, libpulseaudio
-, libudev0-shim
-, libxkbcommon
-, libxml2
-, libxslt
-, lndir
-, makeDesktopItem
-, makeWrapper
-, nspr
-, nss
-, qt5
-, requireFile
-, xorg
+{
+  stdenvNoCC,
+  lib,
+  alsa-lib,
+  autoPatchelfHook,
+  buildFHSEnv,
+  ciscoPacketTracer8,
+  copyDesktopItems,
+  dbus,
+  dpkg,
+  expat,
+  fontconfig,
+  glib,
+  libdrm,
+  libglvnd,
+  libpulseaudio,
+  libudev0-shim,
+  libxkbcommon,
+  libxml2,
+  libxslt,
+  lndir,
+  makeDesktopItem,
+  makeWrapper,
+  nspr,
+  nss,
+  qt5,
+  requireFile,
+  xorg,
 }:
 
 let
@@ -40,7 +41,7 @@ stdenvNoCC.mkDerivation rec {
   version = "8.2.1";
 
   src = requireFile {
-    name = "CiscoPacketTracer_${builtins.replaceStrings ["."] [""] version}_Ubuntu_64bit.deb";
+    name = "CiscoPacketTracer_${builtins.replaceStrings [ "." ] [ "" ] version}_Ubuntu_64bit.deb";
     sha256 = hashes.${version};
     url = "https://www.netacad.com";
   };
@@ -97,7 +98,11 @@ stdenvNoCC.mkDerivation rec {
       desktopName = "Cisco Packet Tracer 8";
       icon = "ciscoPacketTracer8";
       exec = "packettracer8 %f";
-      mimeTypes = [ "application/x-pkt" "application/x-pka" "application/x-pkz" ];
+      mimeTypes = [
+        "application/x-pkt"
+        "application/x-pka"
+        "application/x-pkz"
+      ];
     })
   ];
 

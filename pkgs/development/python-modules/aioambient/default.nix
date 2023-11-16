@@ -1,16 +1,17 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, python-engineio
-, python-socketio
-, pythonOlder
-, websockets
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-engineio,
+  python-socketio,
+  pythonOlder,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
       --replace 'websockets = ">=11.0.1"' 'websockets = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -53,13 +52,9 @@ buildPythonPackage rec {
   ];
 
   # Ignore the examples directory as the files are prefixed with test_
-  disabledTestPaths = [
-    "examples/"
-  ];
+  disabledTestPaths = [ "examples/" ];
 
-  pythonImportsCheck = [
-    "aioambient"
-  ];
+  pythonImportsCheck = [ "aioambient" ];
 
   meta = with lib; {
     description = "Python library for the Ambient Weather API";

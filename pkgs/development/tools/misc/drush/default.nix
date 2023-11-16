@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, php, which, makeWrapper, bash, coreutils, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  php,
+  which,
+  makeWrapper,
+  bash,
+  coreutils,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "drush";
@@ -18,7 +29,15 @@ stdenv.mkDerivation rec {
     install -D $src $out/libexec/drush/drush.phar
     makeWrapper ${php}/bin/php $out/bin/drush \
       --add-flags "$out/libexec/drush/drush.phar" \
-      --prefix PATH : "${lib.makeBinPath [ which php bash coreutils ncurses ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          which
+          php
+          bash
+          coreutils
+          ncurses
+        ]
+      }"
   '';
 
   meta = with lib; {

@@ -1,4 +1,16 @@
-{ lib, fetchFromGitHub, rustPlatform, gtk4, pkg-config, openssl, dbus, wrapGAppsHook4, glib, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  gtk4,
+  pkg-config,
+  openssl,
+  dbus,
+  wrapGAppsHook4,
+  glib,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "waylyrics";
@@ -13,8 +25,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-dpJa0T6xapCBPM5fWbSDEhBlZ55c3Sr5oTnu58B/voM=";
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook4 copyDesktopItems ];
-  buildInputs = [ gtk4 openssl dbus glib ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook4
+    copyDesktopItems
+  ];
+  buildInputs = [
+    gtk4
+    openssl
+    dbus
+    glib
+  ];
 
   RUSTC_BOOTSTRAP = 1;
 
@@ -32,7 +53,10 @@ rustPlatform.buildRustPackage rec {
       icon = "io.poly000.waylyrics";
       desktopName = "Waylyrics";
       terminal = false;
-      categories = [ "Audio" "AudioVideo" ];
+      categories = [
+        "Audio"
+        "AudioVideo"
+      ];
     })
   ];
 

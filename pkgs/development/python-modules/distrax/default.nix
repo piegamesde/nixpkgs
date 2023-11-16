@@ -1,12 +1,13 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, numpy
-, tensorflow-probability
-, chex
-, dm-haiku
-, pytestCheckHook
-, jaxlib
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  numpy,
+  tensorflow-probability,
+  chex,
+  dm-haiku,
+  pytestCheckHook,
+  jaxlib,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "distrax"
-  ];
+  pythonImportsCheck = [ "distrax" ];
 
   disabledTestPaths = [
     # TypeErrors

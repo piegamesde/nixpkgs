@@ -1,12 +1,13 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, nix-update-script
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  nix-update-script,
 
-, setuptools
-, wheel
+  setuptools,
+  wheel,
 
-, jinja2
+  jinja2,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    jinja2
-  ];
+  propagatedBuildInputs = [ jinja2 ];
 
   pythonImportsCheck = [ "junit2htmlreport" ];
 

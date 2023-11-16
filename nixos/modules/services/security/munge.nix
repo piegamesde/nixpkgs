@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.services.munge;
-
 in
 
 {
@@ -24,9 +28,7 @@ in
           The path to a daemon's secret key.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -36,18 +38,21 @@ in
     environment.systemPackages = [ pkgs.munge ];
 
     users.users.munge = {
-      description   = "Munge daemon user";
-      isSystemUser  = true;
-      group         = "munge";
+      description = "Munge daemon user";
+      isSystemUser = true;
+      group = "munge";
     };
 
-    users.groups.munge = {};
+    users.groups.munge = { };
 
     systemd.services.munged = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      path = [ pkgs.munge pkgs.coreutils ];
+      path = [
+        pkgs.munge
+        pkgs.coreutils
+      ];
 
       serviceConfig = {
         ExecStartPre = "+${pkgs.coreutils}/bin/chmod 0400 ${cfg.password}";
@@ -60,9 +65,6 @@ in
         StateDirectoryMode = "0711";
         RuntimeDirectory = "munge";
       };
-
     };
-
   };
-
 }

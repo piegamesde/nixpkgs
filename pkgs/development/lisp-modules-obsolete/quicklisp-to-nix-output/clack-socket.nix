@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "clack-socket";
   version = "clack-20211209-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clack-socket";
 
-  asdFilesToKeep = ["clack-socket.asd"];
+  asdFilesToKeep = [ "clack-socket.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clack-socket DESCRIPTION System lacks description SHA256
@@ -26,4 +26,5 @@ rec {
     (clack-handler-fcgi clack-handler-hunchentoot clack-handler-toot
      clack-handler-wookie clack-test clack t-clack-handler-fcgi
      t-clack-handler-hunchentoot t-clack-handler-toot t-clack-handler-wookie)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

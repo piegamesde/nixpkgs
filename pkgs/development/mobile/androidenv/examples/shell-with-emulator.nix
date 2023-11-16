@@ -3,22 +3,20 @@
 
   # If you copy this example out of nixpkgs, use these lines instead of the next.
   # This example pins nixpkgs: https://nix.dev/tutorials/towards-reproducibility-pinning-nixpkgs.html
-  /*nixpkgsSource ? (builtins.fetchTarball {
-    name = "nixpkgs-20.09";
-    url = "https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz";
-    sha256 = "1wg61h4gndm3vcprdcg7rc4s1v3jkm5xd7lw8r2f67w502y94gcy";
-  }),
-  pkgs ? import nixpkgsSource {
-    config.allowUnfree = true;
-  },
+  /* nixpkgsSource ? (builtins.fetchTarball {
+       name = "nixpkgs-20.09";
+       url = "https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz";
+       sha256 = "1wg61h4gndm3vcprdcg7rc4s1v3jkm5xd7lw8r2f67w502y94gcy";
+     }),
+     pkgs ? import nixpkgsSource {
+       config.allowUnfree = true;
+     },
   */
 
   # If you want to use the in-tree version of nixpkgs:
-  pkgs ? import ../../../../.. {
-    config.allowUnfree = true;
-  },
+  pkgs ? import ../../../../.. { config.allowUnfree = true; },
 
-  config ? pkgs.config
+  config ? pkgs.config,
 }:
 
 # Copy this file to your Android project.
@@ -28,20 +26,24 @@ let
   android = {
     platforms = [ "34" ];
     systemImageTypes = [ "google_apis" ];
-    abis = [ "arm64-v8a" "x86_64" ];
+    abis = [
+      "arm64-v8a"
+      "x86_64"
+    ];
   };
 
   # If you copy this example out of nixpkgs, something like this will work:
-  /*androidEnvNixpkgs = fetchTarball {
-    name = "androidenv";
-    url = "https://github.com/NixOS/nixpkgs/archive/<fill me in from Git>.tar.gz";
-    sha256 = "<fill me in with nix-prefetch-url --unpack>";
-  };
+  /* androidEnvNixpkgs = fetchTarball {
+       name = "androidenv";
+       url = "https://github.com/NixOS/nixpkgs/archive/<fill me in from Git>.tar.gz";
+       sha256 = "<fill me in with nix-prefetch-url --unpack>";
+     };
 
-  androidEnv = pkgs.callPackage "${androidEnvNixpkgs}/pkgs/development/mobile/androidenv" {
-    inherit config pkgs;
-    licenseAccepted = true;
-  };*/
+     androidEnv = pkgs.callPackage "${androidEnvNixpkgs}/pkgs/development/mobile/androidenv" {
+       inherit config pkgs;
+       licenseAccepted = true;
+     };
+  */
 
   # Otherwise, just use the in-tree androidenv:
   androidEnv = pkgs.callPackage ./.. {
@@ -86,7 +88,13 @@ let
 in
 pkgs.mkShell rec {
   name = "androidenv-demo";
-  packages = [ androidSdk platformTools androidEmulator jdk pkgs.android-studio ];
+  packages = [
+    androidSdk
+    platformTools
+    androidEmulator
+    jdk
+    pkgs.android-studio
+  ];
 
   LANG = "C.UTF-8";
   LC_ALL = "C.UTF-8";
@@ -107,45 +115,57 @@ pkgs.mkShell rec {
 
   passthru.tests = {
 
-    shell-with-emulator-sdkmanager-packages-test = pkgs.runCommand "shell-with-emulator-sdkmanager-packages-test" {
-      nativeBuildInputs = [ androidSdk jdk ];
-    } ''
-      output="$(sdkmanager --list)"
-      installed_packages_section=$(echo "''${output%%Available Packages*}" | awk 'NR>4 {print $1}')
-      echo "installed_packages_section: ''${installed_packages_section}"
+    shell-with-emulator-sdkmanager-packages-test =
+      pkgs.runCommand "shell-with-emulator-sdkmanager-packages-test"
+        {
+          nativeBuildInputs = [
+            androidSdk
+            jdk
+          ];
+        }
+        ''
+          output="$(sdkmanager --list)"
+          installed_packages_section=$(echo "''${output%%Available Packages*}" | awk 'NR>4 {print $1}')
+          echo "installed_packages_section: ''${installed_packages_section}"
 
-      packages=(
-        "build-tools;34.0.0" "cmdline-tools;11.0" \
-        "emulator" "patcher;v4" "platform-tools" "platforms;android-34" \
-        "system-images;android-34;google_apis;arm64-v8a" \
-        "system-images;android-34;google_apis;x86_64"
-      )
+          packages=(
+            "build-tools;34.0.0" "cmdline-tools;11.0" \
+            "emulator" "patcher;v4" "platform-tools" "platforms;android-34" \
+            "system-images;android-34;google_apis;arm64-v8a" \
+            "system-images;android-34;google_apis;x86_64"
+          )
 
-      for package in "''${packages[@]}"; do
-        if [[ ! $installed_packages_section =~ "$package" ]]; then
-          echo "$package package was not installed."
-          exit 1
-        fi
-      done
+          for package in "''${packages[@]}"; do
+            if [[ ! $installed_packages_section =~ "$package" ]]; then
+              echo "$package package was not installed."
+              exit 1
+            fi
+          done
 
-      touch "$out"
-    '';
+          touch "$out"
+        '';
 
-    shell-with-emulator-avdmanager-create-avd-test = pkgs.runCommand "shell-with-emulator-avdmanager-create-avd-test" {
-      nativeBuildInputs = [ androidSdk androidEmulator jdk ];
-    } ''
-      avdmanager delete avd -n testAVD || true
-      echo "" | avdmanager create avd --force --name testAVD --package 'system-images;android-34;google_apis;x86_64'
-      result=$(avdmanager list avd)
+    shell-with-emulator-avdmanager-create-avd-test =
+      pkgs.runCommand "shell-with-emulator-avdmanager-create-avd-test"
+        {
+          nativeBuildInputs = [
+            androidSdk
+            androidEmulator
+            jdk
+          ];
+        }
+        ''
+          avdmanager delete avd -n testAVD || true
+          echo "" | avdmanager create avd --force --name testAVD --package 'system-images;android-34;google_apis;x86_64'
+          result=$(avdmanager list avd)
 
-      if [[ ! $result =~ "Name: testAVD" ]]; then
-        echo "avdmanager couldn't create the avd! The output is :''${result}"
-        exit 1
-      fi
+          if [[ ! $result =~ "Name: testAVD" ]]; then
+            echo "avdmanager couldn't create the avd! The output is :''${result}"
+            exit 1
+          fi
 
-      avdmanager delete avd -n testAVD || true
-      touch "$out"
-    '';
+          avdmanager delete avd -n testAVD || true
+          touch "$out"
+        '';
   };
 }
-

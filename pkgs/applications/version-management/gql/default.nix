@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libgit2
-, zlib
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2,
+  zlib,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,9 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-0mUkXez+5Z8UGKMrUUjt+aF4zv3EJKgnFoQ068gTlX0=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     libgit2

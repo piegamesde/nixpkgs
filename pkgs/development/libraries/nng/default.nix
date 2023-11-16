@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, mbedtlsSupport ? true, mbedtls }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  mbedtlsSupport ? true,
+  mbedtls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nng";
@@ -11,13 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4Vj8nf3c45Y8LJ79YUOrNAAGMmfygdPtAJrs+JuFiUM=";
   };
 
-  nativeBuildInputs = [ cmake ninja ]
-    ++ lib.optionals mbedtlsSupport [ mbedtls ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ] ++ lib.optionals mbedtlsSupport [ mbedtls ];
 
   buildInputs = lib.optionals mbedtlsSupport [ mbedtls ];
 
-  cmakeFlags = [ "-G Ninja" "-DNNG_ENABLE_TLS=ON" ]
-    ++ lib.optionals mbedtlsSupport [ "-DMBEDTLS_ROOT_DIR=${mbedtls}" ];
+  cmakeFlags = [
+    "-G Ninja"
+    "-DNNG_ENABLE_TLS=ON"
+  ] ++ lib.optionals mbedtlsSupport [ "-DMBEDTLS_ROOT_DIR=${mbedtls}" ];
 
   meta = with lib; {
     homepage = "https://nng.nanomsg.org/";

@@ -1,11 +1,12 @@
-{ lib
-, callPackage
-, python3
-, fetchFromGitHub
-, fetchurl
-, fetchpatch
-, frigate
-, nixosTests
+{
+  lib,
+  callPackage,
+  python3,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  frigate,
+  nixosTests,
 }:
 
 let
@@ -19,14 +20,9 @@ let
     hash = "sha256-kNvYsHoObi6b9KT/LYhTGK4uJ/uAHnYhyoQkiXIA/s8=";
   };
 
-  frigate-web = callPackage ./web.nix {
-    inherit version src;
-  };
+  frigate-web = callPackage ./web.nix { inherit version src; };
 
-  python = python3.override {
-    packageOverrides = self: super: {
-    };
-  };
+  python = python3.override { packageOverrides = self: super: { }; };
 
   # Tensorflow Lite models
   # https://github.com/blakeblackshear/frigate/blob/v0.12.0/Dockerfile#L88-L91
@@ -65,7 +61,9 @@ python.pkgs.buildPythonApplication rec {
     echo 'VERSION = "${version}"' > frigate/version.py
 
     substituteInPlace frigate/app.py \
-      --replace "Router(migrate_db)" 'Router(migrate_db, "${placeholder "out"}/share/frigate/migrations")'
+      --replace "Router(migrate_db)" 'Router(migrate_db, "${
+        placeholder "out"
+      }/share/frigate/migrations")'
 
     substituteInPlace frigate/const.py \
       --replace "/media/frigate" "/var/lib/frigate" \
@@ -138,14 +136,13 @@ python.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  checkInputs = with python.pkgs; [
-    pytestCheckHook
-  ];
+  checkInputs = with python.pkgs; [ pytestCheckHook ];
 
   passthru = {
     web = frigate-web;
     inherit python;
-    pythonPath =(python.pkgs.makePythonPath propagatedBuildInputs) + ":${frigate}/${python.sitePackages}";
+    pythonPath =
+      (python.pkgs.makePythonPath propagatedBuildInputs) + ":${frigate}/${python.sitePackages}";
     tests = {
       inherit (nixosTests) frigate;
     };

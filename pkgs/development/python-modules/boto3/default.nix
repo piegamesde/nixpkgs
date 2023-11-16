@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, botocore
-, jmespath
-, s3transfer
-, setuptools
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  botocore,
+  jmespath,
+  s3transfer,
+  setuptools,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-NkNHA20yn1Q7uoq/EL1Wn8F1fpi1waQujutGIKsnxlI=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     botocore
@@ -30,18 +29,15 @@ buildPythonPackage rec {
     s3transfer
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "boto3"
-  ];
+  pythonImportsCheck = [ "boto3" ];
 
-  disabledTestPaths = [
-    # Integration tests require networking
-    "tests/integration"
-  ];
+  disabledTestPaths =
+    [
+      # Integration tests require networking
+      "tests/integration"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/boto/boto3";

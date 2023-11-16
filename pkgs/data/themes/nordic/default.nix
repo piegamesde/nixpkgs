@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gtk-engine-murrine
-, breeze-icons
-, plasma-framework
-, plasma-workspace
-, jdupes
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtk-engine-murrine,
+  breeze-icons,
+  plasma-framework,
+  plasma-workspace,
+  jdupes,
 }:
 
 stdenv.mkDerivation rec {
@@ -80,7 +81,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  outputs = [ "out" "sddm" ];
+  outputs = [
+    "out"
+    "sddm"
+  ];
 
   nativeBuildInputs = [ jdupes ];
 

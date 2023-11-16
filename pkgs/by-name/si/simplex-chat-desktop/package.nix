@@ -1,6 +1,7 @@
-{ lib
-, appimageTools
-, fetchurl
+{
+  lib,
+  appimageTools,
+  fetchurl,
 }:
 
 let
@@ -12,28 +13,23 @@ let
     hash = "sha256-vykdi7SXKKsjYE/yixGrKQoWuUIOAjofLUn/fsdmLMc=";
   };
 
-  appimageContents = appimageTools.extract {
-    inherit pname version src;
-  };
-in appimageTools.wrapType2 {
-    inherit pname version src;
+  appimageContents = appimageTools.extract { inherit pname version src; };
+in
+appimageTools.wrapType2 {
+  inherit pname version src;
 
-    extraPkgs = pkgs: with pkgs; [
-      makeWrapper
-    ];
+  extraPkgs = pkgs: with pkgs; [ makeWrapper ];
 
-    extraBwrapArgs = [
-      "--setenv _JAVA_AWT_WM_NONREPARENTING 1"
-    ];
+  extraBwrapArgs = [ "--setenv _JAVA_AWT_WM_NONREPARENTING 1" ];
 
-    extraInstallCommands = ''
-      mv $out/bin/${pname}-${version} $out/bin/${pname}
+  extraInstallCommands = ''
+    mv $out/bin/${pname}-${version} $out/bin/${pname}
 
-      install --mode=444 -D ${appimageContents}/chat.simplex.app.desktop --target-directory=$out/share/applications
-      substituteInPlace $out/share/applications/chat.simplex.app.desktop \
-        --replace 'Exec=simplex' 'Exec=${pname}'
-      cp -r ${appimageContents}/usr/share/icons $out/share
-    '';
+    install --mode=444 -D ${appimageContents}/chat.simplex.app.desktop --target-directory=$out/share/applications
+    substituteInPlace $out/share/applications/chat.simplex.app.desktop \
+      --replace 'Exec=simplex' 'Exec=${pname}'
+    cp -r ${appimageContents}/usr/share/icons $out/share
+  '';
 
   meta = with lib; {
     description = "Desktop application for SimpleX Chat";

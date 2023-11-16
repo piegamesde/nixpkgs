@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, qtbase, extra-cmake-modules }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  qtbase,
+  extra-cmake-modules,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libqaccessibilityclient";
@@ -9,10 +16,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HHaLT0MU/K4qB8t958sq4FIrXwK0Fzrz7ti/sqTYNCk=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
   buildInputs = [ qtbase ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   dontWrapQtApps = true;
 
@@ -20,7 +33,10 @@ stdenv.mkDerivation rec {
     description = "Accessibilty tools helper library, used e.g. by screen readers";
     homepage = "https://github.com/KDE/libqaccessibilityclient";
     maintainers = with maintainers; [ artturin ];
-    license = with licenses; [ lgpl3Only /* or */ lgpl21Only ];
+    license = with licenses; [
+      lgpl3Only # or
+      lgpl21Only
+    ];
     platforms = platforms.linux;
   };
 }

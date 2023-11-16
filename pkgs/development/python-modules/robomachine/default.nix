@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, allpairspy
-, buildPythonPackage
-, fetchPypi
-, pyparsing
-, pythonRelaxDepsHook
-, robotframework
-, setuptools
+{
+  stdenv,
+  lib,
+  allpairspy,
+  buildPythonPackage,
+  fetchPypi,
+  pyparsing,
+  pythonRelaxDepsHook,
+  robotframework,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -30,17 +31,11 @@ buildPythonPackage rec {
     allpairspy
   ];
 
-  pythonRemoveDeps = [
-    "argparse"
-  ];
+  pythonRemoveDeps = [ "argparse" ];
 
-  pythonRelaxDeps = [
-    "pyparsing"
-  ];
+  pythonRelaxDeps = [ "pyparsing" ];
 
-  pythonImportsCheck = [
-    "robomachine"
-  ];
+  pythonImportsCheck = [ "robomachine" ];
 
   meta = with lib; {
     description = "Test data generator for Robot Framework";

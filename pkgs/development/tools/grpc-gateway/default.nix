@@ -1,4 +1,8 @@
-{ buildGoModule, fetchFromGitHub, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+}:
 
 buildGoModule rec {
   pname = "grpc-gateway";
@@ -14,8 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-SV2ZO8Y9yt6iyw9VvNY0xpqZIzLrTyHYYpIpzcEVsLY=";
 
   meta = with lib; {
-    description =
-      "A gRPC to JSON proxy generator plugin for Google Protocol Buffers";
+    description = "A gRPC to JSON proxy generator plugin for Google Protocol Buffers";
     longDescription = ''
       This is a plugin for the Google Protocol Buffers compiler (protoc). It reads
       protobuf service definitions and generates a reverse-proxy server which

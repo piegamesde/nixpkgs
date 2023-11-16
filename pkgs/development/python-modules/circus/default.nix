@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, psutil
-, pytestCheckHook
-, pyyaml
-, pyzmq
-, tornado
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  psutil,
+  pytestCheckHook,
+  pyyaml,
+  pyzmq,
+  tornado,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-GTzoIk4GjO1mckz0gxBvtmdLUaV1g6waDn7Xp+6Mcas=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     psutil

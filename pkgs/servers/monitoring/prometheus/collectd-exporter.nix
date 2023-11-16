@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "collectd-exporter";
@@ -13,9 +18,14 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) collectd; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) collectd;
+  };
 
   meta = with lib; {
     description = "Relay server for exporting metrics from collectd to Prometheus";

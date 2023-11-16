@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.castopod;
   fpm = config.services.phpfpm.pools.castopod;
@@ -7,18 +12,26 @@ let
   stateDirectory = "/var/lib/castopod";
 
   # https://docs.castopod.org/getting-started/install.html#requirements
-  phpPackage = pkgs.php.withExtensions ({ enabled, all }: with all; [
-    intl
-    curl
-    mbstring
-    gd
-    exif
-    mysqlnd
-  ] ++ enabled);
+  phpPackage = pkgs.php.withExtensions (
+    { enabled, all }:
+    with all;
+    [
+      intl
+      curl
+      mbstring
+      gd
+      exif
+      mysqlnd
+    ]
+    ++ enabled
+  );
 in
 {
   meta.doc = ./castopod.md;
-  meta.maintainers = with lib.maintainers; [ alexoundos misuzu ];
+  meta.maintainers = with lib.maintainers; [
+    alexoundos
+    misuzu
+  ];
 
   options.services = {
     castopod = {
@@ -63,7 +76,15 @@ in
         };
       };
       settings = lib.mkOption {
-        type = with lib.types; attrsOf (oneOf [ str int bool ]);
+        type =
+          with lib.types;
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+            ]
+          );
         default = { };
         example = {
           "email.protocol" = "smtp";
@@ -98,7 +119,15 @@ in
         description = lib.mdDoc "The domain serving your CastoPod instance.";
       };
       poolSettings = lib.mkOption {
-        type = with lib.types; attrsOf (oneOf [ str int bool ]);
+        type =
+          with lib.types;
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+            ]
+          );
         default = {
           "pm" = "dynamic";
           "pm.max_children" = "32";
@@ -117,7 +146,9 @@ in
   config = lib.mkIf cfg.enable {
     services.castopod.settings =
       let
-        sslEnabled = with config.services.nginx.virtualHosts.${cfg.localDomain}; addSSL || forceSSL || onlySSL || enableACME || useACMEHost != null;
+        sslEnabled =
+          with config.services.nginx.virtualHosts.${cfg.localDomain};
+          addSSL || forceSSL || onlySSL || enableACME || useACMEHost != null;
         baseURL = "http${lib.optionalString sslEnabled "s"}://${cfg.localDomain}";
       in
       lib.mapAttrs (name: lib.mkDefault) {
@@ -162,7 +193,10 @@ in
       after = lib.optional config.services.mysql.enable "mysql.service";
       requires = lib.optional config.services.mysql.enable "mysql.service";
       wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.openssl phpPackage ];
+      path = [
+        pkgs.openssl
+        phpPackage
+      ];
       script =
         let
           envFile = "${stateDirectory}/.env";
@@ -172,7 +206,9 @@ in
           mkdir -p ${stateDirectory}/writable/{cache,logs,session,temp,uploads}
 
           if [ ! -d ${lib.escapeShellArg media} ]; then
-            cp --no-preserve=mode,ownership -r ${cfg.package}/share/castopod/public/media ${lib.escapeShellArg media}
+            cp --no-preserve=mode,ownership -r ${cfg.package}/share/castopod/public/media ${
+              lib.escapeShellArg media
+            }
           fi
 
           if [ ! -f ${stateDirectory}/salt ]; then
@@ -185,11 +221,16 @@ in
 
           echo "analytics.salt=$(cat ${stateDirectory}/salt)" >> ${envFile}
 
-          ${if (cfg.database.passwordFile != null) then ''
-            echo "database.default.password=$(cat ${lib.escapeShellArg cfg.database.passwordFile})" >> ${envFile}
-          '' else ''
-            echo "database.default.password=" >> ${envFile}
-          ''}
+          ${if (cfg.database.passwordFile != null) then
+            ''
+              echo "database.default.password=$(cat ${
+                lib.escapeShellArg cfg.database.passwordFile
+              })" >> ${envFile}
+            ''
+          else
+            ''
+              echo "database.default.password=" >> ${envFile}
+            ''}
 
           ${lib.optionalString (cfg.environmentFile != null) ''
             cat ${lib.escapeShellArg cfg.environmentFile}) >> ${envFile}
@@ -237,10 +278,14 @@ in
       enable = true;
       package = lib.mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
-        name = cfg.database.user;
-        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-      }];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     services.nginx = lib.mkIf cfg.configureNginx {
@@ -262,7 +307,7 @@ in
           '';
         };
 
-        locations."~ \.php$" = {
+        locations."~ .php$" = {
           fastcgiParams = {
             SERVER_NAME = "$host";
           };

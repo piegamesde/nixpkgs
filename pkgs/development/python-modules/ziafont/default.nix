@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, nbval
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  nbval,
 }:
 
 buildPythonPackage rec {
@@ -26,7 +27,7 @@ buildPythonPackage rec {
     nbval
   ];
 
-  preCheck = "rm test/manyfonts.ipynb";  # Tries to download fonts
+  preCheck = "rm test/manyfonts.ipynb"; # Tries to download fonts
 
   pytestFlagsArray = [ "--nbval-lax" ];
 

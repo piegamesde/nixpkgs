@@ -1,28 +1,29 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildGo120Module
-, git
-, nodejs
-, protobuf
-, protoc-gen-go
-, protoc-gen-go-grpc
-, rustPlatform
-, pkg-config
-, openssl
-, extra-cmake-modules
-, fontconfig
-, rust-jemalloc-sys
-, testers
-, turbo
-, nix-update-script
-, go
-, zlib
-, libiconv
-, Security
-, IOKit
-, CoreServices
-, CoreFoundation
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGo120Module,
+  git,
+  nodejs,
+  protobuf,
+  protoc-gen-go,
+  protoc-gen-go-grpc,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  extra-cmake-modules,
+  fontconfig,
+  rust-jemalloc-sys,
+  testers,
+  turbo,
+  nix-update-script,
+  go,
+  zlib,
+  libiconv,
+  Security,
+  IOKit,
+  CoreServices,
+  CoreFoundation,
 }:
 let
   version = "1.10.16";
@@ -36,7 +37,10 @@ let
   ffi = rustPlatform.buildRustPackage {
     pname = "turbo-ffi";
     inherit src version;
-    cargoBuildFlags = [ "--package" "turborepo-ffi" ];
+    cargoBuildFlags = [
+      "--package"
+      "turborepo-ffi"
+    ];
 
     cargoHash = "sha256-Mj46yNOYTqt732d7SJ3sAeXbgDkoh7o7S23lKVgpvKY=";
 
@@ -58,7 +62,6 @@ let
     '';
   };
 
-
   go-turbo = buildGo120Module {
     inherit src version;
     pname = "go-turbo";
@@ -74,10 +77,12 @@ let
       protoc-gen-go-grpc
     ];
 
-    buildInputs = [zlib ] ++ lib.optionals stdenv.isDarwin [
-      Security
-      libiconv
-    ];
+    buildInputs =
+      [ zlib ]
+      ++ lib.optionals stdenv.isDarwin [
+        Security
+        libiconv
+      ];
 
     ldflags = [
       "-s -w"
@@ -92,42 +97,43 @@ let
       cp ${ffi}/lib/libturborepo_ffi.a ./internal/ffi/libturborepo_ffi_${go.GOOS}_${go.GOARCH}.a
     '';
 
-    preCheck = ''
-      # Some tests try to run mkdir $HOME
-      HOME=$TMP
+    preCheck =
+      ''
+        # Some tests try to run mkdir $HOME
+        HOME=$TMP
 
-      # Test_getTraversePath requires that source is a git repo
-      # pwd: /build/source/cli
-      pushd ..
-      git config --global init.defaultBranch main
-      git init
-      popd
+        # Test_getTraversePath requires that source is a git repo
+        # pwd: /build/source/cli
+        pushd ..
+        git config --global init.defaultBranch main
+        git init
+        popd
 
-      # package_deps_hash_test.go:492: hash of child-dir/libA/pkgignorethisdir/file, got 67aed78ea231bdee3de45b6d47d8f32a0a792f6d want go-turbo>     package_deps_hash_test.go:499: found extra hashes in map[.gitignore:3237694bc3312ded18386964 a855074af7b066af some-dir/another-one:7e59c6a6ea9098c6d3beb00e753e2c54ea502311 some-dir/excluded-file:7e59 c6a6ea9098c6d3beb00e753e2c54ea502311 some-dir/other-file:7e59c6a6ea9098c6d3beb00e753e2c54ea502311 some-fil e:7e59c6a6ea9098c6d3beb00e753e2c54ea502311]
-      rm ./internal/hashing/package_deps_hash_test.go
-      rm ./internal/hashing/package_deps_hash_go_test.go
-      #  Error:          Not equal:
-      # expected: env.DetailedMap{All:env.EnvironmentVariableMap(nil), BySource:env.BySource{Explicit:env.EnvironmentVariableMap{}, Matching:env.EnvironmentVariableMap{}}}
-      #  actual  : env.DetailedMap{All:env.EnvironmentVariableMap{}, BySource:env.BySource{Explicit:env.EnvironmentVariableMap{}, Matching:env.EnvironmentVariableMap{}}}
-      rm ./internal/run/global_hash_test.go
-    '' + lib.optionalString stdenv.isLinux ''
-      #  filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/test-1689172679812 1}
-      # filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/parent/test-1689172679812 1}
-      # filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/parent/child/test-1689172679812 1}
-      # filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/parent/sibling/test-1689172679812 1}
-      # filewatcher_test.go:127: got event {/build/TestFileWatching1921149570/001/parent/child/foo 1}
-      # filewatcher_test.go:137: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep 1}
-      # filewatcher_test.go:141: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep/path 1}
-      # filewatcher_test.go:146: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep 1}
-      # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/test-1689172679812
-      # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/parent/test-1689172679812
-      # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/parent/child/test-1689172679812
-      # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/parent/sibling/test-1689172679812
-      # filewatcher_test.go:146: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep/path/test-1689172679812 1}
-      # filewatcher_test.go:146: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep/test-1689172679812 1}
-      rm ./internal/filewatcher/filewatcher_test.go
-    '';
-
+        # package_deps_hash_test.go:492: hash of child-dir/libA/pkgignorethisdir/file, got 67aed78ea231bdee3de45b6d47d8f32a0a792f6d want go-turbo>     package_deps_hash_test.go:499: found extra hashes in map[.gitignore:3237694bc3312ded18386964 a855074af7b066af some-dir/another-one:7e59c6a6ea9098c6d3beb00e753e2c54ea502311 some-dir/excluded-file:7e59 c6a6ea9098c6d3beb00e753e2c54ea502311 some-dir/other-file:7e59c6a6ea9098c6d3beb00e753e2c54ea502311 some-fil e:7e59c6a6ea9098c6d3beb00e753e2c54ea502311]
+        rm ./internal/hashing/package_deps_hash_test.go
+        rm ./internal/hashing/package_deps_hash_go_test.go
+        #  Error:          Not equal:
+        # expected: env.DetailedMap{All:env.EnvironmentVariableMap(nil), BySource:env.BySource{Explicit:env.EnvironmentVariableMap{}, Matching:env.EnvironmentVariableMap{}}}
+        #  actual  : env.DetailedMap{All:env.EnvironmentVariableMap{}, BySource:env.BySource{Explicit:env.EnvironmentVariableMap{}, Matching:env.EnvironmentVariableMap{}}}
+        rm ./internal/run/global_hash_test.go
+      ''
+      + lib.optionalString stdenv.isLinux ''
+        #  filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/test-1689172679812 1}
+        # filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/parent/test-1689172679812 1}
+        # filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/parent/child/test-1689172679812 1}
+        # filewatcher_test.go:122: got event {/build/TestFileWatching1921149570/001/parent/sibling/test-1689172679812 1}
+        # filewatcher_test.go:127: got event {/build/TestFileWatching1921149570/001/parent/child/foo 1}
+        # filewatcher_test.go:137: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep 1}
+        # filewatcher_test.go:141: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep/path 1}
+        # filewatcher_test.go:146: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep 1}
+        # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/test-1689172679812
+        # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/parent/test-1689172679812
+        # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/parent/child/test-1689172679812
+        # filewatcher_test.go:146: Timed out waiting for filesystem event at /build/TestFileWatching1921149570/001/parent/sibling/test-1689172679812
+        # filewatcher_test.go:146: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep/path/test-1689172679812 1}
+        # filewatcher_test.go:146: got event {/build/TestFileWatching1921149570/001/parent/sibling/deep/test-1689172679812 1}
+        rm ./internal/filewatcher/filewatcher_test.go
+      '';
   };
 in
 rustPlatform.buildRustPackage {
@@ -147,15 +153,17 @@ rustPlatform.buildRustPackage {
     extra-cmake-modules
     protobuf
   ];
-  buildInputs = [
-    openssl
-    fontconfig
-    rust-jemalloc-sys
-  ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs =
+    [
+      openssl
+      fontconfig
+      rust-jemalloc-sys
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       IOKit
       CoreServices
       CoreFoundation
-  ];
+    ];
 
   postInstall = ''
     ln -s ${go-turbo}/bin/turbo $out/bin/go-turbo
@@ -166,7 +174,10 @@ rustPlatform.buildRustPackage {
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--version-regex" "^\d+\.\d+\.\d+$" ];
+      extraArgs = [
+        "--version-regex"
+        "^d+.d+.d+$"
+      ];
     };
     tests.version = testers.testVersion { package = turbo; };
   };

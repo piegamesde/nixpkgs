@@ -1,67 +1,77 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, expat
-, fontconfig
-, freetype
-, libidn
-, libjpeg
-, libpng
-, libtiff
-, libxml2
-, lua5
-, openssl
-, pkg-config
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  expat,
+  fontconfig,
+  freetype,
+  libidn,
+  libjpeg,
+  libpng,
+  libtiff,
+  libxml2,
+  lua5,
+  openssl,
+  pkg-config,
+  zlib,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "podofo";
-  version = "0.10.2";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "podofo";
+    version = "0.10.2";
 
-  src = fetchFromGitHub {
-    owner = "podofo";
-    repo = "podofo";
-    rev = finalAttrs.version;
-    hash = "sha256-BHTfidLn738f9kVIgzRTR4vY6fx5JPPtYNKvD7klyGw=";
-  };
+    src = fetchFromGitHub {
+      owner = "podofo";
+      repo = "podofo";
+      rev = finalAttrs.version;
+      hash = "sha256-BHTfidLn738f9kVIgzRTR4vY6fx5JPPtYNKvD7klyGw=";
+    };
 
-  outputs = [ "out" "dev" "lib" ];
+    outputs = [
+      "out"
+      "dev"
+      "lib"
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
 
-  buildInputs = [
-    expat
-    fontconfig
-    freetype
-    libidn
-    libjpeg
-    libpng
-    libtiff
-    libxml2
-    lua5
-    openssl
-    zlib
-  ];
+    buildInputs = [
+      expat
+      fontconfig
+      freetype
+      libidn
+      libjpeg
+      libpng
+      libtiff
+      libxml2
+      lua5
+      openssl
+      zlib
+    ];
 
-  cmakeFlags = [
-    "-DPODOFO_BUILD_STATIC=${if stdenv.hostPlatform.isStatic then "ON" else "OFF"}"
-    "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-  ];
+    cmakeFlags = [
+      "-DPODOFO_BUILD_STATIC=${if stdenv.hostPlatform.isStatic then "ON" else "OFF"}"
+      "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+    ];
 
-  postInstall = ''
-    moveToOutput lib "$lib"
-  '';
+    postInstall = ''
+      moveToOutput lib "$lib"
+    '';
 
-  meta = {
-    homepage = "https://github.com/podofo/podofo";
-    description = "A library to work with the PDF file format";
-    platforms = lib.platforms.all;
-    license = with lib.licenses; [ gpl2Plus lgpl2Plus ];
-    maintainers = [];
-  };
-})
+    meta = {
+      homepage = "https://github.com/podofo/podofo";
+      description = "A library to work with the PDF file format";
+      platforms = lib.platforms.all;
+      license = with lib.licenses; [
+        gpl2Plus
+        lgpl2Plus
+      ];
+      maintainers = [ ];
+    };
+  }
+)

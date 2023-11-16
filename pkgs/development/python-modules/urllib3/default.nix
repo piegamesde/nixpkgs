@@ -1,22 +1,23 @@
-{ lib
-, brotli
-, brotlicffi
-, buildPythonPackage
-, certifi
-, cryptography
-, fetchPypi
-, hatchling
-, idna
-, isPyPy
-, mock
-, pyopenssl
-, pysocks
-, pytest-freezegun
-, pytest-timeout
-, pytestCheckHook
-, python-dateutil
-, tornado
-, trustme
+{
+  lib,
+  brotli,
+  brotlicffi,
+  buildPythonPackage,
+  certifi,
+  cryptography,
+  fetchPypi,
+  hatchling,
+  idna,
+  isPyPy,
+  mock,
+  pyopenssl,
+  pysocks,
+  pytest-freezegun,
+  pytest-timeout,
+  pytestCheckHook,
+  python-dateutil,
+  tornado,
+  trustme,
 }:
 
 buildPythonPackage rec {
@@ -29,13 +30,11 @@ buildPythonPackage rec {
     hash = "sha256-E6vzc4LqLOb7dE1NrWeDjuyFfJ9PVwCYkYBeC14SNZQ=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   # FIXME: remove backwards compatbility hack
-  propagatedBuildInputs = passthru.optional-dependencies.brotli
-    ++ passthru.optional-dependencies.socks;
+  propagatedBuildInputs =
+    passthru.optional-dependencies.brotli ++ passthru.optional-dependencies.socks;
 
   nativeCheckInputs = [
     python-dateutil
@@ -64,16 +63,10 @@ buildPythonPackage rec {
     export CI # Increases LONG_TIMEOUT
   '';
 
-  pythonImportsCheck = [
-    "urllib3"
-  ];
+  pythonImportsCheck = [ "urllib3" ];
 
   passthru.optional-dependencies = {
-    brotli = if isPyPy then [
-      brotlicffi
-    ] else [
-      brotli
-    ];
+    brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
     # Use carefully since pyopenssl is not supported aarch64-darwin
     secure = [
       certifi
@@ -81,9 +74,7 @@ buildPythonPackage rec {
       idna
       pyopenssl
     ];
-    socks = [
-      pysocks
-    ];
+    socks = [ pysocks ];
   };
 
   meta = with lib; {

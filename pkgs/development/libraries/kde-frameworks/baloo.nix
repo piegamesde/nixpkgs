@@ -1,29 +1,47 @@
-{ mkDerivation
-, lib
-, fetchpatch
-, extra-cmake-modules
-, kauth
-, kconfig
-, kcoreaddons
-, kcrash
-, kdbusaddons
-, kfilemetadata
-, ki18n
-, kidletime
-, kio
-, lmdb
-, qtbase
-, qtdeclarative
-, solid
-,
+{
+  mkDerivation,
+  lib,
+  fetchpatch,
+  extra-cmake-modules,
+  kauth,
+  kconfig,
+  kcoreaddons,
+  kcrash,
+  kdbusaddons,
+  kfilemetadata,
+  ki18n,
+  kidletime,
+  kio,
+  lmdb,
+  qtbase,
+  qtdeclarative,
+  solid,
 }:
 
 mkDerivation {
   pname = "baloo";
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ kauth kconfig kcrash kdbusaddons ki18n kio kidletime lmdb qtdeclarative solid ];
-  outputs = [ "out" "dev" ];
-  propagatedBuildInputs = [ kcoreaddons kfilemetadata qtbase ];
+  buildInputs = [
+    kauth
+    kconfig
+    kcrash
+    kdbusaddons
+    ki18n
+    kio
+    kidletime
+    lmdb
+    qtdeclarative
+    solid
+  ];
+  outputs = [
+    "out"
+    "dev"
+  ];
+  propagatedBuildInputs = [
+    kcoreaddons
+    kfilemetadata
+    qtbase
+  ];
 
   # baloo suffers from issues when running on btrfs as well as with certain LVM/dm-crypt setups
   # where the device id will change on reboot causing baloo to reindex all the files and then having

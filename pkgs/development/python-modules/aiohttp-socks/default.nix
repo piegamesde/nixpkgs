@@ -1,4 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, aiohttp, python-socks, attrs }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  aiohttp,
+  python-socks,
+  attrs,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp-socks";
@@ -10,7 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-aqtSj2aeCHMBj9N3c7gzouK6KEJDvmcoF/pAG8eUHsY=";
   };
 
-  propagatedBuildInputs = [ aiohttp attrs python-socks ];
+  propagatedBuildInputs = [
+    aiohttp
+    attrs
+    python-socks
+  ];
 
   # Checks needs internet access
   doCheck = false;

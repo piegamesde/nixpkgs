@@ -1,29 +1,30 @@
-{ lib
-, beautifulsoup4
-, blinker
-, buildPythonPackage
-, docutils
-, feedgenerator
-, fetchFromGitHub
-, git
-, glibcLocales
-, jinja2
-, lxml
-, markdown
-, markupsafe
-, mock
-, pytestCheckHook
-, pandoc
-, pillow
-, pygments
-, python-dateutil
-, pythonOlder
-, pytz
-, rich
-, pytest-xdist
-, six
-, typogrify
-, unidecode
+{
+  lib,
+  beautifulsoup4,
+  blinker,
+  buildPythonPackage,
+  docutils,
+  feedgenerator,
+  fetchFromGitHub,
+  git,
+  glibcLocales,
+  jinja2,
+  lxml,
+  markdown,
+  markupsafe,
+  mock,
+  pytestCheckHook,
+  pandoc,
+  pillow,
+  pygments,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  rich,
+  pytest-xdist,
+  six,
+  typogrify,
+  unidecode,
 }:
 
 buildPythonPackage rec {
@@ -80,10 +81,11 @@ buildPythonPackage rec {
       --replace "'git'" "'${git}/bin/git'"
   '';
 
-  pytestFlagsArray = [
-    # DeprecationWarning: 'jinja2.Markup' is deprecated and...
-    "-W ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray =
+    [
+      # DeprecationWarning: 'jinja2.Markup' is deprecated and...
+      "-W ignore::DeprecationWarning"
+    ];
 
   disabledTests = [
     # AssertionError
@@ -109,6 +111,9 @@ buildPythonPackage rec {
     description = "Static site generator that requires no database or server-side logic";
     homepage = "https://getpelican.com/";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ offline prikhi ];
+    maintainers = with maintainers; [
+      offline
+      prikhi
+    ];
   };
 }

@@ -1,68 +1,73 @@
-{ stdenv
-, lib
-, ctags
-, cmark
-, desktop-file-utils
-, editorconfig-core-c
-, fetchurl
-, flatpak
-, gnome
-, libgit2-glib
-, gi-docgen
-, gobject-introspection
-, enchant
-, icu
-, gtk4
-, gtksourceview5
-, json-glib
-, jsonrpc-glib
-, libadwaita
-, libdex
-, libpanel
-, libpeas
-, libportal-gtk4
-, libxml2
-, meson
-, ninja
-, ostree
-, d-spy
-, pcre2
-, pkg-config
-, python3
-, sysprof
-, template-glib
-, vala
-, vte-gtk4
-, webkitgtk_6_0
-, wrapGAppsHook4
-, dbus
-, xvfb-run
+{
+  stdenv,
+  lib,
+  ctags,
+  cmark,
+  desktop-file-utils,
+  editorconfig-core-c,
+  fetchurl,
+  flatpak,
+  gnome,
+  libgit2-glib,
+  gi-docgen,
+  gobject-introspection,
+  enchant,
+  icu,
+  gtk4,
+  gtksourceview5,
+  json-glib,
+  jsonrpc-glib,
+  libadwaita,
+  libdex,
+  libpanel,
+  libpeas,
+  libportal-gtk4,
+  libxml2,
+  meson,
+  ninja,
+  ostree,
+  d-spy,
+  pcre2,
+  pkg-config,
+  python3,
+  sysprof,
+  template-glib,
+  vala,
+  vte-gtk4,
+  webkitgtk_6_0,
+  wrapGAppsHook4,
+  dbus,
+  xvfb-run,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-builder";
   version = "44.2";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "z6aJx40/AiMcp0cVV99MZIKASio08nHDXRqWLX8XKbA=";
   };
 
-  patches = [
-    # The test environment hardcodes `GI_TYPELIB_PATH` environment variable to direct dependencies of libide & co.
-    # https://gitlab.gnome.org/GNOME/gnome-builder/-/commit/2ce510b0ec0518c29427a29b386bb2ac1a121edf
-    # https://gitlab.gnome.org/GNOME/gnome-builder/-/commit/2964f7c2a0729f2f456cdca29a0f5b7525baf7c1
-    #
-    # But Nix does not have a fallback path for typelibs like /usr/lib on FHS distros and relies solely
-    # on `GI_TYPELIB_PATH` environment variable. So, when Ide started to depend on Vte, which
-    # depends on Pango, among others, GIrepository was unable to find these indirect dependencies
-    # and crashed with:
-    #
-    #     Typelib file for namespace 'Pango', version '1.0' not found (g-irepository-error-quark, 0)
-    ./fix-finding-test-typelibs.patch
-  ];
+  patches =
+    [
+      # The test environment hardcodes `GI_TYPELIB_PATH` environment variable to direct dependencies of libide & co.
+      # https://gitlab.gnome.org/GNOME/gnome-builder/-/commit/2ce510b0ec0518c29427a29b386bb2ac1a121edf
+      # https://gitlab.gnome.org/GNOME/gnome-builder/-/commit/2964f7c2a0729f2f456cdca29a0f5b7525baf7c1
+      #
+      # But Nix does not have a fallback path for typelibs like /usr/lib on FHS distros and relies solely
+      # on `GI_TYPELIB_PATH` environment variable. So, when Ide started to depend on Vte, which
+      # depends on Pango, among others, GIrepository was unable to find these indirect dependencies
+      # and crashed with:
+      #
+      #     Typelib file for namespace 'Pango', version '1.0' not found (g-irepository-error-quark, 0)
+      ./fix-finding-test-typelibs.patch
+    ];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -155,9 +160,7 @@ stdenv.mkDerivation rec {
     moveToOutput share/doc/libide "$devdoc"
   '';
 
-  passthru.updateScript = gnome.updateScript {
-    packageName = pname;
-  };
+  passthru.updateScript = gnome.updateScript { packageName = pname; };
 
   meta = with lib; {
     description = "An IDE for writing GNOME-based software";

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, dnspython
-, fetchFromGitHub
-, iana-etc
-, libredirect
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  iana-etc,
+  libredirect,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -24,25 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-2CfRRHlIIaycUtzKeMBKi6pVPeBCb1nW3/1hoxQU1YM=";
   };
 
-  pythonRelaxDeps = [
-    "dnspython"
-  ];
+  pythonRelaxDeps = [ "dnspython" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    dnspython
-  ];
+  propagatedBuildInputs = [ dnspython ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ipwhois"
-  ];
+  pythonImportsCheck = [ "ipwhois" ];
 
   preCheck = lib.optionalString stdenv.isLinux ''
     echo "nameserver 127.0.0.1" > resolv.conf
@@ -50,10 +41,11 @@ buildPythonPackage rec {
       LD_PRELOAD=${libredirect}/lib/libredirect.so
   '';
 
-  disabledTestPaths = [
-    # Tests require network access
-    "ipwhois/tests/online/"
-  ];
+  disabledTestPaths =
+    [
+      # Tests require network access
+      "ipwhois/tests/online/"
+    ];
 
   disabledTests = [
     "test_lookup"

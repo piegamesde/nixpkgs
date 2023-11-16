@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, mock
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -23,23 +24,22 @@ buildPythonPackage rec {
     hash = "sha256-5s6GMANSO4UpLOP/HAQxuNFSBSjPgvJCB9R1dOoKuJ4=";
   };
 
-  patches = [
-    # Convert @asyncio.coroutine to async def, https://github.com/syrusakbary/promise/pull/99
-    (fetchpatch {
-      name = "use-async-def.patch";
-      url = "https://github.com/syrusakbary/promise/commit/3cde549d30b38dcff81b308e18c7f61783003791.patch";
-      hash = "sha256-XCbTo6RCv75nNrpbK3TFdV0h7tBJ0QK+WOAR8S8w9as=";
-    })
-  ];
+  patches =
+    [
+      # Convert @asyncio.coroutine to async def, https://github.com/syrusakbary/promise/pull/99
+      (fetchpatch {
+        name = "use-async-def.patch";
+        url = "https://github.com/syrusakbary/promise/commit/3cde549d30b38dcff81b308e18c7f61783003791.patch";
+        hash = "sha256-XCbTo6RCv75nNrpbK3TFdV0h7tBJ0QK+WOAR8S8w9as=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace tests/test_extra.py \
       --replace "assert_exc.traceback[-1].path.strpath" "str(assert_exc.traceback[-1].path)"
   '';
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   nativeCheckInputs = [
     mock
@@ -47,13 +47,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    "tests/test_benchmark.py"
-  ];
+  disabledTestPaths = [ "tests/test_benchmark.py" ];
 
-  pythonImportsCheck = [
-    "promise"
-  ];
+  pythonImportsCheck = [ "promise" ];
 
   meta = with lib; {
     description = "Ultra-performant Promise implementation in Python";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "py3c";
@@ -18,15 +23,11 @@ stdenv.mkDerivation rec {
       --replace "'-Werror', " ""
   '';
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-  ];
+  makeFlags = [ "prefix=${placeholder "out"}" ];
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    python3
-  ];
+  nativeCheckInputs = [ python3 ];
 
   checkTarget = "test-python";
 
@@ -34,6 +35,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/encukou/py3c";
     description = "Python 2/3 compatibility layer for C extensions";
     license = licenses.mit;
-    maintainers = with maintainers; [ ajs124 dotlambda ];
+    maintainers = with maintainers; [
+      ajs124
+      dotlambda
+    ];
   };
 }

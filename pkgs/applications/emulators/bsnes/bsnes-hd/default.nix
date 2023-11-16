@@ -1,12 +1,22 @@
-{ lib, stdenv, fetchFromGitHub
-, pkg-config
-, wrapGAppsHook
-, libX11, libXv
-, udev
-, SDL2
-, gtk3, gtksourceview3
-, alsa-lib, libao, openal, libpulseaudio
-, libicns, makeWrapper, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  libX11,
+  libXv,
+  udev,
+  SDL2,
+  gtk3,
+  gtksourceview3,
+  alsa-lib,
+  libao,
+  openal,
+  libpulseaudio,
+  libicns,
+  makeWrapper,
+  darwin,
 }:
 
 let
@@ -38,19 +48,41 @@ stdenv.mkDerivation {
     ./macos-copy-app-to-prefix.patch
   ];
 
-  nativeBuildInputs = [ pkg-config ]
+  nativeBuildInputs =
+    [ pkg-config ]
     ++ lib.optionals stdenv.isLinux [ wrapGAppsHook ]
-    ++ lib.optionals stdenv.isDarwin [ libicns makeWrapper ];
+    ++ lib.optionals stdenv.isDarwin [
+      libicns
+      makeWrapper
+    ];
 
-  buildInputs = [ SDL2 libao ]
-    ++ lib.optionals stdenv.isLinux [ libX11 libXv udev gtk3 gtksourceview3 alsa-lib openal libpulseaudio ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa OpenAL ];
+  buildInputs =
+    [
+      SDL2
+      libao
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      libX11
+      libXv
+      udev
+      gtk3
+      gtksourceview3
+      alsa-lib
+      openal
+      libpulseaudio
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      OpenAL
+    ];
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "-C" "bsnes" "prefix=$(out)" ]
-    ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ]
-    ++ lib.optionals stdenv.isDarwin [ "hiro=cocoa" ];
+  makeFlags = [
+    "-C"
+    "bsnes"
+    "prefix=$(out)"
+  ] ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ] ++ lib.optionals stdenv.isDarwin [ "hiro=cocoa" ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/bin

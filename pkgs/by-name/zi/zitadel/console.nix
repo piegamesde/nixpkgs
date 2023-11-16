@@ -1,11 +1,13 @@
-{ generateProtobufCode
-, version
-, zitadelRepo
+{
+  generateProtobufCode,
+  version,
+  zitadelRepo,
 }:
 
-{ mkYarnPackage
-, fetchYarnDeps
-, lib
+{
+  mkYarnPackage,
+  fetchYarnDeps,
+  lib,
 }:
 
 let

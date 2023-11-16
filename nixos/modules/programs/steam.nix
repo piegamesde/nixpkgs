@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,9 +11,12 @@ let
   cfg = config.programs.steam;
   gamescopeCfg = config.programs.gamescope;
 
-  steam-gamescope = let
-    exports = builtins.attrValues (builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env);
-  in
+  steam-gamescope =
+    let
+      exports = builtins.attrValues (
+        builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env
+      );
+    in
     pkgs.writeShellScriptBin "steam-gamescope" ''
       ${builtins.concatStringsSep "\n" exports}
       gamescope --steam ${toString cfg.gamescopeSession.args} -- steam -tenfoot -pipewire-dmabuf
@@ -21,8 +29,10 @@ let
       Comment=A digital distribution platform
       Exec=${steam-gamescope}/bin/steam-gamescope
       Type=Application
-    '').overrideAttrs (_: { passthru.providedSessions = [ "steam" ]; });
-in {
+    '').overrideAttrs
+      (_: { passthru.providedSessions = [ "steam" ]; });
+in
+{
   options.programs.steam = {
     enable = mkEnableOption (lib.mdDoc "steam");
 
@@ -42,21 +52,31 @@ in {
           ];
         }
       '';
-      apply = steam: steam.override (prev: {
-        extraLibraries = pkgs: let
-          prevLibs = if prev ? extraLibraries then prev.extraLibraries pkgs else [ ];
-          additionalLibs = with config.hardware.opengl;
-            if pkgs.stdenv.hostPlatform.is64bit
-            then [ package ] ++ extraPackages
-            else [ package32 ] ++ extraPackages32;
-        in prevLibs ++ additionalLibs;
-      } // optionalAttrs (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
-      {
-        buildFHSEnv = pkgs.buildFHSEnv.override {
-          # use the setuid wrapped bubblewrap
-          bubblewrap = "${config.security.wrapperDir}/..";
-        };
-      });
+      apply =
+        steam:
+        steam.override (
+          prev:
+          {
+            extraLibraries =
+              pkgs:
+              let
+                prevLibs = if prev ? extraLibraries then prev.extraLibraries pkgs else [ ];
+                additionalLibs =
+                  with config.hardware.opengl;
+                  if pkgs.stdenv.hostPlatform.is64bit then
+                    [ package ] ++ extraPackages
+                  else
+                    [ package32 ] ++ extraPackages32;
+              in
+              prevLibs ++ additionalLibs;
+          }
+          // optionalAttrs (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
+            buildFHSEnv = pkgs.buildFHSEnv.override {
+              # use the setuid wrapped bubblewrap
+              bubblewrap = "${config.security.wrapperDir}/..";
+            };
+          }
+        );
       description = lib.mdDoc ''
         The Steam package to use. Additional libraries are added from the system
         configuration to ensure graphics work properly.
@@ -84,7 +104,7 @@ in {
 
     gamescopeSession = mkOption {
       description = mdDoc "Run a GameScope driven Steam session from your display-manager";
-      default = {};
+      default = { };
       type = types.submodule {
         options = {
           enable = mkEnableOption (mdDoc "GameScope Session");
@@ -109,7 +129,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.opengl = { # this fixes the "glXChooseVisual failed" bug, context: https://github.com/NixOS/nixpkgs/issues/47932
+    hardware.opengl = {
+      # this fixes the "glXChooseVisual failed" bug, context: https://github.com/NixOS/nixpkgs/issues/47932
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
@@ -126,7 +147,9 @@ in {
     };
 
     programs.gamescope.enable = mkDefault cfg.gamescopeSession.enable;
-    services.xserver.displayManager.sessionPackages = mkIf cfg.gamescopeSession.enable [ gamescopeSessionFile ];
+    services.xserver.displayManager.sessionPackages = mkIf cfg.gamescopeSession.enable [
+      gamescopeSessionFile
+    ];
 
     # optionally enable 32bit pulseaudio support if pulseaudio is enabled
     hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
@@ -141,7 +164,12 @@ in {
     networking.firewall = lib.mkMerge [
       (mkIf cfg.remotePlay.openFirewall {
         allowedTCPPorts = [ 27036 ];
-        allowedUDPPortRanges = [ { from = 27031; to = 27036; } ];
+        allowedUDPPortRanges = [
+          {
+            from = 27031;
+            to = 27036;
+          }
+        ];
       })
 
       (mkIf cfg.dedicatedServer.openFirewall {

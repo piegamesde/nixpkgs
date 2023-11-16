@@ -1,11 +1,12 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, srht
-, pygit2
-, python
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  pygit2,
+  python,
+  unzip,
 }:
 
 buildPythonPackage rec {
@@ -23,12 +24,15 @@ buildPythonPackage rec {
     substituteInPlace Makefile --replace "all: api" ""
   '';
 
-  mansrht-api = buildGoModule ({
-    inherit src version;
-    pname = "mansrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-K5EmZ4U+xItTR85+SCwhwg5KUGLkKHo9Nr2pkvmJpfo=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  mansrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "mansrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-K5EmZ4U+xItTR85+SCwhwg5KUGLkKHo9Nr2pkvmJpfo=";
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   propagatedBuildInputs = [
     srht

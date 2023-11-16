@@ -1,40 +1,41 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, substituteAll
-, buildGoPackage
-, pkg-config
-, deepin-gettext-tools
-, gettext
-, python3
-, wrapGAppsHook
-, go-dbus-factory
-, go-gir-generator
-, go-lib
-, dde-api
-, ddcutil
-, alsa-lib
-, glib
-, gtk3
-, libgudev
-, libinput
-, libnl
-, librsvg
-, linux-pam
-, libxcrypt
-, networkmanager
-, pulseaudio
-, gdk-pixbuf-xlib
-, tzdata
-, xkeyboard_config
-, runtimeShell
-, xorg
-, xdotool
-, getconf
-, dbus
-, coreutils
-, util-linux
-, dde-session-ui
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  substituteAll,
+  buildGoPackage,
+  pkg-config,
+  deepin-gettext-tools,
+  gettext,
+  python3,
+  wrapGAppsHook,
+  go-dbus-factory,
+  go-gir-generator,
+  go-lib,
+  dde-api,
+  ddcutil,
+  alsa-lib,
+  glib,
+  gtk3,
+  libgudev,
+  libinput,
+  libnl,
+  librsvg,
+  linux-pam,
+  libxcrypt,
+  networkmanager,
+  pulseaudio,
+  gdk-pixbuf-xlib,
+  tzdata,
+  xkeyboard_config,
+  runtimeShell,
+  xorg,
+  xdotool,
+  getconf,
+  dbus,
+  coreutils,
+  util-linux,
+  dde-session-ui,
 }:
 
 buildGoPackage rec {
@@ -148,7 +149,12 @@ buildGoPackage rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ util-linux dde-session-ui ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          util-linux
+          dde-session-ui
+        ]
+      }"
     )
   '';
 

@@ -1,8 +1,9 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, six
-, requests
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  six,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +20,10 @@ buildPythonPackage rec {
     touch changelog.md
   '';
 
-  propagatedBuildInputs = [ six requests ];
+  propagatedBuildInputs = [
+    six
+    requests
+  ];
 
   # requires an active Azure Cosmos service
   doCheck = false;

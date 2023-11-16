@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rust
-, rustPlatform
-, cmake
-, makeWrapper
-, cosmic-icons
-, just
-, pkg-config
-, libxkbcommon
-, libinput
-, fontconfig
-, freetype
-, wayland
-, expat
-, udev
-, which
-, lld
-, util-linuxMinimal
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rust,
+  rustPlatform,
+  cmake,
+  makeWrapper,
+  cosmic-icons,
+  just,
+  pkg-config,
+  libxkbcommon,
+  libinput,
+  fontconfig,
+  freetype,
+  wayland,
+  expat,
+  udev,
+  which,
+  lld,
+  util-linuxMinimal,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -51,8 +52,24 @@ rustPlatform.buildRustPackage rec {
     substituteInPlace justfile --replace '#!/usr/bin/env' "#!$(command -v env)"
   '';
 
-  nativeBuildInputs = [ cmake just pkg-config which lld util-linuxMinimal makeWrapper ];
-  buildInputs = [ libxkbcommon libinput fontconfig freetype wayland expat udev ];
+  nativeBuildInputs = [
+    cmake
+    just
+    pkg-config
+    which
+    lld
+    util-linuxMinimal
+    makeWrapper
+  ];
+  buildInputs = [
+    libxkbcommon
+    libinput
+    fontconfig
+    freetype
+    wayland
+    expat
+    udev
+  ];
 
   dontUseJustBuild = true;
 

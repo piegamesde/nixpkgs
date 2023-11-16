@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeBinaryWrapper
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeBinaryWrapper,
 }:
 
 buildGoModule rec {
@@ -17,9 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-C2YXjfn3Pk0kL4G/cHsmr2VHUYGO+3s3eSiWVJZ2dX8=";
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-  ];
+  nativeBuildInputs = [ makeBinaryWrapper ];
 
   ldflags = [
     "-s"

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, python
-, fetchFromGitHub
-, hatchling
-, beautifulsoup4
-, lxml
-, jinja2
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchFromGitHub,
+  hatchling,
+  beautifulsoup4,
+  lxml,
+  jinja2,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace "==" ">="
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -41,13 +40,9 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  pythonImportsCheck = [
-    "reqif"
-  ];
+  pythonImportsCheck = [ "reqif" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Python library for ReqIF format";

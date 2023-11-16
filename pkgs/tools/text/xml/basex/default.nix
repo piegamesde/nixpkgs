@@ -1,27 +1,47 @@
-{ lib, stdenv, fetchurl, unzip, jre, coreutils, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  jre,
+  coreutils,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "basex";
   version = "10.7";
 
   src = fetchurl {
-    url = "http://files.basex.org/releases/${version}/BaseX${builtins.replaceStrings ["."] [""] version}.zip";
+    url = "http://files.basex.org/releases/${version}/BaseX${
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }.zip";
     hash = "sha256-Jr73UoyJfhtXLnYgOPh+jqKc3XZs+WMwJaO5nuD+Vmw=";
   };
 
-  nativeBuildInputs = [ unzip copyDesktopItems ];
+  nativeBuildInputs = [
+    unzip
+    copyDesktopItems
+  ];
   buildInputs = [ jre ];
 
-  desktopItems = lib.optional (!stdenv.isDarwin) (makeDesktopItem {
-    name = "basex";
-    exec = "basexgui %f";
-    icon = "${./basex.svg}"; # icon copied from Ubuntu basex package
-    comment = "Visually query and analyse your XML data";
-    desktopName = "BaseX XML Database";
-    genericName = "XML database tool";
-    categories = [ "Development" "Utility" "Database" ];
-    mimeTypes = [ "text/xml" ];
-  });
+  desktopItems = lib.optional (!stdenv.isDarwin) (
+    makeDesktopItem {
+      name = "basex";
+      exec = "basexgui %f";
+      icon = "${./basex.svg}"; # icon copied from Ubuntu basex package
+      comment = "Visually query and analyse your XML data";
+      desktopName = "BaseX XML Database";
+      genericName = "XML database tool";
+      categories = [
+        "Development"
+        "Utility"
+        "Database"
+      ];
+      mimeTypes = [ "text/xml" ];
+    }
+  );
 
   dontBuild = true;
 

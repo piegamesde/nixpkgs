@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, flit-core
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  flit-core,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -17,14 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-Q7b406UENCmD9SGbaml+y2YLDi7VLZBmDkYMo8CLuVw=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   checkPhase = ''
     ${python.pythonOnBuildForHost.interpreter} ${src}/test.py
   '';
-  pythonImportsCheck = ["asyncinotify"];
+  pythonImportsCheck = [ "asyncinotify" ];
 
   meta = with lib; {
     description = "A simple optionally-async python inotify library, focused on simplicity of use and operation, and leveraging modern Python features";

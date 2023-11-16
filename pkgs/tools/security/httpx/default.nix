@@ -1,6 +1,7 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
 }:
 
 buildGoModule rec {
@@ -16,9 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-++vCyunRkLn9K1u+zXSN4TzIS9J8emc/w85ToqmG7gY=";
 
-  subPackages = [
-    "cmd/httpx"
-  ];
+  subPackages = [ "cmd/httpx" ];
 
   ldflags = [
     "-s"

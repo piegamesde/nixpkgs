@@ -1,14 +1,15 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, pkg-config
-, qtbase
-, qtsvg
-, qtcharts
-, wrapQtAppsHook
-, cmake
-, python3
-, stdenv
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qtcharts,
+  wrapQtAppsHook,
+  cmake,
+  python3,
+  stdenv,
 }:
 
 mkDerivation rec {
@@ -36,18 +37,22 @@ mkDerivation rec {
     qtcharts
   ];
 
-  installPhase = ''
-    runHook preInstall
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications
-    cp -r Ripes.app $out/Applications/
-    makeBinaryWrapper $out/Applications/Ripes.app/Contents/MacOS/Ripes $out/bin/Ripes
-  '' + lib.optionalString stdenv.isLinux ''
-    install -D Ripes $out/bin/Ripes
-  '' + ''
-    cp -r ${src}/appdir/usr/share $out/share
-    runHook postInstall
-  '';
+  installPhase =
+    ''
+      runHook preInstall
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications
+      cp -r Ripes.app $out/Applications/
+      makeBinaryWrapper $out/Applications/Ripes.app/Contents/MacOS/Ripes $out/bin/Ripes
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      install -D Ripes $out/bin/Ripes
+    ''
+    + ''
+      cp -r ${src}/appdir/usr/share $out/share
+      runHook postInstall
+    '';
 
   meta = with lib; {
     description = "A graphical processor simulator and assembly editor for the RISC-V ISA";

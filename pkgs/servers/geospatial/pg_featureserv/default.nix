@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 
 buildGoModule rec {
   pname = "pg_featureserv";
@@ -13,7 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-BHiEVyi3FXPovYy3iDP8q+y+LgfI4ElDPVZexd7nnuo=";
 
-  ldflags = [ "-s" "-w" "-X github.com/CrunchyData/pg_featureserv/conf.setVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/CrunchyData/pg_featureserv/conf.setVersion=${version}"
+  ];
 
   meta = with lib; {
     description = "Lightweight RESTful Geospatial Feature Server for PostGIS in Go";

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, git
-, pkg-config
-, openssl
-, Security
-, nix-update-script
-, SystemConfiguration
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  git,
+  pkg-config,
+  openssl,
+  Security,
+  nix-update-script,
+  SystemConfiguration,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,10 +22,17 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-1FIeH4NFyYQinqzCBZ9m2Jm6f5tLJDJxVdb4D3+fQ4w=";
   };
 
-  nativeBuildInputs = [ git pkg-config ];
+  nativeBuildInputs = [
+    git
+    pkg-config
+  ];
 
-  buildInputs = [ openssl ] ++
-    lib.optionals stdenv.isDarwin [ Security SystemConfiguration ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      Security
+      SystemConfiguration
+    ];
 
   cargoHash = "sha256-ffnDTGg+m0NUhG2BYjsXb2fWHeQmtDcBGqQDLqwZMWI=";
 

@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, vala
-, gobject-introspection
-, perl
-, bison
-, gettext
-, glib
-, pkg-config
-, libgsf
-, gcab
-, bzip2
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  vala,
+  gobject-introspection,
+  perl,
+  bison,
+  gettext,
+  glib,
+  pkg-config,
+  libgsf,
+  gcab,
+  bzip2,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +22,9 @@ stdenv.mkDerivation rec {
   version = "0.103";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/msitools/${lib.versions.majorMinor version}/msitools-${version}.tar.xz";
+    url = "mirror://gnome/sources/msitools/${
+        lib.versions.majorMinor version
+      }/msitools-${version}.tar.xz";
     hash = "sha256-0XYi7rvzf6TAm1m+C8jbCLJr4wCmcxx02h684mK86Dk=";
   };
 

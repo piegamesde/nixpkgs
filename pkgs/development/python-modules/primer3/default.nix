@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, gcc
-, click
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  gcc,
+  click,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,11 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-WYn88Xv7WSc67TfYCq+i05tG8aKtWLUgc6axntvLF+8=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ] ++ lib.optionals stdenv.isDarwin [
-    gcc
-  ];
+  nativeBuildInputs = [ cython ] ++ lib.optionals stdenv.isDarwin [ gcc ];
 
   nativeCheckInputs = [
     click
@@ -42,9 +39,7 @@ buildPythonPackage rec {
     python setup.py build_ext --inplace
   '';
 
-  pythonImportsCheck = [
-    "primer3"
-  ];
+  pythonImportsCheck = [ "primer3" ];
 
   meta = with lib; {
     description = "Oligo analysis and primer design";

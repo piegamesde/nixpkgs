@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapGAppsHook
-, gdk-pixbuf
-, gettext
-, gobject-introspection
-, gtk3
-, python3Packages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  gettext,
+  gobject-introspection,
+  gtk3,
+  python3Packages,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -20,7 +21,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-PxtHsBbrzcIAcLyQKD9DV8yqf3ljzGS7gT/ZRfJ8qL4=";
   };
 
-  nativeBuildInputs = [ gettext wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    gettext
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
   propagatedBuildInputs = [
     gdk-pixbuf
@@ -51,6 +56,9 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://www.nicotine-plus.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ehmry klntsky ];
+    maintainers = with maintainers; [
+      ehmry
+      klntsky
+    ];
   };
 }

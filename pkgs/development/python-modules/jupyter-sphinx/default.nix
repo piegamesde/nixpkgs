@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nbformat
-, sphinx
-, ipywidgets
-, pythonOlder
-, nbconvert
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nbformat,
+  sphinx,
+  ipywidgets,
+  pythonOlder,
+  nbconvert,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-DBGjjxNDE48sUFHA00xMVF9EgBdMG9QcAlb+gm4LqlU=";
   };
 
-  propagatedBuildInputs = [ nbconvert nbformat sphinx ipywidgets ];
+  propagatedBuildInputs = [
+    nbconvert
+    nbformat
+    sphinx
+    ipywidgets
+  ];
 
   doCheck = false;
 
@@ -29,5 +35,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyter/jupyter-sphinx/";
     license = licenses.bsd3;
   };
-
 }

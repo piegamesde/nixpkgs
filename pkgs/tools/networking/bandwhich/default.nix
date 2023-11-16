@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "bandwhich";
@@ -18,10 +24,11 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  checkFlags = [
-    # failing in upstream CI
-    "--skip=tests::cases::ui::layout_under_50_width_under_50_height"
-  ];
+  checkFlags =
+    [
+      # failing in upstream CI
+      "--skip=tests::cases::ui::layout_under_50_width_under_50_height"
+    ];
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
@@ -39,7 +46,10 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/imsnif/bandwhich";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne figsoda ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      figsoda
+    ];
     platforms = platforms.unix;
   };
 }

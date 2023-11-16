@@ -1,21 +1,39 @@
-{ lib, callPackage, fetchFromGitHub, fetchurl, fetchpatch, stdenv, pkgsi686Linux }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  stdenv,
+  pkgsi686Linux,
+}:
 
 let
-  generic = args: let
-    imported = import ./generic.nix args;
-  in callPackage imported {
-    lib32 = (pkgsi686Linux.callPackage imported {
-      libsOnly = true;
-      kernel = null;
-    }).out;
-  };
+  generic =
+    args:
+    let
+      imported = import ./generic.nix args;
+    in
+    callPackage imported {
+      lib32 =
+        (pkgsi686Linux.callPackage imported {
+          libsOnly = true;
+          kernel = null;
+        }).out;
+    };
 
-  kernel = callPackage # a hacky way of extracting parameters from callPackage
-    ({ kernel, libsOnly ? false }: if libsOnly then { } else kernel) { };
+  kernel =
+    callPackage # a hacky way of extracting parameters from callPackage
+      (
+        {
+          kernel,
+          libsOnly ? false,
+        }:
+        if libsOnly then { } else kernel
+      )
+      { };
 
-  selectHighestVersion = a: b: if lib.versionOlder a.version b.version
-    then b
-    else a;
+  selectHighestVersion = a: b: if lib.versionOlder a.version b.version then b else a;
 in
 rec {
   mkDriver = generic;
@@ -35,26 +53,34 @@ rec {
     persistencedSha256 = "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=";
   };
 
-  latest = selectHighestVersion production (generic {
-    version = "545.29.02";
-    sha256_64bit = "sha256-RncPlaSjhvBFUCOzWdXSE3PAfRPCIrWAXyJMdLPKuIU=";
-    sha256_aarch64 = "sha256-Y2RDOuDtiIclr06gmLrPDfE5VFmFamXxiIIKtKAewro=";
-    openSha256 = "sha256-PukpOBtG5KvZKWYfJHVQO6SuToJUd/rkjpOlEi8pSmk=";
-    settingsSha256 = "sha256-zj173HCZJaxAbVV/A2sbJ9IPdT1+3yrwyxD+AQdkSD8=";
-    persistencedSha256 = "sha256-mmMi2pfwzI1WYOffMVdD0N1HfbswTGg7o57x9/IiyVU=";
+  latest = selectHighestVersion production (
+    generic {
+      version = "545.29.02";
+      sha256_64bit = "sha256-RncPlaSjhvBFUCOzWdXSE3PAfRPCIrWAXyJMdLPKuIU=";
+      sha256_aarch64 = "sha256-Y2RDOuDtiIclr06gmLrPDfE5VFmFamXxiIIKtKAewro=";
+      openSha256 = "sha256-PukpOBtG5KvZKWYfJHVQO6SuToJUd/rkjpOlEi8pSmk=";
+      settingsSha256 = "sha256-zj173HCZJaxAbVV/A2sbJ9IPdT1+3yrwyxD+AQdkSD8=";
+      persistencedSha256 = "sha256-mmMi2pfwzI1WYOffMVdD0N1HfbswTGg7o57x9/IiyVU=";
 
-    patchFlags = [ "-p1" "-d" "kernel" ];
-    patches = [];
-  });
+      patchFlags = [
+        "-p1"
+        "-d"
+        "kernel"
+      ];
+      patches = [ ];
+    }
+  );
 
-  beta = selectHighestVersion latest (generic {
-    version = "545.23.06";
-    sha256_64bit = "sha256-QTnTKAGfcvKvKHik0BgAemV3PrRqRlM3B9jjZeupCC8=";
-    sha256_aarch64 = "sha256-qkVP6AiXNoRTqgqPvs/AfErEq8BTQw25rtJ6GS06JTM=";
-    openSha256 = "sha256-m7D5LZdhFCZYAIbhrgZ0pN2z19LsU3I3Q7qsKX7Z6mM=";
-    settingsSha256 = "sha256-+X6gDeU8Qlvprb05aB2quM55y0zEcBXtb65e3Rq9gKg=";
-    persistencedSha256 = "sha256-RQJAIwPqOUI5FB3uf0/Y4K/iwFfoLpU1/+BOK/KF5VA=";
-  });
+  beta = selectHighestVersion latest (
+    generic {
+      version = "545.23.06";
+      sha256_64bit = "sha256-QTnTKAGfcvKvKHik0BgAemV3PrRqRlM3B9jjZeupCC8=";
+      sha256_aarch64 = "sha256-qkVP6AiXNoRTqgqPvs/AfErEq8BTQw25rtJ6GS06JTM=";
+      openSha256 = "sha256-m7D5LZdhFCZYAIbhrgZ0pN2z19LsU3I3Q7qsKX7Z6mM=";
+      settingsSha256 = "sha256-+X6gDeU8Qlvprb05aB2quM55y0zEcBXtb65e3Rq9gKg=";
+      persistencedSha256 = "sha256-RQJAIwPqOUI5FB3uf0/Y4K/iwFfoLpU1/+BOK/KF5VA=";
+    }
+  );
 
   # Vulkan developer beta driver
   # See here for more information: https://developer.nvidia.com/vulkan-driver
@@ -66,7 +92,9 @@ rec {
     openSha256 = "sha256-509KaBavGIOOpzdrdJuAR1PYq91Clwo8n+nhruxO1wM=";
     settingsSha256 = "sha256-jCRfeB1w6/dA27gaz6t5/Qo7On0zbAPIi74LYLel34s=";
     persistencedSha256 = "sha256-WviDU6B50YG8dO64CGvU3xK8WFUX8nvvVYm/fuGyroM=";
-    url = "https://developer.nvidia.com/downloads/vulkan-beta-${lib.concatStrings (lib.splitString "." version)}-linux";
+    url = "https://developer.nvidia.com/downloads/vulkan-beta-${
+        lib.concatStrings (lib.splitString "." version)
+      }-linux";
   };
 
   # data center driver compatible with current default cudaPackages
@@ -93,8 +121,12 @@ rec {
     settingsSha256 = "sha256-r6DuIH/rnsCm/y51iRgPNi5/kz+EFMVABREdTjBneZ0=";
     persistencedSha256 = "sha256-e71fpPBBv8S/aoeXxBXkzKy5bsMMbv8y024cSLc8DYc=";
 
-    patchFlags = [ "-p1" "-d" "kernel" ];
-    patches = [];
+    patchFlags = [
+      "-p1"
+      "-d"
+      "kernel"
+    ];
+    patches = [ ];
   };
 
   # Last one supporting x86
@@ -108,39 +140,41 @@ rec {
     broken = kernel.kernelAtLeast "6.2";
   };
 
-  legacy_340 = let
-    # Source cooresponding to https://aur.archlinux.org/packages/nvidia-340xx-dkms
-    aurPatches = fetchFromGitHub {
-      owner = "archlinux-jerry";
-      repo = "nvidia-340xx";
-      rev = "fa434fb5da47e9423db2b19577817eb8c65d2f4e";
-      hash = "sha256-KeMTYHGuZSAPGnYaERZSMu/4lWyB25ZCIv4nJhXxABY=";
-    };
-    patchset = [
-      "0001-kernel-5.7.patch"
-      "0002-kernel-5.8.patch"
-      "0003-kernel-5.9.patch"
-      "0004-kernel-5.10.patch"
-      "0005-kernel-5.11.patch"
-      "0006-kernel-5.14.patch"
-      "0007-kernel-5.15.patch"
-      "0008-kernel-5.16.patch"
-      "0009-kernel-5.17.patch"
-      "0010-kernel-5.18.patch"
-      "0011-kernel-6.0.patch"
-      "0012-kernel-6.2.patch"
-      "0013-kernel-6.3.patch"
-      "0014-kernel-6.5.patch"
-    ];
-  in generic {
-    version = "340.108";
-    sha256_32bit = "1jkwa1phf0x4sgw8pvr9d6krmmr3wkgwyygrxhdazwyr2bbalci0";
-    sha256_64bit = "06xp6c0sa7v1b82gf0pq0i5p0vdhmm3v964v0ypw36y0nzqx8wf6";
-    settingsSha256 = "0zm29jcf0mp1nykcravnzb5isypm8l8mg2gpsvwxipb7nk1ivy34";
-    persistencedSha256 = "1ax4xn3nmxg1y6immq933cqzw6cj04x93saiasdc0kjlv0pvvnkn";
-    useGLVND = false;
+  legacy_340 =
+    let
+      # Source cooresponding to https://aur.archlinux.org/packages/nvidia-340xx-dkms
+      aurPatches = fetchFromGitHub {
+        owner = "archlinux-jerry";
+        repo = "nvidia-340xx";
+        rev = "fa434fb5da47e9423db2b19577817eb8c65d2f4e";
+        hash = "sha256-KeMTYHGuZSAPGnYaERZSMu/4lWyB25ZCIv4nJhXxABY=";
+      };
+      patchset = [
+        "0001-kernel-5.7.patch"
+        "0002-kernel-5.8.patch"
+        "0003-kernel-5.9.patch"
+        "0004-kernel-5.10.patch"
+        "0005-kernel-5.11.patch"
+        "0006-kernel-5.14.patch"
+        "0007-kernel-5.15.patch"
+        "0008-kernel-5.16.patch"
+        "0009-kernel-5.17.patch"
+        "0010-kernel-5.18.patch"
+        "0011-kernel-6.0.patch"
+        "0012-kernel-6.2.patch"
+        "0013-kernel-6.3.patch"
+        "0014-kernel-6.5.patch"
+      ];
+    in
+    generic {
+      version = "340.108";
+      sha256_32bit = "1jkwa1phf0x4sgw8pvr9d6krmmr3wkgwyygrxhdazwyr2bbalci0";
+      sha256_64bit = "06xp6c0sa7v1b82gf0pq0i5p0vdhmm3v964v0ypw36y0nzqx8wf6";
+      settingsSha256 = "0zm29jcf0mp1nykcravnzb5isypm8l8mg2gpsvwxipb7nk1ivy34";
+      persistencedSha256 = "1ax4xn3nmxg1y6immq933cqzw6cj04x93saiasdc0kjlv0pvvnkn";
+      useGLVND = false;
 
-    broken = kernel.kernelAtLeast "6.6";
-    patches = map (patch: "${aurPatches}/${patch}") patchset;
-  };
+      broken = kernel.kernelAtLeast "6.6";
+      patches = map (patch: "${aurPatches}/${patch}") patchset;
+    };
 }

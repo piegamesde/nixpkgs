@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3Packages
-, testers
-, stig
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  testers,
+  stig,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -41,17 +42,19 @@ python3Packages.buildPythonApplication rec {
     export LC_ALL=C
   '';
 
-  pytestFlagsArray = [
-    "tests"
-    # TestScrollBarWithScrollable.test_wrapping_bug fails
-    "--deselect=tests/tui_test/scroll_test.py::TestScrollBarWithScrollable::test_wrapping_bug"
-    # https://github.com/rndusr/stig/issues/214
-    "--deselect=tests/completion_test/classes_test.py::TestCandidates::test_candidates_are_sorted_case_insensitively"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "--deselect=tests/client_test/ttypes_test.py::TestTimestamp::test_string__month_day_hour_minute_second"
-    "--deselect=tests/client_test/aiotransmission_test/api_torrent_test.py"
-    "--deselect=tests/client_test/aiotransmission_test/rpc_test.py"
-  ];
+  pytestFlagsArray =
+    [
+      "tests"
+      # TestScrollBarWithScrollable.test_wrapping_bug fails
+      "--deselect=tests/tui_test/scroll_test.py::TestScrollBarWithScrollable::test_wrapping_bug"
+      # https://github.com/rndusr/stig/issues/214
+      "--deselect=tests/completion_test/classes_test.py::TestCandidates::test_candidates_are_sorted_case_insensitively"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      "--deselect=tests/client_test/ttypes_test.py::TestTimestamp::test_string__month_day_hour_minute_second"
+      "--deselect=tests/client_test/aiotransmission_test/api_torrent_test.py"
+      "--deselect=tests/client_test/aiotransmission_test/rpc_test.py"
+    ];
 
   passthru.tests = testers.testVersion {
     package = stig;

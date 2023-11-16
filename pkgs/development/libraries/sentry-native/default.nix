@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, curl
-, breakpad
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  curl,
+  breakpad,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,9 +31,7 @@ stdenv.mkDerivation rec {
 
   cmakeBuildType = "RelWithDebInfo";
 
-  cmakeFlags = [
-    "-DSENTRY_BREAKPAD_SYSTEM=On"
-  ];
+  cmakeFlags = [ "-DSENTRY_BREAKPAD_SYSTEM=On" ];
 
   meta = with lib; {
     homepage = "https://github.com/getsentry/sentry-native";

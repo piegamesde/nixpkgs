@@ -1,4 +1,11 @@
-{lib, stdenv, fetchFromGitHub, cmake, zlib, python2}:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  python2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "strelka";
@@ -12,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib python2 ];
+  buildInputs = [
+    zlib
+    python2
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=maybe-uninitialized"
@@ -39,5 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jbedo ];
     platforms = [ "x86_64-linux" ];
   };
-
 }

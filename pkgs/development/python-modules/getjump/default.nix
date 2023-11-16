@@ -1,12 +1,13 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, fetchPypi
-, pillow
-, poetry-core
-, pythonRelaxDepsHook
-, requests
-, rich
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchPypi,
+  pillow,
+  poetry-core,
+  pythonRelaxDepsHook,
+  requests,
+  rich,
 }:
 
 buildPythonPackage rec {
@@ -24,10 +25,11 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [
-    # remove after https://github.com/eggplants/getjump/pull/123 is released
-    "pillow"
-  ];
+  pythonRelaxDeps =
+    [
+      # remove after https://github.com/eggplants/getjump/pull/123 is released
+      "pillow"
+    ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -36,9 +38,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  pythonImportsCheck = [
-    "getjump"
-  ];
+  pythonImportsCheck = [ "getjump" ];
 
   # all the tests talk to the internet
   doCheck = false;

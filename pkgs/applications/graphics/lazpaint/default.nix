@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, lazarus, fpc, pango, cairo, glib
-, atk, gtk2, libX11, gdk-pixbuf, busybox, python3, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  lazarus,
+  fpc,
+  pango,
+  cairo,
+  glib,
+  atk,
+  gtk2,
+  libX11,
+  gdk-pixbuf,
+  busybox,
+  python3,
+  makeWrapper,
+}:
 
 with stdenv;
 
@@ -16,7 +31,8 @@ let
     rev = "v7.6";
     sha256 = "sha256-btg9DMdYg+C8h0H7MU+uoo2Kb4OeLHoxFYHAv7LbLBA=";
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "lazpaint";
   version = "7.2.2";
 
@@ -27,9 +43,21 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-J6s0GnGJ7twEYW5+B72bB3EX4AYvLnhSPLbdhZWzlkw=";
   };
 
-  nativeBuildInputs = [ lazarus fpc makeWrapper ];
+  nativeBuildInputs = [
+    lazarus
+    fpc
+    makeWrapper
+  ];
 
-  buildInputs = [ pango cairo glib atk gtk2 libX11 gdk-pixbuf ];
+  buildInputs = [
+    pango
+    cairo
+    glib
+    atk
+    gtk2
+    libX11
+    gdk-pixbuf
+  ];
 
   NIX_LDFLAGS = "--as-needed -rpath ${lib.makeLibraryPath buildInputs}";
 

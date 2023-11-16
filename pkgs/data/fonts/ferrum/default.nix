@@ -1,32 +1,41 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 
 let
   majorVersion = "0";
   minorVersion = "200";
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "ferrum";
-  version = "${majorVersion}.${minorVersion}";
+stdenvNoCC.mkDerivation (
+  finalAttrs: {
+    pname = "ferrum";
+    version = "${majorVersion}.${minorVersion}";
 
-  src = fetchzip {
-    url = "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
-    hash = "sha256-NDJwgFWZgyhMkGRWlY55l2omEw6ju3e3dHCEsWNzQIc=";
-    stripRoot = false;
-  };
+    src = fetchzip {
+      url = "https://dotcolon.net/download/fonts/${finalAttrs.pname}_${majorVersion}${minorVersion}.zip";
+      hash = "sha256-NDJwgFWZgyhMkGRWlY55l2omEw6ju3e3dHCEsWNzQIc=";
+      stripRoot = false;
+    };
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -D -m444 -t $out/share/fonts/opentype $src/*.otf
+      install -D -m444 -t $out/share/fonts/opentype $src/*.otf
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    homepage = "http://dotcolon.net/font/${finalAttrs.pname}/";
-    description = "A decorative font";
-    platforms = platforms.all;
-    maintainers = with maintainers; [ leenaars minijackson ];
-    license = licenses.cc0;
-  };
-})
+    meta = with lib; {
+      homepage = "http://dotcolon.net/font/${finalAttrs.pname}/";
+      description = "A decorative font";
+      platforms = platforms.all;
+      maintainers = with maintainers; [
+        leenaars
+        minijackson
+      ];
+      license = licenses.cc0;
+    };
+  }
+)

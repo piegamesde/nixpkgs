@@ -3,45 +3,50 @@
 {
   description = "A collection of packages for the Nix package manager";
 
-  outputs = { self }:
+  outputs =
+    { self }:
     let
-      jobs = import ./pkgs/top-level/release.nix {
-        nixpkgs = self;
-      };
+      jobs = import ./pkgs/top-level/release.nix { nixpkgs = self; };
 
       lib = import ./lib;
 
       forAllSystems = lib.genAttrs lib.systems.flakeExposed;
     in
     {
-      lib = lib.extend (final: prev: {
+      lib = lib.extend (
+        final: prev: {
 
-        nixos = import ./nixos/lib { lib = final; };
+          nixos = import ./nixos/lib { lib = final; };
 
-        nixosSystem = args:
-          import ./nixos/lib/eval-config.nix (
-            args // {
-              modules = args.modules ++ [{
-                system.nixos.versionSuffix =
-                  ".${final.substring 0 8 (self.lastModifiedDate or self.lastModified or "19700101")}.${self.shortRev or "dirty"}";
-                system.nixos.revision = final.mkIf (self ? rev) self.rev;
-              }];
-            } // lib.optionalAttrs (! args?system) {
-              # Allow system to be set modularly in nixpkgs.system.
-              # We set it to null, to remove the "legacy" entrypoint's
-              # non-hermetic default.
-              system = null;
-            }
-          );
-      });
+          nixosSystem =
+            args:
+            import ./nixos/lib/eval-config.nix (
+              args
+              // {
+                modules = args.modules ++ [
+                  {
+                    system.nixos.versionSuffix = ".${
+                        final.substring 0 8 (self.lastModifiedDate or self.lastModified or "19700101")
+                      }.${self.shortRev or "dirty"}";
+                    system.nixos.revision = final.mkIf (self ? rev) self.rev;
+                  }
+                ];
+              }
+              // lib.optionalAttrs (!args ? system) {
+                # Allow system to be set modularly in nixpkgs.system.
+                # We set it to null, to remove the "legacy" entrypoint's
+                # non-hermetic default.
+                system = null;
+              }
+            );
+        }
+      );
 
       checks.x86_64-linux.tarball = jobs.tarball;
 
       htmlDocs = {
         nixpkgsManual = jobs.manual;
-        nixosManual = (import ./nixos/release-small.nix {
-          nixpkgs = self;
-        }).nixos.manual.x86_64-linux;
+        nixosManual = (import ./nixos/release-small.nix { nixpkgs = self; }).nixos.manual.x86_64-linux;
       };
 
       # The "legacy" in `legacyPackages` doesn't imply that the packages exposed
@@ -58,16 +63,15 @@
       nixosModules = {
         notDetected = ./nixos/modules/installer/scan/not-detected.nix;
 
-        /*
-          Make the `nixpkgs.*` configuration read-only. Guarantees that `pkgs`
-          is the way you initialize it.
+        /* Make the `nixpkgs.*` configuration read-only. Guarantees that `pkgs`
+           is the way you initialize it.
 
-          Example:
+           Example:
 
-              {
-                imports = [ nixpkgs.nixosModules.readOnlyPkgs ];
-                nixpkgs.pkgs = nixpkgs.legacyPackages.x86_64-linux;
-              }
+               {
+                 imports = [ nixpkgs.nixosModules.readOnlyPkgs ];
+                 nixpkgs.pkgs = nixpkgs.legacyPackages.x86_64-linux;
+               }
         */
         readOnlyPkgs = ./nixos/modules/misc/nixpkgs/read-only.nix;
       };

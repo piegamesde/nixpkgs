@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, pkg-config
-, freetype
-, fontconfig
-, libGL
-, pcre
-, boost
-, catch2
-, fmt
-, microsoft-gsl
-, range-v3
-, yaml-cpp
-, ncurses
-, file
-, darwin
-, nixosTests
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  freetype,
+  fontconfig,
+  libGL,
+  pcre,
+  boost,
+  catch2,
+  fmt,
+  microsoft-gsl,
+  range-v3,
+  yaml-cpp,
+  ncurses,
+  file,
+  darwin,
+  nixosTests,
 }:
 
 let
@@ -47,7 +48,10 @@ mkDerivation rec {
     sha256 = "sha256-TpxVC0GFZD3jGISnDWHKEetgVVpznm5k/Vc2dwVfSG4=";
   };
 
-  outputs = [ "out" "terminfo" ];
+  outputs = [
+    "out"
+    "terminfo"
+  ];
 
   nativeBuildInputs = [
     cmake

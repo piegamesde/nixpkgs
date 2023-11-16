@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, openssl, bzip2 }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  openssl,
+  bzip2,
+}:
 
 buildPythonPackage rec {
   pname = "zeroc-ice";
@@ -9,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-MOVsYfUq3n62hPEUIOGA75RviGofHcXaJKMnYERxg74=";
   };
 
-  buildInputs = [ openssl bzip2 ];
+  buildInputs = [
+    openssl
+    bzip2
+  ];
 
   pythonImportsCheck = [ "Ice" ];
 

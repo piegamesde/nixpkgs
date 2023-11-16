@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, buildGo120Module
-, testers
-, pinact
+{
+  lib,
+  fetchFromGitHub,
+  buildGo120Module,
+  testers,
+  pinact,
 }:
 
 let

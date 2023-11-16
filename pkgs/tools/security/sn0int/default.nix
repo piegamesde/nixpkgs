@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, libsodium
-, libseccomp
-, sqlite
-, pkg-config
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  libsodium,
+  libseccomp,
+  sqlite,
+  pkg-config,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,9 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-PAKmoifqB1YC02fVF2SRbXAAGrMcB+Wlvr3FwuqmPVU=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     libsodium
@@ -39,7 +38,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kpcyrd/sn0int";
     changelog = "https://github.com/kpcyrd/sn0int/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab xrelkd ];
+    maintainers = with maintainers; [
+      fab
+      xrelkd
+    ];
     platforms = platforms.linux;
   };
 }

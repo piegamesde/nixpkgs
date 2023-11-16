@@ -1,97 +1,103 @@
-{ fetchFromGitHub
-, fetchurl
-, fetchzip
-, stdenv
-, cmake
-, python3
-, jdk17
-, git
-, libcef
-, rsync
-, lib
-, ant
-, ninja
+{
+  fetchFromGitHub,
+  fetchurl,
+  fetchzip,
+  stdenv,
+  cmake,
+  python3,
+  jdk17,
+  git,
+  libcef,
+  rsync,
+  lib,
+  ant,
+  ninja,
 
-, debugBuild ? false
+  debugBuild ? false,
 
-, glib
-, nss
-, nspr
-, atk
-, at-spi2-atk
-, libdrm
-, expat
-, libxcb
-, libxkbcommon
-, libX11
-, libXcomposite
-, libXdamage
-, libXext
-, libXfixes
-, libXrandr
-, mesa
-, gtk3
-, pango
-, cairo
-, alsa-lib
-, dbus
-, at-spi2-core
-, cups
-, libxshmfence
-, udev
+  glib,
+  nss,
+  nspr,
+  atk,
+  at-spi2-atk,
+  libdrm,
+  expat,
+  libxcb,
+  libxkbcommon,
+  libX11,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  mesa,
+  gtk3,
+  pango,
+  cairo,
+  alsa-lib,
+  dbus,
+  at-spi2-core,
+  cups,
+  libxshmfence,
+  udev,
 }:
 
 assert !stdenv.isDarwin;
 # I can't test darwin
 
-let rpath = lib.makeLibraryPath [
-  glib
-  nss
-  nspr
-  atk
-  at-spi2-atk
-  libdrm
-  expat
-  libxcb
-  libxkbcommon
-  libX11
-  libXcomposite
-  libXdamage
-  libXext
-  libXfixes
-  libXrandr
-  mesa
-  gtk3
-  pango
-  cairo
-  alsa-lib
-  dbus
-  at-spi2-core
-  cups
-  libxshmfence
-  udev
-];
+let
+  rpath = lib.makeLibraryPath [
+    glib
+    nss
+    nspr
+    atk
+    at-spi2-atk
+    libdrm
+    expat
+    libxcb
+    libxkbcommon
+    libX11
+    libXcomposite
+    libXdamage
+    libXext
+    libXfixes
+    libXrandr
+    mesa
+    gtk3
+    pango
+    cairo
+    alsa-lib
+    dbus
+    at-spi2-core
+    cups
+    libxshmfence
+    udev
+  ];
 
-buildType = if debugBuild then "Debug" else "Release";
-platform = {
-  "aarch64-linux" = "linuxarm64";
-  "x86_64-linux" = "linux64";
-}.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-arches = {
-  "linuxarm64" = {
-    depsArch = "arm64";
-    projectArch = "arm64";
-    targetArch = "arm64";
-  };
-  "linux64" = {
-    depsArch = "amd64";
-    projectArch = "x86_64";
-    targetArch = "x86_64";
-  };
-}.${platform};
-inherit (arches) depsArch projectArch targetArch;
-
-in stdenv.mkDerivation rec {
+  buildType = if debugBuild then "Debug" else "Release";
+  platform =
+    {
+      "aarch64-linux" = "linuxarm64";
+      "x86_64-linux" = "linux64";
+    }
+    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  arches =
+    {
+      "linuxarm64" = {
+        depsArch = "arm64";
+        projectArch = "arm64";
+        targetArch = "arm64";
+      };
+      "linux64" = {
+        depsArch = "amd64";
+        projectArch = "x86_64";
+        targetArch = "x86_64";
+      };
+    }
+    .${platform};
+  inherit (arches) depsArch projectArch targetArch;
+in
+stdenv.mkDerivation rec {
   pname = "jcef-jetbrains";
   rev = "1ac1c682c497f2b864f86050796461f22935ea64";
   # This is the commit number
@@ -99,8 +105,21 @@ in stdenv.mkDerivation rec {
   # Run `git rev-list --count HEAD`
   version = "672";
 
-  nativeBuildInputs = [ cmake python3 jdk17 git rsync ant ninja ];
-  buildInputs = [ libX11 libXdamage nss nspr ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    jdk17
+    git
+    rsync
+    ant
+    ninja
+  ];
+  buildInputs = [
+    libX11
+    libXdamage
+    nss
+    nspr
+  ];
 
   src = fetchFromGitHub {
     owner = "jetbrains";
@@ -108,17 +127,21 @@ in stdenv.mkDerivation rec {
     inherit rev;
     hash = "sha256-3HuW8upR/bZoK8euVti2KpCZh9xxfqgyHmgoG1NjxOI=";
   };
-  cef-bin = let
-    name = "cef_binary_111.2.1+g870da30+chromium-111.0.5563.64_${platform}_minimal";
-    hash = {
-      "linuxarm64" = "sha256-gCDIfWsysXE8lHn7H+YM3Jag+mdbWwTQpJf0GKdXEVs=";
-      "linux64" = "sha256-r+zXTmDN5s/bYLvbCnHufYdXIqQmCDlbWgs5pdOpLTw=";
-    }.${platform};
-    urlName = builtins.replaceStrings ["+"] ["%2B"] name;
-  in fetchzip {
-    url = "https://cef-builds.spotifycdn.com/${urlName}.tar.bz2";
-    inherit name hash;
-  };
+  cef-bin =
+    let
+      name = "cef_binary_111.2.1+g870da30+chromium-111.0.5563.64_${platform}_minimal";
+      hash =
+        {
+          "linuxarm64" = "sha256-gCDIfWsysXE8lHn7H+YM3Jag+mdbWwTQpJf0GKdXEVs=";
+          "linux64" = "sha256-r+zXTmDN5s/bYLvbCnHufYdXIqQmCDlbWgs5pdOpLTw=";
+        }
+        .${platform};
+      urlName = builtins.replaceStrings [ "+" ] [ "%2B" ] name;
+    in
+    fetchzip {
+      url = "https://cef-builds.spotifycdn.com/${urlName}.tar.bz2";
+      inherit name hash;
+    };
   clang-fmt = fetchurl {
     url = "https://storage.googleapis.com/chromium-clang-format/dd736afb28430c9782750fc0fd5f0ed497399263";
     hash = "sha256-4H6FVO9jdZtxH40CSfS+4VESAHgYgYxfCBFSMHdT0hE=";
@@ -153,7 +176,10 @@ in stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  outputs = [ "out" "unpacked" ];
+  outputs = [
+    "out"
+    "unpacked"
+  ];
 
   postBuild = ''
     export JCEF_ROOT_DIR=$(realpath ..)
@@ -161,77 +187,80 @@ in stdenv.mkDerivation rec {
   '';
 
   # Mostly taken from jb/tools/common/create_modules.sh
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    export JCEF_ROOT_DIR=$(realpath ..)
-    export OUT_NATIVE_DIR=$JCEF_ROOT_DIR/jcef_build/native/${buildType}
-    export JB_TOOLS_DIR=$(realpath ../jb/tools)
-    export JB_TOOLS_OS_DIR=$JB_TOOLS_DIR/linux
-    export OUT_CLS_DIR=$(realpath ../out/${platform})
-    export TARGET_ARCH=${targetArch} DEPS_ARCH=${depsArch}
-    export OS=linux
-    export JOGAMP_DIR="$JCEF_ROOT_DIR"/third_party/jogamp/jar
+      export JCEF_ROOT_DIR=$(realpath ..)
+      export OUT_NATIVE_DIR=$JCEF_ROOT_DIR/jcef_build/native/${buildType}
+      export JB_TOOLS_DIR=$(realpath ../jb/tools)
+      export JB_TOOLS_OS_DIR=$JB_TOOLS_DIR/linux
+      export OUT_CLS_DIR=$(realpath ../out/${platform})
+      export TARGET_ARCH=${targetArch} DEPS_ARCH=${depsArch}
+      export OS=linux
+      export JOGAMP_DIR="$JCEF_ROOT_DIR"/third_party/jogamp/jar
 
-    mkdir -p $unpacked/{jogl,gluegen,jcef}
+      mkdir -p $unpacked/{jogl,gluegen,jcef}
 
-    function extract_jar {
-      __jar=$1
-      __dst_dir=$2
-      __content_dir="''${3:-.}"
-      __tmp=.tmp_extract_jar
-      rm -rf "$__tmp" && mkdir "$__tmp"
-      (
-        cd "$__tmp" || exit 1
-        jar -xf "$__jar"
-      )
-      rm -rf "$__tmp/META-INF"
-      rm -rf "$__dst_dir" && mkdir "$__dst_dir"
-      if [ -z "$__content_dir" ]
-      then
-          cp -R "$__tmp"/* "$__dst_dir"
-      else
-          cp -R "$__tmp"/"$__content_dir"/* "$__dst_dir"
-      fi
-      rm -rf $__tmp
-    }
+      function extract_jar {
+        __jar=$1
+        __dst_dir=$2
+        __content_dir="''${3:-.}"
+        __tmp=.tmp_extract_jar
+        rm -rf "$__tmp" && mkdir "$__tmp"
+        (
+          cd "$__tmp" || exit 1
+          jar -xf "$__jar"
+        )
+        rm -rf "$__tmp/META-INF"
+        rm -rf "$__dst_dir" && mkdir "$__dst_dir"
+        if [ -z "$__content_dir" ]
+        then
+            cp -R "$__tmp"/* "$__dst_dir"
+        else
+            cp -R "$__tmp"/"$__content_dir"/* "$__dst_dir"
+        fi
+        rm -rf $__tmp
+      }
 
-    cd $unpacked/gluegen
-    cp "$JOGAMP_DIR"/gluegen-rt.jar .
-    cp "$JB_TOOLS_DIR"/common/gluegen-module-info.java module-info.java
-    javac --patch-module gluegen.rt=gluegen-rt.jar module-info.java
-    jar uf gluegen-rt.jar module-info.class
-    rm module-info.class module-info.java
-    mkdir lib
-  ''
-  # see https://github.com/JetBrains/jcef/commit/f3b787e3326c1915d663abded7f055c0866f32ec
-  + lib.optionalString (platform != "linuxarm64") ''
-    extract_jar "$JOGAMP_DIR"/gluegen-rt-natives-"$OS"-"$DEPS_ARCH".jar lib natives/"$OS"-"$DEPS_ARCH"
-  '' + ''
+      cd $unpacked/gluegen
+      cp "$JOGAMP_DIR"/gluegen-rt.jar .
+      cp "$JB_TOOLS_DIR"/common/gluegen-module-info.java module-info.java
+      javac --patch-module gluegen.rt=gluegen-rt.jar module-info.java
+      jar uf gluegen-rt.jar module-info.class
+      rm module-info.class module-info.java
+      mkdir lib
+    ''
+    # see https://github.com/JetBrains/jcef/commit/f3b787e3326c1915d663abded7f055c0866f32ec
+    + lib.optionalString (platform != "linuxarm64") ''
+      extract_jar "$JOGAMP_DIR"/gluegen-rt-natives-"$OS"-"$DEPS_ARCH".jar lib natives/"$OS"-"$DEPS_ARCH"
+    ''
+    + ''
 
-    cd ../jogl
-    cp "$JOGAMP_DIR"/gluegen-rt.jar .
-    cp "$JOGAMP_DIR"/jogl-all.jar .
-    cp "$JB_TOOLS_OS_DIR"/jogl-module-info.java module-info.java
-    javac --module-path . --patch-module jogl.all=jogl-all.jar module-info.java
-    jar uf jogl-all.jar module-info.class
-    rm module-info.class module-info.java
-    mkdir lib
-  ''
-  # see https://github.com/JetBrains/jcef/commit/f3b787e3326c1915d663abded7f055c0866f32ec
-  + lib.optionalString (platform != "linuxarm64") ''
-    extract_jar "$JOGAMP_DIR"/jogl-all-natives-"$OS"-"$DEPS_ARCH".jar lib natives/"$OS"-"$DEPS_ARCH"
-  '' + ''
+      cd ../jogl
+      cp "$JOGAMP_DIR"/gluegen-rt.jar .
+      cp "$JOGAMP_DIR"/jogl-all.jar .
+      cp "$JB_TOOLS_OS_DIR"/jogl-module-info.java module-info.java
+      javac --module-path . --patch-module jogl.all=jogl-all.jar module-info.java
+      jar uf jogl-all.jar module-info.class
+      rm module-info.class module-info.java
+      mkdir lib
+    ''
+    # see https://github.com/JetBrains/jcef/commit/f3b787e3326c1915d663abded7f055c0866f32ec
+    + lib.optionalString (platform != "linuxarm64") ''
+      extract_jar "$JOGAMP_DIR"/jogl-all-natives-"$OS"-"$DEPS_ARCH".jar lib natives/"$OS"-"$DEPS_ARCH"
+    ''
+    + ''
 
-    cd ../jcef
-    cp "$OUT_CLS_DIR"/jcef.jar .
-    mkdir lib
-    cp -R "$OUT_NATIVE_DIR"/* lib
+      cd ../jcef
+      cp "$OUT_CLS_DIR"/jcef.jar .
+      mkdir lib
+      cp -R "$OUT_NATIVE_DIR"/* lib
 
-    mkdir $out
+      mkdir $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   dontStrip = debugBuild;
 

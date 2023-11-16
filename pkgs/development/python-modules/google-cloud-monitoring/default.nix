@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-testutils
-, mock
-, proto-plus
-, pandas
-, pytestCheckHook
-, pytest-asyncio
-, protobuf
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-testutils,
+  mock,
+  proto-plus,
+  pandas,
+  pytestCheckHook,
+  pytest-asyncio,
+  protobuf,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
   ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
-    pandas = [
-      pandas
-    ];
+    pandas = [ pandas ];
   };
 
   nativeCheckInputs = [
@@ -43,10 +42,11 @@ buildPythonPackage rec {
     pytest-asyncio
   ] ++ passthru.optional-dependencies.pandas;
 
-  disabledTests = [
-    # requires credentials
-    "test_list_monitored_resource_descriptors"
-  ];
+  disabledTests =
+    [
+      # requires credentials
+      "test_list_monitored_resource_descriptors"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.monitoring"

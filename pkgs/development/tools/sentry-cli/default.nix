@@ -1,11 +1,12 @@
-{ rustPlatform
-, fetchFromGitHub
-, lib
-, openssl
-, pkg-config
-, stdenv
-, Security
-, SystemConfiguration
+{
+  rustPlatform,
+  fetchFromGitHub,
+  lib,
+  openssl,
+  pkg-config,
+  stdenv,
+  Security,
+  SystemConfiguration,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "sentry-cli";
@@ -22,7 +23,12 @@ rustPlatform.buildRustPackage rec {
   # Needed to get openssl-sys to use pkgconfig.
   OPENSSL_NO_VENDOR = 1;
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security SystemConfiguration ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      Security
+      SystemConfiguration
+    ];
   nativeBuildInputs = [ pkg-config ];
 
   cargoHash = "sha256-jZUL2/iLOITIfonXzJS/K6wRSPPb2aY9ASbq1KTf+kM=";
@@ -32,6 +38,9 @@ rustPlatform.buildRustPackage rec {
     license = licenses.bsd3;
     description = "A command line utility to work with Sentry";
     changelog = "https://github.com/getsentry/sentry-cli/raw/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ rizary loewenheim ];
+    maintainers = with maintainers; [
+      rizary
+      loewenheim
+    ];
   };
 }

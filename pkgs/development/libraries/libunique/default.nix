@@ -1,11 +1,21 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, gtk2, dbus-glib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  gtk2,
+  dbus-glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunique";
   version = "1.1.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "1fsgvmncd9caw552lyfg8swmsd6bh4ijjsph69bwacwfxwf09j75";
   };
 
@@ -26,7 +36,11 @@ stdenv.mkDerivation rec {
   ] ++ [ ./gcc7-bug.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib gtk2 dbus-glib ];
+  buildInputs = [
+    glib
+    gtk2
+    dbus-glib
+  ];
 
   doCheck = true;
 

@@ -1,13 +1,14 @@
-{ lib
-, aio-geojson-client
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pytz
-, pythonOlder
+{
+  lib,
+  aio-geojson-client,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytz,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "aio_geojson_geonetnz_quakes"
-  ];
+  pythonImportsCheck = [ "aio_geojson_geonetnz_quakes" ];
 
   meta = with lib; {
     description = "Python module for accessing the GeoNet NZ Quakes GeoJSON feeds";

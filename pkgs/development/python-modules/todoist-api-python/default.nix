@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
 }:
 
 buildPythonPackage rec {
@@ -24,22 +25,19 @@ buildPythonPackage rec {
     hash = "sha256-Xi3B/Nl5bMbW0lYwrkEbBgFTEl07YkFyN18kN0WyGyw=";
   };
 
-  patches = [
-    # Switch to poetry-core, https://github.com/Doist/todoist-api-python/pull/81
-    (fetchpatch {
-      name = "switch-to-poetry-core.patch";
-      url = "https://github.com/Doist/todoist-api-python/commit/42288e066d2f0c69611ab50cb57ca98b8c6bd1ca.patch";
-      hash = "sha256-yq+VVvjPYywvUn+ydyWVQPkiYPYWe9U6w38G54L2lkE=";
-    })
-  ];
+  patches =
+    [
+      # Switch to poetry-core, https://github.com/Doist/todoist-api-python/pull/81
+      (fetchpatch {
+        name = "switch-to-poetry-core.patch";
+        url = "https://github.com/Doist/todoist-api-python/commit/42288e066d2f0c69611ab50cb57ca98b8c6bd1ca.patch";
+        hash = "sha256-yq+VVvjPYywvUn+ydyWVQPkiYPYWe9U6w38G54L2lkE=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -47,9 +45,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [
-    "todoist_api_python"
-  ];
+  pythonImportsCheck = [ "todoist_api_python" ];
 
   meta = with lib; {
     description = "Library for the Todoist REST API";

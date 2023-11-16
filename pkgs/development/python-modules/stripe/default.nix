@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   # Tests require network connectivity and there's no easy way to disable them
   doCheck = false;
 
-  pythonImportsCheck = [
-    "stripe"
-  ];
+  pythonImportsCheck = [ "stripe" ];
 
   meta = with lib; {
     description = "Stripe Python bindings";

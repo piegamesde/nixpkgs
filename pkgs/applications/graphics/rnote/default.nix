@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, alsa-lib
-, appstream-glib
-, cargo
-, cmake
-, desktop-file-utils
-, glib
-, gstreamer
-, gtk4
-, libadwaita
-, libxml2
-, meson
-, ninja
-, pkg-config
-, poppler
-, python3
-, rustPlatform
-, rustc
-, shared-mime-info
-, wrapGAppsHook4
-, AudioUnit
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  appstream-glib,
+  cargo,
+  cmake,
+  desktop-file-utils,
+  glib,
+  gstreamer,
+  gtk4,
+  libadwaita,
+  libxml2,
+  meson,
+  ninja,
+  pkg-config,
+  poppler,
+  python3,
+  rustPlatform,
+  rustc,
+  shared-mime-info,
+  wrapGAppsHook4,
+  AudioUnit,
 }:
 
 stdenv.mkDerivation rec {
@@ -61,9 +62,7 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  mesonFlags = [
-    (lib.mesonBool "cli" true)
-  ];
+  mesonFlags = [ (lib.mesonBool "cli" true) ];
 
   buildInputs = [
     glib
@@ -72,11 +71,7 @@ stdenv.mkDerivation rec {
     libadwaita
     libxml2
     poppler
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-  ] ++ lib.optionals stdenv.isDarwin [
-    AudioUnit
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [ AudioUnit ];
 
   postPatch = ''
     pushd build-aux
@@ -90,7 +85,10 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/flxzt/rnote/releases/tag/${src.rev}";
     description = "Simple drawing application to create handwritten notes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda yrd ];
+    maintainers = with maintainers; [
+      dotlambda
+      yrd
+    ];
     platforms = platforms.unix;
   };
 }

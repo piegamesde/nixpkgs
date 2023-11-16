@@ -1,7 +1,17 @@
-{ lib, fetchFromGitHub, makeWrapper
-, glibcLocales, gobject-introspection, gtk3, libsoup, libsecret
-, buildPythonPackage, python
-, pygobject3, freezegun, mock
+{
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  glibcLocales,
+  gobject-introspection,
+  gtk3,
+  libsoup,
+  libsecret,
+  buildPythonPackage,
+  python,
+  pygobject3,
+  freezegun,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -15,13 +25,21 @@ buildPythonPackage rec {
     sha256 = "0qv2kv7vc3qqlzxsisgg31cmrkkqgnmxspbj10c5fhdmwzzwi0i9";
   };
 
-  nativeBuildInputs = [ makeWrapper gobject-introspection ];
+  nativeBuildInputs = [
+    makeWrapper
+    gobject-introspection
+  ];
   buildInputs = [
-    glibcLocales gtk3 libsoup libsecret
+    glibcLocales
+    gtk3
+    libsoup
+    libsecret
   ];
 
   propagatedBuildInputs = [
-    pygobject3 freezegun mock
+    pygobject3
+    freezegun
+    mock
   ];
 
   checkPhase = ''

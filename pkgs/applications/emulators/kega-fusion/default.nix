@@ -1,9 +1,37 @@
-{ stdenv, lib, writeText, fetchurl, upx, libGLU, glib, gtk2, alsa-lib, libSM, libX11, gdk-pixbuf, pango, libXinerama, mpg123, runtimeShell }:
+{
+  stdenv,
+  lib,
+  writeText,
+  fetchurl,
+  upx,
+  libGLU,
+  glib,
+  gtk2,
+  alsa-lib,
+  libSM,
+  libX11,
+  gdk-pixbuf,
+  pango,
+  libXinerama,
+  mpg123,
+  runtimeShell,
+}:
 
 let
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc libGLU glib gtk2 alsa-lib libSM libX11 gdk-pixbuf pango libXinerama ];
-
-in stdenv.mkDerivation {
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    libGLU
+    glib
+    gtk2
+    alsa-lib
+    libSM
+    libX11
+    gdk-pixbuf
+    pango
+    libXinerama
+  ];
+in
+stdenv.mkDerivation {
   pname = "kega-fusion";
   version = "3.63x";
 
@@ -42,7 +70,9 @@ in stdenv.mkDerivation {
     libmpg123path=${lib.getLib mpg123}/lib/libmpg123.so.0
     EOF
     else
-      sed -i 's,^\(libmpg123path=\).*,\1${lib.getLib mpg123}/lib/libmpg123.so.0,' "$kega_localdir/Fusion.ini"
+      sed -i 's,^\(libmpg123path=\).*,\1${
+        lib.getLib mpg123
+      }/lib/libmpg123.so.0,' "$kega_localdir/Fusion.ini"
     fi
 
     # here we go!

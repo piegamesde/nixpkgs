@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -18,16 +19,12 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "html5tagger"
-  ];
+  pythonImportsCheck = [ "html5tagger" ];
 
   meta = with lib; {
     description = "Create HTML documents from Python";

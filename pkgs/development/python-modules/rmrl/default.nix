@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, pdfrw
-, reportlab
-, setuptools
-, svglib
-, xdg
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  pdfrw,
+  reportlab,
+  setuptools,
+  svglib,
+  xdg,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-13pMfRe2McWDpBTlJy/TBT0W5wyd0EXDoocxeIzmqCo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pdfrw

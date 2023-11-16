@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, kernel, bc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  bc,
+}:
 
 stdenv.mkDerivation {
   pname = "rtl8188eus-aircrack";
@@ -33,6 +39,8 @@ stdenv.mkDerivation {
     homepage = "https://github.com/aircrack-ng/rtl8188eus";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fortuneteller2k ];
-    broken = (lib.versionAtLeast kernel.version "6.6") || ((lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened);
+    broken =
+      (lib.versionAtLeast kernel.version "6.6")
+      || ((lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened);
   };
 }

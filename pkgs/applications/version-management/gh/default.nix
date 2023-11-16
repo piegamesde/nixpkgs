@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildGoModule, installShellFiles, stdenv, testers, gh }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  installShellFiles,
+  stdenv,
+  testers,
+  gh,
+}:
 
 buildGoModule rec {
   pname = "gh";
@@ -17,30 +25,33 @@ buildGoModule rec {
 
   buildPhase = ''
     runHook preBuild
-    make GO_LDFLAGS="-s -w" GH_VERSION=${version} bin/gh ${lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) "manpages"}
+    make GO_LDFLAGS="-s -w" GH_VERSION=${version} bin/gh ${
+      lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) "manpages"
+    }
     runHook postBuild
   '';
 
-  installPhase = ''
-    runHook preInstall
-    install -Dm755 bin/gh -t $out/bin
-   '' + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installManPage share/man/*/*.[1-9]
+  installPhase =
+    ''
+      runHook preInstall
+      install -Dm755 bin/gh -t $out/bin
+    ''
+    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installManPage share/man/*/*.[1-9]
 
-    installShellCompletion --cmd gh \
-      --bash <($out/bin/gh completion -s bash) \
-      --fish <($out/bin/gh completion -s fish) \
-      --zsh <($out/bin/gh completion -s zsh)
-  '' + ''
-    runHook postInstall
-  '';
+      installShellCompletion --cmd gh \
+        --bash <($out/bin/gh completion -s bash) \
+        --fish <($out/bin/gh completion -s fish) \
+        --zsh <($out/bin/gh completion -s zsh)
+    ''
+    + ''
+      runHook postInstall
+    '';
 
   # most tests require network access
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion {
-    package = gh;
-  };
+  passthru.tests.version = testers.testVersion { package = gh; };
 
   meta = with lib; {
     description = "GitHub CLI tool";

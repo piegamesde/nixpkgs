@@ -1,21 +1,25 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, ninja
-, glib
-, pkg-config
-, udev
-, libgudev
-, python3
-, valgrind
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  glib,
+  pkg-config,
+  udev,
+  libgudev,
+  python3,
+  valgrind,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libwacom";
   version = "2.7.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "linuxwacom";
@@ -41,19 +45,20 @@ stdenv.mkDerivation rec {
     libgudev
   ];
 
-  doCheck = stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform valgrind;
+  doCheck =
+    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform valgrind;
 
-  mesonFlags = [
-    "-Dtests=${if doCheck then "enabled" else "disabled"}"
-  ];
+  mesonFlags = [ "-Dtests=${if doCheck then "enabled" else "disabled"}" ];
 
-  nativeCheckInputs = [
-    valgrind
-  ] ++ (with python3.pkgs; [
-    libevdev
-    pytest
-    pyudev
-  ]);
+  nativeCheckInputs =
+    [ valgrind ]
+    ++ (
+      with python3.pkgs; [
+        libevdev
+        pytest
+        pyudev
+      ]
+    );
 
   meta = with lib; {
     platforms = platforms.linux;

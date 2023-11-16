@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, flit-core
-, z3
-, astroid
-, pytestCheckHook
-, hypothesis
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  flit-core,
+  z3,
+  astroid,
+  pytestCheckHook,
+  hypothesis,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-DAOeQLFR/JED32uJSW7W9+Xx5f1Et05W8Fp+Vm7sfZo=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   postPatch = ''
     # Use upstream z3 implementation

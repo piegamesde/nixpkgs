@@ -1,6 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, buildEnv
-, asio, boost, check, openssl, cmake
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildEnv,
+  asio,
+  boost,
+  check,
+  openssl,
+  cmake,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +25,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ asio boost.dev check openssl ];
+  buildInputs = [
+    asio
+    boost.dev
+    check
+    openssl
+  ];
 
   preConfigure = ''
     # make sure bundled asio cannot be used, but leave behind license, because it gets installed
@@ -38,7 +51,10 @@ stdenv.mkDerivation rec {
     description = "Galera 3 wsrep provider library";
     homepage = "https://galeracluster.com/";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ ajs124 izorkin ];
+    maintainers = with maintainers; [
+      ajs124
+      izorkin
+    ];
     platforms = platforms.all;
     broken = stdenv.isDarwin;
   };

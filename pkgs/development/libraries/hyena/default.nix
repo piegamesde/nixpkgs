@@ -1,17 +1,28 @@
-{ lib, stdenv, fetchurl, pkg-config, mono, gtk-sharp-2_0, monoDLLFixer }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  mono,
+  gtk-sharp-2_0,
+  monoDLLFixer,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hyena";
   version = "0.5";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "eb7154a42b6529bb9746c39272719f3168d6363ed4bad305a916ed7d90bc8de9";
   };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    mono gtk-sharp-2_0
+    mono
+    gtk-sharp-2_0
   ];
 
   postPatch = ''

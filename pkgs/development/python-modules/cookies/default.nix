@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -23,14 +24,13 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    pytestCheckHook
-  ];
+  nativeBuildInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # https://gitlab.com/sashahart/cookies/-/issues/6
-    "test_encoding_assumptions"
-  ];
+  disabledTests =
+    [
+      # https://gitlab.com/sashahart/cookies/-/issues/6
+      "test_encoding_assumptions"
+    ];
 
   meta = with lib; {
     description = "Friendlier RFC 6265-compliant cookie parser/renderer";

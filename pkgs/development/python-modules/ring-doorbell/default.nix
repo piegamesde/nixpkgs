@@ -1,18 +1,19 @@
-{ lib
-, asyncclick
-, buildPythonPackage
-, fetchPypi
-, oauthlib
-, poetry-core
-, pytest-asyncio
-, pytest-mock
-, pytest-socket
-, pytestCheckHook
-, pythonOlder
-, pytz
-, requests
-, requests-mock
-, requests-oauthlib
+{
+  lib,
+  asyncclick,
+  buildPythonPackage,
+  fetchPypi,
+  oauthlib,
+  poetry-core,
+  pytest-asyncio,
+  pytest-mock,
+  pytest-socket,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  requests,
+  requests-mock,
+  requests-oauthlib,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-6kfD87GlEb+f6hUSqhyPIy4Xg63f8zDdGKMaOxQYWoM=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     asyncclick
@@ -48,9 +47,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [
-    "ring_doorbell"
-  ];
+  pythonImportsCheck = [ "ring_doorbell" ];
 
   meta = with lib; {
     description = "Python library to communicate with Ring Door Bell";

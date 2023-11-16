@@ -1,7 +1,8 @@
-{ buildGoModule
-, fetchFromGitHub
-, docker
-, lib
+{
+  buildGoModule,
+  fetchFromGitHub,
+  docker,
+  lib,
 }:
 
 buildGoModule rec {
@@ -15,11 +16,12 @@ buildGoModule rec {
     hash = "sha256-i3gIogHb0oW/VDuZUo6LGBmvqs/XfMXjpvTTYeGCK7Q=";
   };
 
-  patches = [
-    # Disable tests that require a docker daemon to be running
-    # in the sandbox
-    ./sbom-disable-tests.patch
-  ];
+  patches =
+    [
+      # Disable tests that require a docker daemon to be running
+      # in the sandbox
+      ./sbom-disable-tests.patch
+    ];
 
   vendorHash = "sha256-XPPVAdY2NaasZ9bkf24VWWk3X5pjnryvsErYIWkeekc=";
 

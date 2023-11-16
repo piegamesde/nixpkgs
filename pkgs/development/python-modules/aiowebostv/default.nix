@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, websockets
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -19,16 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-djcfYpHkhXhjQwJzHP3mNflKrcP6Yj3/z62qeXg67ss=";
   };
 
-  propagatedBuildInputs = [
-    websockets
-  ];
+  propagatedBuildInputs = [ websockets ];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiowebostv"
-  ];
+  pythonImportsCheck = [ "aiowebostv" ];
 
   meta = with lib; {
     description = "Module to interact with LG webOS based TV devices";

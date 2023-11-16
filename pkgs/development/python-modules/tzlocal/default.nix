@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, setuptools
-, wheel
-, pytz-deprecation-shim
-, pytest-mock
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools,
+  wheel,
+  pytz-deprecation-shim,
+  pytest-mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    pytz-deprecation-shim
-  ];
+  propagatedBuildInputs = [ pytz-deprecation-shim ];
 
   nativeCheckInputs = [
     pytest-mock

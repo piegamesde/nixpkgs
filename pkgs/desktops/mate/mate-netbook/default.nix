@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, gtk3
-, libwnck
-, libfakekey
-, libXtst
-, mate
-, wrapGAppsHook
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk3,
+  libwnck,
+  libfakekey,
+  libXtst,
+  mate,
+  wrapGAppsHook,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +18,9 @@ stdenv.mkDerivation rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "12gdy69nfysl8vmd8lv8b0lknkaagplrrz88nh6n0rmjkxnipgz3";
   };
 
@@ -49,7 +52,10 @@ stdenv.mkDerivation rec {
       devices with low resolution displays.
     '';
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ gpl3Only lgpl2Plus ];
+    license = with licenses; [
+      gpl3Only
+      lgpl2Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

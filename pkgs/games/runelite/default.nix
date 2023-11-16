@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, makeDesktopItem
-, makeWrapper
-, maven
-, jre
-, xorg
-, gitUpdater
+{
+  lib,
+  fetchFromGitHub,
+  makeDesktopItem,
+  makeWrapper,
+  maven,
+  jre,
+  xorg,
+  gitUpdater,
 }:
 
 maven.buildMavenPackage rec {
@@ -56,7 +57,10 @@ maven.buildMavenPackage rec {
       binaryNativeCode
     ];
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ kmeakin moody ];
+    maintainers = with lib.maintainers; [
+      kmeakin
+      moody
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "runelite";
   };

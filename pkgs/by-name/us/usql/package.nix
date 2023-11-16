@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, unixODBC
-, icu
-, nix-update-script
-, testers
-, usql
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  unixODBC,
+  icu,
+  nix-update-script,
+  testers,
+  usql,
 }:
 
 buildGoModule rec {
@@ -19,7 +20,10 @@ buildGoModule rec {
     hash = "sha256-XfzCJOr0lOkimUKbOW0+qFNQMmYc0DBgi+0ItmEOjwE=";
   };
 
-  buildInputs = [ unixODBC icu ];
+  buildInputs = [
+    unixODBC
+    icu
+  ];
 
   vendorHash = "sha256-sijt6YOp1pFNhaxLIOLH90Z5ODVbWFj/mp8Csx8n+ac=";
   proxyVendor = true;
@@ -73,7 +77,10 @@ buildGoModule rec {
     changelog = "https://github.com/xo/usql/releases/tag/v${version}";
     license = licenses.mit;
     mainProgram = "usql";
-    maintainers = with maintainers; [ georgyo anthonyroussel ];
+    maintainers = with maintainers; [
+      georgyo
+      anthonyroussel
+    ];
     platforms = with platforms; linux ++ darwin;
   };
 }

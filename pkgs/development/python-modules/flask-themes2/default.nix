@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, flask, pythonOlder, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  flask,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flask-themes2";

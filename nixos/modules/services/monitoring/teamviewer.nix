@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.services.teamviewer;
-
 in
 
 {
@@ -15,7 +19,6 @@ in
   options = {
 
     services.teamviewer.enable = mkEnableOption (lib.mdDoc "TeamViewer daemon");
-
   };
 
   ###### implementation
@@ -30,7 +33,11 @@ in
       description = "TeamViewer remote control daemon";
 
       wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" "network.target" "dbus.service" ];
+      after = [
+        "network-online.target"
+        "network.target"
+        "dbus.service"
+      ];
       requires = [ "dbus.service" ];
       preStart = "mkdir -pv /var/lib/teamviewer /var/log/teamviewer";
 
@@ -45,5 +52,4 @@ in
       };
     };
   };
-
 }

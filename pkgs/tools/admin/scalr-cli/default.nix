@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -17,7 +18,8 @@ buildGoModule rec {
   vendorHash = "sha256-zyshSluHq5f+DQV4K7qxHNsZ4nKzL8J5A25rdg9fHeM=";
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
   ];
 
   preConfigure = ''

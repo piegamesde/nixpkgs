@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cryptography
-, azure-common
-, azure-storage-common
-, azure-cosmosdb-nspkg
-, futures ? null
-, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  azure-common,
+  azure-storage-common,
+  azure-cosmosdb-nspkg,
+  futures ? null,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     azure-common
     azure-storage-common
     azure-cosmosdb-nspkg
-  ] ++ lib.optionals (!isPy3k) [
-    futures
-  ];
+  ] ++ lib.optionals (!isPy3k) [ futures ];
 
   # has no tests
   doCheck = false;

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, future
-, mock
-, parameterized
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  future,
+  mock,
+  parameterized,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -34,14 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Integration tests require an accessible Vertica db
-    "vertica_python/tests/integration_tests"
-  ];
+  disabledTestPaths =
+    [
+      # Integration tests require an accessible Vertica db
+      "vertica_python/tests/integration_tests"
+    ];
 
-  pythonImportsCheck = [
-    "vertica_python"
-  ];
+  pythonImportsCheck = [ "vertica_python" ];
 
   meta = with lib; {
     description = "Native Python client for Vertica database";

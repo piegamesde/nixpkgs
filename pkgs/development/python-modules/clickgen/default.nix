@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pillow
-, toml
-, numpy
-, pyyaml
-, python
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pillow,
+  toml,
+  numpy,
+  pyyaml,
+  python,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -25,7 +26,12 @@ buildPythonPackage rec {
     hash = "sha256-mSaltlX2eNRLJ09zN5Tim8mW8mnjPi10W4QIEpiBQvI=";
   };
 
-  propagatedBuildInputs = [ pillow toml numpy pyyaml ];
+  propagatedBuildInputs = [
+    pillow
+    toml
+    numpy
+    pyyaml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

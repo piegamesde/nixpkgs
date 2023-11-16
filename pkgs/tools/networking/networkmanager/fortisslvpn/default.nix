@@ -1,22 +1,23 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, openfortivpn
-, autoreconfHook
-, gettext
-, pkg-config
-, file
-, glib
-, gtk3
-, gtk4
-, networkmanager
-, ppp
-, libsecret
-, withGnome ? true
-, gnome
-, libnma
-, libnma-gtk4
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  openfortivpn,
+  autoreconfHook,
+  gettext,
+  pkg-config,
+  file,
+  glib,
+  gtk3,
+  gtk4,
+  networkmanager,
+  ppp,
+  libsecret,
+  withGnome ? true,
+  gnome,
+  libnma,
+  libnma-gtk4,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,7 +26,9 @@ stdenv.mkDerivation rec {
   name = "${pname}${lib.optionalString withGnome "-gnome"}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sFXiY0m1FrI1hXmKs+9XtDawFIAOkqiscyz8jnbF2vo=";
   };
 
@@ -44,18 +47,20 @@ stdenv.mkDerivation rec {
     file
   ];
 
-  buildInputs = [
-    openfortivpn
-    networkmanager
-    ppp
-    glib
-  ] ++ lib.optionals withGnome [
-    gtk3
-    gtk4
-    libsecret
-    libnma
-    libnma-gtk4
-  ];
+  buildInputs =
+    [
+      openfortivpn
+      networkmanager
+      ppp
+      glib
+    ]
+    ++ lib.optionals withGnome [
+      gtk3
+      gtk4
+      libsecret
+      libnma
+      libnma-gtk4
+    ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"
@@ -64,11 +69,12 @@ stdenv.mkDerivation rec {
     "--enable-absolute-paths"
   ];
 
-  installFlags = [
-    # the installer only creates an empty directory in localstatedir, so
-    # we can drop it
-    "localstatedir=."
-  ];
+  installFlags =
+    [
+      # the installer only creates an empty directory in localstatedir, so
+      # we can drop it
+      "localstatedir=."
+    ];
 
   passthru = {
     updateScript = gnome.updateScript {

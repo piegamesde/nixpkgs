@@ -1,4 +1,11 @@
-{ buildPackages, lib, stdenv, fetchurl, gettext, libgpg-error }:
+{
+  buildPackages,
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  libgpg-error,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libksba";
@@ -9,7 +16,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-u7Q/AyuRZNhseB/+QiE6g79PL+6RRV7fpGVFIbiwO2s=";
   };
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
 
   buildInputs = [ gettext ];
   propagatedBuildInputs = [ libgpg-error ];

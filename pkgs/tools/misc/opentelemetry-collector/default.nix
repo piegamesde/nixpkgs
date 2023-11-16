@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -27,7 +28,10 @@ buildGoModule rec {
     sed -i -E 's/Version:(\s*)".*"/Version:\1"${version}"/' main.go
   '';
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/open-telemetry/opentelemetry-collector";
@@ -41,7 +45,10 @@ buildGoModule rec {
       sending to multiple open-source or commercial back-ends.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ uri-canva jk ];
+    maintainers = with maintainers; [
+      uri-canva
+      jk
+    ];
     mainProgram = "otelcorecol";
   };
 }

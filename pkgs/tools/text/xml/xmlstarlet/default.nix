@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, libxml2, libxslt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  libxslt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmlstarlet";
@@ -10,25 +17,27 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libxml2 libxslt ];
-
-  patches = [
-    # Fixes an incompatible function pointer error with clang 16.
-    ./fix-incompatible-function-pointer.patch
+  buildInputs = [
+    libxml2
+    libxslt
   ];
 
-  preConfigure =
-    ''
-      export LIBXSLT_PREFIX=${libxslt.dev}
-      export LIBXML_PREFIX=${libxml2.dev}
-      export LIBXSLT_LIBS=$(pkg-config --libs libxslt libexslt)
-      export LIBXML_LIBS=$(pkg-config --libs libxml-2.0)
-    '';
+  patches =
+    [
+      # Fixes an incompatible function pointer error with clang 16.
+      ./fix-incompatible-function-pointer.patch
+    ];
 
-  postInstall =
-    ''
-      ln -s xml $out/bin/xmlstarlet
-    '';
+  preConfigure = ''
+    export LIBXSLT_PREFIX=${libxslt.dev}
+    export LIBXML_PREFIX=${libxml2.dev}
+    export LIBXSLT_LIBS=$(pkg-config --libs libxslt libexslt)
+    export LIBXML_LIBS=$(pkg-config --libs libxml-2.0)
+  '';
+
+  postInstall = ''
+    ln -s xml $out/bin/xmlstarlet
+  '';
 
   meta = {
     description = "A command line tool for manipulating and querying XML data";

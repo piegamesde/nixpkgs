@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, defusedxml
-, fetchFromGitHub
-, httpretty
-, lxml
-, oauthlib
-, pyjwt
-, pytestCheckHook
-, python-jose
-, python3-openid
-, python3-saml
-, pythonOlder
-, requests
-, requests-oauthlib
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  defusedxml,
+  fetchFromGitHub,
+  httpretty,
+  lxml,
+  oauthlib,
+  pyjwt,
+  pytestCheckHook,
+  python-jose,
+  python3-openid,
+  python3-saml,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
 }:
 
 buildPythonPackage rec {
@@ -41,16 +42,12 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    openidconnect = [
-      python-jose
-    ];
+    openidconnect = [ python-jose ];
     saml = [
       lxml
       python3-saml
     ];
-    azuread = [
-      cryptography
-    ];
+    azuread = [ cryptography ];
   };
 
   nativeCheckInputs = [
@@ -68,9 +65,7 @@ buildPythonPackage rec {
       --replace "{posargs:-v --cov=social_core}" "{posargs:-v}"
   '';
 
-  pythonImportsCheck = [
-    "social_core"
-  ];
+  pythonImportsCheck = [ "social_core" ];
 
   meta = with lib; {
     description = "Module for social authentication/registration mechanisms";

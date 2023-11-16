@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jsonschema
-, mwcli
-, mwtypes
-, nose
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jsonschema,
+  mwcli,
+  mwtypes,
+  nose,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    "test_page_with_discussion"
-  ];
+  disabledTests = [ "test_page_with_discussion" ];
 
   pythonImportsCheck = [ "mwxml" ];
 

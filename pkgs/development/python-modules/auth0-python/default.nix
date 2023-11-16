@@ -1,16 +1,17 @@
-{ lib
-, aiohttp
-, aioresponses
-, buildPythonPackage
-, callee
-, fetchFromGitHub
-, mock
-, poetry-core
-, poetry-dynamic-versioning
-, pyjwt
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  callee,
+  fetchFromGitHub,
+  mock,
+  poetry-core,
+  poetry-dynamic-versioning,
+  pyjwt,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -52,9 +53,7 @@ buildPythonPackage rec {
     "test_options_are_used_and_override"
   ];
 
-  pythonImportsCheck = [
-    "auth0"
-  ];
+  pythonImportsCheck = [ "auth0" ];
 
   meta = with lib; {
     description = "Auth0 Python SDK";

@@ -1,9 +1,10 @@
-{ black
-, blacken-docs
-, fetchFromGitHub
-, lib
-, python3
-, ruff
+{
+  black,
+  blacken-docs,
+  fetchFromGitHub,
+  lib,
+  python3,
+  ruff,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "nbqa";
@@ -28,7 +29,8 @@ python3.pkgs.buildPythonApplication rec {
     ruff = [ ruff ];
   };
 
-  propagatedBuildInputs = with python3.pkgs;
+  propagatedBuildInputs =
+    with python3.pkgs;
     [
       autopep8
       ipython
@@ -52,19 +54,21 @@ python3.pkgs.buildPythonApplication rec {
       black
       ruff
     ]
-    ++ (with python3.pkgs; [
-      autoflake
-      flake8
-      isort
-      jupytext
-      mdformat
-      pre-commit-hooks
-      pydocstyle
-      pylint
-      pytestCheckHook
-      pyupgrade
-      yapf
-    ]);
+    ++ (
+      with python3.pkgs; [
+        autoflake
+        flake8
+        isort
+        jupytext
+        mdformat
+        pre-commit-hooks
+        pydocstyle
+        pylint
+        pytestCheckHook
+        pyupgrade
+        yapf
+      ]
+    );
 
   disabledTests = [
     # Test data not found
@@ -81,10 +85,11 @@ python3.pkgs.buildPythonApplication rec {
     "test_ruff_works"
   ];
 
-  disabledTestPaths = [
-    # Test data not found
-    "tests/test_include_exclude.py"
-  ];
+  disabledTestPaths =
+    [
+      # Test data not found
+      "tests/test_include_exclude.py"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/nbQA-dev/nbQA";

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatch-vcs
-, hatchling
-, mypy-extensions
-, numpy
-, pydantic
-, pytestCheckHook
-, pythonOlder
-, toolz
-, typing-extensions
-, wrapt
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatch-vcs,
+  hatchling,
+  mypy-extensions,
+  numpy,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  toolz,
+  typing-extensions,
+  wrapt,
 }:
 
 buildPythonPackage rec {
@@ -47,9 +48,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  pythonImportsCheck = [
-    "psygnal"
-  ];
+  pythonImportsCheck = [ "psygnal" ];
 
   meta = with lib; {
     description = "Implementation of Qt Signals";

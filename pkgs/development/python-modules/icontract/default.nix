@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, astor
-, asttokens
-, asyncstdlib
-, deal
-, dpcontracts
-, numpy
-, pytestCheckHook
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  astor,
+  asttokens,
+  asyncstdlib,
+  deal,
+  dpcontracts,
+  numpy,
+  pytestCheckHook,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -46,11 +47,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # mypy decorator checks don't pass. For some reason mypy
-    # doesn't check the python file provided in the test.
-    "tests/test_mypy_decorators.py"
-  ];
+  disabledTestPaths =
+    [
+      # mypy decorator checks don't pass. For some reason mypy
+      # doesn't check the python file provided in the test.
+      "tests/test_mypy_decorators.py"
+    ];
 
   pythonImportsCheck = [ "icontract" ];
 
@@ -59,6 +61,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/Parquery/icontract";
     changelog = "https://github.com/Parquery/icontract/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador thiagokokada ];
+    maintainers = with maintainers; [
+      gador
+      thiagokokada
+    ];
   };
 }

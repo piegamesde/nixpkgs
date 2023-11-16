@@ -1,12 +1,13 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-, fetchurl
-, lib
-, perl
-, sgx-sdk
-, which
-, debug ? false
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  lib,
+  perl,
+  sgx-sdk,
+  which,
+  debug ? false,
 }:
 let
   sgxVersion = sgx-sdk.versionTag;
@@ -34,10 +35,11 @@ stdenv.mkDerivation rec {
       ln -s ${opensslSourceArchive} $sourceRoot/openssl_source/openssl-${opensslVersion}.tar.gz
     '';
 
-  patches = [
-    # https://github.com/intel/intel-sgx-ssl/pull/111
-    ./intel-sgx-ssl-pr-111.patch
-  ];
+  patches =
+    [
+      # https://github.com/intel/intel-sgx-ssl/pull/111
+      ./intel-sgx-ssl-pr-111.patch
+    ];
 
   postPatch = ''
     patchShebangs Linux/build_openssl.sh
@@ -57,15 +59,9 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  makeFlags = [
-    "-C Linux"
-  ] ++ lib.optionals debug [
-    "DEBUG=1"
-  ];
+  makeFlags = [ "-C Linux" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
-  installFlags = [
-    "DESTDIR=$(out)"
-  ];
+  installFlags = [ "DESTDIR=$(out)" ];
 
   # Build the test app
   #
@@ -88,8 +84,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cryptographic library for Intel SGX enclave applications based on OpenSSL";
     homepage = "https://github.com/intel/intel-sgx-ssl";
-    maintainers = with maintainers; [ trundle veehaitch ];
+    maintainers = with maintainers; [
+      trundle
+      veehaitch
+    ];
     platforms = [ "x86_64-linux" ];
-    license = with licenses; [ bsd3 openssl ];
+    license = with licenses; [
+      bsd3
+      openssl
+    ];
   };
 }

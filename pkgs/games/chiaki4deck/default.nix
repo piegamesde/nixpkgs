@@ -1,21 +1,22 @@
-{ lib
-, fetchFromGitHub
-, mkDerivation
-, cmake
-, pkg-config
-, protobuf
-, python3
-, ffmpeg_6
-, libopus
-, qtbase
-, qtmultimedia
-, qtsvg
-, SDL2
-, libevdev
-, udev
-, hidapi
-, fftw
-, speexdsp
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  cmake,
+  pkg-config,
+  protobuf,
+  python3,
+  ffmpeg_6,
+  libopus,
+  qtbase,
+  qtmultimedia,
+  qtsvg,
+  SDL2,
+  libevdev,
+  udev,
+  hidapi,
+  fftw,
+  speexdsp,
 }:
 
 mkDerivation rec {

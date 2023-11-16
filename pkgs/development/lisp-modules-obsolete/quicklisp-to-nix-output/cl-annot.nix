@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-annot";
   version = "20150608-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-annot";
 
-  asdFilesToKeep = ["cl-annot.asd"];
+  asdFilesToKeep = [ "cl-annot.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-annot DESCRIPTION Python-like Annotation Syntax for Common Lisp
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-annot/2015-06-08/cl-annot-20150608-git.tgz
     MD5 35d8f79311bda4dd86002d11edcd0a21 NAME cl-annot FILENAME cl-annot DEPS
     ((NAME alexandria FILENAME alexandria)) DEPENDENCIES (alexandria) VERSION
-    20150608-git SIBLINGS NIL PARASITES NIL) */
+    20150608-git SIBLINGS NIL PARASITES NIL)
+*/

@@ -1,17 +1,17 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, cython
-, networkx
-, joblib
-, pandas
-, nose
-, pyyaml
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  cython,
+  networkx,
+  joblib,
+  pandas,
+  nose,
+  pyyaml,
 }:
-
 
 buildPythonPackage rec {
   pname = "pomegranate";
@@ -26,9 +26,19 @@ buildPythonPackage rec {
     sha256 = "sha256-EnxKlRRfsOIDLAhYOq7bUSbI/NvPoSyYCZ9D5VCXFGQ=";
   };
 
-  propagatedBuildInputs = [ numpy scipy cython networkx joblib pyyaml ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    cython
+    networkx
+    joblib
+    pyyaml
+  ];
 
-  nativeCheckInputs = [ pandas nose ];  # as of 0.13.5, it depends explicitly on nose, rather than pytest.
+  nativeCheckInputs = [
+    pandas
+    nose
+  ]; # as of 0.13.5, it depends explicitly on nose, rather than pytest.
 
   meta = with lib; {
     broken = stdenv.isDarwin;

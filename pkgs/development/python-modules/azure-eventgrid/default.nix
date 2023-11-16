@@ -1,11 +1,12 @@
-{ lib
-, azure-common
-, azure-core
-, buildPythonPackage
-, fetchPypi
-, isodate
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  azure-common,
+  azure-core,
+  buildPythonPackage,
+  fetchPypi,
+  isodate,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -24,16 +25,12 @@ buildPythonPackage rec {
     azure-common
     azure-core
     isodate
-  ]  ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.eventgrid"
-  ];
+  pythonImportsCheck = [ "azure.eventgrid" ];
 
   meta = with lib; {
     description = "A fully-managed intelligent event routing service that allows for uniform event consumption using a publish-subscribe model";

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, stdenv
-, darwin
-, pytestCheckHook
-, pythonOlder
-, rustPlatform
-, setuptools-rust
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  stdenv,
+  darwin,
+  pytestCheckHook,
+  pythonOlder,
+  rustPlatform,
+  setuptools-rust,
 }:
 
 buildPythonPackage rec {
@@ -28,12 +29,14 @@ buildPythonPackage rec {
     darwin.apple_sdk.frameworks.Security
   ];
 
-  nativeBuildInputs = [
-    setuptools-rust
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ]);
+  nativeBuildInputs =
+    [ setuptools-rust ]
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        maturinBuildHook
+      ]
+    );
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -44,9 +47,7 @@ buildPythonPackage rec {
   # Module has no tests, only a test client
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mitmproxy_wireguard"
-  ];
+  pythonImportsCheck = [ "mitmproxy_wireguard" ];
 
   meta = with lib; {
     description = "WireGuard frontend for mitmproxy";

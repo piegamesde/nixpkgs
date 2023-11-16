@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,17 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-fnVY4KwiqvSVYijlDckLq6qDrBJj/rJGMwaQ1mMygek=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_emojize_name_only"
-  ];
+  disabledTests = [ "test_emojize_name_only" ];
 
-  pythonImportsCheck = [
-    "emoji"
-  ];
+  pythonImportsCheck = [ "emoji" ];
 
   meta = with lib; {
     description = "Emoji for Python";

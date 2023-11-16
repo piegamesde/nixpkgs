@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, darwin
-, pandoc
-, installShellFiles
-, copyDesktopItems
-, makeDesktopItem
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  darwin,
+  pandoc,
+  installShellFiles,
+  copyDesktopItems,
+  makeDesktopItem,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,7 +24,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-xf4Q6nk2sYuAV+B7dsRF+feiLRKLXDSHnlYmw+o5bNc=";
 
-  nativeBuildInputs = [ pandoc installShellFiles copyDesktopItems ];
+  nativeBuildInputs = [
+    pandoc
+    installShellFiles
+    copyDesktopItems
+  ];
   buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   postBuild = ''
@@ -54,7 +59,11 @@ rustPlatform.buildRustPackage rec {
       icon = "fend";
       exec = "fend";
       terminal = true;
-      categories = [ "Utility" "Calculator" "ConsoleOnly" ];
+      categories = [
+        "Utility"
+        "Calculator"
+        "ConsoleOnly"
+      ];
     })
   ];
 
@@ -64,7 +73,10 @@ rustPlatform.buildRustPackage rec {
     description = "Arbitrary-precision unit-aware calculator";
     homepage = "https://github.com/printfn/fend";
     license = licenses.mit;
-    maintainers = with maintainers; [ djanatyn liff ];
+    maintainers = with maintainers; [
+      djanatyn
+      liff
+    ];
     mainProgram = "fend";
   };
 }

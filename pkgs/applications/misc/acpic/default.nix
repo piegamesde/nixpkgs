@@ -1,6 +1,7 @@
-{ lib
-, fetchPypi
-, python3Packages
+{
+  lib,
+  fetchPypi,
+  python3Packages,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -13,9 +14,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-vQ9VxCNbOmqHIY3e1wq1wNJl5ywfU2tm62gDg3vKvcg=";
   };
 
-  nativeBuildInputs = [
-    python3Packages.pbr
-  ];
+  nativeBuildInputs = [ python3Packages.pbr ];
 
   # no tests
   doCheck = false;

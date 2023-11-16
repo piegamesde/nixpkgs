@@ -1,4 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, ant, unzip, makeWrapper, jdk, javaPackages, rsync, ffmpeg, batik, gsettings-desktop-schemas, xorg, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  ant,
+  unzip,
+  makeWrapper,
+  jdk,
+  javaPackages,
+  rsync,
+  ffmpeg,
+  batik,
+  gsettings-desktop-schemas,
+  xorg,
+  wrapGAppsHook,
+}:
 let
   buildNumber = "1292";
   vaqua = fetchurl {
@@ -37,9 +53,11 @@ let
     sha256 = "sha256-N4U04znm5tULFzb7Ort28cFdG+P0wTzsbVNkEuI9pgM=";
   };
 
-  arch = {
-    x86_64 = "amd64";
-  }.${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name;
+  arch =
+    {
+      x86_64 = "amd64";
+    }
+    .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name;
 in
 stdenv.mkDerivation rec {
   pname = "processing";
@@ -52,8 +70,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wdluhrtliLN4T2dcmwvUWZhOARC3Lst7+hWWwZjafmU=";
   };
 
-  nativeBuildInputs = [ ant unzip makeWrapper wrapGAppsHook ];
-  buildInputs = [ jdk javaPackages.jogl_2_4_0 ant rsync ffmpeg batik ];
+  nativeBuildInputs = [
+    ant
+    unzip
+    makeWrapper
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    jdk
+    javaPackages.jogl_2_4_0
+    ant
+    rsync
+    ffmpeg
+    batik
+  ];
 
   dontWrapGApps = true;
 
@@ -96,7 +126,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A language and IDE for electronic arts";
     homepage = "https://processing.org";
-    license = with licenses; [ gpl2Only lgpl21Only ];
+    license = with licenses; [
+      gpl2Only
+      lgpl21Only
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ evan-goode ];
   };

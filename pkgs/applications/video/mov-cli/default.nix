@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchFromGitHub
-, mpv
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  mpv,
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -16,7 +17,10 @@ python3.pkgs.buildPythonPackage rec {
     sha256 = "sha256-WhoP4FcoO9+O9rfpC3oDQkVIpVOqxfdLRygHgf1O01g=";
   };
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" "${lib.getBin mpv}/bin"
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.getBin mpv}/bin"
   ];
 
   propagatedBuildInputs = with python3.pkgs; [

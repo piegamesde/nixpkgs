@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "sem";
@@ -14,7 +18,10 @@ buildGoModule rec {
   vendorHash = "sha256-CDjfhnnt4+ml8k/2QPGaSlJFpxDYWNjA5nzLXL2APX4=";
   subPackages = [ "." ];
 
-  ldflags = [ "-X main.version=${version}" "-X main.buildSource=nix" ];
+  ldflags = [
+    "-X main.version=${version}"
+    "-X main.buildSource=nix"
+  ];
 
   postInstall = ''
     install -m755 $out/bin/cli $out/bin/sem

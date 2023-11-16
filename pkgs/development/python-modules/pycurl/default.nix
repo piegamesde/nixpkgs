@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, isPyPy
-, fetchPypi
-, pythonOlder
-, curl
-, openssl
-, bottle
-, pytestCheckHook
-, flaky
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  isPyPy,
+  fetchPypi,
+  pythonOlder,
+  curl,
+  openssl,
+  bottle,
+  pytestCheckHook,
+  flaky,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     openssl
   ];
 
-  nativeBuildInputs = [
-    curl
-  ];
+  nativeBuildInputs = [ curl ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -43,44 +42,51 @@ buildPythonPackage rec {
     flaky
   ];
 
-  pytestFlagsArray = [
-    # don't pick up the tests directory below examples/
-    "tests"
-  ];
+  pytestFlagsArray =
+    [
+      # don't pick up the tests directory below examples/
+      "tests"
+    ];
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  disabledTests = [
-    # tests that require network access
-    "test_keyfunction"
-    "test_keyfunction_bogus_return"
-    # OSError: tests/fake-curl/libcurl/with_openssl.so: cannot open shared object file: No such file or directory
-    "test_libcurl_ssl_openssl"
-    # OSError: tests/fake-curl/libcurl/with_nss.so: cannot open shared object file: No such file or directory
-    "test_libcurl_ssl_nss"
-    # OSError: tests/fake-curl/libcurl/with_gnutls.so: cannot open shared object file: No such file or directory
-    "test_libcurl_ssl_gnutls"
-    # AssertionError: assert 'crypto' in ['curl']
-    "test_ssl_in_static_libs"
-    # tests that require curl with http3Support
-    "test_http_version_3"
-    # https://github.com/pycurl/pycurl/issues/819
-    "test_multi_socket_select"
-    # https://github.com/pycurl/pycurl/issues/729
-    "test_multi_socket_action"
-    # https://github.com/pycurl/pycurl/issues/822
-    "test_request_with_verifypeer"
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    # Fatal Python error: Segmentation fault
-    "cadata_test"
-  ];
+  disabledTests =
+    [
+      # tests that require network access
+      "test_keyfunction"
+      "test_keyfunction_bogus_return"
+      # OSError: tests/fake-curl/libcurl/with_openssl.so: cannot open shared object file: No such file or directory
+      "test_libcurl_ssl_openssl"
+      # OSError: tests/fake-curl/libcurl/with_nss.so: cannot open shared object file: No such file or directory
+      "test_libcurl_ssl_nss"
+      # OSError: tests/fake-curl/libcurl/with_gnutls.so: cannot open shared object file: No such file or directory
+      "test_libcurl_ssl_gnutls"
+      # AssertionError: assert 'crypto' in ['curl']
+      "test_ssl_in_static_libs"
+      # tests that require curl with http3Support
+      "test_http_version_3"
+      # https://github.com/pycurl/pycurl/issues/819
+      "test_multi_socket_select"
+      # https://github.com/pycurl/pycurl/issues/729
+      "test_multi_socket_action"
+      # https://github.com/pycurl/pycurl/issues/822
+      "test_request_with_verifypeer"
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+      [
+        # Fatal Python error: Segmentation fault
+        "cadata_test"
+      ];
 
   meta = with lib; {
     homepage = "http://pycurl.io/";
     description = "Python Interface To The cURL library";
-    license = with licenses; [ lgpl2Only mit ];
+    license = with licenses; [
+      lgpl2Only
+      mit
+    ];
     maintainers = with maintainers; [ ];
   };
 }

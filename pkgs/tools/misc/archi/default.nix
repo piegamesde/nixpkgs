@@ -1,12 +1,14 @@
-{ lib, stdenv
-, fetchurl
-, fetchzip
-, autoPatchelfHook
-, makeWrapper
-, jdk
-, libsecret
-, webkitgtk
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  autoPatchelfHook,
+  makeWrapper,
+  jdk,
+  libsecret,
+  webkitgtk,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,9 +29,7 @@ stdenv.mkDerivation rec {
     else
       throw "Unsupported system";
 
-  buildInputs = [
-    libsecret
-  ];
+  buildInputs = [ libsecret ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -65,6 +65,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ earldouglas paumr ];
+    maintainers = with maintainers; [
+      earldouglas
+      paumr
+    ];
   };
 }

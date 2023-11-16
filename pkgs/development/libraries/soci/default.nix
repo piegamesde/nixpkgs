@@ -1,10 +1,12 @@
-{ cmake
-, fetchFromGitHub
-, fetchpatch
-, sqlite
-, postgresql
-, boost
-, lib, stdenv
+{
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  sqlite,
+  postgresql,
+  boost,
+  lib,
+  stdenv,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,7 +29,11 @@ stdenv.mkDerivation rec {
   ];
 
   # Do not build static libraries
-  cmakeFlags = [ "-DSOCI_STATIC=OFF" "-DCMAKE_CXX_STANDARD=11" "-DSOCI_TESTS=off" ];
+  cmakeFlags = [
+    "-DSOCI_STATIC=OFF"
+    "-DCMAKE_CXX_STANDARD=11"
+    "-DSOCI_TESTS=off"
+  ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [

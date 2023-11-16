@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, deprecated
-, fetchFromGitHub
-, pynacl
-, typing-extensions
-, pyjwt
-, python-dateutil
-, pythonOlder
-, requests
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  deprecated,
+  fetchFromGitHub,
+  pynacl,
+  typing-extensions,
+  pyjwt,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     deprecated
@@ -43,9 +42,7 @@ buildPythonPackage rec {
   # Test suite makes REST calls against github.com
   doCheck = false;
 
-  pythonImportsCheck = [
-    "github"
-  ];
+  pythonImportsCheck = [ "github" ];
 
   meta = with lib; {
     description = "Python library to access the GitHub API v3";

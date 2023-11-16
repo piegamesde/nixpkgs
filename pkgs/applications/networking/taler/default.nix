@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchgit, curl, gnunet, jansson, libgcrypt, libmicrohttpd_0_9_72
-, qrencode, libsodium, libtool, libunistring, pkg-config, postgresql
-, autoreconfHook, python39, recutils, wget, jq, gettext, texinfo
+{
+  lib,
+  stdenv,
+  fetchgit,
+  curl,
+  gnunet,
+  jansson,
+  libgcrypt,
+  libmicrohttpd_0_9_72,
+  qrencode,
+  libsodium,
+  libtool,
+  libunistring,
+  pkg-config,
+  postgresql,
+  autoreconfHook,
+  python39,
+  recutils,
+  wget,
+  jq,
+  gettext,
+  texinfo,
 }:
 
 let
@@ -11,8 +30,8 @@ let
     rev = "v${version}";
     sha256 = "sha256-DTnwj/pkowR1b1+N94pnuLykD2O37Nh8AKhUIzY7NaU=";
   };
-
-in rec {
+in
+rec {
   taler-exchange = stdenv.mkDerivation rec {
     pname = "taler-exchange";
     inherit version;
@@ -49,7 +68,10 @@ in rec {
 
     enableParallelBuilding = true;
 
-    nativeCheckInputs = [ wget curl ];
+    nativeCheckInputs = [
+      wget
+      curl
+    ];
     doInstallCheck = true;
     checkTarget = "check";
 
@@ -84,7 +106,10 @@ in rec {
       ln -s ${taler-wallet-core}/spa.html $sourceRoot/contrib/
     '';
 
-    nativeBuildInputs = [ pkg-config autoreconfHook ];
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+    ];
     buildInputs = taler-exchange.buildInputs ++ [
       qrencode
       taler-exchange

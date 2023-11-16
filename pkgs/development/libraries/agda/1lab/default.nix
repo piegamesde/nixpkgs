@@ -1,4 +1,8 @@
-{ lib, mkDerivation, fetchFromGitHub }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+}:
 
 mkDerivation rec {
   pname = "1lab";
@@ -21,8 +25,7 @@ mkDerivation rec {
   everythingFile = "src/index.lagda.md";
 
   meta = with lib; {
-    description =
-      "A formalised, cross-linked reference resource for mathematics done in Homotopy Type Theory ";
+    description = "A formalised, cross-linked reference resource for mathematics done in Homotopy Type Theory ";
     homepage = src.meta.homepage;
     license = licenses.agpl3;
     platforms = platforms.unix;

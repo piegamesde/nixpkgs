@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, matplotlib
-, numpy
-, pandas
-, pillow
-, pytest
-, pytest-datadir
-, pytestCheckHook
-, pyyaml
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  matplotlib,
+  numpy,
+  pandas,
+  pillow,
+  pytest,
+  pytest-datadir,
+  pytestCheckHook,
+  pyyaml,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -27,13 +28,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   propagatedBuildInputs = [
     numpy
@@ -42,7 +39,6 @@ buildPythonPackage rec {
     pytest-datadir
     pyyaml
   ];
-
 
   nativeCheckInputs = [
     pytestCheckHook

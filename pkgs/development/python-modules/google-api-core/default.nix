@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-auth
-, googleapis-common-protos
-, grpcio
-, grpcio-gcp
-, grpcio-status
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-auth,
+  googleapis-common-protos,
+  grpcio,
+  grpcio-gcp,
+  grpcio-status,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -40,12 +41,8 @@ buildPythonPackage rec {
       grpcio
       grpcio-status
     ];
-    grpcgcp = [
-      grpcio-gcp
-    ];
-    grpcio-gcp = [
-      grpcio-gcp
-    ];
+    grpcgcp = [ grpcio-gcp ];
+    grpcio-gcp = [ grpcio-gcp ];
   };
 
   nativeCheckInputs = [
@@ -74,9 +71,7 @@ buildPythonPackage rec {
     "test_exception_with_error_code"
   ];
 
-  pythonImportsCheck = [
-    "google.api_core"
-  ];
+  pythonImportsCheck = [ "google.api_core" ];
 
   meta = with lib; {
     description = "Core Library for Google Client Libraries";

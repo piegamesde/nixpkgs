@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, git
-, pkg-config
-, gperf
-, libmicrohttpd
-, openssl
-, readline
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  git,
+  pkg-config,
+  gperf,
+  libmicrohttpd,
+  openssl,
+  readline,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +24,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     cmake

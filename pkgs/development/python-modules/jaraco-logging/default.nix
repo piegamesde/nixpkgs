@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, setuptools-scm
-, tempora
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  tempora,
 }:
 
 buildPythonPackage rec {
@@ -20,25 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-X8ssPxI1HU1QN1trYPOJnFg3sjLxotj/y6/17NK3M+c=";
   };
 
-  pythonNamespaces = [
-    "jaraco"
-  ];
+  pythonNamespaces = [ "jaraco" ];
 
   nativeBuildInputs = [
     setuptools
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    tempora
-  ];
+  propagatedBuildInputs = [ tempora ];
 
   # test no longer packaged with pypi
   doCheck = false;
 
-  pythonImportsCheck = [
-    "jaraco.logging"
-  ];
+  pythonImportsCheck = [ "jaraco.logging" ];
 
   meta = with lib; {
     description = "Support for Python logging facility";

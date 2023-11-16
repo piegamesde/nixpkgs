@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-# build inputs
-, starlette
-, brotli
-# check inputs
-, requests
-, mypy
-, brotlipy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  # build inputs
+  starlette,
+  brotli,
+  # check inputs
+  requests,
+  mypy,
+  brotlipy,
 }:
 let
   pname = "brotli-asgi";

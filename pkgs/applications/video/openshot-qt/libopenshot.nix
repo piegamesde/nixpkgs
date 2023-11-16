@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, alsa-lib
-, cmake
-, cppzmq
-, doxygen
-, ffmpeg
-, imagemagick
-, jsoncpp
-, libopenshot-audio
-, llvmPackages
-, pkg-config
-, python3
-, qtbase
-, qtmultimedia
-, swig
-, zeromq
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  cmake,
+  cppzmq,
+  doxygen,
+  ffmpeg,
+  imagemagick,
+  jsoncpp,
+  libopenshot-audio,
+  llvmPackages,
+  pkg-config,
+  python3,
+  qtbase,
+  qtmultimedia,
+  swig,
+  zeromq,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,9 +34,7 @@ stdenv.mkDerivation rec {
     sed -i 's/{UNITTEST++_INCLUDE_DIR}/ENV{UNITTEST++_INCLUDE_DIR}/g' tests/CMakeLists.txt
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [
-    alsa-lib
-  ] ++ [
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ alsa-lib ] ++ [
     cmake
     doxygen
     pkg-config
@@ -52,9 +51,7 @@ stdenv.mkDerivation rec {
     qtbase
     qtmultimedia
     zeromq
-  ] ++ lib.optionals stdenv.isDarwin [
-    llvmPackages.openmp
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ];
 
   dontWrapQtApps = true;
 

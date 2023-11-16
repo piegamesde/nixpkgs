@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, makeself
-, yasm
-, fuse
-, wxGTK
-, lvm2
-, substituteAll
-, e2fsprogs
-, exfat
-, ntfs3g
-, btrfs-progs
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  makeself,
+  yasm,
+  fuse,
+  wxGTK,
+  lvm2,
+  substituteAll,
+  e2fsprogs,
+  exfat,
+  ntfs3g,
+  btrfs-progs,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,7 +21,9 @@ stdenv.mkDerivation rec {
   version = "1.25.9";
 
   src = fetchurl {
-    url = "https://launchpad.net/${pname}/trunk/${lib.toLower version}/+download/VeraCrypt_${version}_Source.tar.bz2";
+    url = "https://launchpad.net/${pname}/trunk/${
+        lib.toLower version
+      }/+download/VeraCrypt_${version}_Source.tar.bz2";
     sha256 = "sha256-drbhgYS8IaQdKUn/Y9ch1JBUpxbO/zpL13tcNRC3lK8=";
   };
 
@@ -38,8 +41,17 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "src";
 
-  nativeBuildInputs = [ makeself pkg-config yasm wrapGAppsHook ];
-  buildInputs = [ fuse lvm2 wxGTK ];
+  nativeBuildInputs = [
+    makeself
+    pkg-config
+    yasm
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    fuse
+    lvm2
+    wxGTK
+  ];
 
   enableParallelBuilding = true;
 
@@ -56,7 +68,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Free Open-Source filesystem on-the-fly encryption";
     homepage = "https://www.veracrypt.fr/";
-    license = with licenses; [ asl20 /* and */ unfree /* TrueCrypt License version 3.0 */ ];
+    license = with licenses; [
+      asl20 # and
+      unfree # TrueCrypt License version 3.0
+    ];
     maintainers = with maintainers; [ dsferruzza ];
     platforms = platforms.linux;
   };

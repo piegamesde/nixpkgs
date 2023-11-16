@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, Carbon
-, Cocoa
-, ffmpeg
-, glib
-, libGLU
-, libICE
-, libX11
-, mesa
-, perl
-, pkg-config
-, proj
-, python3
-, wrapGAppsHook
-, wxGTK32
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  Carbon,
+  Cocoa,
+  ffmpeg,
+  glib,
+  libGLU,
+  libICE,
+  libX11,
+  mesa,
+  perl,
+  pkg-config,
+  proj,
+  python3,
+  wrapGAppsHook,
+  wxGTK32,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,13 +28,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-7NtGTe9xNRPEvG9fQ2fC6htQLEMHfqGmBM2ezhi6oNM=";
   };
 
-  patches = [
-    # Fix cavern.tst to work with SOURCE_DATE_EPOCH set
-    (fetchpatch {
-      url = "https://github.com/ojwb/survex/commit/b1200a60be7bdea20ffebbd8bb15386041727fa6.patch";
-      hash = "sha256-OtFjqpU+u8XGy+PAHg2iea++b681p/Kl8YslisBs4sA=";
-    })
-  ];
+  patches =
+    [
+      # Fix cavern.tst to work with SOURCE_DATE_EPOCH set
+      (fetchpatch {
+        url = "https://github.com/ojwb/survex/commit/b1200a60be7bdea20ffebbd8bb15386041727fa6.patch";
+        hash = "sha256-OtFjqpU+u8XGy+PAHg2iea++b681p/Kl8YslisBs4sA=";
+      })
+    ];
 
   nativeBuildInputs = [
     perl
@@ -42,22 +44,25 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    ffmpeg
-    glib
-    proj
-    wxGTK32
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Carbon
-    Cocoa
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    # TODO: libGLU doesn't build for macOS because of Mesa issues
-    # (#233265); is it required for anything?
-    libGLU
-    mesa
-    libICE
-    libX11
-  ];
+  buildInputs =
+    [
+      ffmpeg
+      glib
+      proj
+      wxGTK32
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      Carbon
+      Cocoa
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      # TODO: libGLU doesn't build for macOS because of Mesa issues
+      # (#233265); is it required for anything?
+      libGLU
+      mesa
+      libICE
+      libX11
+    ];
 
   postPatch = ''
     patchShebangs .

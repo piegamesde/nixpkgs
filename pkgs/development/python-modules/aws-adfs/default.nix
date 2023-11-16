@@ -1,19 +1,20 @@
-{ lib
-, boto3
-, botocore
-, buildPythonPackage
-, click
-, configparser
-, fetchFromGitHub
-, fido2
-, lxml
-, poetry-core
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-kerberos
-, toml
+{
+  lib,
+  boto3,
+  botocore,
+  buildPythonPackage,
+  click,
+  configparser,
+  fetchFromGitHub,
+  fido2,
+  lxml,
+  poetry-core,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-kerberos,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-IZeEb87NX3fyw1hENF1LldbgbaXXPG3u2AiCeci6MIw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     boto3
@@ -55,9 +54,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [
-    "aws_adfs"
-  ];
+  pythonImportsCheck = [ "aws_adfs" ];
 
   meta = with lib; {
     description = "Command line tool to ease AWS CLI authentication against ADFS";

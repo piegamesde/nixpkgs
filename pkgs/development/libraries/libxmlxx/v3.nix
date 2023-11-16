@@ -1,17 +1,36 @@
-{ lib, stdenv, fetchurl, pkg-config, libxml2, glibmm, perl, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  glibmm,
+  perl,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxml++";
   version = "3.0.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libxml++/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libxml++/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "19kik79fmg61nv0by0a5f9wchrcfjwzvih4v2waw01hqflhqvp0r";
   };
 
-  outputs = [ "out" "dev" "doc" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "devdoc"
+  ];
 
-  nativeBuildInputs = [ pkg-config perl ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
 
   buildInputs = [ glibmm ];
 

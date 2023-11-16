@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, automaticcomponenttoolkit
-, pkg-config, libzip, gtest, openssl, libuuid, libossp_uuid }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  automaticcomponenttoolkit,
+  pkg-config,
+  libzip,
+  gtest,
+  openssl,
+  libuuid,
+  libossp_uuid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lib3mf";
@@ -12,9 +24,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WMTTYYgpCIM86a6Jw8iah/YVXN9T5youzEieWL/d+Bc=";
   };
 
-  nativeBuildInputs = [ cmake ninja pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_INCLUDEDIR=include/lib3mf"
@@ -25,7 +44,9 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    libzip gtest openssl
+    libzip
+    gtest
+    openssl
   ] ++ (if stdenv.isDarwin then [ libossp_uuid ] else [ libuuid ]);
 
   postPatch = ''

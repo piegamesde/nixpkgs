@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, certifi
-, geckodriver
-, pytestCheckHook
-, pythonOlder
-, trio
-, trio-websocket
-, urllib3
-, nixosTests
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  certifi,
+  geckodriver,
+  pytestCheckHook,
+  pythonOlder,
+  trio,
+  trio-websocket,
+  urllib3,
+  nixosTests,
 }:
 
 buildPythonPackage rec {
@@ -42,9 +43,7 @@ buildPythonPackage rec {
     urllib3
   ] ++ urllib3.optional-dependencies.socks;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   passthru.tests = {
     testing-vaultwarden = nixosTests.vaultwarden;

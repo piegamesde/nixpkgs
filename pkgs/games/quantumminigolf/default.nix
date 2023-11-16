@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fftwSinglePrec, freetype, SDL, SDL_ttf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fftwSinglePrec,
+  freetype,
+  SDL,
+  SDL_ttf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quantumminigolf";
@@ -17,7 +25,9 @@ stdenv.mkDerivation rec {
   ];
 
   preBuild = ''
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${lib.getDev SDL}/include/SDL -I${SDL_ttf}/include/SDL"
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
+      lib.getDev SDL
+    }/include/SDL -I${SDL_ttf}/include/SDL"
 
     sed -re 's@"(gfx|fonts|tracks)/@"'"$out"'/share/quantumminigolf/\1/@g' -i *.cpp
   '';

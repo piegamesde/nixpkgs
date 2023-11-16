@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, substituteAll
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  substituteAll,
 
-, cmdstan
+  cmdstan,
 
-, pandas
-, numpy
-, tqdm
-, stanio
-, xarray
+  pandas,
+  numpy,
+  tqdm,
+  stanio,
+  xarray,
 
-, pytestCheckHook
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -53,9 +54,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.all;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.all;
 
   disabledTestPaths = [
     # No need to test these when using Nix

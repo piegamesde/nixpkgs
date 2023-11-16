@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchzip
-, fetchFromGitHub
-, cmake
-, vulkan-headers
-, vulkan-loader
-, glslang
-, libwebp
-, ncnn
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchFromGitHub,
+  cmake,
+  vulkan-headers,
+  vulkan-loader,
+  glslang,
+  libwebp,
+  ncnn,
 }:
 
 stdenv.mkDerivation rec {
@@ -42,7 +43,13 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ vulkan-headers vulkan-loader glslang libwebp ncnn ];
+  buildInputs = [
+    vulkan-headers
+    vulkan-loader
+    glslang
+    libwebp
+    ncnn
+  ];
 
   postPatch = ''
     substituteInPlace main.cpp --replace REPLACE_MODELS $out/share/models

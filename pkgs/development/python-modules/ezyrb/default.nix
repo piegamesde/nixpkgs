@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, future
-, numpy
-, scipy
-, matplotlib
-, scikit-learn
-, torch
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  future,
+  numpy,
+  scipy,
+  matplotlib,
+  scikit-learn,
+  torch,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -35,18 +36,15 @@ buildPythonPackage rec {
     torch
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ezyrb"
-  ];
+  pythonImportsCheck = [ "ezyrb" ];
 
-  disabledTestPaths = [
-    # Exclude long tests
-    "tests/test_podae.py"
-  ];
+  disabledTestPaths =
+    [
+      # Exclude long tests
+      "tests/test_podae.py"
+    ];
 
   meta = with lib; {
     description = "Easy Reduced Basis method";

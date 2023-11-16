@@ -1,11 +1,15 @@
 let
-  gopherRoot   = "/tmp/gopher";
-  gopherHost   = "gopherd";
+  gopherRoot = "/tmp/gopher";
+  gopherHost = "gopherd";
   gopherClient = "client";
-  fileContent  = "Hello Gopher!\n";
-  fileName     = "file.txt";
+  fileContent = ''
+    Hello Gopher!
+  '';
+  fileName = "file.txt";
 in
-  import ./make-test-python.nix ({...}: {
+import ./make-test-python.nix (
+  { ... }:
+  {
     name = "spacecookie";
     nodes = {
       ${gopherHost} = {
@@ -26,7 +30,7 @@ in
         };
       };
 
-      ${gopherClient} = {};
+      ${gopherClient} = { };
     };
 
     testScript = ''
@@ -53,4 +57,5 @@ in
       if not (["0", "1"] == dirEntries):
           raise Exception("Unexpected directory response")
     '';
-  })
+  }
+)

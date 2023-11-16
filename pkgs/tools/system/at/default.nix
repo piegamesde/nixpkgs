@@ -1,6 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, bison, flex, pam, perl
-, sendmailPath ? "/run/wrappers/bin/sendmail"
-, atWrapperPath ? "/run/wrappers/bin/at"
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  bison,
+  flex,
+  pam,
+  perl,
+  sendmailPath ? "/run/wrappers/bin/sendmail",
+  atWrapperPath ? "/run/wrappers/bin/at",
 }:
 
 stdenv.mkDerivation rec {
@@ -13,13 +21,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-uwZrOJ18m7nYSjVzgDK4XDDLp9lJ91gZKtxyyUd/07g=";
   };
 
-  patches = [
-    # Remove glibc assumption
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/riscv/riscv-poky/master/meta/recipes-extended/at/at/0001-remove-glibc-assumption.patch";
-      hash = "sha256-1UobqEZWoaq0S8DUDPuI80kTx0Gut2/VxDIwcKeGZOY=";
-    })
-  ];
+  patches =
+    [
+      # Remove glibc assumption
+      (fetchpatch {
+        url = "https://raw.githubusercontent.com/riscv/riscv-poky/master/meta/recipes-extended/at/at/0001-remove-glibc-assumption.patch";
+        hash = "sha256-1UobqEZWoaq0S8DUDPuI80kTx0Gut2/VxDIwcKeGZOY=";
+      })
+    ];
 
   postPatch = ''
     # Remove chown commands and setuid bit
@@ -37,17 +46,20 @@ stdenv.mkDerivation rec {
       --replace '6755' '0755'
   '';
 
-  nativeBuildInputs = [ bison flex perl /* for `prove` (tests) */ ];
+  nativeBuildInputs = [
+    bison
+    flex
+    perl # for `prove` (tests)
+  ];
 
   buildInputs = [ pam ];
 
-  preConfigure =
-    ''
-      export SENDMAIL=${sendmailPath}
-      # Purity: force atd.pid to be placed in /var/run regardless of
-      # whether it exists now.
-      substituteInPlace ./configure --replace "test -d /var/run" "true"
-    '';
+  preConfigure = ''
+    export SENDMAIL=${sendmailPath}
+    # Purity: force atd.pid to be placed in /var/run regardless of
+    # whether it exists now.
+    substituteInPlace ./configure --replace "test -d /var/run" "true"
+  '';
 
   configureFlags = [
     "--with-etcdir=/etc/at"

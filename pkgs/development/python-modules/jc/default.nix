@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPackages
-, buildPythonPackage
-, fetchFromGitHub
-, installShellFiles
-, ruamel-yaml
-, xmltodict
-, pygments
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPackages,
+  buildPythonPackage,
+  fetchFromGitHub,
+  installShellFiles,
+  ruamel-yaml,
+  xmltodict,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,15 +24,23 @@ buildPythonPackage rec {
     hash = "sha256-vAPWMv5vYFl45ZTl+p4HHAXeZ/10VSvubKINoyGPRq4=";
   };
 
-  propagatedBuildInputs = [ ruamel-yaml xmltodict pygments ];
+  propagatedBuildInputs = [
+    ruamel-yaml
+    xmltodict
+    pygments
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall = let emulator = stdenv.hostPlatform.emulator buildPackages; in ''
-    installShellCompletion --cmd jc \
-      --bash <(${emulator} $out/bin/jc --bash-comp) \
-      --zsh  <(${emulator} $out/bin/jc --zsh-comp)
-  '';
+  postInstall =
+    let
+      emulator = stdenv.hostPlatform.emulator buildPackages;
+    in
+    ''
+      installShellCompletion --cmd jc \
+        --bash <(${emulator} $out/bin/jc --bash-comp) \
+        --zsh  <(${emulator} $out/bin/jc --zsh-comp)
+    '';
 
   nativeCheckInputs = [ pytestCheckHook ];
 

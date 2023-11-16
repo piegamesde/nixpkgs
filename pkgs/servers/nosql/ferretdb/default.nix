@@ -1,7 +1,8 @@
-{ lib
-, buildGo121Module
-, fetchFromGitHub
-, nixosTests
+{
+  lib,
+  buildGo121Module,
+  fetchFromGitHub,
+  nixosTests,
 }:
 
 buildGo121Module rec {
@@ -41,6 +42,10 @@ buildGo121Module rec {
     description = "A truly Open Source MongoDB alternative";
     homepage = "https://www.ferretdb.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya noisersup julienmalka ];
+    maintainers = with maintainers; [
+      dit7ya
+      noisersup
+      julienmalka
+    ];
   };
 }

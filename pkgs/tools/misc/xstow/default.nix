@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, ncurses, autoreconfHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ncurses,
+  autoreconfHook,
+}:
 stdenv.mkDerivation rec {
   pname = "xstow";
   version = "1.1.0";
@@ -18,9 +24,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/Makefile.am --replace xstow-stow ""
   '';
 
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

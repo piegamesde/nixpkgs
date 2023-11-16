@@ -1,6 +1,7 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -14,9 +15,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-5Po0v0E/dc+nVHnHlJRZzv66B/DKYarwqTkS9+/ktC4=";
   };
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "Joypad autoconfig files";

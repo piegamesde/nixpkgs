@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, buildPythonApplication
-, substituteAll
-, fetchFromGitHub
-, isPy3k
-, colorama
-, flask
-, flask-httpauth
-, flask-socketio
-, cepa
-, psutil
-, pyqt5
-, pycrypto
-, pynacl
-, pyside2
-, pysocks
-, pytestCheckHook
-, qrcode
-, qt5
-, requests
-, unidecode
-, tor
-, obfs4
-, snowflake
+{
+  lib,
+  stdenv,
+  buildPythonApplication,
+  substituteAll,
+  fetchFromGitHub,
+  isPy3k,
+  colorama,
+  flask,
+  flask-httpauth,
+  flask-socketio,
+  cepa,
+  psutil,
+  pyqt5,
+  pycrypto,
+  pynacl,
+  pyside2,
+  pysocks,
+  pytestCheckHook,
+  qrcode,
+  qt5,
+  requests,
+  unidecode,
+  tor,
+  obfs4,
+  snowflake,
 }:
 
 let
@@ -60,21 +61,26 @@ let
 
   # TODO: package meek https://support.torproject.org/glossary/meek/
   meek = "/meek-not-available";
-
 in
 rec {
   onionshare = buildPythonApplication {
     pname = "onionshare-cli";
     inherit version meta;
     src = "${src}/cli";
-    patches = [
-      # hardcode store paths of dependencies
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit tor meek obfs4 snowflake;
-        inherit (tor) geoip;
-      })
-    ];
+    patches =
+      [
+        # hardcode store paths of dependencies
+        (substituteAll {
+          src = ./fix-paths.patch;
+          inherit
+            tor
+            meek
+            obfs4
+            snowflake
+          ;
+          inherit (tor) geoip;
+        })
+      ];
     propagatedBuildInputs = [
       colorama
       flask
@@ -93,23 +99,24 @@ rec {
       obfs4
     ];
 
-    nativeCheckInputs = [
-      pytestCheckHook
-    ];
+    nativeCheckInputs = [ pytestCheckHook ];
 
     preCheck = ''
       # Tests use the home directory
       export HOME="$(mktemp -d)"
     '';
 
-    disabledTests = [
-      "test_get_tor_paths_linux"  # expects /usr instead of /nix/store
-    ] ++ lib.optionals stdenv.isDarwin [
-      # on darwin (and only on darwin) onionshare attempts to discover
-      # user's *real* homedir via /etc/passwd, making it more painful
-      # to fake
-      "test_receive_mode_webhook"
-    ];
+    disabledTests =
+      [
+        "test_get_tor_paths_linux" # expects /usr instead of /nix/store
+      ]
+      ++ lib.optionals stdenv.isDarwin
+        [
+          # on darwin (and only on darwin) onionshare attempts to discover
+          # user's *real* homedir via /etc/passwd, making it more painful
+          # to fake
+          "test_receive_mode_webhook"
+        ];
   };
 
   onionshare-gui = buildPythonApplication {
@@ -120,7 +127,12 @@ rec {
       # hardcode store paths of dependencies
       (substituteAll {
         src = ./fix-paths-gui.patch;
-        inherit tor meek obfs4 snowflake;
+        inherit
+          tor
+          meek
+          obfs4
+          snowflake
+        ;
         inherit (tor) geoip;
       })
       ./fix-qrcode-gui.patch

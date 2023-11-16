@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivia_dot_level1";
   version = "trivia-20211020-git";
 
   description = "Core patterns of Trivia";
 
-  deps = [ args."alexandria" args."trivia_dot_level0" ];
+  deps = [
+    args."alexandria"
+    args."trivia_dot_level0"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "trivia.level1";
 
-  asdFilesToKeep = ["trivia.level1.asd"];
+  asdFilesToKeep = [ "trivia.level1.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivia.level1 DESCRIPTION Core patterns of Trivia SHA256
@@ -30,4 +33,5 @@ rec {
     (trivia trivia.balland2006 trivia.benchmark trivia.cffi trivia.fset
      trivia.level0 trivia.level2 trivia.ppcre trivia.quasiquote trivia.test
      trivia.trivial)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

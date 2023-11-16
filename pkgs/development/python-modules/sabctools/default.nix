@@ -14,14 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-wDgFXuxclmqMlRXyr9qpruJJcOXfOiOWTZXX53uYEB8=";
   };
 
-  pythonImportsCheck = ["sabctools"];
+  pythonImportsCheck = [ "sabctools" ];
 
-  passthru.tests = {inherit sabnzbd;};
+  passthru.tests = {
+    inherit sabnzbd;
+  };
 
   meta = with lib; {
     description = "C implementations of functions for use within SABnzbd";
     homepage = "https://github.com/sabnzbd/sabctools";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [adamcstephens];
+    maintainers = with maintainers; [ adamcstephens ];
   };
 }

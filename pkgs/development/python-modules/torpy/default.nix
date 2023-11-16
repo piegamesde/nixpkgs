@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cryptography
-, pytestCheckHook
-, requests
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cryptography,
+  pytestCheckHook,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -23,20 +24,17 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     cryptography
     requests
-   ];
-
-  nativeCheckInputs = [
-    pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # requires network
-    "tests/integration"
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cryptography"
-  ];
+  disabledTestPaths =
+    [
+      # requires network
+      "tests/integration"
+    ];
+
+  pythonImportsCheck = [ "cryptography" ];
 
   meta = with lib; {
     description = "Pure python Tor client";

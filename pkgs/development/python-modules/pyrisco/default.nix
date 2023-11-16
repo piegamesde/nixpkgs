@@ -1,8 +1,9 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-PQ1h9UVQ2DQMInxdAaLES7uDWAxwDra+YfAmz5jjV6g=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyrisco"
-  ];
+  pythonImportsCheck = [ "pyrisco" ];
 
   meta = with lib; {
     description = "Python interface to Risco alarm systems through Risco Cloud";

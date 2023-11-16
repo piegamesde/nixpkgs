@@ -1,4 +1,10 @@
-{ lib, buildNimPackage, fetchFromSourcehut, pkg-config, getdns }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromSourcehut,
+  pkg-config,
+  getdns,
+}:
 
 buildNimPackage rec {
   pname = "getdns";
@@ -14,7 +20,7 @@ buildNimPackage rec {
   propagatedBuildInputs = [ getdns ];
 
   checkPhase = "nim c tests/test_example_synchronous";
-    # The test requires network but check if it builds.
+  # The test requires network but check if it builds.
 
   meta = {
     inherit (getdns.meta) homepage license platforms;

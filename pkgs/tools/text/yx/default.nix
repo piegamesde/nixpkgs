@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitLab, libyaml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  libyaml,
+}:
 stdenv.mkDerivation rec {
   pname = "yx";
   version = "1.0.0";
@@ -10,9 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oY61V9xP0DwRooabzi0XtaFsQa2GwYbuvxfERXQtYcA=";
   };
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   strictDeps = true;
 

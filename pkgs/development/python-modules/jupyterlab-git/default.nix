@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, git
-, jupyter-server
-, jupyter-packaging
-, jupyterlab
-, nbdime
-, nbformat
-, pexpect
-, pytest-asyncio
-, pytest-tornasync
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  git,
+  jupyter-server,
+  jupyter-packaging,
+  jupyterlab,
+  nbdime,
+  nbformat,
+  pexpect,
+  pytest-asyncio,
+  pytest-tornasync,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-GFnox6KnwKWFqsUWY0QYzMShXlH9KFSY3rRJA4RAiCk=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-  ];
+  nativeBuildInputs = [ jupyter-packaging ];
 
   propagatedBuildInputs = [
     jupyter-server
@@ -63,9 +62,7 @@ buildPythonPackage rec {
     "test_Git_get_nbdiff_dict"
   ];
 
-  pythonImportsCheck = [
-    "jupyterlab_git"
-  ];
+  pythonImportsCheck = [ "jupyterlab_git" ];
 
   meta = with lib; {
     description = "Jupyter lab extension for version control with Git";

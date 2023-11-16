@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 
@@ -6,7 +11,8 @@ let
   cfg = config.services.zfs.autoReplication;
   recursive = optionalString cfg.recursive " --recursive";
   followDelete = optionalString cfg.followDelete " --follow-delete";
-in {
+in
+{
   options = {
     services.zfs.autoReplication = {
       enable = mkEnableOption (lib.mdDoc "ZFS snapshot replication");
@@ -18,7 +24,9 @@ in {
       };
 
       host = mkOption {
-        description = lib.mdDoc "Remote host where snapshots should be sent. `lz4` is expected to be installed on this host.";
+        description =
+          lib.mdDoc
+            "Remote host where snapshots should be sent. `lz4` is expected to be installed on this host.";
         example = "example.com";
         type = types.str;
       };
@@ -30,7 +38,9 @@ in {
       };
 
       localFilesystem = mkOption {
-        description = lib.mdDoc "Local ZFS filesystem from which snapshots should be sent.  Defaults to the attribute name.";
+        description =
+          lib.mdDoc
+            "Local ZFS filesystem from which snapshots should be sent.  Defaults to the attribute name.";
         example = "pool/file/path";
         type = types.str;
       };
@@ -56,9 +66,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.lz4
-    ];
+    environment.systemPackages = [ pkgs.lz4 ];
 
     systemd.services.zfs-replication = {
       after = [
@@ -69,11 +77,13 @@ in {
         "zfs-snapshot-weekly.service"
       ];
       description = "ZFS Snapshot Replication";
-      documentation = [
-        "https://github.com/alunduil/zfs-replicate"
-      ];
+      documentation = [ "https://github.com/alunduil/zfs-replicate" ];
       restartIfChanged = false;
-      serviceConfig.ExecStart = "${pkgs.zfs-replicate}/bin/zfs-replicate${recursive} -l ${escapeShellArg cfg.username} -i ${escapeShellArg cfg.identityFilePath}${followDelete} ${escapeShellArg cfg.host} ${escapeShellArg cfg.remoteFilesystem} ${escapeShellArg cfg.localFilesystem}";
+      serviceConfig.ExecStart = "${pkgs.zfs-replicate}/bin/zfs-replicate${recursive} -l ${
+          escapeShellArg cfg.username
+        } -i ${escapeShellArg cfg.identityFilePath}${followDelete} ${escapeShellArg cfg.host} ${
+          escapeShellArg cfg.remoteFilesystem
+        } ${escapeShellArg cfg.localFilesystem}";
       wantedBy = [
         "zfs-snapshot-daily.service"
         "zfs-snapshot-frequent.service"

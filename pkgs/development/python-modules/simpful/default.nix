@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, matplotlib
-, numpy
-, pytestCheckHook
-, pythonOlder
-, scipy
-, seaborn
-, requests
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  seaborn,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -51,9 +52,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "simpful"
-  ];
+  pythonImportsCheck = [ "simpful" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

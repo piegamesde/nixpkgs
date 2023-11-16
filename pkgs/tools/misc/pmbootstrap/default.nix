@@ -1,5 +1,15 @@
-{ stdenv, lib, git, openssl, buildPythonApplication, pytestCheckHook, ps
-, fetchPypi, fetchFromGitLab, sudo }:
+{
+  stdenv,
+  lib,
+  git,
+  openssl,
+  buildPythonApplication,
+  pytestCheckHook,
+  ps,
+  fetchPypi,
+  fetchFromGitLab,
+  sudo,
+}:
 
 buildPythonApplication rec {
   pname = "pmbootstrap";
@@ -23,7 +33,13 @@ buildPythonApplication rec {
   # Tests depend on sudo
   doCheck = stdenv.isLinux;
 
-  nativeCheckInputs = [ pytestCheckHook git openssl ps sudo ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    git
+    openssl
+    ps
+    sudo
+  ];
 
   # Add test dependency in PATH
   preCheck = "export PYTHONPATH=$PYTHONPATH:${pmb_test}";
@@ -95,7 +111,14 @@ buildPythonApplication rec {
     "test_check"
   ];
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ git openssl ]}" ];
+  makeWrapperArgs = [
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        git
+        openssl
+      ]
+    }"
+  ];
 
   meta = with lib; {
     description = "Sophisticated chroot/build/flash tool to develop and install postmarketOS";

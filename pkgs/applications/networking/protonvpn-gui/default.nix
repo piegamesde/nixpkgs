@@ -1,20 +1,22 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, wrapGAppsHook
-, gdk-pixbuf
-, glib-networking
-, gobject-introspection
-, imagemagick
-, librsvg
-, pango
-, webkitgtk
-# Python libs
-, protonvpn-nm-lib
-, psutil
-# Optionals
-, withIndicator ? true
-, libappindicator-gtk3 }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  glib-networking,
+  gobject-introspection,
+  imagemagick,
+  librsvg,
+  pango,
+  webkitgtk,
+  # Python libs
+  protonvpn-nm-lib,
+  psutil,
+  # Optionals
+  withIndicator ? true,
+  libappindicator-gtk3,
+}:
 
 buildPythonApplication rec {
   pname = "protonvpn-gui";

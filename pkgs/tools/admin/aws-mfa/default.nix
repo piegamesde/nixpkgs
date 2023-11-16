@@ -1,8 +1,9 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, fetchpatch
-, boto3
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  fetchpatch,
+  boto3,
 }:
 
 buildPythonApplication rec {
@@ -17,25 +18,22 @@ buildPythonApplication rec {
     hash = "sha256-XhnDri7QV8esKtx0SttWAvevE3SH2Yj2YMq/P4K6jK4=";
   };
 
-  patches = [
-    # https://github.com/broamski/aws-mfa/pull/87
-    (fetchpatch {
-      name = "remove-duplicate-script.patch";
-      url = "https://github.com/broamski/aws-mfa/commit/0d1624022c71cb92bb4436964b87f0b2ffd677ec.patch";
-      hash = "sha256-Bv8ffPbDysz87wLg2Xip+0yxaBfbEmu+x6fSXI8BVjA=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/broamski/aws-mfa/pull/87
+      (fetchpatch {
+        name = "remove-duplicate-script.patch";
+        url = "https://github.com/broamski/aws-mfa/commit/0d1624022c71cb92bb4436964b87f0b2ffd677ec.patch";
+        hash = "sha256-Bv8ffPbDysz87wLg2Xip+0yxaBfbEmu+x6fSXI8BVjA=";
+      })
+    ];
 
-  propagatedBuildInputs = [
-    boto3
-  ];
+  propagatedBuildInputs = [ boto3 ];
 
   # package has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "awsmfa"
-  ];
+  pythonImportsCheck = [ "awsmfa" ];
 
   meta = with lib; {
     description = "Manage AWS MFA Security Credentials";

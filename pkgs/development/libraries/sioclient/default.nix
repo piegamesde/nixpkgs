@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, asio
-, rapidjson
-, websocketpp
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  asio,
+  rapidjson,
+  websocketpp,
 }:
 
 stdenv.mkDerivation {
@@ -18,9 +19,7 @@ stdenv.mkDerivation {
     hash = "sha256-bkuFA6AvZvBpnO6Lixqx8Ux5Dy5NHWGB2y1VF7allC0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     asio

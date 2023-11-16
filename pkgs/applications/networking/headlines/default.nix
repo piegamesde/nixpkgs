@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, cmake
-, pkg-config
-, libmicrohttpd
-, curl
-, openssl
-, jsoncpp
-, libxml2
-, gst_all_1
-, boost
-, websocketpp
-, libadwaita
-, gtkmm4
-, libsecret
-, fetchFromGitLab
-, makeWrapper
-, xdg-utils
-, youtube-dl
-, ffmpeg
+{
+  lib,
+  stdenv,
+  cmake,
+  pkg-config,
+  libmicrohttpd,
+  curl,
+  openssl,
+  jsoncpp,
+  libxml2,
+  gst_all_1,
+  boost,
+  websocketpp,
+  libadwaita,
+  gtkmm4,
+  libsecret,
+  fetchFromGitLab,
+  makeWrapper,
+  xdg-utils,
+  youtube-dl,
+  ffmpeg,
 }:
 
 stdenv.mkDerivation rec {
@@ -37,28 +38,38 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    libmicrohttpd
-    curl
-    openssl
-    jsoncpp
-    libxml2
-    boost
-    websocketpp
-    libadwaita
-    gtkmm4
-    libsecret
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-libav
-    gst-plugins-base
-    (gst-plugins-good.override { gtkSupport = true; })
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      libmicrohttpd
+      curl
+      openssl
+      jsoncpp
+      libxml2
+      boost
+      websocketpp
+      libadwaita
+      gtkmm4
+      libsecret
+    ]
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-libav
+        gst-plugins-base
+        (gst-plugins-good.override { gtkSupport = true; })
+        gst-plugins-bad
+      ]
+    );
 
   postFixup = ''
     wrapProgram "$out/bin/headlines" \
-      --prefix PATH : "${lib.makeBinPath [ xdg-utils youtube-dl ffmpeg ]}" \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          xdg-utils
+          youtube-dl
+          ffmpeg
+        ]
+      }" \
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
   '';
 

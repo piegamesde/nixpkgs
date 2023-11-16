@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy27
-, regex
-, csvw
-, clldutils
-, mock
-, pytestCheckHook
-, pytest-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  regex,
+  csvw,
+  clldutils,
+  mock,
+  pytestCheckHook,
+  pytest-mock,
 }:
 
 buildPythonPackage rec {

@@ -1,9 +1,10 @@
-{ lib
-, stdenvNoCC
-, fetchzip
-, autoPatchelfHook
-, SDL2
-, practiceMod ? false
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  autoPatchelfHook,
+  SDL2,
+  practiceMod ? false,
 }:
 
 let
@@ -22,9 +23,7 @@ stdenvNoCC.mkDerivation {
     extension = "zip";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [ SDL2 ];
 
@@ -38,7 +37,9 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A PICO-8 platformer about climbing a mountain, made in four days${lib.optionalString practiceMod " (Practice Mod)"}";
+    description = "A PICO-8 platformer about climbing a mountain, made in four days${
+        lib.optionalString practiceMod " (Practice Mod)"
+      }";
     homepage = "https://celesteclassic.github.io/";
     license = licenses.unfree;
     platforms = platforms.linux;

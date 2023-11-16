@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, pytestCheckHook
-, tzlocal
-, pytest-mock
-, pytest-freezegun
-, pytest-raisin
-, pytest-socket
-, requests-mock
-, pook
-, numpy
-, rich
-, pebble
-, python-dateutil
-, termcolor
-, beautifulsoup4
-, setuptools
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  pytestCheckHook,
+  tzlocal,
+  pytest-mock,
+  pytest-freezegun,
+  pytest-raisin,
+  pytest-socket,
+  requests-mock,
+  pook,
+  numpy,
+  rich,
+  pebble,
+  python-dateutil,
+  termcolor,
+  beautifulsoup4,
+  setuptools,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -99,9 +100,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [
-    "aocd"
-  ];
+  pythonImportsCheck = [ "aocd" ];
 
   meta = with lib; {
     description = "Get your Advent of Code data with a single import statement";

@@ -1,4 +1,8 @@
-{ stdenvNoCC, lib, fetchurl }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "fasm-bin";
@@ -19,6 +23,9 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://flatassembler.net/download.php";
     license = licenses.bsd2;
     maintainers = with maintainers; [ orivej ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

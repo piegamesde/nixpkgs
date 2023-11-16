@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, tabulate
-, pytestCheckHook
-, requests-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  tabulate,
+  pytestCheckHook,
+  requests-mock,
 }:
 
 buildPythonPackage {
@@ -26,17 +27,11 @@ buildPythonPackage {
     tabulate
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    requests-mock
-  ];
+  checkInputs = [ requests-mock ];
 
-  pythonImportsCheck = [
-    "remotezip"
-  ];
+  pythonImportsCheck = [ "remotezip" ];
 
   meta = with lib; {
     description = "Python module to access single members of a zip archive without downloading the full content";

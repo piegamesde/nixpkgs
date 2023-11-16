@@ -1,4 +1,13 @@
-{ fetchFromGitHub, gperf, openssl, readline, zlib, cmake, lib, stdenv }:
+{
+  fetchFromGitHub,
+  gperf,
+  openssl,
+  readline,
+  zlib,
+  cmake,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tdlib";
@@ -15,20 +24,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-mbhxuJjrV3nC8Ja7N0WWF9ByHovJLmoLLuuzoU4khjU=";
   };
 
-  buildInputs = [ gperf openssl readline zlib ];
+  buildInputs = [
+    gperf
+    openssl
+    readline
+    zlib
+  ];
   nativeBuildInputs = [ cmake ];
 
   # https://github.com/tdlib/td/issues/1974
-  postPatch = ''
-    substituteInPlace CMake/GeneratePkgConfig.cmake \
-      --replace 'function(generate_pkgconfig' \
-                'include(GNUInstallDirs)
-                 function(generate_pkgconfig' \
-      --replace '\$'{prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \
-      --replace '\$'{prefix}/'$'{CMAKE_INSTALL_INCLUDEDIR} '$'{CMAKE_INSTALL_FULL_INCLUDEDIR}
-  '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-    sed -i "/vptr/d" test/CMakeLists.txt
-  '';
+  postPatch =
+    ''
+      substituteInPlace CMake/GeneratePkgConfig.cmake \
+        --replace 'function(generate_pkgconfig' \
+                  'include(GNUInstallDirs)
+                   function(generate_pkgconfig' \
+        --replace '\$'{prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \
+        --replace '\$'{prefix}/'$'{CMAKE_INSTALL_INCLUDEDIR} '$'{CMAKE_INSTALL_FULL_INCLUDEDIR}
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+      sed -i "/vptr/d" test/CMakeLists.txt
+    '';
 
   meta = with lib; {
     description = "Cross-platform library for building Telegram clients";

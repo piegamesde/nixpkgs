@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, setuptools
-, setuptools-scm
-, wheel
-, arrow
-, requests
-, units
-, pint
-, pydantic
-, pytz
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  arrow,
+  requests,
+  units,
+  pint,
+  pydantic,
+  pytz,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   propagatedBuildInputs = [
     arrow

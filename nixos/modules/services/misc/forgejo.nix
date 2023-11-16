@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.forgejo;
@@ -28,29 +34,210 @@ let
     optionals
     optionalString
     types
-    ;
+  ;
 in
 {
   imports = [
-    (mkRenamedOptionModule [ "services" "forgejo" "appName" ] [ "services" "forgejo" "settings" "DEFAULT" "APP_NAME" ])
-    (mkRemovedOptionModule [ "services" "forgejo" "extraConfig" ] "services.forgejo.extraConfig has been removed. Please use the freeform services.forgejo.settings option instead")
-    (mkRemovedOptionModule [ "services" "forgejo" "database" "password" ] "services.forgejo.database.password has been removed. Please use services.forgejo.database.passwordFile instead")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "appName"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "DEFAULT"
+        "APP_NAME"
+      ]
+    )
+    (mkRemovedOptionModule
+      [
+        "services"
+        "forgejo"
+        "extraConfig"
+      ]
+      "services.forgejo.extraConfig has been removed. Please use the freeform services.forgejo.settings option instead"
+    )
+    (mkRemovedOptionModule
+      [
+        "services"
+        "forgejo"
+        "database"
+        "password"
+      ]
+      "services.forgejo.database.password has been removed. Please use services.forgejo.database.passwordFile instead"
+    )
 
     # copied from services.gitea; remove at some point
-    (mkRenamedOptionModule [ "services" "forgejo" "cookieSecure" ] [ "services" "forgejo" "settings" "session" "COOKIE_SECURE" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "disableRegistration" ] [ "services" "forgejo" "settings" "service" "DISABLE_REGISTRATION" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "domain" ] [ "services" "forgejo" "settings" "server" "DOMAIN" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "httpAddress" ] [ "services" "forgejo" "settings" "server" "HTTP_ADDR" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "httpPort" ] [ "services" "forgejo" "settings" "server" "HTTP_PORT" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "log" "level" ] [ "services" "forgejo" "settings" "log" "LEVEL" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "log" "rootPath" ] [ "services" "forgejo" "settings" "log" "ROOT_PATH" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "rootUrl" ] [ "services" "forgejo" "settings" "server" "ROOT_URL" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "ssh" "clonePort" ] [ "services" "forgejo" "settings" "server" "SSH_PORT" ])
-    (mkRenamedOptionModule [ "services" "forgejo" "staticRootPath" ] [ "services" "forgejo" "settings" "server" "STATIC_ROOT_PATH" ])
-    (mkChangedOptionModule [ "services" "forgejo" "enableUnixSocket" ] [ "services" "forgejo" "settings" "server" "PROTOCOL" ] (
-      config: if config.services.forgejo.enableUnixSocket then "http+unix" else "http"
-    ))
-    (mkRemovedOptionModule [ "services" "forgejo" "ssh" "enable" ] "services.forgejo.ssh.enable has been migrated into freeform setting services.forgejo.settings.server.DISABLE_SSH. Keep in mind that the setting is inverted")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "cookieSecure"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "session"
+        "COOKIE_SECURE"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "disableRegistration"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "service"
+        "DISABLE_REGISTRATION"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "domain"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "server"
+        "DOMAIN"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "httpAddress"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "server"
+        "HTTP_ADDR"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "httpPort"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "server"
+        "HTTP_PORT"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "log"
+        "level"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "log"
+        "LEVEL"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "log"
+        "rootPath"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "log"
+        "ROOT_PATH"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "rootUrl"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "server"
+        "ROOT_URL"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "ssh"
+        "clonePort"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "server"
+        "SSH_PORT"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "services"
+        "forgejo"
+        "staticRootPath"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "server"
+        "STATIC_ROOT_PATH"
+      ]
+    )
+    (mkChangedOptionModule
+      [
+        "services"
+        "forgejo"
+        "enableUnixSocket"
+      ]
+      [
+        "services"
+        "forgejo"
+        "settings"
+        "server"
+        "PROTOCOL"
+      ]
+      (config: if config.services.forgejo.enableUnixSocket then "http+unix" else "http")
+    )
+    (mkRemovedOptionModule
+      [
+        "services"
+        "forgejo"
+        "ssh"
+        "enable"
+      ]
+      "services.forgejo.ssh.enable has been migrated into freeform setting services.forgejo.settings.server.DISABLE_SSH. Keep in mind that the setting is inverted"
+    )
   ];
 
   options = {
@@ -100,7 +287,11 @@ in
 
       database = {
         type = mkOption {
-          type = types.enum [ "sqlite3" "mysql" "postgres" ];
+          type = types.enum [
+            "sqlite3"
+            "mysql"
+            "postgres"
+          ];
           example = "mysql";
           default = "sqlite3";
           description = mdDoc "Database engine to use.";
@@ -147,7 +338,13 @@ in
 
         socket = mkOption {
           type = types.nullOr types.path;
-          default = if (cfg.database.createDatabase && usePostgresql) then "/run/postgresql" else if (cfg.database.createDatabase && useMysql) then "/run/mysqld/mysqld.sock" else null;
+          default =
+            if (cfg.database.createDatabase && usePostgresql) then
+              "/run/postgresql"
+            else if (cfg.database.createDatabase && useMysql) then
+              "/run/mysqld/mysqld.sock"
+            else
+              null;
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
           description = mdDoc "Path to the unix socket file to use for authentication.";
@@ -168,7 +365,10 @@ in
       };
 
       dump = {
-        enable = mkEnableOption (mdDoc "periodic dumps via the [built-in {command}`dump` command](https://forgejo.org/docs/latest/admin/command-line/#dump)");
+        enable = mkEnableOption (
+          mdDoc
+            "periodic dumps via the [built-in {command}`dump` command](https://forgejo.org/docs/latest/admin/command-line/#dump)"
+        );
 
         interval = mkOption {
           type = types.str;
@@ -190,7 +390,17 @@ in
         };
 
         type = mkOption {
-          type = types.enum [ "zip" "tar" "tar.sz" "tar.gz" "tar.xz" "tar.bz2" "tar.br" "tar.lz4" "tar.zst" ];
+          type = types.enum [
+            "zip"
+            "tar"
+            "tar.sz"
+            "tar.gz"
+            "tar.xz"
+            "tar.bz2"
+            "tar.br"
+            "tar.lz4"
+            "tar.zst"
+          ];
           default = "zip";
           description = mdDoc "Archive format used to store the dump file.";
         };
@@ -198,7 +408,9 @@ in
         file = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = mdDoc "Filename to be used for the dump. If `null` a default name is chosen by forgejo.";
+          description =
+            mdDoc
+              "Filename to be used for the dump. If `null` a default name is chosen by forgejo.";
           example = "forgejo-dump";
         };
       };
@@ -271,22 +483,42 @@ in
               };
               LEVEL = mkOption {
                 default = "Info";
-                type = types.enum [ "Trace" "Debug" "Info" "Warn" "Error" "Critical" ];
+                type = types.enum [
+                  "Trace"
+                  "Debug"
+                  "Info"
+                  "Warn"
+                  "Error"
+                  "Critical"
+                ];
                 description = mdDoc "General log level.";
               };
             };
 
             server = {
               PROTOCOL = mkOption {
-                type = types.enum [ "http" "https" "fcgi" "http+unix" "fcgi+unix" ];
+                type = types.enum [
+                  "http"
+                  "https"
+                  "fcgi"
+                  "http+unix"
+                  "fcgi+unix"
+                ];
                 default = "http";
                 description = mdDoc ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
               };
 
               HTTP_ADDR = mkOption {
                 type = types.either types.str types.path;
-                default = if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/forgejo/forgejo.sock" else "0.0.0.0";
-                defaultText = literalExpression ''if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/forgejo/forgejo.sock" else "0.0.0.0"'';
+                default =
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then
+                    "/run/forgejo/forgejo.sock"
+                  else
+                    "0.0.0.0";
+                defaultText =
+                  literalExpression
+                    ''
+                      if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/forgejo/forgejo.sock" else "0.0.0.0"'';
                 description = mdDoc "Listen address. Must be a path when using a unix socket.";
               };
 
@@ -305,7 +537,10 @@ in
               ROOT_URL = mkOption {
                 type = types.str;
                 default = "http://${cfg.settings.server.DOMAIN}:${toString cfg.settings.server.HTTP_PORT}/";
-                defaultText = literalExpression ''"http://''${config.services.forgejo.settings.server.DOMAIN}:''${toString config.services.forgejo.settings.server.HTTP_PORT}/"'';
+                defaultText =
+                  literalExpression
+                    ''
+                      "http://''${config.services.forgejo.settings.server.DOMAIN}:''${toString config.services.forgejo.settings.server.HTTP_PORT}/"'';
                 description = mdDoc "Full public URL of Forgejo server.";
               };
 
@@ -367,21 +602,19 @@ in
       };
 
       database = mkMerge [
-        {
-          DB_TYPE = cfg.database.type;
-        }
+        { DB_TYPE = cfg.database.type; }
         (mkIf (useMysql || usePostgresql) {
-          HOST = if cfg.database.socket != null then cfg.database.socket else cfg.database.host + ":" + toString cfg.database.port;
+          HOST =
+            if cfg.database.socket != null then
+              cfg.database.socket
+            else
+              cfg.database.host + ":" + toString cfg.database.port;
           NAME = cfg.database.name;
           USER = cfg.database.user;
           PASSWD = "#dbpass#";
         })
-        (mkIf useSqlite {
-          PATH = cfg.database.path;
-        })
-        (mkIf usePostgresql {
-          SSL_MODE = "disable";
-        })
+        (mkIf useSqlite { PATH = cfg.database.path; })
+        (mkIf usePostgresql { SSL_MODE = "disable"; })
       ];
 
       repository = {
@@ -403,17 +636,13 @@ in
         INSTALL_LOCK = true;
       };
 
-      mailer = mkIf (cfg.mailerPasswordFile != null) {
-        PASSWD = "#mailerpass#";
-      };
+      mailer = mkIf (cfg.mailerPasswordFile != null) { PASSWD = "#mailerpass#"; };
 
       oauth2 = {
         JWT_SECRET = "#oauth2jwtsecret#";
       };
 
-      lfs = mkIf cfg.lfs.enable {
-        PATH = cfg.lfs.contentDir;
-      };
+      lfs = mkIf cfg.lfs.enable { PATH = cfg.lfs.contentDir; };
     };
 
     services.postgresql = optionalAttrs (usePostgresql && cfg.database.createDatabase) {
@@ -423,7 +652,9 @@ in
       ensureUsers = [
         {
           name = cfg.database.user;
-          ensurePermissions = { "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES"; };
+          ensurePermissions = {
+            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+          };
         }
       ];
     };
@@ -431,13 +662,18 @@ in
     # Work around 'pq: permission denied for schema public' with postgres v15, until a
     # solution for `services.postgresql.ensureUsers` is found.
     # See https://github.com/NixOS/nixpkgs/issues/216989
-    systemd.services.postgresql.postStart = lib.mkIf (
-      usePostgresql
-      && cfg.database.createDatabase
-      && lib.strings.versionAtLeast config.services.postgresql.package.version "15.0"
-    ) (lib.mkAfter ''
-      $PSQL -tAc 'ALTER DATABASE "${cfg.database.name}" OWNER TO "${cfg.database.user}";'
-    '');
+    systemd.services.postgresql.postStart =
+      lib.mkIf
+        (
+          usePostgresql
+          && cfg.database.createDatabase
+          && lib.strings.versionAtLeast config.services.postgresql.package.version "15.0"
+        )
+        (
+          lib.mkAfter ''
+            $PSQL -tAc 'ALTER DATABASE "${cfg.database.name}" OWNER TO "${cfg.database.user}";'
+          ''
+        );
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
       enable = mkDefault true;
@@ -447,55 +683,56 @@ in
       ensureUsers = [
         {
           name = cfg.database.user;
-          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
         }
       ];
     };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
-      "d '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/.ssh' 0700 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
+    systemd.tmpfiles.rules =
+      [
+        "d '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.dump.backupDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.repositoryRoot}' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
+        "d '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/.ssh' 0700 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.customDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.customDir}/conf' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/data' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.stateDir}/log' 0750 ${cfg.user} ${cfg.group} - -"
 
-      # If we have a folder or symlink with Forgejo locales, remove it
-      # And symlink the current Forgejo locales in place
-      "L+ '${cfg.stateDir}/conf/locale' - - - - ${cfg.package.out}/locale"
-
-    ] ++ optionals cfg.lfs.enable [
-      "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      "z '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
-    ];
+        # If we have a folder or symlink with Forgejo locales, remove it
+        # And symlink the current Forgejo locales in place
+        "L+ '${cfg.stateDir}/conf/locale' - - - - ${cfg.package.out}/locale"
+      ]
+      ++ optionals cfg.lfs.enable [
+        "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
+        "z '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
+      ];
 
     systemd.services.forgejo = {
       description = "Forgejo (Beyond coding. We forge.)";
       after = [
         "network.target"
-      ] ++ optionals usePostgresql [
-        "postgresql.service"
-      ] ++ optionals useMysql [
-        "mysql.service"
-      ];
-      requires = optionals (cfg.database.createDatabase && usePostgresql) [
-        "postgresql.service"
-      ] ++ optionals (cfg.database.createDatabase && useMysql) [
-        "mysql.service"
-      ];
+      ] ++ optionals usePostgresql [ "postgresql.service" ] ++ optionals useMysql [ "mysql.service" ];
+      requires =
+        optionals (cfg.database.createDatabase && usePostgresql) [ "postgresql.service" ]
+        ++ optionals (cfg.database.createDatabase && useMysql) [ "mysql.service" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package pkgs.git pkgs.gnupg ];
+      path = [
+        cfg.package
+        pkgs.git
+        pkgs.gnupg
+      ];
 
       # In older versions the secret naming for JWT was kind of confusing.
       # The file jwt_secret hold the value for LFS_JWT_SECRET and JWT_SECRET
@@ -533,11 +770,13 @@ in
                   ${exe} generate secret JWT_SECRET > '${oauth2JwtSecret}'
               fi
 
-              ${optionalString cfg.lfs.enable ''
-              if [ ! -s '${lfsJwtSecret}' ]; then
-                  ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
-              fi
-              ''}
+              ${
+                optionalString cfg.lfs.enable ''
+                  if [ ! -s '${lfsJwtSecret}' ]; then
+                      ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
+                  fi
+                ''
+              }
 
               if [ ! -s '${internalToken}' ]; then
                   ${exe} generate secret INTERNAL_TOKEN > '${internalToken}'
@@ -548,17 +787,23 @@ in
               ${replaceSecretBin} '#oauth2jwtsecret#' '${oauth2JwtSecret}' '${runConfig}'
               ${replaceSecretBin} '#internaltoken#' '${internalToken}' '${runConfig}'
 
-              ${optionalString cfg.lfs.enable ''
-                ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
-              ''}
+              ${
+                optionalString cfg.lfs.enable ''
+                  ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
+                ''
+              }
 
-              ${optionalString (cfg.database.passwordFile != null) ''
-                ${replaceSecretBin} '#dbpass#' '${cfg.database.passwordFile}' '${runConfig}'
-              ''}
+              ${
+                optionalString (cfg.database.passwordFile != null) ''
+                  ${replaceSecretBin} '#dbpass#' '${cfg.database.passwordFile}' '${runConfig}'
+                ''
+              }
 
-              ${optionalString (cfg.mailerPasswordFile != null) ''
-                ${replaceSecretBin} '#mailerpass#' '${cfg.mailerPasswordFile}' '${runConfig}'
-              ''}
+              ${
+                optionalString (cfg.mailerPasswordFile != null) ''
+                  ${replaceSecretBin} '#mailerpass#' '${cfg.mailerPasswordFile}' '${runConfig}'
+                ''
+              }
               chmod u-w '${runConfig}'
             }
             (umask 027; forgejo_setup)
@@ -591,7 +836,13 @@ in
         ProcSubset = "pid";
         ProtectProc = "invisible";
         # Access write directories
-        ReadWritePaths = [ cfg.customDir cfg.dump.backupDir cfg.repositoryRoot cfg.stateDir cfg.lfs.contentDir ];
+        ReadWritePaths = [
+          cfg.customDir
+          cfg.dump.backupDir
+          cfg.repositoryRoot
+          cfg.stateDir
+          cfg.lfs.contentDir
+        ];
         UMask = "0027";
         # Capabilities
         CapabilityBoundingSet = "";
@@ -609,7 +860,11 @@ in
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -619,7 +874,10 @@ in
         PrivateMounts = true;
         # System Call Filtering
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" "setrlimit" ];
+        SystemCallFilter = [
+          "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
+          "setrlimit"
+        ];
       };
 
       environment = {
@@ -643,9 +901,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "forgejo") {
-      forgejo = { };
-    };
+    users.groups = mkIf (cfg.group == "forgejo") { forgejo = { }; };
 
     systemd.services.forgejo-dump = mkIf cfg.dump.enable {
       description = "forgejo dump";
@@ -664,7 +920,9 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = cfg.user;
-        ExecStart = "${exe} dump --type ${cfg.dump.type}" + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
+        ExecStart =
+          "${exe} dump --type ${cfg.dump.type}"
+          + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
         WorkingDirectory = cfg.dump.backupDir;
       };
     };
@@ -677,5 +935,8 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ bendlas emilylange ];
+  meta.maintainers = with lib.maintainers; [
+    bendlas
+    emilylange
+  ];
 }

@@ -1,12 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numba
-, numpy
-, pillow
-, scipy
-, pytestCheckHook
-,
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numba,
+  numpy,
+  pillow,
+  scipy,
+  pytestCheckHook,
 }:
 buildPythonPackage rec {
   pname = "pymatting";
@@ -31,9 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pymatting" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # no access to input data set
@@ -52,4 +50,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ blaggacao ];
   };
 }
-

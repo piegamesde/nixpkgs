@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-uZ5F8W1K1BDrXrvH1dOeNT1+2n6G8K1S5NxcRaez6pI=";
   };
 
-  pythonImportsCheck = [
-    "pure_pcapy"
-  ];
+  pythonImportsCheck = [ "pure_pcapy" ];
 
   meta = with lib; {
     description = "Reimplementation of pcapy";

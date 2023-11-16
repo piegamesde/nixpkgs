@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -17,9 +18,7 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-fOSFOUrcxw/77vgPziigkSea93xR2k0Tr/cMGtX+3tc=";
 
-  subPackages = [
-    "apps/cnspec"
-  ];
+  subPackages = [ "apps/cnspec" ];
 
   ldflags = [
     "-s"

@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, substituteAll
-, buildPythonPackage
-, fetchPypi
-, catch2
-, cmake
-, cxxopts
-, ghc_filesystem
-, pybind11
-, pytestCheckHook
-, pythonOlder
-, psutil
-, setuptools-scm
+{
+  stdenv,
+  lib,
+  substituteAll,
+  buildPythonPackage,
+  fetchPypi,
+  catch2,
+  cmake,
+  cxxopts,
+  ghc_filesystem,
+  pybind11,
+  pytestCheckHook,
+  pythonOlder,
+  psutil,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -24,17 +25,21 @@ buildPythonPackage rec {
     hash = "sha256-TMRf9549z3IQzGt5c53Rk1Vq3tdrpZ3Pqc8jhj4AKzo=";
   };
 
-  patches = [
-    # prevent CMake from trying to get libraries on the Internet
-    (substituteAll {
-      src = ./dont_fetch_dependencies.patch;
-      inherit cxxopts ghc_filesystem;
-      catch2_src = catch2.src;
-      pybind11_src = pybind11.src;
-    })
-  ];
+  patches =
+    [
+      # prevent CMake from trying to get libraries on the Internet
+      (substituteAll {
+        src = ./dont_fetch_dependencies.patch;
+        inherit cxxopts ghc_filesystem;
+        catch2_src = catch2.src;
+        pybind11_src = pybind11.src;
+      })
+    ];
 
-  nativeBuildInputs = [ cmake setuptools-scm ];
+  nativeBuildInputs = [
+    cmake
+    setuptools-scm
+  ];
 
   buildInputs = [ pybind11 ];
 

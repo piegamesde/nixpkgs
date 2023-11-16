@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, flit-core
-, docutils
-, mistune
-, pygments
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  flit-core,
+  docutils,
+  mistune,
+  pygments,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,10 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ flit-core ];
-  propagatedBuildInputs = [ mistune docutils ];
+  propagatedBuildInputs = [
+    mistune
+    docutils
+  ];
 
   nativeCheckInputs = [ pygments ];
 

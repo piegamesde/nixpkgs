@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ansible-core
-, flaky
-, pytest-mock
-, pytestCheckHook
-, pyyaml
-, setuptools-scm
-, subprocess-tee
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ansible-core,
+  flaky,
+  pytest-mock,
+  pytestCheckHook,
+  pyyaml,
+  setuptools-scm,
+  subprocess-tee,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-K+jHtRDS4V7tHp70QyCdZ9muyPQnAmuIk21FNf9Zhj0=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     pyyaml
@@ -58,9 +57,7 @@ buildPythonPackage rec {
     "test_runtime"
   ];
 
-  pythonImportsCheck = [
-    "ansible_compat"
-  ];
+  pythonImportsCheck = [ "ansible_compat" ];
 
   meta = with lib; {
     description = "Function collection that help interacting with various versions of Ansible";

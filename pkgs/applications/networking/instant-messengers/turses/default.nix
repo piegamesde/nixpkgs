@@ -1,8 +1,9 @@
-{ lib
-, fetchpatch
-, fetchFromGitHub
-, fetchPypi
-, python3
+{
+  lib,
+  fetchpatch,
+  fetchFromGitHub,
+  fetchPypi,
+  python3,
 }:
 
 let
@@ -11,21 +12,23 @@ let
 
       # Support for later tweepy releases is missing
       # https://github.com/louipc/turses/issues/12
-      tweepy = super.tweepy.overridePythonAttrs (oldAttrs: rec {
-        version = "3.10.0";
+      tweepy = super.tweepy.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "3.10.0";
 
-        src = fetchFromGitHub {
-          owner = "tweepy";
-          repo = "tweepy";
-          rev = "v${version}";
-          sha256 = "0k4bdlwjna6f1k19jki4xqgckrinkkw8b9wihzymr1l04rwd05nw";
-        };
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-          super.six
-          super.requests.optional-dependencies.socks
-        ];
-        doCheck = false;
-      });
+          src = fetchFromGitHub {
+            owner = "tweepy";
+            repo = "tweepy";
+            rev = "v${version}";
+            sha256 = "0k4bdlwjna6f1k19jki4xqgckrinkkw8b9wihzymr1l04rwd05nw";
+          };
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+            super.six
+            super.requests.optional-dependencies.socks
+          ];
+          doCheck = false;
+        }
+      );
     };
   };
 in

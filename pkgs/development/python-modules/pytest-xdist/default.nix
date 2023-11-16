@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools-scm
-, pytestCheckHook
-, filelock
-, execnet
-, pytest
-, psutil
-, setproctitle
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  pytestCheckHook,
+  filelock,
+  execnet,
+  pytest,
+  psutil,
+  setproctitle,
 }:
 
 buildPythonPackage rec {
@@ -23,17 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-1e4FIOsbe8ylCmClGKt6dweZKBLFeBmPi0T9+seOjJM=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    execnet
-  ];
+  propagatedBuildInputs = [ execnet ];
 
   nativeCheckInputs = [
     filelock
@@ -45,10 +40,11 @@ buildPythonPackage rec {
     setproctitle = [ setproctitle ];
   };
 
-  pytestFlagsArray = [
-    # pytest can already use xdist at this point
-    "--numprocesses=$NIX_BUILD_CORES"
-  ];
+  pytestFlagsArray =
+    [
+      # pytest can already use xdist at this point
+      "--numprocesses=$NIX_BUILD_CORES"
+    ];
 
   # access file system
   disabledTests = [

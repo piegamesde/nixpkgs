@@ -1,16 +1,16 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, hatch-vcs
-, hatchling
-, jsonschema
-, pytest-subtests
-, pytestCheckHook
-, pythonOlder
-, rpds-py
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatch-vcs,
+  hatchling,
+  jsonschema,
+  pytest-subtests,
+  pytestCheckHook,
+  pythonOlder,
+  rpds-py,
 }:
-
 
 let
   self = buildPythonPackage rec {
@@ -51,9 +51,7 @@ let
 
     passthru.tests.referencing = self.overridePythonAttrs { doCheck = true; };
 
-    pythonImportsCheck = [
-      "referencing"
-    ];
+    pythonImportsCheck = [ "referencing" ];
 
     meta = with lib; {
       description = "Cross-specification JSON referencing";
@@ -64,4 +62,4 @@ let
     };
   };
 in
-  self
+self

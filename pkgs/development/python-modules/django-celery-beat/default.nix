@@ -1,17 +1,18 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, python-crontab
-, celery
-, cron-descriptor
-, django-timezone-field
-, tzdata
-, ephem
-, pytest-timeout
-, pytest-django
-, case
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  python-crontab,
+  celery,
+  cron-descriptor,
+  django-timezone-field,
+  tzdata,
+  ephem,
+  pytest-timeout,
+  pytest-django,
+  case,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -42,14 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Connection error
-    "t/unit/test_schedulers.py"
-  ];
+  disabledTestPaths =
+    [
+      # Connection error
+      "t/unit/test_schedulers.py"
+    ];
 
-  pythonImportsCheck = [
-    "django_celery_beat"
-  ];
+  pythonImportsCheck = [ "django_celery_beat" ];
 
   meta = with lib; {
     description = "Celery Periodic Tasks backed by the Django ORM";

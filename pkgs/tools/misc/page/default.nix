@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, fetchpatch, installShellFiles }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "page";
@@ -13,14 +19,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-ctYQMBAdSUfEek2vcCa3gnI9N6ZG9b+VvtAzT20jlXY=";
 
-  cargoPatches = [
-    # Cargo.lock is outdated.
-    # https://github.com/I60R/page/pull/45.
-    (fetchpatch {
-      url = "https://github.com/I60R/page/commit/83f936b64620ba74043c1db31207b4366c0f7e3d.patch";
-      hash = "sha256-qA5oP4K/6eG0A+syVNb1izl+bnYll5V6sWM3LVFTb4o=";
-    })
-  ];
+  cargoPatches =
+    [
+      # Cargo.lock is outdated.
+      # https://github.com/I60R/page/pull/45.
+      (fetchpatch {
+        url = "https://github.com/I60R/page/commit/83f936b64620ba74043c1db31207b4366c0f7e3d.patch";
+        hash = "sha256-qA5oP4K/6eG0A+syVNb1izl+bnYll5V6sWM3LVFTb4o=";
+      })
+    ];
 
   nativeBuildInputs = [ installShellFiles ];
   postInstall = ''

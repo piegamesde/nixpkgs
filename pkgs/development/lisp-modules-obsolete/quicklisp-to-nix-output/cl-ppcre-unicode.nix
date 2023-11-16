@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-ppcre-unicode";
   version = "cl-ppcre-20190521-git";
@@ -8,7 +8,12 @@ rec {
 
   description = "Perl-compatible regular expression library (Unicode)";
 
-  deps = [ args."cl-ppcre" args."cl-ppcre-test" args."cl-unicode" args."flexi-streams" ];
+  deps = [
+    args."cl-ppcre"
+    args."cl-ppcre-test"
+    args."cl-unicode"
+    args."flexi-streams"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-ppcre/2019-05-21/cl-ppcre-20190521-git.tgz";
@@ -17,7 +22,7 @@ rec {
 
   packageName = "cl-ppcre-unicode";
 
-  asdFilesToKeep = ["cl-ppcre-unicode.asd"];
+  asdFilesToKeep = [ "cl-ppcre-unicode.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-ppcre-unicode DESCRIPTION
@@ -31,4 +36,5 @@ rec {
      (NAME cl-unicode FILENAME cl-unicode)
      (NAME flexi-streams FILENAME flexi-streams))
     DEPENDENCIES (cl-ppcre cl-ppcre-test cl-unicode flexi-streams) VERSION
-    cl-ppcre-20190521-git SIBLINGS (cl-ppcre) PARASITES (cl-ppcre-unicode-test)) */
+    cl-ppcre-20190521-git SIBLINGS (cl-ppcre) PARASITES (cl-ppcre-unicode-test))
+*/

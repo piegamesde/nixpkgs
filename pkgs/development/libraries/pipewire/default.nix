@@ -1,75 +1,76 @@
-{ stdenv
-, lib
-, buildPackages
-, fetchFromGitLab
-, fetchpatch
-, python3
-, meson
-, ninja
-, eudev
-, systemd
-, enableSystemd ? true
-, pkg-config
-, docutils
-, doxygen
-, graphviz
-, glib
-, dbus
-, alsa-lib
-, libjack2
-, libusb1
-, udev
-, libsndfile
-, vulkan-headers
-, vulkan-loader
-, webrtc-audio-processing
-, webrtc-audio-processing_1
-, ncurses
-, readline # meson can't find <7 as those versions don't have a .pc file
-, lilv
-, makeFontsConf
-, callPackage
-, nixosTests
-, withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind
-, valgrind
-, libcameraSupport ? true
-, libcamera
-, libdrm
-, gstreamerSupport ? true
-, gst_all_1
-, ffmpegSupport ? true
-, ffmpeg
-, bluezSupport ? true
-, bluez
-, sbc
-, libfreeaptx
-, liblc3
-, fdk_aac
-, libopus
-, ldacbtSupport ? bluezSupport && lib.meta.availableOn stdenv.hostPlatform ldacbt
-, ldacbt
-, nativeHspSupport ? true
-, nativeHfpSupport ? true
-, nativeModemManagerSupport ? true
-, modemmanager
-, ofonoSupport ? true
-, hsphfpdSupport ? true
-, pulseTunnelSupport ? true
-, libpulseaudio
-, zeroconfSupport ? true
-, avahi
-, raopSupport ? true
-, openssl
-, rocSupport ? true
-, roc-toolkit
-, x11Support ? true
-, libcanberra
-, xorg
-, mysofaSupport ? true
-, libmysofa
-, tinycompress
-, ffadoSupport ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
-, ffado
+{
+  stdenv,
+  lib,
+  buildPackages,
+  fetchFromGitLab,
+  fetchpatch,
+  python3,
+  meson,
+  ninja,
+  eudev,
+  systemd,
+  enableSystemd ? true,
+  pkg-config,
+  docutils,
+  doxygen,
+  graphviz,
+  glib,
+  dbus,
+  alsa-lib,
+  libjack2,
+  libusb1,
+  udev,
+  libsndfile,
+  vulkan-headers,
+  vulkan-loader,
+  webrtc-audio-processing,
+  webrtc-audio-processing_1,
+  ncurses,
+  readline, # meson can't find <7 as those versions don't have a .pc file
+  lilv,
+  makeFontsConf,
+  callPackage,
+  nixosTests,
+  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind,
+  valgrind,
+  libcameraSupport ? true,
+  libcamera,
+  libdrm,
+  gstreamerSupport ? true,
+  gst_all_1,
+  ffmpegSupport ? true,
+  ffmpeg,
+  bluezSupport ? true,
+  bluez,
+  sbc,
+  libfreeaptx,
+  liblc3,
+  fdk_aac,
+  libopus,
+  ldacbtSupport ? bluezSupport && lib.meta.availableOn stdenv.hostPlatform ldacbt,
+  ldacbt,
+  nativeHspSupport ? true,
+  nativeHfpSupport ? true,
+  nativeModemManagerSupport ? true,
+  modemmanager,
+  ofonoSupport ? true,
+  hsphfpdSupport ? true,
+  pulseTunnelSupport ? true,
+  libpulseaudio,
+  zeroconfSupport ? true,
+  avahi,
+  raopSupport ? true,
+  openssl,
+  rocSupport ? true,
+  roc-toolkit,
+  x11Support ? true,
+  libcanberra,
+  xorg,
+  mysofaSupport ? true,
+  libmysofa,
+  tinycompress,
+  ffadoSupport ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
+  ffado,
 }:
 
 # Bluetooth codec only makes sense if general bluetooth enabled
@@ -136,35 +137,59 @@ let
       glib
     ];
 
-    buildInputs = [
-      alsa-lib
-      dbus
-      glib
-      libjack2
-      libusb1
-      libsndfile
-      lilv
-      ncurses
-      readline
-      udev
-      vulkan-headers
-      vulkan-loader
-      tinycompress
-    ] ++ (if enableSystemd then [ systemd ] else [ eudev ])
-    ++ (if lib.meta.availableOn stdenv.hostPlatform webrtc-audio-processing_1 then [ webrtc-audio-processing_1 ] else [ webrtc-audio-processing ])
-    ++ lib.optionals gstreamerSupport [ gst_all_1.gst-plugins-base gst_all_1.gstreamer ]
-    ++ lib.optionals libcameraSupport [ libcamera libdrm ]
-    ++ lib.optional ffmpegSupport ffmpeg
-    ++ lib.optionals bluezSupport [ bluez libfreeaptx liblc3 sbc fdk_aac libopus ]
-    ++ lib.optional ldacbtSupport ldacbt
-    ++ lib.optional nativeModemManagerSupport modemmanager
-    ++ lib.optional pulseTunnelSupport libpulseaudio
-    ++ lib.optional zeroconfSupport avahi
-    ++ lib.optional raopSupport openssl
-    ++ lib.optional rocSupport roc-toolkit
-    ++ lib.optionals x11Support [ libcanberra xorg.libX11 xorg.libXfixes ]
-    ++ lib.optional mysofaSupport libmysofa
-    ++ lib.optional ffadoSupport ffado;
+    buildInputs =
+      [
+        alsa-lib
+        dbus
+        glib
+        libjack2
+        libusb1
+        libsndfile
+        lilv
+        ncurses
+        readline
+        udev
+        vulkan-headers
+        vulkan-loader
+        tinycompress
+      ]
+      ++ (if enableSystemd then [ systemd ] else [ eudev ])
+      ++ (
+        if lib.meta.availableOn stdenv.hostPlatform webrtc-audio-processing_1 then
+          [ webrtc-audio-processing_1 ]
+        else
+          [ webrtc-audio-processing ]
+      )
+      ++ lib.optionals gstreamerSupport [
+        gst_all_1.gst-plugins-base
+        gst_all_1.gstreamer
+      ]
+      ++ lib.optionals libcameraSupport [
+        libcamera
+        libdrm
+      ]
+      ++ lib.optional ffmpegSupport ffmpeg
+      ++ lib.optionals bluezSupport [
+        bluez
+        libfreeaptx
+        liblc3
+        sbc
+        fdk_aac
+        libopus
+      ]
+      ++ lib.optional ldacbtSupport ldacbt
+      ++ lib.optional nativeModemManagerSupport modemmanager
+      ++ lib.optional pulseTunnelSupport libpulseaudio
+      ++ lib.optional zeroconfSupport avahi
+      ++ lib.optional raopSupport openssl
+      ++ lib.optional rocSupport roc-toolkit
+      ++ lib.optionals x11Support [
+        libcanberra
+        xorg.libX11
+        xorg.libXfixes
+      ]
+      ++ lib.optional mysofaSupport libmysofa
+      ++ lib.optional ffadoSupport ffado;
 
     # Valgrind binary is required for running one optional test.
     nativeCheckInputs = lib.optional withValgrind valgrind;
@@ -242,9 +267,11 @@ let
       homepage = "https://pipewire.org/";
       license = licenses.mit;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ kranzes k900 ];
+      maintainers = with maintainers; [
+        kranzes
+        k900
+      ];
     };
   };
-
 in
 self

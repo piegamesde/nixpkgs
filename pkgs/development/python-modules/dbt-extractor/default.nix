@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, rustPlatform
-, libiconv
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  rustPlatform,
+  libiconv,
 }:
 
 buildPythonPackage rec {
@@ -29,21 +30,20 @@ buildPythonPackage rec {
     rustPlatform.maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    libiconv
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
   # no python tests exist
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dbt_extractor"
-  ];
+  pythonImportsCheck = [ "dbt_extractor" ];
 
   meta = with lib; {
     description = "A tool that processes the most common jinja value templates in dbt model files";
     homepage = "https://github.com/dbt-labs/dbt-extractor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mausch tjni ];
+    maintainers = with maintainers; [
+      mausch
+      tjni
+    ];
   };
 }

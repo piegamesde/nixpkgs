@@ -1,29 +1,30 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pythonRelaxDepsHook
-, which
-# runtime dependencies
-, numpy
-, torch
-, pyre-extensions
-# check dependencies
-, pytestCheckHook
-, pytest-cov
-# , pytest-mpi
-, pytest-timeout
-# , pytorch-image-models
-, hydra-core
-, fairscale
-, scipy
-, cmake
-, openai-triton
-, networkx
-#, apex
-, einops
-, transformers
-, timm
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pythonRelaxDepsHook,
+  which,
+  # runtime dependencies
+  numpy,
+  torch,
+  pyre-extensions,
+  # check dependencies
+  pytestCheckHook,
+  pytest-cov,
+  # , pytest-mpi
+  pytest-timeout,
+  # , pytorch-image-models
+  hydra-core,
+  fairscale,
+  scipy,
+  cmake,
+  openai-triton,
+  networkx,
+  #, apex
+  einops,
+  transformers,
+  timm,
 #, flash-attn
 }:
 let
@@ -56,9 +57,7 @@ buildPythonPackage {
     which
   ];
 
-  pythonRelaxDeps = [
-    "pyre-extensions"
-  ];
+  pythonRelaxDeps = [ "pyre-extensions" ];
 
   propagatedBuildInputs = [
     numpy

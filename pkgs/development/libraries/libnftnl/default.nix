@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, libmnl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libmnl,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.2.6";
@@ -17,6 +23,9 @@ stdenv.mkDerivation rec {
     homepage = "https://netfilter.org/projects/libnftnl/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fpletz ajs124 ];
+    maintainers = with maintainers; [
+      fpletz
+      ajs124
+    ];
   };
 }

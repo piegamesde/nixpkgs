@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, ant
-, fetchFromGitHub
-, jdk11_headless
-, jre
-, makeWrapper
+{
+  lib,
+  stdenv,
+  ant,
+  fetchFromGitHub,
+  jdk11_headless,
+  jre,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +25,11 @@ stdenv.mkDerivation rec {
       --replace 'source="1.5" target="1.5"' 'release="11"'
   '';
 
-  nativeBuildInputs = [ jdk11_headless ant makeWrapper ];
+  nativeBuildInputs = [
+    jdk11_headless
+    ant
+    makeWrapper
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -59,7 +64,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Only;
     sourceProvenance = [
       lib.sourceTypes.fromSource
-      lib.sourceTypes.binaryBytecode  # source bundles dependencies as jars
+      lib.sourceTypes.binaryBytecode # source bundles dependencies as jars
     ];
     maintainers = [ lib.maintainers.kupac ];
   };

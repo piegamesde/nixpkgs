@@ -1,12 +1,13 @@
-{ lib
-, python3Packages
-, fetchurl
-, gettext
-, gobject-introspection
-, wrapGAppsHook
-, glib
-, gtk3
-, libnotify
+{
+  lib,
+  python3Packages,
+  fetchurl,
+  gettext,
+  gobject-introspection,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  libnotify,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -42,20 +43,18 @@ python3Packages.buildPythonApplication rec {
   postPatch = ''
     find -type f -exec sed -i -e 's@/usr/share@${placeholder "out"}/share@g' {} \;
     find -type f -exec sed -i -e 's@/usr/bin@${placeholder "out"}/bin@g' {} \;
-    find -type f -exec sed -i -e 's@${placeholder "out"}/bin/python3@${python3Packages.python}/bin/python3@' {} \;
+    find -type f -exec sed -i -e 's@${
+      placeholder "out"
+    }/bin/python3@${python3Packages.python}/bin/python3@' {} \;
   '';
 
   dontBuild = true;
 
-  installFlags = [
-    "prefix=${placeholder "out"}"
-  ];
+  installFlags = [ "prefix=${placeholder "out"}" ];
 
   # Prevent double wrapping from wrapGApps and wrapPythonProgram
   dontWrapGApps = true;
-  makeWrapperArgs = [
-    "\${gappsWrapperArgs[@]}"
-  ];
+  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
 
   strictDeps = false;
 
@@ -64,7 +63,10 @@ python3Packages.buildPythonApplication rec {
     description = "A program to clean your computer";
     longDescription = "BleachBit helps you easily clean your computer to free space and maintain privacy.";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ leonardoce mbprtpmnr ];
+    maintainers = with maintainers; [
+      leonardoce
+      mbprtpmnr
+    ];
     mainProgram = "bleachbit";
   };
 }

@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchPypi, lib, sqlalchemy, nose }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  sqlalchemy,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "sqlsoup";
@@ -16,7 +22,7 @@ buildPythonPackage rec {
     description = "A one step database access tool, built on the SQLAlchemy ORM";
     homepage = "https://github.com/zzzeek/sqlsoup";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
     broken = true; # incompatible with sqlalchemy>=1.4 and unmaintained since 2016
   };
 }

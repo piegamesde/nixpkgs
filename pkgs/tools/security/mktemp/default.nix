@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, groff
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  groff,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,14 +13,15 @@ stdenv.mkDerivation rec {
   # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
   NROFF = "${groff}/bin/nroff";
 
-  patches = [
-    # Pull upstream fix for parallel install failures.
-    (fetchpatch {
-      name = "parallel-install.patch";
-      url = "https://www.mktemp.org/repos/mktemp/raw-rev/eb87d96ce8b7";
-      hash = "sha256-cJ/0pFj8tOkByUwhlMwLNSQgTHyAU8svEkjKWWwsNmY=";
-    })
-  ];
+  patches =
+    [
+      # Pull upstream fix for parallel install failures.
+      (fetchpatch {
+        name = "parallel-install.patch";
+        url = "https://www.mktemp.org/repos/mktemp/raw-rev/eb87d96ce8b7";
+        hash = "sha256-cJ/0pFj8tOkByUwhlMwLNSQgTHyAU8svEkjKWWwsNmY=";
+      })
+    ];
 
   # Don't use "install -s"
   postPatch = ''

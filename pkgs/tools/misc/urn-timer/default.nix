@@ -1,12 +1,14 @@
-{ lib, stdenv
-, fetchFromGitHub
-, unstableGitUpdater
-, xxd
-, pkg-config
-, imagemagick
-, wrapGAppsHook
-, gtk3
-, jansson
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  xxd,
+  pkg-config,
+  imagemagick,
+  wrapGAppsHook,
+  gtk3,
+  jansson,
 }:
 
 stdenv.mkDerivation {
@@ -34,9 +36,7 @@ stdenv.mkDerivation {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/paoloose/urn.git";
-  };
+  passthru.updateScript = unstableGitUpdater { url = "https://github.com/paoloose/urn.git"; };
 
   meta = with lib; {
     homepage = "https://github.com/paoloose/urn";

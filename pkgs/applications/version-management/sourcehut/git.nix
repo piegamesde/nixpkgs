@@ -1,13 +1,14 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, python
-, srht
-, scmsrht
-, pygit2
-, minio
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  python,
+  srht,
+  scmsrht,
+  pygit2,
+  minio,
+  unzip,
 }:
 let
   version = "0.84.2";
@@ -19,12 +20,15 @@ let
     sha256 = "sha256-sAkTsQlWtNDQ5vAhA2EeOvuJcj9A6AG8pgDyIKtr65s=";
   };
 
-  gitApi = buildGoModule ({
-    inherit src version;
-    pname = "gitsrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-LAYp0zgosZnFEbtxzjuTH9++0lbxhACr705HqXJz3D0=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  gitApi = buildGoModule (
+    {
+      inherit src version;
+      pname = "gitsrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-LAYp0zgosZnFEbtxzjuTH9++0lbxhACr705HqXJz3D0=";
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   gitDispatch = buildGoModule {
     inherit src version;
@@ -73,7 +77,6 @@ let
         --replace /var/log/gitsrht-update-hook /var/log/sourcehut/gitsrht-update-hook
     '';
   };
-
 in
 buildPythonPackage rec {
   inherit src version;

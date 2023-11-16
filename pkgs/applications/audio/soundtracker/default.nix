@@ -1,13 +1,15 @@
-{ lib, stdenv
-, fetchurl
-, pkg-config
-, autoreconfHook
-, gtk2
-, alsa-lib
-, SDL
-, jack2
-, audiofile
-, goocanvas # graphical envelope editing
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  gtk2,
+  alsa-lib,
+  SDL,
+  jack2,
+  audiofile,
+  goocanvas, # graphical envelope editing
 }:
 
 stdenv.mkDerivation rec {
@@ -38,9 +40,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-graphics-backend=gdk"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    "--disable-alsa"
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-alsa" ];
 
   enableParallelBuilding = true;
 

@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, Security
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,9 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-KcixaVNZEpGeMg/sh3dua3D7vqzlBvf+Zh3MKk6LJac=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     description = "A cross-platform, user-space WireGuard port-forwarder that requires no root-access or system network configurations";

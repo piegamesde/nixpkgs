@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -16,14 +17,15 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-7k81eEcM+BXNrln6+Lu0+1LjsZdYkUidrRQCdlBbQB8=";
   };
 
-  patches = [
-    # https://github.com/thegeeklab/ansible-later/pull/658
-    (fetchpatch {
-      name = "poetry-dynamic-versioning-pep517.patch";
-      url = "https://github.com/thegeeklab/ansible-later/commit/a2c278fb45769648df1439df5bb25883dddfc58a.patch";
-      hash = "sha256-++CiwwHZoaPC8XHaYbNQeU3zqEi2a4eIYbuSQkO0jTI=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/thegeeklab/ansible-later/pull/658
+      (fetchpatch {
+        name = "poetry-dynamic-versioning-pep517.patch";
+        url = "https://github.com/thegeeklab/ansible-later/commit/a2c278fb45769648df1439df5bb25883dddfc58a.patch";
+        hash = "sha256-++CiwwHZoaPC8XHaYbNQeU3zqEi2a4eIYbuSQkO0jTI=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -73,9 +75,7 @@ python3.pkgs.buildPythonApplication rec {
     rm $out/lib/python*/site-packages/LICENSE
   '';
 
-  pythonImportsCheck = [
-    "ansiblelater"
-  ];
+  pythonImportsCheck = [ "ansiblelater" ];
 
   meta = with lib; {
     description = "Best practice scanner for Ansible roles and playbooks";

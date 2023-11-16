@@ -1,23 +1,30 @@
-{ lib, stdenv
-, fetchurl
-, glib
-, pkg-config
-, perl
-, gettext
-, gobject-introspection
-, gnome
-, gtk-doc
-, deterministic-uname
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  pkg-config,
+  perl,
+  gettext,
+  gobject-introspection,
+  gnome,
+  gtk-doc,
+  deterministic-uname,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libgtop";
   version = "2.41.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "Q+qa0T98r5gwPmQXKxkb6blrqzQLAZ3u7HIlHuFA/js=";
   };
 
@@ -31,9 +38,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
   passthru = {
     updateScript = gnome.updateScript {

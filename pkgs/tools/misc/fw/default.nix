@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libgit2
-, openssl
-, zlib
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2,
+  openssl,
+  zlib,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,17 +23,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-l6mRjVk3qNAxfNqcKGo2dceD2Xb+hk+xMvdh/U1jZXw=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     libgit2
     openssl
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
 
   env = {
     OPENSSL_NO_VENDOR = true;

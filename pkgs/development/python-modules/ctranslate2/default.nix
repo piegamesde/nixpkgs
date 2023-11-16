@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
+{
+  lib,
+  buildPythonPackage,
 
-# build-system
-, pybind11
-, setuptools
+  # build-system
+  pybind11,
+  setuptools,
 
-# dependencies
-, ctranslate2-cpp
-, numpy
-, pyyaml
+  # dependencies
+  ctranslate2-cpp,
+  numpy,
+  pyyaml,
 
-# tests
-, pytestCheckHook
-, tensorflow-bin
-, torch
-, transformers
-, wurlitzer
+  # tests
+  pytestCheckHook,
+  tensorflow-bin,
+  torch,
+  transformers,
+  wurlitzer,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [
-    ctranslate2-cpp
-  ];
+  buildInputs = [ ctranslate2-cpp ];
 
   propagatedBuildInputs = [
     numpy
@@ -62,10 +61,11 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  disabledTests = [
-    # AssertionError: assert 'int8' in {'float32'}
-    "test_get_supported_compute_types"
-  ];
+  disabledTests =
+    [
+      # AssertionError: assert 'int8' in {'float32'}
+      "test_get_supported_compute_types"
+    ];
 
   disabledTestPaths = [
     # TODO: ModuleNotFoundError: No module named 'opennmt'

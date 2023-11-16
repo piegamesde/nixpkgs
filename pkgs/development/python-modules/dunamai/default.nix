@@ -1,12 +1,13 @@
-{ lib
-, poetry-core
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, importlib-metadata
-, packaging
-, pytestCheckHook
-, git
+{
+  lib,
+  poetry-core,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  importlib-metadata,
+  packaging,
+  pytestCheckHook,
+  git,
 }:
 
 buildPythonPackage rec {
@@ -23,15 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-QKXEFwOAa5nIQZA6DHNqnWyshnN+/6qovdqjCd9WF4k=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # needs to be able to run dunami from PATH
   preCheck = ''
@@ -47,14 +42,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # clones from github.com
-    "test__version__from_git__shallow"
-  ];
+  disabledTests =
+    [
+      # clones from github.com
+      "test__version__from_git__shallow"
+    ];
 
-  pythonImportsCheck = [
-    "dunamai"
-  ];
+  pythonImportsCheck = [ "dunamai" ];
 
   meta = with lib; {
     description = "Dynamic version generation";

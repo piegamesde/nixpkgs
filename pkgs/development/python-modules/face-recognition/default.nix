@@ -1,16 +1,17 @@
-{ buildPythonPackage
-, fetchPypi
-, lib
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
 
-# propagates
-, click
-, dlib
-, face-recognition-models
-, numpy
-, pillow
+  # propagates
+  click,
+  dlib,
+  face-recognition-models,
+  numpy,
+  pillow,
 
-# tests
-, pytestCheckHook
+  # tests
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +19,7 @@ buildPythonPackage rec {
   version = "1.3.0";
   format = "setuptools";
 
-  src = fetchPypi  {
+  src = fetchPypi {
     pname = "face_recognition";
     inherit version;
     hash = "sha256-Xl790WhqpWavDTzBMTsTHksZdleo/9A2aebT+tknBew=";
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     license = licenses.mit;

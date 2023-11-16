@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -12,7 +17,7 @@ let
       DATABASE_NAME = '${cfg.databaseName}'
       LOG_FILE = '${cfg.logDir}/alertad.log'
       LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-      CORS_ORIGINS = [ ${concatMapStringsSep ", " (s: "\"" + s + "\"") cfg.corsOrigins} ];
+      CORS_ORIGINS = [ ${concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins} ];
       AUTH_REQUIRED = ${if cfg.authenticationRequired then "True" else "False"}
       SIGNUP_ENABLED = ${if cfg.signupEnabled then "True" else "False"}
       ${cfg.extraConfig}
@@ -55,13 +60,20 @@ in
 
     corsOrigins = mkOption {
       type = types.listOf types.str;
-      description = lib.mdDoc "List of URLs that can access the API for Cross-Origin Resource Sharing (CORS)";
-      default = [ "http://localhost" "http://localhost:5000" ];
+      description =
+        lib.mdDoc
+          "List of URLs that can access the API for Cross-Origin Resource Sharing (CORS)";
+      default = [
+        "http://localhost"
+        "http://localhost:5000"
+      ];
     };
 
     authenticationRequired = mkOption {
       type = types.bool;
-      description = lib.mdDoc "Whether users must authenticate when using the web UI or command-line tool";
+      description =
+        lib.mdDoc
+          "Whether users must authenticate when using the web UI or command-line tool";
       default = false;
     };
 
@@ -79,9 +91,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.logDir}' - alerta alerta - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.logDir}' - alerta alerta - -" ];
 
     systemd.services.alerta = {
       description = "Alerta Monitoring System";

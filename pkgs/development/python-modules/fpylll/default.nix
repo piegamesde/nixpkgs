@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildPythonPackage
-, pkgconfig
-, gmp
-, pari
-, mpfr
-, fplll
-, cython
-, cysignals
-, numpy
-, pytest
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pkgconfig,
+  gmp,
+  pari,
+  mpfr,
+  fplll,
+  cython,
+  cysignals,
+  numpy,
+  pytest,
 }:
 
 buildPythonPackage rec {
@@ -37,13 +38,9 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeBuildInputs = [
-    pkgconfig
-  ];
+  nativeBuildInputs = [ pkgconfig ];
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   checkPhase = ''
     # Since upstream introduced --doctest-modules in

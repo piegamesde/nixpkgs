@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, buildNpmPackage
-, makeWrapper
-, exiftool
-, ffmpeg
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  buildNpmPackage,
+  makeWrapper,
+  exiftool,
+  ffmpeg,
 }:
 
 let
@@ -58,7 +59,12 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/photofield \
-      --prefix PATH : "${lib.makeBinPath [exiftool ffmpeg]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          exiftool
+          ffmpeg
+        ]
+      }"
   '';
 
   meta = with lib; {

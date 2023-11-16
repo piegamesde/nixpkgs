@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, buildBazelPackage
-, fetchFromGitHub
-, bazel_4
-, bison
-, flex
-, python3
+{
+  lib,
+  stdenv,
+  buildBazelPackage,
+  fetchFromGitHub,
+  bazel_4,
+  bison,
+  flex,
+  python3,
 }:
 
 let
@@ -21,21 +22,24 @@ buildBazelPackage rec {
   GIT_VERSION = "v0.0-3428-gcfcbb82b";
 
   # Derive nix package version from GIT_VERSION: "v1.2-345-abcde" -> "1.2.345"
-  version = builtins.concatStringsSep "." (lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION)));
+  version = builtins.concatStringsSep "." (
+    lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION))
+  );
 
   src = fetchFromGitHub {
     owner = "chipsalliance";
-    repo  = "verible";
-    rev   = "${GIT_VERSION}";
-    hash  = "sha256-snWhOuGyAdtdJDMttcbEjlkwPUO1mdR9vuro0tZt+Z8=";
+    repo = "verible";
+    rev = "${GIT_VERSION}";
+    hash = "sha256-snWhOuGyAdtdJDMttcbEjlkwPUO1mdR9vuro0tZt+Z8=";
   };
 
-  patches = [
-    # Patch WORKSPACE file to not include windows-related dependencies,
-    # as they are removed by bazel, breaking the fixed output derivation
-    # TODO: fix upstream
-    ./remove-unused-deps.patch
-  ];
+  patches =
+    [
+      # Patch WORKSPACE file to not include windows-related dependencies,
+      # as they are removed by bazel, breaking the fixed output derivation
+      # TODO: fix upstream
+      ./remove-unused-deps.patch
+    ];
 
   bazel = bazel_4;
   bazelFlags = [
@@ -49,15 +53,17 @@ buildBazelPackage rec {
     # This varies per platform, probably from the JDK pulled in being part
     # of the output derivation ? Is there a more robust way to do this ?
     # (Hashes extracted from the ofborg build logs)
-    sha256 = {
-      aarch64-linux = "sha256-Hf/jF5Y7QS2ZNFmSx2LIb0b6gdjditE97HwWGqQJac8=";
-      x86_64-linux = "sha256-WBp5Fi5vvKLVgRWvQ3VB7sY6ySpbwCdhU5KqZH9sLy4=";
-    }.${system} or (throw "No hash for system: ${system}");
+    sha256 =
+      {
+        aarch64-linux = "sha256-Hf/jF5Y7QS2ZNFmSx2LIb0b6gdjditE97HwWGqQJac8=";
+        x86_64-linux = "sha256-WBp5Fi5vvKLVgRWvQ3VB7sY6ySpbwCdhU5KqZH9sLy4=";
+      }
+      .${system} or (throw "No hash for system: ${system}");
   };
 
   nativeBuildInputs = [
-    bison      # We use local flex and bison as WORKSPACE sources fail
-    flex       # .. to compile with newer glibc
+    bison # We use local flex and bison as WORKSPACE sources fail
+    flex # .. to compile with newer glibc
     python3
   ];
 
@@ -76,9 +82,7 @@ buildBazelPackage rec {
   removeRulesCC = false;
   bazelTargets = [ ":install-binaries" ];
   bazelTestTargets = [ "//..." ];
-  bazelBuildFlags = [
-    "-c opt"
-  ];
+  bazelBuildFlags = [ "-c opt" ];
   buildAttrs = {
     installPhase = ''
       mkdir -p "$out/bin"
@@ -102,7 +106,10 @@ buildBazelPackage rec {
     description = "Suite of SystemVerilog developer tools. Including a style-linter, indexer, formatter, and language server.";
     homepage = "https://github.com/chipsalliance/verible";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hzeller newam ];
+    maintainers = with maintainers; [
+      hzeller
+      newam
+    ];
     platforms = platforms.linux;
   };
 }

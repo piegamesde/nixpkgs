@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrest
-, azure-common
-, msrestazure
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  msrest,
+  azure-common,
+  msrestazure,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.batch"
-  ];
+  pythonImportsCheck = [ "azure.batch" ];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Batch Client Library";

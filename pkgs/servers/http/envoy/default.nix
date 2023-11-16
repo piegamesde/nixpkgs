@@ -1,21 +1,22 @@
-{ lib
-, bazel_6
-, bazel-gazelle
-, buildBazelPackage
-, fetchFromGitHub
-, stdenv
-, cmake
-, gn
-, go
-, jdk
-, ninja
-, patchelf
-, python3
-, linuxHeaders
-, nixosTests
+{
+  lib,
+  bazel_6,
+  bazel-gazelle,
+  buildBazelPackage,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  gn,
+  go,
+  jdk,
+  ninja,
+  patchelf,
+  python3,
+  linuxHeaders,
+  nixosTests,
 
   # v8 (upstream default), wavm, wamr, wasmtime, disabled
-, wasmRuntime ? "wamr"
+  wasmRuntime ? "wamr",
 }:
 
 let
@@ -74,18 +75,18 @@ buildBazelPackage rec {
     patchelf
   ];
 
-  buildInputs = [
-    linuxHeaders
-  ];
+  buildInputs = [ linuxHeaders ];
 
   # external/com_github_grpc_grpc/src/core/ext/transport/binder/transport/binder_transport.cc:756:29: error: format not a string literal and no format arguments [-Werror=format-security]
   hardeningDisable = [ "format" ];
 
   fetchAttrs = {
-    sha256 = {
-      x86_64-linux = "sha256-OQ4vg4S3DpM+Zo+igncx3AXJnL8FkJbwh7KnBhbnCUM=";
-      aarch64-linux = "sha256-/X8i1vzQ4QvFxi1+5rc1/CGHmRhhu5F3X5A3PgbW+Mc=";
-    }.${stdenv.system} or (throw "unsupported system ${stdenv.system}");
+    sha256 =
+      {
+        x86_64-linux = "sha256-OQ4vg4S3DpM+Zo+igncx3AXJnL8FkJbwh7KnBhbnCUM=";
+        aarch64-linux = "sha256-/X8i1vzQ4QvFxi1+5rc1/CGHmRhhu5F3X5A3PgbW+Mc=";
+      }
+      .${stdenv.system} or (throw "unsupported system ${stdenv.system}");
     dontUseCmakeConfigure = true;
     dontUseGnConfigure = true;
     preInstall = ''
@@ -147,28 +148,30 @@ buildBazelPackage rec {
   removeLocalConfigCc = true;
   removeLocal = false;
   bazelTargets = [ "//source/exe:envoy-static" ];
-  bazelBuildFlags = [
-    "-c opt"
-    "--spawn_strategy=standalone"
-    "--noexperimental_strict_action_env"
-    "--cxxopt=-Wno-error"
-    "--linkopt=-Wl,-z,noexecstack"
+  bazelBuildFlags =
+    [
+      "-c opt"
+      "--spawn_strategy=standalone"
+      "--noexperimental_strict_action_env"
+      "--cxxopt=-Wno-error"
+      "--linkopt=-Wl,-z,noexecstack"
 
-    # Force use of system Java.
-    "--extra_toolchains=@local_jdk//:all"
-    "--java_runtime_version=local_jdk"
-    "--tool_java_runtime_version=local_jdk"
+      # Force use of system Java.
+      "--extra_toolchains=@local_jdk//:all"
+      "--java_runtime_version=local_jdk"
+      "--tool_java_runtime_version=local_jdk"
 
-    "--define=wasm=${wasmRuntime}"
-  ] ++ (lib.optionals stdenv.isAarch64 [
-    # external/com_github_google_tcmalloc/tcmalloc/internal/percpu_tcmalloc.h:611:9: error: expected ':' or '::' before '[' token
-    #   611 |       : [end_ptr] "=&r"(end_ptr), [cpu_id] "=&r"(cpu_id),
-    #       |         ^
-    "--define=tcmalloc=disabled"
-  ]);
-  bazelFetchFlags = [
-    "--define=wasm=${wasmRuntime}"
-  ];
+      "--define=wasm=${wasmRuntime}"
+    ]
+    ++ (lib.optionals stdenv.isAarch64
+      [
+        # external/com_github_google_tcmalloc/tcmalloc/internal/percpu_tcmalloc.h:611:9: error: expected ':' or '::' before '[' token
+        #   611 |       : [end_ptr] "=&r"(end_ptr), [cpu_id] "=&r"(cpu_id),
+        #       |         ^
+        "--define=tcmalloc=disabled"
+      ]
+    );
+  bazelFetchFlags = [ "--define=wasm=${wasmRuntime}" ];
 
   passthru.tests = {
     envoy = nixosTests.envoy;
@@ -181,6 +184,9 @@ buildBazelPackage rec {
     description = "Cloud-native edge and service proxy";
     license = licenses.asl20;
     maintainers = with maintainers; [ lukegb ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

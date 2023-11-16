@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pysigma
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pysigma,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,21 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-5CDwevzD6R1nIcID6C5PV+i6pwY2CLakRC6NUXtmPs8=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pysigma
-  ];
+  propagatedBuildInputs = [ pysigma ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sigma.pipelines.sysmon"
-  ];
+  pythonImportsCheck = [ "sigma.pipelines.sysmon" ];
 
   meta = with lib; {
     description = "Library to support Sysmon pipeline for pySigma";

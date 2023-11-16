@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, cmake
-, pybind11
-, pythonOlder
-, pytestCheckHook
-, setuptools-scm
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cmake,
+  pybind11,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-HUgYVVQ7yc2X3ffnV7mCZf+oFUHl/29Mb4n91dRJ7gc=";
   };
 
-  nativeBuildInputs = [ cmake setuptools-scm ];
+  nativeBuildInputs = [
+    cmake
+    setuptools-scm
+  ];
 
   buildInputs = [ pybind11 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # CMake needs to be run by setuptools rather than by its hook
   dontConfigure = true;

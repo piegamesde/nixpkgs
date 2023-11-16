@@ -1,27 +1,28 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools
-, wheel
-, black
-, cloudpathlib
-, confection
-, isort
-, mypy
-, packaging
-, pre-commit
-, pydantic
-, pytest
-, requests
-, ruff
-, smart-open
-, srsly
-, typer
-, types-requests
-, types-setuptools
-, wasabi
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  wheel,
+  black,
+  cloudpathlib,
+  confection,
+  isort,
+  mypy,
+  packaging,
+  pre-commit,
+  pydantic,
+  pytest,
+  requests,
+  ruff,
+  smart-open,
+  srsly,
+  typer,
+  types-requests,
+  types-setuptools,
+  wasabi,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -65,14 +66,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "weasel" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # This test requires internet access
-    "test_project_assets"
-  ];
+  disabledTests =
+    [
+      # This test requires internet access
+      "test_project_assets"
+    ];
 
   meta = with lib; {
     description = "Weasel: A small and easy workflow system";

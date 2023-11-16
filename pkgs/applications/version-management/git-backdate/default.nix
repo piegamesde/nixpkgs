@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, git, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-backdate";
@@ -11,9 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-91cEGQ0FtoiHEZHQ93jPFHF2vLoeQuBidykePFHtrsY=";
   };
 
-  buildInputs = [
-    python3
-  ];
+  buildInputs = [ python3 ];
 
   installPhase = ''
     runHook preInstall
@@ -28,4 +32,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ matthiasbeyer ];
   };
 }
-

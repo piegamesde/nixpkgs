@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, unstableGitUpdater
-, cmake
-, pkg-config
-, zlib
-, libvgm
-, inih
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  cmake,
+  pkg-config,
+  zlib,
+  libvgm,
+  inih,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,9 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "sdQO+xk3a7AFXo3jpbcuNBkd19PjKoBMRhr4IK06oHg=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ zlib libvgm inih ];
+  buildInputs = [
+    zlib
+    libvgm
+    inih
+  ];
 
   postInstall = ''
     install -Dm644 ../VGMPlay.ini $out/share/vgmplay/VGMPlay.ini

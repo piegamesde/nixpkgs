@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, nix-update-script
-, polaris-web
-, darwin
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  nix-update-script,
+  polaris-web,
+  darwin,
+  nixosTests,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -37,9 +38,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.Security ];
 
   # Compile-time environment variables for where to find assets needed at runtime
   env = {
@@ -60,9 +59,7 @@ rustPlatform.buildRustPackage rec {
   __darwinAllowLocalNetworking = true;
 
   passthru.tests = nixosTests.polaris;
-  passthru.updateScript = nix-update-script {
-    attrPath = pname;
-  };
+  passthru.updateScript = nix-update-script { attrPath = pname; };
 
   meta = with lib; {
     description = "Self-host your music collection, and access it from any computer and mobile device";

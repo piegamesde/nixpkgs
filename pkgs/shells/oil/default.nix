@@ -1,8 +1,19 @@
-{ stdenv, lib, fetchurl, symlinkJoin, withReadline ? true, readline }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  symlinkJoin,
+  withReadline ? true,
+  readline,
+}:
 
 let
   readline-all = symlinkJoin {
-    name = "readline-all"; paths = [ readline readline.dev ];
+    name = "readline-all";
+    paths = [
+      readline
+      readline.dev
+    ];
   };
 in
 stdenv.mkDerivation rec {
@@ -24,12 +35,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   buildInputs = lib.optional withReadline readline;
-  configureFlags = [
-    "--datarootdir=${placeholder "out"}"
-  ] ++ lib.optionals withReadline [
-    "--with-readline"
-    "--readline=${readline-all}"
-  ];
+  configureFlags =
+    [ "--datarootdir=${placeholder "out"}" ]
+    ++ lib.optionals withReadline [
+      "--with-readline"
+      "--readline=${readline-all}"
+    ];
 
   # Stripping breaks the bundles by removing the zip file from the end.
   dontStrip = true;
@@ -44,7 +55,10 @@ stdenv.mkDerivation rec {
     ];
 
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ lheckemann alva ];
+    maintainers = with lib.maintainers; [
+      lheckemann
+      alva
+    ];
     changelog = "https://www.oilshell.org/release/${version}/changelog.html";
   };
 

@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nixosTests
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
 }:
 
 buildGoModule rec {
@@ -15,15 +16,23 @@ buildGoModule rec {
     hash = "sha256-xrQBL/Xjzsg0jZ7cFuDfjCQhmt/dTD8FoCSlw0sX5MQ=";
   };
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   sourceRoot = "source/c2FmZQ";
 
   vendorHash = "sha256-Hz6P+ptn1i+8Ek3pp8j+iB8NN5Xks50jyZuT8Ullxbo=";
 
-  subPackages = [ "c2FmZQ-client" "c2FmZQ-server" ];
+  subPackages = [
+    "c2FmZQ-client"
+    "c2FmZQ-server"
+  ];
 
-  passthru.tests = { inherit (nixosTests) c2fmzq; };
+  passthru.tests = {
+    inherit (nixosTests) c2fmzq;
+  };
 
   meta = with lib; {
     description = "Securely encrypt, store, and share files, including but not limited to pictures and videos";

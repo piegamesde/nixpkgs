@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, rust, rustPlatform, cargo-c, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  rust,
+  rustPlatform,
+  cargo-c,
+  python3,
+}:
 
 let
   rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
@@ -26,13 +35,17 @@ rustPlatform.buildRustPackage rec {
 
   postBuild = ''
     pushd imagequant-sys
-    ${rust.envVars.setEnv} cargo cbuild --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
+    ${rust.envVars.setEnv} cargo cbuild --release --frozen --prefix=${
+      placeholder "out"
+    } --target ${rustTargetPlatformSpec}
     popd
   '';
 
   postInstall = ''
     pushd imagequant-sys
-    ${rust.envVars.setEnv} cargo cinstall --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
+    ${rust.envVars.setEnv} cargo cinstall --release --frozen --prefix=${
+      placeholder "out"
+    } --target ${rustTargetPlatformSpec}
     popd
   '';
 
@@ -46,6 +59,9 @@ rustPlatform.buildRustPackage rec {
     longDescription = "Small, portable C library for high-quality conversion of RGBA images to 8-bit indexed-color (palette) images.";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ma9e marsam ];
+    maintainers = with maintainers; [
+      ma9e
+      marsam
+    ];
   };
 }

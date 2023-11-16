@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, redis
-, redis-server
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  redis,
+  redis-server,
 }:
 
 buildPythonPackage rec {
@@ -23,15 +24,18 @@ buildPythonPackage rec {
     redis-server
   ];
 
-  disabledTests = [
-    # https://bitbucket.org/vinay.sajip/logutils/issues/4/035-pytest-test-suite-warnings-and-errors
-    "test_hashandlers"
-  ];
+  disabledTests =
+    [
+      # https://bitbucket.org/vinay.sajip/logutils/issues/4/035-pytest-test-suite-warnings-and-errors
+      "test_hashandlers"
+    ];
 
-  disabledTestPaths = lib.optionals (stdenv.isDarwin) [
-    # Exception: unable to connect to Redis server
-    "tests/test_redis.py"
-  ];
+  disabledTestPaths =
+    lib.optionals (stdenv.isDarwin)
+      [
+        # Exception: unable to connect to Redis server
+        "tests/test_redis.py"
+      ];
 
   meta = with lib; {
     description = "Logging utilities";

@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, click
-, click-default-group
-, docformatter
-, jinja2
-, toposort
-, typing-extensions
-, lxml
-, requests
-, pytestCheckHook
-, setuptools
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  click,
+  click-default-group,
+  docformatter,
+  jinja2,
+  toposort,
+  typing-extensions,
+  lxml,
+  requests,
+  pytestCheckHook,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   passthru.optional-dependencies = {
     cli = [
@@ -49,23 +48,17 @@ buildPythonPackage rec {
       jinja2
       toposort
     ];
-    lxml = [
-      lxml
-    ];
-    soap = [
-      requests
-    ];
+    lxml = [ lxml ];
+    soap = [ requests ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.cli
+  nativeCheckInputs =
+    [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.cli
     ++ passthru.optional-dependencies.lxml
     ++ passthru.optional-dependencies.soap;
 
-  disabledTestPaths = [
-    "tests/integration/benchmarks"
-  ];
+  disabledTestPaths = [ "tests/integration/benchmarks" ];
 
   pythonImportsCheck = [
     "xsdata.formats.dataclass.context"

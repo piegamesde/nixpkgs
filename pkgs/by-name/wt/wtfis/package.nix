@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 let
@@ -12,14 +13,13 @@ let
     rev = "refs/tags/v${version}";
     hash = "sha256-X3e0icyhNPg8P6+N9k6a9WwBJ8bXRPdo3fj4cj+yY6w=";
   };
-in python3.pkgs.buildPythonApplication {
+in
+python3.pkgs.buildPythonApplication {
   inherit pname version src;
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    python3.pkgs.pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     python3.pkgs.hatchling

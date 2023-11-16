@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive
-, pkg-config, gettext, libssl, txt2man }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  gettext,
+  libssl,
+  txt2man,
+}:
 
 stdenv.mkDerivation rec {
   pname = "axel";
@@ -12,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yC4TL8IXWGEwRXAyeon6QnQa+rT1xL/McLsghjZ4ky4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config autoconf-archive txt2man ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    autoconf-archive
+    txt2man
+  ];
 
-  buildInputs = [ gettext libssl ];
+  buildInputs = [
+    gettext
+    libssl
+  ];
 
   installFlags = [ "ETCDIR=${placeholder "out"}/etc" ];
 

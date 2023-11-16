@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, libpcap
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  libpcap,
 }:
 
 buildGoModule rec {
@@ -17,15 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-4lTik5POzK4aE3c1gGi3NuefEdbMdTLvJIkvTRSPraI=";
 
-  buildInputs = [
-    libpcap
-  ];
+  buildInputs = [ libpcap ];
 
   modRoot = "./v2";
 
-  subPackages = [
-    "cmd/naabu/"
-  ];
+  subPackages = [ "cmd/naabu/" ];
 
   meta = with lib; {
     description = "Fast SYN/CONNECT port scanner";

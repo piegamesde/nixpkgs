@@ -1,19 +1,20 @@
-{ lib
-, mkDerivation
-, fetchurl
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, boost
-, libime
-, fcitx5
-, fcitx5-qt
-, fcitx5-lua
-, qtwebengine
-, opencc
-, curl
-, fmt
-, luaSupport ? true
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  boost,
+  libime,
+  fcitx5,
+  fcitx5-qt,
+  fcitx5-lua,
+  qtwebengine,
+  opencc,
+  curl,
+  fmt,
+  luaSupport ? true,
 }:
 
 let
@@ -40,9 +41,7 @@ mkDerivation rec {
     sha256 = "sha256-DrgZlj3SUR1lFVvDXoCKvil22YRW6YJkGwihdGdWaHM=";
   };
 
-  cmakeFlags = [
-    "-DUSE_WEBKIT=off"
-  ];
+  cmakeFlags = [ "-DUSE_WEBKIT=off" ];
 
   nativeBuildInputs = [
     cmake
@@ -69,7 +68,10 @@ mkDerivation rec {
   meta = with lib; {
     description = "Addons related to Chinese, including IME previous bundled inside fcitx4";
     homepage = "https://github.com/fcitx/fcitx5-chinese-addons";
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     maintainers = with maintainers; [ poscat ];
     platforms = platforms.linux;
   };

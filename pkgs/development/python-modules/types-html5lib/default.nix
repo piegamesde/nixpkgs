@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "html5lib-stubs"
-  ];
+  pythonImportsCheck = [ "html5lib-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for html5lib";

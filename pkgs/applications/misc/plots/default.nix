@@ -1,10 +1,11 @@
-{ fetchFromGitHub
-, gobject-introspection
-, lib
-, libadwaita
-, python3
-, wrapGAppsHook
-, lmmath
+{
+  fetchFromGitHub,
+  gobject-introspection,
+  lib,
+  libadwaita,
+  python3,
+  wrapGAppsHook,
+  lmmath,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "plots";
@@ -24,23 +25,22 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = [
     libadwaita
-    (python3.withPackages (p: with p; [
-      numpy
-      pygobject3
-      lark
-      jinja2
-      freetype-py
-      pyopengl
-      pycairo
-      pyglm
-    ]))
+    (python3.withPackages (
+      p:
+      with p; [
+        numpy
+        pygobject3
+        lark
+        jinja2
+        freetype-py
+        pyopengl
+        pycairo
+        pyglm
+      ]
+    ))
   ];
 
-  nativeCheckInputs = [
-    (python3.withPackages (p: with p; [
-      pytest
-    ]))
-  ];
+  nativeCheckInputs = [ (python3.withPackages (p: with p; [ pytest ])) ];
 
   dontWrapGApps = true;
 

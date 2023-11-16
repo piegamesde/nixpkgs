@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "sqls";
@@ -13,7 +17,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-sowzyhvNr7Ek3ex4BP415HhHSKnqPHy5EbnECDVZOGw=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" "-X main.revision=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+    "-X main.revision=${src.rev}"
+  ];
 
   doCheck = false;
 

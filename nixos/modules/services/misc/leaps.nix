@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -19,7 +24,9 @@ in
         default = "";
         type = types.str;
         example = "127.0.0.1";
-        description = lib.mdDoc "Hostname or IP-address to listen to. By default it will listen on all interfaces.";
+        description =
+          lib.mdDoc
+            "Hostname or IP-address to listen to. By default it will listen on all interfaces.";
       };
       path = mkOption {
         default = "/";
@@ -32,11 +39,11 @@ in
   config = mkIf cfg.enable {
     users = {
       users.leaps = {
-        uid             = config.ids.uids.leaps;
-        description     = "Leaps server user";
-        group           = "leaps";
-        home            = stateDir;
-        createHome      = true;
+        uid = config.ids.uids.leaps;
+        description = "Leaps server user";
+        group = "leaps";
+        home = stateDir;
+        createHome = true;
       };
 
       groups.leaps = {
@@ -45,9 +52,9 @@ in
     };
 
     systemd.services.leaps = {
-      description   = "leaps service";
-      wantedBy      = [ "multi-user.target" ];
-      after         = [ "network.target" ];
+      description = "leaps service";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
 
       serviceConfig = {
         User = "leaps";
@@ -55,7 +62,9 @@ in
         Restart = "on-failure";
         WorkingDirectory = stateDir;
         PrivateTmp = true;
-        ExecStart = "${pkgs.leaps}/bin/leaps -path ${toString cfg.path} -address ${cfg.address}:${toString cfg.port}";
+        ExecStart = "${pkgs.leaps}/bin/leaps -path ${toString cfg.path} -address ${cfg.address}:${
+            toString cfg.port
+          }";
       };
     };
   };

@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 
-# build-system
-, poetry-core
+  # build-system
+  poetry-core,
 
-# propagates
-, flet-core
-, httpx
-, oauthlib
-, packaging
-, typing-extensions
-, watchdog
-, websocket-client
-, websockets
+  # propagates
+  flet-core,
+  httpx,
+  oauthlib,
+  packaging,
+  typing-extensions,
+  watchdog,
+  websocket-client,
+  websockets,
 
 }:
 
@@ -33,9 +34,7 @@ buildPythonPackage rec {
       --replace 'watchdog = "^2' 'watchdog = ">=2'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     flet-core
@@ -50,9 +49,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "flet"
-  ];
+  pythonImportsCheck = [ "flet" ];
 
   meta = {
     description = "A framework that enables you to easily build realtime web, mobile, and desktop apps in Python";

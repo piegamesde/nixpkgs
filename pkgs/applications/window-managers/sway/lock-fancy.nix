@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, grim, gawk, jq, swaylock
-, imagemagick, getopt, fontconfig, wmctrl, makeWrapper, bash
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  grim,
+  gawk,
+  jq,
+  swaylock,
+  imagemagick,
+  getopt,
+  fontconfig,
+  wmctrl,
+  makeWrapper,
+  bash,
 }:
 
 let
@@ -14,7 +27,8 @@ let
     fontconfig
     wmctrl
   ];
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "swaylock-fancy-unstable";
   version = "2021-10-11";
 

@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, sqlite }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  sqlite,
+}:
 
 buildNimPackage rec {
   pname = "spryvm";
@@ -11,8 +16,10 @@ buildNimPackage rec {
   };
   propagatedBuildInputs = [ sqlite ];
   patches = [ ./nil.patch ];
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "Spry virtual machine";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

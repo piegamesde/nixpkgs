@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isodate
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, responses
-, poetry-core
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isodate,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  responses,
+  poetry-core,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-jLhM47o6LvkPux0kusOrRk4TDS6VLWE0QMEiQxlBCwo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     isodate
@@ -39,9 +38,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [
-    "pysolcast"
-  ];
+  pythonImportsCheck = [ "pysolcast" ];
 
   meta = with lib; {
     description = "Python library for interacting with the Solcast API";

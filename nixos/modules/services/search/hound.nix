@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.hound;
-in {
+in
+{
   options = {
     services.hound = {
       enable = mkOption {
@@ -90,9 +96,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "hound") {
-      hound.gid = config.ids.gids.hound;
-    };
+    users.groups = optionalAttrs (cfg.group == "hound") { hound.gid = config.ids.gids.hound; };
 
     users.users = optionalAttrs (cfg.user == "hound") {
       hound = {
@@ -115,12 +119,11 @@ in {
         Group = cfg.group;
         WorkingDirectory = cfg.home;
         ExecStartPre = "${pkgs.git}/bin/git config --global --replace-all http.sslCAinfo /etc/ssl/certs/ca-certificates.crt";
-        ExecStart = "${cfg.package}/bin/houndd" +
-                    " -addr ${cfg.listen}" +
-                    " -conf ${pkgs.writeText "hound.json" cfg.config}";
-
+        ExecStart =
+          "${cfg.package}/bin/houndd"
+          + " -addr ${cfg.listen}"
+          + " -conf ${pkgs.writeText "hound.json" cfg.config}";
       };
     };
   };
-
 }

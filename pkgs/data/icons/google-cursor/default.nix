@@ -1,6 +1,7 @@
-{ stdenvNoCC
-, fetchzip
-, lib
+{
+  stdenvNoCC,
+  fetchzip,
+  lib,
 }:
 
 let
@@ -23,29 +24,35 @@ let
     }
   ];
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "google-cursor";
-  version = "2.0.0";
+stdenvNoCC.mkDerivation (
+  finalAttrs: {
+    pname = "google-cursor";
+    version = "2.0.0";
 
-  sourceRoot = ".";
-  srcs = map
-    (color: (fetchzip {
-      url = "https://github.com/ful1e5/Google_Cursor/releases/download/v${finalAttrs.version}/GoogleDot-${color.name}.tar.gz";
-      name = "GoogleDot-${color.name}";
-      hash = color.hash;
-    }))
-    colors;
+    sourceRoot = ".";
+    srcs =
+      map
+        (
+          color:
+          (fetchzip {
+            url = "https://github.com/ful1e5/Google_Cursor/releases/download/v${finalAttrs.version}/GoogleDot-${color.name}.tar.gz";
+            name = "GoogleDot-${color.name}";
+            hash = color.hash;
+          })
+        )
+        colors;
 
-  postInstall = ''
-    mkdir -p $out/share/icons
-    cp -r GoogleDot-* $out/share/icons
-  '';
+    postInstall = ''
+      mkdir -p $out/share/icons
+      cp -r GoogleDot-* $out/share/icons
+    '';
 
-  meta = with lib; {
-    description = "An opensource cursor theme inspired by Google";
-    homepage = "https://github.com/ful1e5/Google_Cursor";
-    license = licenses.gpl3Plus;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ quadradical ];
-  };
-})
+    meta = with lib; {
+      description = "An opensource cursor theme inspired by Google";
+      homepage = "https://github.com/ful1e5/Google_Cursor";
+      license = licenses.gpl3Plus;
+      platforms = platforms.all;
+      maintainers = with maintainers; [ quadradical ];
+    };
+  }
+)

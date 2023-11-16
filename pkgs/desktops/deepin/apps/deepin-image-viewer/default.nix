@@ -1,21 +1,22 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, qtbase
-, qtsvg
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, gio-qt
-, udisks2-qt5
-, image-editor
-, cmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, libraw
-, libexif
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  qtbase,
+  qtsvg,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  gio-qt,
+  udisks2-qt5,
+  image-editor,
+  cmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  libraw,
+  libexif,
 }:
 
 stdenv.mkDerivation rec {

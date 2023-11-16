@@ -1,18 +1,19 @@
-{ lib
-, appdirs
-, build
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, hatch-vcs
-, magicgui
-, napari # reverse dependency, for tests
-, pydantic
-, pythonOlder
-, pytomlpp
-, pyyaml
-, rich
-, typer
+{
+  lib,
+  appdirs,
+  build,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  hatch-vcs,
+  magicgui,
+  napari, # reverse dependency, for tests
+  pydantic,
+  pythonOlder,
+  pytomlpp,
+  pyyaml,
+  rich,
+  typer,
 }:
 
 buildPythonPackage rec {
@@ -47,11 +48,11 @@ buildPythonPackage rec {
     typer
   ];
 
-  pythonImportsCheck = [
-    "npe2"
-  ];
+  pythonImportsCheck = [ "npe2" ];
 
-  passthru.tests = { inherit napari; };
+  passthru.tests = {
+    inherit napari;
+  };
 
   meta = with lib; {
     description = "Plugin system for napari (the image visualizer)";

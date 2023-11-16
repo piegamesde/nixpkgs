@@ -1,22 +1,28 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.cloud-init;
-  path = with pkgs; [
-    cloud-init
-    iproute2
-    nettools
-    openssh
-    shadow
-    util-linux
-    busybox
-  ]
-  ++ optional cfg.btrfs.enable btrfs-progs
-  ++ optional cfg.ext4.enable e2fsprogs
-  ++ optional cfg.xfs.enable xfsprogs
-  ;
+  path =
+    with pkgs;
+    [
+      cloud-init
+      iproute2
+      nettools
+      openssh
+      shadow
+      util-linux
+      busybox
+    ]
+    ++ optional cfg.btrfs.enable btrfs-progs
+    ++ optional cfg.ext4.enable e2fsprogs
+    ++ optional cfg.xfs.enable xfsprogs;
   settingsFormat = pkgs.formats.yaml { };
   cfgfile = settingsFormat.generate "cloud.cfg" cfg.settings;
 in
@@ -79,9 +85,7 @@ in
         description = mdDoc ''
           Structured cloud-init configuration.
         '';
-        type = types.submodule {
-          freeformType = settingsFormat.type;
-        };
+        type = types.submodule { freeformType = settingsFormat.type; };
         default = { };
       };
 
@@ -94,9 +98,7 @@ in
           Takes precedence over the `settings` option if set.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -153,11 +155,7 @@ in
     };
 
     environment.etc."cloud/cloud.cfg" =
-      if cfg.config == "" then
-        { source = cfgfile; }
-      else
-        { text = cfg.config; }
-    ;
+      if cfg.config == "" then { source = cfgfile; } else { text = cfg.config; };
 
     systemd.network.enable = cfg.network.enable;
 
@@ -184,8 +182,14 @@ in
         "sshd.service"
         "sshd-keygen.service"
       ];
-      after = [ "network-online.target" "cloud-init-local.service" ];
-      before = [ "sshd.service" "sshd-keygen.service" ];
+      after = [
+        "network-online.target"
+        "cloud-init-local.service"
+      ];
+      before = [
+        "sshd.service"
+        "sshd-keygen.service"
+      ];
       requires = [ "network.target" ];
       path = path;
       serviceConfig = {
@@ -201,7 +205,11 @@ in
       description = "Apply the settings specified in cloud-config";
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
-      after = [ "network-online.target" "syslog.target" "cloud-config.target" ];
+      after = [
+        "network-online.target"
+        "syslog.target"
+        "cloud-config.target"
+      ];
 
       path = path;
       serviceConfig = {
@@ -217,7 +225,12 @@ in
       description = "Execute cloud user/final scripts";
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
-      after = [ "network-online.target" "syslog.target" "cloud-config.service" "rc-local.service" ];
+      after = [
+        "network-online.target"
+        "syslog.target"
+        "cloud-config.service"
+        "rc-local.service"
+      ];
       requires = [ "cloud-config.target" ];
       path = path;
       serviceConfig = {
@@ -231,7 +244,10 @@ in
 
     systemd.targets.cloud-config = {
       description = "Cloud-config availability";
-      requires = [ "cloud-init-local.service" "cloud-init.service" ];
+      requires = [
+        "cloud-init-local.service"
+        "cloud-init.service"
+      ];
     };
   };
 

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, kernel, perl, kmod, libelf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  kernel,
+  perl,
+  kmod,
+  libelf,
+}:
 let
   version = "1.63";
 in
@@ -13,12 +21,7 @@ stdenv.mkDerivation {
   # need at least .config and include
   kernel = kernel.dev;
 
-  buildPhase = "
-    echo make KBUILD=$(echo \$kernel/lib/modules/*/build);
-    echo -n $kernel/lib/modules/*/build > kbuild_path
-    export PATH=${kmod}/sbin:$PATH
-    make KBUILD=$(echo \$kernel/lib/modules/*/build);
-  ";
+  buildPhase = "\n    echo make KBUILD=$(echo $kernel/lib/modules/*/build);\n    echo -n $kernel/lib/modules/*/build > kbuild_path\n    export PATH=${kmod}/sbin:$PATH\n    make KBUILD=$(echo $kernel/lib/modules/*/build);\n  ";
 
   installPhase = ''
     make install KBUILD=$(cat kbuild_path) DESTDIR=$out
@@ -34,13 +37,19 @@ stdenv.mkDerivation {
     sha256 = "1v6b66jhisl110jfl00hm43lmnrav32vs39d85gcbxrjqnmcx08g";
   };
 
-  buildInputs = [ perl libelf ];
+  buildInputs = [
+    perl
+    libelf
+  ];
 
   meta = {
     description = "Ndis driver wrapper for the Linux kernel";
     homepage = "https://sourceforge.net/projects/ndiswrapper";
     license = "GPL";
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     broken = lib.versionAtLeast kernel.version "5.8";
   };
 }

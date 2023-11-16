@@ -1,22 +1,23 @@
-{ cairo
-, cmake
-, fetchurl
-, freetype
-, gcc
-, git
-, gnumake
-, lib
-, libffi
-, libgit2
-, libpng
-, libuuid
-, makeBinaryWrapper
-, openssl
-, pixman
-, runtimeShell
-, SDL2
-, stdenv
-, unzip
+{
+  cairo,
+  cmake,
+  fetchurl,
+  freetype,
+  gcc,
+  git,
+  gnumake,
+  lib,
+  libffi,
+  libgit2,
+  libpng,
+  libuuid,
+  makeBinaryWrapper,
+  openssl,
+  pixman,
+  runtimeShell,
+  SDL2,
+  stdenv,
+  unzip,
 }:
 let
   inherit (lib.strings) makeLibraryPath;

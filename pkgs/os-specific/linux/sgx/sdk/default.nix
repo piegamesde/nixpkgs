@@ -1,30 +1,31 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, fetchzip
-, autoconf
-, automake
-, binutils
-, callPackage
-, cmake
-, file
-, gdb
-, git
-, libtool
-, linkFarmFromDrvs
-, nasm
-, ocaml
-, ocamlPackages
-, openssl_1_1
-, perl
-, python3
-, texinfo
-, validatePkgConfig
-, writeShellApplication
-, writeShellScript
-, writeText
-, debug ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchzip,
+  autoconf,
+  automake,
+  binutils,
+  callPackage,
+  cmake,
+  file,
+  gdb,
+  git,
+  libtool,
+  linkFarmFromDrvs,
+  nasm,
+  ocaml,
+  ocamlPackages,
+  openssl_1_1,
+  perl,
+  python3,
+  texinfo,
+  validatePkgConfig,
+  writeShellApplication,
+  writeShellScript,
+  writeText,
+  debug ? false,
 }:
 stdenv.mkDerivation rec {
   pname = "sgx-sdk";
@@ -47,13 +48,14 @@ stdenv.mkDerivation rec {
       || (echo "Could not find expected version ${version} in linux-sgx source" >&2 && exit 1)
   '';
 
-  patches = [
-    # Fix missing pthread_compat.h, see https://github.com/intel/linux-sgx/pull/784
-    (fetchpatch {
-      url = "https://github.com/intel/linux-sgx/commit/254b58f922a6bd49c308a4f47f05f525305bd760.patch";
-      sha256 = "sha256-sHU++K7NJ+PdITx3y0PwstA9MVh10rj2vrLn01N9F4w=";
-    })
-  ];
+  patches =
+    [
+      # Fix missing pthread_compat.h, see https://github.com/intel/linux-sgx/pull/784
+      (fetchpatch {
+        url = "https://github.com/intel/linux-sgx/commit/254b58f922a6bd49c308a4f47f05f525305bd760.patch";
+        sha256 = "sha256-sHU++K7NJ+PdITx3y0PwstA9MVh10rj2vrLn01N9F4w=";
+      })
+    ];
 
   postPatch = ''
     patchShebangs linux/installer/bin/build-installpkg.sh \
@@ -130,11 +132,7 @@ stdenv.mkDerivation rec {
       popd
     '';
 
-  buildFlags = [
-    "sdk_install_pkg"
-  ] ++ lib.optionals debug [
-    "DEBUG=1"
-  ];
+  buildFlags = [ "sdk_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
   enableParallelBuilding = true;
 
@@ -203,7 +201,6 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-
 
   preFixup = ''
     echo "Strip sgxsdk prefix"
@@ -278,7 +275,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel SGX SDK for Linux built with IPP Crypto Library";
     homepage = "https://github.com/intel/linux-sgx";
-    maintainers = with maintainers; [ sbellem arturcygan veehaitch ];
+    maintainers = with maintainers; [
+      sbellem
+      arturcygan
+      veehaitch
+    ];
     platforms = [ "x86_64-linux" ];
     license = with licenses; [ bsd3 ];
   };

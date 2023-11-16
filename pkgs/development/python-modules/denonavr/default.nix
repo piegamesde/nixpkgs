@@ -1,18 +1,19 @@
-{ lib
-, async-timeout
-, asyncstdlib
-, attrs
-, buildPythonPackage
-, defusedxml
-, fetchFromGitHub
-, httpx
-, netifaces
-, pytest-asyncio
-, pytestCheckHook
-, pytest-httpx
-, pytest-timeout
-, pythonOlder
-, setuptools
+{
+  lib,
+  async-timeout,
+  asyncstdlib,
+  attrs,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  httpx,
+  netifaces,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytest-httpx,
+  pytest-timeout,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-0+BjakGGnCbmiSHSipRifPkasfP1vvAWGvzyRufpsOk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     asyncstdlib
@@ -39,9 +38,7 @@ buildPythonPackage rec {
     defusedxml
     httpx
     netifaces
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    async-timeout
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -50,9 +47,7 @@ buildPythonPackage rec {
     pytest-timeout
   ];
 
-  pythonImportsCheck = [
-    "denonavr"
-  ];
+  pythonImportsCheck = [ "denonavr" ];
 
   meta = with lib; {
     description = "Automation Library for Denon AVR receivers";

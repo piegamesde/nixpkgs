@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isl
-, pybind11
-, pytestCheckHook
-, pythonOlder
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isl,
+  pybind11,
+  pytestCheckHook,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -23,7 +24,10 @@ buildPythonPackage rec {
       --replace "\"pytest>=2\"," ""
   '';
 
-  buildInputs = [ isl pybind11 ];
+  buildInputs = [
+    isl
+    pybind11
+  ];
   propagatedBuildInputs = [ six ];
 
   preCheck = "mv islpy islpy.hidden";

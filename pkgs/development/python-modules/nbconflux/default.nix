@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy27
-, nbconvert
-, pytestCheckHook
-, requests
-, responses
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  nbconvert,
+  pytestCheckHook,
+  requests,
+  responses,
 }:
 
 buildPythonPackage rec {
@@ -20,16 +21,23 @@ buildPythonPackage rec {
     hash = "sha256-kHIuboFKLVsu5zlZ0bM1BUoQR8f1l0XWcaaVI9bECJw=";
   };
 
-  propagatedBuildInputs = [ nbconvert requests ];
-
-  nativeCheckInputs = [ pytestCheckHook responses ];
-
-  patches = [
-    # The original setup.py file is missing commas in the install_requires list
-    ./setup-py.patch
+  propagatedBuildInputs = [
+    nbconvert
+    requests
   ];
 
-  JUPYTER_PATH="${nbconvert}/share/jupyter";
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
+
+  patches =
+    [
+      # The original setup.py file is missing commas in the install_requires list
+      ./setup-py.patch
+    ];
+
+  JUPYTER_PATH = "${nbconvert}/share/jupyter";
   disabledTests = [
     "test_post_to_confluence"
     "test_optional_components"

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fontconfig
-, harfbuzz
-, libX11
-, libXext
-, libXft
-, ncurses
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fontconfig,
+  harfbuzz,
+  libX11,
+  libXext,
+  libXft,
+  ncurses,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-WwjuNxWoeR/ppJxJgqD20kzrn1kIfgDarkTOedX/W4k=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     fontconfig
     harfbuzz
@@ -33,10 +32,11 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  patches = [
-    # eliminate useless calls to git inside Makefile
-    ./0000-makefile-fix-install.diff
-  ];
+  patches =
+    [
+      # eliminate useless calls to git inside Makefile
+      ./0000-makefile-fix-install.diff
+    ];
 
   installPhase = ''
     runHook preInstall

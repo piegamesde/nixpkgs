@@ -1,13 +1,14 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pytestCheckHook
-, pycparser
-, psutil
-, dotnet-sdk
-, buildDotnetModule
-, clr-loader
-, setuptools
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytestCheckHook,
+  pycparser,
+  psutil,
+  dotnet-sdk,
+  buildDotnetModule,
+  clr-loader,
+  setuptools,
 }:
 
 let
@@ -46,10 +47,11 @@ buildPythonPackage {
     clr-loader
   ];
 
-  pytestFlagsArray = [
-    # Run tests using .NET Core, Mono is unsupported for now due to find_library problem in clr-loader
-    "--runtime coreclr"
-  ];
+  pytestFlagsArray =
+    [
+      # Run tests using .NET Core, Mono is unsupported for now due to find_library problem in clr-loader
+      "--runtime coreclr"
+    ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -74,6 +76,9 @@ buildPythonPackage {
     license = licenses.mit;
     # <https://github.com/pythonnet/pythonnet/issues/898>
     badPlatforms = [ "aarch64-linux" ];
-    maintainers = with maintainers; [ jraygauthier mdarocha ];
+    maintainers = with maintainers; [
+      jraygauthier
+      mdarocha
+    ];
   };
 }

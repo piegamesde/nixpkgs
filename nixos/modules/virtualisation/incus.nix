@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.virtualisation.incus;
@@ -9,22 +14,22 @@ in
 
   options = {
     virtualisation.incus = {
-      enable = lib.mkEnableOption (lib.mdDoc ''
-        incusd, a daemon that manages containers and virtual machines.
+      enable = lib.mkEnableOption (
+        lib.mdDoc ''
+          incusd, a daemon that manages containers and virtual machines.
 
-        Users in the "incus-admin" group can interact with
-        the daemon (e.g. to start or stop containers) using the
-        {command}`incus` command line tool, among others.
-      '');
+          Users in the "incus-admin" group can interact with
+          the daemon (e.g. to start or stop containers) using the
+          {command}`incus` command line tool, among others.
+        ''
+      );
 
       package = lib.mkPackageOptionMD pkgs "incus" { };
 
       lxcPackage = lib.mkPackageOptionMD pkgs "lxc" { };
 
       preseed = lib.mkOption {
-        type = lib.types.nullOr (
-          lib.types.submodule { freeformType = preseedFormat.type; }
-        );
+        type = lib.types.nullOr (lib.types.submodule { freeformType = preseedFormat.type; });
 
         default = null;
 
@@ -149,12 +154,8 @@ in
         "network-online.target"
         "lxcfs.service"
       ] ++ (lib.optional cfg.socketActivation "incus.socket");
-      requires = [
-        "lxcfs.service"
-      ] ++ (lib.optional cfg.socketActivation "incus.socket");
-      wants = [
-        "network-online.target"
-      ];
+      requires = [ "lxcfs.service" ] ++ (lib.optional cfg.socketActivation "incus.socket");
+      wants = [ "network-online.target" ];
 
       path = lib.mkIf config.boot.zfs.enabled [ config.boot.zfs.package ];
 
@@ -196,10 +197,10 @@ in
     systemd.services.incus-preseed = lib.mkIf (cfg.preseed != null) {
       description = "Incus initialization with preseed file";
 
-      wantedBy = ["incus.service"];
-      after = ["incus.service"];
-      bindsTo = ["incus.service"];
-      partOf = ["incus.service"];
+      wantedBy = [ "incus.service" ];
+      after = [ "incus.service" ];
+      bindsTo = [ "incus.service" ];
+      partOf = [ "incus.service" ];
 
       script = ''
         ${cfg.package}/bin/incus admin init --preseed <${

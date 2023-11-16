@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-7MbP3jz17lGwjAeWo8QmS5v1vGqIQmYLbKVcK/q89Z4=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cachetools"
-  ];
+  pythonImportsCheck = [ "cachetools" ];
 
   meta = with lib; {
     description = "Extensible memoizing collections and decorators";

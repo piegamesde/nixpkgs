@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -30,9 +31,7 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "keepwn"
-  ];
+  pythonImportsCheck = [ "keepwn" ];
 
   meta = with lib; {
     description = "Tool to automate KeePass discovery and secret extraction";

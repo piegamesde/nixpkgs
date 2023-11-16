@@ -1,31 +1,38 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl
-, callPackage
-, fetchpatch
-, cmake, pkg-config, dbus, makeWrapper
-, boost
-, elfutils # for libdw
-, git
-, glib
-, glm
-, gtest
-, libbfd
-, libcap
-, libdwarf
-, libGL
-, libglvnd
-, lxc
-, mesa
-, properties-cpp
-, protobuf
-, protobufc
-, python3
-, runtimeShell
-, SDL2
-, SDL2_image
-, systemd
-, writeText
-, writeShellScript
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  callPackage,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  dbus,
+  makeWrapper,
+  boost,
+  elfutils, # for libdw
+  git,
+  glib,
+  glm,
+  gtest,
+  libbfd,
+  libcap,
+  libdwarf,
+  libGL,
+  libglvnd,
+  lxc,
+  mesa,
+  properties-cpp,
+  protobuf,
+  protobufc,
+  python3,
+  runtimeShell,
+  SDL2,
+  SDL2_image,
+  systemd,
+  writeText,
+  writeShellScript,
+  nixosTests,
 }:
 
 let
@@ -39,7 +46,6 @@ let
   anbox-application-manager = writeShellScript "anbox-application-manager" ''
     exec @out@/bin/anbox launch --package=org.anbox.appmgr --component=org.anbox.appmgr.AppViewActivity
   '';
-
 in
 
 stdenv.mkDerivation rec {
@@ -74,16 +80,20 @@ stdenv.mkDerivation rec {
     lxc
     mesa
     properties-cpp
-    protobuf protobufc
+    protobuf
+    protobufc
     python3
-    SDL2 SDL2_image
+    SDL2
+    SDL2_image
     systemd
   ];
 
   # Flag needed by GCC 12 but unrecognized by GCC 9 (aarch64-linux default now)
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (with stdenv; cc.isGNU && lib.versionAtLeast cc.version "12") [
-    "-Wno-error=mismatched-new-delete"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals (with stdenv; cc.isGNU && lib.versionAtLeast cc.version "12") [
+      "-Wno-error=mismatched-new-delete"
+    ]
+  );
 
   prePatch = ''
     patchShebangs scripts
@@ -137,7 +147,12 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/anbox \
       --set SDL_VIDEO_X11_WMCLASS "anbox" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libGL libglvnd]} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libGL
+          libglvnd
+        ]
+      } \
       --prefix PATH : ${git}/bin
 
     mkdir -p $out/share/dbus-1/services
@@ -153,7 +168,9 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/anbox-application-manager
   '';
 
-  passthru.tests = { inherit (nixosTests) anbox; };
+  passthru.tests = {
+    inherit (nixosTests) anbox;
+  };
   passthru.image = callPackage ./postmarketos-image.nix { };
 
   meta = with lib; {
@@ -161,7 +178,10 @@ stdenv.mkDerivation rec {
     description = "Android in a box";
     license = licenses.gpl2;
     maintainers = with maintainers; [ edwtjo ];
-    platforms = [ "armv7l-linux" "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "armv7l-linux"
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
-
 }

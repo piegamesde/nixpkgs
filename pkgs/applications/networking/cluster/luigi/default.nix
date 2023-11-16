@@ -1,4 +1,8 @@
-{ lib, python3, fetchPypi }:
+{
+  lib,
+  python3,
+  fetchPypi,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "luigi";
@@ -9,7 +13,13 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-zIZC3rbiLwYB7o34rT3mOagVIbfmY6elBEkZGFrSs1c=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ python-dateutil tornado python-daemon boto3 tenacity ];
+  propagatedBuildInputs = with python3.pkgs; [
+    python-dateutil
+    tornado
+    python-daemon
+    boto3
+    tenacity
+  ];
 
   # Requires tox, hadoop, and google cloud
   doCheck = false;

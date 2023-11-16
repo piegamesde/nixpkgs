@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, opencv4
-, pyyaml
-, qudida
-, scikit-image
-, scipy
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  opencv4,
+  pyyaml,
+  qudida,
+  scikit-image,
+  scipy,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -24,13 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-pqODiP5UbFaAcejIL0FEmOhsntA8CLWOeoizHPeiRMY=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRemoveDeps = [
-    "opencv-python"
-  ];
+  pythonRemoveDeps = [ "opencv-python" ];
 
   propagatedBuildInputs = [
     numpy
@@ -41,14 +38,13 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # this test hangs up
-    "test_transforms"
-  ];
+  disabledTests =
+    [
+      # this test hangs up
+      "test_transforms"
+    ];
 
   pythonImportsCheck = [ "albumentations" ];
 

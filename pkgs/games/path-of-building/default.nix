@@ -1,35 +1,49 @@
-{ stdenv, lib, fetchFromGitHub, unzip, meson, ninja, pkg-config, qtbase, qttools, wrapQtAppsHook, luajit }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unzip,
+  meson,
+  ninja,
+  pkg-config,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+  luajit,
+}:
 let
-  data = stdenv.mkDerivation(finalAttrs: {
-    pname = "path-of-building-data";
-    version = "2.34.1";
+  data = stdenv.mkDerivation (
+    finalAttrs: {
+      pname = "path-of-building-data";
+      version = "2.34.1";
 
-    src = fetchFromGitHub {
-      owner = "PathOfBuildingCommunity";
-      repo = "PathOfBuilding";
-      rev = "v${finalAttrs.version}";
-      hash = "sha256-i6OCW5Vc9/LfNuiaEeelmXiqP7+WdIklRNRcgWb7L1w=";
-    };
+      src = fetchFromGitHub {
+        owner = "PathOfBuildingCommunity";
+        repo = "PathOfBuilding";
+        rev = "v${finalAttrs.version}";
+        hash = "sha256-i6OCW5Vc9/LfNuiaEeelmXiqP7+WdIklRNRcgWb7L1w=";
+      };
 
-    nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [ unzip ];
 
-    buildCommand = ''
-      # I have absolutely no idea how this file is generated
-      # and I don't think I want to know. The Flatpak also does this.
-      unzip -j -d $out $src/runtime-win32.zip lua/sha1.lua
+      buildCommand = ''
+        # I have absolutely no idea how this file is generated
+        # and I don't think I want to know. The Flatpak also does this.
+        unzip -j -d $out $src/runtime-win32.zip lua/sha1.lua
 
-      # Install the actual data
-      cp -r $src/src $src/runtime/lua/*.lua $src/manifest.xml $out
+        # Install the actual data
+        cp -r $src/src $src/runtime/lua/*.lua $src/manifest.xml $out
 
-      # Pretend this is an official build so we don't get the ugly "dev mode" warning
-      substituteInPlace $out/manifest.xml --replace '<Version' '<Version platform="nixos"'
-      touch $out/installed.cfg
+        # Pretend this is an official build so we don't get the ugly "dev mode" warning
+        substituteInPlace $out/manifest.xml --replace '<Version' '<Version platform="nixos"'
+        touch $out/installed.cfg
 
-      # Completely stub out the update check
-      chmod +w $out/src/UpdateCheck.lua
-      echo 'return "none"' > $out/src/UpdateCheck.lua
-    '';
-  });
+        # Completely stub out the update check
+        chmod +w $out/src/UpdateCheck.lua
+        echo 'return "none"' > $out/src/UpdateCheck.lua
+      '';
+    }
+  );
 in
 stdenv.mkDerivation {
   pname = "path-of-building";
@@ -42,8 +56,18 @@ stdenv.mkDerivation {
     hash = "sha256-zhw2PZ6ZNMgZ2hG+a6AcYBkeg7kbBHNc2eSt4if17Wk=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config qttools wrapQtAppsHook ];
-  buildInputs = [ qtbase luajit luajit.pkgs.lua-curl ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    qtbase
+    luajit
+    luajit.pkgs.lua-curl
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -67,6 +91,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.k900 ];
     mainProgram = "pobfrontend";
-    broken = stdenv.isDarwin;  # doesn't find uic6 for some reason
+    broken = stdenv.isDarwin; # doesn't find uic6 for some reason
   };
 }

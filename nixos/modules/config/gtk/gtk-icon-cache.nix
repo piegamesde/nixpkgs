@@ -1,7 +1,11 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+with lib; {
   options = {
     gtk.iconCache.enable = mkOption {
       type = types.bool;
@@ -81,5 +85,4 @@ with lib;
       done
     '';
   };
-
 }

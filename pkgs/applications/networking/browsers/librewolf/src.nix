@@ -1,5 +1,11 @@
-{ lib, fetchurl, fetchFromGitLab, fetchFromGitea }:
-let src = lib.importJSON ./src.json;
+{
+  lib,
+  fetchurl,
+  fetchFromGitLab,
+  fetchFromGitea,
+}:
+let
+  src = lib.importJSON ./src.json;
 in
 {
   inherit (src) packageVersion;
@@ -16,9 +22,7 @@ in
     inherit (src.settings) rev sha256;
   };
   firefox = fetchurl {
-    url =
-      "mirror://mozilla/firefox/releases/${src.firefox.version}/source/firefox-${src.firefox.version}.source.tar.xz";
+    url = "mirror://mozilla/firefox/releases/${src.firefox.version}/source/firefox-${src.firefox.version}.source.tar.xz";
     inherit (src.firefox) sha512;
   };
 }
-

@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
 }:
 
 buildGoModule rec {
@@ -18,9 +19,7 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-nHA+UJP6gYWdbTKFcxw1gI6X2ueTUIsHVBIlaprPwsQ=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installShellCompletion --cmd threatest \

@@ -1,11 +1,12 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, coreutils
-, pkg-config
-, openssl
-, pam
-, openssh
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  coreutils,
+  pkg-config,
+  openssl,
+  pam,
+  openssh,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -28,23 +29,20 @@ rustPlatform.buildRustPackage rec {
       --replace '/bin/false' '${coreutils}/bin/false'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     openssl
     pam
   ];
 
-  checkFlags = [
-    # Fails because it tries finding authorized_keys in /home/$USER.
-    "--skip=tests::parse_user_authorized_keys"
-  ];
+  checkFlags =
+    [
+      # Fails because it tries finding authorized_keys in /home/$USER.
+      "--skip=tests::parse_user_authorized_keys"
+    ];
 
-  nativeCheckInputs = [
-    openssh
-  ];
+  nativeCheckInputs = [ openssh ];
 
   env.USER = "nixbld";
 

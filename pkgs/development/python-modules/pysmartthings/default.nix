@@ -1,10 +1,11 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-r+f2+vEXJdQGDlbs/MhraFgEmsAf32PU282blLRLjzc=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -35,9 +34,7 @@ buildPythonPackage rec {
       --replace "aiohttp>=3.8.0,<4.0.0" "aiohttp<=4.0.0"
   '';
 
-  pythonImportsCheck = [
-    "pysmartthings"
-  ];
+  pythonImportsCheck = [ "pysmartthings" ];
 
   meta = with lib; {
     description = "Python library for interacting with the SmartThings cloud API";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -23,7 +28,6 @@ let
     name = "graylog-plugins";
     paths = cfg.plugins;
   };
-
 in
 
 {
@@ -37,8 +41,11 @@ in
 
       package = mkOption {
         type = types.package;
-        default = if versionOlder config.system.stateVersion "23.05" then pkgs.graylog-3_3 else pkgs.graylog-5_1;
-        defaultText = literalExpression (if versionOlder config.system.stateVersion "23.05" then "pkgs.graylog-3_3" else "pkgs.graylog-5_1");
+        default =
+          if versionOlder config.system.stateVersion "23.05" then pkgs.graylog-3_3 else pkgs.graylog-5_1;
+        defaultText = literalExpression (
+          if versionOlder config.system.stateVersion "23.05" then "pkgs.graylog-3_3" else "pkgs.graylog-5_1"
+        );
         description = lib.mdDoc "Graylog package to use.";
       };
 
@@ -90,19 +97,25 @@ in
       elasticsearchHosts = mkOption {
         type = types.listOf types.str;
         example = literalExpression ''[ "http://node1:9200" "http://user:password@node2:19200" ]'';
-        description = lib.mdDoc "List of valid URIs of the http ports of your elastic nodes. If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that requires authentication";
+        description =
+          lib.mdDoc
+            "List of valid URIs of the http ports of your elastic nodes. If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that requires authentication";
       };
 
       messageJournalDir = mkOption {
         type = types.str;
         default = "/var/lib/graylog/data/journal";
-        description = lib.mdDoc "The directory which will be used to store the message journal. The directory must be exclusively used by Graylog and must not contain any other files than the ones created by Graylog itself";
+        description =
+          lib.mdDoc
+            "The directory which will be used to store the message journal. The directory must be exclusively used by Graylog and must not contain any other files than the ones created by Graylog itself";
       };
 
       mongodbUri = mkOption {
         type = types.str;
         default = "mongodb://localhost/graylog";
-        description = lib.mdDoc "MongoDB connection string. See http://docs.mongodb.org/manual/reference/connection-string/ for details";
+        description =
+          lib.mdDoc
+            "MongoDB connection string. See http://docs.mongodb.org/manual/reference/connection-string/ for details";
       };
 
       extraConfig = mkOption {
@@ -116,10 +129,8 @@ in
         default = [ ];
         type = types.listOf types.package;
       };
-
     };
   };
-
 
   ###### implementation
 
@@ -132,11 +143,9 @@ in
         description = "Graylog server daemon user";
       };
     };
-    users.groups = mkIf (cfg.user == "graylog") { graylog = {}; };
+    users.groups = mkIf (cfg.user == "graylog") { graylog = { }; };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.messageJournalDir}' - ${cfg.user} - - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.messageJournalDir}' - ${cfg.user} - - -" ];
 
     systemd.services.graylog = {
       description = "Graylog Server";
@@ -144,7 +153,10 @@ in
       environment = {
         GRAYLOG_CONF = "${confFile}";
       };
-      path = [ pkgs.which pkgs.procps ];
+      path = [
+        pkgs.which
+        pkgs.procps
+      ];
       preStart = ''
         rm -rf /var/lib/graylog/plugins || true
         mkdir -p /var/lib/graylog/plugins -m 755
@@ -160,7 +172,7 @@ in
         done
       '';
       serviceConfig = {
-        User="${cfg.user}";
+        User = "${cfg.user}";
         StateDirectory = "graylog";
         ExecStart = "${cfg.package}/bin/graylogctl run";
       };

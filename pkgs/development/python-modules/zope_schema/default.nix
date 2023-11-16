@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_location
-, zope_event
-, zope_interface
-, zope_testing
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_location,
+  zope_event,
+  zope_interface,
+  zope_testing,
 }:
 
 buildPythonPackage rec {
@@ -16,7 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-6tTbywM1TU5BDJo7kERR60TZAlR1Gxy97fSmGu3p+7k=";
   };
 
-  propagatedBuildInputs = [ zope_location zope_event zope_interface zope_testing ];
+  propagatedBuildInputs = [
+    zope_location
+    zope_event
+    zope_interface
+    zope_testing
+  ];
 
   # ImportError: No module named 'zope.event'
   # even though zope_event has been included.
@@ -29,5 +35,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

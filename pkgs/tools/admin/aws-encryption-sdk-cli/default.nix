@@ -1,9 +1,10 @@
-{ lib
-, python3Packages
-, fetchPypi
-, nix-update-script
-, testers
-, aws-encryption-sdk-cli
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+  nix-update-script,
+  testers,
+  aws-encryption-sdk-cli,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -29,10 +30,11 @@ python3Packages.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # requires networking
-    "test/integration"
-  ];
+  disabledTestPaths =
+    [
+      # requires networking
+      "test/integration"
+    ];
 
   passthru = {
     updateScript = nix-update-script { };

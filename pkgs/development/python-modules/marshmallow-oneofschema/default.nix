@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, marshmallow
-, pytestCheckHook
-, pythonOlder
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  marshmallow,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -26,13 +27,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "marshmallow_oneofschema"
-  ];
+  pythonImportsCheck = [ "marshmallow_oneofschema" ];
 
   meta = with lib; {
     changelog = "https://github.com/marshmallow-code/marshmallow-oneofschema/blob/${src.rev}/CHANGELOG.rst";

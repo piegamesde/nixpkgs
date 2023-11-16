@@ -1,13 +1,15 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, cairo
-, gobject-introspection
-, gtk3
-, gtk-layer-shell
-, pkg-config
-, wrapGAppsHook
-, xdg-utils }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  cairo,
+  gobject-introspection,
+  gtk3,
+  gtk-layer-shell,
+  pkg-config,
+  wrapGAppsHook,
+  xdg-utils,
+}:
 
 buildGoModule rec {
   pname = "nwg-drawer";
@@ -22,8 +24,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-YwXX3srQdCicJlstodqOsL+dwBNVyJx/SwC2dMOUBh4=";
 
-  buildInputs = [ cairo gtk3 gtk-layer-shell ];
-  nativeBuildInputs = [ pkg-config wrapGAppsHook gobject-introspection ];
+  buildInputs = [
+    cairo
+    gtk3
+    gtk-layer-shell
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
   doCheck = false;
 

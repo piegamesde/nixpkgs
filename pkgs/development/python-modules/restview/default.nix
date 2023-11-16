@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, readme_renderer
-, packaging
-, pygments
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  readme_renderer,
+  packaging,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -28,18 +29,15 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "restview"
-  ];
+  pythonImportsCheck = [ "restview" ];
 
-  disabledTests = [
-    # Tests are comparing output
-    "rest_to_html"
-  ];
+  disabledTests =
+    [
+      # Tests are comparing output
+      "rest_to_html"
+    ];
 
   meta = with lib; {
     description = "ReStructuredText viewer";

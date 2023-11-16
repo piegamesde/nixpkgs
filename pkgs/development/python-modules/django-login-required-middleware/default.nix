@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, django
-, djangorestframework
-, fetchFromGitHub
-, python
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  fetchFromGitHub,
+  python,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -21,21 +22,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
-  checkInputs = [
-    djangorestframework
-  ];
+  checkInputs = [ djangorestframework ];
 
-  pythonImportsCheck = [
-    "login_required"
-  ];
+  pythonImportsCheck = [ "login_required" ];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings tests.settings

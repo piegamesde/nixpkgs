@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, sexpdata
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sexpdata,
 }:
 
 buildPythonPackage rec {
@@ -21,5 +22,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/tkf/python-epc";
     license = licenses.gpl3;
   };
-
 }

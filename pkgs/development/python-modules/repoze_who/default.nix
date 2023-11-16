@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_interface
-, webob
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_interface,
+  webob,
 }:
 
 buildPythonPackage rec {
@@ -14,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-6VWt8AwfCwxxXoKJeaI37Ev37nCCe9l/Xhe/gnYNyzA=";
   };
 
-  propagatedBuildInputs = [ zope_interface webob ];
+  propagatedBuildInputs = [
+    zope_interface
+    webob
+  ];
 
   # skip failing test
   # OSError: [Errno 22] Invalid argument

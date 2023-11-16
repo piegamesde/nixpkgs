@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, duckdb
-, fsspec
-, google-cloud-storage
-, numpy
-, openssl
-, pandas
-, psutil
-, pybind11
-, setuptools-scm
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  duckdb,
+  fsspec,
+  google-cloud-storage,
+  numpy,
+  openssl,
+  pandas,
+  psutil,
+  pybind11,
+  setuptools-scm,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,17 +20,19 @@ buildPythonPackage rec {
   # 1. let nix control build cores
   # 2. default to extension autoload & autoinstall disabled
   # 3. unconstrain setuptools_scm version
-  patches = (duckdb.patches or []) ++ [ ./setup.patch ];
+  patches = (duckdb.patches or [ ]) ++ [ ./setup.patch ];
 
-  postPatch = (duckdb.postPatch or "") + ''
-    # we can't use sourceRoot otherwise patches don't apply, because the patches apply to the C++ library
-    cd tools/pythonpkg
+  postPatch =
+    (duckdb.postPatch or "")
+    + ''
+      # we can't use sourceRoot otherwise patches don't apply, because the patches apply to the C++ library
+      cd tools/pythonpkg
 
-    substituteInPlace setup.py --subst-var NIX_BUILD_CORES
+      substituteInPlace setup.py --subst-var NIX_BUILD_CORES
 
-    # avoid dependency on mypy
-    rm tests/stubs/test_stubs.py
-  '';
+      # avoid dependency on mypy
+      rm tests/stubs/test_stubs.py
+    '';
 
   BUILD_HTTPFS = 1;
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -64,13 +67,9 @@ buildPythonPackage rec {
     export HOME="$(mktemp -d)"
   '';
 
-  setupPyBuildFlags = [
-    "--inplace"
-  ];
+  setupPyBuildFlags = [ "--inplace" ];
 
-  pythonImportsCheck = [
-    "duckdb"
-  ];
+  pythonImportsCheck = [ "duckdb" ];
 
   meta = with lib; {
     description = "Python binding for DuckDB";

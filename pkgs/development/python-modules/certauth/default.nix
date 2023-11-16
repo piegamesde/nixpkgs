@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyopenssl
-, tldextract
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyopenssl,
+  tldextract,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -32,13 +33,9 @@ buildPythonPackage rec {
     tldextract
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "certauth"
-  ];
+  pythonImportsCheck = [ "certauth" ];
 
   disabledTests = [
     # Tests want to download Public Suffix List

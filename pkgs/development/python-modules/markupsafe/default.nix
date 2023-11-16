@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-r1mO0y1q6G8bdHuCeDlYsaSrj2F7Bv5oeVx/Amq73K0=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "markupsafe" ];
 
   meta = with lib; {
-    changelog = "https://markupsafe.palletsprojects.com/en/${versions.majorMinor version}.x/changes/#version-${replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://markupsafe.palletsprojects.com/en/${
+        versions.majorMinor version
+      }.x/changes/#version-${replaceStrings [ "." ] [ "-" ] version}";
     description = "Implements a XML/HTML/XHTML Markup safe string";
     homepage = "https://palletsprojects.com/p/markupsafe/";
     license = licenses.bsd3;

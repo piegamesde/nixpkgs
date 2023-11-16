@@ -1,4 +1,4 @@
-{ lib, newScope } :
+{ lib, newScope }:
 let
   callPackage = newScope self;
 
@@ -17,5 +17,5 @@ let
 
     egg2nix = callPackage ./egg2nix.nix { };
   };
-
-in self
+in
+self

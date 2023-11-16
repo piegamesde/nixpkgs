@@ -1,26 +1,31 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gi-docgen
-, meson
-, ninja
-, pkg-config
-, vala
-, gobject-introspection
-, glib
-, cairo
-, sqlite
-, libsoup_3
-, gtk4
-, xvfb-run
-, gnome
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gi-docgen,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gobject-introspection,
+  glib,
+  cairo,
+  sqlite,
+  libsoup_3,
+  gtk4,
+  xvfb-run,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libshumate";
   version = "1.0.5";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "devdoc"; # demo app
 
   src = fetchFromGitLab {
@@ -48,13 +53,9 @@ stdenv.mkDerivation rec {
     gtk4
   ];
 
-  nativeCheckInputs = [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ xvfb-run ];
 
-  mesonFlags = [
-    "-Ddemos=true"
-  ];
+  mesonFlags = [ "-Ddemos=true" ];
 
   doCheck = !stdenv.isDarwin;
 

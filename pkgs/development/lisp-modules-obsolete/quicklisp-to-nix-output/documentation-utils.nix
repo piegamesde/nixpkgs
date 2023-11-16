@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "documentation-utils";
   version = "20190710-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "documentation-utils";
 
-  asdFilesToKeep = ["documentation-utils.asd"];
+  asdFilesToKeep = [ "documentation-utils.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM documentation-utils DESCRIPTION
@@ -25,4 +25,5 @@ rec {
     MD5 4f45f511ac55008b8b8aa04f7feaa2d4 NAME documentation-utils FILENAME
     documentation-utils DEPS ((NAME trivial-indent FILENAME trivial-indent))
     DEPENDENCIES (trivial-indent) VERSION 20190710-git SIBLINGS
-    (multilang-documentation-utils) PARASITES NIL) */
+    (multilang-documentation-utils) PARASITES NIL)
+*/

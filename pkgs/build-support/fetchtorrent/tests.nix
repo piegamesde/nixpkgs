@@ -22,4 +22,3 @@
     backend = "rqbit";
   };
 }
-

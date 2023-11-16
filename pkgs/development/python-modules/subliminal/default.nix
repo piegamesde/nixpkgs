@@ -1,24 +1,25 @@
-{ lib
-, appdirs
-, babelfish
-, beautifulsoup4
-, buildPythonPackage
-, chardet
-, click
-, dogpile-cache
-, enzyme
-, fetchFromGitHub
-, guessit
-, pysrt
-, pytestCheckHook
-, pythonOlder
-, pytz
-, rarfile
-, requests
-, six
-, stevedore
-, sympy
-, vcrpy
+{
+  lib,
+  appdirs,
+  babelfish,
+  beautifulsoup4,
+  buildPythonPackage,
+  chardet,
+  click,
+  dogpile-cache,
+  enzyme,
+  fetchFromGitHub,
+  guessit,
+  pysrt,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  rarfile,
+  requests,
+  six,
+  stevedore,
+  sympy,
+  vcrpy,
 }:
 
 buildPythonPackage rec {
@@ -63,9 +64,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "subliminal"
-  ];
+  pythonImportsCheck = [ "subliminal" ];
 
   disabledTests = [
     # Tests rewuire network access
@@ -80,10 +79,11 @@ buildPythonPackage rec {
     "test_save_subtitles"
   ];
 
-  disabledTestPaths = [
-    # AttributeError: module 'rarfile' has no attribute 'custom_check'
-    "tests/test_legendastv.py"
-  ];
+  disabledTestPaths =
+    [
+      # AttributeError: module 'rarfile' has no attribute 'custom_check'
+      "tests/test_legendastv.py"
+    ];
 
   meta = with lib; {
     description = "Python library to search and download subtitles";

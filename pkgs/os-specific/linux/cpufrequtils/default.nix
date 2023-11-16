@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libtool, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libtool,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cpufrequtils";
@@ -9,10 +15,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-AFOgcYPQaUg70GJhS8YcuAgMV32mHN9+ExsGThoa8Yg=";
   };
 
-  patches = [
-    # I am not 100% sure that this is ok, but it breaks repeatable builds.
-    ./remove-pot-creation-date.patch
-  ];
+  patches =
+    [
+      # I am not 100% sure that this is ok, but it breaks repeatable builds.
+      ./remove-pot-creation-date.patch
+    ];
 
   patchPhase = ''
     sed -e "s@= /usr/bin/@= @g" \
@@ -20,7 +27,11 @@ stdenv.mkDerivation rec {
       -i Makefile
   '';
 
-  buildInputs = [ stdenv.cc.libc.linuxHeaders libtool gettext ];
+  buildInputs = [
+    stdenv.cc.libc.linuxHeaders
+    libtool
+    gettext
+  ];
 
   meta = with lib; {
     description = "Tools to display or change the CPU governor settings";

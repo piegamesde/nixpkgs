@@ -1,7 +1,8 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, nixosTests
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  nixosTests,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -26,14 +27,13 @@ python3Packages.buildPythonApplication rec {
     wcwidth
   ];
 
-  nativeCheckInputs = with python3Packages; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # tests below require dbus daemon
-    "tests/whitebox/integration"
-  ];
+  disabledTestPaths =
+    [
+      # tests below require dbus daemon
+      "tests/whitebox/integration"
+    ];
 
   pythonImportsCheck = [ "stratis_cli" ];
 

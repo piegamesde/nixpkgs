@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, mpv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  mpv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ff2mpv";
@@ -11,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sxUp/JlmnYW2sPDpIO2/q40cVJBVDveJvbQMT70yjP4=";
   };
 
-  buildInputs = [ python3 mpv ];
+  buildInputs = [
+    python3
+    mpv
+  ];
 
   postPatch = ''
     patchShebangs .

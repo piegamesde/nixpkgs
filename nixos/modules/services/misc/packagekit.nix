@@ -1,49 +1,72 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.packagekit;
 
   inherit (lib)
-    mkEnableOption mkOption mkIf mkRemovedOptionModule types
-    listToAttrs recursiveUpdate;
+    mkEnableOption
+    mkOption
+    mkIf
+    mkRemovedOptionModule
+    types
+    listToAttrs
+    recursiveUpdate
+  ;
 
   iniFmt = pkgs.formats.ini { };
 
   confFiles = [
-    (iniFmt.generate "PackageKit.conf" (recursiveUpdate
-      {
-        Daemon = {
-          DefaultBackend = "nix";
-          KeepCache = false;
-        };
-      }
-      cfg.settings))
+    (iniFmt.generate "PackageKit.conf" (
+      recursiveUpdate
+        {
+          Daemon = {
+            DefaultBackend = "nix";
+            KeepCache = false;
+          };
+        }
+        cfg.settings
+    ))
 
-    (iniFmt.generate "Vendor.conf" (recursiveUpdate
-      {
-        PackagesNotFound = rec {
-          DefaultUrl = "https://github.com/NixOS/nixpkgs";
-          CodecUrl = DefaultUrl;
-          HardwareUrl = DefaultUrl;
-          FontUrl = DefaultUrl;
-          MimeUrl = DefaultUrl;
-        };
-      }
-      cfg.vendorSettings))
+    (iniFmt.generate "Vendor.conf" (
+      recursiveUpdate
+        {
+          PackagesNotFound = rec {
+            DefaultUrl = "https://github.com/NixOS/nixpkgs";
+            CodecUrl = DefaultUrl;
+            HardwareUrl = DefaultUrl;
+            FontUrl = DefaultUrl;
+            MimeUrl = DefaultUrl;
+          };
+        }
+        cfg.vendorSettings
+    ))
   ];
-
 in
 {
   imports = [
-    (mkRemovedOptionModule [ "services" "packagekit" "backend" ] "Always set to Nix.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "packagekit"
+        "backend"
+      ]
+      "Always set to Nix."
+    )
   ];
 
   options.services.packagekit = {
-    enable = mkEnableOption (lib.mdDoc ''
-      PackageKit, a cross-platform D-Bus abstraction layer for
-      installing software. Software utilizing PackageKit can install
-      software regardless of the package manager
-    '');
+    enable = mkEnableOption (
+      lib.mdDoc ''
+        PackageKit, a cross-platform D-Bus abstraction layer for
+        installing software. Software utilizing PackageKit can install
+        software regardless of the package manager
+      ''
+    );
 
     settings = mkOption {
       type = iniFmt.type;
@@ -66,9 +89,8 @@ in
 
     systemd.packages = with pkgs; [ packagekit ];
 
-    environment.etc = listToAttrs (map
-      (e:
-        lib.nameValuePair "PackageKit/${e.name}" { source = e; })
-      confFiles);
+    environment.etc = listToAttrs (
+      map (e: lib.nameValuePair "PackageKit/${e.name}" { source = e; }) confFiles
+    );
   };
 }

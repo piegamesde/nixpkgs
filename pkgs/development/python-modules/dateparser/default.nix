@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
-, python-dateutil
-, pytz
-, regex
-, tzlocal
-, hijri-converter
-, convertdate
-, fasttext
-, langdetect
-, parameterized
-, pytestCheckHook
-, gitpython
-, parsel
-, requests
-, ruamel-yaml
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  python-dateutil,
+  pytz,
+  regex,
+  tzlocal,
+  hijri-converter,
+  convertdate,
+  fasttext,
+  langdetect,
+  parameterized,
+  pytestCheckHook,
+  gitpython,
+  parsel,
+  requests,
+  ruamel-yaml,
 }:
 
 buildPythonPackage rec {
@@ -42,7 +43,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    calendars = [ hijri-converter convertdate ];
+    calendars = [
+      hijri-converter
+      convertdate
+    ];
     fasttext = [ fasttext ];
     langdetect = [ langdetect ];
   };

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, mecab
-, setuptools-scm
-, cython
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  mecab,
+  setuptools-scm,
+  cython,
 }:
 
 buildPythonPackage rec {
@@ -25,7 +26,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ cython mecab setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    mecab
+    setuptools-scm
+  ];
 
   pythonImportsCheck = [ "ipadic" ];
 

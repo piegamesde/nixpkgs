@@ -1,23 +1,24 @@
-{ lib
-, babel
-, buildPythonPackage
-, cliff
-, fetchPypi
-, iso8601
-, keystoneauth1
-, osc-lib
-, oslo-i18n
-, oslo-serialization
-, oslo-utils
-, pbr
-, prettytable
-, python-swiftclient
-, pythonOlder
-, pyyaml
-, requests
-, requests-mock
-, stestr
-, testscenarios
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  cliff,
+  fetchPypi,
+  iso8601,
+  keystoneauth1,
+  osc-lib,
+  oslo-i18n,
+  oslo-serialization,
+  oslo-utils,
+  pbr,
+  prettytable,
+  python-swiftclient,
+  pythonOlder,
+  pyyaml,
+  requests,
+  requests-mock,
+  stestr,
+  testscenarios,
 }:
 
 buildPythonPackage rec {
@@ -61,9 +62,7 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [
-    "heatclient"
-  ];
+  pythonImportsCheck = [ "heatclient" ];
 
   meta = with lib; {
     description = "Library for Heat built on the Heat orchestration API";

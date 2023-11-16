@@ -1,16 +1,17 @@
-{ lib
-, mkDerivation
-, fetchurl
-, qmake
-, qtbase
-, qtsvg
-, pkg-config
-, poppler
-, djvulibre
-, libspectre
-, cups
-, file
-, ghostscript
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  qmake,
+  qtbase,
+  qtsvg,
+  pkg-config,
+  poppler,
+  djvulibre,
+  libspectre,
+  cups,
+  file,
+  ghostscript,
 }:
 
 mkDerivation rec {

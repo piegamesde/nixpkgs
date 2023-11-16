@@ -1,12 +1,13 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pydantic
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-vYHwcEOzxYEBav5YbmWpm+izFlivzu2UIR6hmAXXi0U=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -37,9 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "huum"
-  ];
+  pythonImportsCheck = [ "huum" ];
 
   meta = with lib; {
     description = "Library for Huum saunas";

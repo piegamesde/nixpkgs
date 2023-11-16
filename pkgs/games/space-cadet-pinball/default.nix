@@ -1,17 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchzip
-, cmake, SDL2, SDL2_mixer, Cocoa
-, unrar-wrapper, makeWrapper
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchzip,
+  cmake,
+  SDL2,
+  SDL2_mixer,
+  Cocoa,
+  unrar-wrapper,
+  makeWrapper,
+  fetchpatch,
 }:
 
 let
-  assets = (fetchzip {
-    url = "https://archive.org/download/SpaceCadet_Plus95/Space_Cadet.rar";
-    sha256 = "sha256-fC+zsR8BY6vXpUkVd6i1jF0IZZxVKVvNi6VWCKT+pA4=";
-    stripRoot = false;
-  }).overrideAttrs (old: {
-    nativeBuildInputs = old.nativeBuildInputs ++ [ unrar-wrapper ];
-  });
+  assets =
+    (fetchzip {
+      url = "https://archive.org/download/SpaceCadet_Plus95/Space_Cadet.rar";
+      sha256 = "sha256-fC+zsR8BY6vXpUkVd6i1jF0IZZxVKVvNi6VWCKT+pA4=";
+      stripRoot = false;
+    }).overrideAttrs
+      (old: { nativeBuildInputs = old.nativeBuildInputs ++ [ unrar-wrapper ]; });
 in
 stdenv.mkDerivation rec {
   pname = "SpaceCadetPinball";
@@ -24,16 +32,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LmYplJr1Mg4yNg9eP02FXf9mL1FnzNBhpted3GpmlQ0=";
   };
 
-  patches = [
-    # remove when updating past 2.0.1
-    (fetchpatch {
-      name = "fix-install-directories";
-      url = "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch";
-      sha256 = "sha256-BtCDJ+a9AFaOM8nyId0eU9GN/gUQT2kFCO4RIVTzZlE=";
-    })
-  ];
+  patches =
+    [
+      # remove when updating past 2.0.1
+      (fetchpatch {
+        name = "fix-install-directories";
+        url = "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch";
+        sha256 = "sha256-BtCDJ+a9AFaOM8nyId0eU9GN/gUQT2kFCO4RIVTzZlE=";
+      })
+    ];
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
   buildInputs = [
     SDL2
     SDL2_mixer
@@ -62,7 +74,10 @@ stdenv.mkDerivation rec {
     description = "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows";
     homepage = "https://github.com/k4zmu2a/SpaceCadetPinball";
     # The assets are unfree while the code is labeled as MIT
-    license = with licenses; [ unfree mit ];
+    license = with licenses; [
+      unfree
+      mit
+    ];
     maintainers = [ maintainers.hqurve ];
     platforms = platforms.all;
     mainProgram = "SpaceCadetPinball";

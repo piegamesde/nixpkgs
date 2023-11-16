@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, openssl
-, parameterized
-, pytestCheckHook
-, pythonOlder
-, swig2
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  openssl,
+  parameterized,
+  pytestCheckHook,
+  pythonOlder,
+  swig2,
 }:
 
 buildPythonPackage rec {
@@ -31,13 +32,9 @@ buildPythonPackage rec {
     parameterized
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "M2Crypto"
-  ];
+  pythonImportsCheck = [ "M2Crypto" ];
 
   meta = with lib; {
     description = "A Python crypto and SSL toolkit";

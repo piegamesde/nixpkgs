@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, darwin
-, xorg
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  darwin,
+  xorg,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,16 +20,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-vyn/rcptkJLjXg8qjAnzc2bDjz2r0LsGa8toyybgdbM=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.AppKit
-  ] ++ lib.optionals stdenv.isLinux [
-    xorg.libxcb
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
+    ++ lib.optionals stdenv.isLinux [ xorg.libxcb ];
 
-  checkFlags = [
-    # skip flaky test
-    "--skip=timer::timer_tests::test_timer_reset"
-  ];
+  checkFlags =
+    [
+      # skip flaky test
+      "--skip=timer::timer_tests::test_timer_reset"
+    ];
 
   meta = with lib; {
     description = "Cross-platform secure TUI secret locker";

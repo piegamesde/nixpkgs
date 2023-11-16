@@ -1,5 +1,11 @@
-{ lib, fetchgit, buildLua
-, yad, mkvtoolnix-cli, libnotify }:
+{
+  lib,
+  fetchgit,
+  buildLua,
+  yad,
+  mkvtoolnix-cli,
+  libnotify,
+}:
 
 buildLua {
   pname = "mpv-convert-script";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, options }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+}:
 
 with lib;
 
@@ -66,7 +71,10 @@ in
     scopes = mkOption {
       type = types.listOf types.str;
       default = [ "user" ];
-      example = [ "user" "global" ];
+      example = [
+        "user"
+        "global"
+      ];
       description = lib.mdDoc ''
         Stats scopes to query.
       '';
@@ -83,10 +91,11 @@ in
           --dovecot.scopes ${concatStringsSep "," cfg.scopes} \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
-      RestrictAddressFamilies = [
-        # Need AF_UNIX to collect data
-        "AF_UNIX"
-      ];
+      RestrictAddressFamilies =
+        [
+          # Need AF_UNIX to collect data
+          "AF_UNIX"
+        ];
     };
   };
 }

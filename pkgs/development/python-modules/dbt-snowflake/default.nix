@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, dbt-core
-, pytestCheckHook
-, snowflake-connector-python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dbt-core,
+  pytestCheckHook,
+  snowflake-connector-python,
 }:
 
 buildPythonPackage rec {
@@ -23,17 +24,11 @@ buildPythonPackage rec {
     snowflake-connector-python
   ] ++ snowflake-connector-python.optional-dependencies.secure-local-storage;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests/unit"
-  ];
+  pytestFlagsArray = [ "tests/unit" ];
 
-  pythonImportsCheck = [
-    "dbt.adapters.snowflake"
-  ];
+  pythonImportsCheck = [ "dbt.adapters.snowflake" ];
 
   meta = with lib; {
     description = "Plugin enabling dbt to work with Snowflake";

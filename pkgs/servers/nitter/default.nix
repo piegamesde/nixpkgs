@@ -1,23 +1,24 @@
-{ lib
-, buildNimPackage
-, fetchFromGitHub
-, nimPackages
-, nixosTests
-, substituteAll
-, unstableGitUpdater
-, flatty
-, jester
-, jsony
-, karax
-, markdown
-, nimcrypto
-, openssl
-, packedjson
-, redis
-, redpool
-, sass
-, supersnappy
-, zippy
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  nimPackages,
+  nixosTests,
+  substituteAll,
+  unstableGitUpdater,
+  flatty,
+  jester,
+  jsony,
+  karax,
+  markdown,
+  nimcrypto,
+  openssl,
+  packedjson,
+  redis,
+  redpool,
+  sass,
+  supersnappy,
+  zippy,
 }:
 
 buildNimPackage rec {
@@ -36,7 +37,17 @@ buildNimPackage rec {
       src = ./nitter-version.patch;
       inherit version;
       inherit (src) rev;
-      url = builtins.replaceStrings [ "archive" ".tar.gz" ] [ "commit" "" ] src.url;
+      url =
+        builtins.replaceStrings
+          [
+            "archive"
+            ".tar.gz"
+          ]
+          [
+            "commit"
+            ""
+          ]
+          src.url;
     })
   ];
 
@@ -71,15 +82,20 @@ buildNimPackage rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) nitter; };
-    updateScript = unstableGitUpdater {};
+    tests = {
+      inherit (nixosTests) nitter;
+    };
+    updateScript = unstableGitUpdater { };
   };
 
   meta = with lib; {
     homepage = "https://github.com/zedeus/nitter";
     description = "Alternative Twitter front-end";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ erdnaxe infinidoge ];
+    maintainers = with maintainers; [
+      erdnaxe
+      infinidoge
+    ];
     mainProgram = "nitter";
   };
 }

@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, crystal
-, wrapGAppsHook4
-, gobject-introspection
-, desktopToDarwinBundle
-, webkitgtk_6_0
-, sqlite
-, gi-crystal
-, libadwaita
-, gtk4
-, pango
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  crystal,
+  wrapGAppsHook4,
+  gobject-introspection,
+  desktopToDarwinBundle,
+  webkitgtk_6_0,
+  sqlite,
+  gi-crystal,
+  libadwaita,
+  gtk4,
+  pango,
 }:
 let
   gtk4' = gtk4.override { x11Support = true; };
@@ -54,7 +55,7 @@ crystal.buildCrystalPackage rec {
     wrapGAppsHook4
     gobject-introspection
     gi-crystal
-    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+  ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
   buildInputs = [
     webkitgtk_6_0
@@ -64,7 +65,11 @@ crystal.buildCrystalPackage rec {
     pango'
   ];
 
-  buildTargets = [ "configure" "rtfm" "docsets" ];
+  buildTargets = [
+    "configure"
+    "rtfm"
+    "docsets"
+  ];
 
   preBuild = ''
     mkdir gtk-doc/

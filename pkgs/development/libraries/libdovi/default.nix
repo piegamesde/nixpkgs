@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, cargo-c
-, rust
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  cargo-c,
+  rust,
+  stdenv,
 }:
 let
   rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
@@ -28,19 +29,25 @@ rustPlatform.buildRustPackage rec {
 
   buildPhase = ''
     runHook preBuild
-    ${rust.envVars.setEnv} cargo cbuild -j $NIX_BUILD_CORES --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
+    ${rust.envVars.setEnv} cargo cbuild -j $NIX_BUILD_CORES --release --frozen --prefix=${
+      placeholder "out"
+    } --target ${rustTargetPlatformSpec}
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
-    ${rust.envVars.setEnv} cargo cinstall -j $NIX_BUILD_CORES --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
+    ${rust.envVars.setEnv} cargo cinstall -j $NIX_BUILD_CORES --release --frozen --prefix=${
+      placeholder "out"
+    } --target ${rustTargetPlatformSpec}
     runHook postInstall
   '';
 
   checkPhase = ''
     runHook preCheck
-    ${rust.envVars.setEnv} cargo ctest -j $NIX_BUILD_CORES --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
+    ${rust.envVars.setEnv} cargo ctest -j $NIX_BUILD_CORES --release --frozen --prefix=${
+      placeholder "out"
+    } --target ${rustTargetPlatformSpec}
     runHook postCheck
   '';
 

@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "clsql-sqlite3";
   version = "clsql-20210228-git";
 
   description = "Common Lisp Sqlite3 Driver";
 
-  deps = [ args."clsql" args."clsql-uffi" args."uffi" ];
+  deps = [
+    args."clsql"
+    args."clsql-uffi"
+    args."uffi"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clsql/2021-02-28/clsql-20210228-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "clsql-sqlite3";
 
-  asdFilesToKeep = ["clsql-sqlite3.asd"];
+  asdFilesToKeep = [ "clsql-sqlite3.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clsql-sqlite3 DESCRIPTION Common Lisp Sqlite3 Driver SHA256
@@ -29,4 +33,5 @@ rec {
     (clsql-aodbc clsql-cffi clsql-mysql clsql-odbc clsql-postgresql-socket
      clsql-postgresql-socket3 clsql-postgresql clsql-sqlite clsql-tests
      clsql-uffi clsql)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

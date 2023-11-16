@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jinja2
-, markdown
-, markupsafe
-, mkdocs
-, mkdocs-autorefs
-, pymdown-extensions
-, pytestCheckHook
-, pdm-backend
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  markdown,
+  markupsafe,
+  mkdocs,
+  mkdocs-autorefs,
+  pymdown-extensions,
+  pytestCheckHook,
+  pdm-backend,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
       --replace 'license = "ISC"' 'license = {text = "ISC"}'
   '';
 
-  nativeBuildInputs = [
-    pdm-backend
-  ];
+  nativeBuildInputs = [ pdm-backend ];
 
   propagatedBuildInputs = [
     jinja2
@@ -45,18 +44,15 @@ buildPythonPackage rec {
     pymdown-extensions
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "mkdocstrings"
-  ];
+  pythonImportsCheck = [ "mkdocstrings" ];
 
-  disabledTestPaths = [
-    # Circular dependencies
-    "tests/test_extension.py"
-  ];
+  disabledTestPaths =
+    [
+      # Circular dependencies
+      "tests/test_extension.py"
+    ];
 
   disabledTests = [
     # Not all requirements are available

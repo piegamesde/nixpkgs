@@ -7,7 +7,7 @@
   fetchFromGitHub,
   tesseract4,
   leptonica,
-  wl-clipboard
+  wl-clipboard,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "normcap";
@@ -21,13 +21,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-dShtmoqS9TC3PHuwq24OEOhYfBHGhDCma8Du8QCkFuI=";
   };
 
-  buildInputs = [
-    wl-clipboard
-  ];
+  buildInputs = [ wl-clipboard ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     tesseract4

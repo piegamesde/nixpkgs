@@ -1,19 +1,20 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, click
-, colorama
-, fetchFromGitHub
-, html2text
-, lxml
-, markdown
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, requests
-, simplejson
-, tabulate
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  click,
+  colorama,
+  fetchFromGitHub,
+  html2text,
+  lxml,
+  markdown,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  requests,
+  simplejson,
+  tabulate,
 }:
 
 buildPythonPackage rec {
@@ -49,14 +50,13 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # faraday itself is currently not available
-    "tests/test_report_collection.py"
-  ];
+  disabledTestPaths =
+    [
+      # faraday itself is currently not available
+      "tests/test_report_collection.py"
+    ];
 
   disabledTests = [
     # Fail because of missing faraday
@@ -67,9 +67,7 @@ buildPythonPackage rec {
     "test_process_report_tags"
   ];
 
-  pythonImportsCheck = [
-    "faraday_plugins"
-  ];
+  pythonImportsCheck = [ "faraday_plugins" ];
 
   meta = with lib; {
     description = "Security tools report parsers for Faraday";

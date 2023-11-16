@@ -1,4 +1,11 @@
-{ buildPythonPackage, lib, click, colorama, fetchPypi, setuptools-git }:
+{
+  buildPythonPackage,
+  lib,
+  click,
+  colorama,
+  fetchPypi,
+  setuptools-git,
+}:
 
 buildPythonPackage rec {
   pname = "snowmachine";
@@ -10,7 +17,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools-git ];
-  propagatedBuildInputs = [ click colorama ];
+  propagatedBuildInputs = [
+    click
+    colorama
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ "snowmachine" ];

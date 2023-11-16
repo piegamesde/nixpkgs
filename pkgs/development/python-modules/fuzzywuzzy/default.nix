@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, levenshtein, pycodestyle, hypothesis, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  levenshtein,
+  pycodestyle,
+  hypothesis,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "fuzzywuzzy";
@@ -10,7 +18,11 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ levenshtein ];
-  nativeCheckInputs = [ pycodestyle hypothesis pytest ];
+  nativeCheckInputs = [
+    pycodestyle
+    hypothesis
+    pytest
+  ];
 
   meta = with lib; {
     description = "Fuzzy string matching for Python";

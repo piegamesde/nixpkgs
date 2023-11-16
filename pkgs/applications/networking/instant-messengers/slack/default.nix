@@ -1,42 +1,43 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, undmg
-, makeWrapper
-, asar
-, alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, atk
-, cairo
-, cups
-, curl
-, dbus
-, expat
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, libGL
-, libappindicator-gtk3
-, libdrm
-, libnotify
-, libpulseaudio
-, libuuid
-, libxcb
-, libxkbcommon
-, libxshmfence
-, mesa
-, nspr
-, nss
-, pango
-, pipewire
-, systemd
-, wayland
-, xdg-utils
-, xorg
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  undmg,
+  makeWrapper,
+  asar,
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libGL,
+  libappindicator-gtk3,
+  libdrm,
+  libnotify,
+  libpulseaudio,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  libxshmfence,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  pipewire,
+  systemd,
+  wayland,
+  xdg-utils,
+  xorg,
 }:
 
 let
@@ -54,29 +55,33 @@ let
   aarch64-darwin-version = "4.34.121";
   aarch64-darwin-sha256 = "0pvlf9h8433fi31398g4rkii14gk77a684sln8n95xg5p3lxkydy";
 
-  version = {
-    x86_64-darwin = x86_64-darwin-version;
-    x86_64-linux = x86_64-linux-version;
-    aarch64-darwin =  aarch64-darwin-version;
-  }.${system} or throwSystem;
+  version =
+    {
+      x86_64-darwin = x86_64-darwin-version;
+      x86_64-linux = x86_64-linux-version;
+      aarch64-darwin = aarch64-darwin-version;
+    }
+    .${system} or throwSystem;
 
-
-  src = let
-    base = "https://downloads.slack-edge.com";
-  in {
-    x86_64-darwin = fetchurl {
-      url = "${base}/releases/macos/${version}/prod/x64/Slack-${version}-macOS.dmg";
-      sha256 = x86_64-darwin-sha256;
-    };
-    x86_64-linux = fetchurl {
-      url = "${base}/releases/linux/${version}/prod/x64/slack-desktop-${version}-amd64.deb";
-      sha256 = x86_64-linux-sha256;
-    };
-    aarch64-darwin = fetchurl {
-      url = "${base}/releases/macos/${version}/prod/arm64/Slack-${version}-macOS.dmg";
-      sha256 = aarch64-darwin-sha256;
-    };
-  }.${system} or throwSystem;
+  src =
+    let
+      base = "https://downloads.slack-edge.com";
+    in
+    {
+      x86_64-darwin = fetchurl {
+        url = "${base}/releases/macos/${version}/prod/x64/Slack-${version}-macOS.dmg";
+        sha256 = x86_64-darwin-sha256;
+      };
+      x86_64-linux = fetchurl {
+        url = "${base}/releases/linux/${version}/prod/x64/slack-desktop-${version}-amd64.deb";
+        sha256 = x86_64-linux-sha256;
+      };
+      aarch64-darwin = fetchurl {
+        url = "${base}/releases/macos/${version}/prod/arm64/Slack-${version}-macOS.dmg";
+        sha256 = aarch64-darwin-sha256;
+      };
+    }
+    .${system} or throwSystem;
 
   meta = with lib; {
     description = "Desktop client for Slack";
@@ -84,67 +89,85 @@ let
     changelog = "https://slack.com/release-notes";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ mmahut amaxine ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      mmahut
+      amaxine
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-darwin"
+    ];
     mainProgram = "slack";
   };
 
   linux = stdenv.mkDerivation rec {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     passthru.updateScript = ./update.sh;
 
-    rpath = lib.makeLibraryPath [
-      alsa-lib
-      at-spi2-atk
-      at-spi2-core
-      atk
-      cairo
-      cups
-      curl
-      dbus
-      expat
-      fontconfig
-      freetype
-      gdk-pixbuf
-      glib
-      gtk3
-      libGL
-      libappindicator-gtk3
-      libdrm
-      libnotify
-      libpulseaudio
-      libuuid
-      libxcb
-      libxkbcommon
-      mesa
-      nspr
-      nss
-      pango
-      pipewire
-      stdenv.cc.cc
-      systemd
-      wayland
-      xorg.libX11
-      xorg.libXScrnSaver
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libxkbfile
-      xorg.libxshmfence
-    ] + ":${stdenv.cc.cc.lib}/lib64";
+    rpath =
+      lib.makeLibraryPath [
+        alsa-lib
+        at-spi2-atk
+        at-spi2-core
+        atk
+        cairo
+        cups
+        curl
+        dbus
+        expat
+        fontconfig
+        freetype
+        gdk-pixbuf
+        glib
+        gtk3
+        libGL
+        libappindicator-gtk3
+        libdrm
+        libnotify
+        libpulseaudio
+        libuuid
+        libxcb
+        libxkbcommon
+        mesa
+        nspr
+        nss
+        pango
+        pipewire
+        stdenv.cc.cc
+        systemd
+        wayland
+        xorg.libX11
+        xorg.libXScrnSaver
+        xorg.libXcomposite
+        xorg.libXcursor
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXi
+        xorg.libXrandr
+        xorg.libXrender
+        xorg.libXtst
+        xorg.libxkbfile
+        xorg.libxshmfence
+      ]
+      + ":${stdenv.cc.cc.lib}/lib64";
 
     buildInputs = [
       gtk3 # needed for GSETTINGS_SCHEMAS_PATH
     ];
 
-    nativeBuildInputs = [ dpkg makeWrapper asar ];
+    nativeBuildInputs = [
+      dpkg
+      makeWrapper
+      asar
+    ];
 
     dontUnpack = true;
     dontBuild = true;
@@ -173,7 +196,7 @@ let
       rm $out/bin/slack
       makeWrapper $out/lib/slack/slack $out/bin/slack \
         --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-        --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
+        --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer}}"
 
       # Fix the desktop link
@@ -187,7 +210,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     passthru.updateScript = ./update.sh;
 
@@ -203,6 +231,4 @@ let
     '';
   };
 in
-if stdenv.isDarwin
-then darwin
-else linux
+if stdenv.isDarwin then darwin else linux

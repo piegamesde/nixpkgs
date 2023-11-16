@@ -1,15 +1,16 @@
-{ lib
-, aiohttp
-, aioitertools
-, botocore
-, buildPythonPackage
-, dill
-, fetchFromGitHub
-, moto
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, wrapt
+{
+  lib,
+  aiohttp,
+  aioitertools,
+  botocore,
+  buildPythonPackage,
+  dill,
+  fetchFromGitHub,
+  moto,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  wrapt,
 }:
 
 buildPythonPackage rec {
@@ -46,9 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "aiobotocore"
-  ];
+  pythonImportsCheck = [ "aiobotocore" ];
 
   disabledTestPaths = [
     # Tests require network access

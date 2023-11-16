@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, pkg-config, cairo, poppler, wxGTK, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  pkg-config,
+  cairo,
+  poppler,
+  wxGTK,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "diff-pdf";
@@ -11,9 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jt11wssl8cH2cH3NXF+iWHxVNxPJm0I8toignBHq3q0=";
   };
 
-  nativeBuildInputs = [ autoconf automake pkg-config ];
-  buildInputs = [ cairo poppler wxGTK ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    pkg-config
+  ];
+  buildInputs = [
+    cairo
+    poppler
+    wxGTK
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = "./bootstrap";
 

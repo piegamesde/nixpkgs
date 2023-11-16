@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, aiohttp
-, aiohttp-socks
-, aioredis
-, aresponses
-, babel
-, certifi
-, magic-filter
-, pytest-asyncio
-, pytest-lazy-fixture
-, redis
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  aiohttp,
+  aiohttp-socks,
+  aioredis,
+  aresponses,
+  babel,
+  certifi,
+  magic-filter,
+  pytest-asyncio,
+  pytest-lazy-fixture,
+  redis,
 }:
 
 buildPythonPackage rec {

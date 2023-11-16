@@ -1,29 +1,33 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, nix-update-script
-, pkg-config
-, meson
-, mesonEmulatorHook
-, ninja
-, python3
-, mutest
-, nixosTests
-, glib
-, gtk-doc
-, docbook_xsl
-, docbook_xml_dtd_43
-, gobject-introspection
-, makeWrapper
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  pkg-config,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  python3,
+  mutest,
+  nixosTests,
+  glib,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  gobject-introspection,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
   pname = "graphene";
   version = "1.10.8";
 
-  outputs = [ "out" "dev" "devdoc" ]
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -46,9 +50,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     docbook_xml_dtd_43
@@ -60,44 +62,52 @@ stdenv.mkDerivation rec {
     gobject-introspection
     python3
     makeWrapper
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [
-    glib
-  ];
+  buildInputs = [ glib ];
 
-  nativeCheckInputs = [
-    mutest
-  ];
+  nativeCheckInputs = [ mutest ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Dintrospection=enabled"
-    "-Dinstalled_test_datadir=${placeholder "installedTests"}/share"
-    "-Dinstalled_test_bindir=${placeholder "installedTests"}/libexec"
-  ] ++ lib.optionals stdenv.isAarch32 [
-    # the box test is failing with SIGBUS on armv7l-linux
-    # https://github.com/ebassi/graphene/issues/215
-    "-Darm_neon=false"
-  ];
+  mesonFlags =
+    [
+      "-Dgtk_doc=true"
+      "-Dintrospection=enabled"
+      "-Dinstalled_test_datadir=${placeholder "installedTests"}/share"
+      "-Dinstalled_test_bindir=${placeholder "installedTests"}/libexec"
+    ]
+    ++ lib.optionals stdenv.isAarch32
+      [
+        # the box test is failing with SIGBUS on armv7l-linux
+        # https://github.com/ebassi/graphene/issues/215
+        "-Darm_neon=false"
+      ];
 
   doCheck = true;
 
   postPatch = ''
     patchShebangs tests/gen-installed-test.py
-    PATH=${python3.withPackages (pp: [ pp.pygobject3 pp.tappy ])}/bin:$PATH patchShebangs tests/introspection.py
+    PATH=${
+      python3.withPackages (
+        pp: [
+          pp.pygobject3
+          pp.tappy
+        ]
+      )
+    }/bin:$PATH patchShebangs tests/introspection.py
   '';
 
-  postFixup = let
-    introspectionPy = "${placeholder "installedTests"}/libexec/installed-tests/graphene-1.0/introspection.py";
-  in ''
-    if [ -x '${introspectionPy}' ] ; then
-      wrapProgram '${introspectionPy}' \
-        --prefix GI_TYPELIB_PATH : "$out/lib/girepository-1.0"
-    fi
-  '';
+  postFixup =
+    let
+      introspectionPy = "${
+          placeholder "installedTests"
+        }/libexec/installed-tests/graphene-1.0/introspection.py";
+    in
+    ''
+      if [ -x '${introspectionPy}' ] ; then
+        wrapProgram '${introspectionPy}' \
+          --prefix GI_TYPELIB_PATH : "$out/lib/girepository-1.0"
+      fi
+    '';
 
   passthru = {
     tests = {

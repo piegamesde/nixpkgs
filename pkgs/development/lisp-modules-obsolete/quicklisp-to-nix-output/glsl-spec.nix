@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "glsl-spec";
   version = "release-quicklisp-f04476f7-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "glsl-spec";
 
-  asdFilesToKeep = ["glsl-spec.asd"];
+  asdFilesToKeep = [ "glsl-spec.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM glsl-spec DESCRIPTION The GLSL Spec as a datastructure SHA256
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/glsl-spec/2019-10-07/glsl-spec-release-quicklisp-f04476f7-git.tgz
     MD5 52760939a269acce6b2cba8dbde81ef7 NAME glsl-spec FILENAME glsl-spec DEPS
     NIL DEPENDENCIES NIL VERSION release-quicklisp-f04476f7-git SIBLINGS
-    (glsl-docs glsl-symbols) PARASITES NIL) */
+    (glsl-docs glsl-symbols) PARASITES NIL)
+*/

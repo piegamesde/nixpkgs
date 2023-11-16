@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dvd-vr";
@@ -17,4 +21,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ fgaz ];
   };
 }
-

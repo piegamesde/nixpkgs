@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, ziafont
-, pytestCheckHook
-, nbval
-, latex2mathml
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  ziafont,
+  pytestCheckHook,
+  nbval,
+  latex2mathml,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-Bbwq4Ods3P/724KO94jSmMLD1ubfaMHP/gTlOL/2pnE=";
   };
 
-  propagatedBuildInputs = [
-    ziafont
-  ];
+  propagatedBuildInputs = [ ziafont ];
 
   nativeCheckInputs = [
     pytestCheckHook

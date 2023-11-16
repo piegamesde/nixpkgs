@@ -1,6 +1,5 @@
-{ callPackage
-}:
+{ callPackage }:
 
 {
-  prometheus-sensor = callPackage ./prometheus-sensor {};
+  prometheus-sensor = callPackage ./prometheus-sensor { };
 }

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, docopt
-, para
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  docopt,
+  para,
 }:
 
 buildPythonPackage rec {
@@ -16,13 +17,9 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [
-    "mwxml"
-  ];
+  pythonRemoveDeps = [ "mwxml" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     docopt

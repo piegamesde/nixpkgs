@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildDotnetModule
-, fetchFromGitHub
-, fetchpatch
-, dotnetCorePackages
-, dbus
-, fontconfig
-, libICE
-, libSM
-, libX11
-, portaudio
+{
+  lib,
+  stdenv,
+  buildDotnetModule,
+  fetchFromGitHub,
+  fetchpatch,
+  dotnetCorePackages,
+  dbus,
+  fontconfig,
+  libICE,
+  libSM,
+  libX11,
+  portaudio,
 }:
 
 buildDotnetModule rec {
@@ -23,18 +24,22 @@ buildDotnetModule rec {
     hash = "sha256-/+hlL2sj/juzWrDcb5dELp8Zdg688XK8OnjKz20rx/M=";
   };
 
-  patches = [
-    # Needed until stakira/OpenUtau#836 is merged and released to fix crashing issues. See stakira/OpenUtau#822
-    (fetchpatch {
-      name = "openutau-update-avalonia-to-11.0.4.patch";
-      url = "https://github.com/stakira/OpenUtau/commit/0130d7387fb626a72850305dc61d7c175caccc0f.diff";
-      hash = "sha256-w9PLnfiUtiKY/8+y4qqINeEul4kP72nKEVc5c8p2g7c=";
-      # It looks like fetched files use CRLF but patch comes back with LF
-      decode = "sed -e 's/$/\\r/'";
-    })
-  ];
+  patches =
+    [
+      # Needed until stakira/OpenUtau#836 is merged and released to fix crashing issues. See stakira/OpenUtau#822
+      (fetchpatch {
+        name = "openutau-update-avalonia-to-11.0.4.patch";
+        url = "https://github.com/stakira/OpenUtau/commit/0130d7387fb626a72850305dc61d7c175caccc0f.diff";
+        hash = "sha256-w9PLnfiUtiKY/8+y4qqINeEul4kP72nKEVc5c8p2g7c=";
+        # It looks like fetched files use CRLF but patch comes back with LF
+        decode = "sed -e 's/$/\\r/'";
+      })
+    ];
   # Needs binary for above patch due to CRLF shenanigans otherwise being ignored
-  patchFlags = [ "-p1" "--binary" ];
+  patchFlags = [
+    "-p1"
+    "--binary"
+  ];
 
   dotnet-sdk = dotnetCorePackages.sdk_7_0;
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
@@ -66,14 +71,21 @@ buildDotnetModule rec {
   '';
 
   # need to make sure proprietary worldline resampler is copied
-  postInstall = let
-    runtime = if (stdenv.isLinux && stdenv.isx86_64) then "linux-x64"
-         else if (stdenv.isLinux && stdenv.isAarch64) then "linux-arm64"
-         else if stdenv.isDarwin then "osx"
-         else null;
-  in lib.optionalString (runtime != null) ''
-    cp runtimes/${runtime}/native/libworldline${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/OpenUtau/
-  '';
+  postInstall =
+    let
+      runtime =
+        if (stdenv.isLinux && stdenv.isx86_64) then
+          "linux-x64"
+        else if (stdenv.isLinux && stdenv.isAarch64) then
+          "linux-arm64"
+        else if stdenv.isDarwin then
+          "osx"
+        else
+          null;
+    in
+    lib.optionalString (runtime != null) ''
+      cp runtimes/${runtime}/native/libworldline${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/OpenUtau/
+    '';
 
   passthru.updateScript = ./update.sh;
 
@@ -94,6 +106,11 @@ buildDotnetModule rec {
       unfreeRedistributable
     ];
     maintainers = with maintainers; [ lilyinstarlight ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

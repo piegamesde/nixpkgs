@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, approvaltests
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  approvaltests,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

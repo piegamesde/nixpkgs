@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libuev";
@@ -11,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-x6l7CqlZ82kc8shAf2SxgIa4ESu0fTtnOgGz5joVCEY=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   meta = with lib; {
     description = "Lightweight event loop library for Linux epoll() family APIs";

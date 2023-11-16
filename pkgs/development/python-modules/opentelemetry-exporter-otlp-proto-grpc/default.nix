@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, backoff
-, googleapis-common-protos
-, grpcio
-, hatchling
-, opentelemetry-api
-, opentelemetry-test-utils
-, opentelemetry-exporter-otlp-proto-common
-, pytest-grpc
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  backoff,
+  googleapis-common-protos,
+  grpcio,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-test-utils,
+  opentelemetry-exporter-otlp-proto-common,
+  pytest-grpc,
+  pytestCheckHook,
 }:
 
 buildPythonPackage {
@@ -21,9 +22,7 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     backoff
@@ -37,9 +36,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    "tests/performance/benchmarks/"
-  ];
+  disabledTestPaths = [ "tests/performance/benchmarks/" ];
 
   pythonImportsCheck = [ "opentelemetry.exporter.otlp.proto.grpc" ];
 

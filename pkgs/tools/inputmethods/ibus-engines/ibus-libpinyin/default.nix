@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, gettext
-, pkg-config
-, wrapGAppsHook
-, sqlite
-, libpinyin
-, db
-, ibus
-, glib
-, gtk3
-, python3
-, lua
-, opencc
-, libsoup
-, json-glib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gettext,
+  pkg-config,
+  wrapGAppsHook,
+  sqlite,
+  libpinyin,
+  db,
+  ibus,
+  glib,
+  gtk3,
+  python3,
+  lua,
+  opencc,
+  libsoup,
+  json-glib,
 }:
 
 stdenv.mkDerivation rec {
@@ -46,10 +47,13 @@ stdenv.mkDerivation rec {
     glib
     sqlite
     libpinyin
-    (python3.withPackages (pypkgs: with pypkgs; [
-      pygobject3
-      (toPythonModule ibus)
-    ]))
+    (python3.withPackages (
+      pypkgs:
+      with pypkgs; [
+        pygobject3
+        (toPythonModule ibus)
+      ]
+    ))
     gtk3
     db
     lua
@@ -62,7 +66,10 @@ stdenv.mkDerivation rec {
     isIbusEngine = true;
     description = "IBus interface to the libpinyin input method";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ linsui ericsagnes ];
+    maintainers = with maintainers; [
+      linsui
+      ericsagnes
+    ];
     platforms = platforms.linux;
   };
 }

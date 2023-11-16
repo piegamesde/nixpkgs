@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -50,9 +55,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.lidarr = {
       description = "Lidarr";
@@ -68,9 +71,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 8686 ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ 8686 ]; };
 
     users.users = mkIf (cfg.user == "lidarr") {
       lidarr = {

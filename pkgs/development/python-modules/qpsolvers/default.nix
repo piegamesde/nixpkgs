@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonPackage
-, unittestCheckHook
-, flit-core
-, daqp
-, ecos
-, numpy
-, osqp
-, scipy
-, scs
-, quadprog
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  unittestCheckHook,
+  flit-core,
+  daqp,
+  ecos,
+  numpy,
+  osqp,
+  scipy,
+  scs,
+  quadprog,
 }:
 buildPythonPackage rec {
   pname = "qpsolvers";

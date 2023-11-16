@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -43,10 +48,11 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [
-      # The config file has to be inside the state dir
-      "L+ ${stateDir}/config.yaml - - - - ${configFile}"
-    ];
+    systemd.tmpfiles.rules =
+      [
+        # The config file has to be inside the state dir
+        "L+ ${stateDir}/config.yaml - - - - ${configFile}"
+      ];
 
     systemd.services.soft-serve = {
       description = "Soft Serve git server";
@@ -79,7 +85,11 @@ in
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

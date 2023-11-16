@@ -1,4 +1,16 @@
-{ mkDerivation, lib, fetchFromGitLab, qtbase, qtx11extras, kglobalaccel, xorg, cmake, ninja, libcprime, libcsys }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  qtbase,
+  qtx11extras,
+  kglobalaccel,
+  xorg,
+  cmake,
+  ninja,
+  libcprime,
+  libcsys,
+}:
 
 mkDerivation rec {
   pname = "corestuff";
@@ -11,10 +23,11 @@ mkDerivation rec {
     hash = "sha256-2tnJMBbROGWZQDWjy/xGBNkv7DXXKLWrHf2XnMjOjWQ=";
   };
 
-  patches = [
-    # Remove autostart
-    ./0001-fix-installPhase.patch
-  ];
+  patches =
+    [
+      # Remove autostart
+      ./0001-fix-installPhase.patch
+    ];
 
   nativeBuildInputs = [
     cmake

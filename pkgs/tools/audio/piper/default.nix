@@ -1,74 +1,77 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 
-# build time
-, cmake
-, pkg-config
+  # build time
+  cmake,
+  pkg-config,
 
-# runtime
-, fmt
-, onnxruntime
-, pcaudiolib
-, piper-phonemize
-, spdlog
+  # runtime
+  fmt,
+  onnxruntime,
+  pcaudiolib,
+  piper-phonemize,
+  spdlog,
 
-# tests
-, piper-train
+  # tests
+  piper-train,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "piper";
-  version = "2023.11.6-1";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "piper";
+    version = "2023.11.6-1";
 
-  src = fetchFromGitHub {
-    owner = "rhasspy";
-    repo = "piper";
-    rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-9y7HuVgbI8if5XrgQGnEZV1lOw8oMXTFRUTvy/kTGfs=";
-  };
+    src = fetchFromGitHub {
+      owner = "rhasspy";
+      repo = "piper";
+      rev = "refs/tags/${finalAttrs.version}";
+      hash = "sha256-9y7HuVgbI8if5XrgQGnEZV1lOw8oMXTFRUTvy/kTGfs=";
+    };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
 
-  cmakeFlags = [
-    "-DFMT_DIR=${fmt}"
-    "-DSPDLOG_DIR=${spdlog.src}"
-    "-DPIPER_PHONEMIZE_DIR=${piper-phonemize}"
-  ];
+    cmakeFlags = [
+      "-DFMT_DIR=${fmt}"
+      "-DSPDLOG_DIR=${spdlog.src}"
+      "-DPIPER_PHONEMIZE_DIR=${piper-phonemize}"
+    ];
 
-  buildInputs = [
-    onnxruntime
-    pcaudiolib
-    piper-phonemize
-    piper-phonemize.espeak-ng
-    spdlog
-  ];
+    buildInputs = [
+      onnxruntime
+      pcaudiolib
+      piper-phonemize
+      piper-phonemize.espeak-ng
+      spdlog
+    ];
 
-  env.NIX_CFLAGS_COMPILE = builtins.toString [
-    "-isystem ${lib.getDev piper-phonemize}/include/piper-phonemize"
-  ];
+    env.NIX_CFLAGS_COMPILE = builtins.toString [
+      "-isystem ${lib.getDev piper-phonemize}/include/piper-phonemize"
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    install -m 0755 piper $out/bin
+      mkdir -p $out/bin
+      install -m 0755 piper $out/bin
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.tests = {
-    inherit piper-train;
-  };
+    passthru.tests = {
+      inherit piper-train;
+    };
 
-  meta = with lib; {
-    changelog = "https://github.com/rhasspy/piper/releases/tag/v${finalAttrs.version}";
-    description = "A fast, local neural text to speech system";
-    homepage = "https://github.com/rhasspy/piper";
-    license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
-  };
-})
+    meta = with lib; {
+      changelog = "https://github.com/rhasspy/piper/releases/tag/v${finalAttrs.version}";
+      description = "A fast, local neural text to speech system";
+      homepage = "https://github.com/rhasspy/piper";
+      license = licenses.mit;
+      maintainers = with maintainers; [ hexa ];
+    };
+  }
+)

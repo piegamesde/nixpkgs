@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, mkdocs-material
-, mkdocs-mermaid2-plugin
-, mkdocstrings
-, networkx
-, pytestCheckHook
-, pythonOlder
-, requests
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  mkdocs-material,
+  mkdocs-mermaid2-plugin,
+  mkdocstrings,
+  networkx,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-zTC9zaY2WQ4Sx/1YeEaw23UH0hoP/ktMwzH8x/rER00=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     networkx
@@ -48,19 +47,19 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  disabledTestPaths = [
-    # Test requires internet connection to mermaid.ink
-    "test/pipeline/integration"
-  ];
+  disabledTestPaths =
+    [
+      # Test requires internet connection to mermaid.ink
+      "test/pipeline/integration"
+    ];
 
-  disabledTests = [
-    # Path issue
-    "test_draw_pygraphviz"
-  ];
+  disabledTests =
+    [
+      # Path issue
+      "test_draw_pygraphviz"
+    ];
 
-  pythonImportsCheck = [
-    "canals"
-  ];
+  pythonImportsCheck = [ "canals" ];
 
   meta = with lib; {
     description = "A component orchestration engine";

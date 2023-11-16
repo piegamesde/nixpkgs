@@ -1,6 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
-, requests, zeroconf, wakeonlan
-, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  zeroconf,
+  wakeonlan,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "openwebifpy";
@@ -29,4 +36,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ hexa ];
   };
 }
-

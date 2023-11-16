@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchgit
-, pkg-config
-, libtraceevent
-, asciidoc
-, xmlto
-, docbook_xml_dtd_45
-, docbook_xsl
-, coreutils
-, valgrind
-, sourceHighlight
-, meson
-, flex
-, bison
-, ninja
-, cunit
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  libtraceevent,
+  asciidoc,
+  xmlto,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  coreutils,
+  valgrind,
+  sourceHighlight,
+  meson,
+  flex,
+  bison,
+  ninja,
+  cunit,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,7 +33,12 @@ stdenv.mkDerivation rec {
     patchShebangs --build check-manpages.sh samples/extract-example.sh Documentation/install-docs.sh.in
   '';
 
-  outputs = [ "out" "dev" "devman" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devman"
+    "doc"
+  ];
   nativeBuildInputs = [
     meson
     ninja
@@ -48,16 +54,19 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ libtraceevent ];
 
-  ninjaFlags = [ "all" "docs" ];
+  ninjaFlags = [
+    "all"
+    "docs"
+  ];
 
   doCheck = true;
   checkInputs = [ cunit ];
 
   meta = with lib; {
     description = "Linux kernel trace file system library";
-    homepage    = "https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/";
-    license     = licenses.lgpl21Only;
-    platforms   = platforms.linux;
+    homepage = "https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/";
+    license = licenses.lgpl21Only;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ wentasah ];
   };
 }

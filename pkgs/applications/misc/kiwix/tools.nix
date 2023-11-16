@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, gitUpdater
-, icu
-, libkiwix
-, meson
-, ninja
-, pkg-config
-, stdenv
+{
+  lib,
+  fetchFromGitHub,
+  gitUpdater,
+  icu,
+  libkiwix,
+  meson,
+  ninja,
+  pkg-config,
+  stdenv,
 }:
 
 stdenv.mkDerivation rec {
@@ -41,4 +42,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ colinsane ];
   };
 }
-

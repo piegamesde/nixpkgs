@@ -39,7 +39,8 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo =
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -59,10 +60,13 @@ self: super: {
 
   # For GHC < 9.4, some packages need data-array-byte as an extra dependency
   primitive = addBuildDepends [ self.data-array-byte ] super.primitive;
-  hashable = addBuildDepends [
-    self.data-array-byte
-    self.base-orphans
-  ] super.hashable;
+  hashable =
+    addBuildDepends
+      [
+        self.data-array-byte
+        self.base-orphans
+      ]
+      super.hashable;
 
   # Pick right versions for GHC-specific packages
   ghc-api-compat = doDistribute (unmarkBroken self.ghc-api-compat_8_10_7);
@@ -86,20 +90,28 @@ self: super: {
   shower = doJailbreak super.shower;
 
   # Apply patch from https://github.com/finnsson/template-helper/issues/12#issuecomment-611795375 to fix the build.
-  language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    name = "language-haskell-extract-0.2.4.patch";
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/e48738ee1be774507887a90a0d67ad1319456afc/patches/language-haskell-extract-0.2.4.patch?inline=false";
-    sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
-  }) (doJailbreak super.language-haskell-extract);
+  language-haskell-extract =
+    appendPatch
+      (pkgs.fetchpatch {
+        name = "language-haskell-extract-0.2.4.patch";
+        url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/e48738ee1be774507887a90a0d67ad1319456afc/patches/language-haskell-extract-0.2.4.patch?inline=false";
+        sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
+      })
+      (doJailbreak super.language-haskell-extract);
 
   # hnix 0.9.0 does not provide an executable for ghc < 8.10, so define completions here for now.
-  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ]
-    (overrideCabal (drv: {
-      # executable is allowed for ghc >= 8.10 and needs repline
-      executableHaskellDepends = drv.executableToolDepends or [] ++ [ self.repline ];
-    }) super.hnix);
+  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (
+    overrideCabal
+      (drv: {
+        # executable is allowed for ghc >= 8.10 and needs repline
+        executableHaskellDepends = drv.executableToolDepends or [ ] ++ [ self.repline ];
+      })
+      super.hnix
+  );
 
-  haskell-language-server =  throw "haskell-language-server dropped support for ghc 8.10 in version 2.3.0.0 please use a newer ghc version or an older nixpkgs version";
+  haskell-language-server =
+    throw
+      "haskell-language-server dropped support for ghc 8.10 in version 2.3.0.0 please use a newer ghc version or an older nixpkgs version";
 
   ghc-lib-parser = doDistribute self.ghc-lib-parser_9_2_8_20230729;
   ghc-lib-parser-ex = doDistribute self.ghc-lib-parser-ex_9_2_1_1;
@@ -107,7 +119,6 @@ self: super: {
 
   mod = super.mod_0_1_2_2;
   path-io = doJailbreak super.path-io;
-
 
   ormolu = self.ormolu_0_5_0_1;
   fourmolu = dontCheck self.fourmolu_0_9_0_0;
@@ -119,27 +130,25 @@ self: super: {
   # weeder 2.3.* no longer supports GHC 8.10
   weeder = doDistribute (doJailbreak self.weeder_2_2_0);
   # Unnecessarily strict upper bound on lens
-  weeder_2_2_0 = doJailbreak (super.weeder_2_2_0.override {
-    # weeder < 2.6 only supports algebraic-graphs < 0.7
-    # We no longer have matching test deps for algebraic-graphs 0.6.1 in the set
-    algebraic-graphs = dontCheck self.algebraic-graphs_0_6_1;
-  });
+  weeder_2_2_0 = doJailbreak (
+    super.weeder_2_2_0.override {
+      # weeder < 2.6 only supports algebraic-graphs < 0.7
+      # We no longer have matching test deps for algebraic-graphs 0.6.1 in the set
+      algebraic-graphs = dontCheck self.algebraic-graphs_0_6_1;
+    }
+  );
 
   # OneTuple needs hashable (instead of ghc-prim) and foldable1-classes-compat for GHC < 9
-  OneTuple = addBuildDepends [
-    self.foldable1-classes-compat
-  ] (super.OneTuple.override {
-    ghc-prim = self.hashable;
-  });
+  OneTuple = addBuildDepends [ self.foldable1-classes-compat ] (
+    super.OneTuple.override { ghc-prim = self.hashable; }
+  );
 
   # Doesn't build with 9.0, see https://github.com/yi-editor/yi/issues/1125
   yi-core = doDistribute (markUnbroken super.yi-core);
 
   # Temporarily disabled blaze-textual for GHC >= 9.0 causing hackage2nix ignoring it
   # https://github.com/paul-rouse/mysql-simple/blob/872604f87044ff6d1a240d9819a16c2bdf4ed8f5/Database/MySQL/Internal/Blaze.hs#L4-L10
-  mysql-simple = addBuildDepends [
-    self.blaze-textual
-  ] super.mysql-simple;
+  mysql-simple = addBuildDepends [ self.blaze-textual ] super.mysql-simple;
 
   taffybar = markUnbroken (doDistribute super.taffybar);
 

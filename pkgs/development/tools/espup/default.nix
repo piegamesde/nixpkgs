@@ -1,16 +1,17 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, installShellFiles
-, bzip2
-, openssl
-, xz
-, zstd
-, stdenv
-, darwin
-, testers
-, espup
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  installShellFiles,
+  bzip2,
+  openssl,
+  xz,
+  zstd,
+  stdenv,
+  darwin,
+  testers,
+  espup,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -31,16 +32,18 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [
-    bzip2
-    openssl
-    xz
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreFoundation
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  buildInputs =
+    [
+      bzip2
+      openssl
+      xz
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.CoreFoundation
+      darwin.apple_sdk.frameworks.Security
+      darwin.apple_sdk.frameworks.SystemConfiguration
+    ];
 
   env = {
     OPENSSL_NO_VENDOR = true;
@@ -51,10 +54,11 @@ rustPlatform.buildRustPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  checkFlags = [
-    # makes network calls
-    "--skip=toolchain::rust::tests::test_xtensa_rust_parse_version"
-  ];
+  checkFlags =
+    [
+      # makes network calls
+      "--skip=toolchain::rust::tests::test_xtensa_rust_parse_version"
+    ];
 
   postInstall = ''
     installShellCompletion --cmd espup \
@@ -63,14 +67,15 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/espup completions zsh)
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = espup;
-  };
+  passthru.tests.version = testers.testVersion { package = espup; };
 
   meta = with lib; {
     description = "Tool for installing and maintaining Espressif Rust ecosystem.";
     homepage = "https://github.com/esp-rs/espup/";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ knightpp ];
     mainProgram = "espup";
   };

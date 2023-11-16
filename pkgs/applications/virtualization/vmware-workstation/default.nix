@@ -1,33 +1,37 @@
-{ stdenv
-, buildFHSEnv
-, fetchurl
-, lib
-, zlib
-, gdbm
-, bzip2
-, libxslt
-, libxml2
-, libuuid
-, readline
-, xz
-, cups
-, glibc
-, libaio
-, vulkan-loader
-, alsa-lib
-, libpulseaudio
-, libxcrypt-legacy
-, libGL
-, numactl
-, libX11
-, libXi
-, kmod
-, python3
-, autoPatchelfHook
-, makeWrapper
-, sqlite
-, enableInstaller ? false
-, enableMacOSGuests ? false, fetchFromGitHub, gnutar, unzip
+{
+  stdenv,
+  buildFHSEnv,
+  fetchurl,
+  lib,
+  zlib,
+  gdbm,
+  bzip2,
+  libxslt,
+  libxml2,
+  libuuid,
+  readline,
+  xz,
+  cups,
+  glibc,
+  libaio,
+  vulkan-loader,
+  alsa-lib,
+  libpulseaudio,
+  libxcrypt-legacy,
+  libGL,
+  numactl,
+  libX11,
+  libXi,
+  kmod,
+  python3,
+  autoPatchelfHook,
+  makeWrapper,
+  sqlite,
+  enableInstaller ? false,
+  enableMacOSGuests ? false,
+  fetchFromGitHub,
+  gnutar,
+  unzip,
 }:
 
 let
@@ -50,19 +54,21 @@ let
     sha256 = "sha256-kpvrRiiygfjQni8z+ju9mPBVqy2gs08Wj4cHxE9eorQ=";
   };
 
-  gdbm3 = gdbm.overrideAttrs (old: rec {
-    version = "1.8.3";
+  gdbm3 = gdbm.overrideAttrs (
+    old: rec {
+      version = "1.8.3";
 
-    src = fetchurl {
-      url = "mirror://gnu/gdbm/gdbm-${version}.tar.gz";
-      sha256 = "sha256-zDQDOKLii0AFirnrU1SiHVP4ihWC6iG6C7GFw3ooHck=";
-    };
+      src = fetchurl {
+        url = "mirror://gnu/gdbm/gdbm-${version}.tar.gz";
+        sha256 = "sha256-zDQDOKLii0AFirnrU1SiHVP4ihWC6iG6C7GFw3ooHck=";
+      };
 
-    installPhase = ''
-      mkdir -p $out/lib
-      cp .libs/libgdbm*.so* $out/lib/
-    '';
-  });
+      installPhase = ''
+        mkdir -p $out/lib
+        cp .libs/libgdbm*.so* $out/lib/
+      '';
+    }
+  );
 
   vmware-unpack-env = buildFHSEnv rec {
     name = "vmware-unpack-env";
@@ -95,12 +101,26 @@ stdenv.mkDerivation rec {
     kmod
   ];
 
-  nativeBuildInputs = [ python3 vmware-unpack-env autoPatchelfHook makeWrapper ]
-    ++ lib.optionals enableInstaller [ sqlite bzip2 ]
-    ++ lib.optionals enableMacOSGuests [ gnutar unzip ];
+  nativeBuildInputs =
+    [
+      python3
+      vmware-unpack-env
+      autoPatchelfHook
+      makeWrapper
+    ]
+    ++ lib.optionals enableInstaller [
+      sqlite
+      bzip2
+    ]
+    ++ lib.optionals enableMacOSGuests [
+      gnutar
+      unzip
+    ];
 
   src = fetchurl {
-    url = "https://download3.vmware.com/software/WKST-${builtins.replaceStrings ["."] [""] version}-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";
+    url = "https://download3.vmware.com/software/WKST-${
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";
     sha256 = "sha256-9ONh+uvL4YGNGxbpPX1mWO8P4oKPUpwzTsKKBJNxHMc=";
   };
 
@@ -395,6 +415,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ cawilliamson deinferno ];
+    maintainers = with maintainers; [
+      cawilliamson
+      deinferno
+    ];
   };
 }

@@ -1,20 +1,23 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 let
   py = python3.override {
     packageOverrides = self: super: {
-      paramiko = super.paramiko.overridePythonAttrs (oldAttrs: rec {
-        version = "3.1.0";
-        src = oldAttrs.src.override {
-          inherit version;
-          hash = "sha256-aVD6ymgZrNMhnUrmlKI8eofuONCE9wwXJLDA27i3V2k=";
-        };
-        patches = [ ];
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ python3.pkgs.icecream ];
-      });
+      paramiko = super.paramiko.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "3.1.0";
+          src = oldAttrs.src.override {
+            inherit version;
+            hash = "sha256-aVD6ymgZrNMhnUrmlKI8eofuONCE9wwXJLDA27i3V2k=";
+          };
+          patches = [ ];
+          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ python3.pkgs.icecream ];
+        }
+      );
     };
   };
 in
@@ -47,9 +50,7 @@ buildPythonApplication rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sshmitm"
-  ];
+  pythonImportsCheck = [ "sshmitm" ];
 
   meta = with lib; {
     description = "Tool for SSH security audits";

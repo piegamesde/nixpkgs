@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-testutils
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-testutils,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -36,10 +37,11 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  disabledTests = [
-    # require credentials
-    "test_annotate_video"
-  ];
+  disabledTests =
+    [
+      # require credentials
+      "test_annotate_video"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.videointelligence"

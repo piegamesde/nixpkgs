@@ -1,14 +1,15 @@
-{ autoAddOpenGLRunpathHook
-, backendStdenv
-, cmake
-, cuda_cccl
-, cuda_cudart
-, cudaFlags
-, cuda_nvcc
-, lib
-, libcublas
-, setupCudaHook
-, stdenv
+{
+  autoAddOpenGLRunpathHook,
+  backendStdenv,
+  cmake,
+  cuda_cccl,
+  cuda_cudart,
+  cudaFlags,
+  cuda_nvcc,
+  lib,
+  libcublas,
+  setupCudaHook,
+  stdenv,
 }:
 
 backendStdenv.mkDerivation {
@@ -38,7 +39,9 @@ backendStdenv.mkDerivation {
 
   cmakeFlags = [
     "-DCMAKE_VERBOSE_MAKEFILE=ON"
-    "-DCMAKE_CUDA_ARCHITECTURES=${with cudaFlags; builtins.concatStringsSep ";" (map dropDot cudaCapabilities)}"
+    "-DCMAKE_CUDA_ARCHITECTURES=${
+      with cudaFlags; builtins.concatStringsSep ";" (map dropDot cudaCapabilities)
+    }"
   ];
 
   meta = {

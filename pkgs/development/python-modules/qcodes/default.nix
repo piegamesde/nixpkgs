@@ -1,50 +1,51 @@
-{ lib
-, broadbean
-, buildPythonPackage
-, cf-xarray
-, dask
-, deepdiff
-, fetchPypi
-, h5netcdf
-, h5py
-, hypothesis
-, importlib-metadata
-, ipykernel
-, ipython
-, ipywidgets
-, jsonschema
-, lxml
-, matplotlib
-, numpy
-, opencensus
-, opencensus-ext-azure
-, opentelemetry-api
-, packaging
-, pandas
-, pillow
-, pip
-, pytest-asyncio
-, pytest-mock
-, pytest-rerunfailures
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, pyvisa
-, pyvisa-sim
-, qcodes-loop
-, rsa
-, ruamel-yaml
-, setuptools
-, sphinx
-, tabulate
-, tqdm
-, typing-extensions
-, uncertainties
-, versioningit
-, websockets
-, wheel
-, wrapt
-, xarray
+{
+  lib,
+  broadbean,
+  buildPythonPackage,
+  cf-xarray,
+  dask,
+  deepdiff,
+  fetchPypi,
+  h5netcdf,
+  h5py,
+  hypothesis,
+  importlib-metadata,
+  ipykernel,
+  ipython,
+  ipywidgets,
+  jsonschema,
+  lxml,
+  matplotlib,
+  numpy,
+  opencensus,
+  opencensus-ext-azure,
+  opentelemetry-api,
+  packaging,
+  pandas,
+  pillow,
+  pip,
+  pytest-asyncio,
+  pytest-mock,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pyvisa,
+  pyvisa-sim,
+  qcodes-loop,
+  rsa,
+  ruamel-yaml,
+  setuptools,
+  sphinx,
+  tabulate,
+  tqdm,
+  typing-extensions,
+  uncertainties,
+  versioningit,
+  websockets,
+  wheel,
+  wrapt,
+  xarray,
 }:
 
 buildPythonPackage rec {
@@ -93,14 +94,10 @@ buildPythonPackage rec {
     websockets
     wrapt
     xarray
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
-    loop = [
-      qcodes-loop
-    ];
+    loop = [ qcodes-loop ];
   };
 
   nativeCheckInputs = [
@@ -119,10 +116,11 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pytestFlagsArray = [
-    # Follow upstream with settings
-    "--durations=20"
-  ];
+  pytestFlagsArray =
+    [
+      # Follow upstream with settings
+      "--durations=20"
+    ];
 
   disabledTestPaths = [
     # Test depends on qcodes-loop, causing a cyclic dependency
@@ -143,9 +141,7 @@ buildPythonPackage rec {
     "test_ramp_safely"
   ];
 
-  pythonImportsCheck = [
-    "qcodes"
-  ];
+  pythonImportsCheck = [ "qcodes" ];
 
   postInstall = ''
     export HOME="$TMPDIR"

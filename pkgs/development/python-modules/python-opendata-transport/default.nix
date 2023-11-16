@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, aiohttp
-, urllib3
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aiohttp,
+  urllib3,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
   # no tests are present
   doCheck = false;
 
-  pythonImportsCheck = [
-    "opendata_transport"
-  ];
+  pythonImportsCheck = [ "opendata_transport" ];
 
   meta = with lib; {
     description = "Python client for interacting with transport.opendata.ch";

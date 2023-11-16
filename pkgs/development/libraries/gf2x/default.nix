@@ -1,9 +1,11 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, autoreconfHook
-, buildPackages
-, optimize ? false # impure hardware optimizations
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  autoreconfHook,
+  buildPackages,
+  optimize ? false # impure hardware optimizations
+  ,
 }:
 stdenv.mkDerivation rec {
   pname = "gf2x";
@@ -19,17 +21,13 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   # no actual checks present yet (as of 1.2), but can't hurt trying
   # for an indirect test, run ntl's test suite
   doCheck = true;
 
-  configureFlags = lib.optionals (!optimize) [
-    "--disable-hardware-specific-code"
-  ];
+  configureFlags = lib.optionals (!optimize) [ "--disable-hardware-specific-code" ];
 
   meta = with lib; {
     description = "Routines for fast arithmetic in GF(2)[x]";

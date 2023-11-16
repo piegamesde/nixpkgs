@@ -1,24 +1,30 @@
-{lib, python3, writeText}:
+{
+  lib,
+  python3,
+  writeText,
+}:
 
 let
   py = python3.pkgs;
 in
-py.toPythonApplication
-  (py.mlflow.overridePythonAttrs(old: rec {
+py.toPythonApplication (
+  py.mlflow.overridePythonAttrs (
+    old: rec {
 
-    propagatedBuildInputs = old.propagatedBuildInputs ++ [
-      py.boto3
-      py.mysqlclient
-    ];
+      propagatedBuildInputs = old.propagatedBuildInputs ++ [
+        py.boto3
+        py.mysqlclient
+      ];
 
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace mlflow/utils/process.py --replace \
-        "child = subprocess.Popen(cmd, env=cmd_env, cwd=cwd, universal_newlines=True," \
-        "cmd[0]='$out/bin/gunicornMlflow'; child = subprocess.Popen(cmd, env=cmd_env, cwd=cwd, universal_newlines=True,"
-    '';
+      postPatch =
+        (old.postPatch or "")
+        + ''
+          substituteInPlace mlflow/utils/process.py --replace \
+            "child = subprocess.Popen(cmd, env=cmd_env, cwd=cwd, universal_newlines=True," \
+            "cmd[0]='$out/bin/gunicornMlflow'; child = subprocess.Popen(cmd, env=cmd_env, cwd=cwd, universal_newlines=True,"
+        '';
 
-    gunicornScript = writeText "gunicornMlflow"
-    ''
+      gunicornScript = writeText "gunicornMlflow" ''
         #!/usr/bin/env python
         import re
         import sys
@@ -28,9 +34,11 @@ py.toPythonApplication
           sys.exit(run())
       '';
 
-    postInstall = ''
-      gpath=$out/bin/gunicornMlflow
-      cp ${gunicornScript} $gpath
-      chmod 555 $gpath
-    '';
-}))
+      postInstall = ''
+        gpath=$out/bin/gunicornMlflow
+        cp ${gunicornScript} $gpath
+        chmod 555 $gpath
+      '';
+    }
+  )
+)

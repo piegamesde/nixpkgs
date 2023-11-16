@@ -1,35 +1,39 @@
-{ stdenv
-, lib
-, pkg-config
-, meson
-, mesonEmulatorHook
-, ninja
-, fetchFromGitLab
-, fetchpatch
-, libgudev
-, glib
-, polkit
-, dbus
-, gobject-introspection
-, gettext
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_412
-, libxml2
-, libxslt
-, upower
-, umockdev
-, systemd
-, python3
-, wrapGAppsNoGuiHook
-, nixosTests
+{
+  stdenv,
+  lib,
+  pkg-config,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  fetchFromGitLab,
+  fetchpatch,
+  libgudev,
+  glib,
+  polkit,
+  dbus,
+  gobject-introspection,
+  gettext,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_412,
+  libxml2,
+  libxslt,
+  upower,
+  umockdev,
+  systemd,
+  python3,
+  wrapGAppsNoGuiHook,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
   pname = "power-profiles-daemon";
   version = "0.13";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -53,14 +57,15 @@ stdenv.mkDerivation rec {
     wrapGAppsNoGuiHook
     python3.pkgs.wrapPython
     # checkInput but cheked for during the configuring
-    (python3.pythonOnBuildForHost.withPackages (ps: with ps; [
-      pygobject3
-      dbus-python
-      python-dbusmock
-    ]))
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+    (python3.pythonOnBuildForHost.withPackages (
+      ps:
+      with ps; [
+        pygobject3
+        dbus-python
+        python-dbusmock
+      ]
+    ))
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     libgudev
@@ -76,9 +81,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   # for cli tool
-  pythonPath = [
-    python3.pkgs.pygobject3
-  ];
+  pythonPath = [ python3.pkgs.pygobject3 ];
 
   nativeCheckInputs = [
     umockdev

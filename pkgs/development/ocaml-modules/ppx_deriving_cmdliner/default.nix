@@ -1,12 +1,13 @@
-{ lib
-, buildDunePackage
-, fetchFromGitHub
-, fetchpatch
-, alcotest
-, cmdliner
-, ppx_deriving
-, ppxlib
-, gitUpdater
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  fetchpatch,
+  alcotest,
+  cmdliner,
+  ppx_deriving,
+  ppxlib,
+  gitUpdater,
 }:
 
 buildDunePackage rec {
@@ -23,14 +24,15 @@ buildDunePackage rec {
     sha256 = "sha256-/22KLQnxu3e2ZSca6ZLxTJDfv/rsmgCUkJnZC0RwRi8";
   };
 
-  patches = [
-    # Ppxlib.0.26.0 compatibility
-    # remove when a new version is released
-    (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/hammerlab/ppx_deriving_cmdliner/pull/50.patch";
-      sha256 = "sha256-FfUfEAsyobwZ99+s5sFAaCE6Xgx7jLr/q79OxDbGcvQ=";
-    })
-  ];
+  patches =
+    [
+      # Ppxlib.0.26.0 compatibility
+      # remove when a new version is released
+      (fetchpatch {
+        url = "https://patch-diff.githubusercontent.com/raw/hammerlab/ppx_deriving_cmdliner/pull/50.patch";
+        sha256 = "sha256-FfUfEAsyobwZ99+s5sFAaCE6Xgx7jLr/q79OxDbGcvQ=";
+      })
+    ];
 
   propagatedBuildInputs = [
     cmdliner
@@ -39,9 +41,7 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [
-    alcotest
-  ];
+  checkInputs = [ alcotest ];
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

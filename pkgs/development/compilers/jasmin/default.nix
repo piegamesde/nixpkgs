@@ -1,13 +1,18 @@
-{ lib, stdenv
-, fetchurl
-, unzip
-, jdk8
-, ant
-, makeWrapper
-, callPackage
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  jdk8,
+  ant,
+  makeWrapper,
+  callPackage,
 }:
 
-let jre = jdk8.jre; jdk = jdk8; in
+let
+  jre = jdk8.jre;
+  jdk = jdk8;
+in
 stdenv.mkDerivation rec {
   pname = "jasmin";
   version = "2.4";
@@ -17,11 +22,15 @@ stdenv.mkDerivation rec {
     sha256 = "17a41vr96glcdrdbk88805wwvv1r6w8wg7if23yhd0n6rrl0r8ga";
   };
 
-  nativeBuildInputs = [ unzip jdk ant makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    jdk
+    ant
+    makeWrapper
+  ];
 
   buildPhase = "ant all";
-  installPhase =
-  ''
+  installPhase = ''
     install -Dm644 jasmin.jar $out/share/java/jasmin.jar
     mkdir -p $out/bin
     makeWrapper ${jre}/bin/java $out/bin/jasmin \
@@ -29,7 +38,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    minimal-module = callPackage ./test-assemble-hello-world {};
+    minimal-module = callPackage ./test-assemble-hello-world { };
   };
 
   meta = with lib; {
@@ -41,4 +50,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 }
-

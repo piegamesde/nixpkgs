@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, setuptools-scm
-, toml
-, importlib-metadata
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  setuptools-scm,
+  toml,
+  importlib-metadata,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  propagatedBuildInputs = [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ importlib-metadata ];
 
   checkPhase = ''
     rm pytest.ini
@@ -37,5 +36,4 @@ buildPythonPackage rec {
     homepage = "http://jsonpickle.github.io/";
     license = lib.licenses.bsd3;
   };
-
 }

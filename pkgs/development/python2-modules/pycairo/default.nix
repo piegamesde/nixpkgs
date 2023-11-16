@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, meson
-, ninja
-, buildPythonPackage
-, pytest
-, pkg-config
-, cairo
-, python
+{
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  buildPythonPackage,
+  pytest,
+  pkg-config,
+  cairo,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    cairo
-  ];
+  buildInputs = [ cairo ];
 
   # HACK: Don't use the pytestCheckHook because PYTHONPATH
   # will be added by the Python setuptook breaking meson.
@@ -38,17 +37,21 @@ buildPythonPackage rec {
     ${pytest}/bin/pytest
   '';
 
-  mesonFlags = [
-    # This is only used for figuring out what version of Python is in
-    # use, and related stuff like figuring out what the install prefix
-    # should be, but it does need to be able to execute Python code.
-    "-Dpython=${python.pythonOnBuildForHost.interpreter}"
-  ];
+  mesonFlags =
+    [
+      # This is only used for figuring out what version of Python is in
+      # use, and related stuff like figuring out what the install prefix
+      # should be, but it does need to be able to execute Python code.
+      "-Dpython=${python.pythonOnBuildForHost.interpreter}"
+    ];
 
   meta = with lib; {
     description = "Python 2 bindings for cairo";
     homepage = "https://pycairo.readthedocs.io/";
-    license = with licenses; [ lgpl21Only mpl11 ];
+    license = with licenses; [
+      lgpl21Only
+      mpl11
+    ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

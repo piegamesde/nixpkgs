@@ -1,40 +1,65 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.virtualisation.podman;
   json = pkgs.formats.json { };
 
   inherit (lib) mkOption types;
 
-  podmanPackage = (pkgs.podman.override {
-    extraPackages = cfg.extraPackages
-      # setuid shadow
-      ++ [ "/run/wrappers" ]
-      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
-  });
+  podmanPackage =
+    (pkgs.podman.override {
+      extraPackages =
+        cfg.extraPackages
+        # setuid shadow
+        ++ [ "/run/wrappers" ]
+        ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
+    });
 
   # Provides a fake "docker" binary mapping to podman
-  dockerCompat = pkgs.runCommand "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
-    {
-      outputs = [ "out" "man" ];
-      inherit (podmanPackage) meta;
-    } ''
-    mkdir -p $out/bin
-    ln -s ${podmanPackage}/bin/podman $out/bin/docker
+  dockerCompat =
+    pkgs.runCommand "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
+      {
+        outputs = [
+          "out"
+          "man"
+        ];
+        inherit (podmanPackage) meta;
+      }
+      ''
+        mkdir -p $out/bin
+        ln -s ${podmanPackage}/bin/podman $out/bin/docker
 
-    mkdir -p $man/share/man/man1
-    for f in ${podmanPackage.man}/share/man/man1/*; do
-      basename=$(basename $f | sed s/podman/docker/g)
-      ln -s $f $man/share/man/man1/$basename
-    done
-  '';
-
+        mkdir -p $man/share/man/man1
+        for f in ${podmanPackage.man}/share/man/man1/*; do
+          basename=$(basename $f | sed s/podman/docker/g)
+          ln -s $f $man/share/man/man1/$basename
+        done
+      '';
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule [ "virtualisation" "podman" "defaultNetwork" "dnsname" ]
-      "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead.")
-    (lib.mkRemovedOptionModule [ "virtualisation" "podman" "defaultNetwork" "extraPlugins" ]
-      "Netavark isn't compatible with CNI plugins.")
+    (lib.mkRemovedOptionModule
+      [
+        "virtualisation"
+        "podman"
+        "defaultNetwork"
+        "dnsname"
+      ]
+      "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead."
+    )
+    (lib.mkRemovedOptionModule
+      [
+        "virtualisation"
+        "podman"
+        "defaultNetwork"
+        "extraPlugins"
+      ]
+      "Netavark isn't compatible with CNI plugins."
+    )
     ./network-socket.nix
   ];
 
@@ -44,17 +69,16 @@ in
 
   options.virtualisation.podman = {
 
-    enable =
-      mkOption {
-        type = types.bool;
-        default = false;
-        description = lib.mdDoc ''
-          This option enables Podman, a daemonless container engine for
-          developing, managing, and running OCI Containers on your Linux System.
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = lib.mdDoc ''
+        This option enables Podman, a daemonless container engine for
+        developing, managing, and running OCI Containers on your Linux System.
 
-          It is a drop-in replacement for the {command}`docker` command.
-        '';
-      };
+        It is a drop-in replacement for the {command}`docker` command.
+      '';
+    };
 
     dockerSocket.enable = mkOption {
       type = types.bool;
@@ -112,7 +136,7 @@ in
 
       flags = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "--all" ];
         description = lib.mdDoc ''
           Any additional flags passed to {command}`podman system prune`.
@@ -147,71 +171,81 @@ in
         Settings for podman's default network.
       '';
     };
-
   };
 
-  config = lib.mkIf cfg.enable
-    {
-      environment.systemPackages = [ cfg.package ]
-        ++ lib.optional cfg.dockerCompat dockerCompat;
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.dockerCompat dockerCompat;
 
-      # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
-      environment.etc."containers/networks/podman.json" = lib.mkIf (cfg.defaultNetwork.settings != { }) {
-        source = json.generate "podman.json" ({
+    # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
+    environment.etc."containers/networks/podman.json" = lib.mkIf (cfg.defaultNetwork.settings != { }) {
+      source = json.generate "podman.json" (
+        {
           dns_enabled = false;
           driver = "bridge";
           id = "0000000000000000000000000000000000000000000000000000000000000000";
           internal = false;
-          ipam_options = { driver = "host-local"; };
+          ipam_options = {
+            driver = "host-local";
+          };
           ipv6_enabled = false;
           name = "podman";
           network_interface = "podman0";
-          subnets = [{ gateway = "10.88.0.1"; subnet = "10.88.0.0/16"; }];
-        } // cfg.defaultNetwork.settings);
-      };
+          subnets = [
+            {
+              gateway = "10.88.0.1";
+              subnet = "10.88.0.0/16";
+            }
+          ];
+        }
+        // cfg.defaultNetwork.settings
+      );
+    };
 
-      virtualisation.containers = {
-        enable = true; # Enable common /etc/containers configuration
-        containersConf.settings = {
+    virtualisation.containers = {
+      enable = true; # Enable common /etc/containers configuration
+      containersConf.settings =
+        {
           network.network_backend = "netavark";
-        } // lib.optionalAttrs cfg.enableNvidia {
+        }
+        // lib.optionalAttrs cfg.enableNvidia {
           engine = {
             conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ];
             runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
           };
         };
-      };
+    };
 
-      systemd.packages = [ cfg.package ];
+    systemd.packages = [ cfg.package ];
 
-      systemd.services.podman-prune = {
-        description = "Prune podman resources";
+    systemd.services.podman-prune = {
+      description = "Prune podman resources";
 
-        restartIfChanged = false;
-        unitConfig.X-StopOnRemoval = false;
+      restartIfChanged = false;
+      unitConfig.X-StopOnRemoval = false;
 
-        serviceConfig.Type = "oneshot";
+      serviceConfig.Type = "oneshot";
 
-        script = ''
-          ${cfg.package}/bin/podman system prune -f ${toString cfg.autoPrune.flags}
-        '';
+      script = ''
+        ${cfg.package}/bin/podman system prune -f ${toString cfg.autoPrune.flags}
+      '';
 
-        startAt = lib.optional cfg.autoPrune.enable cfg.autoPrune.dates;
-        after = [ "podman.service" ];
-        requires = [ "podman.service" ];
-      };
+      startAt = lib.optional cfg.autoPrune.enable cfg.autoPrune.dates;
+      after = [ "podman.service" ];
+      requires = [ "podman.service" ];
+    };
 
-      systemd.sockets.podman.wantedBy = [ "sockets.target" ];
-      systemd.sockets.podman.socketConfig.SocketGroup = "podman";
+    systemd.sockets.podman.wantedBy = [ "sockets.target" ];
+    systemd.sockets.podman.socketConfig.SocketGroup = "podman";
 
-      systemd.user.sockets.podman.wantedBy = [ "sockets.target" ];
+    systemd.user.sockets.podman.wantedBy = [ "sockets.target" ];
 
-      systemd.timers.podman-prune.timerConfig = lib.mkIf cfg.autoPrune.enable {
-        Persistent = true;
-        RandomizedDelaySec = 1800;
-      };
+    systemd.timers.podman-prune.timerConfig = lib.mkIf cfg.autoPrune.enable {
+      Persistent = true;
+      RandomizedDelaySec = 1800;
+    };
 
-      systemd.tmpfiles.packages = [
+    systemd.tmpfiles.packages =
+      [
         # The /run/podman rule interferes with our podman group, so we remove
         # it and let the systemd socket logic take care of it.
         (pkgs.runCommand "podman-tmpfiles-nixos" { package = cfg.package; } ''
@@ -222,24 +256,23 @@ in
         '')
       ];
 
-      systemd.tmpfiles.rules =
-        lib.optionals cfg.dockerSocket.enable [
-          "L! /run/docker.sock - - - - /run/podman/podman.sock"
-        ];
+    systemd.tmpfiles.rules = lib.optionals cfg.dockerSocket.enable [
+      "L! /run/docker.sock - - - - /run/podman/podman.sock"
+    ];
 
-      users.groups.podman = { };
+    users.groups.podman = { };
 
-      assertions = [
-        {
-          assertion = cfg.dockerCompat -> !config.virtualisation.docker.enable;
-          message = "Option dockerCompat conflicts with docker";
-        }
-        {
-          assertion = cfg.dockerSocket.enable -> !config.virtualisation.docker.enable;
-          message = ''
-            The options virtualisation.podman.dockerSocket.enable and virtualisation.docker.enable conflict, because only one can serve the socket.
-          '';
-        }
-      ];
-    };
+    assertions = [
+      {
+        assertion = cfg.dockerCompat -> !config.virtualisation.docker.enable;
+        message = "Option dockerCompat conflicts with docker";
+      }
+      {
+        assertion = cfg.dockerSocket.enable -> !config.virtualisation.docker.enable;
+        message = ''
+          The options virtualisation.podman.dockerSocket.enable and virtualisation.docker.enable conflict, because only one can serve the socket.
+        '';
+      }
+    ];
+  };
 }

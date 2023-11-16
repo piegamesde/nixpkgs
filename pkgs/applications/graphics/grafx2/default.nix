@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, SDL
-, SDL_image
-, SDL_ttf
-, fontconfig
-, libpng
-, libtiff
-, lua5
-, pkg-config
-, zlib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_image,
+  SDL_ttf,
+  fontconfig,
+  libpng,
+  libtiff,
+  lua5,
+  pkg-config,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -35,14 +36,20 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags = [ "-C src" ];
-  installFlags = [ "-C src" "PREFIX=$(out)" ];
+  installFlags = [
+    "-C src"
+    "PREFIX=$(out)"
+  ];
 
   meta = {
     description = "Bitmap paint program inspired by the Amiga programs Deluxe Paint and Brilliance";
     homepage = "http://pulkomandy.tk/projects/GrafX2";
     license = lib.licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" ];
-    maintainers = [];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
+    maintainers = [ ];
     mainProgram = "grafx2-sdl";
   };
 }

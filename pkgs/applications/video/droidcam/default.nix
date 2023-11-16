@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub
-, ffmpeg, libjpeg_turbo, gtk3, alsa-lib, speex, libusbmuxd, libappindicator-gtk3
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ffmpeg,
+  libjpeg_turbo,
+  gtk3,
+  alsa-lib,
+  speex,
+  libusbmuxd,
+  libappindicator-gtk3,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,9 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wTWdIPptbqt1cZgK6IDTZdrhno4Qlf4AujugfQ/xOT0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     ffmpeg

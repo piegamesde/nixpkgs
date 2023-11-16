@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, poetry-core
-, wheel
-, aiofiles
-, aiohttp
-, dataclass-factory
-, numpy
-, pydantic
-, pydub
-, ffmpeg
-, pytest-asyncio
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  wheel,
+  aiofiles,
+  aiohttp,
+  dataclass-factory,
+  numpy,
+  pydantic,
+  pydub,
+  ffmpeg,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -27,15 +28,16 @@ buildPythonPackage rec {
     hash = "sha256-dfrdfbGkLYNjlS6Qv9Rnywv6nqiKrNXCICLSuAXpQBU=";
   };
 
-  patches = [
-    # remove poetry and virtualenv from build dependencies as they are not used
-    # https://github.com/dotX12/ShazamIO/pull/71
-    (fetchpatch {
-      name = "remove-unused-build-dependencies.patch";
-      url = "https://github.com/dotX12/ShazamIO/commit/5c61e1efe51c2826852da5b6aa6ad8ce3d4012a9.patch";
-      hash = "sha256-KiU5RVBPnSs5qrReFeTe9ePg1fR7y0NchIIHcQwlPaI=";
-    })
-  ];
+  patches =
+    [
+      # remove poetry and virtualenv from build dependencies as they are not used
+      # https://github.com/dotX12/ShazamIO/pull/71
+      (fetchpatch {
+        name = "remove-unused-build-dependencies.patch";
+        url = "https://github.com/dotX12/ShazamIO/commit/5c61e1efe51c2826852da5b6aa6ad8ce3d4012a9.patch";
+        hash = "sha256-KiU5RVBPnSs5qrReFeTe9ePg1fR7y0NchIIHcQwlPaI=";
+      })
+    ];
 
   nativeBuildInputs = [
     poetry-core

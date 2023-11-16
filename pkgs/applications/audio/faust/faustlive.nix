@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitHub
-, llvm_10, qt5, qrencode, libmicrohttpd, libjack2, alsa-lib, faust, curl
-, bc, coreutils, which, libsndfile, flac, libogg, libvorbis, libopus, pkg-config, libxcb, cmake, gnutls, libtasn1, p11-kit
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  llvm_10,
+  qt5,
+  qrencode,
+  libmicrohttpd,
+  libjack2,
+  alsa-lib,
+  faust,
+  curl,
+  bc,
+  coreutils,
+  which,
+  libsndfile,
+  flac,
+  libogg,
+  libvorbis,
+  libopus,
+  pkg-config,
+  libxcb,
+  cmake,
+  gnutls,
+  libtasn1,
+  p11-kit,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,17 +37,46 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config qt5.wrapQtAppsHook cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    qt5.wrapQtAppsHook
+    cmake
+  ];
 
   buildInputs = [
-    llvm_10 qt5.qtbase qrencode libmicrohttpd libjack2 alsa-lib faust curl
-    bc coreutils which libsndfile flac libogg libvorbis libopus libxcb gnutls libtasn1 p11-kit
+    llvm_10
+    qt5.qtbase
+    qrencode
+    libmicrohttpd
+    libjack2
+    alsa-lib
+    faust
+    curl
+    bc
+    coreutils
+    which
+    libsndfile
+    flac
+    libogg
+    libvorbis
+    libopus
+    libxcb
+    gnutls
+    libtasn1
+    p11-kit
   ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   postInstall = ''
-    wrapProgram $out/bin/FaustLive --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libmicrohttpd libsndfile faust llvm_10 ]}"
+    wrapProgram $out/bin/FaustLive --prefix LD_LIBRARY_PATH : "${
+      lib.makeLibraryPath [
+        libmicrohttpd
+        libsndfile
+        faust
+        llvm_10
+      ]
+    }"
   '';
 
   postPatch = "cd Build";

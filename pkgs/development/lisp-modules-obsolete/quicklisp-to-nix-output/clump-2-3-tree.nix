@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "clump-2-3-tree";
   version = "clump-20160825-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clump-2-3-tree";
 
-  asdFilesToKeep = ["clump-2-3-tree.asd"];
+  asdFilesToKeep = [ "clump-2-3-tree.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clump-2-3-tree DESCRIPTION System lacks description SHA256
@@ -24,4 +24,5 @@ rec {
     MD5 5132d2800138d435ef69f7e68b025c8f NAME clump-2-3-tree FILENAME
     clump-2-3-tree DEPS ((NAME acclimation FILENAME acclimation)) DEPENDENCIES
     (acclimation) VERSION clump-20160825-git SIBLINGS
-    (clump-binary-tree clump-test clump) PARASITES NIL) */
+    (clump-binary-tree clump-test clump) PARASITES NIL)
+*/

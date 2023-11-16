@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, charset-normalizer
-, dsinternals
-, fetchPypi
-, flask
-, ldapdomaindump
-, pyasn1
-, pycryptodomex
-, pyopenssl
-, pythonOlder
-, setuptools
-, six
+{
+  lib,
+  buildPythonPackage,
+  charset-normalizer,
+  dsinternals,
+  fetchPypi,
+  flask,
+  ldapdomaindump,
+  pyasn1,
+  pycryptodomex,
+  pyopenssl,
+  pythonOlder,
+  setuptools,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -40,14 +41,13 @@ buildPythonPackage rec {
   # RecursionError: maximum recursion depth exceeded
   doCheck = false;
 
-  pythonImportsCheck = [
-    "impacket"
-  ];
+  pythonImportsCheck = [ "impacket" ];
 
   meta = with lib; {
     description = "Network protocols Constructors and Dissectors";
     homepage = "https://github.com/SecureAuthCorp/impacket";
-    changelog = "https://github.com/fortra/impacket/releases/tag/impacket_"
+    changelog =
+      "https://github.com/fortra/impacket/releases/tag/impacket_"
       + replaceStrings [ "." ] [ "_" ] version;
     # Modified Apache Software License, Version 1.1
     license = licenses.free;

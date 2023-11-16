@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pytest-asyncio
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pytest-asyncio,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -16,13 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-Sv095m7zqfgGdVn7ehy+VVwX3L4VlxsF0bYlw+er4hM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  pythonImportsCheck = [
-    "blinker"
-  ];
+  pythonImportsCheck = [ "blinker" ];
 
   nativeCheckInputs = [
     pytest-asyncio

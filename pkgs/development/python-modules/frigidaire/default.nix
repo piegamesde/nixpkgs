@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, certifi
-, chardet
-, fetchFromGitHub
-, idna
-, pythonOlder
-, requests
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  chardet,
+  fetchFromGitHub,
+  idna,
+  pythonOlder,
+  requests,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -39,9 +40,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "frigidaire"
-  ];
+  pythonImportsCheck = [ "frigidaire" ];
 
   meta = with lib; {
     description = "Python API for the Frigidaire devices";

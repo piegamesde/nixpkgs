@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -22,5 +23,4 @@ buildPythonPackage rec {
     homepage = "http://hg.hardcoded.net/hsaudiotag/";
     license = licenses.bsd3;
   };
-
 }

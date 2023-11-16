@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, Security, installShellFiles, nix-update-script }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  Security,
+  installShellFiles,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustic-rs";
@@ -33,7 +41,10 @@ rustPlatform.buildRustPackage rec {
     description = "fast, encrypted, deduplicated backups powered by pure Rust";
     mainProgram = "rustic";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    license = [ lib.licenses.mit lib.licenses.asl20 ];
+    license = [
+      lib.licenses.mit
+      lib.licenses.asl20
+    ];
     maintainers = [ lib.maintainers.nobbz ];
   };
 }

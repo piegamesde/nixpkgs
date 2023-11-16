@@ -1,34 +1,58 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config
-, libX11, glfw, glew, fftwFloat, volk, AppKit
-# Sources
-, airspy_source ? true, airspy
-, airspyhf_source ? true, airspyhf
-, bladerf_source ? false, libbladeRF
-, file_source ? true
-, hackrf_source ? true, hackrf
-, limesdr_source ? false, limesuite
-, sddc_source ? false
-, rtl_sdr_source ? true, rtl-sdr, libusb1
-, rtl_tcp_source ? true
-, sdrplay_source ? false, sdrplay
-, soapy_source ? true, soapysdr
-, spyserver_source ? true
-, plutosdr_source ? stdenv.isLinux, libiio, libad9361
-# Sinks
-, audio_sink ? true, rtaudio
-, portaudio_sink ? false, portaudio
-, network_sink ? true
-# Decoders
-, falcon9_decoder ? false
-, m17_decoder ? false, codec2
-, meteor_demodulator ? true
-, radio ? true
-, weather_sat_decoder ? true
-# Misc
-, discord_presence ? true
-, frequency_manager ? true
-, recorder ? true
-, rigctl_server ? true
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libX11,
+  glfw,
+  glew,
+  fftwFloat,
+  volk,
+  AppKit,
+  # Sources
+  airspy_source ? true,
+  airspy,
+  airspyhf_source ? true,
+  airspyhf,
+  bladerf_source ? false,
+  libbladeRF,
+  file_source ? true,
+  hackrf_source ? true,
+  hackrf,
+  limesdr_source ? false,
+  limesuite,
+  sddc_source ? false,
+  rtl_sdr_source ? true,
+  rtl-sdr,
+  libusb1,
+  rtl_tcp_source ? true,
+  sdrplay_source ? false,
+  sdrplay,
+  soapy_source ? true,
+  soapysdr,
+  spyserver_source ? true,
+  plutosdr_source ? stdenv.isLinux,
+  libiio,
+  libad9361,
+  # Sinks
+  audio_sink ? true,
+  rtaudio,
+  portaudio_sink ? false,
+  portaudio,
+  network_sink ? true,
+  # Decoders
+  falcon9_decoder ? false,
+  m17_decoder ? false,
+  codec2,
+  meteor_demodulator ? true,
+  radio ? true,
+  weather_sat_decoder ? true,
+  # Misc
+  discord_presence ? true,
+  frequency_manager ? true,
+  recorder ? true,
+  rigctl_server ? true,
 }:
 
 stdenv.mkDerivation rec {
@@ -52,9 +76,18 @@ stdenv.mkDerivation rec {
       --replace "codec2.h" "codec2/codec2.h"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ glfw glew fftwFloat volk ]
+  buildInputs =
+    [
+      glfw
+      glew
+      fftwFloat
+      volk
+    ]
     ++ lib.optional stdenv.isDarwin AppKit
     ++ lib.optional stdenv.isLinux libX11
     ++ lib.optional airspy_source airspy
@@ -62,10 +95,16 @@ stdenv.mkDerivation rec {
     ++ lib.optional bladerf_source libbladeRF
     ++ lib.optional hackrf_source hackrf
     ++ lib.optional limesdr_source limesuite
-    ++ lib.optionals rtl_sdr_source [ rtl-sdr libusb1 ]
+    ++ lib.optionals rtl_sdr_source [
+      rtl-sdr
+      libusb1
+    ]
     ++ lib.optional sdrplay_source sdrplay
     ++ lib.optional soapy_source soapysdr
-    ++ lib.optionals plutosdr_source [ libiio libad9361 ]
+    ++ lib.optionals plutosdr_source [
+      libiio
+      libad9361
+    ]
     ++ lib.optional audio_sink rtaudio
     ++ lib.optional portaudio_sink portaudio
     ++ lib.optional m17_decoder codec2;

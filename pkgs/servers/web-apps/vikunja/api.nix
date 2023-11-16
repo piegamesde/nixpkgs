@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitea, mage, writeShellScriptBin, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitea,
+  mage,
+  writeShellScriptBin,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "vikunja-api";
@@ -13,16 +20,20 @@ buildGoModule rec {
   };
 
   nativeBuildInputs =
-      let
-        fakeGit = writeShellScriptBin "git" ''
-          if [[ $@ = "describe --tags --always --abbrev=10" ]]; then
-              echo "${version}"
-          else
-              >&2 echo "Unknown command: $@"
-              exit 1
-          fi
-        '';
-      in [ fakeGit mage ];
+    let
+      fakeGit = writeShellScriptBin "git" ''
+        if [[ $@ = "describe --tags --always --abbrev=10" ]]; then
+            echo "${version}"
+        else
+            >&2 echo "Unknown command: $@"
+            exit 1
+        fi
+      '';
+    in
+    [
+      fakeGit
+      mage
+    ];
 
   vendorHash = "sha256-TY6xJnz6phIrybZ2Ix7xwuMzGQ1f0xk0KwgPnaTaKYw=";
 

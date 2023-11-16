@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, k3sVersion ? null
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  k3sVersion ? null,
 }:
 
 let
@@ -28,11 +29,21 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  excludedPackages = [ "tools" "docgen" ];
+  excludedPackages = [
+    "tools"
+    "docgen"
+  ];
 
   ldflags =
-    let t = "github.com/k3d-io/k3d/v${lib.versions.major version}/version"; in
-    [ "-s" "-w" "-X ${t}.Version=v${version}" ] ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
+    let
+      t = "github.com/k3d-io/k3d/v${lib.versions.major version}/version";
+    in
+    [
+      "-s"
+      "-w"
+      "-X ${t}.Version=v${version}"
+    ]
+    ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
 
   preCheck = ''
     # skip test that uses networking
@@ -51,7 +62,9 @@ buildGoModule rec {
   installCheckPhase = ''
     runHook preInstallCheck
     $out/bin/k3d --help
-    $out/bin/k3d --version | grep -e "k3d version v${version}" ${lib.optionalString k3sVersionSet "-e \"k3s version v${k3sVersion}\""}
+    $out/bin/k3d --version | grep -e "k3d version v${version}" ${
+      lib.optionalString k3sVersionSet ''-e "k3s version v${k3sVersion}"''
+    }
     runHook postInstallCheck
   '';
 
@@ -68,7 +81,13 @@ buildGoModule rec {
       multi-node k3s cluster on a single machine using docker.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ kuznero jlesquembre ngerstle jk ricochet ];
+    maintainers = with maintainers; [
+      kuznero
+      jlesquembre
+      ngerstle
+      jk
+      ricochet
+    ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

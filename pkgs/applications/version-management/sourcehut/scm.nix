@@ -1,9 +1,10 @@
-{ lib
-, fetchFromSourcehut
-, buildPythonPackage
-, srht
-, pyyaml
-, buildsrht
+{
+  lib,
+  fetchFromSourcehut,
+  buildPythonPackage,
+  srht,
+  pyyaml,
+  buildsrht,
 }:
 
 buildPythonPackage rec {

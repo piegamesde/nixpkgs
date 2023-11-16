@@ -1,17 +1,18 @@
-{ blueprint-compiler
-, desktop-file-utils
-, fetchFromSourcehut
-, gobject-introspection
-, gtk4
-, lib
-, libadwaita
-, libnotify
-, meson
-, ninja
-, pkg-config
-, python3
-, stdenv
-, wrapGAppsHook
+{
+  blueprint-compiler,
+  desktop-file-utils,
+  fetchFromSourcehut,
+  gobject-introspection,
+  gtk4,
+  lib,
+  libadwaita,
+  libnotify,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  stdenv,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -39,10 +40,13 @@ stdenv.mkDerivation rec {
     gtk4
     libadwaita
     libnotify
-    (python3.withPackages (ps: with ps; [
-      icalendar
-      pygobject3
-    ]))
+    (python3.withPackages (
+      ps:
+      with ps; [
+        icalendar
+        pygobject3
+      ]
+    ))
   ];
 
   postPatch = ''

@@ -1,11 +1,12 @@
-{ lib
-, authlib
-, buildPythonPackage
-, fetchFromGitHub
-, pkce
-, pytestCheckHook
-, pythonOlder
-, simplejson
+{
+  lib,
+  authlib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkce,
+  pytestCheckHook,
+  pythonOlder,
+  simplejson,
 }:
 
 buildPythonPackage rec {
@@ -40,9 +41,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  pythonImportsCheck = [
-    "PyViCare"
-  ];
+  pythonImportsCheck = [ "PyViCare" ];
 
   meta = with lib; {
     description = "Python Library to access Viessmann ViCare API";

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, django
-, fetchFromGitHub
-, pytest-django
-, python
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  pytest-django,
+  python,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -24,21 +25,15 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   checkPhase = ''
     ${python.interpreter} runtests.py
   '';
 
-  pythonImportsCheck = [
-    "simple_history"
-  ];
+  pythonImportsCheck = [ "simple_history" ];
 
   meta = with lib; {
     description = "django-simple-history stores Django model state on every create/update/delete";

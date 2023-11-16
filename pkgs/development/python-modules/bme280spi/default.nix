@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, spidev
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  spidev,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     sha256 = "51682acefda6f29eaaf9f37815edbfdd48ef0e9f1509419eceafe7b440eddc6e";
   };
 
-  propagatedBuildInputs = [
-    spidev
-  ];
+  propagatedBuildInputs = [ spidev ];
 
   # no tests implemented
   doCheck = false;

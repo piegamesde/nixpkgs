@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, setuptools
-, azure-core
-, isodate
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools,
+  azure-core,
+  isodate,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-xNpYsD1bMIM0Bxy8KtR4rYy4tzfddtoPnEzHfO44At8=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     azure-core

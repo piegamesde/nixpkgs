@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib)
@@ -7,21 +12,45 @@ let
     mkOption
     mkRenamedOptionModule
     teams
-    types;
+    types
+  ;
 in
 
 {
   imports = [
-    (mkRenamedOptionModule [ "services" "flatpak" "extraPortals" ] [ "xdg" "portal" "extraPortals" ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "flatpak"
+        "extraPortals"
+      ]
+      [
+        "xdg"
+        "portal"
+        "extraPortals"
+      ]
+    )
 
-    ({ config, lib, options, ... }:
+    (
+      {
+        config,
+        lib,
+        options,
+        ...
+      }:
       let
-        from = [ "xdg" "portal" "gtkUsePortal" ];
+        from = [
+          "xdg"
+          "portal"
+          "gtkUsePortal"
+        ];
         fromOpt = lib.getAttrFromPath from options;
       in
       {
         warnings = lib.mkIf config.xdg.portal.gtkUsePortal [
-          "The option `${lib.showOption from}' defined in ${lib.showFiles fromOpt.files} has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforeseen side-effects."
+          "The option `${lib.showOption from}' defined in ${
+            lib.showFiles fromOpt.files
+          } has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforeseen side-effects."
         ];
       }
     )
@@ -33,7 +62,10 @@ in
 
   options.xdg.portal = {
     enable =
-      mkEnableOption (lib.mdDoc ''[xdg desktop integration](https://github.com/flatpak/xdg-desktop-portal)'') // {
+      mkEnableOption (
+        lib.mdDoc "[xdg desktop integration](https://github.com/flatpak/xdg-desktop-portal)"
+      )
+      // {
         default = false;
       };
 
@@ -81,9 +113,11 @@ in
       joinedPortals = pkgs.buildEnv {
         name = "xdg-portals";
         paths = packages;
-        pathsToLink = [ "/share/xdg-desktop-portal/portals" "/share/applications" ];
+        pathsToLink = [
+          "/share/xdg-desktop-portal/portals"
+          "/share/applications"
+        ];
       };
-
     in
     mkIf cfg.enable {
 

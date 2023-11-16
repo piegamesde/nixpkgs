@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, flask, blinker, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  blinker,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "flask-principal";
@@ -10,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-9dYTS1yuv9u4bzLVbRjuRLCAh2onJpVgqW6jX3XJlFM=";
   };
 
-  propagatedBuildInputs = [ flask blinker ];
+  propagatedBuildInputs = [
+    flask
+    blinker
+  ];
 
   nativeCheckInputs = [ nose ];
 

@@ -1,10 +1,13 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivial-utf-8";
   version = "20211209-git";
 
-  parasites = [ "trivial-utf-8/doc" "trivial-utf-8/tests" ];
+  parasites = [
+    "trivial-utf-8/doc"
+    "trivial-utf-8/tests"
+  ];
 
   description = "A small library for doing UTF-8-based input and output.";
 
@@ -17,7 +20,7 @@ rec {
 
   packageName = "trivial-utf-8";
 
-  asdFilesToKeep = ["trivial-utf-8.asd"];
+  asdFilesToKeep = [ "trivial-utf-8.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivial-utf-8 DESCRIPTION
@@ -27,4 +30,5 @@ rec {
     MD5 65603f3c4421a93d5d8c214bb406988d NAME trivial-utf-8 FILENAME
     trivial-utf-8 DEPS ((NAME mgl-pax FILENAME mgl-pax)) DEPENDENCIES (mgl-pax)
     VERSION 20211209-git SIBLINGS NIL PARASITES
-    (trivial-utf-8/doc trivial-utf-8/tests)) */
+    (trivial-utf-8/doc trivial-utf-8/tests))
+*/

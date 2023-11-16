@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 let
@@ -19,15 +20,19 @@ buildGoModule {
 
   vendorHash = "sha256-w6UJxZToHbbQmuXkyqFzyssFcE+7uVNqOuIF/XKdEsU=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   subPackages = [ "." ];
 
-  checkFlags = [
-    # Flaky tests.
-    # See https://github.com/bokwoon95/wgo/blob/e0448e04b6ca44323f507d1aca94425b7c69803c/START_HERE.md?plain=1#L26.
-    "-skip=TestWgoCmd_FileEvent"
-  ];
+  checkFlags =
+    [
+      # Flaky tests.
+      # See https://github.com/bokwoon95/wgo/blob/e0448e04b6ca44323f507d1aca94425b7c69803c/START_HERE.md?plain=1#L26.
+      "-skip=TestWgoCmd_FileEvent"
+    ];
 
   meta = with lib; {
     description = "Live reload for Go apps";

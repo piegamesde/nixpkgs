@@ -1,18 +1,19 @@
-{ lib
-, aiodns
-, aiohttp
-, azure-core
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, httpretty
-, isodate
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-oauthlib
-, trio
+{
+  lib,
+  aiodns,
+  aiohttp,
+  azure-core,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  httpretty,
+  isodate,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  trio,
 }:
 
 buildPythonPackage rec {
@@ -58,14 +59,16 @@ buildPythonPackage rec {
     "test_conf_async_trio_requests"
   ];
 
-  pythonImportsCheck = [
-    "msrest"
-  ];
+  pythonImportsCheck = [ "msrest" ];
 
   meta = with lib; {
     description = "The runtime library for AutoRest generated Python clients";
     homepage = "https://github.com/Azure/msrest-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ bendlas jonringer maxwilson ];
+    maintainers = with maintainers; [
+      bendlas
+      jonringer
+      maxwilson
+    ];
   };
 }

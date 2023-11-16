@@ -1,15 +1,22 @@
-{ stdenv, lib, fetchurl, perl, gfortran
-, openssh, hwloc, python3
-# either libfabric or ucx work for ch4backend on linux. On darwin, neither of
-# these libraries currently build so this argument is ignored on Darwin.
-, ch4backend
-# Process manager to build
-, withPm ? "hydra:gforker"
-} :
+{
+  stdenv,
+  lib,
+  fetchurl,
+  perl,
+  gfortran,
+  openssh,
+  hwloc,
+  python3,
+  # either libfabric or ucx work for ch4backend on linux. On darwin, neither of
+  # these libraries currently build so this argument is ignored on Darwin.
+  ch4backend,
+  # Process manager to build
+  withPm ? "hydra:gforker",
+}:
 
 assert (ch4backend.pname == "ucx" || ch4backend.pname == "libfabric");
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   pname = "mpich";
   version = "4.1.2";
 
@@ -18,22 +25,34 @@ stdenv.mkDerivation  rec {
     sha256 = "sha256-NJLpitq2K1l+8NKS+yRZthI7yABwqKoKML5pYgdaEvA=";
   };
 
-  outputs = [ "out" "doc" "man" ];
-
-  configureFlags = [
-    "--enable-shared"
-    "--enable-sharedlib"
-    "--with-pm=${withPm}"
-  ] ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
-    "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
-    "FCFLAGS=-fallow-argument-mismatch"
+  outputs = [
+    "out"
+    "doc"
+    "man"
   ];
+
+  configureFlags =
+    [
+      "--enable-shared"
+      "--enable-sharedlib"
+      "--with-pm=${withPm}"
+    ]
+    ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
+      "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
+      "FCFLAGS=-fallow-argument-mismatch"
+    ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ gfortran python3 ];
-  buildInputs = [ perl openssh hwloc ]
-    ++ lib.optional (!stdenv.isDarwin) ch4backend;
+  nativeBuildInputs = [
+    gfortran
+    python3
+  ];
+  buildInputs = [
+    perl
+    openssh
+    hwloc
+  ] ++ lib.optional (!stdenv.isDarwin) ch4backend;
 
   doCheck = true;
 

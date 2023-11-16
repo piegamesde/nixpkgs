@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,9 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-bJc33o+vm8oMrTkD/mg/xe7b9xQX/6JSDZlYgWeSa68=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
 
   # too many tests require internet access
   doCheck = false;

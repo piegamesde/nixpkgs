@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, jdk
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jdk,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,20 +18,16 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  buildInputs = [
-    jdk
-  ];
+  buildInputs = [ jdk ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase =
     let
       # The application ships with config directories for linux and mac
       configDir = if stdenv.isDarwin then "config_mac" else "config_linux";
     in
-      ''
+    ''
       # Copy jars
       install -D -t $out/share/java/plugins/ plugins/*.jar
 

@@ -1,63 +1,63 @@
 {
-  alsa-lib
-, fetchFromGitHub
-, gtk3
-, lib
-, libpulseaudio
-, pkg-config
-, stdenv
-, wrapGAppsHook
+  alsa-lib,
+  fetchFromGitHub,
+  gtk3,
+  lib,
+  libpulseaudio,
+  pkg-config,
+  stdenv,
+  wrapGAppsHook,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "praat";
-  version = "6.3.20";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "praat";
+    version = "6.3.20";
 
-  src = fetchFromGitHub {
-    owner = "praat";
-    repo = "praat";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-hVQPLRyDXrqpheAqzC/hQ/ZaFxP1c7ClAJQs3wlEcGc=";
-  };
+    src = fetchFromGitHub {
+      owner = "praat";
+      repo = "praat";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-hVQPLRyDXrqpheAqzC/hQ/ZaFxP1c7ClAJQs3wlEcGc=";
+    };
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      wrapGAppsHook
+    ];
 
-  buildInputs = [
-    alsa-lib
-    gtk3
-    libpulseaudio
-  ];
+    buildInputs = [
+      alsa-lib
+      gtk3
+      libpulseaudio
+    ];
 
-  makeFlags = [
-    "AR=${stdenv.cc.targetPrefix}ar"
-  ];
+    makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
 
-  configurePhase = ''
-    runHook preConfigure
+    configurePhase = ''
+      runHook preConfigure
 
-    cp makefiles/makefile.defs.linux.pulse makefile.defs
+      cp makefiles/makefile.defs.linux.pulse makefile.defs
 
-    runHook postConfigure
-  '';
+      runHook postConfigure
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dt $out/bin praat
+      install -Dt $out/bin praat
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  meta = {
-    description = "Doing phonetics by computer";
-    homepage = "https://www.fon.hum.uva.nl/praat/";
-    license = lib.licenses.gpl2Plus; # Has some 3rd-party code in it though
-    maintainers = with lib.maintainers; [ orivej ];
-    platforms = lib.platforms.linux;
-  };
-})
+    meta = {
+      description = "Doing phonetics by computer";
+      homepage = "https://www.fon.hum.uva.nl/praat/";
+      license = lib.licenses.gpl2Plus; # Has some 3rd-party code in it though
+      maintainers = with lib.maintainers; [ orivej ];
+      platforms = lib.platforms.linux;
+    };
+  }
+)

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchgit
-, pyptlib
-, twisted
-, pycrypto
-, pyyaml
+{
+  lib,
+  buildPythonPackage,
+  fetchgit,
+  pyptlib,
+  twisted,
+  pycrypto,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -22,7 +23,12 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "argparse" ""
   '';
 
-  propagatedBuildInputs = [ pyptlib twisted pycrypto pyyaml ];
+  propagatedBuildInputs = [
+    pyptlib
+    twisted
+    pycrypto
+    pyyaml
+  ];
 
   # No tests in archive
   doCheck = false;
@@ -32,5 +38,4 @@ buildPythonPackage rec {
     homepage = "https://www.torproject.org/projects/obfsproxy";
     maintainers = with maintainers; [ thoughtpolice ];
   };
-
 }

@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-, pkg-config
-, libusb1
-, DarwinTools
-, AppKit
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  libusb1,
+  DarwinTools,
+  AppKit,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -27,7 +28,10 @@ rustPlatform.buildRustPackage rec {
     description = "RTT (Real-Time Transfer) client";
     homepage = "https://probe.rs/";
     changelog = "https://github.com/probe-rs/probe-rs/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ samueltardieu ];
   };
 }

@@ -1,20 +1,21 @@
-{ lib
-, aioredis
-, aiosmtplib
-, blinker
-, buildPythonPackage
-, email-validator
-, fakeredis
-, fastapi
-, fetchFromGitHub
-, httpx
-, jinja2
-, poetry-core
-, pydantic
-, pytest-asyncio
-, pytestCheckHook
-, python-multipart
-, pythonOlder
+{
+  lib,
+  aioredis,
+  aiosmtplib,
+  blinker,
+  buildPythonPackage,
+  email-validator,
+  fakeredis,
+  fastapi,
+  fetchFromGitHub,
+  httpx,
+  jinja2,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-multipart,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
       --replace 'pydantic = "^1.8"' 'pydantic = "*"' \
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aioredis
@@ -66,9 +65,7 @@ buildPythonPackage rec {
     "test_redis_checker"
   ];
 
-  pythonImportsCheck = [
-    "fastapi_mail"
-  ];
+  pythonImportsCheck = [ "fastapi_mail" ];
 
   meta = with lib; {
     description = "Module for sending emails and attachments";

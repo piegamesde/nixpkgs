@@ -1,10 +1,7 @@
-{ backports-functools-lru-cache
-, wcwidth
-}:
+{ backports-functools-lru-cache, wcwidth }:
 
-wcwidth.overridePythonAttrs(oldAttrs: {
-  propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-    backports-functools-lru-cache
-  ];
-})
-
+wcwidth.overridePythonAttrs (
+  oldAttrs: {
+    propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ backports-functools-lru-cache ];
+  }
+)

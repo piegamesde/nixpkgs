@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, django
-, fetchPypi
-, flask
-, google-api-core
-, google-cloud-appengine-logging
-, google-cloud-audit-log
-, google-cloud-core
-, google-cloud-testutils
-, grpc-google-iam-v1
-, mock
-, pandas
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, rich
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchPypi,
+  flask,
+  google-api-core,
+  google-cloud-appengine-logging,
+  google-cloud-audit-log,
+  google-cloud-core,
+  google-cloud-testutils,
+  grpc-google-iam-v1,
+  mock,
+  pandas,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  rich,
 }:
 
 buildPythonPackage rec {
@@ -52,10 +53,11 @@ buildPythonPackage rec {
     rich
   ];
 
-  disabledTests = [
-    # requires credentials
-    "test_write_log_entries"
-  ];
+  disabledTests =
+    [
+      # requires credentials
+      "test_write_log_entries"
+    ];
 
   preCheck = ''
     # prevent google directory from shadowing google imports

@@ -1,9 +1,10 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix (
+  { pkgs, ... }:
   let
     accessKey = "BKIKJAA5BMMU2RHO6IBB";
     secretKey = "V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12";
     minioPythonScript = pkgs.writeScript "minio-test.py" ''
-      #! ${pkgs.python3.withPackages(ps: [ ps.minio ])}/bin/python
+      #! ${pkgs.python3.withPackages (ps: [ ps.minio ])}/bin/python
       import io
       import os
       from minio import Minio
@@ -29,21 +30,21 @@ import ./make-test-python.nix ({ pkgs, ... }:
   in
   {
     name = "minio";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ bachp ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ bachp ]; };
 
     nodes = {
-      machine = { pkgs, ... }: {
-        services.minio = {
-          enable = true;
-          inherit rootCredentialsFile;
-        };
-        environment.systemPackages = [ pkgs.minio-client ];
+      machine =
+        { pkgs, ... }:
+        {
+          services.minio = {
+            enable = true;
+            inherit rootCredentialsFile;
+          };
+          environment.systemPackages = [ pkgs.minio-client ];
 
-        # Minio requires at least 1GiB of free disk space to run.
-        virtualisation.diskSize = 4 * 1024;
-      };
+          # Minio requires at least 1GiB of free disk space to run.
+          virtualisation.diskSize = 4 * 1024;
+        };
     };
 
     testScript = ''
@@ -69,4 +70,5 @@ import ./make-test-python.nix ({ pkgs, ... }:
       assert "Test from Python" in machine.succeed("mc cat minio/test-bucket/test.txt")
       machine.shutdown()
     '';
-  })
+  }
+)

@@ -1,17 +1,18 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, bash
-, cmake
-, colordiff
-, flex
-, libclang
-, llvm
-, unifdef
-, chardet
-, pebble
-, psutil
-, pytestCheckHook
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  bash,
+  cmake,
+  colordiff,
+  flex,
+  libclang,
+  llvm,
+  unifdef,
+  chardet,
+  pebble,
+  psutil,
+  pytestCheckHook,
 }:
 
 buildPythonApplication rec {
@@ -26,10 +27,11 @@ buildPythonApplication rec {
     hash = "sha256-4LEKVh3jNU3xOq75+IQezjhbL/6uAGQ3r0Au2cxx1WA=";
   };
 
-  patches = [
-    # Refer to unifdef by absolute path.
-    ./unifdef.patch
-  ];
+  patches =
+    [
+      # Refer to unifdef by absolute path.
+      ./unifdef.patch
+    ];
 
   postPatch = ''
     # Avoid blanket -Werror to evade build failures on less
@@ -70,10 +72,11 @@ buildPythonApplication rec {
     unifdef
   ];
 
-  disabledTests = [
-    # Needs gcc, fails when run noninteractively (without tty).
-    "test_simple_reduction"
-  ];
+  disabledTests =
+    [
+      # Needs gcc, fails when run noninteractively (without tty).
+      "test_simple_reduction"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/marxin/cvise";

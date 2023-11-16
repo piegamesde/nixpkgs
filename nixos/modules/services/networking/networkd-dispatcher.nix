@@ -1,24 +1,31 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.services.networkd-dispatcher;
-
-in {
+in
+{
 
   options = {
     services.networkd-dispatcher = {
 
-      enable = mkEnableOption (mdDoc ''
-        Networkd-dispatcher service for systemd-networkd connection status
-        change. See [https://gitlab.com/craftyguy/networkd-dispatcher](upstream instructions)
-        for usage.
-      '');
+      enable = mkEnableOption (
+        mdDoc ''
+          Networkd-dispatcher service for systemd-networkd connection status
+          change. See [https://gitlab.com/craftyguy/networkd-dispatcher](upstream instructions)
+          for usage.
+        ''
+      );
 
       rules = mkOption {
-        default = {};
+        default = { };
         example = lib.literalExpression ''
           { "restart-tor" = {
               onState = ["routable" "off"];
@@ -38,30 +45,39 @@ in {
           [https://gitlab.com/craftyguy/networkd-dispatcher](upstream instructions)
           for an introduction and example scripts.
         '';
-        type = types.attrsOf (types.submodule {
-          options = {
-            onState = mkOption {
-              type = types.listOf (types.enum [
-                "routable" "dormant" "no-carrier" "off" "carrier" "degraded"
-                "configuring" "configured"
-              ]);
-              default = null;
-              description = lib.mdDoc ''
-                List of names of the systemd-networkd operational states which
-                should trigger the script. See <https://www.freedesktop.org/software/systemd/man/networkctl.html>
-                for a description of the specific state type.
-              '';
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              onState = mkOption {
+                type = types.listOf (
+                  types.enum [
+                    "routable"
+                    "dormant"
+                    "no-carrier"
+                    "off"
+                    "carrier"
+                    "degraded"
+                    "configuring"
+                    "configured"
+                  ]
+                );
+                default = null;
+                description = lib.mdDoc ''
+                  List of names of the systemd-networkd operational states which
+                  should trigger the script. See <https://www.freedesktop.org/software/systemd/man/networkctl.html>
+                  for a description of the specific state type.
+                '';
+              };
+              script = mkOption {
+                type = types.lines;
+                description = lib.mdDoc ''
+                  Shell commands executed on specified operational states.
+                '';
+              };
             };
-            script = mkOption {
-              type = types.lines;
-              description = lib.mdDoc ''
-                Shell commands executed on specified operational states.
-              '';
-            };
-          };
-        });
+          }
+        );
       };
-
     };
   };
 
@@ -72,27 +88,35 @@ in {
       services.networkd-dispatcher = {
         wantedBy = [ "multi-user.target" ];
         # Override existing ExecStart definition
-        serviceConfig.ExecStart = let
-          scriptDir = pkgs.symlinkJoin {
-            name = "networkd-dispatcher-script-dir";
-            paths = lib.mapAttrsToList (name: cfg:
-              (map(state:
-                pkgs.writeTextFile {
-                  inherit name;
-                  text = cfg.script;
-                  destination = "/${state}.d/${name}";
-                  executable = true;
-                }
-              ) cfg.onState)
-            ) cfg.rules;
-          };
-        in [
-          ""
-          "${pkgs.networkd-dispatcher}/bin/networkd-dispatcher -v --script-dir ${scriptDir} $networkd_dispatcher_args"
-        ];
+        serviceConfig.ExecStart =
+          let
+            scriptDir = pkgs.symlinkJoin {
+              name = "networkd-dispatcher-script-dir";
+              paths =
+                lib.mapAttrsToList
+                  (
+                    name: cfg:
+                    (map
+                      (
+                        state:
+                        pkgs.writeTextFile {
+                          inherit name;
+                          text = cfg.script;
+                          destination = "/${state}.d/${name}";
+                          executable = true;
+                        }
+                      )
+                      cfg.onState
+                    )
+                  )
+                  cfg.rules;
+            };
+          in
+          [
+            ""
+            "${pkgs.networkd-dispatcher}/bin/networkd-dispatcher -v --script-dir ${scriptDir} $networkd_dispatcher_args"
+          ];
       };
     };
-
   };
 }
-

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, fonttools
-, pytestCheckHook
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  fonttools,
+  pytestCheckHook,
+  setuptools-scm,
 
-# optionals
-, cattrs
-, lxml
-, orjson
-, msgpack
+  # optionals
+  cattrs,
+  lxml,
+  orjson,
+  msgpack,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-SfDcf3LMrP5/rv4NU9N5cdRWZNiwVj7zaVb6e/pVor0=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     attrs
@@ -35,8 +34,14 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     lxml = [ lxml ];
     converters = [ cattrs ];
-    json = [ cattrs orjson ];
-    msgpack = [ cattrs msgpack ];
+    json = [
+      cattrs
+      orjson
+    ];
+    msgpack = [
+      cattrs
+      msgpack
+    ];
   };
 
   nativeCheckInputs = [

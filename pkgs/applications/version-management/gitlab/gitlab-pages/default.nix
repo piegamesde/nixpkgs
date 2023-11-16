@@ -1,4 +1,8 @@
-{ buildGoModule, lib, fetchFromGitLab }:
+{
+  buildGoModule,
+  lib,
+  fetchFromGitLab,
+}:
 
 buildGoModule rec {
   pname = "gitlab-pages";
@@ -20,6 +24,12 @@ buildGoModule rec {
     homepage = "https://gitlab.com/gitlab-org/gitlab-pages";
     changelog = "https://gitlab.com/gitlab-org/gitlab-pages/-/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ajs124 das_j ] ++ teams.gitlab.members;
+    maintainers =
+      with maintainers;
+      [
+        ajs124
+        das_j
+      ]
+      ++ teams.gitlab.members;
   };
 }

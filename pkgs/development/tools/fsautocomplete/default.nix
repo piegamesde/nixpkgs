@@ -1,4 +1,10 @@
-{ lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, stdenv }:
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  stdenv,
+}:
 
 let
   inherit (dotnetCorePackages) combinePackages sdk_6_0 sdk_7_0;
@@ -40,6 +46,9 @@ buildDotnetModule rec {
     changelog = "https://github.com/fsharp/FsAutoComplete/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gbtb mdarocha ];
+    maintainers = with maintainers; [
+      gbtb
+      mdarocha
+    ];
   };
 }

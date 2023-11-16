@@ -1,30 +1,31 @@
-{ lib
-, arrow
-, azure-storage-blob
-, boto
-, buildPythonPackage
-, colour
-, email-validator
-, enum34
-, fetchpatch
-, fetchPypi
-, flask
-, flask-babelex
-, flask-mongoengine
-, flask-sqlalchemy
-, geoalchemy2
-, mongoengine
-, pillow
-, psycopg2
-, pymongo
-, pytestCheckHook
-, pythonOlder
-, shapely
-, sqlalchemy
-, sqlalchemy-citext
-, sqlalchemy-utils
-, wtf-peewee
-, wtforms
+{
+  lib,
+  arrow,
+  azure-storage-blob,
+  boto,
+  buildPythonPackage,
+  colour,
+  email-validator,
+  enum34,
+  fetchpatch,
+  fetchPypi,
+  flask,
+  flask-babelex,
+  flask-mongoengine,
+  flask-sqlalchemy,
+  geoalchemy2,
+  mongoengine,
+  pillow,
+  psycopg2,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  shapely,
+  sqlalchemy,
+  sqlalchemy-citext,
+  sqlalchemy-utils,
+  wtf-peewee,
+  wtforms,
 }:
 
 buildPythonPackage rec {
@@ -40,14 +41,15 @@ buildPythonPackage rec {
     hash = "sha256-JMrir4MramEaAdfcNfQtJmwdbHWkJrhp2MskG3gjM2k=";
   };
 
-  patches = [
-    # https://github.com/flask-admin/flask-admin/pull/2374
-    (fetchpatch {
-      name = "pillow-10-compatibility.patch";
-      url = "https://github.com/flask-admin/flask-admin/commit/96b92deef8b087e86a9dc3e84381d254ea5c0342.patch";
-      hash = "sha256-iR5kxyeZaEyved5InZuPmcglTD77zW18/eSHGwOuW40=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/flask-admin/flask-admin/pull/2374
+      (fetchpatch {
+        name = "pillow-10-compatibility.patch";
+        url = "https://github.com/flask-admin/flask-admin/commit/96b92deef8b087e86a9dc3e84381d254ea5c0342.patch";
+        hash = "sha256-iR5kxyeZaEyved5InZuPmcglTD77zW18/eSHGwOuW40=";
+      })
+    ];
 
   propagatedBuildInputs = [
     flask
@@ -55,12 +57,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    aws = [
-      boto
-    ];
-    azure = [
-      azure-storage-blob
-    ];
+    aws = [ boto ];
+    azure = [ azure-storage-blob ];
   };
 
   nativeCheckInputs = [
@@ -111,9 +109,7 @@ buildPythonPackage rec {
     "flask_admin/tests/fileadmin/test_fileadmin.py"
   ];
 
-  pythonImportsCheck = [
-    "flask_admin"
-  ];
+  pythonImportsCheck = [ "flask_admin" ];
 
   meta = with lib; {
     description = "Admin interface framework for Flask";

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, pydantic
-, pytest-examples
-, pytestCheckHook
-, pythonOlder
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  pydantic,
+  pytest-examples,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
 }:
 
 let
@@ -24,13 +25,9 @@ let
       hash = "sha256-ShbkPGj1whOQ11bFLUSTfvVEVlvc3JUzRDICbBohgMM=";
     };
 
-    nativeBuildInputs = [
-      hatchling
-    ];
+    nativeBuildInputs = [ hatchling ];
 
-    propagatedBuildInputs = [
-      pytz
-    ];
+    propagatedBuildInputs = [ pytz ];
 
     doCheck = false;
     passthru.tests.pytest = dirty-equals.overrideAttrs { doCheck = true; };
@@ -41,9 +38,7 @@ let
       pytestCheckHook
     ];
 
-    pythonImportsCheck = [
-      "dirty_equals"
-    ];
+    pythonImportsCheck = [ "dirty_equals" ];
 
     meta = with lib; {
       description = "Module for doing dirty (but extremely useful) things with equals";
@@ -53,4 +48,5 @@ let
       maintainers = with maintainers; [ fab ];
     };
   };
-in dirty-equals
+in
+dirty-equals

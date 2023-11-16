@@ -1,14 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.portunus;
-
 in
 {
   options.services.portunus = {
-    enable = mkEnableOption (lib.mdDoc "Portunus, a self-contained user/group management and authentication service for LDAP");
+    enable = mkEnableOption (
+      lib.mdDoc "Portunus, a self-contained user/group management and authentication service for LDAP"
+    );
 
     domain = mkOption {
       type = types.str;
@@ -61,27 +67,31 @@ in
     };
 
     dex = {
-      enable = mkEnableOption (lib.mdDoc ''
-        Dex ldap connector.
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          Dex ldap connector.
 
-        To activate dex, first a search user must be created in the Portunus web ui
-        and then the password must to be set as the `DEX_SEARCH_USER_PASSWORD` environment variable
-        in the [](#opt-services.dex.environmentFile) setting.
-      '');
+          To activate dex, first a search user must be created in the Portunus web ui
+          and then the password must to be set as the `DEX_SEARCH_USER_PASSWORD` environment variable
+          in the [](#opt-services.dex.environmentFile) setting.
+        ''
+      );
 
       oidcClients = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            callbackURL = mkOption {
-              type = types.str;
-              description = lib.mdDoc "URL where the OIDC client should redirect";
+        type = types.listOf (
+          types.submodule {
+            options = {
+              callbackURL = mkOption {
+                type = types.str;
+                description = lib.mdDoc "URL where the OIDC client should redirect";
+              };
+              id = mkOption {
+                type = types.str;
+                description = lib.mdDoc "ID of the OIDC client";
+              };
             };
-            id = mkOption {
-              type = types.str;
-              description = lib.mdDoc "ID of the OIDC client";
-            };
-          };
-        });
+          }
+        );
         default = [ ];
         example = [
           {
@@ -185,38 +195,47 @@ in
           config.file = "/var/lib/dex/dex.db";
         };
         enablePasswordDB = false;
-        connectors = [{
-          type = "ldap";
-          id = "ldap";
-          name = "LDAP";
-          config = {
-            host = "${cfg.domain}:636";
-            bindDN = "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
-            bindPW = "$DEX_SEARCH_USER_PASSWORD";
-            userSearch = {
-              baseDN = "ou=users,${cfg.ldap.suffix}";
-              filter = "(objectclass=person)";
-              username = "uid";
-              idAttr = "uid";
-              emailAttr = "mail";
-              nameAttr = "cn";
-              preferredUsernameAttr = "uid";
+        connectors = [
+          {
+            type = "ldap";
+            id = "ldap";
+            name = "LDAP";
+            config = {
+              host = "${cfg.domain}:636";
+              bindDN = "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
+              bindPW = "$DEX_SEARCH_USER_PASSWORD";
+              userSearch = {
+                baseDN = "ou=users,${cfg.ldap.suffix}";
+                filter = "(objectclass=person)";
+                username = "uid";
+                idAttr = "uid";
+                emailAttr = "mail";
+                nameAttr = "cn";
+                preferredUsernameAttr = "uid";
+              };
+              groupSearch = {
+                baseDN = "ou=groups,${cfg.ldap.suffix}";
+                filter = "(objectclass=groupOfNames)";
+                nameAttr = "cn";
+                userMatchers = [
+                  {
+                    userAttr = "DN";
+                    groupAttr = "member";
+                  }
+                ];
+              };
             };
-            groupSearch = {
-              baseDN = "ou=groups,${cfg.ldap.suffix}";
-              filter = "(objectclass=groupOfNames)";
-              nameAttr = "cn";
-              userMatchers = [{ userAttr = "DN"; groupAttr = "member"; }];
-            };
-          };
-        }];
+          }
+        ];
 
-        staticClients = forEach cfg.dex.oidcClients (client: {
-          inherit (client) id;
-          redirectURIs = [ client.callbackURL ];
-          name = "OIDC for ${client.id}";
-          secretEnv = "DEX_CLIENT_${client.id}";
-        });
+        staticClients = forEach cfg.dex.oidcClients (
+          client: {
+            inherit (client) id;
+            redirectURIs = [ client.callbackURL ];
+            name = "OIDC for ${client.id}";
+            secretEnv = "DEX_CLIENT_${client.id}";
+          }
+        );
       };
     };
 
@@ -234,29 +253,31 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
         serviceConfig.ExecStart = "${cfg.package.out}/bin/portunus-orchestrator";
-        environment = {
-          PORTUNUS_LDAP_SUFFIX = cfg.ldap.suffix;
-          PORTUNUS_SERVER_BINARY = "${cfg.package}/bin/portunus-server";
-          PORTUNUS_SERVER_GROUP = cfg.group;
-          PORTUNUS_SERVER_USER = cfg.user;
-          PORTUNUS_SERVER_HTTP_LISTEN = "127.0.0.1:${toString cfg.port}";
-          PORTUNUS_SERVER_STATE_DIR = cfg.stateDir;
-          PORTUNUS_SLAPD_BINARY = "${cfg.ldap.package}/libexec/slapd";
-          PORTUNUS_SLAPD_GROUP = cfg.ldap.group;
-          PORTUNUS_SLAPD_USER = cfg.ldap.user;
-          PORTUNUS_SLAPD_SCHEMA_DIR = "${cfg.ldap.package}/etc/schema";
-        } // (optionalAttrs (cfg.seedPath != null) ({
-          PORTUNUS_SEED_PATH = cfg.seedPath;
-        })) // (optionalAttrs cfg.ldap.tls (
-          let
-            acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
-          in
+        environment =
           {
-            PORTUNUS_SLAPD_TLS_CA_CERTIFICATE = "/etc/ssl/certs/ca-certificates.crt";
-            PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
-            PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
-            PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
-          }));
+            PORTUNUS_LDAP_SUFFIX = cfg.ldap.suffix;
+            PORTUNUS_SERVER_BINARY = "${cfg.package}/bin/portunus-server";
+            PORTUNUS_SERVER_GROUP = cfg.group;
+            PORTUNUS_SERVER_USER = cfg.user;
+            PORTUNUS_SERVER_HTTP_LISTEN = "127.0.0.1:${toString cfg.port}";
+            PORTUNUS_SERVER_STATE_DIR = cfg.stateDir;
+            PORTUNUS_SLAPD_BINARY = "${cfg.ldap.package}/libexec/slapd";
+            PORTUNUS_SLAPD_GROUP = cfg.ldap.group;
+            PORTUNUS_SLAPD_USER = cfg.ldap.user;
+            PORTUNUS_SLAPD_SCHEMA_DIR = "${cfg.ldap.package}/etc/schema";
+          }
+          // (optionalAttrs (cfg.seedPath != null) ({ PORTUNUS_SEED_PATH = cfg.seedPath; }))
+          // (optionalAttrs cfg.ldap.tls (
+            let
+              acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
+            in
+            {
+              PORTUNUS_SLAPD_TLS_CA_CERTIFICATE = "/etc/ssl/certs/ca-certificates.crt";
+              PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
+              PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
+              PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
+            }
+          ));
       };
     };
 
@@ -276,12 +297,8 @@ in
     ];
 
     users.groups = mkMerge [
-      (mkIf (cfg.ldap.user == "openldap") {
-        openldap = { };
-      })
-      (mkIf (cfg.user == "portunus") {
-        portunus = { };
-      })
+      (mkIf (cfg.ldap.user == "openldap") { openldap = { }; })
+      (mkIf (cfg.user == "portunus") { portunus = { }; })
     ];
   };
 

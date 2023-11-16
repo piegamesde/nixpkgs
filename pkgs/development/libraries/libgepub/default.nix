@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, glib
-, gobject-introspection
-, gnome
-, webkitgtk_4_1
-, libsoup_3
-, libxml2
-, libarchive
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gobject-introspection,
+  gnome,
+  webkitgtk_4_1,
+  libsoup_3,
+  libxml2,
+  libarchive,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,9 @@ stdenv.mkDerivation rec {
   version = "0.7.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "o+SzGiMmWdJqVLkSGziCw9c5fDz0SuXGS4ZwCYC8f2A=";
   };
 

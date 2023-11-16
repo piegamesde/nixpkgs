@@ -1,8 +1,9 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-RkDZa+hNgtAu1Z6itxBaD3szq+hwNwPNCrC/h8QnUi8=";
   };
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   # Circular dependency on aiohttp
   doCheck = false;

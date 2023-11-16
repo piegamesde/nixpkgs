@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 with python3.pkgs;
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-z7LiAq2jLzqjg4Q/r9o7M6VbedeT34NyPpgctfqBp+8=";
   };
 
-  pythonRelaxDeps = [
-    "typer"
-  ];
+  pythonRelaxDeps = [ "typer" ];
 
   nativeBuildInputs = [
     poetry-core
@@ -37,9 +36,7 @@ buildPythonPackage rec {
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "shell_genie"
-  ];
+  pythonImportsCheck = [ "shell_genie" ];
 
   meta = with lib; {
     description = "Describe your shell commands in natural language";

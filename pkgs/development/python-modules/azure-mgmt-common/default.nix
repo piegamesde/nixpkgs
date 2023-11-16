@@ -1,12 +1,13 @@
-{ pkgs
-, buildPythonPackage
-, fetchPypi
-, python
-, azure-common
-, azure-mgmt-nspkg
-, requests
-, msrestazure
-, isPy3k
+{
+  pkgs,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  azure-common,
+  azure-mgmt-nspkg,
+  requests,
+  msrestazure,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -37,6 +38,9 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Resource Management common code";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ olcai maxwilson ];
+    maintainers = with maintainers; [
+      olcai
+      maxwilson
+    ];
   };
 }

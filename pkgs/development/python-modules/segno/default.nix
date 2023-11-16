@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build-system
-, setuptools
+  # build-system
+  setuptools,
 
-# tests
-, pytestCheckHook
-, pypng
-, pyzbar
+  # tests
+  pytestCheckHook,
+  pypng,
+  pyzbar,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-j7DUCeMoYziu19WfJu/9YiIMa2ysOPYfqW8AMcE5LaU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -33,9 +32,7 @@ buildPythonPackage rec {
     pyzbar
   ];
 
-  pythonImportsCheck = [
-    "segno"
-  ];
+  pythonImportsCheck = [ "segno" ];
 
   meta = with lib; {
     changelog = "https://github.com/heuer/segno/releases/tag/${version}";

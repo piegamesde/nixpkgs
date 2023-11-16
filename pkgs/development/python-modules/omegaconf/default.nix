@@ -1,16 +1,17 @@
-{ lib
-, antlr4
-, antlr4-python3-runtime
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, jre_minimal
-, pydevd
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, substituteAll
+{
+  lib,
+  antlr4,
+  antlr4-python3-runtime,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  jre_minimal,
+  pydevd,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  substituteAll,
 }:
 
 buildPythonPackage rec {
@@ -60,9 +61,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "omegaconf"
-  ];
+  pythonImportsCheck = [ "omegaconf" ];
 
   pytestFlagsArray = [
     "-W"

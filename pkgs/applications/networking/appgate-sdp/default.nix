@@ -1,42 +1,43 @@
-{ alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, atk
-, autoPatchelfHook
-, cairo
-, cups
-, curl
-, dbus
-, dnsmasq
-, dpkg
-, expat
-, fetchurl
-, gdk-pixbuf
-, glib
-, gtk3
-, icu
-, iproute2
-, krb5
-, lib
-, libdrm
-, libsecret
-, libuuid
-, libxcb
-, libxkbcommon
-, lttng-ust
-, makeWrapper
-, mesa
-, networkmanager
-, nspr
-, nss
-, openssl
-, pango
-, python3
-, stdenv
-, systemd
-, xdg-utils
-, xorg
-, zlib
+{
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  autoPatchelfHook,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  dnsmasq,
+  dpkg,
+  expat,
+  fetchurl,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  icu,
+  iproute2,
+  krb5,
+  lib,
+  libdrm,
+  libsecret,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  lttng-ust,
+  makeWrapper,
+  mesa,
+  networkmanager,
+  nspr,
+  nss,
+  openssl,
+  pango,
+  python3,
+  stdenv,
+  systemd,
+  xdg-utils,
+  xorg,
+  zlib,
 }:
 
 let
@@ -89,7 +90,9 @@ stdenv.mkDerivation rec {
   version = "6.2.3";
 
   src = fetchurl {
-    url = "https://bin.appgate-sdp.com/${lib.versions.majorMinor version}/client/appgate-sdp_${version}_amd64.deb";
+    url = "https://bin.appgate-sdp.com/${
+        lib.versions.majorMinor version
+      }/client/appgate-sdp_${version}_amd64.deb";
     sha256 = "sha256-W6P83+DPd2VRz52UKPJp+D1WcjgDwyXYcx6rViHbmlk=";
   };
 
@@ -137,7 +140,13 @@ stdenv.mkDerivation rec {
         --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
 
     wrapProgram $out/opt/appgate/appgate-driver \
-        --prefix PATH : ${lib.makeBinPath [ iproute2 networkmanager dnsmasq ]} \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            iproute2
+            networkmanager
+            dnsmasq
+          ]
+        } \
         --set LD_LIBRARY_PATH $out/opt/appgate/service
 
     # make xdg-open overrideable at runtime

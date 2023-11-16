@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, git
-, pkg-config
-, python3
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+  pkg-config,
+  python3,
+  zlib,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -19,75 +20,81 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-+ohUOQ9WBER/X0TDklf/qZCm9LhM1I1QRmED4FnkweM=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    bottle
-    colorama
-    python-dateutil
-    distro
-    fasteners
-    jinja2
-    patch-ng
-    pluginbase
-    pygments
-    pyjwt
-    pylint # Not in `requirements.txt` but used in hooks, see https://github.com/conan-io/conan/pull/6152
-    pyyaml
-    requests
-    tqdm
-    urllib3
-  ] ++ lib.optionals stdenv.isDarwin [
-    idna
-    cryptography
-    pyopenssl
-  ];
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      bottle
+      colorama
+      python-dateutil
+      distro
+      fasteners
+      jinja2
+      patch-ng
+      pluginbase
+      pygments
+      pyjwt
+      pylint # Not in `requirements.txt` but used in hooks, see https://github.com/conan-io/conan/pull/6152
+      pyyaml
+      requests
+      tqdm
+      urllib3
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      idna
+      cryptography
+      pyopenssl
+    ];
 
-  pythonRelaxDeps = [
-    # This can be removed once conan is updated to 2.0.7+
-    "PyYAML"
-  ];
+  pythonRelaxDeps =
+    [
+      # This can be removed once conan is updated to 2.0.7+
+      "PyYAML"
+    ];
 
-  nativeCheckInputs = [
-    git
-    pkg-config
-    zlib
-  ] ++ (with python3.pkgs; [
-    mock
-    parameterized
-    pytest-xdist
-    pytestCheckHook
-    webtest
-  ]);
+  nativeCheckInputs =
+    [
+      git
+      pkg-config
+      zlib
+    ]
+    ++ (
+      with python3.pkgs; [
+        mock
+        parameterized
+        pytest-xdist
+        pytestCheckHook
+        webtest
+      ]
+    );
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "conan"
-  ];
+  pythonImportsCheck = [ "conan" ];
 
   pytestFlagsArray = [
     "-n"
     "$NIX_BUILD_CORES"
   ];
 
-  disabledTests = [
-    # Tests require network access
-    "TestFTP"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Rejects paths containing nix
-    "test_conditional_os"
-    # Requires Apple Clang
-    "test_detect_default_compilers"
-    "test_detect_default_in_mac_os_using_gcc_as_default"
-    # Incompatible with darwin.xattr and xcbuild from nixpkgs
-    "test_dot_files"
-    "test_xcrun"
-    "test_xcrun_in_required_by_tool_requires"
-    "test_xcrun_in_tool_requires"
-  ];
+  disabledTests =
+    [
+      # Tests require network access
+      "TestFTP"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # Rejects paths containing nix
+      "test_conditional_os"
+      # Requires Apple Clang
+      "test_detect_default_compilers"
+      "test_detect_default_in_mac_os_using_gcc_as_default"
+      # Incompatible with darwin.xattr and xcbuild from nixpkgs
+      "test_dot_files"
+      "test_xcrun"
+      "test_xcrun_in_required_by_tool_requires"
+      "test_xcrun_in_tool_requires"
+    ];
 
   disabledTestPaths = [
     # Requires cmake, meson, autotools, apt-get, etc.

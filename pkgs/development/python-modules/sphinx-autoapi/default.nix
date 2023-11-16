@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 
-# build-system
-, setuptools
+  # build-system
+  setuptools,
 
-# dependencies
-, astroid
-, anyascii
-, jinja2
-, pyyaml
-, sphinx
+  # dependencies
+  astroid,
+  anyascii,
+  jinja2,
+  pyyaml,
+  sphinx,
 
-# tests
-, beautifulsoup4
-, mock
-, pytestCheckHook
+  # tests
+  beautifulsoup4,
+  mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-+625bnkCDWsOxF2IhRe/gW1rWHotNA++HsMRNeMApsg=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     anyascii
@@ -55,9 +54,7 @@ buildPythonPackage rec {
     "test_annotations"
   ];
 
-  pythonImportsCheck = [
-    "autoapi"
-  ];
+  pythonImportsCheck = [ "autoapi" ];
 
   meta = with lib; {
     homepage = "https://github.com/readthedocs/sphinx-autoapi";

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, esprima
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-, setuptools-scm
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  esprima,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+  setuptools-scm,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -35,14 +36,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "quantum_gateway"
-  ];
+  pythonImportsCheck = [ "quantum_gateway" ];
 
-  disabledTests = [
-    # Tests require network features
-    "TestGateway3100"
-  ];
+  disabledTests =
+    [
+      # Tests require network features
+      "TestGateway3100"
+    ];
 
   meta = with lib; {
     description = "Python library for interacting with Verizon Fios Quantum gateway devices";

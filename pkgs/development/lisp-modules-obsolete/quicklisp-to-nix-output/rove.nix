@@ -1,12 +1,17 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "rove";
   version = "20211209-git";
 
   description = "Yet another testing framework intended to be a successor of Prove";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."dissect" args."trivial-gray-streams" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."dissect"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/rove/2021-12-09/rove-20211209-git.tgz";
@@ -15,7 +20,7 @@ rec {
 
   packageName = "rove";
 
-  asdFilesToKeep = ["rove.asd"];
+  asdFilesToKeep = [ "rove.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM rove DESCRIPTION
@@ -28,4 +33,5 @@ rec {
      (NAME dissect FILENAME dissect)
      (NAME trivial-gray-streams FILENAME trivial-gray-streams))
     DEPENDENCIES (alexandria bordeaux-threads dissect trivial-gray-streams)
-    VERSION 20211209-git SIBLINGS NIL PARASITES NIL) */
+    VERSION 20211209-git SIBLINGS NIL PARASITES NIL)
+*/

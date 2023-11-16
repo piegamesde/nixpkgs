@@ -1,4 +1,8 @@
-{ lib, python3, fetchPypi }:
+{
+  lib,
+  python3,
+  fetchPypi,
+}:
 
 with python3.pkgs;
 
@@ -11,8 +15,15 @@ buildPythonPackage rec {
     sha256 = "sha256-1mSt+PVx3xUJDc5JwrCmKiRNIDwbsjjbM2Fi5Sgz6h8=";
   };
 
-  propagatedBuildInputs = [ django-mailman3 readme_renderer ];
-  nativeCheckInputs = [ beautifulsoup4 vcrpy mock ];
+  propagatedBuildInputs = [
+    django-mailman3
+    readme_renderer
+  ];
+  nativeCheckInputs = [
+    beautifulsoup4
+    vcrpy
+    mock
+  ];
 
   # Tries to connect to database.
   doCheck = false;

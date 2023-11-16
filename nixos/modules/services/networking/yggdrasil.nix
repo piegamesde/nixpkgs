@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   keysPath = "/var/lib/yggdrasil/keys.json";
@@ -12,8 +17,17 @@ in
 {
   imports = [
     (mkRenamedOptionModule
-      [ "services" "yggdrasil" "config" ]
-      [ "services" "yggdrasil" "settings" ])
+      [
+        "services"
+        "yggdrasil"
+        "config"
+      ]
+      [
+        "services"
+        "yggdrasil"
+        "settings"
+      ]
+    )
   ];
 
   options = with types; {
@@ -28,9 +42,7 @@ in
             "tcp://aa.bb.cc.dd:eeeee"
             "tcp://[aaaa:bbbb:cccc:dddd::eeee]:fffff"
           ];
-          Listen = [
-            "tcp://0.0.0.0:xxxxx"
-          ];
+          Listen = [ "tcp://0.0.0.0:xxxxx" ];
         };
         description = lib.mdDoc ''
           Configuration for yggdrasil, as a Nix attribute set.
@@ -76,7 +88,9 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "wheel";
-        description = lib.mdDoc "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket.";
+        description =
+          lib.mdDoc
+            "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket.";
       };
 
       openMulticastPort = mkOption {
@@ -115,19 +129,23 @@ in
         description = lib.mdDoc "Yggdrasil package to use.";
       };
 
-      persistentKeys = mkEnableOption (lib.mdDoc ''
-        persistent keys. If enabled then keys will be generated once and Yggdrasil
-        will retain the same IPv6 address when the service is
-        restarted. Keys are stored at ${keysPath}
-      '');
+      persistentKeys = mkEnableOption (
+        lib.mdDoc ''
+          persistent keys. If enabled then keys will be generated once and Yggdrasil
+          will retain the same IPv6 address when the service is
+          restarted. Keys are stored at ${keysPath}
+        ''
+      );
 
       extraArgs = mkOption {
         type = listOf str;
         default = [ ];
-        example = [ "-loglevel" "info" ];
+        example = [
+          "-loglevel"
+          "info"
+        ];
         description = lib.mdDoc "Extra command line arguments.";
       };
-
     };
   };
 
@@ -137,10 +155,12 @@ in
       binHjson = "${pkgs.hjson-go}/bin/hjson-cli";
     in
     {
-      assertions = [{
-        assertion = config.networking.enableIPv6;
-        message = "networking.enableIPv6 must be true for yggdrasil to work";
-      }];
+      assertions = [
+        {
+          assertion = config.networking.enableIPv6;
+          message = "networking.enableIPv6 must be true for yggdrasil to work";
+        }
+      ];
 
       system.activationScripts.yggdrasil = mkIf cfg.persistentKeys ''
         if [ ! -e ${keysPath} ]
@@ -175,20 +195,25 @@ in
           set -euo pipefail
 
           # prepare config file
-          ${(if settingsProvided || configFileProvided || cfg.persistentKeys then
-            "echo "
+          ${(
+            if settingsProvided || configFileProvided || cfg.persistentKeys then
+              "echo "
 
-            + (lib.optionalString settingsProvided
-              "'${builtins.toJSON cfg.settings}'")
-            + (lib.optionalString configFileProvided
-              "$(${binHjson} -c \"$CREDENTIALS_DIRECTORY/yggdrasil.conf\")")
-            + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
-            + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"
-          else
-            "${binYggdrasil} -genconf") + " > /run/yggdrasil/yggdrasil.conf"}
+              + (lib.optionalString settingsProvided "'${builtins.toJSON cfg.settings}'")
+              + (lib.optionalString configFileProvided
+                ''$(${binHjson} -c "$CREDENTIALS_DIRECTORY/yggdrasil.conf")''
+              )
+              + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
+              + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"
+            else
+              "${binYggdrasil} -genconf"
+          )
+          + " > /run/yggdrasil/yggdrasil.conf"}
 
           # start yggdrasil
-          ${binYggdrasil} -useconffile /run/yggdrasil/yggdrasil.conf ${lib.strings.escapeShellArgs cfg.extraArgs}
+          ${binYggdrasil} -useconffile /run/yggdrasil/yggdrasil.conf ${
+            lib.strings.escapeShellArgs cfg.extraArgs
+          }
         '';
 
         serviceConfig = {
@@ -200,8 +225,7 @@ in
           RuntimeDirectory = "yggdrasil";
           RuntimeDirectoryMode = "0750";
           BindReadOnlyPaths = lib.optional cfg.persistentKeys keysPath;
-          LoadCredential =
-            mkIf configFileProvided "yggdrasil.conf:${cfg.configFile}";
+          LoadCredential = mkIf configFileProvided "yggdrasil.conf:${cfg.configFile}";
 
           AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";
           CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";
@@ -214,10 +238,11 @@ in
           RestrictNamespaces = true;
           RestrictRealtime = true;
           SystemCallArchitectures = "native";
-          SystemCallFilter = [ "@system-service" "~@privileged @keyring" ];
-        } // (if (cfg.group != null) then {
-          Group = cfg.group;
-        } else { });
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged @keyring"
+          ];
+        } // (if (cfg.group != null) then { Group = cfg.group; } else { });
       };
 
       networking.dhcpcd.denyInterfaces = cfg.denyDhcpcdInterfaces;
@@ -229,6 +254,9 @@ in
   );
   meta = {
     doc = ./yggdrasil.md;
-    maintainers = with lib.maintainers; [ gazally ehmry ];
+    maintainers = with lib.maintainers; [
+      gazally
+      ehmry
+    ];
   };
 }

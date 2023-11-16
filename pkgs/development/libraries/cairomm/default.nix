@@ -1,21 +1,25 @@
-{ fetchurl
-, stdenv
-, lib
-, pkg-config
-, darwin
-, cairo
-, fontconfig
-, freetype
-, libsigcxx
-, meson
-, ninja
+{
+  fetchurl,
+  stdenv,
+  lib,
+  pkg-config,
+  darwin,
+  cairo,
+  fontconfig,
+  freetype,
+  libsigcxx,
+  meson,
+  ninja,
 }:
 
 stdenv.mkDerivation rec {
   pname = "cairomm";
   version = "1.14.4";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://www.cairographics.org/releases/cairomm-${version}.tar.xz";
@@ -31,9 +35,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     fontconfig
     freetype
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    ApplicationServices
-  ]);
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
 
   propagatedBuildInputs = [
     cairo
@@ -59,7 +61,10 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.cairographics.org/";
 
-    license = with licenses; [ lgpl2Plus mpl10 ];
+    license = with licenses; [
+      lgpl2Plus
+      mpl10
+    ];
     platforms = platforms.unix;
   };
 }

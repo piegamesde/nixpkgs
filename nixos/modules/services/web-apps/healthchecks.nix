@@ -1,4 +1,11 @@
-{ config, lib, options, pkgs, buildEnv, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  buildEnv,
+  ...
+}:
 
 with lib;
 
@@ -13,7 +20,9 @@ let
     STATIC_ROOT = cfg.dataDir + "/static";
   } // cfg.settings;
 
-  environmentFile = pkgs.writeText "healthchecks-environment" (lib.generators.toKeyValue { } environment);
+  environmentFile = pkgs.writeText "healthchecks-environment" (
+    lib.generators.toKeyValue { } environment
+  );
 
   healthchecksManageScript = pkgs.writeShellScriptBin "healthchecks-manage" ''
     sudo=exec
@@ -115,63 +124,66 @@ in
           - `nix-instantiate --eval --expr '(import <nixpkgs> {}).healthchecks.secrets'`
           - or `nix eval 'nixpkgs#healthchecks.secrets'` if the flake support has been enabled.
       '';
-      type = types.submodule (settings: {
-        freeformType = types.attrsOf types.str;
-        options = {
-          ALLOWED_HOSTS = lib.mkOption {
-            type = types.listOf types.str;
-            default = [ "*" ];
-            description = lib.mdDoc "The host/domain names that this site can serve.";
-            apply = lib.concatStringsSep ",";
-          };
+      type = types.submodule (
+        settings: {
+          freeformType = types.attrsOf types.str;
+          options = {
+            ALLOWED_HOSTS = lib.mkOption {
+              type = types.listOf types.str;
+              default = [ "*" ];
+              description = lib.mdDoc "The host/domain names that this site can serve.";
+              apply = lib.concatStringsSep ",";
+            };
 
-          SECRET_KEY_FILE = mkOption {
-            type = types.path;
-            description = lib.mdDoc "Path to a file containing the secret key.";
-          };
+            SECRET_KEY_FILE = mkOption {
+              type = types.path;
+              description = lib.mdDoc "Path to a file containing the secret key.";
+            };
 
-          DEBUG = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc "Enable debug mode.";
-            apply = boolToPython;
-          };
+            DEBUG = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc "Enable debug mode.";
+              apply = boolToPython;
+            };
 
-          REGISTRATION_OPEN = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc ''
-              A boolean that controls whether site visitors can create new accounts.
-              Set it to false if you are setting up a private Healthchecks instance,
-              but it needs to be publicly accessible (so, for example, your cloud
-              services can send pings to it).
-              If you close new user registration, you can still selectively invite
-              users to your team account.
-            '';
-            apply = boolToPython;
-          };
+            REGISTRATION_OPEN = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc ''
+                A boolean that controls whether site visitors can create new accounts.
+                Set it to false if you are setting up a private Healthchecks instance,
+                but it needs to be publicly accessible (so, for example, your cloud
+                services can send pings to it).
+                If you close new user registration, you can still selectively invite
+                users to your team account.
+              '';
+              apply = boolToPython;
+            };
 
-          DB = mkOption {
-            type = types.enum [ "sqlite" "postgres" "mysql" ];
-            default = "sqlite";
-            description = lib.mdDoc "Database engine to use.";
-          };
+            DB = mkOption {
+              type = types.enum [
+                "sqlite"
+                "postgres"
+                "mysql"
+              ];
+              default = "sqlite";
+              description = lib.mdDoc "Database engine to use.";
+            };
 
-          DB_NAME = mkOption {
-            type = types.str;
-            default =
-              if settings.config.DB == "sqlite"
-              then "${cfg.dataDir}/healthchecks.sqlite"
-              else "hc";
-            defaultText = lib.literalExpression ''
-              if config.${settings.options.DB} == "sqlite"
-              then "''${config.${opt.dataDir}}/healthchecks.sqlite"
-              else "hc"
-            '';
-            description = lib.mdDoc "Database name.";
+            DB_NAME = mkOption {
+              type = types.str;
+              default = if settings.config.DB == "sqlite" then "${cfg.dataDir}/healthchecks.sqlite" else "hc";
+              defaultText = lib.literalExpression ''
+                if config.${settings.options.DB} == "sqlite"
+                then "''${config.${opt.dataDir}}/healthchecks.sqlite"
+                else "hc"
+              '';
+              description = lib.mdDoc "Database name.";
+            };
           };
-        };
-      });
+        }
+      );
     };
   };
 
@@ -181,7 +193,10 @@ in
     systemd.targets.healthchecks = {
       description = "Target for all Healthchecks services";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
     };
 
     systemd.services =
@@ -258,19 +273,17 @@ in
       };
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
-      ${defaultUser} =
-        {
-          description = "healthchecks service owner";
-          isSystemUser = true;
-          group = defaultUser;
-        };
+      ${defaultUser} = {
+        description = "healthchecks service owner";
+        isSystemUser = true;
+        group = defaultUser;
+      };
     };
 
     users.groups = optionalAttrs (cfg.user == defaultUser) {
-      ${defaultUser} =
-        {
-          members = [ defaultUser ];
-        };
+      ${defaultUser} = {
+        members = [ defaultUser ];
+      };
     };
   };
 }

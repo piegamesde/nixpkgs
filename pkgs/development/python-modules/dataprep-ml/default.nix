@@ -1,24 +1,28 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, poetry-core
-, numpy
-, pandas
-, pydateinfer
-, python-dateutil
-, scipy
-, type-infer
-, dataclasses-json
-, colorlog
-, pydantic
-, nltk-data
-, symlinkJoin
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  poetry-core,
+  numpy,
+  pandas,
+  pydateinfer,
+  python-dateutil,
+  scipy,
+  type-infer,
+  dataclasses-json,
+  colorlog,
+  pydantic,
+  nltk-data,
+  symlinkJoin,
 }:
 let
   testNltkData = symlinkJoin {
     name = "nltk-test-data";
-    paths = [ nltk-data.punkt nltk-data.stopwords ];
+    paths = [
+      nltk-data.punkt
+      nltk-data.stopwords
+    ];
   };
 in
 buildPythonPackage rec {
@@ -35,9 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-nIqyRwv62j8x5Fy7ILMLWxw6yJmkkNRE1zyUlfvRYTI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     numpy

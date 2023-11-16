@@ -1,51 +1,52 @@
-{ lib
-, buildPythonPackage
-, hatch-fancy-pypi-readme
-, hatch-vcs
-, hatchling
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, accelerate
-, bentoml
-, bitsandbytes
-, click
-, datasets
-, docker
-, einops
-, fairscale
-, flax
-, ghapi
-, hypothesis
-, ipython
-, jax
-, jaxlib
-, jupyter
-, jupytext
-, keras
-, nbformat
-, notebook
-, openai
-, openllm-client
-, openllm-core
-, optimum
-, peft
-, pytest-mock
-, pytest-randomly
-, pytest-rerunfailures
-, pytest-xdist
-, ray
-, safetensors
-, scipy
-, sentencepiece
-, soundfile
-, syrupy
-, tabulate
-, tensorflow
-, tiktoken
-, transformers
-, openai-triton
-, xformers
+{
+  lib,
+  buildPythonPackage,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  accelerate,
+  bentoml,
+  bitsandbytes,
+  click,
+  datasets,
+  docker,
+  einops,
+  fairscale,
+  flax,
+  ghapi,
+  hypothesis,
+  ipython,
+  jax,
+  jaxlib,
+  jupyter,
+  jupytext,
+  keras,
+  nbformat,
+  notebook,
+  openai,
+  openllm-client,
+  openllm-core,
+  optimum,
+  peft,
+  pytest-mock,
+  pytest-randomly,
+  pytest-rerunfailures,
+  pytest-xdist,
+  ray,
+  safetensors,
+  scipy,
+  sentencepiece,
+  soundfile,
+  syrupy,
+  tabulate,
+  tensorflow,
+  tiktoken,
+  transformers,
+  openai-triton,
+  xformers,
 }:
 
 buildPythonPackage rec {
@@ -64,27 +65,30 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRemoveDeps = [
-    # remove cuda-python as it has an unfree license
-    "cuda-python"
-  ];
+  pythonRemoveDeps =
+    [
+      # remove cuda-python as it has an unfree license
+      "cuda-python"
+    ];
 
-  propagatedBuildInputs = [
-    accelerate
-    bentoml
-    bitsandbytes
-    click
-    ghapi
-    openllm-client
-    openllm-core
-    optimum
-    safetensors
-    tabulate
-    transformers
-  ] ++ bentoml.optional-dependencies.io
-  ++ tabulate.optional-dependencies.widechars
-  ++ transformers.optional-dependencies.tokenizers
-  ++ transformers.optional-dependencies.torch;
+  propagatedBuildInputs =
+    [
+      accelerate
+      bentoml
+      bitsandbytes
+      click
+      ghapi
+      openllm-client
+      openllm-core
+      optimum
+      safetensors
+      tabulate
+      transformers
+    ]
+    ++ bentoml.optional-dependencies.io
+    ++ tabulate.optional-dependencies.widechars
+    ++ transformers.optional-dependencies.tokenizers
+    ++ transformers.optional-dependencies.torch;
 
   passthru.optional-dependencies = {
     agents = [
@@ -92,14 +96,16 @@ buildPythonPackage rec {
       soundfile
       transformers
     ] ++ transformers.optional-dependencies.agents;
-    baichuan = [
-      # cpm-kernels
-      sentencepiece
-    ];
-    chatglm = [
-      # cpm-kernels
-      sentencepiece
-    ];
+    baichuan =
+      [
+        # cpm-kernels
+        sentencepiece
+      ];
+    chatglm =
+      [
+        # cpm-kernels
+        sentencepiece
+      ];
     falcon = [
       einops
       xformers
@@ -118,16 +124,16 @@ buildPythonPackage rec {
       keras
       tensorflow
     ];
-    ggml = [
-      # ctransformers
-    ];
-    gptq = [
-      # auto-gptq
-      optimum
-    ]; # ++ autogptq.optional-dependencies.triton;
-    grpc = [
-      openllm-client
-    ] ++ openllm-client.optional-dependencies.grpc;
+    ggml =
+      [
+        # ctransformers
+      ];
+    gptq =
+      [
+        # auto-gptq
+        optimum
+      ]; # ++ autogptq.optional-dependencies.triton;
+    grpc = [ openllm-client ] ++ openllm-client.optional-dependencies.grpc;
     llama = [
       fairscale
       sentencepiece
@@ -155,16 +161,30 @@ buildPythonPackage rec {
       nbformat
       notebook
     ];
-    starcoder = [
-      bitsandbytes
-    ];
+    starcoder = [ bitsandbytes ];
     vllm = [
       ray
       # vllm
     ];
-    full = with passthru.optional-dependencies; (
-      agents ++ baichuan ++ chatglm ++ falcon ++ fine-tune ++ flan-t5 ++ ggml ++ gptq ++ llama ++ mpt ++ openai ++ opt ++ playground ++ starcoder ++ vllm
-    );
+    full =
+      with passthru.optional-dependencies;
+      (
+        agents
+        ++ baichuan
+        ++ chatglm
+        ++ falcon
+        ++ fine-tune
+        ++ flan-t5
+        ++ ggml
+        ++ gptq
+        ++ llama
+        ++ mpt
+        ++ openai
+        ++ opt
+        ++ playground
+        ++ starcoder
+        ++ vllm
+      );
     all = passthru.optional-dependencies.full;
   };
 
@@ -202,6 +222,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/bentoml/OpenLLM/tree/main/openllm-python";
     changelog = "https://github.com/bentoml/OpenLLM/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada natsukium ];
+    maintainers = with maintainers; [
+      happysalada
+      natsukium
+    ];
   };
 }

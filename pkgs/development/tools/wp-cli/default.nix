@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, formats
-, installShellFiles
-, makeWrapper
-, php
+{
+  stdenv,
+  lib,
+  fetchurl,
+  formats,
+  installShellFiles,
+  makeWrapper,
+  php,
 }:
 
 let
@@ -19,7 +20,6 @@ let
     PHP.memory_limit = -1; # no limit as composer uses a lot of memory
     Phar."phar.readonly" = "Off";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "wp-cli";
@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-r2t8zCHtCQfLUE21oFnw4SAReQWmAXv91Ddc7jyT2GQ=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   buildCommand = ''
     dir=$out/share/wp-cli

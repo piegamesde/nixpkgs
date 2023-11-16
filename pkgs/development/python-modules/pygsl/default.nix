@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, gsl
-, swig
-, numpy
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  gsl,
+  swig,
+  numpy,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,19 +21,13 @@ buildPythonPackage rec {
     gsl.dev
     swig
   ];
-  buildInputs = [
-    gsl
-  ];
-  propagatedBuildInputs = [
-    numpy
-  ];
+  buildInputs = [ gsl ];
+  propagatedBuildInputs = [ numpy ];
 
   preCheck = ''
     cd tests
   '';
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
     description = "Python interface for GNU Scientific Library";

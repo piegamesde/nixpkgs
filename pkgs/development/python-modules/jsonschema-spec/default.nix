@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build
-, poetry-core
+  # build
+  poetry-core,
 
-# propagates
-, pathable
-, pyyaml
-, referencing
-, requests
+  # propagates
+  pathable,
+  pyyaml,
+  referencing,
+  requests,
 
-# tests
-, pytestCheckHook
-, responses
+  # tests
+  pytestCheckHook,
+  responses,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
       --replace 'referencing = ">=0.28.0,<0.30.0"' 'referencing = ">=0.28.0"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pathable

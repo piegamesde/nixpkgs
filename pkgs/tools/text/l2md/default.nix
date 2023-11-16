@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchgit, libgit2 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libgit2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "l2md";

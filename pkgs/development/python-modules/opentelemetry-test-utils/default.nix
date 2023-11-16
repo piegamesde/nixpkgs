@@ -1,11 +1,12 @@
-{ lib
-, callPackage
-, buildPythonPackage
-, pythonOlder
-, asgiref
-, hatchling
-, opentelemetry-api
-, opentelemetry-sdk
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  pythonOlder,
+  asgiref,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-sdk,
 }:
 
 buildPythonPackage {
@@ -17,9 +18,7 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     asgiref

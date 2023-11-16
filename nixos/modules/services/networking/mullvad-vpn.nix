@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.mullvad-vpn;
 in
-with lib;
-{
+with lib; {
   options.services.mullvad-vpn = {
     enable = mkOption {
       type = types.bool;
@@ -76,5 +80,8 @@ with lib;
     };
   };
 
-  meta.maintainers = with maintainers; [ arcuru ymarkus ];
+  meta.maintainers = with maintainers; [
+    arcuru
+    ymarkus
+  ];
 }

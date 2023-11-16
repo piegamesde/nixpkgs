@@ -1,16 +1,17 @@
-{ buildPythonApplication
-, python3
-, poetry-core
-, yubikey-manager
-, fido2
-, mss
-, zxing-cpp
-, pillow
-, cryptography
+{
+  buildPythonApplication,
+  python3,
+  poetry-core,
+  yubikey-manager,
+  fido2,
+  mss,
+  zxing-cpp,
+  pillow,
+  cryptography,
 
-, src
-, version
-, meta
+  src,
+  version,
+  meta,
 }:
 
 buildPythonApplication {
@@ -20,9 +21,7 @@ buildPythonApplication {
   sourceRoot = "${src.name}/helper";
   format = "pyproject";
 
-  nativeBuildInputs = [
-    python3.pkgs.pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook ];
 
   pythonRelaxDeps = true;
 

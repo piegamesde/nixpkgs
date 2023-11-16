@@ -1,4 +1,9 @@
-{ lib, stdenv, nim, nim_builder }:
+{
+  lib,
+  stdenv,
+  nim,
+  nim_builder,
+}:
 pkgArgs:
 
 let
@@ -27,19 +32,28 @@ let
       nim_builder --phase:install
       runHook postInstall
     '';
-    meta = { inherit (nim.meta) maintainers platforms; };
+    meta = {
+      inherit (nim.meta) maintainers platforms;
+    };
   };
 
   inputsOverride =
-    { depsBuildBuild ? [ ], nativeBuildInputs ? [ ], ... }: {
+    {
+      depsBuildBuild ? [ ],
+      nativeBuildInputs ? [ ],
+      ...
+    }:
+    {
       depsBuildBuild = [ nim_builder ] ++ depsBuildBuild;
       nativeBuildInputs = [ nim ] ++ nativeBuildInputs;
     };
 
-  composition = finalAttrs:
+  composition =
+    finalAttrs:
     let
       asFunc = x: if builtins.isFunction x then x else (_: x);
       prev = baseAttrs // (asFunc ((asFunc pkgArgs) finalAttrs)) baseAttrs;
-    in prev // inputsOverride prev;
-
-in stdenv.mkDerivation composition
+    in
+    prev // inputsOverride prev;
+in
+stdenv.mkDerivation composition

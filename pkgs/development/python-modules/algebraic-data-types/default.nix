@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, hypothesis
-, mypy
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  hypothesis,
+  mypy,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -27,14 +28,13 @@ buildPythonPackage rec {
     mypy
   ];
 
-  disabledTestPaths = [
-    # AttributeError: module 'mypy.types' has no attribute 'TypeVarDef'
-    "tests/test_mypy_plugin.py"
-  ];
+  disabledTestPaths =
+    [
+      # AttributeError: module 'mypy.types' has no attribute 'TypeVarDef'
+      "tests/test_mypy_plugin.py"
+    ];
 
-  pythonImportsCheck = [
-    "adt"
-  ];
+  pythonImportsCheck = [ "adt" ];
 
   meta = with lib; {
     description = "Algebraic data types for Python";

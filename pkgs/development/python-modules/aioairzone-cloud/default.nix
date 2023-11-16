@@ -1,9 +1,10 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -20,17 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-K2/q4JQV6GkNXJ6pKDPfhwKvftdezMp5VdOa5iabmvk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  pythonImportsCheck = [
-    "aioairzone_cloud"
-  ];
+  pythonImportsCheck = [ "aioairzone_cloud" ];
 
   # Module has no tests
   doCheck = false;

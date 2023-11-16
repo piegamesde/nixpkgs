@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "command-line-arguments";
   version = "20210807-git";
@@ -8,7 +8,10 @@ rec {
 
   description = "small library to deal with command-line arguments";
 
-  deps = [ args."alexandria" args."hu_dot_dwim_dot_stefil" ];
+  deps = [
+    args."alexandria"
+    args."hu_dot_dwim_dot_stefil"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/command-line-arguments/2021-08-07/command-line-arguments-20210807-git.tgz";
@@ -17,7 +20,7 @@ rec {
 
   packageName = "command-line-arguments";
 
-  asdFilesToKeep = ["command-line-arguments.asd"];
+  asdFilesToKeep = [ "command-line-arguments.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM command-line-arguments DESCRIPTION
@@ -29,4 +32,5 @@ rec {
     ((NAME alexandria FILENAME alexandria)
      (NAME hu.dwim.stefil FILENAME hu_dot_dwim_dot_stefil))
     DEPENDENCIES (alexandria hu.dwim.stefil) VERSION 20210807-git SIBLINGS NIL
-    PARASITES (command-line-arguments/test)) */
+    PARASITES (command-line-arguments/test))
+*/

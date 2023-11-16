@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-# dependencies
-, ply
-# test dependencies
-, elasticsearch-dsl
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  # dependencies
+  ply,
+  # test dependencies
+  elasticsearch-dsl,
 }:
 let
   pname = "luqum";
@@ -24,13 +25,9 @@ buildPythonPackage {
     hash = "sha256-lcJCLl0crCl3Y5UlWBMZJR2UtVP96gaJNRxwY9Xn7TM=";
   };
 
-  propagatedBuildInputs = [
-    ply
-  ];
+  propagatedBuildInputs = [ ply ];
 
-  nativeCheckInputs = [
-    elasticsearch-dsl
-  ];
+  nativeCheckInputs = [ elasticsearch-dsl ];
 
   meta = with lib; {
     description = "A lucene query parser generating ElasticSearch queries and more !";

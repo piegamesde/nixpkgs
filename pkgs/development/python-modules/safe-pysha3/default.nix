@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-5CkUax7dGYssqTSiBGplZWxdMbDsiUu9YFUSf03q/xc=";
   };
 
-  pythonImportsCheck = [
-    "sha3"
-  ];
+  pythonImportsCheck = [ "sha3" ];
 
   meta = {
     changelog = "https://github.com/5afe/pysha3/releases/tag/v${version}";

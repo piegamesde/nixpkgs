@@ -1,15 +1,17 @@
-{ lib, stdenv
-, fetchurl
-, alsa-lib
-, audiofile
-, autoconf
-, automake
-, gnome2
-, gtk2
-, libjack2
-, libtool
-, libxml2
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  audiofile,
+  autoconf,
+  automake,
+  gnome2,
+  gtk2,
+  libjack2,
+  libtool,
+  libxml2,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,7 +22,11 @@ stdenv.mkDerivation rec {
     sha256 = "0k688k2wppam351by7cp9m7an09yligzd89padr8viqy63gkdk6v";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
 
   buildInputs = [
     alsa-lib

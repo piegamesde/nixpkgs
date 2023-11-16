@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, stdenv
-, CoreServices
-, Security
-, SystemConfiguration
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  stdenv,
+  CoreServices,
+  Security,
+  SystemConfiguration,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,22 +23,23 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-1QD6mEXRw3NCTBKJyVGK3demLKUdE6smELpvdFSJiWY=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices Security SystemConfiguration
-  ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      Security
+      SystemConfiguration
+    ];
 
   OPENSSL_NO_VENDOR = 1;
 
-  checkFlags = [
-    # This test fails on read-only filesystems
-    "--skip=commands::volumes::utils::test::test_parse_target_from_path_like"
-  ];
+  checkFlags =
+    [
+      # This test fails on read-only filesystems
+      "--skip=commands::volumes::utils::test::test_parse_target_from_path_like"
+    ];
 
   meta = with lib; {
     mainProgram = "hop";

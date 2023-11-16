@@ -1,68 +1,70 @@
-{ stdenv
-, lib
-, pkg-config
-, fetchFromGitLab
-, fetchpatch
-, gitUpdater
-, ffmpeg_6
+{
+  stdenv,
+  lib,
+  pkg-config,
+  fetchFromGitLab,
+  fetchpatch,
+  gitUpdater,
+  ffmpeg_6,
 
   # for daemon
-, autoreconfHook
-, perl # for pod2man
-, alsa-lib
-, asio
-, dbus
-, sdbus-cpp
-, fmt
-, gmp
-, gnutls
-, http-parser
-, jack
-, jsoncpp
-, libarchive
-, libgit2
-, libnatpmp
-, libpulseaudio
-, libupnp
-, yaml-cpp
-, msgpack
-, openssl
-, restinio
-, secp256k1
-, speex
-, udev
-, webrtc-audio-processing
-, zlib
+  autoreconfHook,
+  perl, # for pod2man
+  alsa-lib,
+  asio,
+  dbus,
+  sdbus-cpp,
+  fmt,
+  gmp,
+  gnutls,
+  http-parser,
+  jack,
+  jsoncpp,
+  libarchive,
+  libgit2,
+  libnatpmp,
+  libpulseaudio,
+  libupnp,
+  yaml-cpp,
+  msgpack,
+  openssl,
+  restinio,
+  secp256k1,
+  speex,
+  udev,
+  webrtc-audio-processing,
+  zlib,
 
   # for client
-, cmake
-, networkmanager # for libnm
-, python3
-, qttools # for translations
-, wrapQtAppsHook
-, libnotify
-, qt5compat
-, qtbase
-, qtdeclarative
-, qrencode
-, qtmultimedia
-, qtnetworkauth
-, qtpositioning
-, qtsvg
-, qtwebengine
-, qtwebchannel
-, withWebengine ? true
+  cmake,
+  networkmanager, # for libnm
+  python3,
+  qttools, # for translations
+  wrapQtAppsHook,
+  libnotify,
+  qt5compat,
+  qtbase,
+  qtdeclarative,
+  qrencode,
+  qtmultimedia,
+  qtnetworkauth,
+  qtpositioning,
+  qtsvg,
+  qtwebengine,
+  qtwebchannel,
+  withWebengine ? true,
 
   # for pjsip
-, fetchFromGitHub
-, pjsip
+  fetchFromGitHub,
+  pjsip,
 
   # for opendht
-, opendht
+  opendht,
 }:
 
 let
-  readLinesToList = with builtins; file: filter (s: isString s && stringLength s > 0) (split "\n" (readFile file));
+  readLinesToList =
+    with builtins; file: filter (s: isString s && stringLength s > 0) (split "\n" (readFile file));
 in
 stdenv.mkDerivation rec {
   pname = "jami";
@@ -77,7 +79,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  pjsip-jami = pjsip.overrideAttrs (old:
+  pjsip-jami = pjsip.overrideAttrs (
+    old:
     let
       patch-src = src + "/daemon/contrib/src/pjproject/";
     in
@@ -99,11 +102,16 @@ stdenv.mkDerivation rec {
         })
       ];
 
-      patchFlags = [ "-p1" "-l" ];
+      patchFlags = [
+        "-p1"
+        "-l"
+      ];
 
-      configureFlags = (readLinesToList ./config/pjsip_args_common)
+      configureFlags =
+        (readLinesToList ./config/pjsip_args_common)
         ++ lib.optionals stdenv.isLinux (readLinesToList ./config/pjsip_args_linux);
-    });
+    }
+  );
 
   opendht-jami = opendht.override {
     enableProxyServerAndClient = true;
@@ -185,30 +193,25 @@ stdenv.mkDerivation rec {
     qtpositioning
     qtsvg
     qtwebchannel
-  ] ++ lib.optionals withWebengine [
-    qtwebengine
-  ];
+  ] ++ lib.optionals withWebengine [ qtwebengine ];
 
   cmakeFlags = [
     "-DLIBJAMI_INCLUDE_DIR=${daemon}/include/jami"
     "-DLIBJAMI_XML_INTERFACES_DIR=${daemon}/share/dbus-1/interfaces"
-  ] ++ lib.optionals (!withWebengine) [
-    "-DWITH_WEBENGINE=false"
-  ];
+  ] ++ lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ];
 
-  qtWrapperArgs = [
-    # With wayland the titlebar is not themed and the wmclass is wrong.
-    "--set-default QT_QPA_PLATFORM xcb"
-  ];
+  qtWrapperArgs =
+    [
+      # With wayland the titlebar is not themed and the wmclass is wrong.
+      "--set-default QT_QPA_PLATFORM xcb"
+    ];
 
   postInstall = ''
     # Make the jamid d-bus services available
     ln -s ${daemon}/share/dbus-1 $out/share
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "stable/";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "stable/"; };
 
   meta = with lib; {
     homepage = "https://jami.net/";

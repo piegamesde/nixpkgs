@@ -1,11 +1,12 @@
-{ lib
-, fetchurl
-, fetchFromGitHub
-, installShellFiles
-, buildGoModule
-, go
-, makeWrapper
-, viceroy
+{
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  installShellFiles,
+  buildGoModule,
+  go,
+  makeWrapper,
+  viceroy,
 }:
 
 buildGoModule rec {
@@ -29,9 +30,7 @@ buildGoModule rec {
     '';
   };
 
-  subPackages = [
-    "cmd/fastly"
-  ];
+  subPackages = [ "cmd/fastly" ];
 
   vendorHash = "sha256-aCekNpf6C5fGIEk0pLkz4hJ6mQfBIzeCsIL6Fxf2QGk=";
 
@@ -50,15 +49,17 @@ buildGoModule rec {
     "-X github.com/fastly/cli/pkg/revision.GoHostOS=${go.GOHOSTOS}"
     "-X github.com/fastly/cli/pkg/revision.GoHostArch=${go.GOHOSTARCH}"
   ];
-  preBuild = let
-    cliConfigToml = fetchurl {
-      url = "https://web.archive.org/web/20231104101556/https://developer.fastly.com/api/internal/cli-config";
-      hash = "sha256-Bi5hbmMyFP4Pv2MklwNdkhGLXbI5qf6Ibvj0vWok2tI=";
-    };
-  in ''
-    cp ${cliConfigToml} ./pkg/config/config.toml
-    ldflags+=" -X github.com/fastly/cli/pkg/revision.GitCommit=$(cat COMMIT)"
-  '';
+  preBuild =
+    let
+      cliConfigToml = fetchurl {
+        url = "https://web.archive.org/web/20231104101556/https://developer.fastly.com/api/internal/cli-config";
+        hash = "sha256-Bi5hbmMyFP4Pv2MklwNdkhGLXbI5qf6Ibvj0vWok2tI=";
+      };
+    in
+    ''
+      cp ${cliConfigToml} ./pkg/config/config.toml
+      ldflags+=" -X github.com/fastly/cli/pkg/revision.GitCommit=$(cat COMMIT)"
+    '';
 
   preFixup = ''
     wrapProgram $out/bin/fastly --prefix PATH : ${lib.makeBinPath [ viceroy ]} \
@@ -77,6 +78,9 @@ buildGoModule rec {
     homepage = "https://github.com/fastly/cli";
     changelog = "https://github.com/fastly/cli/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ereslibre shyim ];
+    maintainers = with maintainers; [
+      ereslibre
+      shyim
+    ];
   };
 }

@@ -1,6 +1,19 @@
-{ lib, rustPlatform, fetchgit, fetchpatch
-, pkg-config, protobuf, python3, wayland-scanner
-, libcap, libdrm, libepoxy, minijail, virglrenderer, wayland, wayland-protocols
+{
+  lib,
+  rustPlatform,
+  fetchgit,
+  fetchpatch,
+  pkg-config,
+  protobuf,
+  python3,
+  wayland-scanner,
+  libcap,
+  libdrm,
+  libepoxy,
+  minijail,
+  virglrenderer,
+  wayland,
+  wayland-protocols,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -29,11 +42,21 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-yRujLgPaoKx/wkG3yMwQ5ndy9X5xDWSKtCr8DypXvEA=";
 
   nativeBuildInputs = [
-    pkg-config protobuf python3 rustPlatform.bindgenHook wayland-scanner
+    pkg-config
+    protobuf
+    python3
+    rustPlatform.bindgenHook
+    wayland-scanner
   ];
 
   buildInputs = [
-    libcap libdrm libepoxy minijail virglrenderer wayland wayland-protocols
+    libcap
+    libdrm
+    libepoxy
+    minijail
+    virglrenderer
+    wayland
+    wayland-protocols
   ];
 
   preConfigure = ''
@@ -42,7 +65,11 @@ rustPlatform.buildRustPackage rec {
 
   CROSVM_USE_SYSTEM_VIRGLRENDERER = true;
 
-  buildFeatures = [ "default" "virgl_renderer" "virgl_renderer_next" ];
+  buildFeatures = [
+    "default"
+    "virgl_renderer"
+    "virgl_renderer_next"
+  ];
 
   passthru.updateScript = ./update.py;
 
@@ -52,6 +79,9 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "crosvm";
     maintainers = with maintainers; [ qyliss ];
     license = licenses.bsd3;
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }

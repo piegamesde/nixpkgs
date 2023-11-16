@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitLab
-, python3
-, intltool
-, pandoc
-, gobject-introspection
-, wrapGAppsHook
-, gtk3
+{
+  lib,
+  fetchFromGitLab,
+  python3,
+  intltool,
+  pandoc,
+  gobject-introspection,
+  wrapGAppsHook,
+  gtk3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -25,11 +26,23 @@ python3.pkgs.buildPythonApplication rec {
     ./configdir.patch
   ];
 
-  nativeBuildInputs = [ intltool pandoc wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    intltool
+    pandoc
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
   propagatedBuildInputs = [
-     gtk3
-     (python3.withPackages (ps: with ps; [ distutils-extra pypdf2 pygobject3 ]))
+    gtk3
+    (python3.withPackages (
+      ps:
+      with ps; [
+        distutils-extra
+        pypdf2
+        pygobject3
+      ]
+    ))
   ];
 
   meta = {

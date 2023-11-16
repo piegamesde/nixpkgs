@@ -1,10 +1,11 @@
-{ lib
-, bleak
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  bleak,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -26,18 +27,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aranet4"
-  ];
+  pythonImportsCheck = [ "aranet4" ];
 
-  disabledTests = [
-    # Test compares rendered output
-    "test_current_values"
-  ];
+  disabledTests =
+    [
+      # Test compares rendered output
+      "test_current_values"
+    ];
 
   meta = with lib; {
     description = "Module to interact with Aranet4 devices";

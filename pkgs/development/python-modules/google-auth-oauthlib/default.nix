@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, click
-, mock
-, pytestCheckHook
-, google-auth
-, requests-oauthlib
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  mock,
+  pytestCheckHook,
+  google-auth,
+  requests-oauthlib,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -33,14 +34,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    # This test fails if the hostname is not associated with an IP (e.g., in `/etc/hosts`).
-    "test_run_local_server_bind_addr"
-  ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin
+      [
+        # This test fails if the hostname is not associated with an IP (e.g., in `/etc/hosts`).
+        "test_run_local_server_bind_addr"
+      ];
 
-  pythonImportsCheck = [
-    "google_auth_oauthlib"
-  ];
+  pythonImportsCheck = [ "google_auth_oauthlib" ];
 
   meta = with lib; {
     description = "Google Authentication Library: oauthlib integration";

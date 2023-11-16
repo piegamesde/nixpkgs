@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, SDL2_image
-, rtaudio
-, rtmidi
-, glew
-, alsa-lib
-, cmake
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  SDL2_image,
+  rtaudio,
+  rtmidi,
+  glew,
+  alsa-lib,
+  cmake,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Modern \"Jedi Engine\" replacement supporting Dark Forces, mods, and in the future Outlaws.";
+    description = ''
+      Modern "Jedi Engine" replacement supporting Dark Forces, mods, and in the future Outlaws.'';
     homepage = "https://theforceengine.github.io";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ devusb ];

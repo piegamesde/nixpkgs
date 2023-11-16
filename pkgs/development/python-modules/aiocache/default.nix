@@ -1,9 +1,10 @@
-{ lib
-, aioredis
-, buildPythonPackage
-, fetchFromGitHub
-, msgpack
-, pythonOlder
+{
+  lib,
+  aioredis,
+  buildPythonPackage,
+  fetchFromGitHub,
+  msgpack,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,20 +22,14 @@ buildPythonPackage rec {
   };
 
   passthru.optional-dependencies = {
-    redis = [
-      aioredis
-    ];
-    msgpack = [
-      msgpack
-    ];
+    redis = [ aioredis ];
+    msgpack = [ msgpack ];
   };
 
   # aiomcache would be required but last release was in 2017
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiocache"
-  ];
+  pythonImportsCheck = [ "aiocache" ];
 
   meta = with lib; {
     description = "Python API Rate Limit Decorator";

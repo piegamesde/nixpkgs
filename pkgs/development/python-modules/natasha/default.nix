@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pymorphy2
-, razdel
-, navec
-, slovnet
-, yagry
-, ipymarkup
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pymorphy2,
+  razdel,
+  navec,
+  slovnet,
+  yagry,
+  ipymarkup,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-Rgguazgq06a8B9jeRnfHD5VTR+Xrd+8OCsQUfaGLEq0=";
   };
 
-  propagatedBuildInputs = [ pymorphy2 navec razdel slovnet yagry ipymarkup ];
+  propagatedBuildInputs = [
+    pymorphy2
+    navec
+    razdel
+    slovnet
+    yagry
+    ipymarkup
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   pytestFlagsArray = [ "tests/" ];

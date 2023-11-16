@@ -1,17 +1,18 @@
-{ lib
-, stdenvNoCC
-, buildDotnetModule
-, fetchFromGitHub
-, makeDesktopItem
-, copyDesktopItems
-, ffmpeg
-, alsa-lib
-, SDL2
-, lttng-ust
-, numactl
-, libglvnd
-, xorg
-, udev
+{
+  lib,
+  stdenvNoCC,
+  buildDotnetModule,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  ffmpeg,
+  alsa-lib,
+  SDL2,
+  lttng-ust,
+  numactl,
+  libglvnd,
+  xorg,
+  udev,
 }:
 
 buildDotnetModule rec {
@@ -65,15 +66,17 @@ buildDotnetModule rec {
     runHook postFixup
   '';
 
-  desktopItems = [(makeDesktopItem {
-    desktopName = "osu!";
-    name = "osu";
-    exec = "osu!";
-    icon = "osu!";
-    comment = meta.description;
-    type = "Application";
-    categories = [ "Game" ];
-  })];
+  desktopItems = [
+    (makeDesktopItem {
+      desktopName = "osu!";
+      name = "osu";
+      exec = "osu!";
+      icon = "osu!";
+      comment = meta.description;
+      type = "Application";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description = "Rhythm is just a *click* away (no score submission or multiplayer, see osu-lazer-bin)";

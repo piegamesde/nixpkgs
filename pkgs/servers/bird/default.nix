@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, flex, bison, readline, libssh, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  readline,
+  libssh,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bird";
@@ -9,14 +18,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-sLn2+FZlQbm+SvHwysZ1xaN4VgGlVmen7D194pc1p4Y=";
   };
 
-  nativeBuildInputs = [ flex bison ];
-  buildInputs = [ readline libssh ];
-
-  patches = [
-    ./dont-create-sysconfdir-2.patch
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
+  buildInputs = [
+    readline
+    libssh
   ];
 
-  CPP="${stdenv.cc.targetPrefix}cpp -E";
+  patches = [ ./dont-create-sysconfdir-2.patch ];
+
+  CPP = "${stdenv.cc.targetPrefix}cpp -E";
 
   configureFlags = [
     "--localstatedir=/var"

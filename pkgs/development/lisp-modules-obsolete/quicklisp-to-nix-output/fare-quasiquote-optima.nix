@@ -1,12 +1,26 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "fare-quasiquote-optima";
   version = "fare-quasiquote-20200925-git";
 
   description = "fare-quasiquote extension for optima";
 
-  deps = [ args."alexandria" args."closer-mop" args."fare-quasiquote" args."fare-quasiquote-readtable" args."fare-utils" args."lisp-namespace" args."named-readtables" args."trivia_dot_level0" args."trivia_dot_level1" args."trivia_dot_level2" args."trivia_dot_quasiquote" args."trivia_dot_trivial" args."trivial-cltl2" ];
+  deps = [
+    args."alexandria"
+    args."closer-mop"
+    args."fare-quasiquote"
+    args."fare-quasiquote-readtable"
+    args."fare-utils"
+    args."lisp-namespace"
+    args."named-readtables"
+    args."trivia_dot_level0"
+    args."trivia_dot_level1"
+    args."trivia_dot_level2"
+    args."trivia_dot_quasiquote"
+    args."trivia_dot_trivial"
+    args."trivial-cltl2"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/fare-quasiquote/2020-09-25/fare-quasiquote-20200925-git.tgz";
@@ -15,7 +29,7 @@ rec {
 
   packageName = "fare-quasiquote-optima";
 
-  asdFilesToKeep = ["fare-quasiquote-optima.asd"];
+  asdFilesToKeep = [ "fare-quasiquote-optima.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM fare-quasiquote-optima DESCRIPTION
@@ -43,4 +57,5 @@ rec {
      trivia.quasiquote trivia.trivial trivial-cltl2)
     VERSION fare-quasiquote-20200925-git SIBLINGS
     (fare-quasiquote-extras fare-quasiquote-readtable fare-quasiquote)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

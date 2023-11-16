@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, curl, python3, trurl, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  python3,
+  trurl,
+  testers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "trurl";
@@ -18,7 +26,11 @@ stdenv.mkDerivation rec {
     substituteInPlace version.h --replace 0.8 0.9
   '';
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
   separateDebugInfo = stdenv.isLinux;
 
   enableParallelBuilding = true;
@@ -31,9 +43,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ python3 ];
   checkTarget = "test";
 
-  passthru.tests.version = testers.testVersion {
-    package = trurl;
-  };
+  passthru.tests.version = testers.testVersion { package = trurl; };
 
   meta = with lib; {
     description = "A command line tool for URL parsing and manipulation";

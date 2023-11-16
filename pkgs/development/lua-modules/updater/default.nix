@@ -1,15 +1,20 @@
-{ buildPythonApplication
-, nix
-, makeWrapper
-, python3Packages
-, lib
-# , nix-prefetch-git
-, nix-prefetch-scripts
-, luarocks-nix
+{
+  buildPythonApplication,
+  nix,
+  makeWrapper,
+  python3Packages,
+  lib,
+  # , nix-prefetch-git
+  nix-prefetch-scripts,
+  luarocks-nix,
 }:
 let
 
-    path = lib.makeBinPath [ nix nix-prefetch-scripts luarocks-nix ];
+  path = lib.makeBinPath [
+    nix
+    nix-prefetch-scripts
+    luarocks-nix
+  ];
 in
 buildPythonApplication {
   pname = "luarocks-packages-updater";
@@ -21,14 +26,11 @@ buildPythonApplication {
     makeWrapper
     python3Packages.wrapPython
   ];
-  propagatedBuildInputs = [
-    python3Packages.gitpython
-  ];
+  propagatedBuildInputs = [ python3Packages.gitpython ];
 
   dontUnpack = true;
 
-  installPhase =
-    ''
+  installPhase = ''
     mkdir -p $out/bin $out/lib
     cp ${./updater.py} $out/bin/luarocks-packages-updater
     cp ${../../../../maintainers/scripts/pluginupdate.py} $out/lib/pluginupdate.py
@@ -45,5 +47,3 @@ buildPythonApplication {
 
   meta.mainProgram = "luarocks-packages-updater";
 }
-
-

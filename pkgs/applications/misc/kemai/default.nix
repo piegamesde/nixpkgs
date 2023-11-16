@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, magic-enum
-, range-v3
-, spdlog
-, qtbase
-, qtconnectivity
-, qttools
-, qtlanguageserver
-, qtwayland
-, wrapQtAppsHook
-, libXScrnSaver
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  magic-enum,
+  range-v3,
+  spdlog,
+  qtbase,
+  qtconnectivity,
+  qttools,
+  qtlanguageserver,
+  qtwayland,
+  wrapQtAppsHook,
+  libXScrnSaver,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,14 +28,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-wclBAgeDyAIw/nGF6lzIwbwdoZMBTu+tjxsnIxIkODM=";
   };
 
-  patches = [
-    # Backport the fix for an issue where LICENSE.txt ends up in /bin
-    # Remove in next release
-    (fetchpatch {
-      url = "https://github.com/AlexandrePTJ/kemai/commit/e279679dd7308efebe004252d168d7308f3b99ce.patch";
-      hash = "sha256-5cmRRMVATf4ul4HhaQKiE0yTN2qd+MfNFQzGTLLpOyg=";
-    })
-  ];
+  patches =
+    [
+      # Backport the fix for an issue where LICENSE.txt ends up in /bin
+      # Remove in next release
+      (fetchpatch {
+        url = "https://github.com/AlexandrePTJ/kemai/commit/e279679dd7308efebe004252d168d7308f3b99ce.patch";
+        hash = "sha256-5cmRRMVATf4ul4HhaQKiE0yTN2qd+MfNFQzGTLLpOyg=";
+      })
+    ];
 
   buildInputs = [
     qtbase
@@ -52,7 +54,10 @@ stdenv.mkDerivation rec {
     "-DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS"
   ];
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   passthru = {
     updateScript = nix-update-script { };
@@ -63,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AlexandrePTJ/kemai";
     license = licenses.mit;
     maintainers = with maintainers; [ poelzi ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
     broken = stdenv.isDarwin;
     mainProgram = "Kemai";
   };

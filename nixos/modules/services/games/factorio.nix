@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -37,7 +42,9 @@ let
     autosave_only_on_server = true;
     non_blocking_saving = cfg.nonBlockingSaving;
   } // cfg.extraSettings;
-  serverSettingsFile = pkgs.writeText "server-settings.json" (builtins.toJSON (filterAttrsRecursive (n: v: v != null) serverSettings));
+  serverSettingsFile = pkgs.writeText "server-settings.json" (
+    builtins.toJSON (filterAttrsRecursive (n: v: v != null) serverSettings)
+  );
   serverAdminsFile = pkgs.writeText "server-adminlist.json" (builtins.toJSON cfg.admins);
   modDir = pkgs.factorio-utils.mkModDirDrv cfg.mods cfg.mods-dat;
 in
@@ -63,7 +70,7 @@ in
 
       admins = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "username" ];
         description = lib.mdDoc ''
           List of player names which will be admin.
@@ -126,7 +133,7 @@ in
       };
       mods = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Mods the server should install and activate.
 
@@ -161,8 +168,10 @@ in
       };
       extraSettings = mkOption {
         type = types.attrs;
-        default = {};
-        example = { admins = [ "username" ];};
+        default = { };
+        example = {
+          admins = [ "username" ];
+        };
         description = lib.mdDoc ''
           Extra game configuration that will go into server-settings.json
         '';
@@ -247,17 +256,17 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.factorio = {
-      description   = "Factorio headless server";
-      wantedBy      = [ "multi-user.target" ];
-      after         = [ "network.target" ];
+      description = "Factorio headless server";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
 
       preStart = toString [
         "test -e ${stateDir}/saves/${cfg.saveName}.zip"
         "||"
         "${cfg.package}/bin/factorio"
-          "--config=${cfg.configFile}"
-          "--create=${mkSavePath cfg.saveName}"
-          (optionalString (cfg.mods != []) "--mod-directory=${modDir}")
+        "--config=${cfg.configFile}"
+        "--create=${mkSavePath cfg.saveName}"
+        (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
       ];
 
       serviceConfig = {
@@ -274,8 +283,8 @@ in
           (optionalString (!cfg.loadLatestSave) "--start-server=${mkSavePath cfg.saveName}")
           "--server-settings=${serverSettingsFile}"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
-          (optionalString (cfg.mods != []) "--mod-directory=${modDir}")
-          (optionalString (cfg.admins != []) "--server-adminlist=${serverAdminsFile}")
+          (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
+          (optionalString (cfg.admins != [ ]) "--server-adminlist=${serverAdminsFile}")
         ];
 
         # Sandboxing
@@ -287,7 +296,12 @@ in
         ProtectControlGroups = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         RestrictRealtime = true;
         RestrictNamespaces = true;
         MemoryDenyWriteExecute = true;

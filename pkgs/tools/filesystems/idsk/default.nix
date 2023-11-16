@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
 
@@ -14,10 +19,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    # Needed with GCC 12 but breaks on darwin (with clang)
-    "-std=c++14"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.cc.isGNU
+      [
+        # Needed with GCC 12 but breaks on darwin (with clang)
+        "-std=c++14"
+      ]
+  );
 
   installPhase = ''
     mkdir -p $out/bin
@@ -26,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Manipulating CPC dsk images and files";
-    homepage = "https://github.com/cpcsdk/idsk" ;
+    homepage = "https://github.com/cpcsdk/idsk";
     license = licenses.mit;
     maintainers = [ ];
     mainProgram = "iDSK";

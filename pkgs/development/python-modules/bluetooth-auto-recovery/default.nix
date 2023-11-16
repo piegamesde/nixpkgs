@@ -1,14 +1,15 @@
-{ lib
-, async-timeout
-, bluetooth-adapters
-, btsocket
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pyric
-, pytestCheckHook
-, pythonOlder
-, usb-devices
+{
+  lib,
+  async-timeout,
+  bluetooth-adapters,
+  btsocket,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyric,
+  pytestCheckHook,
+  pythonOlder,
+  usb-devices,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-1ytiTIAV00Wk2zqZKRAsstVLuyzPEGBISz0g0ssC5Eo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     async-timeout
@@ -37,18 +36,14 @@ buildPythonPackage rec {
     usb-devices
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=bluetooth_auto_recovery --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [
-    "bluetooth_auto_recovery"
-  ];
+  pythonImportsCheck = [ "bluetooth_auto_recovery" ];
 
   meta = with lib; {
     description = "Library for recovering Bluetooth adapters";

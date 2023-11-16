@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, fetchpatch
-, jq
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  fetchpatch,
+  jq,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -32,25 +33,17 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    jq
-  ];
+  buildInputs = [ jq ];
 
   preBuild = ''
     cython jq.pyx
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "jq"
-  ];
+  pythonImportsCheck = [ "jq" ];
 
   meta = with lib; {
     description = "Python bindings for jq, the flexible JSON processor";

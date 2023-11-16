@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, setuptools
-, setuptools-scm
-, wheel
-, nss
-, nix-update-script
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  nss,
+  nix-update-script,
 }:
 
 buildPythonApplication rec {
@@ -26,7 +27,12 @@ buildPythonApplication rec {
     wheel
   ];
 
-  makeWrapperArgs = [ "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ nss ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    (lib.makeLibraryPath [ nss ])
+  ];
 
   passthru.updateScript = nix-update-script { };
 

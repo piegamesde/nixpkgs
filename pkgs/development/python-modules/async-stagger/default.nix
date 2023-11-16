@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, pytest-asyncio
-, pytest-mock
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-mock,
 }:
 
 buildPythonPackage rec {
@@ -26,14 +27,13 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  disabledTests = [
-    # RuntimeError: Logic bug in...
-    "test_stagger_coro_gen"
-  ];
+  disabledTests =
+    [
+      # RuntimeError: Logic bug in...
+      "test_stagger_coro_gen"
+    ];
 
-  pythonImportsCheck = [
-    "async_stagger"
-  ];
+  pythonImportsCheck = [ "async_stagger" ];
 
   meta = with lib; {
     description = "Happy Eyeballs connection algorithm and underlying scheduling logic in asyncio";

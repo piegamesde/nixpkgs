@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, mccabe
-, pycodestyle
-, pyflakes
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  mccabe,
+  pycodestyle,
+  pyflakes,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     pyflakes
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Flake8 is a wrapper around pyflakes, pycodestyle and mccabe.";

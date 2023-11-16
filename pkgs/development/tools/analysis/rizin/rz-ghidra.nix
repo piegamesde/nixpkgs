@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-# buildInputs
-, rizin
-, openssl
-, pugixml
-# optional buildInputs
-, enableCutterPlugin ? true
-, cutter
-, qtbase
-, qtsvg
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  # buildInputs
+  rizin,
+  openssl,
+  pugixml,
+  # optional buildInputs
+  enableCutterPlugin ? true,
+  cutter,
+  qtbase,
+  qtsvg,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,24 +35,26 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    openssl
-    pugixml
-    rizin
-  ] ++ lib.optionals enableCutterPlugin [
-    cutter
-    qtbase
-    qtsvg
-  ];
+  buildInputs =
+    [
+      openssl
+      pugixml
+      rizin
+    ]
+    ++ lib.optionals enableCutterPlugin [
+      cutter
+      qtbase
+      qtsvg
+    ];
 
   dontWrapQtApps = true;
 
-  cmakeFlags = [
-    "-DUSE_SYSTEM_PUGIXML=ON"
-  ] ++ lib.optionals enableCutterPlugin [
-    "-DBUILD_CUTTER_PLUGIN=ON"
-    "-DCUTTER_INSTALL_PLUGDIR=share/rizin/cutter/plugins/native"
-  ];
+  cmakeFlags =
+    [ "-DUSE_SYSTEM_PUGIXML=ON" ]
+    ++ lib.optionals enableCutterPlugin [
+      "-DBUILD_CUTTER_PLUGIN=ON"
+      "-DCUTTER_INSTALL_PLUGDIR=share/rizin/cutter/plugins/native"
+    ];
 
   meta = with lib; {
     description = "Deep ghidra decompiler and sleigh disassembler integration for rizin";

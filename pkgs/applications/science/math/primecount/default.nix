@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, primesieve
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  primesieve,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,13 +17,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-0sn6WnrI6Umrsz3lvFIzFi8/fEAqh1qhWxtNPPq5SyA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    primesieve
-  ];
+  buildInputs = [ primesieve ];
 
   cmakeFlags = [
     "-DBUILD_LIBPRIMESIEVE=ON"

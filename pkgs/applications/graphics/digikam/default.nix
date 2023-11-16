@@ -1,65 +1,75 @@
-{ mkDerivation, config, lib, fetchpatch, fetchurl, cmake, doxygen, extra-cmake-modules, wrapGAppsHook
+{
+  mkDerivation,
+  config,
+  lib,
+  fetchpatch,
+  fetchurl,
+  cmake,
+  doxygen,
+  extra-cmake-modules,
+  wrapGAppsHook,
 
-# For `digitaglinktree`
-, perl, sqlite
+  # For `digitaglinktree`
+  perl,
+  sqlite,
 
-, qtbase
-, qtxmlpatterns
-, qtsvg
-, qtwebengine
-, qtnetworkauth
+  qtbase,
+  qtxmlpatterns,
+  qtsvg,
+  qtwebengine,
+  qtnetworkauth,
 
-, akonadi-contacts
-, kcalendarcore
-, kconfigwidgets
-, kcoreaddons
-, kdoctools
-, kfilemetadata
-, knotifications
-, knotifyconfig
-, ktextwidgets
-, kwidgetsaddons
-, kxmlgui
+  akonadi-contacts,
+  kcalendarcore,
+  kconfigwidgets,
+  kcoreaddons,
+  kdoctools,
+  kfilemetadata,
+  knotifications,
+  knotifyconfig,
+  ktextwidgets,
+  kwidgetsaddons,
+  kxmlgui,
 
-, bison
-, boost
-, eigen
-, exiv2
-, ffmpeg_4
-, flex
-, graphviz
-, imagemagick
-, lcms2
-, lensfun
-, libgphoto2
-, libkipi
-, libksane
-, liblqr1
-, libqtav
-, libusb1
-, marble
-, libGL
-, libGLU
-, opencv
-, pcre
-, threadweaver
-, x265
-, jasper
+  bison,
+  boost,
+  eigen,
+  exiv2,
+  ffmpeg_4,
+  flex,
+  graphviz,
+  imagemagick,
+  lcms2,
+  lensfun,
+  libgphoto2,
+  libkipi,
+  libksane,
+  liblqr1,
+  libqtav,
+  libusb1,
+  marble,
+  libGL,
+  libGLU,
+  opencv,
+  pcre,
+  threadweaver,
+  x265,
+  jasper,
 
-# For panorama and focus stacking
-, enblend-enfuse
-, hugin
-, gnumake
+  # For panorama and focus stacking
+  enblend-enfuse,
+  hugin,
+  gnumake,
 
-, breeze-icons
-, oxygen
+  breeze-icons,
+  oxygen,
 
-, cudaSupport ? config.cudaSupport
-, cudaPackages ? {}
+  cudaSupport ? config.cudaSupport,
+  cudaPackages ? { },
 }:
 
 mkDerivation rec {
-  pname   = "digikam";
+  pname = "digikam";
   version = "8.1.0";
 
   src = fetchurl {
@@ -81,9 +91,7 @@ mkDerivation rec {
     extra-cmake-modules
     kdoctools
     wrapGAppsHook
-  ] ++ lib.optionals cudaSupport (with cudaPackages; [
-    cuda_nvcc
-  ]);
+  ] ++ lib.optionals cudaSupport (with cudaPackages; [ cuda_nvcc ]);
 
   buildInputs = [
     bison
@@ -130,9 +138,7 @@ mkDerivation rec {
     marble
     oxygen
     threadweaver
-  ] ++ lib.optionals cudaSupport (with cudaPackages; [
-    cuda_cudart
-  ]);
+  ] ++ lib.optionals cudaSupport (with cudaPackages; [ cuda_cudart ]);
 
   cmakeFlags = [
     "-DENABLE_MYSQLSUPPORT=1"
@@ -147,7 +153,13 @@ mkDerivation rec {
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
-    qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ gnumake hugin enblend-enfuse ]})
+    qtWrapperArgs+=(--prefix PATH : ${
+      lib.makeBinPath [
+        gnumake
+        hugin
+        enblend-enfuse
+      ]
+    })
     qtWrapperArgs+=(--suffix DK_PLUGIN_PATH : ${placeholder "out"}/${qtbase.qtPluginPrefix}/${pname})
     substituteInPlace $out/bin/digitaglinktree \
       --replace "/usr/bin/perl" "${perl}/bin/perl" \

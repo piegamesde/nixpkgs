@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchYarnDeps
-, makeWrapper
-, nodejs
-, prefetch-yarn-deps
-, yarn
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  makeWrapper,
+  nodejs,
+  prefetch-yarn-deps,
+  yarn,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-SXQPRzF6b1FJl5HkyXNm3kGoNSDXux+0RYXBX93mOts=";
   };
 
-  nativeBuildInputs  = [
+  nativeBuildInputs = [
     makeWrapper
     nodejs
     prefetch-yarn-deps

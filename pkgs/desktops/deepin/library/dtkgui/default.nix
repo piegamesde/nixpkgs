@@ -1,18 +1,19 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, cmake
-, qttools
-, doxygen
-, wrapQtAppsHook
-, qtbase
-, dtkcore
-, qtimageformats
-, lxqt
-, librsvg
-, freeimage
-, libraw
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  qttools,
+  doxygen,
+  wrapQtAppsHook,
+  qtbase,
+  dtkcore,
+  qtimageformats,
+  lxqt,
+  librsvg,
+  freeimage,
+  libraw,
 }:
 
 stdenv.mkDerivation rec {

@@ -2,16 +2,21 @@
 
 let
   inherit (pkgs) fetchpatch lib;
-  checkAgainAfter = pkg: ver: msg: act:
-    if builtins.compareVersions pkg.version ver <= 0 then act
+  checkAgainAfter =
+    pkg: ver: msg: act:
+    if builtins.compareVersions pkg.version ver <= 0 then
+      act
     else
-      builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
+      builtins.throw
+        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
 in
 
 with haskellLib;
-self: super: let
+self: super:
+let
   jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
-in {
+in
+{
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
   # Disable GHC core libraries.
@@ -46,7 +51,8 @@ in {
   system-cxx-std-lib = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo =
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -59,7 +65,7 @@ in {
 
   hashable-time = doJailbreak super.hashable-time;
   libmpd = doJailbreak super.libmpd;
-  lens-family-th = doJailbreak super.lens-family-th;  # template-haskell <2.19
+  lens-family-th = doJailbreak super.lens-family-th; # template-haskell <2.19
 
   # generically needs base-orphans for 9.4 only
   base-orphans = dontCheck (doDistribute super.base-orphans);
@@ -68,19 +74,25 @@ in {
   # https://gitlab.haskell.org/ghc/ghc/-/issues/21619
   hedgehog = dontHaddock super.hedgehog;
 
-  hpack = overrideCabal (drv: {
-    # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
-    # 2021-10-10: 9.2.1 is not yet supported (also no issue)
-    testFlags = [
-      "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"
-    ] ++ drv.testFlags or [];
-  }) (doJailbreak super.hpack);
+  hpack =
+    overrideCabal
+      (drv: {
+        # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
+        # 2021-10-10: 9.2.1 is not yet supported (also no issue)
+        testFlags = [
+          "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"
+        ] ++ drv.testFlags or [ ];
+      })
+      (doJailbreak super.hpack);
 
   # Apply patches from head.hackage.
-  language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
-    sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
-  }) (doJailbreak super.language-haskell-extract);
+  language-haskell-extract =
+    appendPatch
+      (pkgs.fetchpatch {
+        url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
+        sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
+      })
+      (doJailbreak super.language-haskell-extract);
 
   # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
@@ -125,7 +137,9 @@ in {
         # Tests fail due to the newly-build fourmolu not being in PATH
         # https://github.com/fourmolu/fourmolu/issues/231
         fourmolu = dontCheck super.fourmolu_0_14_0_0;
-        ormolu = self.generateOptparseApplicativeCompletions [ "ormolu" ] (enableSeparateBinOutput super.ormolu_0_7_2_0);
+        ormolu = self.generateOptparseApplicativeCompletions [ "ormolu" ] (
+          enableSeparateBinOutput super.ormolu_0_7_2_0
+        );
         hlint = super.hlint_3_6_1;
         stylish-haskell = super.stylish-haskell;
       }

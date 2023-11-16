@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitHub
-, nix-update-script
-, python3Packages
+{
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  python3Packages,
 }:
 
 python3Packages.buildPythonApplication {
@@ -16,13 +17,9 @@ python3Packages.buildPythonApplication {
     hash = "sha256-j4LqWy7DxeV7pjwnCfpkHwug4p48kux6BM6oDJmvuUo=";
   };
 
-  nativeBuildInputs = with python3Packages; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3Packages; [ poetry-core ];
 
-  propagatedBuildInputs = with python3Packages; [
-    rich
-  ];
+  propagatedBuildInputs = with python3Packages; [ rich ];
 
   nativeCheckInputs = with python3Packages; [
     hypothesis
@@ -37,9 +34,7 @@ python3Packages.buildPythonApplication {
 
   pythonImportChecks = [ "memtree" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
-  };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Render cgroups tree annotated by memory usage";

@@ -1,19 +1,20 @@
-{ lib
-, beartype
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, license-expression
-, ply
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, rdflib
-, semantic-version
-, setuptools
-, setuptools-scm
-, uritools
-, xmltodict
+{
+  lib,
+  beartype,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  license-expression,
+  ply,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  rdflib,
+  semantic-version,
+  setuptools,
+  setuptools-scm,
+  uritools,
+  xmltodict,
 }:
 
 buildPythonPackage rec {
@@ -49,18 +50,15 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "spdx_tools.spdx"
-  ];
+  pythonImportsCheck = [ "spdx_tools.spdx" ];
 
-  disabledTestPaths = [
-    # Test depends on the currently not packaged pyshacl module
-    "tests/spdx3/validation/json_ld/test_shacl_validation.py"
-  ];
+  disabledTestPaths =
+    [
+      # Test depends on the currently not packaged pyshacl module
+      "tests/spdx3/validation/json_ld/test_shacl_validation.py"
+    ];
 
   disabledTests = [
     # Missing files

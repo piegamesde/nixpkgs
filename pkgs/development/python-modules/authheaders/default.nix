@@ -1,13 +1,14 @@
-{ lib
-, authres
-, buildPythonPackage
-, dkimpy
-, dnspython
-, fetchFromGitHub
-, publicsuffix2
-, pythonOlder
-, pytestCheckHook
-, setuptools
+{
+  lib,
+  authres,
+  buildPythonPackage,
+  dkimpy,
+  dnspython,
+  fetchFromGitHub,
+  publicsuffix2,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -32,13 +33,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "authheaders"
-  ];
+  pythonImportsCheck = [ "authheaders" ];
 
   meta = with lib; {
     description = "Python library for the generation of email authentication headers";

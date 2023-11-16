@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, cherrypy
-, fetchPypi
-, filelock
-, msgpack
-, pdm-backend
-, pytestCheckHook
-, pythonOlder
-, redis
-, requests
+{
+  lib,
+  buildPythonPackage,
+  cherrypy,
+  fetchPypi,
+  filelock,
+  msgpack,
+  pdm-backend,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-fkCPFfSXj+oiR3NLMIYh919/4Wm0YWeVGccuioXWHV0=";
   };
 
-  nativeBuildInputs = [
-    pdm-backend
-  ];
+  nativeBuildInputs = [ pdm-backend ];
 
   propagatedBuildInputs = [
     msgpack
@@ -35,12 +34,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    filecache = [
-      filelock
-    ];
-    redis = [
-      redis
-    ];
+    filecache = [ filelock ];
+    redis = [ redis ];
   };
 
   nativeCheckInputs = [
@@ -48,9 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.filecache;
 
-  pythonImportsCheck = [
-    "cacheyou"
-  ];
+  pythonImportsCheck = [ "cacheyou" ];
 
   meta = {
     description = "The httplib2 caching algorithms packaged up for use with requests";

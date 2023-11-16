@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, can
-, cobs
-, libpcap
-, nunavut
-, numpy
-, pyserial
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  can,
+  cobs,
+  libpcap,
+  nunavut,
+  numpy,
+  pyserial,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
 
   # Can't seem to run the tests on nix
   doCheck = false;
-  pythonImportsCheck = [
-    "pycyphal"
-  ];
+  pythonImportsCheck = [ "pycyphal" ];
 
   meta = with lib; {
     description = "A full-featured implementation of the Cyphal protocol stack in Python";

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, cacert
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  cacert,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,10 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-V3bptJDNMGXlCMg6GHj792IrjfsG9+F/UpQKxeM0QOc=";
   };
 
-  patches = [
-    # Add support for NIX_SSL_CERT_FILE
-    ./env.patch
-  ];
+  patches =
+    [
+      # Add support for NIX_SSL_CERT_FILE
+      ./env.patch
+    ];
 
   postPatch = ''
     # Use our system-wide ca-bundle instead of the bundled one
@@ -30,18 +32,15 @@ buildPythonPackage rec {
     ln -snvf "${cacert}/etc/ssl/certs/ca-bundle.crt" "certifi/cacert.pem"
   '';
 
-  propagatedNativeBuildInputs = [
-    # propagate cacerts setup-hook to set up `NIX_SSL_CERT_FILE`
-    cacert
-  ];
+  propagatedNativeBuildInputs =
+    [
+      # propagate cacerts setup-hook to set up `NIX_SSL_CERT_FILE`
+      cacert
+    ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "certifi"
-  ];
+  pythonImportsCheck = [ "certifi" ];
 
   meta = with lib; {
     homepage = "https://github.com/certifi/python-certifi";

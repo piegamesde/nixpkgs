@@ -1,14 +1,15 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pillow
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, wheel
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pillow,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,15 @@ buildPythonPackage rec {
     hash = "sha256-d+PEzCF1Cw/7NmumxIRRlr3hojpNsZM/JMQ0KWdosXk=";
   };
 
-  patches = [
-    # https://github.com/home-assistant-libs/aioslimproto/pull/189
-    (fetchpatch {
-      name = "unpin-setuptools-version.patch";
-      url = "https://github.com/home-assistant-libs/aioslimproto/commit/06fd56987be8903ff147bad38af84b21bc31bc18.patch";
-      hash = "sha256-kTu1+IwDrcdqelyK/vfhxw8MQBis5I1jag7YTytKQhs=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/home-assistant-libs/aioslimproto/pull/189
+      (fetchpatch {
+        name = "unpin-setuptools-version.patch";
+        url = "https://github.com/home-assistant-libs/aioslimproto/commit/06fd56987be8903ff147bad38af84b21bc31bc18.patch";
+        hash = "sha256-kTu1+IwDrcdqelyK/vfhxw8MQBis5I1jag7YTytKQhs=";
+      })
+    ];
 
   nativeBuildInputs = [
     setuptools
@@ -49,9 +51,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "aioslimproto"
-  ];
+  pythonImportsCheck = [ "aioslimproto" ];
 
   meta = with lib; {
     description = "Module to control Squeezebox players";

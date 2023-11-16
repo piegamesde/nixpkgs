@@ -1,18 +1,20 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, python3
-, vala
-, libxslt
-, pkg-config
-, glib
-, bash-completion
-, dbus
-, gnome
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_42
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  python3,
+  vala,
+  libxslt,
+  pkg-config,
+  glib,
+  bash-completion,
+  dbus,
+  gnome,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
 }:
 let
   isCross = (stdenv.hostPlatform != stdenv.buildPlatform);
@@ -21,11 +23,16 @@ stdenv.mkDerivation rec {
   pname = "dconf";
   version = "0.40.0";
 
-  outputs = [ "out" "lib" "dev" ]
-    ++ lib.optional (!isCross) "devdoc";
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ] ++ lib.optional (!isCross) "devdoc";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "0cs5nayg080y8pb9b7qccm1ni8wkicdmqp1jsgc22110r6j24zyg";
   };
 

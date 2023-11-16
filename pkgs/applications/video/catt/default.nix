@@ -1,7 +1,8 @@
-{ lib
-, fetchPypi
-, fetchpatch
-, python3
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -22,9 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     click
@@ -37,9 +36,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false; # attempts to access various URLs
 
-  pythonImportsCheck = [
-    "catt"
-  ];
+  pythonImportsCheck = [ "catt" ];
 
   meta = with lib; {
     description = "Tool to send media from online sources to Chromecast devices";

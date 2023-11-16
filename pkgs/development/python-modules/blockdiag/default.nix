@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, fetchpatch
-, funcparserlib
-, nose
-, pillow
-, ephem
-, pythonOlder
-, pytestCheckHook
-, reportlab
-, setuptools
-, webcolors
-, python
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  fetchpatch,
+  funcparserlib,
+  nose,
+  pillow,
+  ephem,
+  pythonOlder,
+  pytestCheckHook,
+  reportlab,
+  setuptools,
+  webcolors,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -29,14 +30,15 @@ buildPythonPackage rec {
     hash = "sha256-j8FoNUIJJOaahaol1MRPyY2jcPCEIlaAD4bmM2QKFFI=";
   };
 
-  patches = [
-    # https://github.com/blockdiag/blockdiag/pull/179
-    (fetchpatch {
-      name = "pillow-10-compatibility.patch";
-      url = "https://github.com/blockdiag/blockdiag/commit/20d780cad84e7b010066cb55f848477957870165.patch";
-      hash = "sha256-t1zWFzAsLL2EUa0nD4Eui4Y5AhAZLRmp/yC9QpzzeUA=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/blockdiag/blockdiag/pull/179
+      (fetchpatch {
+        name = "pillow-10-compatibility.patch";
+        url = "https://github.com/blockdiag/blockdiag/commit/20d780cad84e7b010066cb55f848477957870165.patch";
+        hash = "sha256-t1zWFzAsLL2EUa0nD4Eui4Y5AhAZLRmp/yC9QpzzeUA=";
+      })
+    ];
 
   propagatedBuildInputs = [
     setuptools
@@ -53,18 +55,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    "src/blockdiag/tests/"
-  ];
+  pytestFlagsArray = [ "src/blockdiag/tests/" ];
 
-  disabledTests = [
-    # Test require network access
-    "test_app_cleans_up_images"
-  ];
+  disabledTests =
+    [
+      # Test require network access
+      "test_app_cleans_up_images"
+    ];
 
-  pythonImportsCheck = [
-    "blockdiag"
-  ];
+  pythonImportsCheck = [ "blockdiag" ];
 
   meta = with lib; {
     description = "Generate block-diagram image from spec-text file (similar to Graphviz)";

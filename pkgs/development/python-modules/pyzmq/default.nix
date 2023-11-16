@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, py
-, pytestCheckHook
-, python
-, pythonOlder
-, tornado
-, zeromq
-, pytest-asyncio
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  py,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  tornado,
+  zeromq,
+  pytest-asyncio,
 }:
 
 buildPythonPackage rec {
@@ -22,13 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-JZwiSFtxq6zfqL95cgzXvPS50SizDqVU8BrnH9v9qiM=";
   };
 
-  buildInputs = [
-    zeromq
-  ];
+  buildInputs = [ zeromq ];
 
-  propagatedBuildInputs = [
-    py
-  ];
+  propagatedBuildInputs = [ py ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,9 +33,7 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [
-    "zmq"
-  ];
+  pythonImportsCheck = [ "zmq" ];
 
   pytestFlagsArray = [
     "$out/${python.sitePackages}/zmq/tests/" # Folder with tests
@@ -67,7 +62,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for ØMQ";
     homepage = "https://pyzmq.readthedocs.io/";
-    license = with licenses; [ bsd3 /* or */ lgpl3Only ];
+    license = with licenses; [
+      bsd3 # or
+      lgpl3Only
+    ];
     maintainers = with maintainers; [ ];
   };
 }

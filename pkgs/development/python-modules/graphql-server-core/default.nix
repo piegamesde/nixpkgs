@@ -1,11 +1,12 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, graphql-core
-, promise
-, fetchpatch
-, pythonOlder
-, pytestCheckHook
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  graphql-core,
+  promise,
+  fetchpatch,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
   # fail with: cannot import name 'format_error' from 'graphql'
   doCheck = false;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Core package for using GraphQL in a custom server easily";

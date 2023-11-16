@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, c-ares
-, cmake
-, crc32c
-, curl
-, gbenchmark
-, grpc
-, gtest
-, ninja
-, nlohmann_json
-, openssl
-, pkg-config
-, protobuf
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  c-ares,
+  cmake,
+  crc32c,
+  curl,
+  gbenchmark,
+  grpc,
+  gtest,
+  ninja,
+  nlohmann_json,
+  openssl,
+  pkg-config,
+  protobuf,
   # default list of APIs: https://github.com/googleapis/google-cloud-cpp/blob/v1.32.1/CMakeLists.txt#L173
-, apis ? [ "*" ]
-, staticOnly ? stdenv.hostPlatform.isStatic
+  apis ? [ "*" ],
+  staticOnly ? stdenv.hostPlatform.isStatic,
 }:
 let
   googleapisRev = "85f8c758016c279fb7fa8f0d51ddc7ccc0dd5e05";
@@ -45,18 +46,20 @@ stdenv.mkDerivation rec {
     sed -i '/https:\/\/storage.googleapis.com\/cloud-cpp-community-archive\/com_google_googleapis/d' external/googleapis/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-  ] ++ lib.optionals (!doInstallCheck) [
-    # enable these dependencies when doInstallCheck is false because we're
-    # unconditionally building tests and benchmarks
-    #
-    # when doInstallCheck is true, these deps are added to nativeInstallCheckInputs
-    gbenchmark
-    gtest
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      pkg-config
+    ]
+    ++ lib.optionals (!doInstallCheck) [
+      # enable these dependencies when doInstallCheck is false because we're
+      # unconditionally building tests and benchmarks
+      #
+      # when doInstallCheck is true, these deps are added to nativeInstallCheckInputs
+      gbenchmark
+      gtest
+    ];
 
   buildInputs = [
     c-ares
@@ -95,7 +98,8 @@ stdenv.mkDerivation rec {
     lib.optionalString doInstallCheck (
       lib.optionalString (!staticOnly) ''
         export ${ldLibraryPathName}=${lib.concatStringsSep ":" additionalLibraryPaths}
-      '' + ''
+      ''
+      + ''
         export GTEST_FILTER="-${lib.concatStringsSep ":" excludedTests.cases}"
       ''
     );
@@ -114,15 +118,15 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS:BOOL=${if staticOnly then "OFF" else "ON"}"
-    # unconditionally build tests to catch linker errors as early as possible
-    # this adds a good chunk of time to the build
-    "-DBUILD_TESTING:BOOL=ON"
-    "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
-  ] ++ lib.optionals (apis != [ "*" ]) [
-    "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
-  ];
+  cmakeFlags =
+    [
+      "-DBUILD_SHARED_LIBS:BOOL=${if staticOnly then "OFF" else "ON"}"
+      # unconditionally build tests to catch linker errors as early as possible
+      # this adds a good chunk of time to the build
+      "-DBUILD_TESTING:BOOL=ON"
+      "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
+    ]
+    ++ lib.optionals (apis != [ "*" ]) [ "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}" ];
 
   requiredSystemFeatures = [ "big-parallel" ];
 
@@ -130,7 +134,10 @@ stdenv.mkDerivation rec {
     license = with licenses; [ asl20 ];
     homepage = "https://github.com/googleapis/google-cloud-cpp";
     description = "C++ Idiomatic Clients for Google Cloud Platform services";
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ cpcloud ];
   };
 }

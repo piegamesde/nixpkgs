@@ -1,12 +1,13 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, prompt-toolkit
-, pycryptodome
-, pythonOlder
-, setuptools
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  prompt-toolkit,
+  pycryptodome,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-XBOKf3i8xywU/1Kzl+VI1Qnkp9ohpSuDX3AnotD32oo=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   postPatch = ''
     # remove with 1.1.0

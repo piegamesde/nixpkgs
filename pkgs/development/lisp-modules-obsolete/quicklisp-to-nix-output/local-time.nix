@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "local-time";
   version = "20210124-git";
@@ -8,7 +8,10 @@ rec {
 
   description = "A library for manipulating dates and times, based on a paper by Erik Naggum";
 
-  deps = [ args."hu_dot_dwim_dot_stefil" args."uiop" ];
+  deps = [
+    args."hu_dot_dwim_dot_stefil"
+    args."uiop"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/local-time/2021-01-24/local-time-20210124-git.tgz";
@@ -17,7 +20,7 @@ rec {
 
   packageName = "local-time";
 
-  asdFilesToKeep = ["local-time.asd"];
+  asdFilesToKeep = [ "local-time.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM local-time DESCRIPTION
@@ -29,4 +32,5 @@ rec {
     ((NAME hu.dwim.stefil FILENAME hu_dot_dwim_dot_stefil)
      (NAME uiop FILENAME uiop))
     DEPENDENCIES (hu.dwim.stefil uiop) VERSION 20210124-git SIBLINGS
-    (cl-postgres+local-time) PARASITES (local-time/test)) */
+    (cl-postgres+local-time) PARASITES (local-time/test))
+*/

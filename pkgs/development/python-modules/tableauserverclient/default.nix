@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, defusedxml
-, requests
-, packaging
-, requests-mock
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  defusedxml,
+  requests,
+  packaging,
+  requests-mock,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
   # Tests attempt to create some file artifacts and fails
   doCheck = false;
 
-  pythonImportsCheck = [
-    "tableauserverclient"
-  ];
+  pythonImportsCheck = [ "tableauserverclient" ];
 
   meta = with lib; {
     description = "Module for working with the Tableau Server REST API";

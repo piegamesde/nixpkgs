@@ -1,9 +1,10 @@
-{ mkDerivation
-, makeDesktopItem
-, python3
-, fetchurl
-, lib
-, pulseaudio
+{
+  mkDerivation,
+  makeDesktopItem,
+  python3,
+  fetchurl,
+  lib,
+  pulseaudio,
 }:
 
 let
@@ -13,7 +14,11 @@ let
     icon = "audio-volume-high";
     desktopName = "qpaeq";
     genericName = "Audio equalizer";
-    categories = [ "AudioVideo" "Audio" "Mixer" ];
+    categories = [
+      "AudioVideo"
+      "Audio"
+      "Mixer"
+    ];
     startupNotify = false;
   };
 in
@@ -22,10 +27,15 @@ mkDerivation rec {
   inherit (pulseaudio) version src;
 
   buildInputs = [
-    ((python3.withPackages (ps: with ps; [
+    (
+      (python3.withPackages (
+        ps:
+        with ps; [
           pyqt5
           dbus-python
-        ])))
+        ]
+      ))
+    )
   ];
 
   dontBuild = true;
@@ -48,7 +58,10 @@ mkDerivation rec {
     description = "An equalizer interface for pulseaudio's equalizer sinks";
     homepage = "http://www.pulseaudio.org/";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ lovek323 mkg20001 ];
+    maintainers = with lib.maintainers; [
+      lovek323
+      mkg20001
+    ];
     platforms = lib.platforms.unix;
   };
 }

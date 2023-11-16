@@ -1,15 +1,16 @@
-{ lib
-, writeText
-, flutter
-, python3
-, fetchFromGitHub
-, pcre2
-, libnotify
-, libappindicator
-, pkg-config
-, gnome
-, makeWrapper
-, removeReferencesTo
+{
+  lib,
+  writeText,
+  flutter,
+  python3,
+  fetchFromGitHub,
+  pcre2,
+  libnotify,
+  libappindicator,
+  pkg-config,
+  gnome,
+  makeWrapper,
+  removeReferencesTo,
 }:
 
 flutter.buildFlutterApplication rec {
@@ -31,9 +32,9 @@ flutter.buildFlutterApplication rec {
 
   postPatch = ''
     rm -f pubspec.lock
-    ln -s "${writeText "${pname}-overrides.yaml" (builtins.toJSON {
-      dependency_overrides.intl = "^0.18.1";
-    })}" pubspec_overrides.yaml
+    ln -s "${
+      writeText "${pname}-overrides.yaml" (builtins.toJSON { dependency_overrides.intl = "^0.18.1"; })
+    }" pubspec_overrides.yaml
 
     substituteInPlace linux/CMakeLists.txt \
       --replace "../build/linux/helper" "${passthru.helper}/libexec/helper"
@@ -89,6 +90,9 @@ flutter.buildFlutterApplication rec {
     homepage = "https://github.com/Yubico/yubioath-flutter";
     license = licenses.asl20;
     maintainers = with maintainers; [ lukegb ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

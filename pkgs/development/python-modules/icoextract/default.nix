@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pefile, pillow}:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pefile,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "icoextract";
@@ -18,9 +24,7 @@ buildPythonPackage rec {
   # tests expect mingw and multiarch
   doCheck = false;
 
-  pythonImportsCheck = [
-    "icoextract"
-  ];
+  pythonImportsCheck = [ "icoextract" ];
 
   postInstall = ''
     mkdir -p $out/share/thumbnailers
@@ -31,6 +35,9 @@ buildPythonPackage rec {
     description = "Extract icons from Windows PE files";
     homepage = "https://github.com/jlu5/icoextract";
     license = licenses.mit;
-    maintainers = with maintainers; [ bryanasdev000 donovanglover ];
+    maintainers = with maintainers; [
+      bryanasdev000
+      donovanglover
+    ];
   };
 }

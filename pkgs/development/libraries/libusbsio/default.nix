@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, pkg-config, libusb1, systemdMinimal }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  pkg-config,
+  libusb1,
+  systemdMinimal,
+}:
 let
   binDirPrefix = if stdenv.isDarwin then "osx_" else "linux_";
 in
@@ -32,6 +39,9 @@ stdenv.mkDerivation rec {
     description = "Library for communicating with devices connected via the USB bridge on LPC-Link2 and MCU-Link debug probes on supported NXP microcontroller evaluation boards";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

@@ -1,14 +1,15 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, freezegun
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  freezegun,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     sed -i '/certifi =/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -47,14 +44,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Ignore the examples directory as the files are prefixed with test_.
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples directory as the files are prefixed with test_.
+      "examples/"
+    ];
 
-  pythonImportsCheck = [
-    "aiorecollect"
-  ];
+  pythonImportsCheck = [ "aiorecollect" ];
 
   meta = with lib; {
     description = "Python library for the Recollect Waste API";

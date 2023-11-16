@@ -1,14 +1,15 @@
-{ lib
-, aiomysql
-, aiopg
-, aiosqlite
-, asyncmy
-, asyncpg
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, sqlalchemy
+{
+  lib,
+  aiomysql,
+  aiopg,
+  aiosqlite,
+  asyncmy,
+  asyncpg,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
 }:
 
 buildPythonPackage rec {
@@ -25,40 +26,20 @@ buildPythonPackage rec {
     hash = "sha256-e3iMZBPdldZFuS7FyhbGj9SufnH5hBBt8MEUjixXfqA=";
   };
 
-  propagatedBuildInputs = [
-    sqlalchemy
-  ];
+  propagatedBuildInputs = [ sqlalchemy ];
 
   passthru.optional-dependencies = {
-    postgresql = [
-      asyncpg
-    ];
-    asyncpg = [
-      asyncpg
-    ];
-    aiopg = [
-      aiopg
-    ];
-    mysql = [
-      aiomysql
-    ];
-    aiomysql = [
-      aiomysql
-    ];
-    asyncmy = [
-      asyncmy
-    ];
-    sqlite = [
-      aiosqlite
-    ];
-    aiosqlite = [
-      aiosqlite
-    ];
+    postgresql = [ asyncpg ];
+    asyncpg = [ asyncpg ];
+    aiopg = [ aiopg ];
+    mysql = [ aiomysql ];
+    aiomysql = [ aiomysql ];
+    asyncmy = [ asyncmy ];
+    sqlite = [ aiosqlite ];
+    aiosqlite = [ aiosqlite ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # circular dependency on starlette
@@ -68,9 +49,7 @@ buildPythonPackage rec {
     "tests/test_connection_options.py"
   ];
 
-  pythonImportsCheck = [
-    "databases"
-  ];
+  pythonImportsCheck = [ "databases" ];
 
   meta = with lib; {
     description = "Async database support for Python";

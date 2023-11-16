@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, nixosTests
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  nixosTests,
 }:
 
 buildGoModule rec {
@@ -59,6 +60,9 @@ buildGoModule rec {
       Google Cloud Storage, Azure Blob Storage, SFTP.
     '';
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ thenonameguy yayayayaka ];
+    maintainers = with maintainers; [
+      thenonameguy
+      yayayayaka
+    ];
   };
 }

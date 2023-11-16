@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libedit";
@@ -9,7 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8JJaWt9LG/EW7hl2a32qdmkXrsGYdHlDscTt9npL4rs=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
   # NROFF = "${groff}/bin/nroff";
@@ -19,7 +27,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ ncurses ];
 
   postInstall = ''
-    find $out/lib -type f | grep '\.\(la\|pc\)''$' | xargs sed -i \
+    find $out/lib -type f | grep '\.\(la\|pc\)$' | xargs sed -i \
       -e 's,-lncurses[a-z]*,-L${ncurses.out}/lib -lncursesw,g'
   '';
 

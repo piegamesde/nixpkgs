@@ -1,85 +1,86 @@
-{ lib
-, bash
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pythonRelaxDepsHook
-, poetry-core
-, aiohttp
-, anyio
-, async-timeout
-, dataclasses-json
-, jsonpatch
-, langsmith
-, numpy
-, pydantic
-, pyyaml
-, requests
-, sqlalchemy
-, tenacity
+{
+  lib,
+  bash,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  poetry-core,
+  aiohttp,
+  anyio,
+  async-timeout,
+  dataclasses-json,
+  jsonpatch,
+  langsmith,
+  numpy,
+  pydantic,
+  pyyaml,
+  requests,
+  sqlalchemy,
+  tenacity,
   # optional dependencies
-, atlassian-python-api
-, azure-core
-, azure-cosmos
-, azure-identity
-, beautifulsoup4
-, chardet
-, clarifai
-, cohere
-, duckduckgo-search
-, elasticsearch
-, esprima
-, faiss
-, google-api-python-client
-, google-auth
-, google-search-results
-, gptcache
-, html2text
-, huggingface-hub
-, jinja2
-, jq
-, lark
-, librosa
-, lxml
-, manifest-ml
-, neo4j
-, networkx
-, nlpcloud
-, nltk
-, openai
-, opensearch-py
-, pdfminer-six
-, pgvector
-, pinecone-client
-, psycopg2
-, pymongo
-, pyowm
-, pypdf
-, pytesseract
-, python-arango
-, qdrant-client
-, rdflib
-, redis
-, requests-toolbelt
-, sentence-transformers
-, tiktoken
-, torch
-, transformers
-, typer
-, weaviate-client
-, wikipedia
+  atlassian-python-api,
+  azure-core,
+  azure-cosmos,
+  azure-identity,
+  beautifulsoup4,
+  chardet,
+  clarifai,
+  cohere,
+  duckduckgo-search,
+  elasticsearch,
+  esprima,
+  faiss,
+  google-api-python-client,
+  google-auth,
+  google-search-results,
+  gptcache,
+  html2text,
+  huggingface-hub,
+  jinja2,
+  jq,
+  lark,
+  librosa,
+  lxml,
+  manifest-ml,
+  neo4j,
+  networkx,
+  nlpcloud,
+  nltk,
+  openai,
+  opensearch-py,
+  pdfminer-six,
+  pgvector,
+  pinecone-client,
+  psycopg2,
+  pymongo,
+  pyowm,
+  pypdf,
+  pytesseract,
+  python-arango,
+  qdrant-client,
+  rdflib,
+  redis,
+  requests-toolbelt,
+  sentence-transformers,
+  tiktoken,
+  torch,
+  transformers,
+  typer,
+  weaviate-client,
+  wikipedia,
   # test dependencies
-, freezegun
-, pandas
-, pexpect
-, pytest-asyncio
-, pytest-mock
-, pytest-socket
-, pytestCheckHook
-, requests-mock
-, responses
-, syrupy
-, toml
+  freezegun,
+  pandas,
+  pexpect,
+  pytest-asyncio,
+  pytest-mock,
+  pytest-socket,
+  pytestCheckHook,
+  requests-mock,
+  responses,
+  syrupy,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -103,9 +104,7 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  buildInputs = [
-    bash
-  ];
+  buildInputs = [ bash ];
 
   propagatedBuildInputs = [
     pydantic
@@ -119,9 +118,7 @@ buildPythonPackage rec {
     langsmith
     anyio
     jsonpatch
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    async-timeout
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
   passthru.optional-dependencies = {
     llms = [
@@ -135,31 +132,20 @@ buildPythonPackage rec {
       torch
       transformers
     ];
-    qdrant = [
-      qdrant-client
-    ];
+    qdrant = [ qdrant-client ];
     openai = [
       openai
       tiktoken
     ];
-    text_helpers = [
-      chardet
-    ];
-    clarifai = [
-      clarifai
-    ];
-    cohere = [
-      cohere
-    ];
-    docarray = [
-      # docarray
-    ];
-    embeddings = [
-      sentence-transformers
-    ];
-    javascript = [
-      esprima
-    ];
+    text_helpers = [ chardet ];
+    clarifai = [ clarifai ];
+    cohere = [ cohere ];
+    docarray =
+      [
+        # docarray
+      ];
+    embeddings = [ sentence-transformers ];
+    javascript = [ esprima ];
     azure = [
       azure-identity
       azure-cosmos
@@ -245,9 +231,7 @@ buildPythonPackage rec {
       librosa
       python-arango
     ];
-    cli = [
-      typer
-    ];
+    cli = [ typer ];
   };
 
   nativeCheckInputs = [
@@ -279,9 +263,7 @@ buildPythonPackage rec {
     "test_socket_disabled"
   ];
 
-  pythonImportsCheck = [
-    "langchain"
-  ];
+  pythonImportsCheck = [ "langchain" ];
 
   meta = with lib; {
     description = "Building applications with LLMs through composability";

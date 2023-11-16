@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, colorlog
-, pyyaml
-, fetchPypi
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  colorlog,
+  pyyaml,
+  fetchPypi,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "lupupy"
-  ];
+  pythonImportsCheck = [ "lupupy" ];
 
   meta = with lib; {
     description = "Python module to control Lupusec alarm control panels";

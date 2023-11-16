@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 # libhdhomerun requires UDP port 65001 to be open in order to detect and communicate with tuners.
 # If your firewall is enabled, make sure to have something like:
@@ -18,9 +22,7 @@ stdenv.mkDerivation rec {
       --replace "-arch x86_64" "-arch ${stdenv.hostPlatform.darwinArch}"
   '';
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib,include/hdhomerun}

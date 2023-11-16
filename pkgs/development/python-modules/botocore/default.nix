@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python-dateutil
-, jmespath
-, urllib3
-, pytestCheckHook
-, jsonschema
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  jmespath,
+  urllib3,
+  pytestCheckHook,
+  jsonschema,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
     "tests/functional"
   ];
 
-  pythonImportsCheck = [
-    "botocore"
-  ];
+  pythonImportsCheck = [ "botocore" ];
 
   meta = with lib; {
     homepage = "https://github.com/boto/botocore";

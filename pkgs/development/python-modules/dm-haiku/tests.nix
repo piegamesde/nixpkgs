@@ -1,21 +1,22 @@
-{ buildPythonPackage
-, dm-haiku
-, chex
-, cloudpickle
-, dill
-, dm-tree
-, jaxlib
-, pytest-xdist
-, pytestCheckHook
-, tensorflow
-, bsuite
-, frozendict
-, dm-env
-, scikit-image
-, rlax
-, distrax
-, tensorflow-probability
-, optax
+{
+  buildPythonPackage,
+  dm-haiku,
+  chex,
+  cloudpickle,
+  dill,
+  dm-tree,
+  jaxlib,
+  pytest-xdist,
+  pytestCheckHook,
+  tensorflow,
+  bsuite,
+  frozendict,
+  dm-env,
+  scikit-image,
+  rlax,
+  distrax,
+  tensorflow-probability,
+  optax,
 }:
 
 buildPythonPackage {
@@ -64,5 +65,4 @@ buildPythonPackage {
     "test_slice_axis"
     "test_zero_inputs"
   ];
-
 }

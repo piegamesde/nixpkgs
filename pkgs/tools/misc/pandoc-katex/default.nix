@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pandoc-katex";
@@ -16,7 +20,13 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Pandoc filter to render math equations using KaTeX";
     homepage = "https://github.com/xu-cheng/pandoc-katex";
-    license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ minijackson pacien ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
+    maintainers = with maintainers; [
+      minijackson
+      pacien
+    ];
   };
 }

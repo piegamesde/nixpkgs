@@ -1,22 +1,24 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gettext
-, itstool
-, desktop-file-utils
-, gnome
-, glib
-, gtk3
-, libexif
-, libtiff
-, colord
-, colord-gtk
-, libcanberra-gtk3
-, lcms2
-, vte
-, exiv2
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  itstool,
+  desktop-file-utils,
+  gnome,
+  glib,
+  gtk3,
+  libexif,
+  libtiff,
+  colord,
+  colord-gtk,
+  libcanberra-gtk3,
+  lcms2,
+  vte,
+  exiv2,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,13 +26,13 @@ stdenv.mkDerivation rec {
   version = "3.32.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1vpxa2zjz3lkq9ldjg0fl65db9s6b4kcs8nyaqfz3jygma7ifg3w";
   };
 
-  patches = [
-    ./0001-Fix-build-with-Exiv2-0.28.patch
-  ];
+  patches = [ ./0001-Fix-build-with-Exiv2-0.28.patch ];
 
   nativeBuildInputs = [
     meson

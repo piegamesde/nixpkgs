@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivial-indent";
   version = "20210531-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-indent";
 
-  asdFilesToKeep = ["trivial-indent.asd"];
+  asdFilesToKeep = [ "trivial-indent.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivial-indent DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/trivial-indent/2021-05-31/trivial-indent-20210531-git.tgz
     MD5 3bb7d208d9d0614121c1f57fcffe65c7 NAME trivial-indent FILENAME
     trivial-indent DEPS NIL DEPENDENCIES NIL VERSION 20210531-git SIBLINGS NIL
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

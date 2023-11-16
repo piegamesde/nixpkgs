@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, matplotlib
-, numpy
-, opencv4
-, pillow
-, scikit-learn
-, torch
-, torchvision
-, ttach
-, tqdm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  matplotlib,
+  numpy,
+  opencv4,
+  pillow,
+  scikit-learn,
+  torch,
+  torchvision,
+  ttach,
+  tqdm,
 }:
 
 buildPythonPackage rec {
@@ -40,11 +41,9 @@ buildPythonPackage rec {
   ];
 
   # Let the user bring their own instance (as with torchmetrics)
-  buildInputs = [
-    torch
-  ];
+  buildInputs = [ torch ];
 
-  doCheck = false;  # every nontrivial test tries to download a pretrained model
+  doCheck = false; # every nontrivial test tries to download a pretrained model
 
   pythonImportsCheck = [
     "pytorch_grad_cam"

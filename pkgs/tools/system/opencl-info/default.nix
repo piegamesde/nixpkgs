@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, opencl-clhpp, ocl-icd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  opencl-clhpp,
+  ocl-icd,
+}:
 
 stdenv.mkDerivation {
   pname = "opencl-info";
@@ -11,15 +17,19 @@ stdenv.mkDerivation {
     sha256 = "114lxgnjg40ivjjszkv4n3f3yq2lbrvywryvbazf20kqmdz7315l";
   };
 
-  patches = [
-    # The cl.hpp header was removed from opencl-clhpp. This patch
-    # updates opencl-info to use the new cp2.hpp header.
-    #
-    # Submitted upstream: https://github.com/marchv/opencl-info/pull/2
-    ./opencl-info-clhpp2.diff
-  ];
+  patches =
+    [
+      # The cl.hpp header was removed from opencl-clhpp. This patch
+      # updates opencl-info to use the new cp2.hpp header.
+      #
+      # Submitted upstream: https://github.com/marchv/opencl-info/pull/2
+      ./opencl-info-clhpp2.diff
+    ];
 
-  buildInputs = [ opencl-clhpp ocl-icd ];
+  buildInputs = [
+    opencl-clhpp
+    ocl-icd
+  ];
 
   NIX_LDFLAGS = "-lOpenCL";
 

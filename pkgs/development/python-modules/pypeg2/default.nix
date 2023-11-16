@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -26,5 +27,4 @@ buildPythonPackage rec {
     homepage = "http://fdik.org/pyPEG";
     license = licenses.gpl2;
   };
-
 }

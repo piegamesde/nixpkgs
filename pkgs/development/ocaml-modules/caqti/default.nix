@@ -1,6 +1,16 @@
-{ lib, fetchurl, buildDunePackage, ocaml
-, cppo, logs, ptime, uri, bigstringaf
-, re, cmdliner, alcotest
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  cppo,
+  logs,
+  ptime,
+  uri,
+  bigstringaf,
+  re,
+  cmdliner,
+  alcotest,
 }:
 
 buildDunePackage rec {
@@ -16,8 +26,17 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ cppo ];
-  propagatedBuildInputs = [ logs ptime uri bigstringaf ];
-  checkInputs = [ re cmdliner alcotest ];
+  propagatedBuildInputs = [
+    logs
+    ptime
+    uri
+    bigstringaf
+  ];
+  checkInputs = [
+    re
+    cmdliner
+    alcotest
+  ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

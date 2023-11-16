@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -18,17 +19,19 @@ buildGoModule rec {
 
   vendorHash = "sha256-kalTHpyMYrKZHayxNKLc8vtogiDKyyQLExOQhqp1MUY=";
 
-  patches = [
-    # repl/go.mod and repl/go.sum are outdated
-    # ran `go mod tidy` in the repl directory
-    ./go-mod-tidy.patch
-  ];
+  patches =
+    [
+      # repl/go.mod and repl/go.sum are outdated
+      # ran `go mod tidy` in the repl directory
+      ./go-mod-tidy.patch
+    ];
 
-  subPackages = [
-    "main"
-  ];
+  subPackages = [ "main" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     mv $out/bin/{main,cel-go}

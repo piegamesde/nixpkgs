@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, acl
-, e2fsprogs
-, libb2
-, lz4
-, openssh
-, openssl
-, python3Packages
-, xxHash
-, zstd
-, installShellFiles
-, nixosTests
-, fetchPypi
+{
+  lib,
+  stdenv,
+  acl,
+  e2fsprogs,
+  libb2,
+  lz4,
+  openssh,
+  openssl,
+  python3Packages,
+  xxHash,
+  zstd,
+  installShellFiles,
+  nixosTests,
+  fetchPypi,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -43,7 +44,10 @@ python3Packages.buildPythonApplication rec {
     installShellFiles
   ];
 
-  sphinxBuilders = [ "singlehtml" "man" ];
+  sphinxBuilders = [
+    "singlehtml"
+    "man"
+  ];
 
   buildInputs = [
     libb2
@@ -51,9 +55,7 @@ python3Packages.buildPythonApplication rec {
     xxHash
     zstd
     openssl
-  ] ++ lib.optionals stdenv.isLinux [
-    acl
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ acl ];
 
   propagatedBuildInputs = with python3Packages; [
     msgpack
@@ -61,9 +63,7 @@ python3Packages.buildPythonApplication rec {
     (if stdenv.isLinux then pyfuse3 else llfuse)
   ];
 
-  makeWrapperArgs = [
-    ''--prefix PATH ':' "${openssh}/bin"''
-  ];
+  makeWrapperArgs = [ ''--prefix PATH ':' "${openssh}/bin"'' ];
 
   postInstall = ''
     installShellCompletion --cmd borg \
@@ -83,7 +83,8 @@ python3Packages.buildPythonApplication rec {
 
   pytestFlagsArray = [
     "--benchmark-skip"
-    "--pyargs" "borg.testsuite"
+    "--pyargs"
+    "borg.testsuite"
   ];
 
   disabledTests = [
@@ -112,7 +113,11 @@ python3Packages.buildPythonApplication rec {
     inherit (nixosTests) borgbackup;
   };
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/borgbackup/borg/blob/${version}/docs/changes.rst";
@@ -121,6 +126,9 @@ python3Packages.buildPythonApplication rec {
     license = licenses.bsd3;
     platforms = platforms.unix; # Darwin and FreeBSD mentioned on homepage
     mainProgram = "borg";
-    maintainers = with maintainers; [ dotlambda globin ];
+    maintainers = with maintainers; [
+      dotlambda
+      globin
+    ];
   };
 }

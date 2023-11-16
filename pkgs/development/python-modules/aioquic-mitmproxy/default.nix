@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, certifi
-, cryptography
-, fetchFromGitHub
-, pylsqpack
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
-, service-identity
-, setuptools
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  cryptography,
+  fetchFromGitHub,
+  pylsqpack,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+  service-identity,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -39,13 +40,9 @@ buildPythonPackage rec {
     service-identity
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aioquic"
-  ];
+  pythonImportsCheck = [ "aioquic" ];
 
   meta = with lib; {
     description = "QUIC and HTTP/3 implementation in Python";

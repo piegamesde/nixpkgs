@@ -1,18 +1,19 @@
-{ lib
-, boto3
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, jsonschema
-, parameterized
-, pydantic
-, pytest-env
-, pytest-rerunfailures
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, typing-extensions
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jsonschema,
+  parameterized,
+  pydantic,
+  pytest-env,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -57,9 +58,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [
-    "samtranslator"
-  ];
+  pythonImportsCheck = [ "samtranslator" ];
 
   preCheck = ''
     sed -i '2ienv =\n\tAWS_DEFAULT_REGION=us-east-1' pytest.ini

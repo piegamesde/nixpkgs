@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, asciidoc
-, coreutils
-, cryptsetup
-, curl
-, fetchFromGitHub
-, gnugrep
-, gnused
-, jansson
-, jose
-, libpwquality
-, luksmeta
-, makeWrapper
-, meson
-, ninja
-, pkg-config
-, tpm2-tools
+{
+  lib,
+  stdenv,
+  asciidoc,
+  coreutils,
+  cryptsetup,
+  curl,
+  fetchFromGitHub,
+  gnugrep,
+  gnused,
+  jansson,
+  jose,
+  libpwquality,
+  luksmeta,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  tpm2-tools,
 }:
 
 stdenv.mkDerivation rec {
@@ -39,7 +40,18 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # We wrap the main clevis binary entrypoint but not the sub-binaries.
     wrapProgram $out/bin/clevis \
-      --prefix PATH ':' "${lib.makeBinPath [tpm2-tools jose cryptsetup libpwquality luksmeta gnugrep gnused coreutils]}:${placeholder "out"}/bin"
+      --prefix PATH ':' "${
+        lib.makeBinPath [
+          tpm2-tools
+          jose
+          cryptsetup
+          libpwquality
+          luksmeta
+          gnugrep
+          gnused
+          coreutils
+        ]
+      }:${placeholder "out"}/bin"
   '';
 
   nativeBuildInputs = [

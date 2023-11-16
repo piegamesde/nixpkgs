@@ -1,4 +1,10 @@
-{ lib , python, buildPythonPackage , fetchPypi, typing-extensions }:
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchPypi,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "treelog";
@@ -11,9 +17,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "treelog" ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest

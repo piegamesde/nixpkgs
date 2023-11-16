@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, arrow
-, blessed
-, buildPythonPackage
-, croniter
-, django
-, django-picklefield
-, django-redis
-, fetchFromGitHub
-, future
-, pkgs
-, poetry-core
-, pytest-django
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, redis
+{
+  lib,
+  stdenv,
+  arrow,
+  blessed,
+  buildPythonPackage,
+  croniter,
+  django,
+  django-picklefield,
+  django-redis,
+  fetchFromGitHub,
+  future,
+  pkgs,
+  poetry-core,
+  pytest-django,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
 }:
 
 buildPythonPackage rec {
@@ -34,13 +35,9 @@ buildPythonPackage rec {
 
   # fixes empty version string
   # analog to https://github.com/NixOS/nixpkgs/pull/171200
-  patches = [
-    ./pep-621.patch
-  ];
+  patches = [ ./pep-621.patch ];
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     django-picklefield
@@ -58,9 +55,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ django-redis.optional-dependencies.hiredis;
 
-  pythonImportsCheck = [
-    "django_q"
-  ];
+  pythonImportsCheck = [ "django_q" ];
 
   preCheck = ''
     ${pkgs.redis}/bin/redis-server &

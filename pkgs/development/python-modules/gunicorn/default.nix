@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, packaging
-, pythonOlder
-, eventlet
-, gevent
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  packaging,
+  pythonOlder,
+  eventlet,
+  gevent,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
       --replace "--cov=gunicorn --cov-report=xml" ""
   '';
 
-  propagatedBuildInputs = [
-    packaging
-  ];
+  propagatedBuildInputs = [ packaging ];
 
   nativeCheckInputs = [
     eventlet

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, mdformat
-, mdformat-gfm
-, mdit-py-plugins
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  mdformat,
+  mdformat-gfm,
+  mdit-py-plugins,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-mGWeG8clWJ7obsvO+gYaVzfAyDOh9HNdyWW5KgOgfmM=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   buildInputs = [
     mdformat
@@ -32,14 +31,12 @@ buildPythonPackage rec {
     mdit-py-plugins
   ];
 
-  pythonImportsCheck = [
-    "mdformat_mkdocs"
-  ];
+  pythonImportsCheck = [ "mdformat_mkdocs" ];
 
   meta = with lib; {
     description = "mdformat plugin for MkDocs";
     homepage = "https://github.com/KyleKing/mdformat-mkdocs";
-changelog = "https://github.com/KyleKing/mdformat-mkdocs/releases/tag/v${version}";
+    changelog = "https://github.com/KyleKing/mdformat-mkdocs/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ aldoborrero ];
   };

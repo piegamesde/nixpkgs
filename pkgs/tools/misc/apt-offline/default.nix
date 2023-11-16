@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3Packages, nix-update-script, gnupg }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  nix-update-script,
+  gnupg,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "apt-offline";

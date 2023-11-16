@@ -1,6 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-  inherit (lib) mkOption types mdDoc mkIf;
+  inherit (lib)
+    mkOption
+    types
+    mdDoc
+    mkIf
+  ;
   cfg = config.services.atuin;
 in
 {
@@ -71,12 +81,14 @@ in
 
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
-      ensureUsers = [{
-        name = "atuin";
-        ensurePermissions = {
-          "DATABASE atuin" = "ALL PRIVILEGES";
-        };
-      }];
+      ensureUsers = [
+        {
+          name = "atuin";
+          ensurePermissions = {
+            "DATABASE atuin" = "ALL PRIVILEGES";
+          };
+        }
+      ];
       ensureDatabases = [ "atuin" ];
     };
 

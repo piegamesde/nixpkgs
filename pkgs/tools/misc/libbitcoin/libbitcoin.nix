@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook
-, boost, secp256k1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  boost,
+  secp256k1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbitcoin";
@@ -12,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "1rppyp3zpb6ymwangjpblwf6qh4y3d1hczrjx8aavmrq7hznnrhq";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   propagatedBuildInputs = [ secp256k1 ];
 

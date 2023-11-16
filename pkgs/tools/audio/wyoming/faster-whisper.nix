@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchFromGitHub
-, fetchpatch
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -30,9 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
   propagatedBuildInputs = with python3.pkgs; [
     ctranslate2
@@ -40,9 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     wyoming
   ];
 
-  pythonImportsCheck = [
-    "wyoming_faster_whisper"
-  ];
+  pythonImportsCheck = [ "wyoming_faster_whisper" ];
 
   # no tests
   doCheck = false;

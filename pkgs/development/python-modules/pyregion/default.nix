@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pyparsing
-, numpy
-, cython
-, astropy
-, astropy-helpers
-, pytestCheckHook
-, pytest-astropy
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pyparsing,
+  numpy,
+  cython,
+  astropy,
+  astropy-helpers,
+  pytestCheckHook,
+  pytest-astropy,
 }:
 
 buildPythonPackage rec {
@@ -45,9 +46,15 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ astropy-helpers cython ];
+  nativeBuildInputs = [
+    astropy-helpers
+    cython
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-astropy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-astropy
+  ];
 
   disabledTests = lib.optionals (!stdenv.hostPlatform.isDarwin) [
     # Skipping 2 tests because it's failing. Domain knowledge was unavailable on decision.

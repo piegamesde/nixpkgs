@@ -1,14 +1,15 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, dnspython
-, fetchFromGitHub
-, ifaddr
-, netifaces
-, pyroute2
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  ifaddr,
+  netifaces,
+  pyroute2,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -43,14 +44,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Tests require access to /etc/resolv.conf
-    "test_async_discover_hosts"
-  ];
+  disabledTests =
+    [
+      # Tests require access to /etc/resolv.conf
+      "test_async_discover_hosts"
+    ];
 
-  pythonImportsCheck = [
-    "aiodiscover"
-  ];
+  pythonImportsCheck = [ "aiodiscover" ];
 
   meta = with lib; {
     description = "Python module to discover hosts via ARP and PTR lookup";

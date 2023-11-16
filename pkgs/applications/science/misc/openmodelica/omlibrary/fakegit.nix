@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchgit, bash }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  bash,
+}:
 let
   mkscript = path: text: ''
     mkdir -pv `dirname ${path}`
@@ -11,12 +16,21 @@ let
     chmod +x ${path}
   '';
 
-  hashname = r:
+  hashname =
+    r:
     let
-      rpl = lib.replaceStrings [ ":" "/" ] [ "_" "_" ];
+      rpl =
+        lib.replaceStrings
+          [
+            ":"
+            "/"
+          ]
+          [
+            "_"
+            "_"
+          ];
     in
     (rpl r.url) + "-" + (rpl r.rev);
-
 in
 stdenv.mkDerivation {
   name = "fakegit";
@@ -24,7 +38,9 @@ stdenv.mkDerivation {
   buildCommand = ''
     mkdir -pv $out/repos
     ${lib.concatMapStrings
-      (r: "cp -r ${fetchgit r} $out/repos/${hashname r}\n")
+      (r: ''
+        cp -r ${fetchgit r} $out/repos/${hashname r}
+      '')
       (import ./src-libs.nix)}
 
     ${mkscript "$out/bin/checkout-git.sh" ''

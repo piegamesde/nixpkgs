@@ -13,7 +13,8 @@
   libadwaita,
   libpulseaudio,
   xorg,
-}: let
+}:
+let
   aprilAsr = fetchFromGitHub {
     name = "april-asr";
     owner = "abb128";
@@ -28,7 +29,8 @@
     hash = "sha256-d+uV0PpPdwijfoaMImUwHubELcsl5jymPuo9nLrbwfM=";
   };
 in
-  stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (
+  finalAttrs: {
     pname = "livecaptions";
     version = "0.4.1";
 
@@ -71,7 +73,8 @@ in
       homepage = "https://github.com/abb128/LiveCaptions";
       license = licenses.gpl3Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [Scrumplex];
+      maintainers = with maintainers; [ Scrumplex ];
       mainProgram = "livecaptions";
     };
-  })
+  }
+)

@@ -1,19 +1,20 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildGoPackage
-, pkg-config
-, deepin-gettext-tools
-, go-dbus-factory
-, go-gir-generator
-, go-lib
-, gtk3
-, glib
-, libxcrypt
-, gettext
-, iniparser
-, cracklib
-, linux-pam
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoPackage,
+  pkg-config,
+  deepin-gettext-tools,
+  go-dbus-factory,
+  go-gir-generator,
+  go-lib,
+  gtk3,
+  glib,
+  libxcrypt,
+  gettext,
+  iniparser,
+  cracklib,
+  linux-pam,
 }:
 
 buildGoPackage rec {

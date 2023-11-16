@@ -1,17 +1,18 @@
-{ lib
-, astroid
-, beautifulsoup4
-, buildPythonPackage
-, crossplane
-, fetchFromGitHub
-, jellyfish
-, jproperties
-, luhn
-, lxml
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, pyyaml
+{
+  lib,
+  astroid,
+  beautifulsoup4,
+  buildPythonPackage,
+  crossplane,
+  fetchFromGitHub,
+  jellyfish,
+  jproperties,
+  luhn,
+  lxml,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -54,9 +55,7 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [
-    "whispers"
-  ];
+  pythonImportsCheck = [ "whispers" ];
 
   meta = with lib; {
     description = "Tool to identify hardcoded secrets in static structured text";

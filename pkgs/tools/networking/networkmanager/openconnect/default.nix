@@ -1,24 +1,25 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, glib
-, libxml2
-, openconnect
-, intltool
-, pkg-config
-, networkmanager
-, gcr
-, libsecret
-, file
-, gtk3
-, webkitgtk_4_1
-, libnma
-, libnma-gtk4
-, gtk4
-, withGnome ? true
-, gnome
-, kmod
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  glib,
+  libxml2,
+  openconnect,
+  intltool,
+  pkg-config,
+  networkmanager,
+  gcr,
+  libsecret,
+  file,
+  gtk3,
+  webkitgtk_4_1,
+  libnma,
+  libnma-gtk4,
+  gtk4,
+  withGnome ? true,
+  gnome,
+  kmod,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,7 +27,9 @@ stdenv.mkDerivation rec {
   version = "1.2.10";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/NetworkManager-openconnect/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/NetworkManager-openconnect/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "hEtr9k7K25e0pox3bbiapebuflm9JLAYAihAaGMTZGQ=";
   };
 
@@ -37,20 +40,22 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [
-    glib
-    libxml2
-    openconnect
-    networkmanager
-    webkitgtk_4_1 # required, for SSO
-  ] ++ lib.optionals withGnome [
-    gtk3
-    libnma
-    libnma-gtk4
-    gtk4
-    gcr
-    libsecret
-  ];
+  buildInputs =
+    [
+      glib
+      libxml2
+      openconnect
+      networkmanager
+      webkitgtk_4_1 # required, for SSO
+    ]
+    ++ lib.optionals withGnome [
+      gtk3
+      libnma
+      libnma-gtk4
+      gtk4
+      gcr
+      libsecret
+    ];
 
   nativeBuildInputs = [
     intltool

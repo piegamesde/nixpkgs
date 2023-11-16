@@ -1,10 +1,13 @@
-{ lib, fetchFromGitHub
-, buildPythonPackage, isPy27
-, pillow
-, twisted
-, pexpect
-, nose
-, ptyprocess
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  isPy27,
+  pillow,
+  twisted,
+  pexpect,
+  nose,
+  ptyprocess,
 }:
 
 buildPythonPackage rec {

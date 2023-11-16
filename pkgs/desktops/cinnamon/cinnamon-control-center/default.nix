@@ -1,36 +1,37 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, glib
-, gettext
-, cinnamon-desktop
-, gtk3
-, libnotify
-, libxml2
-, gnome-online-accounts
-, colord
-, polkit
-, libxkbfile
-, cinnamon-menus
-, libgnomekbd
-, libxklavier
-, networkmanager
-, libgudev
-, libwacom
-, gnome
-, wrapGAppsHook
-, tzdata
-, glibc
-, libnma
-, modemmanager
-, xorg
-, gdk-pixbuf
-, meson
-, ninja
-, cinnamon-translations
-, python3
-, upower
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  gettext,
+  cinnamon-desktop,
+  gtk3,
+  libnotify,
+  libxml2,
+  gnome-online-accounts,
+  colord,
+  polkit,
+  libxkbfile,
+  cinnamon-menus,
+  libgnomekbd,
+  libxklavier,
+  networkmanager,
+  libgudev,
+  libwacom,
+  gnome,
+  wrapGAppsHook,
+  tzdata,
+  glibc,
+  libnma,
+  modemmanager,
+  xorg,
+  gdk-pixbuf,
+  meson,
+  ninja,
+  cinnamon-translations,
+  python3,
+  upower,
 }:
 
 stdenv.mkDerivation rec {
@@ -69,8 +70,9 @@ stdenv.mkDerivation rec {
   ];
 
   /* ./panels/datetime/test-timezone.c:4:#define TZ_DIR "/usr/share/zoneinfo/"
-    ./panels/datetime/tz.h:32:#  define TZ_DATA_FILE "/usr/share/zoneinfo/zone.tab"
-    ./panels/datetime/tz.h:34:#  define TZ_DATA_FILE "/usr/share/lib/zoneinfo/tab/zone_sun.tab" */
+     ./panels/datetime/tz.h:32:#  define TZ_DATA_FILE "/usr/share/zoneinfo/zone.tab"
+     ./panels/datetime/tz.h:34:#  define TZ_DATA_FILE "/usr/share/lib/zoneinfo/tab/zone_sun.tab"
+  */
 
   postPatch = ''
     sed 's|TZ_DIR "/usr/share/zoneinfo/"|TZ_DIR "${tzdata}/share/zoneinfo/"|g' -i ./panels/datetime/test-timezone.c
@@ -80,10 +82,11 @@ stdenv.mkDerivation rec {
     patchShebangs meson_install_schemas.py
   '';
 
-  mesonFlags = [
-    # use locales from cinnamon-translations
-    "--localedir=${cinnamon-translations}/share/locale"
-  ];
+  mesonFlags =
+    [
+      # use locales from cinnamon-translations
+      "--localedir=${cinnamon-translations}/share/locale"
+    ];
 
   nativeBuildInputs = [
     pkg-config

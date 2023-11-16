@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, lcms2
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  lcms2,
+  pkg-config,
 
-# for passthru.tests
-, deepin
-, freeimage
-, hdrmerge
-, imagemagick
-, python3
+  # for passthru.tests
+  deepin,
+  freeimage,
+  hdrmerge,
+  imagemagick,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,11 +34,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "lib" "dev" "doc" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "doc"
+  ];
 
   propagatedBuildInputs = [ lcms2 ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   enableParallelBuilding = true;
 
@@ -50,8 +59,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Library for reading RAW files obtained from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others)";
     homepage = "https://www.libraw.org/";
-    license = with licenses; [ cddl lgpl2Plus ];
+    license = with licenses; [
+      cddl
+      lgpl2Plus
+    ];
     platforms = platforms.unix;
   };
 }
-

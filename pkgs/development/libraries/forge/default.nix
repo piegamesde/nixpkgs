@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, arrayfire, expat, fontconfig, freeimage, freetype, boost
-, mesa, libGLU, libGL, glfw3, SDL2, cudatoolkit
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  arrayfire,
+  expat,
+  fontconfig,
+  freeimage,
+  freetype,
+  boost,
+  mesa,
+  libGLU,
+  libGL,
+  glfw3,
+  SDL2,
+  cudatoolkit,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,7 +43,8 @@ stdenv.mkDerivation rec {
     boost.dev
     freeimage
     mesa
-    libGLU libGL
+    libGLU
+    libGL
     glfw3
     SDL2
     cudatoolkit
@@ -47,5 +63,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ chessai ];
   };
-
 }

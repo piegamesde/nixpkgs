@@ -1,11 +1,18 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.coder;
   name = "coder";
-in {
+in
+{
   options = {
     services.coder = {
       enable = mkEnableOption (lib.mdDoc "Coder service");
@@ -149,7 +156,8 @@ in {
 
   config = mkIf cfg.enable {
     assertions = [
-      { assertion = cfg.database.createLocally -> cfg.database.username == name;
+      {
+        assertion = cfg.database.createLocally -> cfg.database.username == name;
         message = "services.coder.database.username must be set to ${user} if services.coder.database.createLocally is set true";
       }
     ];
@@ -162,7 +170,11 @@ in {
       environment = {
         CODER_ACCESS_URL = cfg.accessUrl;
         CODER_WILDCARD_ACCESS_URL = cfg.wildcardAccessUrl;
-        CODER_PG_CONNECTION_URL = "user=${cfg.database.username} ${optionalString (cfg.database.password != null) "password=${cfg.database.password}"} database=${cfg.database.database} host=${cfg.database.host} ${optionalString (cfg.database.sslmode != null) "sslmode=${cfg.database.sslmode}"}";
+        CODER_PG_CONNECTION_URL = "user=${cfg.database.username} ${
+            optionalString (cfg.database.password != null) "password=${cfg.database.password}"
+          } database=${cfg.database.database} host=${cfg.database.host} ${
+            optionalString (cfg.database.sslmode != null) "sslmode=${cfg.database.sslmode}"
+          }";
         CODER_ADDRESS = cfg.listenAddress;
         CODER_TLS_ENABLE = optionalString (cfg.tlsCert != null) "1";
         CODER_TLS_CERT_FILE = cfg.tlsCert;
@@ -189,21 +201,18 @@ in {
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [
-        cfg.database.database
-      ];
-      ensureUsers = [{
-        name = cfg.database.username;
-        ensurePermissions = {
-          "DATABASE \"${cfg.database.database}\"" = "ALL PRIVILEGES";
-        };
+      ensureDatabases = [ cfg.database.database ];
+      ensureUsers = [
+        {
+          name = cfg.database.username;
+          ensurePermissions = {
+            "DATABASE \"${cfg.database.database}\"" = "ALL PRIVILEGES";
+          };
         }
       ];
     };
 
-    users.groups = optionalAttrs (cfg.group == name) {
-      "${cfg.group}" = {};
-    };
+    users.groups = optionalAttrs (cfg.group == name) { "${cfg.group}" = { }; };
     users.users = optionalAttrs (cfg.user == name) {
       ${name} = {
         description = "Coder service user";

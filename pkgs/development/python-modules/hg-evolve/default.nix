@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mercurial
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mercurial,
 }:
 
 buildPythonPackage rec {
@@ -13,9 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-sMvHvHwLuMT0LaH2XFDePuePbwCXjvl66QGdERR0k6g=";
   };
 
-  nativeCheckInputs = [
-    mercurial
-  ];
+  nativeCheckInputs = [ mercurial ];
 
   checkPhase = ''
     runHook preCheck
@@ -53,7 +52,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Enables the “changeset evolution” feature of Mercurial core";
     homepage = "https://www.mercurial-scm.org/doc/evolution/";
-    maintainers = with maintainers; [ xavierzwirtz lukegb ];
+    maintainers = with maintainers; [
+      xavierzwirtz
+      lukegb
+    ];
     license = licenses.gpl2Plus;
   };
 }

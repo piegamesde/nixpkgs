@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, onnxruntime
-, requests
-, tokenizers
-, tqdm
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  onnxruntime,
+  requests,
+  tokenizers,
+  tqdm,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-d7Zb0IL0NOPEPsCHe/ZMNELnSCG4+y8JmGAXnCRUd50=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     onnxruntime
@@ -37,9 +36,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "fastembed" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # there is one test and it requires network
   doCheck = false;

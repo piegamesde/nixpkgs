@@ -1,23 +1,27 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, intltool
-, libxfce4util
-, xfce4-panel
-, libxfce4ui
-, gtk2
-, gitUpdater
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  libxfce4util,
+  xfce4-panel,
+  libxfce4ui,
+  gtk2,
+  gitUpdater,
 }:
 
 let
   category = "panel-plugins";
-in stdenv.mkDerivation rec {
-  pname  = "xfce4-embed-plugin";
+in
+stdenv.mkDerivation rec {
+  pname = "xfce4-embed-plugin";
   version = "1.6.0";
 
   src = fetchurl {
-    url = "mirror://xfce/src/${category}/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    url = "mirror://xfce/src/${category}/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "sha256-x2ffY2DoGUsyvCSCPdAAl17boMr+Ulwj14VAKTWe4ig=";
   };
 
@@ -38,7 +42,7 @@ in stdenv.mkDerivation rec {
     rev-prefix = "${pname}-";
   };
 
-  meta = with lib;{
+  meta = with lib; {
     homepage = "https://docs.xfce.org/panel-plugins/xfce4-embed-plugin";
     description = "Embed arbitrary app windows on Xfce panel";
     license = licenses.gpl2Plus;

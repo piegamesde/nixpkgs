@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, importlib-resources
-, importlib-metadata
-, iso3166
-, pycountry
-, pytestCheckHook
-, pytest-cov
-, pythonOlder
-, setuptools
-, setuptools-scm
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-resources,
+  importlib-metadata,
+  iso3166,
+  pycountry,
+  pytestCheckHook,
+  pytest-cov,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -31,23 +32,20 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    iso3166
-    pycountry
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-resources
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    [
+      iso3166
+      pycountry
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-resources ]
+    ++ lib.optionals (pythonOlder "3.7") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytest-cov
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "schwifty"
-  ];
+  pythonImportsCheck = [ "schwifty" ];
 
   meta = with lib; {
     description = "Validate/generate IBANs and BICs";

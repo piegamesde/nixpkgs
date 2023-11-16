@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-, build
-, coloredlogs
-, packaging
-, toml
-, twine
-, wheel
+  build,
+  coloredlogs,
+  packaging,
+  toml,
+  twine,
+  wheel,
 }:
 
 buildPythonPackage rec {

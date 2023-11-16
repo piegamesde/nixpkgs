@@ -1,29 +1,30 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build-system
-, setuptools
-, setuptools-scm
+  # build-system
+  setuptools,
+  setuptools-scm,
 
-# dependencies
-, exceptiongroup
-, idna
-, sniffio
+  # dependencies
+  exceptiongroup,
+  idna,
+  sniffio,
 
-# optionals
-, trio
+  # optionals
+  trio,
 
-# tests
-, hypothesis
-, psutil
-, pytest-mock
-, pytest-xdist
-, pytestCheckHook
-, trustme
-, uvloop
+  # tests
+  hypothesis,
+  psutil,
+  pytest-mock,
+  pytest-xdist,
+  pytestCheckHook,
+  trustme,
+  uvloop,
 }:
 
 buildPythonPackage rec {
@@ -50,14 +51,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     idna
     sniffio
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    exceptiongroup
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
   passthru.optional-dependencies = {
-    trio = [
-      trio
-    ];
+    trio = [ trio ];
   };
 
   # trustme uses pyopenssl
@@ -70,33 +67,37 @@ buildPythonPackage rec {
     pytest-xdist
     pytestCheckHook
     trustme
-  ] ++ lib.optionals (pythonOlder "3.12") [
-    uvloop
-  ] ++ passthru.optional-dependencies.trio;
+  ] ++ lib.optionals (pythonOlder "3.12") [ uvloop ] ++ passthru.optional-dependencies.trio;
 
   pytestFlagsArray = [
-    "-W" "ignore::trio.TrioDeprecationWarning"
-    "-m" "'not network'"
+    "-W"
+    "ignore::trio.TrioDeprecationWarning"
+    "-m"
+    "'not network'"
   ];
 
-  disabledTests = [
-    # INTERNALERROR> AttributeError: 'NonBaseMultiError' object has no attribute '_exceptions'. Did you mean: 'exceptions'?
-    "test_exception_group_children"
-    "test_exception_group_host"
-    "test_exception_group_filtering"
-    # timing sensitive
-    # assert threading.active_count() == initial_count + 1
-    # assert 4 == (4 + 1)
-    "test_run_sync_from_thread_pooling"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # PermissionError: [Errno 1] Operation not permitted: '/dev/console'
-    "test_is_block_device"
-  ];
+  disabledTests =
+    [
+      # INTERNALERROR> AttributeError: 'NonBaseMultiError' object has no attribute '_exceptions'. Did you mean: 'exceptions'?
+      "test_exception_group_children"
+      "test_exception_group_host"
+      "test_exception_group_filtering"
+      # timing sensitive
+      # assert threading.active_count() == initial_count + 1
+      # assert 4 == (4 + 1)
+      "test_run_sync_from_thread_pooling"
+    ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # PermissionError: [Errno 1] Operation not permitted: '/dev/console'
+        "test_is_block_device"
+      ];
 
-  disabledTestPaths = [
-    # lots of DNS lookups
-    "tests/test_sockets.py"
-  ];
+  disabledTestPaths =
+    [
+      # lots of DNS lookups
+      "tests/test_sockets.py"
+    ];
 
   __darwinAllowLocalNetworking = true;
 

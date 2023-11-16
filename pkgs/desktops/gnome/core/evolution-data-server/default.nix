@@ -1,61 +1,67 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, pkg-config
-, gnome
-, _experimental-update-script-combinators
-, python3
-, gobject-introspection
-, gettext
-, libsoup_3
-, libxml2
-, libsecret
-, icu
-, sqlite
-, tzdata
-, libcanberra-gtk3
-, p11-kit
-, db
-, nspr
-, nss
-, libical
-, gperf
-, wrapGAppsHook
-, glib-networking
-, pcre
-, vala
-, cmake
-, ninja
-, libkrb5
-, openldap
-, enableOAuth2 ? stdenv.isLinux
-, webkitgtk_4_1
-, webkitgtk_6_0
-, libaccounts-glib
-, json-glib
-, glib
-, gtk3
-, gtk4
-, withGtk3 ? true
-, withGtk4 ? false
-, libphonenumber
-, gnome-online-accounts
-, libgweather
-, boost
-, protobuf
-, libiconv
-, makeHardcodeGsettingsPatch
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  gnome,
+  _experimental-update-script-combinators,
+  python3,
+  gobject-introspection,
+  gettext,
+  libsoup_3,
+  libxml2,
+  libsecret,
+  icu,
+  sqlite,
+  tzdata,
+  libcanberra-gtk3,
+  p11-kit,
+  db,
+  nspr,
+  nss,
+  libical,
+  gperf,
+  wrapGAppsHook,
+  glib-networking,
+  pcre,
+  vala,
+  cmake,
+  ninja,
+  libkrb5,
+  openldap,
+  enableOAuth2 ? stdenv.isLinux,
+  webkitgtk_4_1,
+  webkitgtk_6_0,
+  libaccounts-glib,
+  json-glib,
+  glib,
+  gtk3,
+  gtk4,
+  withGtk3 ? true,
+  withGtk4 ? false,
+  libphonenumber,
+  gnome-online-accounts,
+  libgweather,
+  boost,
+  protobuf,
+  libiconv,
+  makeHardcodeGsettingsPatch,
 }:
 
 stdenv.mkDerivation rec {
   pname = "evolution-data-server";
   version = "3.48.4";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/evolution-data-server/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/evolution-data-server/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "mX4/k7F++wr/zAF77oeAul+iwAnjZVG7yRoIrlUtbWA=";
   };
 
@@ -84,35 +90,30 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [
-    glib
-    libsoup_3
-    gnome-online-accounts
-    p11-kit
-    libgweather
-    icu
-    sqlite
-    libkrb5
-    openldap
-    glib-networking
-    libcanberra-gtk3
-    pcre
-    libphonenumber
-    boost
-    protobuf
-  ] ++ lib.optionals stdenv.isLinux [
-    libaccounts-glib
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-  ] ++ lib.optionals withGtk3 [
-    gtk3
-  ] ++ lib.optionals (withGtk3 && enableOAuth2) [
-    webkitgtk_4_1
-  ] ++ lib.optionals withGtk4 [
-    gtk4
-  ] ++ lib.optionals (withGtk4 && enableOAuth2) [
-    webkitgtk_6_0
-  ];
+  buildInputs =
+    [
+      glib
+      libsoup_3
+      gnome-online-accounts
+      p11-kit
+      libgweather
+      icu
+      sqlite
+      libkrb5
+      openldap
+      glib-networking
+      libcanberra-gtk3
+      pcre
+      libphonenumber
+      boost
+      protobuf
+    ]
+    ++ lib.optionals stdenv.isLinux [ libaccounts-glib ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ++ lib.optionals withGtk3 [ gtk3 ]
+    ++ lib.optionals (withGtk3 && enableOAuth2) [ webkitgtk_4_1 ]
+    ++ lib.optionals withGtk4 [ gtk4 ]
+    ++ lib.optionals (withGtk4 && enableOAuth2) [ webkitgtk_6_0 ];
 
   propagatedBuildInputs = [
     db
@@ -158,7 +159,6 @@ stdenv.mkDerivation rec {
         "org.gnome.evolution-data-server.addressbook" = "EDS";
         "org.gnome.evolution-data-server.calendar" = "EDS";
         "org.gnome.evolution-data-server" = "EDS";
-
       };
       inherit src;
     };
@@ -168,7 +168,10 @@ stdenv.mkDerivation rec {
           packageName = "evolution-data-server";
           versionPolicy = "odd-unstable";
         };
-        updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "evolution-data-server.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+        updatePatch =
+          _experimental-update-script-combinators.copyAttrOutputToFile
+            "evolution-data-server.hardcodeGsettingsPatch"
+            ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [
         updateSource

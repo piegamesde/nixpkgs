@@ -1,48 +1,49 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
 
-# extras: babel
-, babel
-, flask-babel
+  # extras: babel
+  babel,
+  flask-babel,
 
-# extras: common
-, bcrypt
-, bleach
-, flask-mailman
+  # extras: common
+  bcrypt,
+  bleach,
+  flask-mailman,
 
-# extras: fsqla
-, flask-sqlalchemy
-, sqlalchemy
-, sqlalchemy-utils
+  # extras: fsqla
+  flask-sqlalchemy,
+  sqlalchemy,
+  sqlalchemy-utils,
 
-# extras: mfa
-, cryptography
-, phonenumbers
-, webauthn
-, qrcode
+  # extras: mfa
+  cryptography,
+  phonenumbers,
+  webauthn,
+  qrcode,
 
-# propagates
-, email-validator
-, flask
-, flask-login
-, flask-principal
-, flask-wtf
-, passlib
-, importlib-resources
-, wtforms
+  # propagates
+  email-validator,
+  flask,
+  flask-login,
+  flask-principal,
+  flask-wtf,
+  passlib,
+  importlib-resources,
+  wtforms,
 
-# tests
-, argon2-cffi
-, mongoengine
-, mongomock
-, peewee
-, pony
-, pytestCheckHook
-, python-dateutil
-, zxcvbn
+  # tests
+  argon2-cffi,
+  mongoengine,
+  mongomock,
+  peewee,
+  pony,
+  pytestCheckHook,
+  python-dateutil,
+  zxcvbn,
 }:
 
 buildPythonPackage rec {
@@ -58,9 +59,7 @@ buildPythonPackage rec {
     hash = "sha256-wLUHXfDWSp7zWwTIjTH79AWlkkNzb21tChpLSEWr8+U=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     email-validator
@@ -96,30 +95,29 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    argon2-cffi
-    mongoengine
-    mongomock
-    peewee
-    pony
-    pytestCheckHook
-    python-dateutil
-    zxcvbn
-  ]
-  ++ passthru.optional-dependencies.babel
-  ++ passthru.optional-dependencies.common
-  ++ passthru.optional-dependencies.fsqla
-  ++ passthru.optional-dependencies.mfa;
+  nativeCheckInputs =
+    [
+      argon2-cffi
+      mongoengine
+      mongomock
+      peewee
+      pony
+      pytestCheckHook
+      python-dateutil
+      zxcvbn
+    ]
+    ++ passthru.optional-dependencies.babel
+    ++ passthru.optional-dependencies.common
+    ++ passthru.optional-dependencies.fsqla
+    ++ passthru.optional-dependencies.mfa;
 
+  disabledTests =
+    [
+      # needs /etc/resolv.conf
+      "test_login_email_whatever"
+    ];
 
-  disabledTests = [
-    # needs /etc/resolv.conf
-    "test_login_email_whatever"
-  ];
-
-  pythonImportsCheck = [
-    "flask_security"
-  ];
+  pythonImportsCheck = [ "flask_security" ];
 
   meta = with lib; {
     changelog = "https://github.com/Flask-Middleware/flask-security/blob/${version}/CHANGES.rst";

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mdformat
-, poetry-core
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mdformat,
+  poetry-core,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,17 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-jUXApGsxCA+pRm4m4ZiHWlxmVkqCPx3A46oQdtyKz5g=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [
-    mdformat
-  ];
+  buildInputs = [ mdformat ];
 
-  pythonImportsCheck = [
-    "mdformat_nix_alejandra"
-  ];
+  pythonImportsCheck = [ "mdformat_nix_alejandra" ];
 
   meta = with lib; {
     description = "Mdformat plugin format Nix code blocks with alejandra";

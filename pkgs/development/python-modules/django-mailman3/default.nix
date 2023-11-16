@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
 
-# propagates
-, django-gravatar2
-, django-allauth
-, mailmanclient
-, pytz
+  # propagates
+  django-gravatar2,
+  django-allauth,
+  mailmanclient,
+  pytz,
 
-# tests
-, django
-, pytest-django
-, pytestCheckHook
+  # tests
+  django,
+  pytest-django,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -54,9 +55,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "django_mailman3"
-  ];
+  pythonImportsCheck = [ "django_mailman3" ];
 
   meta = with lib; {
     description = "Django library for Mailman UIs";

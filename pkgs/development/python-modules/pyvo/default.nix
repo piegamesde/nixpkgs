@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, astropy
-, pillow
-, pythonOlder
-, pytestCheckHook
-, pytest-astropy
-, requests
-, requests-mock
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  astropy,
+  pillow,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-astropy,
+  requests,
+  requests-mock,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     astropy
@@ -41,10 +40,11 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  disabledTestPaths = [
-    # touches network
-    "pyvo/dal/tests/test_datalink.py"
-  ];
+  disabledTestPaths =
+    [
+      # touches network
+      "pyvo/dal/tests/test_datalink.py"
+    ];
 
   pythonImportsCheck = [ "pyvo" ];
 

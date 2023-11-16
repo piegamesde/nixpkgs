@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchPypi, notmuch }:
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+  notmuch,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "afew";
@@ -9,23 +14,31 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0wpfqbqjlfb9z0hafvdhkm7qw56cr9kfy6n8vb0q42dwlghpz1ff";
   };
 
-  nativeBuildInputs = with python3Packages; [ sphinx setuptools-scm ];
+  nativeBuildInputs = with python3Packages; [
+    sphinx
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = with python3Packages; [
-    python3Packages.setuptools python3Packages.notmuch chardet dkimpy
+    python3Packages.setuptools
+    python3Packages.notmuch
+    chardet
+    dkimpy
   ];
 
   nativeCheckInputs = with python3Packages; [
-    freezegun notmuch
+    freezegun
+    notmuch
   ];
 
-  makeWrapperArgs = [
-    ''--prefix PATH ':' "${notmuch}/bin"''
+  makeWrapperArgs = [ ''--prefix PATH ':' "${notmuch}/bin"'' ];
+
+  outputs = [
+    "out"
+    "doc"
   ];
 
-  outputs = [ "out" "doc" ];
-
-  postBuild =  ''
+  postBuild = ''
     ${python3Packages.python.pythonOnBuildForHost.interpreter} setup.py build_sphinx -b html,man
   '';
 
@@ -34,7 +47,6 @@ python3Packages.buildPythonApplication rec {
     mkdir -p $out/share/doc/afew
     cp -R build/sphinx/html/* $out/share/doc/afew
   '';
-
 
   meta = with lib; {
     homepage = "https://github.com/afewmail/afew";

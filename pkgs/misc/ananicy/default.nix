@@ -1,4 +1,14 @@
-{ lib, stdenv, python3, fetchFromGitHub, makeWrapper, schedtool, sysctl, util-linux, fetchpatch }:
+{
+  lib,
+  stdenv,
+  python3,
+  fetchFromGitHub,
+  makeWrapper,
+  schedtool,
+  sysctl,
+  util-linux,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ananicy";
@@ -11,16 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nHp47eYI36edka+cBMzayPHEflAzpgLx0VehhsyYpwI=";
   };
 
-  patches = [
-    # https://github.com/Nefelim4ag/Ananicy/pull/437
-    # fix makefile destinations
-    (fetchpatch {
-      url = "https://github.com/Nefelim4ag/Ananicy/commit/dbda0f50670de3f249991706ef1cc107c5197a2f.patch";
-      sha256 = "sha256-vMcJxekg2QUbm253CLAv3tmo5kedSlw+/PI/LamNWwc=";
-      # only used for debian packaging. lets exclude it so the patch applies even when that file is changed
-      excludes = [ "package.sh" ];
-    })
-  ];
+  patches =
+    [
+      # https://github.com/Nefelim4ag/Ananicy/pull/437
+      # fix makefile destinations
+      (fetchpatch {
+        url = "https://github.com/Nefelim4ag/Ananicy/commit/dbda0f50670de3f249991706ef1cc107c5197a2f.patch";
+        sha256 = "sha256-vMcJxekg2QUbm253CLAv3tmo5kedSlw+/PI/LamNWwc=";
+        # only used for debian packaging. lets exclude it so the patch applies even when that file is changed
+        excludes = [ "package.sh" ];
+      })
+    ];
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ python3 ];
@@ -35,7 +46,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/ananicy \
-      --prefix PATH : ${lib.makeBinPath [ schedtool util-linux ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          schedtool
+          util-linux
+        ]
+      }
 
     substituteInPlace $out/lib/systemd/system/ananicy.service \
       --replace "/sbin/sysctl" "${sysctl}/bin/sysctl" \

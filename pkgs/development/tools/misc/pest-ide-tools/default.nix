@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, nix-update-script
-, pkg-config
-, openssl
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  nix-update-script,
+  pkg-config,
+  openssl,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -27,7 +28,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "IDE support for Pest, via the LSP.";
     homepage = "https://pest.rs";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ nickhu ];
     mainProgram = "pest-language-server";
   };

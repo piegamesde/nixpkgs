@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, alsa-lib, fftw, fftwFloat, flex, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  fftw,
+  fftwFloat,
+  flex,
+  libjack2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brutefir";
@@ -27,6 +36,9 @@ stdenv.mkDerivation rec {
     description = "A software convolution engine";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ auchter ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

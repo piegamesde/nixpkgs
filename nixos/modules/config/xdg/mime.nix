@@ -1,12 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.xdg.mime;
-  associationOptions = with types; attrsOf (
-    coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str
-  );
+  associationOptions =
+    with types; attrsOf (coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str);
 in
 
 {
@@ -27,10 +31,13 @@ in
 
     xdg.mime.addedAssociations = mkOption {
       type = associationOptions;
-      default = {};
+      default = { };
       example = {
         "application/pdf" = "firefox.desktop";
-        "text/xml" = [ "nvim.desktop" "codium.desktop" ];
+        "text/xml" = [
+          "nvim.desktop"
+          "codium.desktop"
+        ];
       };
       description = lib.mdDoc ''
         Adds associations between mimetypes and applications. See the
@@ -41,10 +48,13 @@ in
 
     xdg.mime.defaultApplications = mkOption {
       type = associationOptions;
-      default = {};
+      default = { };
       example = {
         "application/pdf" = "firefox.desktop";
-        "image/png" = [ "sxiv.desktop" "gimp.desktop" ];
+        "image/png" = [
+          "sxiv.desktop"
+          "gimp.desktop"
+        ];
       };
       description = lib.mdDoc ''
         Sets the default applications for given mimetypes. See the
@@ -55,9 +65,12 @@ in
 
     xdg.mime.removedAssociations = mkOption {
       type = associationOptions;
-      default = {};
+      default = { };
       example = {
-        "audio/mp3" = [ "mpv.desktop" "umpv.desktop" ];
+        "audio/mp3" = [
+          "mpv.desktop"
+          "umpv.desktop"
+        ];
         "inode/directory" = "codium.desktop";
       };
       description = lib.mdDoc ''
@@ -69,24 +82,24 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."xdg/mimeapps.list" = mkIf (
-      cfg.addedAssociations != {}
-      || cfg.defaultApplications != {}
-      || cfg.removedAssociations != {}
-    ) {
-      text = generators.toINI { } {
-        "Added Associations" = cfg.addedAssociations;
-        "Default Applications" = cfg.defaultApplications;
-        "Removed Associations" = cfg.removedAssociations;
-      };
-    };
+    environment.etc."xdg/mimeapps.list" =
+      mkIf
+        (cfg.addedAssociations != { } || cfg.defaultApplications != { } || cfg.removedAssociations != { })
+        {
+          text = generators.toINI { } {
+            "Added Associations" = cfg.addedAssociations;
+            "Default Applications" = cfg.defaultApplications;
+            "Removed Associations" = cfg.removedAssociations;
+          };
+        };
 
     environment.pathsToLink = [ "/share/mime" ];
 
-    environment.systemPackages = [
-      # this package also installs some useful data, as well as its utilities
-      pkgs.shared-mime-info
-    ];
+    environment.systemPackages =
+      [
+        # this package also installs some useful data, as well as its utilities
+        pkgs.shared-mime-info
+      ];
 
     environment.extraSetup = ''
       if [ -w $out/share/mime ] && [ -d $out/share/mime/packages ]; then
@@ -98,5 +111,4 @@ in
       fi
     '';
   };
-
 }

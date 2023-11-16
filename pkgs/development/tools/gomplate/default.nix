@@ -3,10 +3,11 @@
 #
 # see https://github.com/hairyhenderson/gomplate/issues/1872
 
-{ lib
-#, buildGoModule
-, buildGo120Module
-, fetchFromGitHub
+{
+  lib,
+  #, buildGoModule
+  buildGo120Module,
+  fetchFromGitHub,
 }:
 
 # buildGoModule rec {
@@ -49,6 +50,9 @@ buildGo120Module rec {
     homepage = "https://gomplate.ca/";
     changelog = "https://github.com/hairyhenderson/gomplate/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris jlesquembre ];
+    maintainers = with maintainers; [
+      ris
+      jlesquembre
+    ];
   };
 }

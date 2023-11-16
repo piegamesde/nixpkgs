@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiosasl
-, aioopenssl
-, babel
-, dnspython
-, lxml
-, multidict
-, pyasn1
-, pyasn1-modules
-, pyopenssl
-, pytz
-, sortedcollections
-, tzlocal
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiosasl,
+  aioopenssl,
+  babel,
+  dnspython,
+  lxml,
+  multidict,
+  pyasn1,
+  pyasn1-modules,
+  pyopenssl,
+  pytz,
+  sortedcollections,
+  tzlocal,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -52,18 +53,15 @@ buildPythonPackage rec {
     "aioxmpp.stream"
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    "benchmarks"
-  ];
+  disabledTestPaths = [ "benchmarks" ];
 
-  disabledTests = [
-    # AttributeError: 'zoneinfo.ZoneInfo' object has no attribute 'normalize'
-    "test_convert_field_datetime_default_locale"
-  ];
+  disabledTests =
+    [
+      # AttributeError: 'zoneinfo.ZoneInfo' object has no attribute 'normalize'
+      "test_convert_field_datetime_default_locale"
+    ];
 
   meta = {
     changelog = "https://github.com/horazont/aioxmpp/blob/${src.rev}/docs/api/changelog.rst";

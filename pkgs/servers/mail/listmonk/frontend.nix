@@ -1,7 +1,8 @@
-{ yarn2nix-moretea
-, fetchFromGitHub
-, fetchYarnDeps
-, meta
+{
+  yarn2nix-moretea,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  meta,
 }:
 
 yarn2nix-moretea.mkYarnPackage rec {
@@ -38,7 +39,6 @@ yarn2nix-moretea.mkYarnPackage rec {
   '';
 
   doDist = false;
-
 
   inherit meta;
 }

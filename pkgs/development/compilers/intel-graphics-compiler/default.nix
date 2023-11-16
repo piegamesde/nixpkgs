@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, runCommandLocal
-, bison
-, flex
-, llvmPackages_14
-, opencl-clang
-, python3
-, spirv-tools
-, spirv-headers
-, spirv-llvm-translator
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  runCommandLocal,
+  bison,
+  flex,
+  llvmPackages_14,
+  opencl-clang,
+  python3,
+  spirv-tools,
+  spirv-headers,
+  spirv-llvm-translator,
 
-, buildWithPatches ? true
+  buildWithPatches ? true,
 }:
 
 let
@@ -39,9 +40,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-BGmZVBEw7XlgbQcWgRK+qbJS9U4Sm9G8g9m0GRUhmCI=";
   };
 
-  nativeBuildInputs = [ bison cmake flex python3 ];
+  nativeBuildInputs = [
+    bison
+    cmake
+    flex
+    python3
+  ];
 
-  buildInputs = [ lld llvm spirv-headers spirv-llvm-translator' spirv-tools ];
+  buildInputs = [
+    lld
+    llvm
+    spirv-headers
+    spirv-llvm-translator'
+    spirv-tools
+  ];
 
   strictDeps = true;
 

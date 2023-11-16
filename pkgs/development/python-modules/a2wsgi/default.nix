@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, asgiref
-, httpx
-, pdm-backend
-, pytest-asyncio
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  asgiref,
+  httpx,
+  pdm-backend,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,9 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-sgQ2uS8z25/xQ2vmS4boLhhwluu10aUt4nlKcNuYFRA=";
   };
 
-  nativeBuildInputs = [
-    pdm-backend
-  ];
+  nativeBuildInputs = [ pdm-backend ];
 
   nativeCheckInputs = [
     asgiref

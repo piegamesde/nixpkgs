@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, buildPackages
-, gnutls
-, guile
-, libtool
-, pkg-config
-, texinfo
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  gnutls,
+  guile,
+  libtool,
+  pkg-config,
+  texinfo,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,9 +21,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs = [
     gnutls
@@ -40,7 +39,9 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-guile-site-dir=${builtins.placeholder "out"}/${guile.siteDir}"
     "--with-guile-site-ccache-dir=${builtins.placeholder "out"}/${guile.siteCcacheDir}"
-    "--with-guile-extension-dir=${builtins.placeholder "out"}/lib/guile/${guile.effectiveVersion}/extensions"
+    "--with-guile-extension-dir=${
+      builtins.placeholder "out"
+    }/lib/guile/${guile.effectiveVersion}/extensions"
   ];
 
   meta = with lib; {

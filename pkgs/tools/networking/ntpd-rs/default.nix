@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -33,13 +34,19 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  outputs = [ "out" "tests" ];
+  outputs = [
+    "out"
+    "tests"
+  ];
 
   meta = with lib; {
     description = "A full-featured implementation of the Network Time Protocol";
     homepage = "https://tweedegolf.nl/en/pendulum";
     changelog = "https://github.com/pendulum-project/ntpd-rs/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit /* or */ asl20 ];
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     maintainers = with maintainers; [ fpletz ];
   };
 }

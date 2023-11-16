@@ -1,11 +1,28 @@
-{ callPackage, fetchzip, dart, lib, stdenv }:
+{
+  callPackage,
+  fetchzip,
+  dart,
+  lib,
+  stdenv,
+}:
 let
   mkCustomFlutter = args: callPackage ./flutter.nix args;
   wrapFlutter = flutter: callPackage ./wrapper.nix { inherit flutter; };
-  getPatches = dir:
-    let files = builtins.attrNames (builtins.readDir dir);
-    in map (f: dir + ("/" + f)) files;
-  mkFlutter = { version, engineVersion, dartVersion, flutterHash, dartHash, patches }:
+  getPatches =
+    dir:
+    let
+      files = builtins.attrNames (builtins.readDir dir);
+    in
+    map (f: dir + ("/" + f)) files;
+  mkFlutter =
+    {
+      version,
+      engineVersion,
+      dartVersion,
+      flutterHash,
+      dartHash,
+      patches,
+    }:
     let
       args = {
         inherit version engineVersion patches;
@@ -31,43 +48,52 @@ let
             };
           };
         };
-        src = {
-          x86_64-linux = fetchzip {
-            url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${version}-stable.tar.xz";
-            sha256 = flutterHash.x86_64-linux;
-          };
-          aarch64-linux = fetchzip {
-            url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${version}-stable.tar.xz";
-            sha256 = flutterHash.aarch64-linux;
-          };
-          x86_64-darwin = fetchzip {
-            url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_${version}-stable.zip";
-            sha256 = flutterHash.x86_64-darwin;
-          };
-          aarch64-darwin = fetchzip {
-            url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_${version}-stable.zip";
-            sha256 = flutterHash.aarch64-darwin;
-          };
-        }.${stdenv.hostPlatform.system};
+        src =
+          {
+            x86_64-linux = fetchzip {
+              url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${version}-stable.tar.xz";
+              sha256 = flutterHash.x86_64-linux;
+            };
+            aarch64-linux = fetchzip {
+              url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${version}-stable.tar.xz";
+              sha256 = flutterHash.aarch64-linux;
+            };
+            x86_64-darwin = fetchzip {
+              url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_${version}-stable.zip";
+              sha256 = flutterHash.x86_64-darwin;
+            };
+            aarch64-darwin = fetchzip {
+              url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_${version}-stable.zip";
+              sha256 = flutterHash.aarch64-darwin;
+            };
+          }
+          .${stdenv.hostPlatform.system};
       };
     in
-    (mkCustomFlutter args).overrideAttrs (prev: next: {
-      passthru = next.passthru // rec {
-        inherit wrapFlutter mkCustomFlutter mkFlutter;
-        buildFlutterApplication = callPackage ../../../build-support/flutter {
-          # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
-          flutter = (wrapFlutter (mkCustomFlutter args)).override {
-            supportsAndroid = false;
-            includedEngineArtifacts = {
-              common = [ "flutter_patched_sdk_product" ];
-              platform.linux = lib.optionals stdenv.hostPlatform.isLinux
-                (lib.genAttrs ((lib.optional stdenv.hostPlatform.isx86_64 "x64") ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
-                  (architecture: [ "release" ]));
+    (mkCustomFlutter args).overrideAttrs (
+      prev: next: {
+        passthru = next.passthru // rec {
+          inherit wrapFlutter mkCustomFlutter mkFlutter;
+          buildFlutterApplication = callPackage ../../../build-support/flutter {
+            # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
+            flutter = (wrapFlutter (mkCustomFlutter args)).override {
+              supportsAndroid = false;
+              includedEngineArtifacts = {
+                common = [ "flutter_patched_sdk_product" ];
+                platform.linux = lib.optionals stdenv.hostPlatform.isLinux (
+                  lib.genAttrs
+                    (
+                      (lib.optional stdenv.hostPlatform.isx86_64 "x64")
+                      ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
+                    )
+                    (architecture: [ "release" ])
+                );
+              };
             };
           };
         };
-      };
-    });
+      }
+    );
 
   flutter3Patches = getPatches ./patches/flutter3;
 in

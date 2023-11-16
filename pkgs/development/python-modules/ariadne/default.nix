@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, freezegun
-, graphql-core
-, opentracing
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, snapshottest
-, starlette
-, typing-extensions
-, werkzeug
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  freezegun,
+  graphql-core,
+  opentracing,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  snapshottest,
+  starlette,
+  typing-extensions,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-v3CaLMTo/zbNEoE3K+aWnFTCgLetcnN7vOU/sFqLq2k=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     graphql-core
@@ -49,9 +48,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [
-    "ariadne"
-  ];
+  pythonImportsCheck = [ "ariadne" ];
 
   disabledTests = [
     # TypeError: TestClient.request() got an unexpected keyword argument 'content'

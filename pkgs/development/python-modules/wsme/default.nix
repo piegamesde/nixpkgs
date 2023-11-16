@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonAtLeast
-, pbr
-, six
-, simplegeneric
-, netaddr
-, pytz
-, webob
-# Test inputs
-, cherrypy
-, flask
-, flask-restful
-, glibcLocales
-, nose
-, pecan
-, sphinx
-, transaction
-, webtest
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  pbr,
+  six,
+  simplegeneric,
+  netaddr,
+  pytz,
+  webob,
+  # Test inputs
+  cherrypy,
+  flask,
+  flask-restful,
+  glibcLocales,
+  nose,
+  pecan,
+  sphinx,
+  transaction,
+  webtest,
 }:
 
 buildPythonPackage rec {

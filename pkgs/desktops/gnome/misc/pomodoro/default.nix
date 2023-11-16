@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook
-, desktop-file-utils
-, libcanberra
-, gst_all_1
-, vala
-, gtk3
-, gom
-, sqlite
-, libxml2
-, glib
-, gobject-introspection
-, json-glib
-, libpeas
-, gsettings-desktop-schemas
-, gettext
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  desktop-file-utils,
+  libcanberra,
+  gst_all_1,
+  vala,
+  gtk3,
+  gom,
+  sqlite,
+  libxml2,
+  glib,
+  gobject-introspection,
+  json-glib,
+  libpeas,
+  gsettings-desktop-schemas,
+  gettext,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,14 +34,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-Yn0lDCFpc8o25iiPib1n1NEBeodNAdTzRWcnLbXUA5g=";
   };
 
-  patches = [
-    # Our glib setup hooks moves GSettings schemas to a subdirectory to prevent conflicts.
-    # We need to patch the build script so that the extension can find them.
-    (substituteAll {
-      src = ./fix-schema-path.patch;
-      inherit pname version;
-    })
-  ];
+  patches =
+    [
+      # Our glib setup hooks moves GSettings schemas to a subdirectory to prevent conflicts.
+      # We need to patch the build script so that the extension can find them.
+      (substituteAll {
+        src = ./fix-schema-path.patch;
+        inherit pname version;
+      })
+    ];
 
   nativeBuildInputs = [
     meson

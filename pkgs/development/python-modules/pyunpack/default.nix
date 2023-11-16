@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, easyprocess
-, entrypoint2
-, patool
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  easyprocess,
+  entrypoint2,
+  patool,
 }:
 
 buildPythonPackage rec {

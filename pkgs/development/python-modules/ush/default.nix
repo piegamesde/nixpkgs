@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -21,10 +22,11 @@ buildPythonPackage rec {
     six
   ];
 
-  disabledTestPaths = [
-    # seems to be outdated?
-    "tests/test_glob.py"
-  ];
+  disabledTestPaths =
+    [
+      # seems to be outdated?
+      "tests/test_glob.py"
+    ];
 
   meta = with lib; {
     description = "Powerful API for invoking with external commands";

@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, cmake
-, cvxopt
-, fetchPypi
-, future
-, numpy
-, pytestCheckHook
-, pythonOlder
-, qdldl
-, scipy
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  cmake,
+  cvxopt,
+  fetchPypi,
+  future,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  qdldl,
+  scipy,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -45,14 +46,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "osqp"
-  ];
+  pythonImportsCheck = [ "osqp" ];
 
-  disabledTests = [
-    # Need an unfree license package - mkl
-    "test_issue14"
-  ];
+  disabledTests =
+    [
+      # Need an unfree license package - mkl
+      "test_issue14"
+    ];
 
   meta = with lib; {
     description = "The Operator Splitting QP Solver";

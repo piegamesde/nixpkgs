@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, ninja
-, vala
-, gtk4
-, glib
-, granite7
-, libadwaita
-, libgee
-, wrapGAppsHook4
-, appstream
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  gtk4,
+  glib,
+  granite7,
+  libadwaita,
+  libgee,
+  wrapGAppsHook4,
+  appstream,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,13 +27,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hAObgD2Njg1We0rGEu508khoBo+hj0DQAB7N33CVDiM=";
   };
 
-  patches = [
-    # The standard location to the metadata pool where metadata
-    # will be read from is likely hardcoded as /usr/share/metainfo
-    # https://github.com/ximion/appstream/blob/v0.15.2/src/as-pool.c#L117
-    # https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
-    ./fix-metadata-path.patch
-  ];
+  patches =
+    [
+      # The standard location to the metadata pool where metadata
+      # will be read from is likely hardcoded as /usr/share/metainfo
+      # https://github.com/ximion/appstream/blob/v0.15.2/src/as-pool.c#L117
+      # https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
+      ./fix-metadata-path.patch
+    ];
 
   nativeBuildInputs = [
     meson

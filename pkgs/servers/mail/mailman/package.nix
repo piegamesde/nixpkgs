@@ -1,9 +1,10 @@
-{ lib
-, fetchpatch
-, python3
-, fetchPypi
-, postfix
-, lynx
+{
+  lib,
+  fetchpatch,
+  python3,
+  fetchPypi,
+  postfix,
+  lynx,
 }:
 
 with python3.pkgs;
@@ -37,9 +38,7 @@ buildPythonPackage rec {
     zope_configuration
   ];
 
-  checkInputs = [
-    sphinx
-  ];
+  checkInputs = [ sphinx ];
 
   patches = [
     (fetchpatch {

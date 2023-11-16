@@ -1,26 +1,28 @@
-{ lib, stdenv
-, fetchFromGitLab
-, fetchpatch
-, pkg-config
-, cmake
-, gettext
-, cairo
-, pango
-, pcre
-, glib
-, imlib2
-, gtk3
-, libXinerama
-, libXrender
-, libXcomposite
-, libXdamage
-, libX11
-, libXrandr
-, librsvg
-, libpthreadstubs
-, libXdmcp
-, libstartup_notification
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  gettext,
+  cairo,
+  pango,
+  pcre,
+  glib,
+  imlib2,
+  gtk3,
+  libXinerama,
+  libXrender,
+  libXcomposite,
+  libXdamage,
+  libX11,
+  libXrandr,
+  librsvg,
+  libpthreadstubs,
+  libXdmcp,
+  libstartup_notification,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,15 +36,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-9sEe/Gnj+FWLPbWBtfL1YlNNC12j7/KjQ40xdkaFJVQ=";
   };
 
-  patches = [
-    # Fix crashes with glib >= 2.76
-    # https://patchespromptly.com/glib2/
-    # https://gitlab.com/nick87720z/tint2/-/issues/4
-    (fetchpatch {
-      url = "https://gitlab.com/nick87720z/tint2/uploads/7de4501a4fa4fffa5ba8bb0fa3d19f78/glib.patch";
-      hash = "sha256-K547KYlRkVl1s2THi3ZCRuM447EFJwTqUEBjKQnV8Sc=";
-    })
-  ];
+  patches =
+    [
+      # Fix crashes with glib >= 2.76
+      # https://patchespromptly.com/glib2/
+      # https://gitlab.com/nick87720z/tint2/-/issues/4
+      (fetchpatch {
+        url = "https://gitlab.com/nick87720z/tint2/uploads/7de4501a4fa4fffa5ba8bb0fa3d19f78/glib.patch";
+        hash = "sha256-K547KYlRkVl1s2THi3ZCRuM447EFJwTqUEBjKQnV8Sc=";
+      })
+    ];
 
   nativeBuildInputs = [
     pkg-config
@@ -70,9 +73,7 @@ stdenv.mkDerivation rec {
     libstartup_notification
   ];
 
-  cmakeFlags = [
-    "-Ddocdir=share/doc/${pname}"
-  ];
+  cmakeFlags = [ "-Ddocdir=share/doc/${pname}" ];
 
   postPatch = ''
     for f in ./src/launcher/apps-common.c \

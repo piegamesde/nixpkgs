@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, azure-common
-, azure-core
-, azure-mgmt-core
-, msrest
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-core,
+  azure-mgmt-core,
+  msrest,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
   # zero tests run
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.synapse.artifacts"
-  ];
+  pythonImportsCheck = [ "azure.synapse.artifacts" ];
 
   meta = with lib; {
     description = "Microsoft Azure Synapse Artifacts Client Library for Python";

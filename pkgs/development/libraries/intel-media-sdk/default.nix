@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, gtest, libdrm, libpciaccess, libva, libX11
-, libXau, libXdmcp, libpthreadstubs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gtest,
+  libdrm,
+  libpciaccess,
+  libva,
+  libX11,
+  libXau,
+  libXdmcp,
+  libpthreadstubs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "intel-media-sdk";
@@ -12,9 +25,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-wno3a/ZSKvgHvZiiJ0Gq9GlrEbfHCizkrSiHD6k/Loo=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
-    libdrm libva libpciaccess libX11 libXau libXdmcp libpthreadstubs
+    libdrm
+    libva
+    libpciaccess
+    libX11
+    libXau
+    libXdmcp
+    libpthreadstubs
   ];
   nativeCheckInputs = [ gtest ];
 

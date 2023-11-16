@@ -1,5 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitHub
-, requests, scapy }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  requests,
+  scapy,
+}:
 
 buildPythonApplication rec {
   pname = "websploit";

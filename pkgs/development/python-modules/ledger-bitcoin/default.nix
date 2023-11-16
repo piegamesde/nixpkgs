@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, ledgercomm
-, packaging
-, bip32
-, coincurve
-, typing-extensions
- }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  ledgercomm,
+  packaging,
+  bip32,
+  coincurve,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "ledger-bitcoin";
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-MEZuwIthIOwBkRdR7dEsEznO+GVBeOf7/5xmwNW1SvI=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     ledgercomm
@@ -32,9 +31,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [
-    "ledger_bitcoin"
-  ];
+  pythonImportsCheck = [ "ledger_bitcoin" ];
 
   meta = with lib; {
     description = "Client library for Ledger Bitcoin application.";

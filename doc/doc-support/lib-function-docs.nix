@@ -1,6 +1,10 @@
 # Generates the documentation for library functions via nixdoc.
 
-{ pkgs, nixpkgs, libsets }:
+{
+  pkgs,
+  nixpkgs,
+  libsets,
+}:
 
 with pkgs;
 
@@ -32,9 +36,18 @@ stdenv.mkDerivation {
     ```{=include=} sections
     EOF
 
-    ${lib.concatMapStrings ({ name, baseName ? name, description }: ''
-      docgen ${name} ${baseName} ${lib.escapeShellArg description}
-    '') libsets}
+    ${lib.concatMapStrings
+      (
+        {
+          name,
+          baseName ? name,
+          description,
+        }:
+        ''
+          docgen ${name} ${baseName} ${lib.escapeShellArg description}
+        ''
+      )
+      libsets}
 
     echo '```' >> "$out/index.md"
   '';

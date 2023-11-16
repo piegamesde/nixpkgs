@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitLab
-, pkg-config
-, nettle
-, openssl
-, sqlite
-, darwin
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitLab,
+  pkg-config,
+  nettle,
+  openssl,
+  sqlite,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -31,9 +32,7 @@ rustPlatform.buildRustPackage rec {
     nettle
     openssl
     sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   # gpgconf: error creating socket directory
   doCheck = false;

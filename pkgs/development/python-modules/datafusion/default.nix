@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, rustPlatform
-, pytestCheckHook
-, libiconv
-, numpy
-, protobuf
-, pyarrow
-, Security
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  pytestCheckHook,
+  libiconv,
+  numpy,
+  protobuf,
+  pyarrow,
+  Security,
 }:
 
 let
@@ -53,13 +54,24 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = [ protobuf ] ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs =
+    [ protobuf ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ];
 
   propagatedBuildInputs = [ pyarrow ];
 
-  nativeCheckInputs = [ pytestCheckHook numpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    numpy
+  ];
   pythonImportsCheck = [ "datafusion" ];
-  pytestFlagsArray = [ "--pyargs" pname ];
+  pytestFlagsArray = [
+    "--pyargs"
+    pname
+  ];
 
   preCheck = ''
     pushd $TMPDIR

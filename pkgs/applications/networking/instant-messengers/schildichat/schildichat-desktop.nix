@@ -1,20 +1,21 @@
-{ lib
-, element-desktop # for seshat and keytar
-, schildichat-web
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, fetchYarnDeps
-, yarn
-, nodejs
-, fixup_yarn_lock
-, electron
-, Security
-, AppKit
-, CoreServices
-, sqlcipher
+{
+  lib,
+  element-desktop, # for seshat and keytar
+  schildichat-web,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  fetchYarnDeps,
+  yarn,
+  nodejs,
+  fixup_yarn_lock,
+  electron,
+  Security,
+  AppKit,
+  CoreServices,
+  sqlcipher,
 }:
 
 let
@@ -38,7 +39,13 @@ stdenv.mkDerivation rec {
     sha256 = pinData.desktopYarnHash;
   };
 
-  nativeBuildInputs = [ yarn fixup_yarn_lock nodejs makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    yarn
+    fixup_yarn_lock
+    nodejs
+    makeWrapper
+    copyDesktopItems
+  ];
   inherit (element-desktop) seshat keytar;
 
   configurePhase = ''
@@ -112,7 +119,11 @@ stdenv.mkDerivation rec {
       desktopName = "SchildiChat";
       genericName = "Matrix Client";
       comment = meta.description;
-      categories = [ "Network" "InstantMessaging" "Chat" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+      ];
       startupWMClass = "schildichat";
       mimeTypes = [ "x-scheme-handler/element" ];
     })
@@ -124,7 +135,14 @@ stdenv.mkDerivation rec {
     description = "Matrix client / Element Desktop fork";
     homepage = "https://schildi.chat/";
     changelog = "https://github.com/SchildiChat/schildichat-desktop/releases";
-    maintainers = teams.matrix.members ++ (with maintainers; [ kloenk yuka ]);
+    maintainers =
+      teams.matrix.members
+      ++ (
+        with maintainers; [
+          kloenk
+          yuka
+        ]
+      );
     license = licenses.asl20;
     platforms = platforms.all;
   };

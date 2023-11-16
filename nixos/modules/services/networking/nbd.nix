@@ -1,41 +1,65 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.nbd;
-  iniFields = with types; attrsOf (oneOf [ bool int float str ]);
+  iniFields =
+    with types;
+    attrsOf (
+      oneOf [
+        bool
+        int
+        float
+        str
+      ]
+    );
   # The `[generic]` section must come before all the others in the
   # config file.  This means we can't just dump an attrset to INI
   # because that sorts the sections by name.  Instead, we serialize it
   # on its own first.
   genericSection = {
-    generic = (cfg.server.extraOptions // {
-      user = "root";
-      group = "root";
-      port = cfg.server.listenPort;
-    } // (optionalAttrs (cfg.server.listenAddress != null) {
-      listenaddr = cfg.server.listenAddress;
-    }));
+    generic =
+      (
+        cfg.server.extraOptions
+        // {
+          user = "root";
+          group = "root";
+          port = cfg.server.listenPort;
+        }
+        // (optionalAttrs (cfg.server.listenAddress != null) { listenaddr = cfg.server.listenAddress; })
+      );
   };
   exportSections =
     mapAttrs
-      (_: { path, allowAddresses, extraOptions }:
-        extraOptions // {
+      (
+        _:
+        {
+          path,
+          allowAddresses,
+          extraOptions,
+        }:
+        extraOptions
+        // {
           exportname = path;
-        } // (optionalAttrs (allowAddresses != null) {
+        }
+        // (optionalAttrs (allowAddresses != null) {
           authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
-        }))
+        })
+      )
       cfg.server.exports;
-  serverConfig =
-    pkgs.writeText "nbd-server-config" ''
-      ${lib.generators.toINI {} genericSection}
-      ${lib.generators.toINI {} exportSections}
-    '';
-  splitLists =
-    partition
-      (path: hasPrefix "/dev/" path)
-      (mapAttrsToList (_: { path, ... }: path) cfg.server.exports);
+  serverConfig = pkgs.writeText "nbd-server-config" ''
+    ${lib.generators.toINI { } genericSection}
+    ${lib.generators.toINI { } exportSections}
+  '';
+  splitLists = partition (path: hasPrefix "/dev/" path) (
+    mapAttrsToList (_: { path, ... }: path) cfg.server.exports
+  );
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
 in
@@ -65,40 +89,50 @@ in
         exports = mkOption {
           description = lib.mdDoc "Files or block devices to make available over the network.";
           default = { };
-          type = with types; attrsOf
-            (submodule {
-              options = {
-                path = mkOption {
-                  type = str;
-                  description = lib.mdDoc "File or block device to export.";
-                  example = "/dev/sdb1";
-                };
-
-                allowAddresses = mkOption {
-                  type = nullOr (listOf str);
-                  default = null;
-                  example = [ "10.10.0.0/24" "127.0.0.1" ];
-                  description = lib.mdDoc "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
-                };
-
-                extraOptions = mkOption {
-                  type = iniFields;
-                  default = {
-                    flush = true;
-                    fua = true;
+          type =
+            with types;
+            attrsOf (
+              submodule {
+                options = {
+                  path = mkOption {
+                    type = str;
+                    description = lib.mdDoc "File or block device to export.";
+                    example = "/dev/sdb1";
                   };
-                  description = lib.mdDoc ''
-                    Extra options for this export. See
-                    {manpage}`nbd-server(5)`.
-                  '';
+
+                  allowAddresses = mkOption {
+                    type = nullOr (listOf str);
+                    default = null;
+                    example = [
+                      "10.10.0.0/24"
+                      "127.0.0.1"
+                    ];
+                    description =
+                      lib.mdDoc
+                        "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
+                  };
+
+                  extraOptions = mkOption {
+                    type = iniFields;
+                    default = {
+                      flush = true;
+                      fua = true;
+                    };
+                    description = lib.mdDoc ''
+                      Extra options for this export. See
+                      {manpage}`nbd-server(5)`.
+                    '';
+                  };
                 };
-              };
-            });
+              }
+            );
         };
 
         listenAddress = mkOption {
           type = with types; nullOr str;
-          description = lib.mdDoc "Address to listen on. If not specified, the server will listen on all interfaces.";
+          description =
+            lib.mdDoc
+              "Address to listen on. If not specified, the server will listen on all interfaces.";
           default = null;
           example = "10.10.0.1";
         };

@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "clx";
   version = "20211020-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "clx";
 
-  asdFilesToKeep = ["clx.asd"];
+  asdFilesToKeep = [ "clx.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clx DESCRIPTION
@@ -26,4 +26,5 @@ rec {
     http://beta.quicklisp.org/archive/clx/2021-10-20/clx-20211020-git.tgz MD5
     ac10db96a6426cf462f8d417a7797621 NAME clx FILENAME clx DEPS
     ((NAME fiasco FILENAME fiasco)) DEPENDENCIES (fiasco) VERSION 20211020-git
-    SIBLINGS NIL PARASITES (clx/test)) */
+    SIBLINGS NIL PARASITES (clx/test))
+*/

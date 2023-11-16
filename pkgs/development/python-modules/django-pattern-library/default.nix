@@ -1,20 +1,21 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, lib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
 
-# build-system
-, poetry-core
+  # build-system
+  poetry-core,
 
-# dependencies
-, django
-, markdown
-, pyyaml
+  # dependencies
+  django,
+  markdown,
+  pyyaml,
 
-# tests
-, beautifulsoup4
-, pytestCheckHook
-, pytest-django
+  # tests
+  beautifulsoup4,
+  pytestCheckHook,
+  pytest-django,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     django

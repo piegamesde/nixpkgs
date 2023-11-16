@@ -1,4 +1,9 @@
-{ config, lib, pkgs, options }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+}:
 
 let
   inherit (lib) mkOption types;
@@ -10,20 +15,22 @@ in
   extraOpts = {
     servers = mkOption {
       description = "List of sabnzbd servers to connect to.";
-      type = types.listOf (types.submodule {
-        options = {
-          baseUrl = mkOption {
-            type = types.str;
-            description = "Base URL of the sabnzbd server.";
-            example = "http://localhost:8080/sabnzbd";
+      type = types.listOf (
+        types.submodule {
+          options = {
+            baseUrl = mkOption {
+              type = types.str;
+              description = "Base URL of the sabnzbd server.";
+              example = "http://localhost:8080/sabnzbd";
+            };
+            apiKeyFile = mkOption {
+              type = types.str;
+              description = "File containing the API key.";
+              example = "/run/secrets/sabnzbd_apikey";
+            };
           };
-          apiKeyFile = mkOption {
-            type = types.str;
-            description = "File containing the API key.";
-            example = "/run/secrets/sabnzbd_apikey";
-          };
-        };
-      });
+        }
+      );
     };
   };
 

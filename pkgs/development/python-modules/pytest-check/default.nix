@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, pytest
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pytest,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,17 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-eufpnpDxJ9PQLSnAKostlbWofbPTDczRaen9ZsRP2+g=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    pytest
-  ];
+  propagatedBuildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "pytest plugin allowing multiple failures per test";

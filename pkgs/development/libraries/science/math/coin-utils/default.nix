@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.11.10";

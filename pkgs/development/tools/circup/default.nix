@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -17,9 +18,7 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [
-    "semver"
-  ];
+  pythonRelaxDeps = [ "semver" ];
 
   nativeBuildInputs = with python3.pkgs; [
     setuptools-scm
@@ -36,17 +35,13 @@ python3.pkgs.buildPythonApplication rec {
     update_checker
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
   postBuild = ''
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [
-    "circup"
-  ];
+  pythonImportsCheck = [ "circup" ];
 
   meta = with lib; {
     description = "CircuitPython library updater";

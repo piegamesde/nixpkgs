@@ -1,12 +1,14 @@
-{ lib, stdenv
-, fetchzip
-, fetchFromGitHub
-, cmake
-, fftw
-, fftwFloat
-, enablePython ? false
-, pythonPackages ? null
-, llvmPackages
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchFromGitHub,
+  cmake,
+  fftw,
+  fftwFloat,
+  enablePython ? false,
+  pythonPackages ? null,
+  llvmPackages,
 }:
 let
   # CMake recipes are needed to build galario
@@ -29,10 +31,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ fftw fftwFloat ]
-  ++ lib.optional enablePython pythonPackages.python
-  ++ lib.optional stdenv.isDarwin llvmPackages.openmp
-  ;
+  buildInputs =
+    [
+      fftw
+      fftwFloat
+    ]
+    ++ lib.optional enablePython pythonPackages.python
+    ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
   propagatedBuildInputs = lib.optionals enablePython [
     pythonPackages.numpy
@@ -40,7 +45,10 @@ stdenv.mkDerivation rec {
     pythonPackages.pytest
   ];
 
-  nativeCheckInputs = lib.optionals enablePython [ pythonPackages.scipy pythonPackages.pytest-cov ];
+  nativeCheckInputs = lib.optionals enablePython [
+    pythonPackages.scipy
+    pythonPackages.pytest-cov
+  ];
 
   preConfigure = ''
     mkdir -p build/external/src
@@ -49,14 +57,19 @@ stdenv.mkDerivation rec {
   '';
 
   preCheck = ''
-    ${if stdenv.isDarwin then "export DYLD_LIBRARY_PATH=$(pwd)/src/" else "export LD_LIBRARY_PATH=$(pwd)/src/"}
+    ${if stdenv.isDarwin then
+      "export DYLD_LIBRARY_PATH=$(pwd)/src/"
+    else
+      "export LD_LIBRARY_PATH=$(pwd)/src/"}
     ${lib.optionalString enablePython "sed -i -e 's|^#!.*|#!${stdenv.shell}|' python/py.test.sh"}
   '';
 
-  cmakeFlags = lib.optionals enablePython [
-    # RPATH of binary /nix/store/.../lib/python3.10/site-packages/galario/double/libcommon.so contains a forbidden reference to /build/
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ];
+  cmakeFlags =
+    lib.optionals enablePython
+      [
+        # RPATH of binary /nix/store/.../lib/python3.10/site-packages/galario/double/libcommon.so contains a forbidden reference to /build/
+        "-DCMAKE_SKIP_BUILD_RPATH=ON"
+      ];
 
   doCheck = true;
 

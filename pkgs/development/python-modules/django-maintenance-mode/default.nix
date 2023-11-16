@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, buildPythonPackage
-, django
-, python-fsutil
-, python
-, pythonOlder
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  django,
+  python-fsutil,
+  python,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -6,7 +11,10 @@ let
   cfg = config.services.cachix-watch-store;
 in
 {
-  meta.maintainers = [ lib.maintainers.jfroche lib.maintainers.domenkozar ];
+  meta.maintainers = [
+    lib.maintainers.jfroche
+    lib.maintainers.domenkozar
+  ];
 
   options.services.cachix-watch-store = {
     enable = mkEnableOption (lib.mdDoc "Cachix Watch Store: https://docs.cachix.org");
@@ -53,7 +61,6 @@ in
       defaultText = literalExpression "pkgs.cachix";
       description = lib.mdDoc "Cachix Client package to use.";
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -73,16 +80,27 @@ in
         KillMode = "process";
         Restart = "on-failure";
         DynamicUser = true;
-        LoadCredential = [
-          "cachix-token:${toString cfg.cachixTokenFile}"
-        ];
+        LoadCredential = [ "cachix-token:${toString cfg.cachixTokenFile}" ];
       };
       script =
         let
-          command = [ "${cfg.package}/bin/cachix" ]
-            ++ (lib.optional cfg.verbose "--verbose") ++ (lib.optionals (cfg.host != null) [ "--host" cfg.host ])
-            ++ [ "watch-store" ] ++ (lib.optionals (cfg.compressionLevel != null) [ "--compression-level" (toString cfg.compressionLevel) ])
-            ++ (lib.optionals (cfg.jobs != null) [ "--jobs" (toString cfg.jobs) ]) ++ [ cfg.cacheName ];
+          command =
+            [ "${cfg.package}/bin/cachix" ]
+            ++ (lib.optional cfg.verbose "--verbose")
+            ++ (lib.optionals (cfg.host != null) [
+              "--host"
+              cfg.host
+            ])
+            ++ [ "watch-store" ]
+            ++ (lib.optionals (cfg.compressionLevel != null) [
+              "--compression-level"
+              (toString cfg.compressionLevel)
+            ])
+            ++ (lib.optionals (cfg.jobs != null) [
+              "--jobs"
+              (toString cfg.jobs)
+            ])
+            ++ [ cfg.cacheName ];
         in
         ''
           export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"

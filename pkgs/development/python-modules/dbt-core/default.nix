@@ -1,31 +1,32 @@
-{ lib
-, python3
-, buildPythonPackage
-, fetchFromGitHub
-, agate
-, cffi
-, click
-, colorama
-, dbt-extractor
-, hologram
-, idna
-, isodate
-, jinja2
-, logbook
-, mashumaro
-, minimal-snowplow-tracker
-, networkx
-, packaging
-, pathspec
-, protobuf
-, pythonRelaxDepsHook
-, pytz
-, pyyaml
-, requests
-, sqlparse
-, typing-extensions
-, urllib3
-, werkzeug
+{
+  lib,
+  python3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  agate,
+  cffi,
+  click,
+  colorama,
+  dbt-extractor,
+  hologram,
+  idna,
+  isodate,
+  jinja2,
+  logbook,
+  mashumaro,
+  minimal-snowplow-tracker,
+  networkx,
+  packaging,
+  pathspec,
+  protobuf,
+  pythonRelaxDepsHook,
+  pytz,
+  pyyaml,
+  requests,
+  sqlparse,
+  typing-extensions,
+  urllib3,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -42,9 +43,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/core";
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [
     "agate"
@@ -108,7 +107,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/dbt-labs/dbt-core";
     changelog = "https://github.com/dbt-labs/dbt-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mausch tjni ];
+    maintainers = with maintainers; [
+      mausch
+      tjni
+    ];
     mainProgram = "dbt";
   };
 }

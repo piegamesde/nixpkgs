@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, entrypoints
-, jupyter-core
-, hatchling
-, nest-asyncio
-, python-dateutil
-, pyzmq
-, tornado
-, traitlets
-, isPyPy
-, py
-, pythonOlder
-, importlib-metadata
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  entrypoints,
+  jupyter-core,
+  hatchling,
+  nest-asyncio,
+  python-dateutil,
+  pyzmq,
+  tornado,
+  traitlets,
+  isPyPy,
+  py,
+  pythonOlder,
+  importlib-metadata,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-YClLLVuGk1bIk/V7God+plENYNRc9LOAV/FnLYVpmsk=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     entrypoints
@@ -37,9 +36,7 @@ buildPythonPackage rec {
     pyzmq
     tornado
     traitlets
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ] ++ lib.optional isPyPy py;
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ] ++ lib.optional isPyPy py;
 
   # Circular dependency with ipykernel
   doCheck = false;

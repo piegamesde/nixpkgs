@@ -1,7 +1,8 @@
-{ lib
-, config
-, pkgs
-, ...
+{
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 
 let
@@ -14,7 +15,7 @@ let
     mkOption
     mkPackageOptionMD
     types
-    ;
+  ;
   domain = "acme-dns.example.com";
 in
 {
@@ -43,7 +44,17 @@ in
             };
 
             protocol = mkOption {
-              type = types.enum [ "both" "both4" "both6" "udp" "udp4" "udp6" "tcp" "tcp4" "tcp6" ];
+              type = types.enum [
+                "both"
+                "both4"
+                "both6"
+                "udp"
+                "udp4"
+                "udp6"
+                "tcp"
+                "tcp4"
+                "tcp6"
+              ];
               description = mdDoc "Protocols to serve DNS responses on.";
               default = "both";
             };
@@ -68,7 +79,9 @@ in
 
             records = mkOption {
               type = types.listOf types.str;
-              description = mdDoc "Predefined DNS records served in addition to the `_acme-challenge` TXT records.";
+              description =
+                mdDoc
+                  "Predefined DNS records served in addition to the `_acme-challenge` TXT records.";
               example = literalExpression ''
                 [
                   # replace with your acme-dns server's public IPv4
@@ -84,7 +97,10 @@ in
 
           database = {
             engine = mkOption {
-              type = types.enum [ "sqlite3" "postgres" ];
+              type = types.enum [
+                "sqlite3"
+                "postgres"
+              ];
               description = mdDoc "Database engine to use.";
               default = "sqlite3";
             };
@@ -120,16 +136,25 @@ in
             };
 
             tls = mkOption {
-              type = types.enum [ "letsencrypt" "letsencryptstaging" "cert" "none" ];
+              type = types.enum [
+                "letsencrypt"
+                "letsencryptstaging"
+                "cert"
+                "none"
+              ];
               description = mdDoc "TLS backend to use.";
               default = "none";
             };
           };
 
-
           logconfig = {
             loglevel = mkOption {
-              type = types.enum [ "error" "warning" "info" "debug" ];
+              type = types.enum [
+                "error"
+                "warning"
+                "info"
+                "debug"
+              ];
               description = mdDoc "Level to log on.";
               default = "info";
             };
@@ -144,7 +169,10 @@ in
     systemd.services.acme-dns = {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = [ "" "${lib.getExe cfg.package} -c ${format.generate "acme-dns.toml" cfg.settings}" ];
+        ExecStart = [
+          ""
+          "${lib.getExe cfg.package} -c ${format.generate "acme-dns.toml" cfg.settings}"
+        ];
         StateDirectory = "acme-dns";
         WorkingDirectory = "%S/acme-dns";
         DynamicUser = true;

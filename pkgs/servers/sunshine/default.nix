@@ -1,46 +1,47 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoPatchelfHook
-, makeWrapper
-, buildNpmPackage
-, cmake
-, avahi
-, libevdev
-, libpulseaudio
-, xorg
-, libxcb
-, openssl
-, libopus
-, boost
-, pkg-config
-, libdrm
-, wayland
-, libffi
-, libcap
-, mesa
-, curl
-, pcre
-, pcre2
-, libuuid
-, libselinux
-, libsepol
-, libthai
-, libdatrie
-, libxkbcommon
-, libepoxy
-, libva
-, libvdpau
-, numactl
-, amf-headers
-, intel-media-sdk
-, svt-av1
-, vulkan-loader
-, libappindicator
-, libnotify
-, config
-, cudaSupport ? config.cudaSupport
-, cudaPackages ? {}
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  makeWrapper,
+  buildNpmPackage,
+  cmake,
+  avahi,
+  libevdev,
+  libpulseaudio,
+  xorg,
+  libxcb,
+  openssl,
+  libopus,
+  boost,
+  pkg-config,
+  libdrm,
+  wayland,
+  libffi,
+  libcap,
+  mesa,
+  curl,
+  pcre,
+  pcre2,
+  libuuid,
+  libselinux,
+  libsepol,
+  libthai,
+  libdatrie,
+  libxkbcommon,
+  libepoxy,
+  libva,
+  libvdpau,
+  numactl,
+  amf-headers,
+  intel-media-sdk,
+  svt-av1,
+  vulkan-loader,
+  libappindicator,
+  libnotify,
+  config,
+  cudaSupport ? config.cudaSupport,
+  cudaPackages ? { },
 }:
 stdenv.mkDerivation rec {
   pname = "sunshine";
@@ -78,53 +79,50 @@ stdenv.mkDerivation rec {
     pkg-config
     autoPatchelfHook
     makeWrapper
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.autoAddOpenGLRunpathHook
-  ];
+  ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
 
-  buildInputs = [
-    avahi
-    libevdev
-    libpulseaudio
-    xorg.libX11
-    libxcb
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libXtst
-    xorg.libXi
-    openssl
-    libopus
-    boost
-    libdrm
-    wayland
-    libffi
-    libevdev
-    libcap
-    libdrm
-    curl
-    pcre
-    pcre2
-    libuuid
-    libselinux
-    libsepol
-    libthai
-    libdatrie
-    xorg.libXdmcp
-    libxkbcommon
-    libepoxy
-    libva
-    libvdpau
-    numactl
-    mesa
-    amf-headers
-    svt-av1
-    libappindicator
-    libnotify
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.cudatoolkit
-  ] ++ lib.optionals stdenv.isx86_64 [
-    intel-media-sdk
-  ];
+  buildInputs =
+    [
+      avahi
+      libevdev
+      libpulseaudio
+      xorg.libX11
+      libxcb
+      xorg.libXfixes
+      xorg.libXrandr
+      xorg.libXtst
+      xorg.libXi
+      openssl
+      libopus
+      boost
+      libdrm
+      wayland
+      libffi
+      libevdev
+      libcap
+      libdrm
+      curl
+      pcre
+      pcre2
+      libuuid
+      libselinux
+      libsepol
+      libthai
+      libdatrie
+      xorg.libXdmcp
+      libxkbcommon
+      libepoxy
+      libva
+      libvdpau
+      numactl
+      mesa
+      amf-headers
+      svt-av1
+      libappindicator
+      libnotify
+    ]
+    ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
+    ++ lib.optionals stdenv.isx86_64 [ intel-media-sdk ];
 
   runtimeDependencies = [
     avahi
@@ -133,9 +131,7 @@ stdenv.mkDerivation rec {
     libxcb
   ];
 
-  cmakeFlags = [
-    "-Wno-dev"
-  ];
+  cmakeFlags = [ "-Wno-dev" ];
 
   postPatch = ''
     # fix hardcoded libevdev path

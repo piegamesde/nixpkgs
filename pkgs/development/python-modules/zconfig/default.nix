@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchPypi
-, buildPythonPackage
-, zope_testrunner
-, manuel
-, docutils
-, pygments
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  buildPythonPackage,
+  zope_testrunner,
+  manuel,
+  docutils,
+  pygments,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +20,10 @@ buildPythonPackage rec {
 
   patches = lib.optional stdenv.hostPlatform.isMusl ./remove-setlocale-test.patch;
 
-  buildInputs = [ manuel docutils ];
+  buildInputs = [
+    manuel
+    docutils
+  ];
   propagatedBuildInputs = [ zope_testrunner ];
   nativeCheckInputs = [ pygments ];
 

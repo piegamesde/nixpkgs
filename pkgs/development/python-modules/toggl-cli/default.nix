@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, click
-, click-completion
-, factory-boy
-, faker
-, fetchPypi
-, inquirer
-, notify-py
-, pbr
-, pendulum
-, ptable
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, twine
-, validate-email
+{
+  lib,
+  buildPythonPackage,
+  click,
+  click-completion,
+  factory-boy,
+  faker,
+  fetchPypi,
+  inquirer,
+  notify-py,
+  pbr,
+  pendulum,
+  ptable,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  twine,
+  validate-email,
 }:
 
 buildPythonPackage rec {
@@ -79,9 +80,7 @@ buildPythonPackage rec {
     "test_now"
   ];
 
-  pythonImportsCheck = [
-    "toggl"
-  ];
+  pythonImportsCheck = [ "toggl" ];
 
   meta = with lib; {
     description = "Command line tool and set of Python wrapper classes for interacting with toggl's API";

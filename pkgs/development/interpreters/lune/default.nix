@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, darwin
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,13 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-kPBPxlsicoFDyOsuJWhvQHDC2uwYQqpd7S+kQPRd8DY=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   checkFlags = [
     # these all require internet access

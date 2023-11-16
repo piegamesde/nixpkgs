@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, docutils
-, pkg-config
-, freetype
-, pango
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  docutils,
+  pkg-config,
+  freetype,
+  pango,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,13 +19,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-2BSbnziwlilYio9CF4MTlj0GVlkSpL8jeaqvLIBCeLQ=";
   };
 
-  configureFlags = [
-    "--INSTALL=install"
+  configureFlags = [ "--INSTALL=install" ];
+
+  nativeBuildInputs = [
+    docutils
+    pkg-config
   ];
 
-  nativeBuildInputs = [ docutils pkg-config ];
-
-  buildInputs = [ freetype pango ];
+  buildInputs = [
+    freetype
+    pango
+  ];
 
   meta = with lib; {
     homepage = "http://moinejf.free.fr/";

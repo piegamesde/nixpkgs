@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, libiconv
-, buildGoModule
-, pkg-config
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  libiconv,
+  buildGoModule,
+  pkg-config,
 }:
 
 let
@@ -19,16 +20,17 @@ let
       rev = "v${libflux_version}";
       hash = "sha256-v9MUR+PcxAus91FiHYrMN9MbNOTWewh7MT6/t/QWQcM=";
     };
-    patches = [
-      # https://github.com/influxdata/flux/pull/5273
-      # fix compile error with Rust 1.64
-      (fetchpatch {
-        url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
-        stripLen = 2;
-        extraPrefix = "";
-        hash = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
-      })
-    ];
+    patches =
+      [
+        # https://github.com/influxdata/flux/pull/5273
+        # fix compile error with Rust 1.64
+        (fetchpatch {
+          url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
+          stripLen = 2;
+          extraPrefix = "";
+          hash = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
+        })
+      ];
     sourceRoot = "${src.name}/libflux";
     cargoSha256 = "sha256-oAMoGGdR0QEjSzZ0/J5J9s/ekSlryCcRBSo5N2r70Ko=";
     nativeBuildInputs = [ rustPlatform.bindgenHook ];
@@ -41,14 +43,16 @@ let
       Libs: -L/out/lib -lflux -lpthread
     '';
     passAsFile = [ "pkgcfg" ];
-    postInstall = ''
-      mkdir -p $out/include $out/pkgconfig
-      cp -r $NIX_BUILD_TOP/source/libflux/include/influxdata $out/include
-      substitute $pkgcfgPath $out/pkgconfig/flux.pc \
-        --replace /out $out
-    '' + lib.optionalString stdenv.isDarwin ''
-      install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
-    '';
+    postInstall =
+      ''
+        mkdir -p $out/include $out/pkgconfig
+        cp -r $NIX_BUILD_TOP/source/libflux/include/influxdata $out/include
+        substitute $pkgcfgPath $out/pkgconfig/flux.pc \
+          --replace /out $out
+      ''
+      + lib.optionalString stdenv.isDarwin ''
+        install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
+      '';
   };
 in
 buildGoModule rec {
@@ -88,6 +92,9 @@ buildGoModule rec {
     downloadPage = "https://github.com/influxdata/kapacitor/releases";
     license = licenses.mit;
     changelog = "https://github.com/influxdata/kapacitor/blob/master/CHANGELOG.md";
-    maintainers = with maintainers; [ offline totoroot ];
+    maintainers = with maintainers; [
+      offline
+      totoroot
+    ];
   };
 }

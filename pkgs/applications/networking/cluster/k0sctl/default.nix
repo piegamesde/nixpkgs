@@ -1,7 +1,8 @@
-{ lib
-, buildGo121Module
-, fetchFromGitHub
-, installShellFiles
+{
+  lib,
+  buildGo121Module,
+  fetchFromGitHub,
+  installShellFiles,
 }:
 
 buildGo121Module rec {
@@ -42,6 +43,9 @@ buildGo121Module rec {
     homepage = "https://k0sproject.io/";
     license = licenses.asl20;
     mainProgram = pname;
-    maintainers = with maintainers; [ nickcao qjoly ];
+    maintainers = with maintainers; [
+      nickcao
+      qjoly
+    ];
   };
 }

@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, xorg, libsForQt5, wrapQtAppsHook, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  xorg,
+  libsForQt5,
+  wrapQtAppsHook,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "lenovo-legion-app";
@@ -52,4 +59,3 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "legion_gui";
   };
 }
-

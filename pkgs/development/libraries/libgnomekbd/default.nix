@@ -1,25 +1,31 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, glib
-, gtk3
-, libxklavier
-, wrapGAppsHook
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  glib,
+  gtk3,
+  libxklavier,
+  wrapGAppsHook,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libgnomekbd";
   version = "3.28.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "ItxZVm1zwAZTUPWpc0DmLsx7CMTfGRg4BLuL4kyP6HA=";
   };
 

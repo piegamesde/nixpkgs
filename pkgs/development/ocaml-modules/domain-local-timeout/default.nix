@@ -1,7 +1,14 @@
-{ lib, buildDunePackage, ocaml, fetchurl
-, mtime, psq, thread-table
-, alcotest, mdx
-, domain-local-await
+{
+  lib,
+  buildDunePackage,
+  ocaml,
+  fetchurl,
+  mtime,
+  psq,
+  thread-table,
+  alcotest,
+  mdx,
+  domain-local-await,
 }:
 
 buildDunePackage rec {
@@ -15,11 +22,19 @@ buildDunePackage rec {
     hash = "sha256-UTqcHdGAN/LrvumPhW4Cy6RY8RJ/iVO5zTJKrhPRTjk=";
   };
 
-  propagatedBuildInputs = [ mtime psq thread-table ];
+  propagatedBuildInputs = [
+    mtime
+    psq
+    thread-table
+  ];
 
   doCheck = lib.versionAtLeast ocaml.version "5.0";
   nativeCheckInputs = [ mdx.bin ];
-  checkInputs = [ alcotest domain-local-await mdx ];
+  checkInputs = [
+    alcotest
+    domain-local-await
+    mdx
+  ];
 
   meta = {
     homepage = "https://github.com/ocaml-multicore/domain-local-timeout";

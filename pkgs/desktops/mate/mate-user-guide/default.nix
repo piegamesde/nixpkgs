@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, gettext
-, itstool
-, libxml2
-, yelp
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  itstool,
+  libxml2,
+  yelp,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +14,9 @@ stdenv.mkDerivation rec {
   version = "1.26.2";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "TTK241ZKyPTqqysVSC33+XaXUN+IEavtg30KLn7jgIs=";
   };
 
@@ -23,9 +26,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  buildInputs = [
-    yelp
-  ];
+  buildInputs = [ yelp ];
 
   postPatch = ''
     substituteInPlace mate-user-guide.desktop.in.in \
@@ -39,7 +40,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "MATE User Guide";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ gpl2Plus fdl11Plus ];
+    license = with licenses; [
+      gpl2Plus
+      fdl11Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

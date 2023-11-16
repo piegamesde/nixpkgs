@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix (
+  { lib, ... }:
   {
     name = "nzbhydra2";
     meta.maintainers = with lib.maintainers; [ jamiemagee ];
@@ -11,4 +12,5 @@ import ./make-test-python.nix ({ lib, ... }:
       machine.wait_for_open_port(5076)
       machine.succeed("curl --fail http://localhost:5076/")
     '';
-  })
+  }
+)

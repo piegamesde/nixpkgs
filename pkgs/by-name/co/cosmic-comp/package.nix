@@ -1,17 +1,18 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, makeBinaryWrapper
-, pkg-config
-, libinput
-, libglvnd
-, libxkbcommon
-, mesa
-, seatd
-, udev
-, xwayland
-, wayland
-, xorg
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeBinaryWrapper,
+  pkg-config,
+  libinput,
+  libglvnd,
+  libxkbcommon,
+  mesa,
+  seatd,
+  udev,
+  xwayland,
+  wayland,
+  xorg,
 }:
 
 rustPlatform.buildRustPackage {
@@ -40,8 +41,19 @@ rustPlatform.buildRustPackage {
 
   separateDebugInfo = true;
 
-  nativeBuildInputs = [ makeBinaryWrapper pkg-config ];
-  buildInputs = [ libglvnd libinput libxkbcommon mesa seatd udev wayland ];
+  nativeBuildInputs = [
+    makeBinaryWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    libglvnd
+    libinput
+    libxkbcommon
+    mesa
+    seatd
+    udev
+    wayland
+  ];
 
   # Force linking to libEGL, which is always dlopen()ed, and to
   # libwayland-client, which is always dlopen()ed except by the
@@ -57,9 +69,14 @@ rustPlatform.buildRustPackage {
   # be the common case, so just make them available, don't link them.
   postInstall = ''
     wrapProgram $out/bin/cosmic-comp \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
-        xorg.libX11 xorg.libXcursor xorg.libXi xorg.libXrandr
-      ]} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          xorg.libX11
+          xorg.libXcursor
+          xorg.libXi
+          xorg.libXrandr
+        ]
+      } \
       --prefix PATH : ${lib.makeBinPath [ xwayland ]}
   '';
 
@@ -67,7 +84,10 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/pop-os/cosmic-comp";
     description = "Compositor for the COSMIC Desktop Environment";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ qyliss nyanbinary ];
+    maintainers = with maintainers; [
+      qyliss
+      nyanbinary
+    ];
     platforms = platforms.linux;
   };
 }

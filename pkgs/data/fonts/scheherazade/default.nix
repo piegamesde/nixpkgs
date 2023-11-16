@@ -1,19 +1,28 @@
-{ lib, stdenvNoCC, fetchzip, version ? "4.000" }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  version ? "4.000",
+}:
 
 let
   new = lib.versionAtLeast version "3.000";
-  hash = {
-    "2.100" = "sha256-d2UyOOOnmE1afCwyIrM1bL3lQC7XRwh03hzetk/4V30=";
-    "3.300" = "sha256-LaaA6DWAE2dcwVVX4go9cJaiuwI6efYbPk82ym3W3IY=";
-    "4.000" = "sha256-FhgHlHCfojIl3Y11EDYhNTmLYwQ60OrwnA9nbZbZGJE=";
-  }."${version}";
+  hash =
+    {
+      "2.100" = "sha256-d2UyOOOnmE1afCwyIrM1bL3lQC7XRwh03hzetk/4V30=";
+      "3.300" = "sha256-LaaA6DWAE2dcwVVX4go9cJaiuwI6efYbPk82ym3W3IY=";
+      "4.000" = "sha256-FhgHlHCfojIl3Y11EDYhNTmLYwQ60OrwnA9nbZbZGJE=";
+    }
+    ."${version}";
   pname = "scheherazade${lib.optionalString new "-new"}";
 in
 stdenvNoCC.mkDerivation rec {
   inherit pname version;
 
   src = fetchzip {
-    url = "http://software.sil.org/downloads/r/scheherazade/Scheherazade${lib.optionalString new "New"}-${version}.zip";
+    url = "http://software.sil.org/downloads/r/scheherazade/Scheherazade${
+        lib.optionalString new "New"
+      }-${version}.zip";
     inherit hash;
   };
 

@@ -1,11 +1,12 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, installShellFiles
-, dbus
-, libseccomp
-, systemd
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  installShellFiles,
+  dbus,
+  libseccomp,
+  systemd,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,9 +20,16 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-XoHGRCGLEG/a6gb+3ejYoeOuIml64U/p6CcxsFLoTWY=";
   };
 
-  nativeBuildInputs = [ pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
 
-  buildInputs = [ dbus libseccomp systemd ];
+  buildInputs = [
+    dbus
+    libseccomp
+    systemd
+  ];
 
   postInstall = ''
     installShellCompletion --cmd youki \
@@ -30,8 +38,14 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/youki completion -s zsh)
   '';
 
-  cargoBuildFlags = [ "-p" "youki" ];
-  cargoTestFlags = [ "-p" "youki" ];
+  cargoBuildFlags = [
+    "-p"
+    "youki"
+  ];
+  cargoTestFlags = [
+    "-p"
+    "youki"
+  ];
 
   cargoHash = "sha256-L5IhOPo8BDQAvaSs3IJzJHN0TbgmUcEyv60IDLN4kn0=";
 
@@ -40,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://containers.github.io/youki/";
     changelog = "https://github.com/containers/youki/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.linux;
   };
 }

@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, aio-geojson-client
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  aio-geojson-client,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "aio_geojson_generic_client"
-  ];
+  pythonImportsCheck = [ "aio_geojson_generic_client" ];
 
   meta = with lib; {
     description = "Python library for accessing GeoJSON feeds";

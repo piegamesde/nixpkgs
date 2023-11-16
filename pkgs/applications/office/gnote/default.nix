@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, desktop-file-utils
-, gettext
-, gspell
-, gtkmm3
-, itstool
-, libsecret
-, libuuid
-, libxml2
-, libxslt
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  desktop-file-utils,
+  gettext,
+  gspell,
+  gtkmm3,
+  itstool,
+  libsecret,
+  libuuid,
+  libxml2,
+  libxslt,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
@@ -46,9 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libarcus, stb, protobuf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libarcus,
+  stb,
+  protobuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "curaengine";
@@ -12,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libarcus stb protobuf ];
+  buildInputs = [
+    libarcus
+    stb
+    protobuf
+  ];
 
   cmakeFlags = [ "-DCURA_ENGINE_VERSION=${version}" ];
 
@@ -21,6 +33,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Ultimaker/CuraEngine";
     license = licenses.agpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar gebner ];
+    maintainers = with maintainers; [
+      abbradar
+      gebner
+    ];
   };
 }

@@ -1,42 +1,48 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, python3
-, gobject-introspection
-, gtk-doc
-, docbook_xsl
-, docbook_xml_dtd_412
-, glib
-, gupnp-igd
-, gst_all_1
-, gnutls
-, graphviz
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  glib,
+  gupnp-igd,
+  gst_all_1,
+  gnutls,
+  graphviz,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libnice";
   version = "0.1.21";
 
-  outputs = [ "bin" "out" "dev" ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "https://libnice.freedesktop.org/releases/${pname}-${version}.tar.gz";
     hash = "sha256-cuc6Ks8g9ZCT4h1WAWBuQFhzUD6zXzRvpiHeI+mbOzk=";
   };
 
-  patches = [
-    # Fix generating data
-    # Note: upstream is not willing to merge our fix
-    # https://gitlab.freedesktop.org/libnice/libnice/merge_requests/35#note_98871
-    (fetchpatch {
-      url = "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch";
-      sha256 = "0z74vizf92flfw1m83p7yz824vfykmnm0xbnk748bnnyq186i6mg";
-    })
-  ];
+  patches =
+    [
+      # Fix generating data
+      # Note: upstream is not willing to merge our fix
+      # https://gitlab.freedesktop.org/libnice/libnice/merge_requests/35#note_98871
+      (fetchpatch {
+        url = "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch";
+        sha256 = "0z74vizf92flfw1m83p7yz824vfykmnm0xbnk748bnnyq186i6mg";
+      })
+    ];
 
   nativeBuildInputs = [
     meson
@@ -59,9 +65,7 @@ stdenv.mkDerivation rec {
     gupnp-igd
   ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
   mesonFlags = [
     "-Dgtk_doc=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"}"
@@ -84,6 +88,9 @@ stdenv.mkDerivation rec {
       libstun as well as GStreamer elements.'';
     homepage = "https://libnice.freedesktop.org/";
     platforms = platforms.unix;
-    license = with licenses; [ lgpl21 mpl11 ];
+    license = with licenses; [
+      lgpl21
+      mpl11
+    ];
   };
 }

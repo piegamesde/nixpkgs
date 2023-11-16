@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, click
-, fetchPypi
-, freezegun
-, hatchling
-, mock
-, pytest-vcr
-, pytestCheckHook
-, python-dateutil
-, pythonAtLeast
-, pythonOlder
-, requests
-, vcrpy
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchPypi,
+  freezegun,
+  hatchling,
+  mock,
+  pytest-vcr,
+  pytestCheckHook,
+  python-dateutil,
+  pythonAtLeast,
+  pythonOlder,
+  requests,
+  vcrpy,
 }:
 
 buildPythonPackage rec {
@@ -26,13 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-R747LD1wmn9bcJ6xJu1P5sx5d9YY/lwVjdicKp99mRY=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -46,20 +43,17 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  disabledTestPaths = [
-    "tests/performance"
-  ];
+  disabledTestPaths = [ "tests/performance" ];
 
-  disabledTests = [
-    "test_default_settings_set"
-  ] ++ lib.optionals (pythonAtLeast "3.11") [
-    # https://github.com/DataDog/datadogpy/issues/746
-    "TestDogshell"
-  ];
+  disabledTests =
+    [ "test_default_settings_set" ]
+    ++ lib.optionals (pythonAtLeast "3.11")
+      [
+        # https://github.com/DataDog/datadogpy/issues/746
+        "TestDogshell"
+      ];
 
-  pythonImportsCheck = [
-    "datadog"
-  ];
+  pythonImportsCheck = [ "datadog" ];
 
   meta = with lib; {
     description = "The Datadog Python library";

@@ -1,24 +1,22 @@
 import ./make-test-python.nix (
-  {pkgs, ...}: let
+  { pkgs, ... }:
+  let
     sshKeys = import (pkgs.path + "/nixos/tests/ssh-keys.nix") pkgs;
     sshUsername = "any-user";
     serverName = "server";
     clientName = "client";
     sshAuditPort = 2222;
-  in {
+  in
+  {
     name = "ssh";
 
     nodes = {
       "${serverName}" = {
-        networking.firewall.allowedTCPPorts = [
-          sshAuditPort
-        ];
+        networking.firewall.allowedTCPPorts = [ sshAuditPort ];
         services.openssh.enable = true;
         users.users."${sshUsername}" = {
           isNormalUser = true;
-          openssh.authorizedKeys.keys = [
-            sshKeys.snakeOilPublicKey
-          ];
+          openssh.authorizedKeys.keys = [ sshKeys.snakeOilPublicKey ];
         };
       };
       "${clientName}" = {
@@ -90,10 +88,14 @@ import ./make-test-python.nix (
 
       # Should pass SSH client audit
       service_name = "ssh-audit.service"
-      ${serverName}.succeed(f"systemd-run --unit={service_name} ${pkgs.ssh-audit}/bin/ssh-audit --client-audit --port=${toString sshAuditPort}")
+      ${serverName}.succeed(f"systemd-run --unit={service_name} ${pkgs.ssh-audit}/bin/ssh-audit --client-audit --port=${
+        toString sshAuditPort
+      }")
       ${clientName}.sleep(5) # We can't use wait_for_open_port because ssh-audit exits as soon as anything talks to it
       ${clientName}.execute(
-          f"ssh {ssh_options} -i privkey.snakeoil -p ${toString sshAuditPort} ${sshUsername}@${serverName} true",
+          f"ssh {ssh_options} -i privkey.snakeoil -p ${
+            toString sshAuditPort
+          } ${sshUsername}@${serverName} true",
           check_return=False,
           timeout=10
       )

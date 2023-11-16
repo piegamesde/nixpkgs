@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, cython
-, oldest-supported-numpy
-, setuptools
-, setuptools-scm
-, numpy
-, pandas
-, cramjam
-, fsspec
-, thrift
-, python-lzo
-, pytestCheckHook
-, pythonOlder
-, packaging
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  cython,
+  oldest-supported-numpy,
+  setuptools,
+  setuptools-scm,
+  numpy,
+  pandas,
+  cramjam,
+  fsspec,
+  thrift,
+  python-lzo,
+  pytestCheckHook,
+  pythonOlder,
+  packaging,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -61,14 +62,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    lzo = [
-      python-lzo
-    ];
+    lzo = [ python-lzo ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Workaround https://github.com/NixOS/nixpkgs/issues/123561
   preCheck = ''
@@ -82,9 +79,7 @@ buildPythonPackage rec {
     rm "$fastparquet_test"
   '';
 
-  pythonImportsCheck = [
-    "fastparquet"
-  ];
+  pythonImportsCheck = [ "fastparquet" ];
 
   meta = with lib; {
     description = "A python implementation of the parquet format";

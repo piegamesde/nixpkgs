@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, python
-, fetchurl
-, anki
+{
+  lib,
+  stdenv,
+  python,
+  fetchurl,
+  anki,
 }:
 
 python.pkgs.buildPythonApplication rec {
@@ -10,7 +11,7 @@ python.pkgs.buildPythonApplication rec {
   version = "2.7.2";
 
   src = fetchurl {
-    url    = "mirror://sourceforge/project/mnemosyne-proj/mnemosyne/mnemosyne-${version}/Mnemosyne-${version}.tar.gz";
+    url = "mirror://sourceforge/project/mnemosyne-proj/mnemosyne/mnemosyne-${version}/Mnemosyne-${version}.tar.gz";
     sha256 = "09yp9zc00xrc9dmjbsscnkb3hsv3yj46sxikc0r6s9cbghn3nypy";
   };
 
@@ -45,9 +46,7 @@ python.pkgs.buildPythonApplication rec {
 
   dontWrapQtApps = true;
 
-  makeWrapperArgs = [
-    "\${qtWrapperArgs[@]}"
-  ];
+  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
 
   meta = {
     homepage = "https://mnemosyne-proj.org/";

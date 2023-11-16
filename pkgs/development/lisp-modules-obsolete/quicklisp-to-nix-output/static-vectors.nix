@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "static-vectors";
   version = "v1.8.9";
@@ -8,7 +8,15 @@ rec {
 
   description = "Create vectors allocated in static memory.";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."cffi-grovel" args."cffi-toolchain" args."fiveam" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."cffi-grovel"
+    args."cffi-toolchain"
+    args."fiveam"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/static-vectors/2021-06-30/static-vectors-v1.8.9.tgz";
@@ -17,7 +25,7 @@ rec {
 
   packageName = "static-vectors";
 
-  asdFilesToKeep = ["static-vectors.asd"];
+  asdFilesToKeep = [ "static-vectors.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM static-vectors DESCRIPTION
@@ -33,4 +41,5 @@ rec {
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES
     (alexandria babel cffi cffi-grovel cffi-toolchain fiveam trivial-features)
-    VERSION v1.8.9 SIBLINGS NIL PARASITES (static-vectors/test)) */
+    VERSION v1.8.9 SIBLINGS NIL PARASITES (static-vectors/test))
+*/

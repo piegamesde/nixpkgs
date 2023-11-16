@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, dateutils
-, fetchFromGitHub
-, poetry-core
-, pyaml
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  dateutils,
+  fetchFromGitHub,
+  poetry-core,
+  pyaml,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-96/EjDh5XcTsfUcTnsltsT6LMYbyKuM/eNyeq2Pukfo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     dateutils
@@ -33,9 +32,7 @@ buildPythonPackage rec {
   # Module has no unit tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "thelogrus"
-  ];
+  pythonImportsCheck = [ "thelogrus" ];
 
   meta = with lib; {
     description = "Python 3 version of logrus";

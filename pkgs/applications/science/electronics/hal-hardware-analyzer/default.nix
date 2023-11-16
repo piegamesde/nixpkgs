@@ -1,55 +1,62 @@
-{ lib
-, stdenv
-, boost
-, cmake
-, fetchFromGitHub
-, fetchpatch
-, graphviz
-, igraph
-, llvmPackages
-, ninja
-, pkg-config
-, python3Packages
-, qtbase
-, qtsvg
-, quazip
-, rapidjson
-, spdlog
-, suitesparse
-, wrapQtAppsHook
-, z3
+{
+  lib,
+  stdenv,
+  boost,
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  graphviz,
+  igraph,
+  llvmPackages,
+  ninja,
+  pkg-config,
+  python3Packages,
+  qtbase,
+  qtsvg,
+  quazip,
+  rapidjson,
+  spdlog,
+  suitesparse,
+  wrapQtAppsHook,
+  z3,
 }:
 
 let
   # hal doesn't work with igraph 0.10.x yet https://github.com/emsec/hal/pull/487
-  igraph' = igraph.overrideAttrs (final: prev: {
-    version = "0.9.10";
-    src = fetchFromGitHub {
-      owner = "igraph";
-      repo = final.pname;
-      rev = final.version;
-      hash = "sha256-prDadHsNhDRkNp1i0niKIYxE0g85Zs0ngvUy6uK8evk=";
-    };
-    patches = (prev.patches or []) ++ [
-      # needed by clang
-      (fetchpatch {
-        name = "libxml2-2.11-compat.patch";
-        url = "https://github.com/igraph/igraph/commit/5ad464be5ae2f6ebb69c97cb0140c800cc8d97d6.patch";
-        hash = "sha256-adU5SctH+H54UaAmr5BZInytD3wjUzLtQbCwngAWs4o=";
-      })
-    ];
-    postPatch = prev.postPatch + lib.optionalString stdenv.isAarch64 ''
-      # https://github.com/igraph/igraph/issues/1694
-      substituteInPlace tests/CMakeLists.txt \
-        --replace "igraph_scg_grouping3" "" \
-        --replace "igraph_scg_semiprojectors2" ""
-    '';
-    # general options brought back from the old 0.9.x package
-    buildInputs = prev.buildInputs ++ [ suitesparse ];
-    cmakeFlags = prev.cmakeFlags ++ [ "-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF" ];
-  });
-
-in stdenv.mkDerivation rec {
+  igraph' = igraph.overrideAttrs (
+    final: prev: {
+      version = "0.9.10";
+      src = fetchFromGitHub {
+        owner = "igraph";
+        repo = final.pname;
+        rev = final.version;
+        hash = "sha256-prDadHsNhDRkNp1i0niKIYxE0g85Zs0ngvUy6uK8evk=";
+      };
+      patches =
+        (prev.patches or [ ])
+        ++ [
+          # needed by clang
+          (fetchpatch {
+            name = "libxml2-2.11-compat.patch";
+            url = "https://github.com/igraph/igraph/commit/5ad464be5ae2f6ebb69c97cb0140c800cc8d97d6.patch";
+            hash = "sha256-adU5SctH+H54UaAmr5BZInytD3wjUzLtQbCwngAWs4o=";
+          })
+        ];
+      postPatch =
+        prev.postPatch
+        + lib.optionalString stdenv.isAarch64 ''
+          # https://github.com/igraph/igraph/issues/1694
+          substituteInPlace tests/CMakeLists.txt \
+            --replace "igraph_scg_grouping3" "" \
+            --replace "igraph_scg_semiprojectors2" ""
+        '';
+      # general options brought back from the old 0.9.x package
+      buildInputs = prev.buildInputs ++ [ suitesparse ];
+      cmakeFlags = prev.cmakeFlags ++ [ "-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF" ];
+    }
+  );
+in
+stdenv.mkDerivation rec {
   version = "4.2.0";
   pname = "hal-hardware-analyzer";
 
@@ -89,20 +96,25 @@ in stdenv.mkDerivation rec {
     pkg-config
     wrapQtAppsHook
   ];
-  buildInputs = [
-    qtbase
-    qtsvg
-    boost
-    rapidjson
-    igraph'
-    spdlog
-    graphviz
-    z3
-    quazip
-  ]
-  ++ (with python3Packages; [ python pybind11 ])
-  ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-  ;
+  buildInputs =
+    [
+      qtbase
+      qtsvg
+      boost
+      rapidjson
+      igraph'
+      spdlog
+      graphviz
+      z3
+      quazip
+    ]
+    ++ (
+      with python3Packages; [
+        python
+        pybind11
+      ]
+    )
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   cmakeFlags = with lib.versions; [
     "-DHAL_VERSION_RETURN=${version}"
@@ -137,6 +149,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/emsec/hal";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ris shamilton ];
+    maintainers = with maintainers; [
+      ris
+      shamilton
+    ];
   };
 }

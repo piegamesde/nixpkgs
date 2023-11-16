@@ -1,4 +1,13 @@
-{ lib, mkDerivation, fetchFromGitHub, qtbase, qtwebengine, qtwebkit, qmake, minizinc }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qtbase,
+  qtwebengine,
+  qtwebkit,
+  qmake,
+  minizinc,
+}:
 
 mkDerivation rec {
   pname = "minizinc-ide";
@@ -13,7 +22,11 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtwebengine qtwebkit ];
+  buildInputs = [
+    qtbase
+    qtwebengine
+    qtwebkit
+  ];
 
   sourceRoot = "${src.name}/MiniZincIDE";
 

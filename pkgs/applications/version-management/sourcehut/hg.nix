@@ -1,13 +1,14 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, srht
-, python-hglib
-, scmsrht
-, unidiff
-, python
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  python-hglib,
+  scmsrht,
+  unidiff,
+  python,
+  unzip,
 }:
 
 buildPythonPackage rec {
@@ -30,12 +31,15 @@ buildPythonPackage rec {
       --replace /var/log/hgsrht-shell /var/log/sourcehut/hgsrht-shell
   '';
 
-  hgsrht-api = buildGoModule ({
-    inherit src version;
-    pname = "hgsrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-vuOYpnF3WjA6kOe9MVSuVMhJBQqCmIex+QUBJrP+VDs=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  hgsrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "hgsrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-vuOYpnF3WjA6kOe9MVSuVMhJBQqCmIex+QUBJrP+VDs=";
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   hgsrht-keys = buildGoModule {
     inherit src version;

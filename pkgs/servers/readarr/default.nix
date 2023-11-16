@@ -1,18 +1,35 @@
-{ lib, stdenv, fetchurl, libmediainfo, sqlite, curl, makeWrapper, icu, dotnet-runtime, openssl, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libmediainfo,
+  sqlite,
+  curl,
+  makeWrapper,
+  icu,
+  dotnet-runtime,
+  openssl,
+  nixosTests,
+}:
 
 let
   os = if stdenv.isDarwin then "osx" else "linux";
-  arch = {
-    x86_64-linux = "x64";
-    aarch64-linux = "arm64";
-    x86_64-darwin = "x64";
-  }."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-  hash = {
-    x64-linux_hash = "sha256-XWKslumO6o0kn9JMFTTuDTDALX6r4rzEyFFj2w13cYc=";
-    arm64-linux_hash = "sha256-rsgyTgSW1w/zrXbOvwbJ8KTRK6HheKpACoR3Tjw5z+k=";
-    x64-osx_hash = "sha256-tJkYWvJfxF2zMl1TEG5qhoV2qKya0bzIitNVIaeRLSI=";
-  }."${arch}-${os}_hash";
-in stdenv.mkDerivation rec {
+  arch =
+    {
+      x86_64-linux = "x64";
+      aarch64-linux = "arm64";
+      x86_64-darwin = "x64";
+    }
+    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  hash =
+    {
+      x64-linux_hash = "sha256-XWKslumO6o0kn9JMFTTuDTDALX6r4rzEyFFj2w13cYc=";
+      arm64-linux_hash = "sha256-rsgyTgSW1w/zrXbOvwbJ8KTRK6HheKpACoR3Tjw5z+k=";
+      x64-osx_hash = "sha256-tJkYWvJfxF2zMl1TEG5qhoV2qKya0bzIitNVIaeRLSI=";
+    }
+    ."${arch}-${os}_hash";
+in
+stdenv.mkDerivation rec {
   pname = "readarr";
   version = "0.3.10.2287";
 
@@ -30,11 +47,18 @@ in stdenv.mkDerivation rec {
     cp -r * $out/share/${pname}-${version}/.
     makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Readarr \
       --add-flags "$out/share/${pname}-${version}/Readarr.dll" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ curl sqlite libmediainfo icu openssl ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          curl
+          sqlite
+          libmediainfo
+          icu
+          openssl
+        ]
+      }
 
     runHook postInstall
   '';
-
 
   passthru = {
     updateScript = ./update.sh;
@@ -48,7 +72,10 @@ in stdenv.mkDerivation rec {
     maintainers = [ maintainers.jocelynthode ];
     mainProgram = "Readarr";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ];
   };
 }
-

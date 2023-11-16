@@ -1,46 +1,43 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, opencv4
-, ceres-solver
-, suitesparse
-, metis
-, eigen
-, pkg-config
-, pybind11
-, numpy
-, pyyaml
-, lapack
-, gtest
-, gflags
-, glog
-, pytestCheckHook
-, networkx
-, pillow
-, exifread
-, gpxpy
-, pyproj
-, python-dateutil
-, joblib
-, repoze_lru
-, xmltodict
-, cloudpickle
-, scipy
-, sphinx
-, matplotlib
-, fpdf
-,
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  opencv4,
+  ceres-solver,
+  suitesparse,
+  metis,
+  eigen,
+  pkg-config,
+  pybind11,
+  numpy,
+  pyyaml,
+  lapack,
+  gtest,
+  gflags,
+  glog,
+  pytestCheckHook,
+  networkx,
+  pillow,
+  exifread,
+  gpxpy,
+  pyproj,
+  python-dateutil,
+  joblib,
+  repoze_lru,
+  xmltodict,
+  cloudpickle,
+  scipy,
+  sphinx,
+  matplotlib,
+  fpdf,
 }:
 
 let
   ceresSplit = (builtins.length ceres-solver.outputs) > 1;
-  ceres' =
-    if ceresSplit
-    then ceres-solver.dev
-    else ceres-solver;
+  ceres' = if ceresSplit then ceres-solver.dev else ceres-solver;
 in
 buildPythonPackage rec {
   pname = "OpenSfM";
@@ -69,7 +66,11 @@ buildPythonPackage rec {
     echo 'feature_type: HAHOG' >> data/lund/config.yaml
   '';
 
-  nativeBuildInputs = [ cmake pkg-config sphinx ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    sphinx
+  ];
   buildInputs = [
     ceres'
     suitesparse

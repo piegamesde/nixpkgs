@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gpytorch
-, linear_operator
-, multipledispatch
-, pyro-ppl
-, setuptools
-, setuptools-scm
-, wheel
-, torch
-, scipy
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gpytorch,
+  linear_operator,
+  multipledispatch,
+  pyro-ppl,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  torch,
+  scipy,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -42,9 +43,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "botorch" ];
 
   meta = with lib; {

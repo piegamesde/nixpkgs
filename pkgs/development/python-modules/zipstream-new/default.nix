@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -16,13 +17,9 @@ buildPythonPackage rec {
     sha256 = "14vhgg8mcjqi8cpzrw8qzbij2fr2a63l2a8fhil21k2r8vzv92cv";
   };
 
-  pythonImportsCheck = [
-    "zipstream"
-  ];
+  pythonImportsCheck = [ "zipstream" ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   checkPhase = ''
     runHook preCheck

@@ -1,7 +1,13 @@
-{ lib, stdenv, fetchFromGitHub
-, autoreconfHook, pkg-config
-, gnutls
-, cunit, ncurses, knot-dns
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gnutls,
+  cunit,
+  ncurses,
+  knot-dns,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,17 +21,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z8rMujmshdes5SLU5GpXu6QzAHl957sFDK+QSdGYCOc=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ gnutls ];
 
   configureFlags = [ "--with-gnutls=yes" ];
   enableParallelBuilding = true;
 
   doCheck = true;
-  nativeCheckInputs = [ cunit ]
-    ++ lib.optional stdenv.isDarwin ncurses;
+  nativeCheckInputs = [ cunit ] ++ lib.optional stdenv.isDarwin ncurses;
 
   passthru.tests = knot-dns.passthru.tests; # the only consumer so far
 
@@ -34,20 +45,20 @@ stdenv.mkDerivation rec {
     description = "an effort to implement RFC9000 QUIC protocol.";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vcunat/* for knot-dns */ ];
+    maintainers = with maintainers; [
+      vcunat # for knot-dns
+    ];
   };
 }
 
-/*
-  Why split from ./default.nix?
+/* Why split from ./default.nix?
 
-  ngtcp2 libs contain helpers to plug into various crypto libs (gnutls, patched openssl, ...).
-  Building multiple of them while keeping closures separable would be relatively complicated.
-  Separating the builds is easier for now; the missed opportunity to share the 0.3--0.4 MB
-  library isn't such a big deal.
+   ngtcp2 libs contain helpers to plug into various crypto libs (gnutls, patched openssl, ...).
+   Building multiple of them while keeping closures separable would be relatively complicated.
+   Separating the builds is easier for now; the missed opportunity to share the 0.3--0.4 MB
+   library isn't such a big deal.
 
-  Moreover upstream still commonly does incompatible changes, so agreeing
-  on a single version might be hard sometimes.  That's why it seemed simpler
-  to completely separate the nix expressions, too.
+   Moreover upstream still commonly does incompatible changes, so agreeing
+   on a single version might be hard sometimes.  That's why it seemed simpler
+   to completely separate the nix expressions, too.
 */
-

@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, python3
-, fetchFromGitHub
-, fetchpatch
-, fetchPypi
-, nix-update-script
-, runtimeShell
+{
+  lib,
+  stdenv,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchPypi,
+  nix-update-script,
+  runtimeShell,
 }:
 let
   python = python3.override {
@@ -41,45 +42,41 @@ buildPythonApplication rec {
     hash = "sha256-0WZTHGWfxJBZM1RlRN0uFs9kjCum2JjIISatakIReoE=";
   };
 
-  patches = [
-    # https://github.com/NixOS/nixpkgs/issues/265883
-    # https://github.com/pdm-project/pdm/pull/2379
-    (fetchpatch {
-      name = "fix-template-permission.patch";
-      url = "https://github.com/pdm-project/pdm/commit/f0efdcefe589bc58c28ccf6ce2d23cad9a81dccc.patch";
-      hash = "sha256-NnHDSz2N63JzSzh2t9a5f/QQWM6Hyd5Cn5JY2zem6Ac=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/NixOS/nixpkgs/issues/265883
+      # https://github.com/pdm-project/pdm/pull/2379
+      (fetchpatch {
+        name = "fix-template-permission.patch";
+        url = "https://github.com/pdm-project/pdm/commit/f0efdcefe589bc58c28ccf6ce2d23cad9a81dccc.patch";
+        hash = "sha256-NnHDSz2N63JzSzh2t9a5f/QQWM6Hyd5Cn5JY2zem6Ac=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    pdm-backend
-  ];
+  nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs = [
-    blinker
-    certifi
-    cachecontrol
-    findpython
-    installer
-    packaging
-    platformdirs
-    pyproject-hooks
-    python-dotenv
-    requests-toolbelt
-    resolvelib
-    rich
-    shellingham
-    tomlkit
-    unearth
-    virtualenv
-  ]
-  ++ cachecontrol.optional-dependencies.filecache
-  ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ]
-  ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    [
+      blinker
+      certifi
+      cachecontrol
+      findpython
+      installer
+      packaging
+      platformdirs
+      pyproject-hooks
+      python-dotenv
+      requests-toolbelt
+      resolvelib
+      rich
+      shellingham
+      tomlkit
+      unearth
+      virtualenv
+    ]
+    ++ cachecontrol.optional-dependencies.filecache
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -89,9 +86,7 @@ buildPythonApplication rec {
     pytest-httpserver
   ] ++ lib.optional stdenv.isLinux first;
 
-  pytestFlagsArray = [
-    "-m 'not network'"
-  ];
+  pytestFlagsArray = [ "-m 'not network'" ];
 
   preCheck = ''
     export HOME=$TMPDIR

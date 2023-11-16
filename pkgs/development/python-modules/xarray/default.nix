@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, packaging
-, pandas
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  packaging,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -37,13 +38,9 @@ buildPythonPackage rec {
     pandas
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "xarray"
-  ];
+  pythonImportsCheck = [ "xarray" ];
 
   meta = with lib; {
     description = "N-D labeled arrays and datasets in Python";

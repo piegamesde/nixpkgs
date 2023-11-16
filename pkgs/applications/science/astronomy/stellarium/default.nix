@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, perl
-, wrapGAppsHook
-, wrapQtAppsHook
-, qtbase
-, qtcharts
-, qtpositioning
-, qtmultimedia
-, qtserialport
-, qtwayland
-, qtwebengine
-, calcmysky
-, qxlsx
-, indilib
-, libnova
-, qttools
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  perl,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  qtbase,
+  qtcharts,
+  qtpositioning,
+  qtmultimedia,
+  qtserialport,
+  qtwayland,
+  qtwebengine,
+  calcmysky,
+  qxlsx,
+  indilib,
+  libnova,
+  qttools,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,13 +32,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-bYvGmYu9jMHk2IUICz2kCVh56Ymz8JHqurdWV+xEdJY=";
   };
 
-  patches = [
-    # Compatibility with INDI 2.0 series from https://github.com/Stellarium/stellarium/pull/3269
-    (fetchpatch {
-      url = "https://github.com/Stellarium/stellarium/commit/31fd7bebf33fa710ce53ac8375238a24758312bc.patch";
-      hash = "sha256-eJEqqitZgtV6noeCi8pDBYMVTFIVWXZU1fiEvoilX8o=";
-    })
-  ];
+  patches =
+    [
+      # Compatibility with INDI 2.0 series from https://github.com/Stellarium/stellarium/pull/3269
+      (fetchpatch {
+        url = "https://github.com/Stellarium/stellarium/commit/31fd7bebf33fa710ce53ac8375238a24758312bc.patch";
+        hash = "sha256-eJEqqitZgtV6noeCi8pDBYMVTFIVWXZU1fiEvoilX8o=";
+      })
+    ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
@@ -66,15 +68,15 @@ stdenv.mkDerivation rec {
     qxlsx
     indilib
     libnova
-  ] ++ lib.optionals stdenv.isLinux [
-    qtwayland
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
-  preConfigure = ''
-    export SOURCE_DATE_EPOCH=$(date -d 20${lib.versions.major version}0101 +%s)
-  '' + lib.optionalString stdenv.isDarwin ''
-    export LC_ALL=en_US.UTF-8
-  '';
+  preConfigure =
+    ''
+      export SOURCE_DATE_EPOCH=$(date -d 20${lib.versions.major version}0101 +%s)
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      export LC_ALL=en_US.UTF-8
+    '';
 
   # fatal error: 'QtSerialPort/QSerialPortInfo' file not found
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-F${qtserialport}/lib";

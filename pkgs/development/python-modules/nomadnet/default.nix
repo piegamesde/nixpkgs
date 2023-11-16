@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, rns
-, fetchFromGitHub
-, lxmf
-, urwid
-, pythonOlder
-, qrcode
+{
+  lib,
+  buildPythonPackage,
+  rns,
+  fetchFromGitHub,
+  lxmf,
+  urwid,
+  pythonOlder,
+  qrcode,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "nomadnet"
-  ];
+  pythonImportsCheck = [ "nomadnet" ];
 
   meta = with lib; {
     description = "Off-grid, resilient mesh communication";

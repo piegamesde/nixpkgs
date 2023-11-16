@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gobject-introspection
-, gtk3
-, gtksourceview4
-, wrapGAppsHook
-, nest-asyncio
-, pycairo
-, py-desmume
-, pygtkspellcheck
-, setuptools
-, skytemple-files
-, skytemple-icons
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gobject-introspection,
+  gtk3,
+  gtksourceview4,
+  wrapGAppsHook,
+  nest-asyncio,
+  pycairo,
+  py-desmume,
+  pygtkspellcheck,
+  setuptools,
+  skytemple-files,
+  skytemple-icons,
 }:
 
 buildPythonPackage rec {
@@ -25,8 +26,14 @@ buildPythonPackage rec {
     hash = "sha256-/LBz0PCQI3QOAmOZk6Jynqi/+NN0w8gbY/S3YckRZ68=";
   };
 
-  buildInputs = [ gtk3 gtksourceview4 ];
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  buildInputs = [
+    gtk3
+    gtksourceview4
+  ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
   propagatedBuildInputs = [
     nest-asyncio
     pycairo

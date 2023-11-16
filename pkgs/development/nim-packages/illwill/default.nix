@@ -1,4 +1,8 @@
-{ lib, buildNimPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+}:
 
 buildNimPackage rec {
   pname = "illwill";
@@ -11,8 +15,10 @@ buildNimPackage rec {
     hash = "sha256-4DHGVWzN/WTAyDRBBpXlcfKnYIcbFt42/iWInaBUwi4=";
   };
 
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "A curses inspired simple cross-platform console library for Nim";
       license = [ licenses.wtfpl ];
       maintainers = with maintainers; [ sikmir ];

@@ -1,4 +1,9 @@
-{ lib, buildLua, fetchFromGitHub, yt-dlp }:
+{
+  lib,
+  buildLua,
+  fetchFromGitHub,
+  yt-dlp,
+}:
 
 buildLua rec {
   pname = "mpv-playlistmanager";

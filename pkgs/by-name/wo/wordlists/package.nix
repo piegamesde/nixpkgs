@@ -1,18 +1,19 @@
-{ lib
-, callPackage
-, nmap
-, rockyou
-, runtimeShell
-, seclists
-, symlinkJoin
-, tree
-, wfuzz
-, lists ? [
+{
+  lib,
+  callPackage,
+  nmap,
+  rockyou,
+  runtimeShell,
+  seclists,
+  symlinkJoin,
+  tree,
+  wfuzz,
+  lists ? [
     nmap
     rockyou
     seclists
     wfuzz
-  ]
+  ],
 }:
 
 symlinkJoin rec {
@@ -65,6 +66,9 @@ symlinkJoin rec {
       If you want to add a new package that provides wordlist/s the convention
       is to copy it to {file}`$out/share/wordlists/myNewWordlist`.
     '';
-    maintainers = with maintainers; [ janik pamplemousse ];
+    maintainers = with maintainers; [
+      janik
+      pamplemousse
+    ];
   };
 }

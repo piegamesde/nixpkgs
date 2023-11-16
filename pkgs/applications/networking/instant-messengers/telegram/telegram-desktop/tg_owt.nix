@@ -1,10 +1,42 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
-, pkg-config, cmake, ninja, yasm
-, libjpeg, openssl, libopus, ffmpeg, alsa-lib, libpulseaudio, protobuf
-, openh264, usrsctp, libevent, libvpx
-, libX11, libXtst, libXcomposite, libXdamage, libXext, libXrender, libXrandr, libXi
-, glib, abseil-cpp, pcre, util-linuxMinimal, libselinux, libsepol, pipewire
-, mesa, libepoxy, libglvnd, unstableGitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  ninja,
+  yasm,
+  libjpeg,
+  openssl,
+  libopus,
+  ffmpeg,
+  alsa-lib,
+  libpulseaudio,
+  protobuf,
+  openh264,
+  usrsctp,
+  libevent,
+  libvpx,
+  libX11,
+  libXtst,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXrender,
+  libXrandr,
+  libXi,
+  glib,
+  abseil-cpp,
+  pcre,
+  util-linuxMinimal,
+  libselinux,
+  libsepol,
+  pipewire,
+  mesa,
+  libepoxy,
+  libglvnd,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation {
@@ -19,16 +51,47 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake ninja yasm ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    yasm
+  ];
 
   buildInputs = [
-    libjpeg libopus ffmpeg alsa-lib libpulseaudio protobuf
-    openh264 usrsctp libevent libvpx
-    libX11 libXtst libXcomposite libXdamage libXext libXrender libXrandr libXi
-    glib abseil-cpp pcre util-linuxMinimal libselinux libsepol pipewire
-    mesa libepoxy libglvnd
+    libjpeg
+    libopus
+    ffmpeg
+    alsa-lib
+    libpulseaudio
+    protobuf
+    openh264
+    usrsctp
+    libevent
+    libvpx
+    libX11
+    libXtst
+    libXcomposite
+    libXdamage
+    libXext
+    libXrender
+    libXrandr
+    libXi
+    glib
+    abseil-cpp
+    pcre
+    util-linuxMinimal
+    libselinux
+    libsepol
+    pipewire
+    mesa
+    libepoxy
+    libglvnd
   ];
 
   patches = [
@@ -44,14 +107,20 @@ stdenv.mkDerivation {
     })
   ];
 
-  cmakeFlags = [
-    # Building as a shared library isn't officially supported and may break at any time.
-    "-DBUILD_SHARED_LIBS=OFF"
-  ];
+  cmakeFlags =
+    [
+      # Building as a shared library isn't officially supported and may break at any time.
+      "-DBUILD_SHARED_LIBS=OFF"
+    ];
 
   propagatedBuildInputs = [
     # Required for linking downstream binaries.
-    abseil-cpp openh264 usrsctp libevent libvpx openssl
+    abseil-cpp
+    openh264
+    usrsctp
+    libevent
+    libvpx
+    openssl
   ];
 
   passthru.updateScript = unstableGitUpdater { };

@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, arrow
-, buildPythonPackage
-, fetchFromGitHub
-, pyotp
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, setuptools
+{
+  lib,
+  aiohttp,
+  arrow,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyotp,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -24,10 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-5JcediHl2TeMhYa6OJqoW5K0SlAjdIrMwj2IHh3qW7I=";
   };
 
-  pythonRemoveDeps = [
-    # https://github.com/tronikos/opower/pull/4
-    "asyncio"
-  ];
+  pythonRemoveDeps =
+    [
+      # https://github.com/tronikos/opower/pull/4
+      "asyncio"
+    ];
 
   nativeBuildInputs = [
     pythonRelaxDepsHook
@@ -40,13 +42,9 @@ buildPythonPackage rec {
     pyotp
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "opower"
-  ];
+  pythonImportsCheck = [ "opower" ];
 
   meta = with lib; {
     description = "Module for getting historical and forecasted usage/cost from utilities that use opower.com";

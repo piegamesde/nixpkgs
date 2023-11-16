@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, tiktoken
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  tiktoken,
 }:
 
 buildPythonPackage {
@@ -17,13 +18,9 @@ buildPythonPackage {
     hash = "sha256-95xitHnbFFaj0xPuLMWvIvuJzoCO3VSd592X1RI9h3A=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    tiktoken
-  ];
+  propagatedBuildInputs = [ tiktoken ];
 
   pythonImportsCheck = [ "tokentrim" ];
 

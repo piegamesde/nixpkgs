@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,12 +17,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-+LObAD5JB8Vb4Rt4hTo1Z4ispxzfFkkXA2sw6TKB7Yo=";
   };
 
-  patches = [
-    # We set CMAKE_INSTALL_LIBDIR to the absolute path in $out, so
-    # prefix and exec_prefix cannot be $out, too
-    # Use CMake's _FULL_ variables instead of `prefix` concatenation.
-    ./fix-pkgconfig.patch
-  ];
+  patches =
+    [
+      # We set CMAKE_INSTALL_LIBDIR to the absolute path in $out, so
+      # prefix and exec_prefix cannot be $out, too
+      # Use CMake's _FULL_ variables instead of `prefix` concatenation.
+      ./fix-pkgconfig.patch
+    ];
 
   nativeBuildInputs = [
     cmake

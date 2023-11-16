@@ -1,23 +1,32 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }@args:
 
 with lib;
 
 let
   cfg = config.services.github-runners;
-
 in
 
 {
   options.services.github-runners = mkOption {
-    default = {};
-    type = with types; attrsOf (submodule { options = import ./github-runner/options.nix (args // {
-      # services.github-runners.${name}.name doesn't have a default; it falls back to ${name} below.
-      includeNameDefault = false;
-    }); });
+    default = { };
+    type =
+      with types;
+      attrsOf (
+        submodule {
+          options = import ./github-runner/options.nix (
+            args
+            // {
+              # services.github-runners.${name}.name doesn't have a default; it falls back to ${name} below.
+              includeNameDefault = false;
+            }
+          );
+        }
+      );
     example = {
       runner1 = {
         enable = true;
@@ -39,20 +48,28 @@ in
   };
 
   config = {
-    systemd.services = flip mapAttrs' cfg (n: v:
+    systemd.services = flip mapAttrs' cfg (
+      n: v:
       let
         svcName = "github-runner-${n}";
       in
-        nameValuePair svcName
-        (import ./github-runner/service.nix (args // {
-          inherit svcName;
-          cfg = v // {
-            name = if v.name != null then v.name else n;
-          };
-          systemdDir = "github-runner/${n}";
-        }))
+      nameValuePair svcName (
+        import ./github-runner/service.nix (
+          args
+          // {
+            inherit svcName;
+            cfg = v // {
+              name = if v.name != null then v.name else n;
+            };
+            systemdDir = "github-runner/${n}";
+          }
+        )
+      )
     );
   };
 
-  meta.maintainers = with maintainers; [ veehaitch newam ];
+  meta.maintainers = with maintainers; [
+    veehaitch
+    newam
+  ];
 }

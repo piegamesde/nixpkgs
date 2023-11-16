@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, isPyPy
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  isPyPy,
 
-# propagates
-, markupsafe
+  # propagates
+  markupsafe,
 
-# extras: Babel
-, babel
+  # extras: Babel
+  babel,
 
-# tests
-, mock
-, pytestCheckHook
-, lingua
-, chameleon
+  # tests
+  mock,
+  pytestCheckHook,
+  lingua,
+  chameleon,
 }:
 
 buildPythonPackage rec {
@@ -29,14 +30,10 @@ buildPythonPackage rec {
     hash = "sha256-1go5A9w7sBoYrWqJzb4uTq3GnAvI7x43c7pT1Ew/ejQ=";
   };
 
-  propagatedBuildInputs = [
-    markupsafe
-  ];
+  propagatedBuildInputs = [ markupsafe ];
 
   passthru.optional-dependencies = {
-    babel = [
-      babel
-    ];
+    babel = [ babel ];
   };
 
   nativeCheckInputs = [

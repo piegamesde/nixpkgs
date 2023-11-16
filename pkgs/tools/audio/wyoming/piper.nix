@@ -1,7 +1,8 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, fetchpatch
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  fetchpatch,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -25,17 +26,11 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = with python3Packages; [
-    setuptools
-  ];
+  nativeBuildInputs = with python3Packages; [ setuptools ];
 
-  propagatedBuildInputs = with python3Packages; [
-    wyoming
-  ];
+  propagatedBuildInputs = with python3Packages; [ wyoming ];
 
-  pythonImportsCheck = [
-    "wyoming_piper"
-  ];
+  pythonImportsCheck = [ "wyoming_piper" ];
 
   doCheck = false;
 

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, regex, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  regex,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pygrok";
@@ -13,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ regex ];
 
-  nativeCheckInputs =  [ pytest ];
+  nativeCheckInputs = [ pytest ];
   checkPhase = ''
     pytest
   '';

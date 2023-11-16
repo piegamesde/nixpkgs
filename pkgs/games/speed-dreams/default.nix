@@ -1,6 +1,37 @@
-{ fetchurl, lib, stdenv, libGLU, libGL, freeglut, libX11, plib, openal, freealut, libXrandr, xorgproto,
-libXext, libSM, libICE, libXi, libXt, libXrender, libXxf86vm, openscenegraph, expat,
-libpng, zlib, bash, SDL2, enet, libjpeg, cmake, pkg-config, libvorbis, runtimeShell, curl }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libGLU,
+  libGL,
+  freeglut,
+  libX11,
+  plib,
+  openal,
+  freealut,
+  libXrandr,
+  xorgproto,
+  libXext,
+  libSM,
+  libICE,
+  libXi,
+  libXt,
+  libXrender,
+  libXxf86vm,
+  openscenegraph,
+  expat,
+  libpng,
+  zlib,
+  bash,
+  SDL2,
+  enet,
+  libjpeg,
+  cmake,
+  pkg-config,
+  libvorbis,
+  runtimeShell,
+  curl,
+}:
 
 let
   version = "2.2.3-r7616";
@@ -59,18 +90,46 @@ stdenv.mkDerivation rec {
   # RPATH of binary /nix/store/.../lib64/games/speed-dreams-2/drivers/shadow_sc/shadow_sc.so contains a forbidden reference to /build/
   cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
-  buildInputs = [ libpng libGLU libGL freeglut libX11 plib openal freealut libXrandr xorgproto
-    libXext libSM libICE libXi libXt libXrender libXxf86vm zlib bash expat
-    SDL2 enet libjpeg openscenegraph libvorbis curl ];
+  buildInputs = [
+    libpng
+    libGLU
+    libGL
+    freeglut
+    libX11
+    plib
+    openal
+    freealut
+    libXrandr
+    xorgproto
+    libXext
+    libSM
+    libICE
+    libXi
+    libXt
+    libXrender
+    libXxf86vm
+    zlib
+    bash
+    expat
+    SDL2
+    enet
+    libjpeg
+    openscenegraph
+    libvorbis
+    curl
+  ];
 
   meta = {
     description = "Car racing game - TORCS fork with more experimental approach";
     homepage = "https://speed-dreams.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [raskin];
+    maintainers = with lib.maintainers; [ raskin ];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

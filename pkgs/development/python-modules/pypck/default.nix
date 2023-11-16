@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, wheel
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,15 @@ buildPythonPackage rec {
     hash = "sha256-Vlt4+fRULb9mB0ceRmc7MJ50DnF9DAJPHA8iCbNVvcE=";
   };
 
-  patches = [
-    # https://github.com/alengwenus/pypck/pull/109
-    (fetchpatch {
-      name = "relax-setuptools-dependency.patch";
-      url = "https://github.com/alengwenus/pypck/commit/17023ebe8082120b1eec086842ca809ec6e9df2b.patch";
-      hash = "sha256-kTu1+IwDrcdqelyK/vfhxw8MQBis5I1jag7YTytKQhs=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/alengwenus/pypck/pull/109
+      (fetchpatch {
+        name = "relax-setuptools-dependency.patch";
+        url = "https://github.com/alengwenus/pypck/commit/17023ebe8082120b1eec086842ca809ec6e9df2b.patch";
+        hash = "sha256-kTu1+IwDrcdqelyK/vfhxw8MQBis5I1jag7YTytKQhs=";
+      })
+    ];
 
   nativeBuildInputs = [
     setuptools
@@ -45,19 +47,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    "test_connection_lost"
-  ];
+  disabledTests = lib.optionals stdenv.isDarwin [ "test_connection_lost" ];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "pypck"
-  ];
+  pythonImportsCheck = [ "pypck" ];
 
   meta = with lib; {
     description = "LCN-PCK library written in Python";

@@ -1,23 +1,24 @@
-{ lib
-, anyio
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, hatchling
-, hatch-fancy-pypi-readme
-, h11
-, h2
-, pproxy
-, pytest-asyncio
-, pytest-httpbin
-, pytest-trio
-, pytestCheckHook
-, pythonOlder
-, sniffio
-, socksio
-# for passthru.tests
-, httpx
-, httpx-socks
+{
+  lib,
+  anyio,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  hatchling,
+  hatch-fancy-pypi-readme,
+  h11,
+  h2,
+  pproxy,
+  pytest-asyncio,
+  pytest-httpbin,
+  pytest-trio,
+  pytestCheckHook,
+  pythonOlder,
+  sniffio,
+  socksio,
+  # for passthru.tests
+  httpx,
+  httpx-socks,
 }:
 
 buildPythonPackage rec {
@@ -47,12 +48,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    http2 = [
-      h2
-    ];
-    socks = [
-      socksio
-    ];
+    http2 = [ h2 ];
+    socks = [ socksio ];
   };
 
   nativeCheckInputs = [
@@ -61,8 +58,7 @@ buildPythonPackage rec {
     pytest-httpbin
     pytest-trio
     pytestCheckHook
-  ] ++ passthru.optional-dependencies.http2
-    ++ passthru.optional-dependencies.socks;
+  ] ++ passthru.optional-dependencies.http2 ++ passthru.optional-dependencies.socks;
 
   disabledTests = [
     # https://github.com/encode/httpcore/discussions/813
@@ -75,9 +71,7 @@ buildPythonPackage rec {
     "test_h2_timeout_during_response"
   ];
 
-  pythonImportsCheck = [
-    "httpcore"
-  ];
+  pythonImportsCheck = [ "httpcore" ];
 
   __darwinAllowLocalNetworking = true;
 

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, imageio
-, napari-plugin-engine
-, pythonOlder
-, setuptools-scm
-, vispy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  napari-plugin-engine,
+  pythonOlder,
+  setuptools-scm,
+  vispy,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     vispy

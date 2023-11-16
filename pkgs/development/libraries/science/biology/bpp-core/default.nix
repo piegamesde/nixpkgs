@@ -1,10 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bpp-core";
   version = "2.4.1";
 
-  src = fetchFromGitHub { owner = "BioPP";
+  src = fetchFromGitHub {
+    owner = "BioPP";
     repo = pname;
     rev = "v${version}";
     sha256 = "0ma2cl677l7s0n5sffh66cy9lxp5wycm50f121g8rx85p95vkgwv";

@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, intltool
-, libxfce4util
-, xfce4-panel
-, libxfce4ui
-, glib
-, gtk3
-, hicolor-icon-theme
-, gitUpdater
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  libxfce4util,
+  xfce4-panel,
+  libxfce4ui,
+  glib,
+  gtk3,
+  hicolor-icon-theme,
+  gitUpdater,
 }:
 
 let
@@ -21,7 +22,9 @@ stdenv.mkDerivation rec {
   version = "1.7.2";
 
   src = fetchurl {
-    url = "mirror://xfce/src/${category}/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    url = "mirror://xfce/src/${category}/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "sha256-/rO4wtOVBegWaDVAoyJr172ocMy8tMfQ9qv+7/XFi30=";
   };
 

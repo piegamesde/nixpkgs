@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, nix-update-script
-, appstream
-, dbus
-, fetchFromGitHub
-, flatpak
-, glib
-, granite
-, gtk3
-, json-glib
-, libgee
-, libhandy
-, libsoup
-, libxml2
-, meson
-, ninja
-, pkg-config
-, vala
-, polkit
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  nix-update-script,
+  appstream,
+  dbus,
+  fetchFromGitHub,
+  flatpak,
+  glib,
+  granite,
+  gtk3,
+  json-glib,
+  libgee,
+  libhandy,
+  libsoup,
+  libxml2,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  polkit,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {

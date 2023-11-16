@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, importlib-metadata
-, importlib-resources
-, setuptools
-, packaging
-, tomli
-, tox
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  importlib-metadata,
+  importlib-resources,
+  setuptools,
+  packaging,
+  tomli,
+  tox,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pkg_about"
-  ];
+  pythonImportsCheck = [ "pkg_about" ];
 
   meta = with lib; {
     description = "Python metadata sharing at runtime";

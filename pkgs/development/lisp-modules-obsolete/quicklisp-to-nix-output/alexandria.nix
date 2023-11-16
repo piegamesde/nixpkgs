@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "alexandria";
   version = "20211209-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "alexandria";
 
-  asdFilesToKeep = ["alexandria.asd"];
+  asdFilesToKeep = [ "alexandria.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM alexandria DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/alexandria/2021-12-09/alexandria-20211209-git.tgz
     MD5 4f578a956567ea0d6c99c2babd1752f3 NAME alexandria FILENAME alexandria
     DEPS NIL DEPENDENCIES NIL VERSION 20211209-git SIBLINGS (alexandria-tests)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

@@ -1,12 +1,13 @@
-{ lib
-, bluetooth-data-tools
-, bluetooth-sensor-state-data
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, sensor-state-data
+{
+  lib,
+  bluetooth-data-tools,
+  bluetooth-sensor-state-data,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  sensor-state-data,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-WjABxtZ5td25K9QCbLHisT+DMd2Cv/nljwYwxY2br3A=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     bluetooth-data-tools
@@ -33,18 +32,14 @@ buildPythonPackage rec {
     sensor-state-data
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=thermobeacon_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [
-    "thermobeacon_ble"
-  ];
+  pythonImportsCheck = [ "thermobeacon_ble" ];
 
   meta = with lib; {
     description = "Library for Thermobeacon BLE devices";

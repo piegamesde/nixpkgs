@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, pythonOlder
-, six
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-qzRDaBTi8YI481aI/YabJkGy0tjcoiuNJG9nAd/JVMg=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   # darwin seems to hang
   doCheck = !stdenv.isDarwin;
@@ -32,9 +31,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "ppft"
-  ];
+  pythonImportsCheck = [ "ppft" ];
 
   meta = with lib; {
     description = "Distributed and parallel Python";

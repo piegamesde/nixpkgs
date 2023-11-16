@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, gmp
-, libmpc
-, mpfr
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  gmp,
+  libmpc,
+  mpfr,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -31,7 +32,12 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl gmp libmpc mpfr ];
+  buildInputs = [
+    openssl
+    gmp
+    libmpc
+    mpfr
+  ];
 
   CARGO_FEATURE_USE_SYSTEM_LIBS = true;
 

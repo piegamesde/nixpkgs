@@ -1,4 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, boost, pkg-config, protobuf, icu, Foundation, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  boost,
+  pkg-config,
+  protobuf,
+  icu,
+  Foundation,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phonenumber";
@@ -11,10 +23,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xLxadSxVY3DjFDQrqj3BuOvdMaKdFSLjocfzovJCBB0=";
   };
 
-  patches = [
-    # Submitted upstream: https://github.com/google/libphonenumber/pull/2921
-    ./build-reproducibility.patch
-  ];
+  patches =
+    [
+      # Submitted upstream: https://github.com/google/libphonenumber/pull/2921
+      ./build-reproducibility.patch
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -29,11 +42,10 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional stdenv.isDarwin Foundation;
 
   cmakeDir = "../cpp";
-  cmakeFlags =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DBUILD_GEOCODER=OFF"
-      "-DPROTOC_BIN=${buildPackages.protobuf}/bin/protoc"
-    ];
+  cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    "-DBUILD_GEOCODER=OFF"
+    "-DPROTOC_BIN=${buildPackages.protobuf}/bin/protoc"
+  ];
 
   checkPhase = "./libphonenumber_test";
 

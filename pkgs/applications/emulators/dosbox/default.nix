@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, SDL
-, SDL_net
-, SDL_sound
-, copyDesktopItems
-, graphicsmagick
-, libGL
-, libGLU
-, OpenGL
-, libpng
-, makeDesktopItem
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  SDL,
+  SDL_net,
+  SDL_sound,
+  copyDesktopItems,
+  graphicsmagick,
+  libGL,
+  libGLU,
+  OpenGL,
+  libpng,
+  makeDesktopItem,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,17 +30,22 @@ stdenv.mkDerivation rec {
     graphicsmagick
   ];
 
-  buildInputs = [
-    SDL
-    SDL_net
-    SDL_sound
-    libpng
-  ] ++ (if stdenv.hostPlatform.isDarwin then [
-    OpenGL
-  ] else [
-    libGL
-    libGLU
-  ]);
+  buildInputs =
+    [
+      SDL
+      SDL_net
+      SDL_sound
+      libpng
+    ]
+    ++ (
+      if stdenv.hostPlatform.isDarwin then
+        [ OpenGL ]
+      else
+        [
+          libGL
+          libGLU
+        ]
+    );
 
   hardeningDisable = [ "format" ];
 
@@ -53,13 +59,16 @@ stdenv.mkDerivation rec {
       comment = "x86 dos emulator";
       desktopName = "DOSBox";
       genericName = "DOS emulator";
-      categories = [ "Emulator" "Game" ];
+      categories = [
+        "Emulator"
+        "Game"
+      ];
     })
   ];
 
   postInstall = ''
-     mkdir -p $out/share/icons/hicolor/256x256/apps
-     gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
   '';
 
   enableParallelBuilding = true;

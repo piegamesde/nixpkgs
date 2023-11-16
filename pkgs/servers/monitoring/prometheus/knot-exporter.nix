@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchPypi
-, nixosTests
+{
+  lib,
+  python3,
+  fetchPypi,
+  nixosTests,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -15,9 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-/TBzq9MhYb664TsSD46Ep7gOkLBmmPSK9d89xlgvbSw=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.hatchling
-  ];
+  nativeBuildInputs = [ python3.pkgs.hatchling ];
 
   propagatedBuildInputs = with python3.pkgs; [
     libknot
@@ -25,17 +24,20 @@ python3.pkgs.buildPythonApplication rec {
     psutil
   ];
 
-  pythonImportsCheck = [
-    "knot_exporter"
-  ];
+  pythonImportsCheck = [ "knot_exporter" ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) knot; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) knot;
+  };
 
   meta = with lib; {
     description = "Prometheus exporter for Knot DNS";
     homepage = "https://gitlab.nic.cz/knot/knot-dns/-/tree/master/python/knot_exporter";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ma27 hexa ];
+    maintainers = with maintainers; [
+      ma27
+      hexa
+    ];
     mainProgram = "knot-exporter";
   };
 }

@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, flyctl, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  flyctl,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "flyctl";
@@ -16,11 +23,12 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X github.com/superfly/flyctl/internal/buildinfo.buildDate=1970-01-01T00:00:00Z"
     "-X github.com/superfly/flyctl/internal/buildinfo.buildVersion=${version}"
   ];
-  tags = ["production"];
+  tags = [ "production" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -57,7 +65,13 @@ buildGoModule rec {
     downloadPage = "https://github.com/superfly/flyctl";
     homepage = "https://fly.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aaronjanse adtya jsierles techknowlogick viraptor ];
+    maintainers = with maintainers; [
+      aaronjanse
+      adtya
+      jsierles
+      techknowlogick
+      viraptor
+    ];
     mainProgram = "flyctl";
   };
 }

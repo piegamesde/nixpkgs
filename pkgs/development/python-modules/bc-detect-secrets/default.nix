@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gibberish-detector
-, mock
-, pkgs
-, pyahocorasick
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, responses
-, unidiff
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gibberish-detector,
+  mock,
+  pkgs,
+  pyahocorasick,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  responses,
+  unidiff,
 }:
 
 buildPythonPackage rec {
@@ -34,12 +35,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    word_list = [
-      pyahocorasick
-    ];
-    gibberish = [
-      gibberish-detector
-    ];
+    word_list = [ pyahocorasick ];
+    gibberish = [ gibberish-detector ];
   };
 
   nativeCheckInputs = [
@@ -66,9 +63,7 @@ buildPythonPackage rec {
     "TestModifiesBaselineFromVersionChange"
   ];
 
-  pythonImportsCheck = [
-    "detect_secrets"
-  ];
+  pythonImportsCheck = [ "detect_secrets" ];
 
   meta = with lib; {
     description = "Tool to detect secrets in the code";
@@ -77,4 +72,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fab ];
   };
 }
-

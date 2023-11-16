@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qttools
-, wrapQtAppsHook
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, qtbase
-, qtsvg
-, udisks2-qt5
-, gio-qt
-, image-editor
-, glibmm
-, freeimage
-, opencv
-, ffmpeg
-, ffmpegthumbnailer
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  qtbase,
+  qtsvg,
+  udisks2-qt5,
+  gio-qt,
+  image-editor,
+  glibmm,
+  freeimage,
+  opencv,
+  ffmpeg,
+  ffmpegthumbnailer,
 }:
 
 stdenv.mkDerivation rec {

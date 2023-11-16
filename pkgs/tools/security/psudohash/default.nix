@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   stdenv,
-  python3
+  python3,
 }:
 
 stdenv.mkDerivation rec {

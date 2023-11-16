@@ -1,7 +1,15 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper
-, git, bash, gzip, openssh, pam
-, sqliteSupport ? true
-, pamSupport ? true
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  bash,
+  gzip,
+  openssh,
+  pam,
+  sqliteSupport ? true,
+  pamSupport ? true,
 }:
 
 with lib;
@@ -25,18 +33,26 @@ buildGoModule rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ makeWrapper openssh ];
+  nativeBuildInputs = [
+    makeWrapper
+    openssh
+  ];
 
   buildInputs = optional pamSupport pam;
 
-  tags =
-    (  optional sqliteSupport "sqlite"
-    ++ optional pamSupport "pam");
+  tags = (optional sqliteSupport "sqlite" ++ optional pamSupport "pam");
 
   postInstall = ''
 
     wrapProgram $out/bin/gogs \
-      --prefix PATH : ${makeBinPath [ bash git gzip openssh ]}
+      --prefix PATH : ${
+        makeBinPath [
+          bash
+          git
+          gzip
+          openssh
+        ]
+      }
   '';
 
   meta = {

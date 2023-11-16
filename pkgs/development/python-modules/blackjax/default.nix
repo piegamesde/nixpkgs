@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, setuptools-scm
-, fastprogress
-, jax
-, jaxlib
-, jaxopt
-, optax
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  setuptools-scm,
+  fastprogress,
+  jax,
+  jaxlib,
+  jaxopt,
+  optax,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -41,14 +42,13 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
   disabledTestPaths = [ "tests/test_benchmarks.py" ];
-  disabledTests = [
-    # too slow
-    "test_adaptive_tempered_smc"
-  ];
+  disabledTests =
+    [
+      # too slow
+      "test_adaptive_tempered_smc"
+    ];
 
-  pythonImportsCheck = [
-    "blackjax"
-  ];
+  pythonImportsCheck = [ "blackjax" ];
 
   meta = with lib; {
     homepage = "https://blackjax-devs.github.io/blackjax";

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, python-dateutil
-, duckdb
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  python-dateutil,
+  duckdb,
+  setuptools-scm,
 }:
 buildPythonPackage rec {
   pname = "sqlglot";
@@ -27,7 +28,10 @@ buildPythonPackage rec {
   # optional dependency used in the sqlglot optimizer
   propagatedBuildInputs = [ python-dateutil ];
 
-  nativeCheckInputs = [ pytestCheckHook duckdb ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    duckdb
+  ];
 
   # these integration tests assume a running Spark instance
   disabledTestPaths = [ "tests/dataframe/integration" ];

@@ -1,13 +1,14 @@
-{ lib
-, attrs
-, buildPythonPackage
-, certvalidator
-, cryptoparser
-, fetchPypi
-, pythonOlder
-, requests
-, six
-, urllib3
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  certvalidator,
+  cryptoparser,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  six,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
   # Tests require networking
   doCheck = false;
 
-  pythonImportsCheck = [
-    "cryptolyzer"
-  ];
+  pythonImportsCheck = [ "cryptolyzer" ];
 
   meta = with lib; {
     description = "Cryptographic protocol analyzer";

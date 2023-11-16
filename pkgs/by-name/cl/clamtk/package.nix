@@ -1,10 +1,11 @@
-{ lib
-, perlPackages
-, fetchFromGitHub
-, makeWrapper
-, gobject-introspection
-, perl
-, clamav
+{
+  lib,
+  perlPackages,
+  fetchFromGitHub,
+  makeWrapper,
+  gobject-introspection,
+  perl,
+  clamav,
 }:
 
 perlPackages.buildPerlPackage rec {
@@ -18,14 +19,31 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-o6OaXOXLykTUuF/taKnEhZRV04/3nlU5aNY05ANr1Ko=";
   };
 
-  nativeBuildInputs = [ makeWrapper gobject-introspection ];
-  buildInputs = [ perl clamav ];
-  propagatedBuildInputs = with perlPackages; [ Glib LWP LWPProtocolHttps TextCSV JSON LocaleGettext Gtk3 ];
+  nativeBuildInputs = [
+    makeWrapper
+    gobject-introspection
+  ];
+  buildInputs = [
+    perl
+    clamav
+  ];
+  propagatedBuildInputs = with perlPackages; [
+    Glib
+    LWP
+    LWPProtocolHttps
+    TextCSV
+    JSON
+    LocaleGettext
+    Gtk3
+  ];
 
   preConfigure = "touch Makefile.PL";
   # no tests implemented
   doCheck = false;
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   postPatch = ''
     # Set correct nix paths in perl scripts
@@ -65,5 +83,4 @@ perlPackages.buildPerlPackage rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ jgarcia ];
   };
-
 }

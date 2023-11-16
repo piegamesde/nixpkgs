@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 
 let
@@ -9,28 +10,31 @@ let
 
   serverCfg = pkgs.writeText "xonotic-server.cfg" (
     toString cfg.prependConfig
-      + "\n"
-      + builtins.concatStringsSep "\n" (
-        lib.mapAttrsToList (key: option:
+    + "\n"
+    + builtins.concatStringsSep "\n" (
+      lib.mapAttrsToList
+        (
+          key: option:
           let
-            escape = s: lib.escape [ "\"" ] s;
-            quote = s: "\"${s}\"";
+            escape = s: lib.escape [ ''"'' ] s;
+            quote = s: ''"${s}"'';
 
             toValue = x: quote (escape (toString x));
 
-            value = (if lib.isList option then
-              builtins.concatStringsSep
-                " "
-                (builtins.map (x: toValue x) option)
-            else
-              toValue option
-            );
+            value =
+              (
+                if lib.isList option then
+                  builtins.concatStringsSep " " (builtins.map (x: toValue x) option)
+                else
+                  toValue option
+              );
           in
           "${key} ${value}"
-        ) cfg.settings
-      )
-      + "\n"
-      + toString cfg.appendConfig
+        )
+        cfg.settings
+    )
+    + "\n"
+    + toString cfg.appendConfig
   );
 in
 
@@ -38,7 +42,7 @@ in
   options.services.xonotic = {
     enable = lib.mkEnableOption (lib.mdDoc "Xonotic dedicated server");
 
-    package = lib.mkPackageOption pkgs "xonotic-dedicated" {};
+    package = lib.mkPackageOption pkgs "xonotic-dedicated" { };
 
     openFirewall = lib.mkOption {
       type = lib.types.bool;
@@ -64,17 +68,31 @@ in
 
         [0]: https://gitlab.com/xonotic/xonotic/-/blob/master/server/server.cfg
       '';
-      default = {};
+      default = { };
       type = lib.types.submodule {
-        freeformType = with lib.types; let
-          scalars = oneOf [ singleLineStr int float ];
-        in
-        attrsOf (oneOf [ scalars (nonEmptyListOf scalars) ]);
+        freeformType =
+          with lib.types;
+          let
+            scalars = oneOf [
+              singleLineStr
+              int
+              float
+            ];
+          in
+          attrsOf (
+            oneOf [
+              scalars
+              (nonEmptyListOf scalars)
+            ]
+          );
 
         options.sv_public = lib.mkOption {
           type = lib.types.int;
           default = 0;
-          example = [ (-1) 1 ];
+          example = [
+            (-1)
+            1
+          ];
           description = lib.mdDoc ''
             Controls whether the server will be publicly listed.
           '';
@@ -186,12 +204,8 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [
-      cfg.settings.port
-    ];
-    networking.firewall.allowedUDPPorts = lib.mkIf cfg.openFirewall [
-      cfg.settings.port
-    ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.settings.port ];
+    networking.firewall.allowedUDPPorts = lib.mkIf cfg.openFirewall [ cfg.settings.port ];
   };
 
   meta.maintainers = with lib.maintainers; [ CobaltCause ];

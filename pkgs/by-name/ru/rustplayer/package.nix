@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, alsa-lib
-, ffmpeg_4
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  alsa-lib,
+  ffmpeg_4,
 }:
 
 rustPlatform.buildRustPackage {
@@ -19,9 +20,7 @@ rustPlatform.buildRustPackage {
   };
 
   # This patch is from the source
-  patches = [
-    ./dynamic-lib.patch
-  ];
+  patches = [ ./dynamic-lib.patch ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -29,13 +28,21 @@ rustPlatform.buildRustPackage {
       "ffmpeg-sys-next-4.4.0" = "sha256-TBgf+J+ud7nnVjf0r98/rujFPEayjEaVi+vnSE6/5Ak=";
     };
   };
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
-  buildInputs = [ alsa-lib openssl ffmpeg_4 ];
-
-  checkFlags = [
-    # network required
-    "--skip=fetch_and_play"
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
   ];
+  buildInputs = [
+    alsa-lib
+    openssl
+    ffmpeg_4
+  ];
+
+  checkFlags =
+    [
+      # network required
+      "--skip=fetch_and_play"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/Kingtous/RustPlayer";

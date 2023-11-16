@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -20,7 +25,6 @@ let
   pluginsEnv = package.python.withPackages (ps: [ ps.octoprint ] ++ (cfg.plugins ps));
 
   package = pkgs.octoprint;
-
 in
 {
   ##### interface
@@ -76,7 +80,9 @@ in
         default = plugins: [ ];
         defaultText = literalExpression "plugins: []";
         example = literalExpression "plugins: with plugins; [ themeify stlviewer ]";
-        description = lib.mdDoc "Additional plugins to be used. Available plugins are passed through the plugins input.";
+        description =
+          lib.mdDoc
+            "Additional plugins to be used. Available plugins are passed through the plugins input.";
       };
 
       extraConfig = mkOption {
@@ -84,9 +90,7 @@ in
         default = { };
         description = lib.mdDoc "Extra options which are added to OctoPrint's YAML configuration file.";
       };
-
     };
-
   };
 
   ##### implementation
@@ -131,9 +135,7 @@ in
         ExecStart = "${pluginsEnv}/bin/octoprint serve -b ${cfg.stateDir}";
         User = cfg.user;
         Group = cfg.group;
-        SupplementaryGroups = [
-          "dialout"
-        ];
+        SupplementaryGroups = [ "dialout" ];
       };
     };
 

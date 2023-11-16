@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
-, wazero
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  wazero,
 }:
 
 buildGoModule rec {
@@ -18,9 +19,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [
-    "cmd/wazero"
-  ];
+  subPackages = [ "cmd/wazero" ];
 
   ldflags = [
     "-s"
@@ -28,10 +27,11 @@ buildGoModule rec {
     "-X=github.com/tetratelabs/wazero/internal/version.version=${version}"
   ];
 
-  checkFlags = [
-    # fails when version is specified
-    "-skip=TestCompile|TestRun"
-  ];
+  checkFlags =
+    [
+      # fails when version is specified
+      "-skip=TestCompile|TestRun"
+    ];
 
   passthru.tests = {
     version = testers.testVersion {

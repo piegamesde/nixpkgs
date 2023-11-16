@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.esdm;
@@ -53,9 +58,7 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      ({
-        systemd.packages = [ cfg.package ];
-      })
+      ({ systemd.packages = [ cfg.package ]; })
       # It is necessary to set those options for these services to be started by systemd in NixOS
       (lib.mkIf cfg.serverEnable {
         systemd.services."esdm-server".wantedBy = [ "basic.target" ];
@@ -96,7 +99,11 @@ in
           ];
         };
       })
-    ]);
+    ]
+  );
 
-  meta.maintainers = with lib.maintainers; [ orichter thillux ];
+  meta.maintainers = with lib.maintainers; [
+    orichter
+    thillux
+  ];
 }

@@ -1,15 +1,16 @@
-{ lib
-, aiohttp
-, bidict
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, msgpack
-, pytestCheckHook
-, python-engineio
-, pythonOlder
-, requests
-, websocket-client
+{
+  lib,
+  aiohttp,
+  bidict,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  msgpack,
+  pytestCheckHook,
+  python-engineio,
+  pythonOlder,
+  requests,
+  websocket-client,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
       requests
       websocket-client
     ];
-    asyncio_client = [
-      aiohttp
-    ];
+    asyncio_client = [ aiohttp ];
   };
 
   nativeCheckInputs = [
@@ -47,9 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "socketio"
-  ];
+  pythonImportsCheck = [ "socketio" ];
 
   meta = with lib; {
     description = "Python Socket.IO server and client";

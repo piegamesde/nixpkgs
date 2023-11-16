@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, sqlite
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  sqlite,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,12 +27,11 @@ stdenv.mkDerivation rec {
     "-Wno-error=cast-function-type"
   ];
 
-
   meta = {
     description = "A flexible memory management and garbage collection library";
-    homepage    = "https://www.ravenbrook.com/project/mps";
-    license     = lib.licenses.sleepycat;
-    platforms   = lib.platforms.linux;
+    homepage = "https://www.ravenbrook.com/project/mps";
+    license = lib.licenses.sleepycat;
+    platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.thoughtpolice ];
   };
 }

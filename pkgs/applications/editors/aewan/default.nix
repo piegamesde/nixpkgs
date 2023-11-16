@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, zlib, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  zlib,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aewan";
@@ -9,18 +16,22 @@ stdenv.mkDerivation rec {
     sha256 = "5266dec5e185e530b792522821c97dfa5f9e3892d0dca5e881d0c30ceac21817";
   };
 
-  patches = [
-    # Pull patch pending upstream inclusion:
-    #  https://sourceforge.net/p/aewan/bugs/13/
-    (fetchpatch {
-      url = "https://sourceforge.net/p/aewan/bugs/13/attachment/aewan-cvs-ncurses-6.3.patch";
-      sha256 = "0pgpk1l3d6d5y37lvvavipwnmv9gmpfdy21jkz6baxhlkgf43r4p";
-      # patch is in CVS diff format, add 'a/' prefix
-      extraPrefix = "";
-    })
-  ];
+  patches =
+    [
+      # Pull patch pending upstream inclusion:
+      #  https://sourceforge.net/p/aewan/bugs/13/
+      (fetchpatch {
+        url = "https://sourceforge.net/p/aewan/bugs/13/attachment/aewan-cvs-ncurses-6.3.patch";
+        sha256 = "0pgpk1l3d6d5y37lvvavipwnmv9gmpfdy21jkz6baxhlkgf43r4p";
+        # patch is in CVS diff format, add 'a/' prefix
+        extraPrefix = "";
+      })
+    ];
 
-  buildInputs = [ zlib ncurses ];
+  buildInputs = [
+    zlib
+    ncurses
+  ];
 
   meta = {
     description = "Ascii-art Editor Without A Name";

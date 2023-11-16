@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, dee, gtk3, intltool, libdbusmenu-gtk3, libunity, pkg-config, rsync }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dee,
+  gtk3,
+  intltool,
+  libdbusmenu-gtk3,
+  libunity,
+  pkg-config,
+  rsync,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.3.1";

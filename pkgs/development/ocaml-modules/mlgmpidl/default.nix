@@ -1,4 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, perl, ocaml, findlib, camlidl, gmp, mpfr, bigarray-compat }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  perl,
+  ocaml,
+  findlib,
+  camlidl,
+  gmp,
+  mpfr,
+  bigarray-compat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-mlgmpidl";
@@ -10,8 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-85wy5eVWb5qdaa2lLDcfqlUTIY7vnN3nGMdxoj5BslU=";
   };
 
-  nativeBuildInputs = [ perl ocaml findlib camlidl ];
-  buildInputs = [ gmp mpfr ];
+  nativeBuildInputs = [
+    perl
+    ocaml
+    findlib
+    camlidl
+  ];
+  buildInputs = [
+    gmp
+    mpfr
+  ];
   propagatedBuildInputs = [ bigarray-compat ];
 
   strictDeps = true;
@@ -27,7 +46,6 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "/bin/rm" "rm"
     mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/stublibs
   '';
-
 
   meta = {
     description = "OCaml interface to the GMP library";

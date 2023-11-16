@@ -1,17 +1,18 @@
-{ alsa-lib
-, asio
-, cmake
-, curl
-, fetchFromGitHub
-, lib
-, libremidi
-, obs-studio
-, opencv
-, procps
-, qtbase
-, stdenv
-, websocketpp
-, xorg
+{
+  alsa-lib,
+  asio,
+  cmake,
+  curl,
+  fetchFromGitHub,
+  lib,
+  libremidi,
+  obs-studio,
+  opencv,
+  procps,
+  qtbase,
+  stdenv,
+  websocketpp,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {

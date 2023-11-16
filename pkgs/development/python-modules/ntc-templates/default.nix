@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, textfsm
-, pytestCheckHook
-, ruamel-yaml
-, yamllint
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  textfsm,
+  pytestCheckHook,
+  ruamel-yaml,
+  yamllint,
 }:
 
 buildPythonPackage rec {
@@ -23,13 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-FhKMDSAW+MifAy2EnHePbSfY56rdK1SfOe85bFte6ps=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    textfsm
-  ];
+  propagatedBuildInputs = [ textfsm ];
 
   nativeCheckInputs = [
     pytestCheckHook

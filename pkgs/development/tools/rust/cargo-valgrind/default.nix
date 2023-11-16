@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, nix-update-script
-, makeWrapper
-, valgrind
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix-update-script,
+  makeWrapper,
+  valgrind,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -35,9 +36,16 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description = ''Cargo subcommand "valgrind": runs valgrind and collects its output in a helpful manner'';
+    description = ''
+      Cargo subcommand "valgrind": runs valgrind and collects its output in a helpful manner'';
     homepage = "https://github.com/jfrimmel/cargo-valgrind";
-    license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ otavio matthiasbeyer ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
+    maintainers = with maintainers; [
+      otavio
+      matthiasbeyer
+    ];
   };
 }

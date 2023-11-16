@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, git
-, pkg-config
-, qttools
-, which
-, wrapQtAppsHook
-, boost
-, hunspell
-, libGLU
-, libsForQt5
-, libsecret
-, libzip
-, lua
-, pcre
-, pugixml
-, qtbase
-, qtmultimedia
-, discord-rpc
-, yajl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  git,
+  pkg-config,
+  qttools,
+  which,
+  wrapQtAppsHook,
+  boost,
+  hunspell,
+  libGLU,
+  libsForQt5,
+  libsecret,
+  libzip,
+  lua,
+  pcre,
+  pugixml,
+  qtbase,
+  qtmultimedia,
+  discord-rpc,
+  yajl,
 }:
 
 let
@@ -29,8 +30,8 @@ let
         # luasql-sqlite3 master branch broke compatibility with lua 5.1. Pin to
         # an earlier commit.
         # https://github.com/lunarmodules/luasql/issues/147
-        luasql-sqlite3 = super.luaLib.overrideLuarocks super.luasql-sqlite3
-          (drv: {
+        luasql-sqlite3 = super.luaLib.overrideLuarocks super.luasql-sqlite3 (
+          drv: {
             version = "2.6.0-1-custom";
             src = fetchFromGitHub {
               owner = "lunarmodules";
@@ -38,19 +39,23 @@ let
               rev = "8c58fd6ee32faf750daf6e99af015a31402578d1";
               hash = "sha256-XlTB5O81yWCrx56m0cXQp7EFzeOyfNeqGbuiYqMrTUk=";
             };
-          });
+          }
+        );
       };
     in
     lua.override { inherit packageOverrides; };
 
-  luaEnv = overrideLua.withPackages (ps: with ps; [
-    luazip
-    luafilesystem
-    lrexlib-pcre
-    luasql-sqlite3
-    lua-yajl
-    luautf8
-  ]);
+  luaEnv = overrideLua.withPackages (
+    ps:
+    with ps; [
+      luazip
+      luafilesystem
+      lrexlib-pcre
+      luasql-sqlite3
+      lua-yajl
+      luautf8
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "mudlet";
@@ -89,10 +94,11 @@ stdenv.mkDerivation rec {
     discord-rpc
   ];
 
-  cmakeFlags = [
-    # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ];
+  cmakeFlags =
+    [
+      # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ];
 
   WITH_FONTS = "NO";
   WITH_UPDATER = "NO";
@@ -118,7 +124,12 @@ stdenv.mkDerivation rec {
     makeQtWrapper $out/mudlet $out/bin/mudlet \
       --set LUA_CPATH "${luaEnv}/lib/lua/${lua.luaversion}/?.so" \
       --prefix LUA_PATH : "$NIX_LUA_PATH" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libsForQt5.qtkeychain discord-rpc ]}" \
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          libsForQt5.qtkeychain
+          discord-rpc
+        ]
+      }" \
       --chdir "$out";
 
     runHook postInstall
@@ -127,7 +138,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Crossplatform mud client";
     homepage = "https://www.mudlet.org/";
-    maintainers = with maintainers; [ wyvie pstn cpu ];
+    maintainers = with maintainers; [
+      wyvie
+      pstn
+      cpu
+    ];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

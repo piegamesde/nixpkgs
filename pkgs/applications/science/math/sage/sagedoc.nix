@@ -1,7 +1,8 @@
-{ stdenv
-, sage-with-env
-, python3
-, jupyter-kernel-specs
+{
+  stdenv,
+  sage-with-env,
+  python3,
+  jupyter-kernel-specs,
 }:
 
 stdenv.mkDerivation rec {
@@ -11,10 +12,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    # for patchShebangs below
-    python3
-  ];
+  nativeBuildInputs =
+    [
+      # for patchShebangs below
+      python3
+    ];
 
   unpackPhase = ''
     export SAGE_DOC_OVERRIDE="$PWD/share/doc/sage"

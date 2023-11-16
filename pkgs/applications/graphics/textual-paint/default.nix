@@ -1,8 +1,9 @@
-{ lib
-, python3
-, fetchFromGitHub
-, fetchPypi
-, fetchpatch
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchPypi,
+  fetchpatch,
 }:
 
 let
@@ -18,13 +19,14 @@ let
           hash = "sha256-v1SEedM2cm16Ds6252fhefveN4M65CeUYCYxoHDWMPE=";
         };
 
-        patches = [
-          # fix type handling for include and lib directories
-          (fetchpatch {
-            url = "https://github.com/python-pillow/Pillow/commit/0ec0a89ead648793812e11739e2a5d70738c6be5.patch";
-            hash = "sha256-m5R5fLflnbJXbRxFlTjT2X3nKdC05tippMoJUDsJmy0=";
-          })
-        ];
+        patches =
+          [
+            # fix type handling for include and lib directories
+            (fetchpatch {
+              url = "https://github.com/python-pillow/Pillow/commit/0ec0a89ead648793812e11739e2a5d70738c6be5.patch";
+              hash = "sha256-m5R5fLflnbJXbRxFlTjT2X3nKdC05tippMoJUDsJmy0=";
+            })
+          ];
       };
 
       textual = super.textual.overridePythonAttrs rec {

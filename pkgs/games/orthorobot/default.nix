@@ -1,14 +1,15 @@
-{ lib
-, copyDesktopItems
-, fetchFromGitHub
-, fetchpatch
-, fetchurl
-, love
-, makeDesktopItem
-, makeWrapper
-, stdenv
-, strip-nondeterminism
-, zip
+{
+  lib,
+  copyDesktopItems,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  love,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  strip-nondeterminism,
+  zip,
 }:
 
 stdenv.mkDerivation rec {
@@ -46,13 +47,14 @@ stdenv.mkDerivation rec {
     zip
   ];
 
-  patches = [
-    # support for love11
-    (fetchpatch {
-      url = "https://github.com/Stabyourself/orthorobot/pull/3.patch";
-      sha256 = "sha256-WHHP6QM7R5eEkVF+J2pGNnds/OKRIRXyon85wjd3GXI=";
-    })
-  ];
+  patches =
+    [
+      # support for love11
+      (fetchpatch {
+        url = "https://github.com/Stabyourself/orthorobot/pull/3.patch";
+        sha256 = "sha256-WHHP6QM7R5eEkVF+J2pGNnds/OKRIRXyon85wjd3GXI=";
+      })
+    ];
 
   installPhase = ''
     runHook preInstall

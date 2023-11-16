@@ -1,7 +1,8 @@
-{ lib
-, pkgs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.programs.regreet;
@@ -24,7 +25,13 @@ in
       '';
     };
 
-    package = lib.mkPackageOptionMD pkgs [ "greetd" "regreet" ] { };
+    package =
+      lib.mkPackageOptionMD pkgs
+        [
+          "greetd"
+          "regreet"
+        ]
+        { };
 
     settings = lib.mkOption {
       type = lib.types.either lib.types.path settingsFormat.type;
@@ -39,10 +46,9 @@ in
     cageArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ "-s" ];
-      example = lib.literalExpression
-        ''
-          [ "-s" "-m" "last" ]
-        '';
+      example = lib.literalExpression ''
+        [ "-s" "-m" "last" ]
+      '';
       description = lib.mdDoc ''
         Additional arguments to be passed to
         [cage](https://github.com/cage-kiosk/cage).
@@ -63,26 +69,31 @@ in
   config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = lib.mkDefault true;
-      settings.default_session.command = lib.mkDefault "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} ${lib.escapeShellArgs cfg.cageArgs} -- ${lib.getExe cfg.package}";
+      settings.default_session.command =
+        lib.mkDefault
+          "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} ${lib.escapeShellArgs cfg.cageArgs} -- ${
+            lib.getExe cfg.package
+          }";
     };
 
     environment.etc = {
       "greetd/regreet.css" =
-        if lib.isPath cfg.extraCss
-        then {source = cfg.extraCss;}
-        else {text = cfg.extraCss;};
+        if lib.isPath cfg.extraCss then { source = cfg.extraCss; } else { text = cfg.extraCss; };
 
       "greetd/regreet.toml".source =
-        if lib.isPath cfg.settings
-        then cfg.settings
-        else settingsFormat.generate "regreet.toml" cfg.settings;
+        if lib.isPath cfg.settings then
+          cfg.settings
+        else
+          settingsFormat.generate "regreet.toml" cfg.settings;
     };
 
-    systemd.tmpfiles.rules = let
-      group = config.users.users.${config.services.greetd.settings.default_session.user}.group;
-    in [
-      "d /var/log/regreet 0755 greeter ${group} - -"
-      "d /var/cache/regreet 0755 greeter ${group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      let
+        group = config.users.users.${config.services.greetd.settings.default_session.user}.group;
+      in
+      [
+        "d /var/log/regreet 0755 greeter ${group} - -"
+        "d /var/cache/regreet 0755 greeter ${group} - -"
+      ];
   };
 }

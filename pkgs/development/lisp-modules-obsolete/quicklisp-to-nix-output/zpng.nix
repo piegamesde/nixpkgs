@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "zpng";
   version = "1.2.2";
 
   description = "Create PNG files";
 
-  deps = [ args."salza2" args."trivial-gray-streams" ];
+  deps = [
+    args."salza2"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/zpng/2015-04-07/zpng-1.2.2.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "zpng";
 
-  asdFilesToKeep = ["zpng.asd"];
+  asdFilesToKeep = [ "zpng.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM zpng DESCRIPTION Create PNG files SHA256
@@ -25,4 +28,5 @@ rec {
     ((NAME salza2 FILENAME salza2)
      (NAME trivial-gray-streams FILENAME trivial-gray-streams))
     DEPENDENCIES (salza2 trivial-gray-streams) VERSION 1.2.2 SIBLINGS NIL
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

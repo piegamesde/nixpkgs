@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clamsmtp";
@@ -12,8 +16,9 @@ stdenv.mkDerivation rec {
   patches = [ ./header-order.patch ];
 
   meta = with lib; {
-    description = "SMTP filter that allows to check for viruses using the ClamAV
-                   anti-virus software";
+    description = ''
+      SMTP filter that allows to check for viruses using the ClamAV
+                         anti-virus software'';
     homepage = "http://thewalter.net/stef/software/clamsmtp/";
     license = licenses.bsd3;
     maintainers = [ maintainers.ekleog ];

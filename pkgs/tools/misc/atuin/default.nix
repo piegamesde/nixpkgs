@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, installShellFiles
-, rustPlatform
-, libiconv
-, AppKit
-, Security
-, SystemConfiguration
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  rustPlatform,
+  libiconv,
+  AppKit,
+  Security,
+  SystemConfiguration,
+  nixosTests,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,13 +24,19 @@ rustPlatform.buildRustPackage rec {
 
   # TODO: unify this to one hash because updater do not support this
   cargoHash =
-    if stdenv.isLinux
-    then "sha256-AhoXmEjXsi/OgFX3htOA6A/lWegUFlsywdotX3PDwcs="
-    else "sha256-/nCnZ64pM8oWVX9a4JCeCZRyuo7aVc8YaBVEMbiRsqE=";
+    if stdenv.isLinux then
+      "sha256-AhoXmEjXsi/OgFX3htOA6A/lWegUFlsywdotX3PDwcs="
+    else
+      "sha256-/nCnZ64pM8oWVX9a4JCeCZRyuo7aVc8YaBVEMbiRsqE=";
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv AppKit Security SystemConfiguration ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    AppKit
+    Security
+    SystemConfiguration
+  ];
 
   postInstall = ''
     installShellCompletion --cmd atuin \
@@ -53,6 +60,10 @@ rustPlatform.buildRustPackage rec {
     description = "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";
     homepage = "https://github.com/atuinsh/atuin";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 sciencentistguy _0x4A6F ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      sciencentistguy
+      _0x4A6F
+    ];
   };
 }

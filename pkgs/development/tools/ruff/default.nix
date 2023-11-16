@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, stdenv
-, darwin
-, rust-jemalloc-sys
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  stdenv,
+  darwin,
+  rust-jemalloc-sys,
   # tests
-, ruff-lsp
+  ruff-lsp,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,15 +23,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-1jfKRpyGewNlvMkL/MKnOaRJyajwLAuw+YyeTyTtcP4=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   buildInputs = [
     rust-jemalloc-sys
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreServices
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
   cargoBuildFlags = [ "--package=ruff_cli" ];
   cargoTestFlags = cargoBuildFlags;

@@ -1,9 +1,10 @@
-{ lib
-, fetchurl
-, meson
-, ninja
-, python3
-, gnome
+{
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  python3,
+  gnome,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -17,9 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "qaaHwbfEpBOaIUvUUeAcqGExoxYfaKo+BzJbBgArv7Y=";
   };
 
-  depsBuildBuild = [
-    python3
-  ];
+  depsBuildBuild = [ python3 ];
 
   nativeBuildInputs = [
     meson
@@ -44,9 +43,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gi-docgen";
-    };
+    updateScript = gnome.updateScript { packageName = "gi-docgen"; };
   };
 
   meta = with lib; {

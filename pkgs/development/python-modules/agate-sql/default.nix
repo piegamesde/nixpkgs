@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, isPy27
-, fetchPypi
-, agate
-, sqlalchemy
-, crate
-, pytestCheckHook
-, geojson
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  agate,
+  sqlalchemy,
+  crate,
+  pytestCheckHook,
+  geojson,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-uyHkkc3KzuYulOtod9KkHQmszVh2mrrCOLwvQt6JTMk=";
   };
 
-  propagatedBuildInputs = [ agate sqlalchemy ];
+  propagatedBuildInputs = [
+    agate
+    sqlalchemy
+  ];
 
-  nativeCheckInputs = [ crate geojson pytestCheckHook ];
+  nativeCheckInputs = [
+    crate
+    geojson
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "agatesql" ];
 

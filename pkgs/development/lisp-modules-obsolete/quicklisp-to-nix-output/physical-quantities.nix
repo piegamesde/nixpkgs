@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "physical-quantities";
   version = "20211020-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "physical-quantities";
 
-  asdFilesToKeep = ["physical-quantities.asd"];
+  asdFilesToKeep = [ "physical-quantities.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM physical-quantities DESCRIPTION
@@ -27,4 +27,5 @@ rec {
     MD5 a322db845056f78a237630a565b41490 NAME physical-quantities FILENAME
     physical-quantities DEPS ((NAME parseq FILENAME parseq)) DEPENDENCIES
     (parseq) VERSION 20211020-git SIBLINGS NIL PARASITES
-    (physical-quantities/test)) */
+    (physical-quantities/test))
+*/

@@ -1,24 +1,25 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, buildbot
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  buildbot,
 
-# patch
-, coreutils
+  # patch
+  coreutils,
 
-# propagates
-, autobahn
-, future
-, msgpack
-, twisted
+  # propagates
+  autobahn,
+  future,
+  msgpack,
+  twisted,
 
-# tests
-, parameterized
-, psutil
-, setuptools-trial
+  # tests
+  parameterized,
+  psutil,
+  setuptools-trial,
 
-# passthru
-, nixosTests
+  # passthru
+  nixosTests,
 }:
 
 buildPythonPackage (rec {
@@ -35,9 +36,7 @@ buildPythonPackage (rec {
       --replace /usr/bin/tail "${coreutils}/bin/tail"
   '';
 
-  nativeBuildInputs = [
-    setuptools-trial
-  ];
+  nativeBuildInputs = [ setuptools-trial ];
 
   propagatedBuildInputs = [
     autobahn
@@ -58,7 +57,10 @@ buildPythonPackage (rec {
   meta = with lib; {
     homepage = "https://buildbot.net/";
     description = "Buildbot Worker Daemon";
-    maintainers = with maintainers; [ ryansydnor lopsided98 ];
+    maintainers = with maintainers; [
+      ryansydnor
+      lopsided98
+    ];
     license = licenses.gpl2;
   };
 })

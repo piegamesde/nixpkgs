@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "anaphora";
   version = "20211209-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "anaphora";
 
-  asdFilesToKeep = ["anaphora.asd"];
+  asdFilesToKeep = [ "anaphora.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM anaphora DESCRIPTION The Anaphoric Macro Package from Hell SHA256
@@ -25,4 +25,5 @@ rec {
     http://beta.quicklisp.org/archive/anaphora/2021-12-09/anaphora-20211209-git.tgz
     MD5 81827cd43d29293e967916bb11c4df88 NAME anaphora FILENAME anaphora DEPS
     ((NAME rt FILENAME rt)) DEPENDENCIES (rt) VERSION 20211209-git SIBLINGS NIL
-    PARASITES (anaphora/test)) */
+    PARASITES (anaphora/test))
+*/

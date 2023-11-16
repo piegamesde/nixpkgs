@@ -1,15 +1,16 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, busypie
-, cbor2
-, fetchFromGitHub
-, pycryptodomex
-, pytestCheckHook
-, pytest-vcr
-, pytest-asyncio
-, requests
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  busypie,
+  cbor2,
+  fetchFromGitHub,
+  pycryptodomex,
+  pytestCheckHook,
+  pytest-vcr,
+  pytest-asyncio,
+  requests,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -52,9 +53,7 @@ buildPythonPackage rec {
     "test_handshaking"
   ];
 
-  pythonImportsCheck = [
-    "pubnub"
-  ];
+  pythonImportsCheck = [ "pubnub" ];
 
   meta = with lib; {
     description = "Python-based APIs for PubNub";

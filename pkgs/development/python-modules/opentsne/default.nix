@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, numpy
-, oldest-supported-numpy
-, scipy
-, scikit-learn
-, pytestCheckHook
-, nix-update-script
-, setuptools
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  numpy,
+  oldest-supported-numpy,
+  scipy,
+  scikit-learn,
+  pytestCheckHook,
+  nix-update-script,
+  setuptools,
+  wheel,
 }:
 
 let
@@ -32,25 +33,34 @@ let
       wheel
     ];
 
-    propagatedBuildInputs = [ numpy scipy scikit-learn ];
+    propagatedBuildInputs = [
+      numpy
+      scipy
+      scikit-learn
+    ];
 
     pythonImportsCheck = [ "openTSNE" ];
     doCheck = false;
 
     passthru = {
-      updateScript = nix-update-script {};
-      tests.pytest = self.overridePythonAttrs (old: {
-        pname = "${old.pname}-tests";
-        format = "other";
+      updateScript = nix-update-script { };
+      tests.pytest = self.overridePythonAttrs (
+        old: {
+          pname = "${old.pname}-tests";
+          format = "other";
 
-        postPatch = "rm openTSNE -rf";
+          postPatch = "rm openTSNE -rf";
 
-        doBuild = false;
-        doInstall = false;
+          doBuild = false;
+          doInstall = false;
 
-        doCheck = true;
-        nativeCheckInputs = [ pytestCheckHook self ];
-      });
+          doCheck = true;
+          nativeCheckInputs = [
+            pytestCheckHook
+            self
+          ];
+        }
+      );
     };
 
     meta = {
@@ -61,4 +71,5 @@ let
       maintainers = [ lib.maintainers.lucasew ];
     };
   };
-in self
+in
+self

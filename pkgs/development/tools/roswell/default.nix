@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, curl
-, autoconf
-, automake
-, makeWrapper
-, sbcl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  autoconf,
+  automake,
+  makeWrapper,
+  sbcl,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,12 +20,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-70BSwRKj1WPvWxQzWPrs8ECkcVosAUaX5cK7FaDUhRc=";
   };
 
-  patches = [
-    # Load the name of the image from the environment variable so that
-    # it can be consistently overwritten. Using the command line
-    # argument in the wrapper did not work.
-    ./0001-get-image-from-environment.patch
-  ];
+  patches =
+    [
+      # Load the name of the image from the environment variable so that
+      # it can be consistently overwritten. Using the command line
+      # argument in the wrapper did not work.
+      ./0001-get-image-from-environment.patch
+    ];
 
   preConfigure = ''
     sh bootstrap

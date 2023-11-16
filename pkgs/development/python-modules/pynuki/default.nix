@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pynacl
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pynacl,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-I0eAhgThSBEmJF6mYw+0Bh1kCUqEMFnCx+4n7l3Hf14=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pynacl
@@ -33,9 +32,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pynuki"
-  ];
+  pythonImportsCheck = [ "pynuki" ];
 
   meta = with lib; {
     description = "Python bindings for nuki.io bridges";

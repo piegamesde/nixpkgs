@@ -1,6 +1,7 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
 }:
 
 # This file is responsible for fetching the sage source and adding necessary patches.
@@ -35,15 +36,16 @@ stdenv.mkDerivation rec {
   # Since sage unfortunately does not release bugfix releases, packagers must
   # fix those bugs themselves. This is for critical bugfixes, where "critical"
   # == "causes (transient) doctest failures / somebody complained".
-  bugfixPatches = [
-    # Sage uses mixed integer programs (MIPs) to find edge disjoint
-    # spanning trees. For some reason, aarch64 glpk takes much longer
-    # than x86_64 glpk to solve such MIPs. Since the MIP formulation
-    # has "numerous problems" and will be replaced by a polynomial
-    # algorithm soon, disable this test for now.
-    # https://github.com/sagemath/sage/issues/34575
-    ./patches/disable-slow-glpk-test.patch
-  ];
+  bugfixPatches =
+    [
+      # Sage uses mixed integer programs (MIPs) to find edge disjoint
+      # spanning trees. For some reason, aarch64 glpk takes much longer
+      # than x86_64 glpk to solve such MIPs. Since the MIP formulation
+      # has "numerous problems" and will be replaced by a polynomial
+      # algorithm soon, disable this test for now.
+      # https://github.com/sagemath/sage/issues/34575
+      ./patches/disable-slow-glpk-test.patch
+    ];
 
   # Patches needed because of package updates. We could just pin the versions of
   # dependencies, but that would lead to rebuilds, confusion and the burdons of
@@ -113,16 +115,19 @@ stdenv.mkDerivation rec {
 
     # https://github.com/sagemath/sage/pull/36279, landed in 10.2.beta4
     (fetchpatch {
-       name = "matplotlib-3.8-upgrade.patch";
-       url = "https://github.com/sagemath/sage/commit/0fcf88935908440930c5f79202155aca4ad57518.diff";
-       sha256 = "sha256-mvqAHaTCXsxPv901L8HSTnrfghfXYdq0wfLoP/cYQZI=";
+      name = "matplotlib-3.8-upgrade.patch";
+      url = "https://github.com/sagemath/sage/commit/0fcf88935908440930c5f79202155aca4ad57518.diff";
+      sha256 = "sha256-mvqAHaTCXsxPv901L8HSTnrfghfXYdq0wfLoP/cYQZI=";
     })
   ];
 
   patches = nixPatches ++ bugfixPatches ++ packageUpgradePatches;
 
   # do not create .orig backup files if patch applies with fuzz
-  patchFlags = [ "--no-backup-if-mismatch" "-p1" ];
+  patchFlags = [
+    "--no-backup-if-mismatch"
+    "-p1"
+  ];
 
   postPatch = ''
     # Make sure sage can at least be imported without setting any environment

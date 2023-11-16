@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.virtualisation.lxd.agent;
@@ -44,7 +49,8 @@ let
     # Fix up permissions.
     chown -R root:root "$PREFIX"
   '';
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ adamcstephens ];
 
   options = {
@@ -56,7 +62,10 @@ in {
     systemd.services.lxd-agent = {
       enable = true;
       wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.kmod pkgs.util-linux ];
+      path = [
+        pkgs.kmod
+        pkgs.util-linux
+      ];
 
       preStart = preStartScript;
 
@@ -67,7 +76,11 @@ in {
         Description = "LXD - agent";
         Documentation = "https://documentation.ubuntu.com/lxd/en/latest";
         ConditionPathExists = "/dev/virtio-ports/org.linuxcontainers.lxd";
-        Before = lib.optionals config.services.cloud-init.enable [ "cloud-init.target" "cloud-init.service" "cloud-init-local.service" ];
+        Before = lib.optionals config.services.cloud-init.enable [
+          "cloud-init.target"
+          "cloud-init.service"
+          "cloud-init-local.service"
+        ];
         DefaultDependencies = "no";
         StartLimitInterval = "60";
         StartLimitBurst = "10";

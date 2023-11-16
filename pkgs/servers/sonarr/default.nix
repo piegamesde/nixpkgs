@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, mono, libmediainfo, sqlite, curl, makeWrapper, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mono,
+  libmediainfo,
+  sqlite,
+  curl,
+  makeWrapper,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sonarr";
@@ -18,8 +28,13 @@ stdenv.mkDerivation rec {
     cp -r * $out/bin/
     makeWrapper "${mono}/bin/mono" $out/bin/NzbDrone \
       --add-flags "$out/bin/Sonarr.exe" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
-          curl sqlite libmediainfo ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          curl
+          sqlite
+          libmediainfo
+        ]
+      }
 
     runHook postInstall
   '';
@@ -33,7 +48,10 @@ stdenv.mkDerivation rec {
     description = "Smart PVR for newsgroup and bittorrent users";
     homepage = "https://sonarr.tv/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fadenb purcell ];
+    maintainers = with lib.maintainers; [
+      fadenb
+      purcell
+    ];
     mainProgram = "NzbDrone";
     platforms = lib.platforms.all;
   };

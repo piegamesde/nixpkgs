@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, requests
-, six
-, pytestCheckHook
-, pyyaml
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  requests,
+  six,
+  pytestCheckHook,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     requests
@@ -36,10 +35,11 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  disabledTestPaths = [
-    # requires docker for integration test
-    "tests/integration"
-  ];
+  disabledTestPaths =
+    [
+      # requires docker for integration test
+      "tests/integration"
+    ];
 
   meta = with lib; {
     changelog = "https://github.com/netbox-community/pynetbox/releases/tag/v${version}";

@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "simple-date";
   version = "postmodern-20211209-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "simple-date";
 
-  asdFilesToKeep = ["simple-date.asd"];
+  asdFilesToKeep = [ "simple-date.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM simple-date DESCRIPTION
@@ -27,4 +27,5 @@ rec {
     MD5 6d14c4b5fec085594dc66d520174e0e6 NAME simple-date FILENAME simple-date
     DEPS ((NAME fiveam FILENAME fiveam)) DEPENDENCIES (fiveam) VERSION
     postmodern-20211209-git SIBLINGS (cl-postgres postmodern s-sql) PARASITES
-    (simple-date/tests)) */
+    (simple-date/tests))
+*/

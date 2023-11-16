@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pythonOlder, python-telegram }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pythonOlder,
+  python-telegram,
+}:
 
 buildPythonApplication rec {
   pname = "tg";

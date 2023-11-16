@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, cmake, nasm
-, gtk2, glib, ffmpeg_4, alsa-lib, libmad, libogg, libvorbis
-, glew, libpulseaudio, udev
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  nasm,
+  gtk2,
+  glib,
+  ffmpeg_4,
+  alsa-lib,
+  libmad,
+  libogg,
+  libvorbis,
+  glew,
+  libpulseaudio,
+  udev,
 }:
 
 stdenv.mkDerivation rec {
@@ -9,24 +22,33 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "stepmania";
-    repo  = "stepmania";
-    rev   = "v${version}";
+    repo = "stepmania";
+    rev = "v${version}";
     sha256 = "0a7y9l7xm510vgnpmj1is7p9m6d6yd0fcaxrjcickz295k5w3rdn";
   };
 
-  patches = [
-    ./0001-fix-build-with-ffmpeg-4.patch
-  ];
+  patches = [ ./0001-fix-build-with-ffmpeg-4.patch ];
 
   postPatch = ''
     sed '1i#include <ctime>' -i src/arch/ArchHooks/ArchHooks.h # gcc12
   '';
 
-  nativeBuildInputs = [ cmake nasm ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ];
 
   buildInputs = [
-    gtk2 glib ffmpeg_4 alsa-lib libmad libogg libvorbis
-    glew libpulseaudio udev
+    gtk2
+    glib
+    ffmpeg_4
+    alsa-lib
+    libmad
+    libogg
+    libvorbis
+    glew
+    libpulseaudio
+    udev
   ];
 
   cmakeFlags = [

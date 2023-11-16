@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, netcdf, hdf5, curl, cmake, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  netcdf,
+  hdf5,
+  curl,
+  cmake,
+  ninja,
+}:
 stdenv.mkDerivation rec {
   pname = "netcdf-cxx4";
   version = "4.3.1";
@@ -10,17 +19,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GZ6n7dW3l8Kqrk2Xp2mxRTUWWQj0XEd2LDTG9EtrfhY=";
   };
 
-  patches = [
-    # This fix is included upstream, remove with next upgrade
-    ./cmake-h5free.patch
-  ];
+  patches =
+    [
+      # This fix is included upstream, remove with next upgrade
+      ./cmake-h5free.patch
+    ];
 
   preConfigure = ''
     cmakeFlags+="-Dabs_top_srcdir=$(readlink -f ./)"
   '';
 
-  nativeBuildInputs = [ cmake ninja ];
-  buildInputs = [ netcdf hdf5 curl ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
+  buildInputs = [
+    netcdf
+    hdf5
+    curl
+  ];
 
   doCheck = true;
   enableParallelChecking = false;

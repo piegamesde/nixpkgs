@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "dex";
@@ -13,12 +18,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-sSn3qpbo04DjyPD+Ogx9JUdJ/++fNYb0bAmudQjchQ0=";
 
-  subPackages = [
-    "cmd/dex"
-  ];
+  subPackages = [ "cmd/dex" ];
 
   ldflags = [
-    "-w" "-s" "-X github.com/dexidp/dex/version.Version=${src.rev}"
+    "-w"
+    "-s"
+    "-X github.com/dexidp/dex/version.Version=${src.rev}"
   ];
 
   postInstall = ''
@@ -26,12 +31,17 @@ buildGoModule rec {
     cp -r $src/web $out/share/web
   '';
 
-  passthru.tests = { inherit (nixosTests) dex-oidc; };
+  passthru.tests = {
+    inherit (nixosTests) dex-oidc;
+  };
 
   meta = with lib; {
     description = "OpenID Connect and OAuth2 identity provider with pluggable connectors";
     homepage = "https://github.com/dexidp/dex";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley techknowlogick ];
+    maintainers = with maintainers; [
+      benley
+      techknowlogick
+    ];
   };
 }

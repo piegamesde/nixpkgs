@@ -1,8 +1,9 @@
-{ lib
-, buildGo120Module
-, fetchFromGitHub
-, testers
-, wireproxy
+{
+  lib,
+  buildGo120Module,
+  fetchFromGitHub,
+  testers,
+  wireproxy,
 }:
 
 buildGo120Module rec {

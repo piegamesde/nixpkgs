@@ -1,9 +1,10 @@
-{ fetchurl
-, formats
-, glibcLocales
-, jdk
-, lib
-, stdenv
+{
+  fetchurl,
+  formats,
+  glibcLocales,
+  jdk,
+  lib,
+  stdenv,
 }:
 
 # This test primarily tests correct escaping.
@@ -27,10 +28,10 @@ let
     "!a" = "still not! a comment";
     "!b" = "still not ! a comment";
     "dos paths" = "C:\\Program Files\\Nix For Windows\\nix.exe";
-    "a \t\nb" = " c";
-    "angry \t\nkey" = ''
+    "a 	\nb" = " c";
+    "angry 	\nkey" = ''
       multi
-      ${"\tline\r"}
+      ${"	line\r"}
        space-
         indented
       trailing-space${" "}
@@ -45,7 +46,6 @@ let
     # NB: Some editors (vscode) show this _whole_ line in right-to-left order
     "الجبر" = "أكثر من مجرد أرقام";
   };
-
 in
 stdenv.mkDerivation {
   name = "pkgs.formats.javaProperties-test-${jdk.name}";
@@ -60,23 +60,21 @@ stdenv.mkDerivation {
 
   # Expected output as printed by Main.java
   passAsFile = [ "expected" ];
-  expected = concatStrings (attrValues (
-    mapAttrs
-      (key: value:
-        ''
+  expected = concatStrings (
+    attrValues (
+      mapAttrs
+        (key: value: ''
           KEY
           ${key}
           VALUE
           ${value}
 
-        ''
-      )
-      input
-  ));
+        '')
+        input
+    )
+  );
 
-  src = lib.sourceByRegex ./. [
-    ".*\.java"
-  ];
+  src = lib.sourceByRegex ./. [ ".*.java" ];
   # On Linux, this can be C.UTF-8, but darwin + zulu requires en_US.UTF-8
   LANG = "en_US.UTF-8";
   buildPhase = ''

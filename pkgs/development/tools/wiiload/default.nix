@@ -1,14 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  zlib,
+}:
 stdenv.mkDerivation rec {
   version = "0.5.1";
   pname = "wiiload";
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
   buildInputs = [ zlib ];
 
   src = fetchFromGitHub {
     owner = "devkitPro";
-    repo  = "wiiload";
+    repo = "wiiload";
     rev = "v${version}";
     sha256 = "0dffy603zggkqv7g1a2jninmi64vy519gpgkdfhjnijhdm9gs5m3";
   };

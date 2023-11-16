@@ -1,4 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, callPackage, stuffbin, nixosTests, fetchpatch }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  callPackage,
+  stuffbin,
+  nixosTests,
+  fetchpatch,
+}:
 
 buildGoModule rec {
   pname = "listmonk";
@@ -11,21 +19,24 @@ buildGoModule rec {
     sha256 = "sha256-gCnIblc83CmG1auvYYxqW/xBl6Oy1KHGkqSY/3yIm3I=";
   };
 
-  patches = [
-    # Ensure that listmonk supports Go 1.20
-    (fetchpatch {
-      url = "https://github.com/knadh/listmonk/commit/25513b81044803b104ada63c0be57a913960484e.patch";
-      hash = "sha256-SYACM8r+NgeSWn9VJV4+wkm+6s/MhNGwn5zyc2tw7FU=";
-    })
-  ];
+  patches =
+    [
+      # Ensure that listmonk supports Go 1.20
+      (fetchpatch {
+        url = "https://github.com/knadh/listmonk/commit/25513b81044803b104ada63c0be57a913960484e.patch";
+        hash = "sha256-SYACM8r+NgeSWn9VJV4+wkm+6s/MhNGwn5zyc2tw7FU=";
+      })
+    ];
 
   vendorHash = "sha256-0sgC1+ueZTUCP+7JwI/OKLktfMHQq959GEk1mC0TQgE=";
 
-  nativeBuildInputs = [
-    stuffbin
-  ];
+  nativeBuildInputs = [ stuffbin ];
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/listmonk
@@ -44,14 +55,16 @@ buildGoModule rec {
         "i18n:/i18n"
       ];
     in
-      ''
-        stuffbin -a stuff -in $out/bin/listmonk -out $out/bin/listmonk \
-          ${lib.concatStringsSep " " vfsMappings}
-      '';
+    ''
+      stuffbin -a stuff -in $out/bin/listmonk -out $out/bin/listmonk \
+        ${lib.concatStringsSep " " vfsMappings}
+    '';
 
   passthru = {
     frontend = callPackage ./frontend.nix { inherit meta; };
-    tests = { inherit (nixosTests) listmonk; };
+    tests = {
+      inherit (nixosTests) listmonk;
+    };
   };
 
   meta = with lib; {

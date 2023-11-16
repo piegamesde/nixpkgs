@@ -1,5 +1,18 @@
-{ stdenv, lib, runCommand, patchelf, makeWrapper, pkg-config, curl, runtimeShell
-, openssl, zlib, fetchFromGitHub, rustPlatform, libiconv }:
+{
+  stdenv,
+  lib,
+  runCommand,
+  patchelf,
+  makeWrapper,
+  pkg-config,
+  curl,
+  runtimeShell,
+  openssl,
+  zlib,
+  fetchFromGitHub,
+  rustPlatform,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "elan";
@@ -14,33 +27,44 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-SMKFSu5C5mc3U266hEa6RB3GH5te3jIrUZAzj3YNa2E=";
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   OPENSSL_NO_VENDOR = 1;
-  buildInputs = [ curl zlib openssl ]
-    ++ lib.optional stdenv.isDarwin libiconv;
+  buildInputs = [
+    curl
+    zlib
+    openssl
+  ] ++ lib.optional stdenv.isDarwin libiconv;
 
   buildFeatures = [ "no-self-update" ];
 
-  patches = lib.optionals stdenv.isLinux [
-    # Run patchelf on the downloaded binaries.
-    # This is necessary because Lean 4 is now dynamically linked.
-    (runCommand "0001-dynamically-patchelf-binaries.patch" {
-        CC = stdenv.cc;
-        cc = "${stdenv.cc}/bin/cc";
-        ar = "${stdenv.cc}/bin/ar";
-        patchelf = patchelf;
-        shell = runtimeShell;
-      } ''
-     export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
-     substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
-       --subst-var patchelf \
-       --subst-var dynamicLinker \
-       --subst-var cc \
-       --subst-var ar \
-       --subst-var shell
-    '')
-  ];
+  patches =
+    lib.optionals stdenv.isLinux
+      [
+        # Run patchelf on the downloaded binaries.
+        # This is necessary because Lean 4 is now dynamically linked.
+        (runCommand "0001-dynamically-patchelf-binaries.patch"
+          {
+            CC = stdenv.cc;
+            cc = "${stdenv.cc}/bin/cc";
+            ar = "${stdenv.cc}/bin/ar";
+            patchelf = patchelf;
+            shell = runtimeShell;
+          }
+          ''
+            export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
+            substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
+              --subst-var patchelf \
+              --subst-var dynamicLinker \
+              --subst-var cc \
+              --subst-var ar \
+              --subst-var shell
+          ''
+        )
+      ];
 
   postInstall = ''
     pushd $out/bin
@@ -62,7 +86,10 @@ rustPlatform.buildRustPackage rec {
     description = "Small tool to manage your installations of the Lean theorem prover";
     homepage = "https://github.com/leanprover/elan";
     changelog = "https://github.com/leanprover/elan/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ gebner ];
     mainProgram = "elan";
   };

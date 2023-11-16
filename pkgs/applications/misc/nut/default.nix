@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, autoreconfHook
-, avahi
-, coreutils
-, fetchurl
-, freeipmi
-, gd
-, i2c-tools
-, libmodbus
-, libtool
-, libusb1
-, makeWrapper
-, neon
-, net-snmp
-, openssl
-, pkg-config
-, substituteAll
-, systemd
-, udev
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  avahi,
+  coreutils,
+  fetchurl,
+  freeipmi,
+  gd,
+  i2c-tools,
+  libmodbus,
+  libtool,
+  libusb1,
+  makeWrapper,
+  neon,
+  net-snmp,
+  openssl,
+  pkg-config,
+  substituteAll,
+  systemd,
+  udev,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,7 +26,9 @@ stdenv.mkDerivation rec {
   version = "2.8.0";
 
   src = fetchurl {
-    url = "https://networkupstools.org/source/${lib.versions.majorMinor version}/${pname}-${version}.tar.gz";
+    url = "https://networkupstools.org/source/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.gz";
     sha256 = "sha256-w+WnCNp5e3xwtlPTexIGoAD8tQO4VRn+TN9jU/eSv+U=";
   };
 
@@ -41,25 +44,49 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ neon libusb1 openssl udev avahi freeipmi libmodbus i2c-tools net-snmp gd ];
+  buildInputs = [
+    neon
+    libusb1
+    openssl
+    udev
+    avahi
+    freeipmi
+    libmodbus
+    i2c-tools
+    net-snmp
+    gd
+  ];
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+    makeWrapper
+  ];
 
-  configureFlags =
-    [ "--with-all"
-      "--with-ssl"
-      "--without-powerman" # Until we have it ...
-      "--with-systemdsystemunitdir=$(out)/lib/systemd/system"
-      "--with-systemdshutdowndir=$(out)/lib/systemd/system-shutdown"
-      "--with-systemdtmpfilesdir=$(out)/lib/tmpfiles.d"
-      "--with-udev-dir=$(out)/etc/udev"
-    ];
+  configureFlags = [
+    "--with-all"
+    "--with-ssl"
+    "--without-powerman" # Until we have it ...
+    "--with-systemdsystemunitdir=$(out)/lib/systemd/system"
+    "--with-systemdshutdowndir=$(out)/lib/systemd/system-shutdown"
+    "--with-systemdtmpfilesdir=$(out)/lib/tmpfiles.d"
+    "--with-udev-dir=$(out)/etc/udev"
+  ];
 
   enableParallelBuilding = true;
 
   # Add `cgi-bin` to the default list to avoid pulling in whole
   # of `gcc` into build closure.
-  stripDebugList = [ "cgi-bin" "lib" "lib32" "lib64" "libexec" "bin" "sbin" ];
+  stripDebugList = [
+    "cgi-bin"
+    "lib"
+    "lib32"
+    "lib64"
+    "libexec"
+    "bin"
+    "sbin"
+  ];
 
   postInstall = ''
     substituteInPlace $out/lib/systemd/system-shutdown/nutshutdown \
@@ -85,7 +112,11 @@ stdenv.mkDerivation rec {
     homepage = "https://networkupstools.org/";
     platforms = platforms.linux;
     maintainers = [ maintainers.pierron ];
-    license = with licenses; [ gpl1Plus gpl2Plus gpl3Plus ];
+    license = with licenses; [
+      gpl1Plus
+      gpl2Plus
+      gpl3Plus
+    ];
     priority = 10;
   };
 }

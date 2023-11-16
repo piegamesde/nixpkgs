@@ -1,7 +1,10 @@
-{ lib, fetchurl, buildDunePackage
-, containers
-, oseq
-, alcotest
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  containers,
+  oseq,
+  alcotest,
 }:
 
 buildDunePackage rec {
@@ -15,7 +18,10 @@ buildDunePackage rec {
     hash = "sha256-QgkbnD3B1lONg9U60BM2xWVgIt6pZNmOmxkKy+UJH9E=";
   };
 
-  propagatedBuildInputs = [ containers oseq ];
+  propagatedBuildInputs = [
+    containers
+    oseq
+  ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, poetry-core
-, pythonRelaxDepsHook
-, click
-, colorama
-, flask
-, requests
-, yt-dlp
-, progress
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  pythonRelaxDepsHook,
+  click,
+  colorama,
+  flask,
+  requests,
+  yt-dlp,
+  progress,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-g9JwFnB4tFuvRvQGEURbIB2gaXQgCQJkL1sNmYMFvck=";
   };
 
-  pythonRelaxDeps = [
-    "requests"
-  ];
+  pythonRelaxDeps = [ "requests" ];
 
   nativeBuildInputs = [
     poetry-core
@@ -44,9 +43,7 @@ buildPythonPackage rec {
   # When upstream adds unit tests, please configure them here. Thanks! ~ C.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "yark"
-  ];
+  pythonImportsCheck = [ "yark" ];
 
   meta = with lib; {
     description = "YouTube archiving made simple";

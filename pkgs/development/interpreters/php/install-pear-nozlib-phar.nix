@@ -1,6 +1,4 @@
-{
-  fetchurl
-}:
+{ fetchurl }:
 
 fetchurl {
   url = "https://pear.php.net/install-pear-nozlib.phar";

@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, libcst
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  libcst,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -43,10 +44,11 @@ buildPythonPackage rec {
     "google.cloud.bigquery_datatransfer_v1"
   ];
 
-  disabledTests = [
-    # Tests require project ID
-    "test_list_data_sources"
-  ];
+  disabledTests =
+    [
+      # Tests require project ID
+      "test_list_data_sources"
+    ];
 
   meta = with lib; {
     description = "BigQuery Data Transfer API client library";

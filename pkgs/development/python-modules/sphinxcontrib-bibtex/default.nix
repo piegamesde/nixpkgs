@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, oset
-, pybtex
-, pybtex-docutils
-, sphinx
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  oset,
+  pybtex,
+  pybtex-docutils,
+  sphinx,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sphinxcontrib.bibtex"
-  ];
+  pythonImportsCheck = [ "sphinxcontrib.bibtex" ];
 
   meta = with lib; {
     description = "A Sphinx extension for BibTeX style citations";

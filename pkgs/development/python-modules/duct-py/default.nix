@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,16 +19,15 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "duct" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # This test completely empties the environment then tries to run a Python command.
-    # The test then fails because it can't find the `python` executable. It's unclear
-    # how this test even passes _outside_ of Nix.
-    "test_full_env"
-  ];
+  disabledTests =
+    [
+      # This test completely empties the environment then tries to run a Python command.
+      # The test then fails because it can't find the `python` executable. It's unclear
+      # how this test even passes _outside_ of Nix.
+      "test_full_env"
+    ];
 
   meta = with lib; {
     description = "A Python library for running child processes";

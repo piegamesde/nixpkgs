@@ -1,4 +1,9 @@
-{ fetchFromGitLab, applyPatches, fetchpatch }: rec {
+{
+  fetchFromGitLab,
+  applyPatches,
+  fetchpatch,
+}:
+rec {
 
   pname = "mobilizon";
   version = "3.2.0";

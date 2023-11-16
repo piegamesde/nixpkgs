@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivial-mimes";
   version = "20200715-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-mimes";
 
-  asdFilesToKeep = ["trivial-mimes.asd"];
+  asdFilesToKeep = [ "trivial-mimes.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivial-mimes DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/trivial-mimes/2020-07-15/trivial-mimes-20200715-git.tgz
     MD5 6f400805470232e87b3f69b9239b2b55 NAME trivial-mimes FILENAME
     trivial-mimes DEPS NIL DEPENDENCIES NIL VERSION 20200715-git SIBLINGS NIL
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

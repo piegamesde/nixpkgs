@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, doit
-, configclass
-, mergedict
-, pytestCheckHook
-, hunspell
-, hunspellDicts
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  doit,
+  configclass,
+  mergedict,
+  pytestCheckHook,
+  hunspell,
+  hunspellDicts,
 }:
 
 buildPythonPackage rec {
@@ -32,10 +33,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Disable linting checks
-    "tests/test_pyflakes.py"
-  ];
+  disabledTestPaths =
+    [
+      # Disable linting checks
+      "tests/test_pyflakes.py"
+    ];
 
   pythonImportsCheck = [ "doitpy" ];
 

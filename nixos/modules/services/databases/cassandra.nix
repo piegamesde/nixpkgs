@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
@@ -15,7 +20,7 @@ let
     mkOption
     types
     versionAtLeast
-    ;
+  ;
 
   cfg = config.services.cassandra;
 
@@ -36,27 +41,32 @@ let
       data_file_directories = [ "${cfg.homeDir}/data" ];
       commitlog_directory = "${cfg.homeDir}/commitlog";
       saved_caches_directory = "${cfg.homeDir}/saved_caches";
-    } // optionalAttrs (cfg.seedAddresses != [ ]) {
+    }
+    // optionalAttrs (cfg.seedAddresses != [ ]) {
       seed_provider = [
         {
           class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
-          parameters = [{ seeds = concatStringsSep "," cfg.seedAddresses; }];
+          parameters = [ { seeds = concatStringsSep "," cfg.seedAddresses; } ];
         }
       ];
-    } // optionalAttrs atLeast3 {
-      hints_directory = "${cfg.homeDir}/hints";
     }
+    // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; }
   );
 
-  cassandraConfigWithAddresses = cassandraConfig // (
-    if cfg.listenAddress == null
-    then { listen_interface = cfg.listenInterface; }
-    else { listen_address = cfg.listenAddress; }
-  ) // (
-    if cfg.rpcAddress == null
-    then { rpc_interface = cfg.rpcInterface; }
-    else { rpc_address = cfg.rpcAddress; }
-  );
+  cassandraConfigWithAddresses =
+    cassandraConfig
+    // (
+      if cfg.listenAddress == null then
+        { listen_interface = cfg.listenInterface; }
+      else
+        { listen_address = cfg.listenAddress; }
+    )
+    // (
+      if cfg.rpcAddress == null then
+        { rpc_interface = cfg.rpcInterface; }
+      else
+        { rpc_address = cfg.rpcAddress; }
+    );
 
   cassandraEtc = pkgs.stdenv.mkDerivation {
     name = "cassandra-etc";
@@ -91,23 +101,24 @@ let
     '';
   };
 
-  defaultJmxRolesFile =
-    builtins.foldl'
-      (left: right: left + right) ""
-      (map (role: "${role.username} ${role.password}") cfg.jmxRoles);
+  defaultJmxRolesFile = builtins.foldl' (left: right: left + right) "" (
+    map (role: "${role.username} ${role.password}") cfg.jmxRoles
+  );
 
   fullJvmOptions =
     cfg.jvmOpts
     ++ optionals (cfg.jmxRoles != [ ]) [
       "-Dcom.sun.management.jmxremote.authenticate=true"
       "-Dcom.sun.management.jmxremote.password.file=${cfg.jmxRolesFile}"
-    ] ++ optionals cfg.remoteJmx [
-      "-Djava.rmi.server.hostname=${cfg.rpcAddress}"
-    ] ++ optionals atLeast4 [
-      # Historically, we don't use a log dir, whereas the upstream scripts do
-      # expect this. We override those by providing our own -Xlog:gc flag.
-      "-Xlog:gc=warning,heap*=warning,age*=warning,safepoint=warning,promotion*=warning"
-    ];
+    ]
+    ++ optionals cfg.remoteJmx [ "-Djava.rmi.server.hostname=${cfg.rpcAddress}" ]
+    ++
+      optionals atLeast4
+        [
+          # Historically, we don't use a log dir, whereas the upstream scripts do
+          # expect this. We override those by providing our own -Xlog:gc flag.
+          "-Xlog:gc=warning,heap*=warning,age*=warning,safepoint=warning,promotion*=warning"
+        ];
 
   commonEnv = {
     # Sufficient for cassandra 2.x, 3.x
@@ -116,14 +127,15 @@ let
     # Required since cassandra 4
     CASSANDRA_LOGBACK_CONF = "${cassandraEtc}/logback.xml";
   };
-
 in
 {
   options.services.cassandra = {
 
-    enable = mkEnableOption (lib.mdDoc ''
-      Apache Cassandra – Scalable and highly available database
-    '');
+    enable = mkEnableOption (
+      lib.mdDoc ''
+        Apache Cassandra – Scalable and highly available database
+      ''
+    );
 
     clusterName = mkOption {
       type = types.str;
@@ -286,10 +298,9 @@ in
     extraConfig = mkOption {
       type = types.attrs;
       default = { };
-      example =
-        {
-          commitlog_sync_batch_window_in_ms = 3;
-        };
+      example = {
+        commitlog_sync_batch_window_in_ms = 3;
+      };
       description = mdDoc ''
         Extra options to be merged into {file}`cassandra.yaml` as nix attribute set.
       '';
@@ -438,27 +449,28 @@ in
         Doesn't work in versions older than 3.11 because they don't like that
         it's world readable.
       '';
-      type = types.listOf (types.submodule {
-        options = {
-          username = mkOption {
-            type = types.str;
-            description = lib.mdDoc "Username for JMX";
+      type = types.listOf (
+        types.submodule {
+          options = {
+            username = mkOption {
+              type = types.str;
+              description = lib.mdDoc "Username for JMX";
+            };
+            password = mkOption {
+              type = types.str;
+              description = lib.mdDoc "Password for JMX";
+            };
           };
-          password = mkOption {
-            type = types.str;
-            description = lib.mdDoc "Password for JMX";
-          };
-        };
-      });
+        }
+      );
     };
 
     jmxRolesFile = mkOption {
       type = types.nullOr types.path;
-      default =
-        if atLeast3_11
-        then pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
-        else null;
-      defaultText = literalMD ''generated configuration file if version is at least 3.11, otherwise `null`'';
+      default = if atLeast3_11 then pkgs.writeText "jmx-roles-file" defaultJmxRolesFile else null;
+      defaultText =
+        literalMD
+          "generated configuration file if version is at least 3.11, otherwise `null`";
       example = "/var/lib/cassandra/jmx.password";
       description = lib.mdDoc ''
         Specify your own jmx roles file.
@@ -531,26 +543,26 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          concatStringsSep " "
-            ([
-              "${cfg.package}/bin/nodetool"
-              "repair"
-              "--full"
-            ] ++ cfg.fullRepairOptions);
+        ExecStart = concatStringsSep " " (
+          [
+            "${cfg.package}/bin/nodetool"
+            "repair"
+            "--full"
+          ]
+          ++ cfg.fullRepairOptions
+        );
       };
     };
 
-    systemd.timers.cassandra-full-repair =
-      mkIf (cfg.fullRepairInterval != null) {
-        description = "Schedule full repairs on Cassandra";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnBootSec = cfg.fullRepairInterval;
-          OnUnitActiveSec = cfg.fullRepairInterval;
-          Persistent = true;
-        };
+    systemd.timers.cassandra-full-repair = mkIf (cfg.fullRepairInterval != null) {
+      description = "Schedule full repairs on Cassandra";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = cfg.fullRepairInterval;
+        OnUnitActiveSec = cfg.fullRepairInterval;
+        Persistent = true;
       };
+    };
 
     systemd.services.cassandra-incremental-repair = {
       description = "Perform an incremental repair on this cassandra node.";
@@ -560,25 +572,25 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart =
-          concatStringsSep " "
-            ([
-              "${cfg.package}/bin/nodetool"
-              "repair"
-            ] ++ cfg.incrementalRepairOptions);
+        ExecStart = concatStringsSep " " (
+          [
+            "${cfg.package}/bin/nodetool"
+            "repair"
+          ]
+          ++ cfg.incrementalRepairOptions
+        );
       };
     };
 
-    systemd.timers.cassandra-incremental-repair =
-      mkIf (cfg.incrementalRepairInterval != null) {
-        description = "Schedule incremental repairs on Cassandra";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnBootSec = cfg.incrementalRepairInterval;
-          OnUnitActiveSec = cfg.incrementalRepairInterval;
-          Persistent = true;
-        };
+    systemd.timers.cassandra-incremental-repair = mkIf (cfg.incrementalRepairInterval != null) {
+      description = "Schedule incremental repairs on Cassandra";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = cfg.incrementalRepairInterval;
+        OnUnitActiveSec = cfg.incrementalRepairInterval;
+        Persistent = true;
       };
+    };
   };
 
   meta.maintainers = with lib.maintainers; [ roberth ];

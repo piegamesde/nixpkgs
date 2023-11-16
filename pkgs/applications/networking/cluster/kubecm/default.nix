@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "kubecm";
@@ -12,7 +16,11 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-HjMgXEDX9pDpK+1Hm0xI0wYRfpj7K6xkZJXCUBqbE3Y=";
-  ldflags = [ "-s" "-w" "-X github.com/sunny0826/kubecm/version.Version=${version}"];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/sunny0826/kubecm/version.Version=${version}"
+  ];
 
   doCheck = false;
 

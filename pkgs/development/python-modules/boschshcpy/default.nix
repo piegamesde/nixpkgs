@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, getmac
-, pythonOlder
-, requests
-, zeroconf
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  getmac,
+  pythonOlder,
+  requests,
+  zeroconf,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "boschshcpy"
-  ];
+  pythonImportsCheck = [ "boschshcpy" ];
 
   meta = with lib; {
     description = "Python module to work with the Bosch Smart Home Controller API";

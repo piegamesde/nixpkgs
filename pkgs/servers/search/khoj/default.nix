@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, qt6
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  qt6,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -37,18 +38,17 @@ python3.pkgs.buildPythonApplication rec {
       --replace "uvicorn == 0.17.6" "uvicorn"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    hatch-vcs
-    hatchling
-  ] ++ (with qt6; [
-    wrapQtAppsHook
-  ]);
+  nativeBuildInputs =
+    with python3.pkgs;
+    [
+      hatch-vcs
+      hatchling
+    ]
+    ++ (with qt6; [ wrapQtAppsHook ]);
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    qt6.qtwayland
-  ] ++ lib.optionals stdenv.isDarwin [
-    qt6.qtbase
-  ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [ qt6.qtwayland ]
+    ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ];
 
   propagatedBuildInputs = with python3.pkgs; [
     dateparser
@@ -68,17 +68,13 @@ python3.pkgs.buildPythonApplication rec {
     uvicorn
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [
-    "khoj"
-  ];
+  pythonImportsCheck = [ "khoj" ];
 
   disabledTests = [
     # Tests require network access

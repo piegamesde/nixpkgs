@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "fiveam";
   version = "20211209-git";
@@ -8,7 +8,11 @@ rec {
 
   description = "A simple regression testing framework";
 
-  deps = [ args."alexandria" args."net_dot_didierverna_dot_asdf-flv" args."trivial-backtrace" ];
+  deps = [
+    args."alexandria"
+    args."net_dot_didierverna_dot_asdf-flv"
+    args."trivial-backtrace"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/fiveam/2021-12-09/fiveam-20211209-git.tgz";
@@ -17,7 +21,7 @@ rec {
 
   packageName = "fiveam";
 
-  asdFilesToKeep = ["fiveam.asd"];
+  asdFilesToKeep = [ "fiveam.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM fiveam DESCRIPTION A simple regression testing framework SHA256
@@ -28,4 +32,5 @@ rec {
      (NAME net.didierverna.asdf-flv FILENAME net_dot_didierverna_dot_asdf-flv)
      (NAME trivial-backtrace FILENAME trivial-backtrace))
     DEPENDENCIES (alexandria net.didierverna.asdf-flv trivial-backtrace)
-    VERSION 20211209-git SIBLINGS NIL PARASITES (fiveam/test)) */
+    VERSION 20211209-git SIBLINGS NIL PARASITES (fiveam/test))
+*/

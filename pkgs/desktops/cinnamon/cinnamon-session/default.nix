@@ -1,26 +1,27 @@
-{ fetchFromGitHub
-, cinnamon-desktop
-, cinnamon-settings-daemon
-, cinnamon-translations
-, dbus-glib
-, glib
-, gsettings-desktop-schemas
-, gtk3
-, libcanberra
-, libxslt
-, makeWrapper
-, meson
-, ninja
-, pkg-config
-, python3
-, lib
-, stdenv
-, systemd
-, wrapGAppsHook
-, xapp
-, xorg
-, libexecinfo
-, pango
+{
+  fetchFromGitHub,
+  cinnamon-desktop,
+  cinnamon-settings-daemon,
+  cinnamon-translations,
+  dbus-glib,
+  glib,
+  gsettings-desktop-schemas,
+  gtk3,
+  libcanberra,
+  libxslt,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  lib,
+  stdenv,
+  systemd,
+  wrapGAppsHook,
+  xapp,
+  xorg,
+  libexecinfo,
+  pango,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,9 +35,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-NVoP1KYh/z96NKMi9LjL4RgkjJg32oSy5WHJ91+70DI=";
   };
 
-  patches = [
-    ./0001-Use-dbus_glib-instead-of-elogind.patch
-  ];
+  patches = [ ./0001-Use-dbus_glib-instead-of-elogind.patch ];
 
   buildInputs = [
     # meson.build
@@ -75,10 +74,11 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  mesonFlags = [
-    # use locales from cinnamon-translations
-    "--localedir=${cinnamon-translations}/share/locale"
-  ];
+  mesonFlags =
+    [
+      # use locales from cinnamon-translations
+      "--localedir=${cinnamon-translations}/share/locale"
+    ];
 
   postPatch = ''
     chmod +x data/meson_install_schemas.py # patchShebangs requires executable file

@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "hetzner-kube";
@@ -11,24 +16,21 @@ buildGoModule rec {
     hash = "sha256-XHvR+31yq0o3txMBHh2rCh2peDlG5Kh3hdl0LGm9D8c=";
   };
 
-  patches = [
-    # Use $HOME instead of the OS user database.
-    # Upstream PR: https://github.com/xetys/hetzner-kube/pull/346
-    # Unfortunately, the PR patch does not apply against release.
-    ./fix-home.patch
-  ];
+  patches =
+    [
+      # Use $HOME instead of the OS user database.
+      # Upstream PR: https://github.com/xetys/hetzner-kube/pull/346
+      # Unfortunately, the PR patch does not apply against release.
+      ./fix-home.patch
+    ];
 
   vendorHash = "sha256-sIjSu9U+uNc5dgt9Qg328W/28nX4F5d5zjUb7Y1xAso=";
 
   doCheck = false;
 
-  ldflags = [
-    "-X github.com/xetys/hetzner-kube/cmd.version=${version}"
-  ];
+  ldflags = [ "-X github.com/xetys/hetzner-kube/cmd.version=${version}" ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     # Need a writable home, because it fails if unable to write config.

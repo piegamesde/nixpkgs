@@ -1,13 +1,14 @@
-{ lib
-, async-timeout
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, httpx
-, orjson
-, packaging
-, pythonOlder
-, xmltodict
+{
+  lib,
+  async-timeout,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  orjson,
+  packaging,
+  pythonOlder,
+  xmltodict,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
   # Tests requires a server on localhost
   doCheck = false;
 
-  pythonImportsCheck = [
-    "axis"
-  ];
+  pythonImportsCheck = [ "axis" ];
 
   meta = with lib; {
     description = "Python library for communicating with devices from Axis Communications";

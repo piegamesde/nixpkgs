@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fst-pso
-, numpy
-, pandas
-, pythonOlder
-, scipy
-, simpful
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fst-pso,
+  numpy,
+  pandas,
+  pythonOlder,
+  scipy,
+  simpful,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
   # Module has not test
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyfume"
-  ];
+  pythonImportsCheck = [ "pyfume" ];
 
   meta = with lib; {
     description = "A Python package for fuzzy model estimation";

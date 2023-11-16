@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, six
-, pythonOlder
-, coverage
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  six,
+  pythonOlder,
+  coverage,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest
   '';
 
-  pythonImportsCheck = [
-    "nose2"
-  ];
+  pythonImportsCheck = [ "nose2" ];
 
   meta = with lib; {
     description = "Test runner for Python";

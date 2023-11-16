@@ -1,10 +1,11 @@
-{ lib
-, bzip2
-, patchelf
-, python3
-, fetchPypi
-, gnutar
-, unzip
+{
+  lib,
+  bzip2,
+  patchelf,
+  python3,
+  fetchPypi,
+  gnutar,
+  unzip,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -17,9 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-PuWDABSTHqhK9c0GXGN7ZhTvoD2biL2Pv8kk5+0B1ro=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    pbr
-  ];
+  nativeBuildInputs = with python3.pkgs; [ pbr ];
 
   propagatedBuildInputs = with python3.pkgs; [
     pyelftools
@@ -32,9 +31,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   # Integration tests require docker and networking
-  disabledTestPaths = [
-    "tests/integration"
-  ];
+  disabledTestPaths = [ "tests/integration" ];
 
   # Ensure that there are no undeclared deps
   postCheck = ''
@@ -42,16 +39,24 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [ bzip2 gnutar patchelf unzip ])
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      bzip2
+      gnutar
+      patchelf
+      unzip
+    ])
   ];
 
   meta = with lib; {
     description = "Auditing and relabeling cross-distribution Linux wheels";
     homepage = "https://github.com/pypa/auditwheel";
     license = with licenses; [
-      mit  # auditwheel and nibabel
-      bsd2  # from https://github.com/matthew-brett/delocate
-      bsd3  # from https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-projects/pax-utils/lddtree.py
+      mit # auditwheel and nibabel
+      bsd2 # from https://github.com/matthew-brett/delocate
+      bsd3 # from https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-projects/pax-utils/lddtree.py
     ];
     maintainers = with maintainers; [ davhau ];
     platforms = platforms.linux;

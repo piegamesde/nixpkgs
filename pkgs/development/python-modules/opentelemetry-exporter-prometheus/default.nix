@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, hatchling
-, opentelemetry-api
-, opentelemetry-sdk
-, opentelemetry-test-utils
-, prometheus-client
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-sdk,
+  opentelemetry-test-utils,
+  prometheus-client,
+  pytestCheckHook,
 }:
 
 buildPythonPackage {
@@ -18,9 +19,7 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     opentelemetry-api

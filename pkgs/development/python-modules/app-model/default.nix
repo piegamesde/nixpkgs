@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, in-n-out
-, psygnal
-, pydantic
-, pytestCheckHook
-, pythonOlder
-, typing-extensions
-, hatch-vcs
-, hatchling
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  in-n-out,
+  psygnal,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+  hatch-vcs,
+  hatchling,
 }:
 
 buildPythonPackage rec {
@@ -39,13 +40,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "app_model"
-  ];
+  pythonImportsCheck = [ "app_model" ];
 
   meta = with lib; {
     description = "Module to implement generic application schema";

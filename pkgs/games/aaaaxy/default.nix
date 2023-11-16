@@ -1,20 +1,21 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, alsa-lib
-, libglvnd
-, libX11
-, libXcursor
-, libXext
-, libXi
-, libXinerama
-, libXrandr
-, libXxf86vm
-, go-licenses
-, pkg-config
-, zip
-, advancecomp
-, nixosTests
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  alsa-lib,
+  libglvnd,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXxf86vm,
+  go-licenses,
+  pkg-config,
+  zip,
+  advancecomp,
+  nixosTests,
 }:
 
 buildGoModule rec {
@@ -34,7 +35,12 @@ buildGoModule rec {
   buildInputs = [
     alsa-lib
     libglvnd
-    libX11 libXcursor libXext libXi libXinerama libXrandr
+    libX11
+    libXcursor
+    libXext
+    libXi
+    libXinerama
+    libXrandr
     libXxf86vm
   ];
 
@@ -45,7 +51,10 @@ buildGoModule rec {
     advancecomp
   ];
 
-  outputs = [ "out" "testing_infra" ];
+  outputs = [
+    "out"
+    "testing_infra"
+  ];
 
   postPatch = ''
     # Without patching, "go run" fails with the error message:
@@ -58,9 +67,7 @@ buildGoModule rec {
       --replace 'sh scripts/run-timedemo.sh' "$testing_infra/scripts/run-timedemo.sh"
   '';
 
-  makeFlags = [
-    "BUILDTYPE=release"
-  ];
+  makeFlags = [ "BUILDTYPE=release" ];
 
   buildPhase = ''
     runHook preBuild

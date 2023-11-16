@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, blas
-, lapack
-, numpy
-, scipy
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  blas,
+  lapack,
+  numpy,
+  scipy,
   # check inputs
-, pytestCheckHook
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

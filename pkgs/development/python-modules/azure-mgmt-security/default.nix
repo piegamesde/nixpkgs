@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, azure-common
-, azure-mgmt-core
-, msrest
-, msrestazure
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-mgmt-core,
+  msrest,
+  msrestazure,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     azure-mgmt-core
     msrest
     msrestazure
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # no tests included
   doCheck = false;

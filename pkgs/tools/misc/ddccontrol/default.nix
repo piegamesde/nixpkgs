@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, intltool
-, libxml2
-, pciutils
-, pkg-config
-, gtk2
-, ddccontrol-db
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  intltool,
+  libxml2,
+  pciutils,
+  pkg-config,
+  gtk2,
+  ddccontrol-db,
 }:
 
 stdenv.mkDerivation rec {
@@ -35,17 +36,16 @@ stdenv.mkDerivation rec {
     ddccontrol-db
   ];
 
-  patches = [
-    # Upstream commit, fixed the version number in v1.0.0
-    (fetchpatch {
-      url = "https://github.com/ddccontrol/ddccontrol/commit/fc8c5b5d0f2b64b08b95f4a7d8f47f2fd8ceec34.patch";
-      hash = "sha256-SB1BaolTNCUYgj38nMg1uLUqOHvnwCr8T3cnfu/7rjI=";
-    })
-  ];
+  patches =
+    [
+      # Upstream commit, fixed the version number in v1.0.0
+      (fetchpatch {
+        url = "https://github.com/ddccontrol/ddccontrol/commit/fc8c5b5d0f2b64b08b95f4a7d8f47f2fd8ceec34.patch";
+        hash = "sha256-SB1BaolTNCUYgj38nMg1uLUqOHvnwCr8T3cnfu/7rjI=";
+      })
+    ];
 
-  configureFlags = [
-    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-  ];
+  configureFlags = [ "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system" ];
 
   prePatch = ''
     substituteInPlace configure.ac              \

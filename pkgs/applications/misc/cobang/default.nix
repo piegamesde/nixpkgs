@@ -1,28 +1,29 @@
-{ lib
-, atk
-, buildPythonApplication
-, fetchFromGitHub
-, gdk-pixbuf
-, gobject-introspection
-, gst-plugins-good
-, gst-python
-, gtk3
-, kiss-headers
-, libhandy
-, librsvg
-, logbook
-, networkmanager
-, pango
-, pillow
-, poetry-core
-, pygobject3
-, pytestCheckHook
-, python
-, python-zbar
-, pythonRelaxDepsHook
-, requests
-, single-version
-, wrapGAppsHook
+{
+  lib,
+  atk,
+  buildPythonApplication,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gobject-introspection,
+  gst-plugins-good,
+  gst-python,
+  gtk3,
+  kiss-headers,
+  libhandy,
+  librsvg,
+  logbook,
+  networkmanager,
+  pango,
+  pillow,
+  poetry-core,
+  pygobject3,
+  pytestCheckHook,
+  python,
+  python-zbar,
+  pythonRelaxDepsHook,
+  requests,
+  single-version,
+  wrapGAppsHook,
 }:
 
 buildPythonApplication rec {
@@ -69,9 +70,7 @@ buildPythonApplication rec {
     single-version
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Wrapping this manually for SVG recognition
   dontWrapGApps = true;

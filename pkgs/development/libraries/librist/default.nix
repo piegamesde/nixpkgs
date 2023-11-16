@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, cjson
-, cmocka
-, mbedtls
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  cjson,
+  cmocka,
+  mbedtls,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,10 +22,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-E12TS+N47UQapkF6oO0Lx66Z3lHAyP0R4tVnx/uKBwQ=";
   };
 
-  patches = [
-    # https://github.com/NixOS/nixpkgs/pull/257020
-    ./darwin.patch
-  ];
+  patches =
+    [
+      # https://github.com/NixOS/nixpkgs/pull/257020
+      ./darwin.patch
+    ];
 
   nativeBuildInputs = [
     meson
@@ -41,8 +43,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A library that can be used to easily add the RIST protocol to your application.";
     homepage = "https://code.videolan.org/rist/librist";
-    license = with licenses; [ bsd2 mit isc ];
-    maintainers = with maintainers; [ raphaelr sebtm ];
+    license = with licenses; [
+      bsd2
+      mit
+      isc
+    ];
+    maintainers = with maintainers; [
+      raphaelr
+      sebtm
+    ];
     platforms = platforms.all;
   };
 }

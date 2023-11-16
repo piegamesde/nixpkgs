@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -13,9 +18,11 @@ let
   xserverCfg = config.services.xserver;
 
   defaultPinentryFlavor =
-    if xserverCfg.desktopManager.lxqt.enable
-    || xserverCfg.desktopManager.plasma5.enable
-    || xserverCfg.desktopManager.deepin.enable then
+    if
+      xserverCfg.desktopManager.lxqt.enable
+      || xserverCfg.desktopManager.plasma5.enable
+      || xserverCfg.desktopManager.deepin.enable
+    then
       "qt"
     else if xserverCfg.desktopManager.xfce.enable then
       "gtk2"
@@ -23,7 +30,6 @@ let
       "gnome3"
     else
       "curses";
-
 in
 
 {
@@ -76,7 +82,7 @@ in
       type = types.nullOr (types.enum pkgs.pinentry.flavors);
       example = "gnome3";
       default = defaultPinentryFlavor;
-      defaultText = literalMD ''matching the configured desktop environment'';
+      defaultText = literalMD "matching the configured desktop environment";
       description = lib.mdDoc ''
         Which pinentry interface to use. If not null, the path to the
         pinentry binary will be set in /etc/gnupg/gpg-agent.conf.
@@ -109,12 +115,14 @@ in
 
   config = mkIf cfg.agent.enable {
     programs.gnupg.agent.settings = {
-      pinentry-program = lib.mkIf (cfg.agent.pinentryFlavor != null)
-        "${pkgs.pinentry.${cfg.agent.pinentryFlavor}}/bin/pinentry";
+      pinentry-program =
+        lib.mkIf (cfg.agent.pinentryFlavor != null)
+          "${pkgs.pinentry.${cfg.agent.pinentryFlavor}}/bin/pinentry";
     };
 
     environment.etc."gnupg/gpg-agent.conf".source =
-      agentSettingsFormat.generate "gpg-agent.conf" cfg.agent.settings;
+      agentSettingsFormat.generate "gpg-agent.conf"
+        cfg.agent.settings;
 
     # This overrides the systemd user unit shipped with the gnupg package
     systemd.user.services.gpg-agent = {
@@ -236,7 +244,8 @@ in
     '';
 
     assertions = [
-      { assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
+      {
+        assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
         message = "You can't use ssh-agent and GnuPG agent with SSH support enabled at the same time!";
       }
     ];

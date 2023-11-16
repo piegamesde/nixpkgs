@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, extra-cmake-modules
-, gettext
-, fcitx5
-, fcitx5-qt
-, libskk
-, qtbase
-, skk-dicts
-, wrapQtAppsHook
-, enableQt ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  gettext,
+  fcitx5,
+  fcitx5-qt,
+  libskk,
+  qtbase,
+  skk-dicts,
+  wrapQtAppsHook,
+  enableQt ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,13 +33,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ] ++ lib.optional enableQt wrapQtAppsHook;
 
-  buildInputs = [
-    fcitx5
-    libskk
-  ] ++ lib.optionals enableQt [
-    fcitx5-qt
-    qtbase
-  ];
+  buildInputs =
+    [
+      fcitx5
+      libskk
+    ]
+    ++ lib.optionals enableQt [
+      fcitx5-qt
+      qtbase
+    ];
 
   cmakeFlags = [
     "-DENABLE_QT=${toString enableQt}"

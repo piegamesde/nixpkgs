@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, aiohttp
-, attrs
-, defusedxml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aiohttp,
+  attrs,
+  defusedxml,
 }:
 
 buildPythonPackage rec {

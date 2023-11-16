@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "xkeyboard";
   version = "clx-20120811-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "xkeyboard";
 
-  asdFilesToKeep = ["xkeyboard.asd"];
+  asdFilesToKeep = [ "xkeyboard.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM xkeyboard DESCRIPTION
@@ -26,4 +26,5 @@ rec {
     http://beta.quicklisp.org/archive/clx-xkeyboard/2012-08-11/clx-xkeyboard-20120811-git.tgz
     MD5 4e382b34e05d33f5de8e9c9dea33131c NAME xkeyboard FILENAME xkeyboard DEPS
     ((NAME clx FILENAME clx)) DEPENDENCIES (clx) VERSION clx-20120811-git
-    SIBLINGS NIL PARASITES (xkeyboard-test)) */
+    SIBLINGS NIL PARASITES (xkeyboard-test))
+*/

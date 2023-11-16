@@ -1,10 +1,20 @@
-{ lib, stdenv, fetchFromGitHub
-, meson, cmake, ninja, pkg-config
-, python3, git
-, SDL2, SDL2_ttf
-, freetype, harfbuzz
-, ffmpeg
-, cacert }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  cmake,
+  ninja,
+  pkg-config,
+  python3,
+  git,
+  SDL2,
+  SDL2_ttf,
+  freetype,
+  harfbuzz,
+  ffmpeg,
+  cacert,
+}:
 
 let
   version = "0.3.1";
@@ -35,7 +45,8 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-lIm2Bwy61St9d1e6QSm5ZpSIDR9ucaQKBPHATTDEgW4=";
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "vivictpp";
   inherit version;
 

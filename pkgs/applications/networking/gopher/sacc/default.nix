@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchurl, ncurses, libressl
-, patches ? [] # allow users to easily override config.def.h
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  libressl,
+  patches ? [ ] # allow users to easily override config.def.h
+  ,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,17 +19,18 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  buildInputs = [ ncurses libressl ];
-
-  CFLAGS = lib.optionals stdenv.isDarwin [
-    "-D_DARWIN_C_SOURCE"
+  buildInputs = [
+    ncurses
+    libressl
   ];
+
+  CFLAGS = lib.optionals stdenv.isDarwin [ "-D_DARWIN_C_SOURCE" ];
 
   postPatch = ''
     substituteInPlace config.mk \
       --replace curses ncurses \
       --replace "/usr/local" "$out"
-    '';
+  '';
 
   meta = with lib; {
     description = "A terminal gopher client";

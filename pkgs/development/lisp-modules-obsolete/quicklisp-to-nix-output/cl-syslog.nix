@@ -1,12 +1,21 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-syslog";
   version = "20190202-git";
 
   description = "Common Lisp syslog interface.";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."global-vars" args."local-time" args."split-sequence" args."trivial-features" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."global-vars"
+    args."local-time"
+    args."split-sequence"
+    args."trivial-features"
+    args."usocket"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-syslog/2019-02-02/cl-syslog-20190202-git.tgz";
@@ -15,7 +24,7 @@ rec {
 
   packageName = "cl-syslog";
 
-  asdFilesToKeep = ["cl-syslog.asd"];
+  asdFilesToKeep = [ "cl-syslog.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-syslog DESCRIPTION Common Lisp syslog interface. SHA256
@@ -31,4 +40,5 @@ rec {
     DEPENDENCIES
     (alexandria babel cffi global-vars local-time split-sequence
      trivial-features usocket)
-    VERSION 20190202-git SIBLINGS NIL PARASITES NIL) */
+    VERSION 20190202-git SIBLINGS NIL PARASITES NIL)
+*/

@@ -1,12 +1,13 @@
-{ buildPythonPackage
-, callPackage
-, fetchPypi
-, packaging
-, typing-extensions
-, tomli
-, setuptools
-, pythonOlder
-, lib
+{
+  buildPythonPackage,
+  callPackage,
+  fetchPypi,
+  packaging,
+  typing-extensions,
+  tomli,
+  setuptools,
+  pythonOlder,
+  lib,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     packaging
     setuptools
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  pythonImportsCheck = [
-    "setuptools_scm"
-  ];
+  pythonImportsCheck = [ "setuptools_scm" ];
 
   # check in passthru.tests.pytest to escape infinite recursion on pytest
   doCheck = false;

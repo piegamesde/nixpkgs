@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "junicode";
@@ -9,7 +13,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-2K+zPq6Bjg+hZQhQrWWm1bxHVfwwRdsV7EseRGBnpUw=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   installPhase = ''
     runHook preInstall

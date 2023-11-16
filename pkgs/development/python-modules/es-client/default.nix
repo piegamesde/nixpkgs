@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, certifi
-, click
-, elastic-transport
-, elasticsearch8
-, fetchFromGitHub
-, hatchling
-, mock
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
-, requests
-, six
-, voluptuous
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  click,
+  elastic-transport,
+  elasticsearch8,
+  fetchFromGitHub,
+  hatchling,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  requests,
+  six,
+  voluptuous,
 }:
 
 buildPythonPackage rec {
@@ -55,9 +56,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [
-    "es_client"
-  ];
+  pythonImportsCheck = [ "es_client" ];
 
   disabledTests = [
     # Tests require network access

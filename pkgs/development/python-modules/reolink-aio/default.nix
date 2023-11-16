@@ -1,10 +1,11 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, orjson
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [
-    "reolink_aio"
-  ];
+  pythonImportsCheck = [ "reolink_aio" ];
 
   # All tests require a network device
   doCheck = false;

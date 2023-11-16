@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, flask
-, markdown
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  flask,
+  markdown,
 }:
 
 buildPythonPackage rec {

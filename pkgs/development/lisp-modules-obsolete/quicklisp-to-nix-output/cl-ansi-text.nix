@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-ansi-text";
   version = "20211020-git";
 
   description = "ANSI control string characters, focused on color";
 
-  deps = [ args."alexandria" args."cl-colors2" args."cl-ppcre" ];
+  deps = [
+    args."alexandria"
+    args."cl-colors2"
+    args."cl-ppcre"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-ansi-text/2021-10-20/cl-ansi-text-20211020-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "cl-ansi-text";
 
-  asdFilesToKeep = ["cl-ansi-text.asd"];
+  asdFilesToKeep = [ "cl-ansi-text.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-ansi-text DESCRIPTION
@@ -27,4 +31,5 @@ rec {
     ((NAME alexandria FILENAME alexandria)
      (NAME cl-colors2 FILENAME cl-colors2) (NAME cl-ppcre FILENAME cl-ppcre))
     DEPENDENCIES (alexandria cl-colors2 cl-ppcre) VERSION 20211020-git SIBLINGS
-    (cl-ansi-text.test) PARASITES NIL) */
+    (cl-ansi-text.test) PARASITES NIL)
+*/

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, pytestCheckHook
-, mako
-, decorator
-, stevedore
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  pytestCheckHook,
+  mako,
+  decorator,
+  stevedore,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-/ZAiwNnLra3yCUI5GpWtrylr6AtC2qjiAvjeHCHxmLI=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     decorator

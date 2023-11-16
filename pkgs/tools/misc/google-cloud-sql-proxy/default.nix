@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -34,7 +35,10 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/GoogleCloudPlatform/cloud-sql-proxy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nicknovitski totoroot ];
+    maintainers = with maintainers; [
+      nicknovitski
+      totoroot
+    ];
     mainProgram = "cloud-sql-proxy";
   };
 }

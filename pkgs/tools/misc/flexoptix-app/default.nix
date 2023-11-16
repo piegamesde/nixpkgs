@@ -1,4 +1,10 @@
-{ lib, appimageTools, fetchurl, asar }: let
+{
+  lib,
+  appimageTools,
+  fetchurl,
+  asar,
+}:
+let
   pname = "flexoptix-app";
   version = "5.16.0-latest";
 
@@ -13,25 +19,25 @@
     hash = "sha256-OZe5dV50xq99olImbo7JQxPjRd7hGyBIVwFvtR9cIVc=";
   };
 
-  appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (oA: {
-    buildCommand = ''
-      ${oA.buildCommand}
+  appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (
+    oA: {
+      buildCommand = ''
+        ${oA.buildCommand}
 
-      # Get rid of the autoupdater
-      ${asar}/bin/asar extract $out/resources/app.asar app
-      sed -i 's/async isUpdateAvailable.*/async isUpdateAvailable(updateInfo) { return false;/g' app/node_modules/electron-updater/out/AppUpdater.js
-      ${asar}/bin/asar pack app $out/resources/app.asar
-    '';
-  });
-
-in appimageTools.wrapAppImage {
+        # Get rid of the autoupdater
+        ${asar}/bin/asar extract $out/resources/app.asar app
+        sed -i 's/async isUpdateAvailable.*/async isUpdateAvailable(updateInfo) { return false;/g' app/node_modules/electron-updater/out/AppUpdater.js
+        ${asar}/bin/asar pack app $out/resources/app.asar
+      '';
+    }
+  );
+in
+appimageTools.wrapAppImage {
   inherit pname version;
   src = appimageContents;
 
   multiArch = false; # no 32bit needed
-  extraPkgs = { pkgs, ... }@args: [
-    pkgs.hidapi
-  ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
+  extraPkgs = { pkgs, ... }@args: [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
   extraInstallCommands = ''
     # Add desktop convencience stuff

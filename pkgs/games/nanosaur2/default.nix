@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, cmake, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  cmake,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nanosaur2";
@@ -16,9 +23,7 @@ stdenv.mkDerivation rec {
     cmake
     makeWrapper
   ];
-  buildInputs = [
-    SDL2
-  ];
+  buildInputs = [ SDL2 ];
 
   installPhase = ''
     runHook preInstall

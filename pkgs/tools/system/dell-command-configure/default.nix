@@ -24,8 +24,7 @@ let
     pname = "dell-command-configure-unpacked";
 
     src = fetchurl {
-      url =
-        "https://dl.dell.com/FOLDER08911312M/1/command-configure_${version}.ubuntu20_amd64.tar.gz";
+      url = "https://dl.dell.com/FOLDER08911312M/1/command-configure_${version}.ubuntu20_amd64.tar.gz";
       # The CDN blocks the Curl user-agent, so set to blank instead.
       curlOpts = ''-A=""'';
       hash = "sha256-l5oHgDkFBF6llNsHufTmuDzjkhGmXHYXlOJ4hvZfRoE=";
@@ -65,12 +64,15 @@ let
       install -D ${wrapperLibName} -t $out/lib
     '';
   };
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit version;
   pname = "dell-command-configure";
 
-  buildInputs = [ openssl stdenv.cc.cc.lib ];
+  buildInputs = [
+    openssl
+    stdenv.cc.cc.lib
+  ];
   nativeBuildInputs = [ autoPatchelfHook ];
   dontConfigure = true;
 
@@ -99,8 +101,7 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Configure BIOS settings on Dell laptops.";
-    homepage =
-      "https://www.dell.com/support/article/us/en/19/sln311302/dell-command-configure";
+    homepage = "https://www.dell.com/support/article/us/en/19/sln311302/dell-command-configure";
     license = licenses.unfree;
     maintainers = with maintainers; [ ryangibb ];
     platforms = [ "x86_64-linux" ];

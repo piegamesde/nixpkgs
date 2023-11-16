@@ -1,30 +1,39 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, glib
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, feedbackd
-, gtk4
-, libepoxy
-, xorg
-, zbar
-, tiffSupport ? true
-, libraw
-, jpgSupport ? true
-, graphicsmagick
-, exiftool
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  glib,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  feedbackd,
+  gtk4,
+  libepoxy,
+  xorg,
+  zbar,
+  tiffSupport ? true,
+  libraw,
+  jpgSupport ? true,
+  graphicsmagick,
+  exiftool,
 }:
 
 assert jpgSupport -> tiffSupport;
 
 let
-  inherit (lib) makeBinPath optional optionals optionalString;
+  inherit (lib)
+    makeBinPath
+    optional
+    optionals
+    optionalString
+  ;
   runtimePath = makeBinPath (
     optional tiffSupport libraw
-    ++ optionals jpgSupport [ graphicsmagick exiftool ]
+    ++ optionals jpgSupport [
+      graphicsmagick
+      exiftool
+    ]
   );
 in
 stdenv.mkDerivation rec {
@@ -69,7 +78,10 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/postmarketOS/megapixels";
     changelog = "https://gitlab.com/postmarketOS/megapixels/-/tags/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ OPNA2608 dotlambda ];
+    maintainers = with maintainers; [
+      OPNA2608
+      dotlambda
+    ];
     platforms = platforms.linux;
   };
 }

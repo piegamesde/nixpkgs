@@ -1,15 +1,16 @@
-{ lib
-, attrs
-, buildPythonPackage
-, entry-points-txt
-, fetchFromGitHub
-, headerparser
-, jsonschema
-, packaging
-, pytestCheckHook
-, pythonOlder
-, readme_renderer
-, wheel-filename
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  entry-points-txt,
+  fetchFromGitHub,
+  headerparser,
+  jsonschema,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+  readme_renderer,
+  wheel-filename,
 }:
 
 buildPythonPackage rec {
@@ -47,9 +48,7 @@ buildPythonPackage rec {
       --replace "entry-points-txt ~= 0.1.0" "entry-points-txt >= 0.1.0"
   '';
 
-  pythonImportsCheck = [
-    "wheel_inspect"
-  ];
+  pythonImportsCheck = [ "wheel_inspect" ];
 
   pytestFlagsArray = [
     "-W"

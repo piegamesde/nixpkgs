@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build-system
-, cython_3
-, setuptools
+  # build-system
+  cython_3,
+  setuptools,
 
-# dependencies
-, async-timeout
-, chacha20poly1305-reuseable
-, noiseprotocol
-, protobuf
-, zeroconf
+  # dependencies
+  async-timeout,
+  chacha20poly1305-reuseable,
+  noiseprotocol,
+  protobuf,
+  zeroconf,
 
-# tests
-, mock
-, pytest-asyncio
-, pytestCheckHook
+  # tests
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -44,13 +45,9 @@ buildPythonPackage rec {
     noiseprotocol
     protobuf
     zeroconf
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    async-timeout
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
-  pythonImportsCheck = [
-    "aioesphomeapi"
-  ];
+  pythonImportsCheck = [ "aioesphomeapi" ];
   nativeCheckInputs = [
     mock
     pytest-asyncio
@@ -62,6 +59,9 @@ buildPythonPackage rec {
     description = "Python Client for ESPHome native API";
     homepage = "https://github.com/esphome/aioesphomeapi";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab hexa ];
+    maintainers = with maintainers; [
+      fab
+      hexa
+    ];
   };
 }

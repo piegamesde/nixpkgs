@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, pythonAtLeast
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pythonAtLeast,
 }:
 
 buildPythonPackage rec {
@@ -20,23 +21,23 @@ buildPythonPackage rec {
     hash = "sha256-wBqw+YHKlxYplgsYL1pbkusHyPfCaVPcH/Yku6WDYbE=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Tests are outdated
-    "test_method"
-  ];
+  disabledTests =
+    [
+      # Tests are outdated
+      "test_method"
+    ];
 
-  pythonImportsCheck = [
-    "pony"
-  ];
+  pythonImportsCheck = [ "pony" ];
 
   meta = with lib; {
     description = "Library for advanced object-relational mapping";
     homepage = "https://ponyorm.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ d-goldin xvapx ];
+    maintainers = with maintainers; [
+      d-goldin
+      xvapx
+    ];
   };
 }

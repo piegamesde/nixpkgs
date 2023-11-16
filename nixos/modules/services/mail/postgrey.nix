@@ -1,13 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-with lib; let
+with lib;
+let
 
   cfg = config.services.postgrey;
 
   natural = with types; addCheck int (x: x >= 0);
   natural' = with types; addCheck int (x: x > 0);
 
-  socket = with types; addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
+  socket =
+    with types;
+    addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
 
   inetSocket = with types; {
     options = {
@@ -40,18 +48,51 @@ with lib; let
       };
     };
   };
-
-in {
+in
+{
   imports = [
-    (mkMergedOptionModule [ [ "services" "postgrey" "inetAddr" ] [ "services" "postgrey" "inetPort" ] ] [ "services" "postgrey" "socket" ] (config: let
-        value = p: getAttrFromPath p config;
-        inetAddr = [ "services" "postgrey" "inetAddr" ];
-        inetPort = [ "services" "postgrey" "inetPort" ];
-      in
-        if value inetAddr == null
-        then { path = "/run/postgrey.sock"; }
-        else { addr = value inetAddr; port = value inetPort; }
-    ))
+    (mkMergedOptionModule
+      [
+        [
+          "services"
+          "postgrey"
+          "inetAddr"
+        ]
+        [
+          "services"
+          "postgrey"
+          "inetPort"
+        ]
+      ]
+      [
+        "services"
+        "postgrey"
+        "socket"
+      ]
+      (
+        config:
+        let
+          value = p: getAttrFromPath p config;
+          inetAddr = [
+            "services"
+            "postgrey"
+            "inetAddr"
+          ];
+          inetPort = [
+            "services"
+            "postgrey"
+            "inetPort"
+          ];
+        in
+        if value inetAddr == null then
+          { path = "/run/postgrey.sock"; }
+        else
+          {
+            addr = value inetAddr;
+            port = value inetPort;
+          }
+      )
+    )
   ];
 
   options = {
@@ -76,7 +117,9 @@ in {
       greylistText = mkOption {
         type = str;
         default = "Greylisted for %%s seconds";
-        description = lib.mdDoc "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient";
+        description =
+          lib.mdDoc
+            "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient";
       };
       greylistAction = mkOption {
         type = str;
@@ -86,7 +129,9 @@ in {
       greylistHeader = mkOption {
         type = str;
         default = "X-Greylist: delayed %%t seconds by postgrey-%%v at %%h; %%d";
-        description = lib.mdDoc "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host";
+        description =
+          lib.mdDoc
+            "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host";
       };
       delay = mkOption {
         type = natural;
@@ -102,12 +147,16 @@ in {
         type = either str natural;
         default = 2;
         example = "12h";
-        description = lib.mdDoc "Allow N days for the first retry. Use string with appended 'h' to specify time in hours";
+        description =
+          lib.mdDoc
+            "Allow N days for the first retry. Use string with appended 'h' to specify time in hours";
       };
       lookupBySubnet = mkOption {
         type = bool;
         default = true;
-        description = lib.mdDoc "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR";
+        description =
+          lib.mdDoc
+            "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR";
       };
       IPv4CIDR = mkOption {
         type = natural;
@@ -131,12 +180,12 @@ in {
       };
       whitelistClients = mkOption {
         type = listOf path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Client address whitelist files (see postgrey(8))";
       };
       whitelistRecipients = mkOption {
         type = listOf path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Recipient address whitelist files (see postgrey(8))";
       };
     };
@@ -161,45 +210,51 @@ in {
       };
     };
 
-    systemd.services.postgrey = let
-      bind-flag = if cfg.socket ? path then
-        "--unix=${cfg.socket.path} --socketmode=${cfg.socket.mode}"
-      else
-        ''--inet=${optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")}${toString cfg.socket.port}'';
-    in {
-      description = "Postfix Greylisting Service";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "postfix.service" ];
-      preStart = ''
-        mkdir -p /var/postgrey
-        chown postgrey:postgrey /var/postgrey
-        chmod 0770 /var/postgrey
-      '';
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = ''${pkgs.postgrey}/bin/postgrey \
-          ${bind-flag} \
-          --group=postgrey --user=postgrey \
-          --dbdir=/var/postgrey \
-          --delay=${toString cfg.delay} \
-          --max-age=${toString cfg.maxAge} \
-          --retry-window=${toString cfg.retryWindow} \
-          ${if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"} \
-          --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${toString cfg.IPv6CIDR} \
-          ${optionalString cfg.privacy "--privacy"} \
-          --auto-whitelist-clients=${toString (if cfg.autoWhitelist == null then 0 else cfg.autoWhitelist)} \
-          --greylist-action=${cfg.greylistAction} \
-          --greylist-text="${cfg.greylistText}" \
-          --x-greylist-header="${cfg.greylistHeader}" \
-          ${concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients} \
-          ${concatMapStringsSep " " (x: "--whitelist-recipients=" + x) cfg.whitelistRecipients}
+    systemd.services.postgrey =
+      let
+        bind-flag =
+          if cfg.socket ? path then
+            "--unix=${cfg.socket.path} --socketmode=${cfg.socket.mode}"
+          else
+            "--inet=${optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")}${
+              toString cfg.socket.port
+            }";
+      in
+      {
+        description = "Postfix Greylisting Service";
+        wantedBy = [ "multi-user.target" ];
+        before = [ "postfix.service" ];
+        preStart = ''
+          mkdir -p /var/postgrey
+          chown postgrey:postgrey /var/postgrey
+          chmod 0770 /var/postgrey
         '';
-        Restart = "always";
-        RestartSec = 5;
-        TimeoutSec = 10;
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = ''
+            ${pkgs.postgrey}/bin/postgrey \
+                      ${bind-flag} \
+                      --group=postgrey --user=postgrey \
+                      --dbdir=/var/postgrey \
+                      --delay=${toString cfg.delay} \
+                      --max-age=${toString cfg.maxAge} \
+                      --retry-window=${toString cfg.retryWindow} \
+                      ${if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"} \
+                      --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${toString cfg.IPv6CIDR} \
+                      ${optionalString cfg.privacy "--privacy"} \
+                      --auto-whitelist-clients=${
+                        toString (if cfg.autoWhitelist == null then 0 else cfg.autoWhitelist)
+                      } \
+                      --greylist-action=${cfg.greylistAction} \
+                      --greylist-text="${cfg.greylistText}" \
+                      --x-greylist-header="${cfg.greylistHeader}" \
+                      ${concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients} \
+                      ${concatMapStringsSep " " (x: "--whitelist-recipients=" + x) cfg.whitelistRecipients}
+          '';
+          Restart = "always";
+          RestartSec = 5;
+          TimeoutSec = 10;
+        };
       };
-    };
-
   };
-
 }

@@ -1,10 +1,11 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, stdenv
-, darwin
-, makeWrapper
-, typst
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  stdenv,
+  darwin,
+  makeWrapper,
+  typst,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,13 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-62tBefXek6W01RfdPczXBuYhrLK+wG1YQ7va7FQmAhA=";
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreServices
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
   postInstall = ''
     wrapProgram $out/bin/typst-live \

@@ -1,14 +1,15 @@
-{ buildNpmPackage
-, fetchFromGitHub
-, nodePackages
-, python3
-, stdenv
-, cctools
-, IOKit
-, lib
-, fetchpatch
-, makeBinaryWrapper
-, nixosTests
+{
+  buildNpmPackage,
+  fetchFromGitHub,
+  nodePackages,
+  python3,
+  stdenv,
+  cctools,
+  IOKit,
+  lib,
+  fetchpatch,
+  makeBinaryWrapper,
+  nixosTests,
 }:
 
 buildNpmPackage rec {
@@ -34,15 +35,9 @@ buildNpmPackage rec {
     patchShebangs .next/standalone/server.js
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.isDarwin [
-    cctools
-  ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [ cctools ];
 
-  buildInputs = [
-    nodePackages.node-gyp-build
-  ] ++ lib.optionals stdenv.isDarwin [
-    IOKit
-  ];
+  buildInputs = [ nodePackages.node-gyp-build ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   env.PYTHON = "${python3}/bin/python";
 

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, mock
-, six
-, isPyPy
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  mock,
+  six,
+  isPyPy,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
-  pythonImportsCheck = [
-    "sure"
-  ];
+  pythonImportsCheck = [ "sure" ];
 
   meta = with lib; {
     description = "Utility belt for automated testing";

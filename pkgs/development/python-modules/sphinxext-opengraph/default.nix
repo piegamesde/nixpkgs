@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, sphinx
-, matplotlib
-, pytestCheckHook
-, pythonOlder
-, beautifulsoup4
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  matplotlib,
+  pytestCheckHook,
+  pythonOlder,
+  beautifulsoup4,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -25,19 +26,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   passthru.optional-dependencies = {
-    social_cards_generation = [
-      matplotlib
-    ];
+    social_cards_generation = [ matplotlib ];
   };
 
-  propagatedBuildInputs = [
-    sphinx
-  ];
+  propagatedBuildInputs = [ sphinx ];
 
   nativeCheckInputs = [
     pytestCheckHook

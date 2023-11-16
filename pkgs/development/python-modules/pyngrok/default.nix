@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pyyaml
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-YOE9t/W4LsZqBFMbJRbyB6oQqrqW02iecqQYR6yZfV8=";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-  ];
+  propagatedBuildInputs = [ pyyaml ];
 
   pythonImportsCheck = [ "pyngrok" ];
 

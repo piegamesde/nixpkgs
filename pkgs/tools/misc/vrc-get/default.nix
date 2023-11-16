@@ -1,4 +1,12 @@
-{ fetchFromGitHub, lib, rustPlatform, pkg-config, openssl, stdenv, Security }:
+{
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "vrc-get";

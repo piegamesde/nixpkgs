@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, python3
-, bash
-, makeWrapper
-, kanjidraw
-, pcre
-, sqlite
-, nodejs
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  bash,
+  makeWrapper,
+  kanjidraw,
+  pcre,
+  sqlite,
+  nodejs,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -28,8 +29,15 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ pcre sqlite ];
-  propagatedBuildInputs = with python3.pkgs; [ click flask kanjidraw ];
+  buildInputs = [
+    pcre
+    sqlite
+  ];
+  propagatedBuildInputs = with python3.pkgs; [
+    click
+    flask
+    kanjidraw
+  ];
   nativeCheckInputs = [ nodejs ];
 
   preBuild = ''
@@ -96,9 +104,9 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://github.com/obfusk/jiten";
     license = with licenses; [
-      agpl3Plus               # code
-      cc-by-sa-30             # jmdict/kanjidic
-      unfreeRedistributable   # pitch data & audio are non-commercial
+      agpl3Plus # code
+      cc-by-sa-30 # jmdict/kanjidic
+      unfreeRedistributable # pitch data & audio are non-commercial
     ];
     maintainers = [ maintainers.obfusk ];
   };

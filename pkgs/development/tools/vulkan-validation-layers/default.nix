@@ -1,25 +1,26 @@
-{ lib
-, callPackage
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, jq
-, glslang
-, libffi
-, libX11
-, libXau
-, libxcb
-, libXdmcp
-, libXrandr
-, spirv-headers
-, vulkan-headers
-, vulkan-utility-libraries
-, wayland
+{
+  lib,
+  callPackage,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  jq,
+  glslang,
+  libffi,
+  libX11,
+  libXau,
+  libxcb,
+  libXdmcp,
+  libXrandr,
+  spirv-headers,
+  vulkan-headers,
+  vulkan-utility-libraries,
+  wayland,
 }:
 
 let
-  robin-hood-hashing = callPackage ./robin-hood-hashing.nix {};
+  robin-hood-hashing = callPackage ./robin-hood-hashing.nix { };
 in
 stdenv.mkDerivation rec {
   pname = "vulkan-validation-layers";
@@ -27,7 +28,10 @@ stdenv.mkDerivation rec {
 
   # If we were to use "dev" here instead of headers, the setupHook would be
   # placed in that output instead of "out".
-  outputs = ["out" "headers"];
+  outputs = [
+    "out"
+    "headers"
+  ];
   outputInclude = "headers";
 
   src = fetchFromGitHub {
@@ -82,9 +86,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The official Khronos Vulkan validation layers";
-    homepage    = "https://github.com/KhronosGroup/Vulkan-ValidationLayers";
-    platforms   = platforms.linux;
-    license     = licenses.asl20;
+    homepage = "https://github.com/KhronosGroup/Vulkan-ValidationLayers";
+    platforms = platforms.linux;
+    license = licenses.asl20;
     maintainers = [ maintainers.ralith ];
   };
 }

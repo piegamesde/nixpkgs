@@ -1,6 +1,15 @@
-{ stdenv, lib, fetchurl
-, autoreconfHook, libtool, pkg-config
-, gtk2, glib, cups, gettext, openssl
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  libtool,
+  pkg-config,
+  gtk2,
+  glib,
+  cups,
+  gettext,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
@@ -53,5 +62,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ caadar ];
     platforms = platforms.unix;
   };
-
 }

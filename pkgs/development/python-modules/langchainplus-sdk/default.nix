@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, poetry-core
-, pydantic
-, pythonOlder
-, requests
-, tenacity
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  pydantic,
+  pythonOlder,
+  requests,
+  tenacity,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-frjZnQnOe6IHKrQk+Q/xMc5Akb+eBQ/eBzP545Fq6Xk=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pydantic
@@ -34,9 +33,7 @@ buildPythonPackage rec {
   # upstrem has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "langchainplus_sdk"
-  ];
+  pythonImportsCheck = [ "langchainplus_sdk" ];
 
   meta = {
     description = "Client library to connect to the LangChainPlus LLM Tracing and Evaluation Platform";

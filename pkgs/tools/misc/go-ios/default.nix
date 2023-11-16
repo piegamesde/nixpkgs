@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nix-update-script
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -17,13 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-lLpvpT0QVVyy12HmtOQxagT0JNwRO7CcfkGhCpouH8w=";
 
-  excludedPackages = [
-    "restapi"
-  ];
+  excludedPackages = [ "restapi" ];
 
-  checkFlags = [
-    "-tags=fast"
-  ];
+  checkFlags = [ "-tags=fast" ];
 
   postInstall = ''
     # aligns the binary with what is expected from go-ios

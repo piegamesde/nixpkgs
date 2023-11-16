@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "simple-date-time";
   version = "20160421-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "simple-date-time";
 
-  asdFilesToKeep = ["simple-date-time.asd"];
+  asdFilesToKeep = [ "simple-date-time.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM simple-date-time DESCRIPTION date and time library for common lisp
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/simple-date-time/2016-04-21/simple-date-time-20160421-git.tgz
     MD5 a5b1e4af539646723dafacbc8cf732a0 NAME simple-date-time FILENAME
     simple-date-time DEPS ((NAME cl-ppcre FILENAME cl-ppcre)) DEPENDENCIES
-    (cl-ppcre) VERSION 20160421-git SIBLINGS NIL PARASITES NIL) */
+    (cl-ppcre) VERSION 20160421-git SIBLINGS NIL PARASITES NIL)
+*/

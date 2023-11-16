@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, SDL2_image
-, SDL2_mixer
-, SDL2_ttf
-, boost
-, cmake
-, ffmpeg
-, fuzzylite
-, innoextract
-, luajit
-, minizip
-, ninja
-, pkg-config
-, python3
-, qtbase
-, qttools
-, tbb
-, unshield
-, wrapQtAppsHook
-, zlib
-, testers
-, vcmi
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
+  boost,
+  cmake,
+  ffmpeg,
+  fuzzylite,
+  innoextract,
+  luajit,
+  minizip,
+  ninja,
+  pkg-config,
+  python3,
+  qtbase,
+  qttools,
+  tbb,
+  unshield,
+  wrapQtAppsHook,
+  zlib,
+  testers,
+  vcmi,
 }:
 
 stdenv.mkDerivation rec {
@@ -77,7 +78,13 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/vcmibuilder \
-      --prefix PATH : "${lib.makeBinPath [ innoextract ffmpeg unshield ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          innoextract
+          ffmpeg
+          unshield
+        ]
+      }"
   '';
 
   doCheck = true;
@@ -94,7 +101,10 @@ stdenv.mkDerivation rec {
     description = "An open-source engine for Heroes of Might and Magic III";
     homepage = "https://vcmi.eu";
     changelog = "https://github.com/vcmi/vcmi/blob/${src.rev}/ChangeLog";
-    license = with licenses; [ gpl2Only cc-by-sa-40 ];
+    license = with licenses; [
+      gpl2Only
+      cc-by-sa-40
+    ];
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.linux;
     mainProgram = "vcmilauncher";

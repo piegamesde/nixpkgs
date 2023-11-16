@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, pytest
-, locket
-, numpy
-, pandas
-, pyzmq
-, toolz
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytest,
+  locket,
+  numpy,
+  pandas,
+  pyzmq,
+  toolz,
 }:
 
 buildPythonPackage rec {
@@ -22,7 +23,13 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  propagatedBuildInputs = [ locket numpy pandas pyzmq toolz ];
+  propagatedBuildInputs = [
+    locket
+    numpy
+    pandas
+    pyzmq
+    toolz
+  ];
 
   checkPhase = ''
     rm partd/tests/test_zmq.py # requires network & fails

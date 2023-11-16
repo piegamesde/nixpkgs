@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, normality
-, pytestCheckHook
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  normality,
+  pytestCheckHook,
 }:
 buildPythonPackage rec {
   pname = "fingerprints";
@@ -15,17 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-rptBM08dvivfglPvl3PZd9V/7u2SHbJ/BxfVHNGMt3A=";
   };
 
-  propagatedBuildInputs = [
-    normality
-  ];
+  propagatedBuildInputs = [ normality ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "fingerprints"
-  ];
+  pythonImportsCheck = [ "fingerprints" ];
 
   meta = with lib; {
     description = "A library to generate entity fingerprints";

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, hypothesis
-, numpy
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  hypothesis,
+  numpy,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -22,27 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-1mXulG/yqNwKQKDFGBh8uxIYOPSsm8+PNp++CSswc50=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "cmaes"
-  ];
+  pythonImportsCheck = [ "cmaes" ];
 
-  disabledTests = [
-    # Disable time-sensitive test
-    "test_cma_tell"
-  ];
+  disabledTests =
+    [
+      # Disable time-sensitive test
+      "test_cma_tell"
+    ];
 
   meta = with lib; {
     description = "Python library for CMA evolution strategy";

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, certifi
-, fetchPypi
-, openssl
-, pylsqpack
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  fetchPypi,
+  openssl,
+  pylsqpack,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -27,17 +28,11 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  buildInputs = [
-    openssl
-  ];
+  buildInputs = [ openssl ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aioquic"
-  ];
+  pythonImportsCheck = [ "aioquic" ];
 
   __darwinAllowLocalNetworking = true;
 

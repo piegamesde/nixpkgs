@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildGoModule
-, nodejs
-, python3
-, libtool
-, npmHooks
-, fetchFromGitHub
-, fetchNpmDeps
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  nodejs,
+  python3,
+  libtool,
+  npmHooks,
+  fetchFromGitHub,
+  fetchNpmDeps,
 }:
 
 let
@@ -32,7 +33,12 @@ let
       hash = "sha256-RaXD+WfNywItveKzc+KWOw38H1EZ2yukgbMrtOfPSJc=";
     };
 
-    nativeBuildInputs = [ nodejs python3 libtool npmHooks.npmConfigHook ];
+    nativeBuildInputs = [
+      nodejs
+      python3
+      libtool
+      npmHooks.npmConfigHook
+    ];
 
     buildPhase = ''
       npm run package
@@ -42,7 +48,6 @@ let
       mv server/ui/dist $out
     '';
   };
-
 in
 
 buildGoModule {
@@ -53,7 +58,11 @@ buildGoModule {
 
   CGO_ENABLED = 0;
 
-  ldflags = [ "-s" "-w" "-X github.com/axllent/mailpit/config.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/axllent/mailpit/config.Version=${version}"
+  ];
 
   preBuild = ''
     cp -r ${ui} server/ui/dist

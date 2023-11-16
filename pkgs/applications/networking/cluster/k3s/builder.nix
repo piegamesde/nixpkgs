@@ -29,32 +29,33 @@ lib:
 # currently.
 # It is likely we will have to split out additional builders for additional
 # versions in the future, or customize this one further.
-{ lib
-, makeWrapper
-, socat
-, iptables
-, iproute2
-, ipset
-, bridge-utils
-, btrfs-progs
-, conntrack-tools
-, buildGoModule
-, runc
-, rsync
-, kmod
-, libseccomp
-, pkg-config
-, ethtool
-, util-linux
-, fetchFromGitHub
-, fetchurl
-, fetchzip
-, fetchgit
-, zstd
-, yq-go
-, sqlite
-, nixosTests
-, pkgsBuildBuild
+{
+  lib,
+  makeWrapper,
+  socat,
+  iptables,
+  iproute2,
+  ipset,
+  bridge-utils,
+  btrfs-progs,
+  conntrack-tools,
+  buildGoModule,
+  runc,
+  rsync,
+  kmod,
+  libseccomp,
+  pkg-config,
+  ethtool,
+  util-linux,
+  fetchFromGitHub,
+  fetchurl,
+  fetchzip,
+  fetchgit,
+  zstd,
+  yq-go,
+  sqlite,
+  nixosTests,
+  pkgsBuildBuild,
 }:
 
 # k3s is a kinda weird derivation. One of the main points of k3s is the
@@ -82,7 +83,11 @@ let
     description = "A lightweight Kubernetes distribution";
     license = licenses.asl20;
     homepage = "https://k3s.io";
-    maintainers = with maintainers; [ euank mic92 yajo ];
+    maintainers = with maintainers; [
+      euank
+      mic92
+      yajo
+    ];
     platforms = platforms.linux;
 
     # resolves collisions with other installations of kubectl, crictl, ctr
@@ -185,12 +190,19 @@ let
     vendorHash = k3sVendorHash;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libseccomp sqlite.dev ];
+    buildInputs = [
+      libseccomp
+      sqlite.dev
+    ];
 
     subPackages = [ "cmd/server" ];
     ldflags = versionldflags;
 
-    tags = [ "ctrd" "libsqlite3" "linux" ];
+    tags = [
+      "ctrd"
+      "libsqlite3"
+      "linux"
+    ];
 
     # create the multicall symlinks for k3s
     postInstall = ''
@@ -236,7 +248,11 @@ buildGoModule rec {
   pname = "k3s";
   version = k3sVersion;
 
-  tags = [ "libsqlite3" "linux" "ctrd" ];
+  tags = [
+    "libsqlite3"
+    "linux"
+    "ctrd"
+  ];
   src = k3sRepo;
   vendorHash = k3sVendorHash;
 
@@ -341,14 +357,16 @@ buildGoModule rec {
 
   passthru.updateScript = updateScript;
 
-  passthru.mkTests = version:
-    let k3s_version = "k3s_" + lib.replaceStrings ["."] ["_"] (lib.versions.majorMinor version);
-    in {
+  passthru.mkTests =
+    version:
+    let
+      k3s_version = "k3s_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
+    in
+    {
       single-node = nixosTests.k3s.single-node.${k3s_version};
       multi-node = nixosTests.k3s.multi-node.${k3s_version};
     };
   passthru.tests = passthru.mkTests k3sVersion;
-
 
   meta = baseMeta;
 }

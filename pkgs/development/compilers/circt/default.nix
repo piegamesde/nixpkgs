@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, cmake
-, coreutils
-, python3
-, git
-, fetchFromGitHub
-, ninja
-, gitUpdater
+{
+  stdenv,
+  lib,
+  cmake,
+  coreutils,
+  python3,
+  git,
+  fetchFromGitHub,
+  ninja,
+  gitUpdater,
 }:
 
 let
@@ -25,7 +26,12 @@ stdenv.mkDerivation rec {
 
   requiredSystemFeatures = [ "big-parallel" ];
 
-  nativeBuildInputs = [ cmake ninja git pythonEnv ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    git
+    pythonEnv
+  ];
 
   cmakeDir = "../llvm/llvm";
   cmakeFlags = [
@@ -51,7 +57,7 @@ stdenv.mkDerivation rec {
   #
   # As a temporary fix, we disabled these tests when using clang stdenv
   # cannot use lib.optionalString as it creates an empty string, disabling all tests
-  LIT_FILTER_OUT = if stdenv.cc.isClang then "CIRCT :: Target/ExportSystemC/.*\.mlir" else null;
+  LIT_FILTER_OUT = if stdenv.cc.isClang then "CIRCT :: Target/ExportSystemC/.*.mlir" else null;
 
   preConfigure = ''
     find ./test -name '*.mlir' -exec sed -i 's|/usr/bin/env|${coreutils}/bin/env|g' {} \;
@@ -70,16 +76,16 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "check-circt check-circt-integration";
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "firtool-";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "firtool-"; };
 
   meta = {
     description = "Circuit IR compilers and tools";
     homepage = "https://circt.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ sharzy pineapplehunter ];
+    maintainers = with lib.maintainers; [
+      sharzy
+      pineapplehunter
+    ];
     platforms = lib.platforms.all;
   };
 }
-

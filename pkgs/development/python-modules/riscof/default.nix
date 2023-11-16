@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, git
-, jinja2
-, pythonOlder
-, riscv-config
-, riscv-isac
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  git,
+  jinja2,
+  pythonOlder,
+  riscv-config,
+  riscv-isac,
 }:
 
 buildPythonPackage rec {
@@ -22,11 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-ToI2xI0fvnDR+hJ++T4ss5X3gc4G6Cj1uJHx0m2X7GY=";
   };
 
-  patches = [
-    # riscof copies a template directory from the store, but breaks because it
-    # doesn't change permissions and expects it to be writeable
-    ./make_writeable.patch
-  ];
+  patches =
+    [
+      # riscof copies a template directory from the store, but breaks because it
+      # doesn't change permissions and expects it to be writeable
+      ./make_writeable.patch
+    ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -41,9 +43,7 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  pythonImportsCheck = [
-    "riscof"
-  ];
+  pythonImportsCheck = [ "riscof" ];
 
   # No unitests available
   doCheck = false;

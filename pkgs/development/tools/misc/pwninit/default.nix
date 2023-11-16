@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, openssl
-, pkg-config
-, xz
-, Security
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  openssl,
+  pkg-config,
+  xz,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,7 +20,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-Tskbwavr+MFa8wmwaFGe7o4/6ZpZqczzwOnqFR66mmM=";
   };
 
-  buildInputs = [ openssl xz ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    openssl
+    xz
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
   nativeBuildInputs = [ pkg-config ];
   doCheck = false; # there are no tests to run
 

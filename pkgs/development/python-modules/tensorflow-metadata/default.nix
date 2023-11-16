@@ -1,9 +1,10 @@
-{ absl-py
-, buildPythonPackage
-, fetchFromGitHub
-, googleapis-common-protos
-, protobuf
-, lib
+{
+  absl-py,
+  buildPythonPackage,
+  fetchFromGitHub,
+  googleapis-common-protos,
+  protobuf,
+  lib,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-ZfX25CaV+tZVdas+n7O6Gqv1GxOP1iwippIXxfhcOfg=";
   };
 
-  patches = [
-    ./build.patch
-  ];
+  patches = [ ./build.patch ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -43,9 +42,7 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "tensorflow_metadata"
-  ];
+  pythonImportsCheck = [ "tensorflow_metadata" ];
 
   meta = with lib; {
     description = "Standard representations for metadata that are useful when training machine learning models with TensorFlow";

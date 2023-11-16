@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, rocksdb
-, testers
-, surrealdb
-, SystemConfiguration
-, protobuf
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  rocksdb,
+  testers,
+  surrealdb,
+  SystemConfiguration,
+  protobuf,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -40,8 +41,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   passthru.tests.version = testers.testVersion {
     package = surrealdb;
@@ -53,6 +53,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://surrealdb.com/";
     mainProgram = "surreal";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ sikmir happysalada ];
+    maintainers = with maintainers; [
+      sikmir
+      happysalada
+    ];
   };
 }

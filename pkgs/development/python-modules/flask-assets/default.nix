@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, flask, webassets, flask-script, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  webassets,
+  flask-script,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "flask-assets";
@@ -16,7 +24,12 @@ buildPythonPackage rec {
     substituteInPlace tests/test_integration.py --replace "'/foo'" "'/x/foo'"
   '';
 
-  propagatedBuildInputs = [ flask webassets flask-script nose ];
+  propagatedBuildInputs = [
+    flask
+    webassets
+    flask-script
+    nose
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/miracle2k/flask-assets";

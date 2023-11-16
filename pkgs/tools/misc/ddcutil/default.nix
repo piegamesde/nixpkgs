@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, pkg-config
-, glib
-, jansson
-, udev
-, libgudev
-, libusb1
-, libdrm
-, xorg
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  jansson,
+  udev,
+  libgudev,
+  libusb1,
+  libdrm,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +22,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-CunFRQHKk3q8CU60TSRnRoCW7+9X1+JpJHm773HhmZs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = [
     glib
@@ -45,4 +49,3 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/rockowitz/ddcutil/blob/v${version}/CHANGELOG.md";
   };
 }
-

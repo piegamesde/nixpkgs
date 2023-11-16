@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -17,17 +22,31 @@ let
 
   syslogngOptions = [
     "--foreground"
-    "--module-path=${concatStringsSep ":" (["${cfg.package}/lib/syslog-ng"] ++ cfg.extraModulePaths)}"
+    "--module-path=${concatStringsSep ":" ([ "${cfg.package}/lib/syslog-ng" ] ++ cfg.extraModulePaths)}"
     "--cfgfile=${syslogngConfig}"
     "--control=${ctrlSocket}"
     "--persist-file=${persistFile}"
     "--pidfile=${pidFile}"
   ];
-
-in {
+in
+{
   imports = [
-    (mkRemovedOptionModule [ "services" "syslog-ng" "serviceName" ] "")
-    (mkRemovedOptionModule [ "services" "syslog-ng" "listenToJournal" ] "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "syslog-ng"
+        "serviceName"
+      ]
+      ""
+    )
+    (mkRemovedOptionModule
+      [
+        "services"
+        "syslog-ng"
+        "listenToJournal"
+      ]
+      ""
+    )
   ];
 
   options = {
@@ -50,7 +69,7 @@ in {
       };
       extraModulePaths = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           A list of paths that should be included in syslog-ng's
           `--module-path` option. They should usually
@@ -94,5 +113,4 @@ in {
       };
     };
   };
-
 }

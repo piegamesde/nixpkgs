@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, SDL
-, SDL_mixer
-, libintl
-, libpng
-, zlib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL,
+  SDL_mixer,
+  libintl,
+  libpng,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,10 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   # Can't exit from pause without this patch
-  patches = [(fetchpatch {
-    url = "https://sources.debian.org/data/main/l/lbreakout2/2.6.5-2/debian/patches/sdl_fix_pauses.patch";
-    hash = "sha256-ycsuxfokpOblLky42MwtJowdEp7v5dZRMFIR4id4ZBI=";
-  })];
+  patches = [
+    (fetchpatch {
+      url = "https://sources.debian.org/data/main/l/lbreakout2/2.6.5-2/debian/patches/sdl_fix_pauses.patch";
+      hash = "sha256-ycsuxfokpOblLky42MwtJowdEp7v5dZRMFIR4id4ZBI=";
+    })
+  ];
 
   buildInputs = [
     SDL

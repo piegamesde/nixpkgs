@@ -2,12 +2,13 @@
 
 let
   inherit (gdal) pname version;
-
 in
-runCommand "${pname}-tests" {
-  nativeBuildInputs = [ gdal ];
-  meta.timeout = 60;
-} ''
+runCommand "${pname}-tests"
+  {
+    nativeBuildInputs = [ gdal ];
+    meta.timeout = 60;
+  }
+  ''
     # test version
     ogrinfo --version \
       | grep 'GDAL ${version}'

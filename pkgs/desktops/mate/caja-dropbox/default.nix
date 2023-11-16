@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, substituteAll
-, pkg-config
-, gobject-introspection
-, gdk-pixbuf
-, gtk3
-, mate
-, python3
-, dropbox
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  gobject-introspection,
+  gdk-pixbuf,
+  gtk3,
+  mate,
+  python3,
+  dropbox,
+  mateUpdateScript,
 }:
 
 let
@@ -20,7 +21,9 @@ stdenv.mkDerivation rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "16w4r0zjps12lmzwiwpb9qnmbvd0p391q97296sxa8k88b1x14wn";
   };
 
@@ -37,10 +40,13 @@ stdenv.mkDerivation rec {
     pkg-config
     gobject-introspection
     gdk-pixbuf
-    (python3.withPackages (ps: with ps; [
-      docutils
-      pygobject3
-    ]))
+    (python3.withPackages (
+      ps:
+      with ps; [
+        docutils
+        pygobject3
+      ]
+    ))
   ];
 
   buildInputs = [
@@ -58,7 +64,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Dropbox extension for Caja file manager";
     homepage = "https://github.com/mate-desktop/caja-dropbox";
-    license = with licenses; [ gpl3Plus cc-by-nd-30 ];
+    license = with licenses; [
+      gpl3Plus
+      cc-by-nd-30
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

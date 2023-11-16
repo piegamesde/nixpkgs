@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytz
-, oauthlib
-, requests
-, websocket-client
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytz,
+  oauthlib,
+  requests,
+  websocket-client,
 }:
 
 buildPythonPackage rec {

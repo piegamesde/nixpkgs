@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gnome, libxslt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gnome,
+  libxslt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mobile-broadband-provider-info";
@@ -9,15 +15,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4+FAqi23abKZ0d+GqJDpSKuZ1NOIMTAsRS0ft/hWiuw=";
   };
 
-  nativeBuildInputs = [
-    # fixes configure: error: xsltproc not found
-    libxslt
-  ];
+  nativeBuildInputs =
+    [
+      # fixes configure: error: xsltproc not found
+      libxslt
+    ];
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

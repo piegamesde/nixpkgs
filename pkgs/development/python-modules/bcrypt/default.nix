@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, cargo
-, rustPlatform
-, rustc
-, setuptools
-, setuptools-rust
-, isPyPy
-, fetchPypi
-, pythonOlder
-, cffi
-, pytestCheckHook
-, libiconv
-, stdenv
+{
+  lib,
+  buildPythonPackage,
+  cargo,
+  rustPlatform,
+  rustc,
+  setuptools,
+  setuptools-rust,
+  isPyPy,
+  fetchPypi,
+  pythonOlder,
+  cffi,
+  pytestCheckHook,
+  libiconv,
+  stdenv,
   # for passthru.tests
-, asyncssh
-, django_4
-, fastapi
-, paramiko
-, twisted
+  asyncssh,
+  django_4,
+  fastapi,
+  paramiko,
+  twisted,
 }:
 
 buildPythonPackage rec {
@@ -51,24 +52,22 @@ buildPythonPackage rec {
   # Remove when https://github.com/NixOS/nixpkgs/pull/190093 lands.
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
-  propagatedBuildInputs = [
-    cffi
-  ];
+  propagatedBuildInputs = [ cffi ];
 
-  propagatedNativeBuildInputs = [
-    cffi
-  ];
+  propagatedNativeBuildInputs = [ cffi ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "bcrypt"
-  ];
+  pythonImportsCheck = [ "bcrypt" ];
 
   passthru.tests = {
-    inherit asyncssh django_4 fastapi paramiko twisted;
+    inherit
+      asyncssh
+      django_4
+      fastapi
+      paramiko
+      twisted
+    ;
   };
 
   meta = with lib; {

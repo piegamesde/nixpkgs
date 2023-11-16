@@ -1,16 +1,17 @@
-{ buildPythonApplication
-, lib
-, fetchFromGitHub
-, setuptools
-, setuptools-rust
-, rustPlatform
-, cargo
-, rustc
-, breezy
-, dulwich
-, jinja2
-, pyyaml
-, ruamel-yaml
+{
+  buildPythonApplication,
+  lib,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-rust,
+  rustPlatform,
+  cargo,
+  rustc,
+  breezy,
+  dulwich,
+  jinja2,
+  pyyaml,
+  ruamel-yaml,
 }:
 
 buildPythonApplication rec {
@@ -31,8 +32,20 @@ buildPythonApplication rec {
     hash = "sha256-QLnKu9D23FVp1jCSuxN3odPZ1ToAZ6i/FNS8BkmNuQw=";
   };
 
-  propagatedBuildInputs = [ setuptools breezy dulwich jinja2 pyyaml ruamel-yaml ];
-  nativeBuildInputs = [ setuptools-rust rustPlatform.cargoSetupHook cargo rustc ];
+  propagatedBuildInputs = [
+    setuptools
+    breezy
+    dulwich
+    jinja2
+    pyyaml
+    ruamel-yaml
+  ];
+  nativeBuildInputs = [
+    setuptools-rust
+    rustPlatform.cargoSetupHook
+    cargo
+    rustc
+  ];
 
   meta = with lib; {
     description = "Automate the creation of merge proposals for scriptable changes";

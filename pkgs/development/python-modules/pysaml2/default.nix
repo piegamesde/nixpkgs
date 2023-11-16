@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, defusedxml
-, fetchFromGitHub
-, importlib-resources
-, poetry-core
-, pyasn1
-, pymongo
-, pyopenssl
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, requests
-, responses
-, setuptools
-, substituteAll
-, xmlschema
-, xmlsec
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  defusedxml,
+  fetchFromGitHub,
+  importlib-resources,
+  poetry-core,
+  pyasn1,
+  pymongo,
+  pyopenssl,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  requests,
+  responses,
+  setuptools,
+  substituteAll,
+  xmlschema,
+  xmlsec,
 }:
 
 buildPythonPackage rec {
@@ -46,9 +47,7 @@ buildPythonPackage rec {
     sed -i 's/2999\(-.*T\)/2029\1/g' tests/*.xml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     cryptography
@@ -59,9 +58,7 @@ buildPythonPackage rec {
     requests
     setuptools
     xmlschema
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [
     pyasn1
@@ -78,9 +75,7 @@ buildPythonPackage rec {
     "test_conf_syslog"
   ];
 
-  pythonImportsCheck = [
-    "saml2"
-  ];
+  pythonImportsCheck = [ "saml2" ];
 
   meta = with lib; {
     description = "Python implementation of SAML Version 2 Standard";

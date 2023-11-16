@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, imageio
-, matplotlib
-, numpy
-, pillow
-, pooch
-, pythonOlder
-, scooby
-, vtk
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  matplotlib,
+  numpy,
+  pillow,
+  pooch,
+  pythonOlder,
+  scooby,
+  vtk,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
   # Fatal Python error: Aborted
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyvista"
-  ];
+  pythonImportsCheck = [ "pyvista" ];
 
   meta = with lib; {
     description = "Easier Pythonic interface to VTK";

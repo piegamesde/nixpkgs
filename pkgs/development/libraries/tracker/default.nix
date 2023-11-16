@@ -1,80 +1,88 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, gettext
-, meson
-, mesonEmulatorHook
-, ninja
-, pkg-config
-, asciidoc
-, gobject-introspection
-, buildPackages
-, withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection && stdenv.hostPlatform.emulatorAvailable buildPackages
-, vala
-, python3
-, gi-docgen
-, graphviz
-, libxml2
-, glib
-, wrapGAppsNoGuiHook
-, sqlite
-, libstemmer
-, gnome
-, icu
-, libuuid
-, libsoup
-, libsoup_3
-, json-glib
-, systemd
-, dbus
-, writeText
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  gettext,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  asciidoc,
+  gobject-introspection,
+  buildPackages,
+  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+    && stdenv.hostPlatform.emulatorAvailable buildPackages,
+  vala,
+  python3,
+  gi-docgen,
+  graphviz,
+  libxml2,
+  glib,
+  wrapGAppsNoGuiHook,
+  sqlite,
+  libstemmer,
+  gnome,
+  icu,
+  libuuid,
+  libsoup,
+  libsoup_3,
+  json-glib,
+  systemd,
+  dbus,
+  writeText,
 }:
 
 stdenv.mkDerivation rec {
   pname = "tracker";
   version = "3.5.3";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "FGbIsIl75dngVth+EK1YkntYgDPwGvLxplaokhw6KO4=";
   };
 
-  patches = [
-    # Backport sqlite-3.42.0 compatibility:
-    #   https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/600
-    (fetchpatch {
-      name = "sqlite-3.42.0.patch";
-      url = "https://gitlab.gnome.org/GNOME/tracker/-/commit/4cbbd1773a7367492fa3b3e3804839654e18a12a.patch";
-      hash = "sha256-w5D9I0P1DdyILhpjslh6ifojmlUiBoeFnxHPIr0rO3s=";
-    })
-  ];
+  patches =
+    [
+      # Backport sqlite-3.42.0 compatibility:
+      #   https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/600
+      (fetchpatch {
+        name = "sqlite-3.42.0.patch";
+        url = "https://gitlab.gnome.org/GNOME/tracker/-/commit/4cbbd1773a7367492fa3b3e3804839654e18a12a.patch";
+        hash = "sha256-w5D9I0P1DdyILhpjslh6ifojmlUiBoeFnxHPIr0rO3s=";
+      })
+    ];
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    asciidoc
-    gettext
-    glib
-    wrapGAppsNoGuiHook
-    gi-docgen
-    graphviz
-    (python3.pythonOnBuildForHost.withPackages (p: [ p.pygobject3 ]))
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-    vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      asciidoc
+      gettext
+      glib
+      wrapGAppsNoGuiHook
+      gi-docgen
+      graphviz
+      (python3.pythonOnBuildForHost.withPackages (p: [ p.pygobject3 ]))
+    ]
+    ++ lib.optionals withIntrospection [
+      gobject-introspection
+      vala
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     glib
@@ -87,33 +95,30 @@ stdenv.mkDerivation rec {
     json-glib
     libstemmer
     dbus
-  ] ++ lib.optionals stdenv.isLinux [
-    systemd
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ systemd ];
 
-  nativeCheckInputs = [
-    dbus
-  ];
+  nativeCheckInputs = [ dbus ];
 
-  mesonFlags = [
-    "-Ddocs=true"
-    (lib.mesonEnable "introspection" withIntrospection)
-    (lib.mesonEnable "vapi" withIntrospection)
-    (lib.mesonBool "test_utils" withIntrospection)
-  ] ++ (
-    let
-      # https://gitlab.gnome.org/GNOME/tracker/-/blob/master/meson.build#L159
-      crossFile = writeText "cross-file.conf" ''
-        [properties]
-        sqlite3_has_fts5 = '${lib.boolToString (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)}'
-      '';
-    in
+  mesonFlags =
     [
-      "--cross-file=${crossFile}"
+      "-Ddocs=true"
+      (lib.mesonEnable "introspection" withIntrospection)
+      (lib.mesonEnable "vapi" withIntrospection)
+      (lib.mesonBool "test_utils" withIntrospection)
     ]
-  ) ++ lib.optionals (!stdenv.isLinux) [
-    "-Dsystemd_user_services=false"
-  ];
+    ++ (
+      let
+        # https://gitlab.gnome.org/GNOME/tracker/-/blob/master/meson.build#L159
+        crossFile = writeText "cross-file.conf" ''
+          [properties]
+          sqlite3_has_fts5 = '${
+            lib.boolToString (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
+          }'
+        '';
+      in
+      [ "--cross-file=${crossFile}" ]
+    )
+    ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ];
 
   doCheck =
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/402
@@ -172,9 +177,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

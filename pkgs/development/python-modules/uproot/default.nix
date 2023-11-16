@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, awkward
-, hatchling
-, numpy
-, packaging
-, pytestCheckHook
-, lz4
-, pytest-timeout
-, scikit-hep-testdata
-, xxhash
-, zstandard
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  awkward,
+  hatchling,
+  numpy,
+  packaging,
+  pytestCheckHook,
+  lz4,
+  pytest-timeout,
+  scikit-hep-testdata,
+  xxhash,
+  zstandard,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-TMa+j2jdFagJJhlyCx4rNLaxQhrJyq1HdpnA40xiyME=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     awkward
@@ -69,9 +68,7 @@ buildPythonPackage rec {
     "tests/test_0930-expressions-in-pandas.py"
   ];
 
-  pythonImportsCheck = [
-    "uproot"
-  ];
+  pythonImportsCheck = [ "uproot" ];
 
   meta = with lib; {
     description = "ROOT I/O in pure Python and Numpy";

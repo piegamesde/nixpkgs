@@ -1,35 +1,33 @@
-{ lib, stdenv
-, build2
-, fetchurl
-, libodb
-, sqlite
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableStatic ? !enableShared
+{
+  lib,
+  stdenv,
+  build2,
+  fetchurl,
+  libodb,
+  sqlite,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? !enableShared,
 }:
 stdenv.mkDerivation rec {
   pname = "libodb-sqlite";
   version = "2.5.0-b.23";
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   src = fetchurl {
     url = "https://pkg.cppget.org/1/beta/odb/libodb-sqlite-${version}.tar.gz";
     sha256 = "sha256-HjEFfNDXduHOexNm82S+vqKRQM3SwgEYiDBZcPXsr/w=";
   };
 
-  nativeBuildInputs = [
-    build2
-  ];
-  buildInputs = [
-    libodb
-  ];
-  propagatedBuildInputs = [
-    sqlite
-  ];
+  nativeBuildInputs = [ build2 ];
+  buildInputs = [ libodb ];
+  propagatedBuildInputs = [ sqlite ];
 
-  build2ConfigureFlags = [
-    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
-  ];
+  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
 
   doCheck = true;
 

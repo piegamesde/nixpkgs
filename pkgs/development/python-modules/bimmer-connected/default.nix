@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pbr
-, httpx
-, pillow
-, pycryptodome
-, pyjwt
-, pytest-asyncio
-, pytestCheckHook
-, python
-, respx
-, time-machine
-, tzdata
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pbr,
+  httpx,
+  pillow,
+  pycryptodome,
+  pyjwt,
+  pytest-asyncio,
+  pytestCheckHook,
+  python,
+  respx,
+  time-machine,
+  tzdata,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-69H0hB+yVmyzJ5A2Cb7ZcaaoRzMt618U+TUHYQ03/cY=";
   };
 
-  nativeBuildInputs = [
-    pbr
-  ];
+  nativeBuildInputs = [ pbr ];
 
   PBR_VERSION = version;
 
@@ -57,9 +56,7 @@ buildPythonPackage rec {
     export TZDIR=${tzdata}/${python.sitePackages}/tzdata/zoneinfo
   '';
 
-  pythonImportsCheck = [
-    "bimmer_connected"
-  ];
+  pythonImportsCheck = [ "bimmer_connected" ];
 
   meta = with lib; {
     changelog = "https://github.com/bimmerconnected/bimmer_connected/releases/tag/${version}";

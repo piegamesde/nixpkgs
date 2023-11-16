@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pysigma
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pysigma,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -27,27 +28,22 @@ buildPythonPackage rec {
       --replace " --cov=sigma --cov-report term --cov-report xml:cov.xml" ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pysigma
-  ];
+  propagatedBuildInputs = [ pysigma ];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests
   ];
 
-  pythonImportsCheck = [
-    "sigma.backends.elasticsearch"
-  ];
+  pythonImportsCheck = [ "sigma.backends.elasticsearch" ];
 
-  disabledTests = [
-    # Tests requires network access
-    "test_connect_lucene"
-  ];
+  disabledTests =
+    [
+      # Tests requires network access
+      "test_connect_lucene"
+    ];
 
   meta = with lib; {
     description = "Library to support Elasticsearch for pySigma";

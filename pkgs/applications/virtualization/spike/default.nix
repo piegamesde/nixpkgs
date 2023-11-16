@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, dtc, pkgsCross }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  dtc,
+  pkgsCross,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spike";
@@ -42,7 +48,10 @@ stdenv.mkDerivation rec {
     description = "A RISC-V ISA Simulator";
     homepage = "https://github.com/riscv/riscv-isa-sim";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ blitz ];
   };
 }

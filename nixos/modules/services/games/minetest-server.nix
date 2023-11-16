@@ -1,49 +1,90 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
-  CONTAINS_NEWLINE_RE = ".*\n.*";
+  CONTAINS_NEWLINE_RE = ''
+    .*
+    .*'';
   # The following values are reserved as complete option values:
   # { - start of a group.
   # """ - start of a multi-line string.
-  RESERVED_VALUE_RE = "[[:space:]]*(\"\"\"|\\{)[[:space:]]*";
+  RESERVED_VALUE_RE = ''[[:space:]]*("""|\{)[[:space:]]*'';
   NEEDS_MULTILINE_RE = "${CONTAINS_NEWLINE_RE}|${RESERVED_VALUE_RE}";
 
   # There is no way to encode """ on its own line in a Minetest config.
-  UNESCAPABLE_RE = ".*\n\"\"\"\n.*";
+  UNESCAPABLE_RE = ''
+    .*
+    """
+    .*'';
 
-  toConfMultiline = name: value:
-    assert lib.assertMsg
-      ((builtins.match UNESCAPABLE_RE value) == null)
-      ''""" can't be on its own line in a minetest config.'';
-    "${name} = \"\"\"\n${value}\n\"\"\"\n";
+  toConfMultiline =
+    name: value:
+    assert lib.assertMsg ((builtins.match UNESCAPABLE_RE value) == null)
+        ''""" can't be on its own line in a minetest config.''; ''
+        ${name} = """
+        ${value}
+        """
+      '';
 
-  toConf = values:
-    lib.concatStrings
-      (lib.mapAttrsToList
-        (name: value: {
-          bool = "${name} = ${toString value}\n";
-          int = "${name} = ${toString value}\n";
-          null = "";
-          set = "${name} = {\n${toConf value}}\n";
-          string =
-            if (builtins.match NEEDS_MULTILINE_RE value) != null
-            then toConfMultiline name value
-            else "${name} = ${value}\n";
-        }.${builtins.typeOf value})
-        values);
+  toConf =
+    values:
+    lib.concatStrings (
+      lib.mapAttrsToList
+        (
+          name: value:
+          {
+            bool = ''
+              ${name} = ${toString value}
+            '';
+            int = ''
+              ${name} = ${toString value}
+            '';
+            null = "";
+            set = ''
+              ${name} = {
+              ${toConf value}}
+            '';
+            string =
+              if (builtins.match NEEDS_MULTILINE_RE value) != null then
+                toConfMultiline name value
+              else
+                ''
+                  ${name} = ${value}
+                '';
+          }
+          .${builtins.typeOf value}
+        )
+        values
+    );
 
-  cfg   = config.services.minetest-server;
-  flag  = val: name: lib.optionals (val != null) ["--${name}" "${toString val}"];
+  cfg = config.services.minetest-server;
+  flag =
+    val: name:
+    lib.optionals (val != null) [
+      "--${name}"
+      "${toString val}"
+    ];
 
-  flags = [
-    "--server"
-  ]
+  flags =
+    [ "--server" ]
     ++ (
-      if cfg.configPath != null
-      then ["--config" cfg.configPath]
-      else ["--config" (builtins.toFile "minetest.conf" (toConf cfg.config))])
+      if cfg.configPath != null then
+        [
+          "--config"
+          cfg.configPath
+        ]
+      else
+        [
+          "--config"
+          (builtins.toFile "minetest.conf" (toConf cfg.config))
+        ]
+    )
     ++ (flag cfg.gameId "gameid")
     ++ (flag cfg.world "world")
     ++ (flag cfg.logPath "logfile")
@@ -54,14 +95,14 @@ in
   options = {
     services.minetest-server = {
       enable = mkOption {
-        type        = types.bool;
-        default     = false;
+        type = types.bool;
+        default = false;
         description = lib.mdDoc "If enabled, starts a Minetest Server.";
       };
 
       gameId = mkOption {
-        type        = types.nullOr types.str;
-        default     = null;
+        type = types.nullOr types.str;
+        default = null;
         description = lib.mdDoc ''
           Id of the game to use. To list available games run
           `minetestserver --gameid list`.
@@ -71,8 +112,8 @@ in
       };
 
       world = mkOption {
-        type        = types.nullOr types.path;
-        default     = null;
+        type = types.nullOr types.path;
+        default = null;
         description = lib.mdDoc ''
           Name of the world to use. To list available worlds run
           `minetestserver --world list`.
@@ -82,8 +123,8 @@ in
       };
 
       configPath = mkOption {
-        type        = types.nullOr types.path;
-        default     = null;
+        type = types.nullOr types.path;
+        default = null;
         description = lib.mdDoc ''
           Path to the config to use.
 
@@ -94,7 +135,7 @@ in
 
       config = mkOption {
         type = types.attrsOf types.anything;
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Settings to add to the minetest config file.
 
@@ -103,8 +144,8 @@ in
       };
 
       logPath = mkOption {
-        type        = types.nullOr types.path;
-        default     = null;
+        type = types.nullOr types.path;
+        default = null;
         description = lib.mdDoc ''
           Path to logfile for logging.
 
@@ -114,8 +155,8 @@ in
       };
 
       port = mkOption {
-        type        = types.nullOr types.int;
-        default     = null;
+        type = types.nullOr types.int;
+        default = null;
         description = lib.mdDoc ''
           Port number to bind to.
 
@@ -125,7 +166,7 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Additional command line flags to pass to the minetest executable.
         '';
@@ -135,22 +176,22 @@ in
 
   config = mkIf cfg.enable {
     users.users.minetest = {
-      description     = "Minetest Server Service user";
-      home            = "/var/lib/minetest";
-      createHome      = true;
-      uid             = config.ids.uids.minetest;
-      group           = "minetest";
+      description = "Minetest Server Service user";
+      home = "/var/lib/minetest";
+      createHome = true;
+      uid = config.ids.uids.minetest;
+      group = "minetest";
     };
     users.groups.minetest.gid = config.ids.gids.minetest;
 
     systemd.services.minetest-server = {
-      description   = "Minetest Server Service";
-      wantedBy      = [ "multi-user.target" ];
-      after         = [ "network.target" ];
+      description = "Minetest Server Service";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
 
       serviceConfig.Restart = "always";
-      serviceConfig.User    = "minetest";
-      serviceConfig.Group   = "minetest";
+      serviceConfig.User = "minetest";
+      serviceConfig.Group = "minetest";
 
       script = ''
         cd /var/lib/minetest

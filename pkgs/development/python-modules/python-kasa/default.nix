@@ -1,18 +1,19 @@
-{ lib
-, anyio
-, async-timeout
-, asyncclick
-, buildPythonPackage
-, fetchFromGitHub
-, kasa-crypt
-, orjson
-, poetry-core
-, pydantic
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, voluptuous
+{
+  lib,
+  anyio,
+  async-timeout,
+  asyncclick,
+  buildPythonPackage,
+  fetchFromGitHub,
+  kasa-crypt,
+  orjson,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-wGPMrYaTtKkkNW88eyiiciFcBSTRqqChYi6e15WUCHo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     anyio
@@ -54,18 +53,15 @@ buildPythonPackage rec {
     ];
   };
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  disabledTestPaths = [
-    # Skip the examples tests
-    "kasa/tests/test_readme_examples.py"
-  ];
+  disabledTestPaths =
+    [
+      # Skip the examples tests
+      "kasa/tests/test_readme_examples.py"
+    ];
 
-  pythonImportsCheck = [
-    "kasa"
-  ];
+  pythonImportsCheck = [ "kasa" ];
 
   meta = with lib; {
     description = "Python API for TP-Link Kasa Smarthome products";

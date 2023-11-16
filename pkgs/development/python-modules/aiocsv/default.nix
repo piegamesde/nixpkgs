@@ -1,11 +1,12 @@
-{ lib
-, aiofiles
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiofiles,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-4QvVYcTpwhFH57r+iMgmYciWIC2prRnL+ih7qx/CA/U=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
   nativeCheckInputs = [
     aiofiles
@@ -36,14 +35,13 @@ buildPythonPackage rec {
     export CYTHONIZE=1
   '';
 
-  pythonImportsCheck = [
-    "aiocsv"
-  ];
+  pythonImportsCheck = [ "aiocsv" ];
 
-  disabledTestPaths = [
-    # Import issue
-    "tests/test_parser.py"
-  ];
+  disabledTestPaths =
+    [
+      # Import issue
+      "tests/test_parser.py"
+    ];
 
   meta = with lib; {
     description = "Library for for asynchronous CSV reading/writing";

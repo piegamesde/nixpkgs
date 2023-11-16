@@ -1,31 +1,32 @@
-{ lib
-, asgiref
-, buildPythonPackage
-, certifi
-, charset-normalizer
-, cvss
-, deepl
-, django
-, fetchFromGitHub
-, gql
-, idna
-, markdown-it-py
-, mdurl
-, pygments
-, pytest
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, reptor
-, requests
-, rich
-, setuptools
-, sqlparse
-, termcolor
-, toml
-, tomli-w
-, urllib3
-, xmltodict
+{
+  lib,
+  asgiref,
+  buildPythonPackage,
+  certifi,
+  charset-normalizer,
+  cvss,
+  deepl,
+  django,
+  fetchFromGitHub,
+  gql,
+  idna,
+  markdown-it-py,
+  mdurl,
+  pygments,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  reptor,
+  requests,
+  rich,
+  setuptools,
+  sqlparse,
+  termcolor,
+  toml,
+  tomli-w,
+  urllib3,
+  xmltodict,
 }:
 
 buildPythonPackage rec {
@@ -42,9 +43,7 @@ buildPythonPackage rec {
     hash = "sha256-d76Hsf+leJKYOh7k/RVuo6adfjMW6yAYt+vh7KNh7sA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     asgiref
@@ -68,12 +67,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    ghostwriter = [
-      gql
-    ] ++ gql.optional-dependencies.aiohttp;
-    translate = [
-      deepl
-    ];
+    ghostwriter = [ gql ] ++ gql.optional-dependencies.aiohttp;
+    translate = [ deepl ];
   };
 
   nativeCheckInputs = [
@@ -85,20 +80,18 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [
-    "reptor"
-  ];
+  pythonImportsCheck = [ "reptor" ];
 
-  disabledTestPaths = [
-    # Tests want to use pip install dependencies
-    "reptor/plugins/importers/GhostWriter/tests/test_ghostwriter.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests want to use pip install dependencies
+      "reptor/plugins/importers/GhostWriter/tests/test_ghostwriter.py"
+    ];
 
   disabledTests = [
     # Tests need network access
     "TestDummy"
     "TestIntegration"
-
   ];
 
   meta = with lib; {

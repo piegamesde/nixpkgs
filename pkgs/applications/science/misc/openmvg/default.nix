@@ -1,13 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, cereal, openmp
-, libjpeg ? null
-, zlib ? null
-, libpng ? null
-, eigen ? null
-, libtiff ? null
-, ceres-solver
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableExamples ? false
-, enableDocs ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  cereal,
+  openmp,
+  libjpeg ? null,
+  zlib ? null,
+  libpng ? null,
+  eigen ? null,
+  libtiff ? null,
+  ceres-solver,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableExamples ? false,
+  enableDocs ? false,
+}:
 
 stdenv.mkDerivation rec {
   version = "unstable-2022-12-30";
@@ -21,9 +29,21 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ libjpeg zlib libpng eigen libtiff cereal openmp ceres-solver ];
+  buildInputs = [
+    libjpeg
+    zlib
+    libpng
+    eigen
+    libtiff
+    cereal
+    openmp
+    ceres-solver
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   cmakeFlags = [
     "-DOpenMVG_BUILD_EXAMPLES=${if enableExamples then "ON" else "OFF"}"
@@ -47,6 +67,9 @@ stdenv.mkDerivation rec {
     homepage = "https://openmvg.readthedocs.io/en/latest/";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ mdaiter bouk ];
+    maintainers = with lib.maintainers; [
+      mdaiter
+      bouk
+    ];
   };
 }

@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, installShellFiles
+{
+  lib,
+  stdenv,
+  fetchurl,
+  installShellFiles,
 }:
 let
   man = fetchurl {
@@ -10,43 +11,43 @@ let
   };
 in
 
-stdenv.mkDerivation (finalAttrs: {
-  version = "1.2.41";
-  pname = "aragorn";
+stdenv.mkDerivation (
+  finalAttrs: {
+    version = "1.2.41";
+    pname = "aragorn";
 
-  src = fetchurl {
-    url = "http://www.ansikte.se/ARAGORN/Downloads/aragorn${finalAttrs.version}.c";
-    hash = "sha256-kqMcxcCwrRbU17AZkZibd18H0oFd8TX+bj6riPXpf0o=";
-  };
+    src = fetchurl {
+      url = "http://www.ansikte.se/ARAGORN/Downloads/aragorn${finalAttrs.version}.c";
+      hash = "sha256-kqMcxcCwrRbU17AZkZibd18H0oFd8TX+bj6riPXpf0o=";
+    };
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+    nativeBuildInputs = [ installShellFiles ];
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    $CC -O3 -ffast-math -finline-functions -o aragorn $src
+      $CC -O3 -ffast-math -finline-functions -o aragorn $src
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin && cp aragorn $out/bin
-    installManPage ${man}
+      mkdir -p $out/bin && cp aragorn $out/bin
+      installManPage ${man}
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Detects tRNA, mtRNA, and tmRNA genes in nucleotide sequences";
-    homepage = "http://www.ansikte.se/ARAGORN/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.bzizou ];
-    platforms = platforms.unix;
-  };
-})
+    meta = with lib; {
+      description = "Detects tRNA, mtRNA, and tmRNA genes in nucleotide sequences";
+      homepage = "http://www.ansikte.se/ARAGORN/";
+      license = licenses.gpl3Plus;
+      maintainers = [ maintainers.bzizou ];
+      platforms = platforms.unix;
+    };
+  }
+)

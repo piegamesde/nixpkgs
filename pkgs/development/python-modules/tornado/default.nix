@@ -1,20 +1,21 @@
-{ lib
-, python
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
 
-# for passthru.tests
-, distributed
-, jupyter-server
-, jupyterlab
-, matplotlib
-, mitmproxy
-, pytest-tornado
-, pytest-tornasync
-, pyzmq
-, sockjs-tornado
-, urllib3
+  # for passthru.tests
+  distributed,
+  jupyter-server,
+  jupyterlab,
+  matplotlib,
+  mitmproxy,
+  pytest-tornado,
+  pytest-tornasync,
+  pyzmq,
+  sockjs-tornado,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-l9Ce/c2wDSmsySr9yXu5Fl/+63QkQay46aDSUTJmetA=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # additional tests that have extra dependencies, run slowly, or produce more output than a simple pass/fail
@@ -41,10 +40,11 @@ buildPythonPackage rec {
     "tornado/test/iostream_test.py"
   ];
 
-  disabledTests = [
-    # Exception: did not get expected log message
-    "test_unix_socket_bad_request"
-  ];
+  disabledTests =
+    [
+      # Exception: did not get expected log message
+      "test_unix_socket_bad_request"
+    ];
 
   pythonImportsCheck = [ "tornado" ];
 
@@ -61,7 +61,8 @@ buildPythonPackage rec {
       pytest-tornasync
       pyzmq
       sockjs-tornado
-      urllib3;
+      urllib3
+    ;
   };
 
   meta = with lib; {

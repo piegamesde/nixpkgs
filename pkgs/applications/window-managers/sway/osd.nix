@@ -1,19 +1,20 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, wrapGAppsHook
-, cargo
-, coreutils
-, gtk-layer-shell
-, libevdev
-, libinput
-, libpulseaudio
-, meson
-, ninja
-, rustc
-, stdenv
-, udev
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  cargo,
+  coreutils,
+  gtk-layer-shell,
+  libevdev,
+  libinput,
+  libpulseaudio,
+  meson,
+  ninja,
+  rustc,
+  stdenv,
+  udev,
 }:
 
 stdenv.mkDerivation rec {
@@ -51,9 +52,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  patches = [
-    ./swayosd_systemd_paths.patch
-  ];
+  patches = [ ./swayosd_systemd_paths.patch ];
 
   postPatch = ''
     substituteInPlace data/udev/99-swayosd.rules \

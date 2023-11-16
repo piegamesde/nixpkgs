@@ -1,54 +1,55 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pythonRelaxDepsHook,
 
-# pyproject
-, hatchling
-, hatch-requirements-txt
-, hatch-fancy-pypi-readme
+  # pyproject
+  hatchling,
+  hatch-requirements-txt,
+  hatch-fancy-pypi-readme,
 
-# runtime
-, setuptools
-, aiofiles
-, altair
-, fastapi
-, ffmpy
-, gradio-client
-, httpx
-, huggingface-hub
-, importlib-resources
-, jinja2
-, markupsafe
-, matplotlib
-, numpy
-, orjson
-, packaging
-, pandas
-, pillow
-, pydantic
-, python-multipart
-, pydub
-, pyyaml
-, requests
-, semantic-version
-, typing-extensions
-, uvicorn
-, websockets
+  # runtime
+  setuptools,
+  aiofiles,
+  altair,
+  fastapi,
+  ffmpy,
+  gradio-client,
+  httpx,
+  huggingface-hub,
+  importlib-resources,
+  jinja2,
+  markupsafe,
+  matplotlib,
+  numpy,
+  orjson,
+  packaging,
+  pandas,
+  pillow,
+  pydantic,
+  python-multipart,
+  pydub,
+  pyyaml,
+  requests,
+  semantic-version,
+  typing-extensions,
+  uvicorn,
+  websockets,
 
-# check
-, pytestCheckHook
-, boto3
-, ffmpeg
-, ipython
-, pytest-asyncio
-, respx
-, scikit-image
-, torch
-, tqdm
-, transformers
-, vega-datasets
+  # check
+  pytestCheckHook,
+  boto3,
+  ffmpeg,
+  ipython,
+  pytest-asyncio,
+  respx,
+  scikit-image,
+  torch,
+  tqdm,
+  transformers,
+  vega-datasets,
 }:
 
 buildPythonPackage rec {
@@ -147,12 +148,13 @@ buildPythonPackage rec {
     # shap is too often broken in nixpkgs
     "test_shapley_text"
   ];
-  disabledTestPaths = [
-    # makes pytest freeze 50% of the time
-    "test/test_interfaces.py"
-  ];
+  disabledTestPaths =
+    [
+      # makes pytest freeze 50% of the time
+      "test/test_interfaces.py"
+    ];
   pytestFlagsArray = [
-    "-x"  # abort on first failure
+    "-x" # abort on first failure
     #"-m" "not flaky" # doesn't work, even when advertised
     #"-W" "ignore" # uncomment for debugging help
   ];

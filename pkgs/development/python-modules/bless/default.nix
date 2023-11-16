@@ -1,12 +1,13 @@
-{ lib
-, aioconsole
-, bleak
-, buildPythonPackage
-, dbus-next
-, fetchFromGitHub
-, numpy
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aioconsole,
+  bleak,
+  buildPythonPackage,
+  dbus-next,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "bless"
-  ];
+  pythonImportsCheck = [ "bless" ];
 
   meta = with lib; {
     description = "Library for creating a BLE Generic Attribute Profile (GATT) server";

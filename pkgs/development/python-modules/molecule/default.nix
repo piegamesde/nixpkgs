@@ -1,20 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ansible-compat
-, ansible-core
-, click-help-colors
-, enrich
-, jsonschema
-, withPlugins ? true, molecule-plugins
-, packaging
-, pluggy
-, rich
-, setuptools
-, setuptools-scm
-, yamllint
-, wcmatch
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ansible-compat,
+  ansible-core,
+  click-help-colors,
+  enrich,
+  jsonschema,
+  withPlugins ? true,
+  molecule-plugins,
+  packaging,
+  pluggy,
+  rich,
+  setuptools,
+  setuptools-scm,
+  yamllint,
+  wcmatch,
+  wheel,
 }:
 
 buildPythonPackage rec {

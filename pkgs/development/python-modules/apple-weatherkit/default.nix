@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, aiohttp
-, pythonOlder
-, pyjwt
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  pythonOlder,
+  pyjwt,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-G/0hyK2rjdSSnVnvAUGyDvsfNMHVgAD7NHfNFmdBCNA=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -33,9 +32,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "apple_weatherkit"
-  ];
+  pythonImportsCheck = [ "apple_weatherkit" ];
 
   meta = with lib; {
     description = "Python library for Apple WeatherKit";

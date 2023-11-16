@@ -1,41 +1,42 @@
-{ lib
-, stdenv
-, meson
-, ninja
-, fetchFromGitHub
-, fetchFromGitLab
-, re2c
-, gperf
-, gawk
-, xxd
-, pkg-config
-, boost182
-, fmt
-, luajit_openresty
-, ncurses
-, serd
-, sord
-, libcap
-, liburing
-, openssl
-, asciidoctor
+{
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  re2c,
+  gperf,
+  gawk,
+  xxd,
+  pkg-config,
+  boost182,
+  fmt,
+  luajit_openresty,
+  ncurses,
+  serd,
+  sord,
+  libcap,
+  liburing,
+  openssl,
+  asciidoctor,
 }:
 
 let
   emilua-http-wrap = fetchFromGitHub {
-      owner = "BoostGSoC14";
-      repo = "boost.http";
-      rev = "93ae527c89ffc517862e1f5f54c8a257278f1195";
-      name = "emilua-http";
-      hash = "sha256-MN29YwkTi0TJ2V+vRI9nUIxvJKsG+j3nT3o0yQB3p0o=";
+    owner = "BoostGSoC14";
+    repo = "boost.http";
+    rev = "93ae527c89ffc517862e1f5f54c8a257278f1195";
+    name = "emilua-http";
+    hash = "sha256-MN29YwkTi0TJ2V+vRI9nUIxvJKsG+j3nT3o0yQB3p0o=";
   };
 
   trial-protocol-wrap = fetchFromGitHub {
-      owner = "breese";
-      repo = "trial.protocol";
-      rev = "79149f604a49b8dfec57857ca28aaf508069b669";
-      name = "trial-protocol";
-      hash = "sha256-Xd8bX3z9PZWU17N9R95HXdj6qo9at5FBL/+PTVaJgkw=";
+    owner = "breese";
+    repo = "trial.protocol";
+    rev = "79149f604a49b8dfec57857ca28aaf508069b669";
+    name = "trial-protocol";
+    hash = "sha256-Xd8bX3z9PZWU17N9R95HXdj6qo9at5FBL/+PTVaJgkw=";
   };
 in
 stdenv.mkDerivation rec {
@@ -43,10 +44,10 @@ stdenv.mkDerivation rec {
   version = "0.4.3";
 
   src = fetchFromGitLab {
-      owner = "emilua";
-      repo = "emilua";
-      rev = "v${version}";
-      hash = "sha256-vZITPQ1qUHhw24c0HKdR6VenviOc6JizQQ8w7K94irc=";
+    owner = "emilua";
+    repo = "emilua";
+    rev = "v${version}";
+    hash = "sha256-vZITPQ1qUHhw24c0HKdR6VenviOc6JizQQ8w7K94irc=";
   };
 
   buildInputs = [

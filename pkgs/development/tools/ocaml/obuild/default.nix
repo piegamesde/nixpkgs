@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, ocaml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obuild";

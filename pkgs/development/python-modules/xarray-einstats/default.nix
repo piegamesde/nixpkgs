@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, einops
-, fetchFromGitHub
-, flit-core
-, numba
-, numpy
-, pandas
-, pytestCheckHook
-, pythonOlder
-, scipy
-, xarray
+{
+  lib,
+  buildPythonPackage,
+  einops,
+  fetchFromGitHub,
+  flit-core,
+  numba,
+  numpy,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  xarray,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-TXuNqXsny7VpJqV5/3riKzXLheZl+qF+zf4SCMipzmw=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     numpy
@@ -42,9 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "xarray_einstats"
-  ];
+  pythonImportsCheck = [ "xarray_einstats" ];
 
   meta = with lib; {
     description = "Stats, linear algebra and einops for xarray";

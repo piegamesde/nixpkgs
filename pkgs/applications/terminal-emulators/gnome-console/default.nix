@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, gettext
-, gnome
-, libgtop
-, gtk4
-, libadwaita
-, pcre2
-, vte-gtk4
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  gnome,
+  libgtop,
+  gtk4,
+  libadwaita,
+  pcre2,
+  vte-gtk4,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +22,9 @@ stdenv.mkDerivation rec {
   version = "44.4";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-console/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-console/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "uR9E6abAQz6W2ZfzlVhSBtq6xiRzmTo8B1Uv5YiOWo0=";
   };
 
@@ -43,9 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gnome-console";
-    };
+    updateScript = gnome.updateScript { packageName = "gnome-console"; };
   };
 
   passthru.tests.test = nixosTests.terminal-emulators.kgx;

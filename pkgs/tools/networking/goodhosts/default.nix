@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
 }:
 
 buildGoModule rec {
@@ -15,9 +16,7 @@ buildGoModule rec {
     hash = "sha256-VXOMyYM4jS3gYxm3WiKw3uKeC535ppd9iHumPiupGbc=";
   };
 
-  ldflags = [
-    "-s -w -X main.version=${version}"
-  ];
+  ldflags = [ "-s -w -X main.version=${version}" ];
 
   postInstall = ''
     mv $out/bin/cli $out/bin/goodhosts

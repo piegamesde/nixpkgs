@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cargo
-, glib
-, meson
-, ninja
-, pkg-config
-, rustPlatform
-, rustc
-, wrapGAppsHook4
-, gdk-pixbuf
-, gtk4
-, libadwaita
-, openssl
-, sqlite
-, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cargo,
+  glib,
+  meson,
+  ninja,
+  pkg-config,
+  rustPlatform,
+  rustc,
+  wrapGAppsHook4,
+  gdk-pixbuf,
+  gtk4,
+  libadwaita,
+  openssl,
+  sqlite,
+  darwin,
 }:
 
 stdenv.mkDerivation rec {
@@ -53,9 +54,7 @@ stdenv.mkDerivation rec {
     libadwaita
     openssl
     sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Foundation
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
 
   meta = with lib; {
     description = "The ultimate task management solution for seamless organization and efficiency";

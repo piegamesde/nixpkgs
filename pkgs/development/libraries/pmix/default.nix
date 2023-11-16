@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, perl, autoconf, automake
-, libtool, python3, flex, libevent, hwloc, munge, zlib, pandoc, gitMinimal
-} :
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  autoconf,
+  automake,
+  libtool,
+  python3,
+  flex,
+  libevent,
+  hwloc,
+  munge,
+  zlib,
+  pandoc,
+  gitMinimal,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pmix";
@@ -30,7 +44,12 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ libevent hwloc munge zlib ];
+  buildInputs = [
+    libevent
+    hwloc
+    munge
+    zlib
+  ];
 
   configureFlags = [
     "--with-libevent=${lib.getDev libevent}"
@@ -58,4 +77,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

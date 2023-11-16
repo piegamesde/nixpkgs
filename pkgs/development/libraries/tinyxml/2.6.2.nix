@@ -1,9 +1,15 @@
-{ lib, stdenv, fetchurl, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+}:
 
 let
   version = "2.6.2";
   SHLIB_EXT = stdenv.hostPlatform.extensions.sharedLibrary;
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "tinyxml";
   inherit version;
 
@@ -27,8 +33,7 @@ in stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.9";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.9";
 
   nativeBuildInputs = [ unzip ];
   buildPhase = ''
@@ -54,22 +59,24 @@ in stdenv.mkDerivation {
     fi
   '';
 
-  installPhase = ''
-    mkdir -pv $out/include/
-    mkdir -pv $out/lib/pkgconfig/
-    mkdir -pv $out/share/doc/tinyxml/
+  installPhase =
+    ''
+      mkdir -pv $out/include/
+      mkdir -pv $out/lib/pkgconfig/
+      mkdir -pv $out/share/doc/tinyxml/
 
-    cp -v libtinyxml${SHLIB_EXT} $out/lib/
-    cp -v *.h $out/include/
+      cp -v libtinyxml${SHLIB_EXT} $out/lib/
+      cp -v *.h $out/include/
 
-    substituteInPlace tinyxml.pc --replace "@out@" "$out"
-    substituteInPlace tinyxml.pc --replace "@version@" "${version}"
-    cp -v tinyxml.pc $out/lib/pkgconfig/
+      substituteInPlace tinyxml.pc --replace "@out@" "$out"
+      substituteInPlace tinyxml.pc --replace "@version@" "${version}"
+      cp -v tinyxml.pc $out/lib/pkgconfig/
 
-    cp -v docs/* $out/share/doc/tinyxml/
-  '' + lib.optionalString stdenv.isDarwin ''
-    install_name_tool -id $out/lib/libtinyxml.dylib $out/lib/libtinyxml.dylib
-  '';
+      cp -v docs/* $out/share/doc/tinyxml/
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      install_name_tool -id $out/lib/libtinyxml.dylib $out/lib/libtinyxml.dylib
+    '';
 
   meta = {
     description = "Simple, small, C++ XML parser that can be easily integrating into other programs";

@@ -1,4 +1,12 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rqbit";
@@ -15,7 +23,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
+  buildInputs =
+    lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
 
   doCheck = false;

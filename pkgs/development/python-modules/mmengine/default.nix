@@ -1,21 +1,22 @@
-{ lib
-, addict
-, buildPythonPackage
-, coverage
-, fetchFromGitHub
-, lmdb
-, matplotlib
-, mlflow
-, numpy
-, opencv4
-, parameterized
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, rich
-, termcolor
-, torch
-, yapf
+{
+  lib,
+  addict,
+  buildPythonPackage,
+  coverage,
+  fetchFromGitHub,
+  lmdb,
+  matplotlib,
+  mlflow,
+  numpy,
+  opencv4,
+  parameterized,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  rich,
+  termcolor,
+  torch,
+  yapf,
 }:
 
 buildPythonPackage rec {
@@ -56,14 +57,13 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [
-    "mmengine"
-  ];
+  pythonImportsCheck = [ "mmengine" ];
 
-  disabledTestPaths = [
-    # AttributeError
-    "tests/test_fileio/test_backends/test_petrel_backend.py"
-  ];
+  disabledTestPaths =
+    [
+      # AttributeError
+      "tests/test_fileio/test_backends/test_petrel_backend.py"
+    ];
 
   disabledTests = [
     # Tests are disabled due to sandbox

@@ -1,10 +1,11 @@
-{ buildPythonPackage
-, setuptools-scm
-, pytestCheckHook
-, git
-, mercurial
-, pip
-, virtualenv
+{
+  buildPythonPackage,
+  setuptools-scm,
+  pytestCheckHook,
+  git,
+  mercurial,
+  pip,
+  virtualenv,
 }:
 
 buildPythonPackage {
@@ -24,8 +25,9 @@ buildPythonPackage {
     mercurial
   ];
 
-  disabledTests = [
-    # network access
-    "test_pip_download"
-  ];
+  disabledTests =
+    [
+      # network access
+      "test_pip_download"
+    ];
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,7 +11,10 @@ let
   cfg = config.services.pixiecore;
 in
 {
-  meta.maintainers = with maintainers; [ bbigras danderson ];
+  meta.maintainers = with maintainers; [
+    bbigras
+    danderson
+  ];
 
   options = {
     services.pixiecore = {
@@ -23,13 +31,19 @@ in
       mode = mkOption {
         description = lib.mdDoc "Which mode to use";
         default = "boot";
-        type = types.enum [ "api" "boot" "quick" ];
+        type = types.enum [
+          "api"
+          "boot"
+          "quick"
+        ];
       };
 
       debug = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Log more things that aren't directly related to booting a recognized client";
+        description =
+          lib.mdDoc
+            "Log more things that aren't directly related to booting a recognized client";
       };
 
       dhcpNoBind = mkOption {
@@ -41,7 +55,15 @@ in
       quick = mkOption {
         description = lib.mdDoc "Which quick option to use";
         default = "xyz";
-        type = types.enum [ "arch" "centos" "coreos" "debian" "fedora" "ubuntu" "xyz" ];
+        type = types.enum [
+          "arch"
+          "centos"
+          "coreos"
+          "debian"
+          "fedora"
+          "ubuntu"
+          "xyz"
+        ];
       };
 
       kernel = mkOption {
@@ -88,14 +110,14 @@ in
 
       extraArguments = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Additional command line arguments to pass to Pixiecore";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    users.groups.pixiecore = {};
+    users.groups.pixiecore = { };
     users.users.pixiecore = {
       description = "Pixiecore daemon user";
       group = "pixiecore";
@@ -103,15 +125,22 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 4011 cfg.port cfg.statusPort ];
-      allowedUDPPorts = [ 67 69 ];
+      allowedTCPPorts = [
+        4011
+        cfg.port
+        cfg.statusPort
+      ];
+      allowedUDPPorts = [
+        67
+        69
+      ];
     };
 
     systemd.services.pixiecore = {
       description = "Pixiecore server";
-      after = [ "network.target"];
-      wants = [ "network.target"];
-      wantedBy = [ "multi-user.target"];
+      after = [ "network.target" ];
+      wants = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         User = "pixiecore";
         Restart = "always";
@@ -119,24 +148,37 @@ in
         ExecStart =
           let
             argString =
-              if cfg.mode == "boot"
-              then [ "boot" cfg.kernel ]
-                   ++ optional (cfg.initrd != "") cfg.initrd
-                   ++ optionals (cfg.cmdLine != "") [ "--cmdline" cfg.cmdLine ]
-              else if cfg.mode == "quick"
-              then [ "quick" cfg.quick ]
-              else [ "api" cfg.apiServer ];
+              if cfg.mode == "boot" then
+                [
+                  "boot"
+                  cfg.kernel
+                ]
+                ++ optional (cfg.initrd != "") cfg.initrd
+                ++ optionals (cfg.cmdLine != "") [
+                  "--cmdline"
+                  cfg.cmdLine
+                ]
+              else if cfg.mode == "quick" then
+                [
+                  "quick"
+                  cfg.quick
+                ]
+              else
+                [
+                  "api"
+                  cfg.apiServer
+                ];
           in
-            ''
-              ${pkgs.pixiecore}/bin/pixiecore \
-                ${lib.escapeShellArgs argString} \
-                ${optionalString cfg.debug "--debug"} \
-                ${optionalString cfg.dhcpNoBind "--dhcp-no-bind"} \
-                --listen-addr ${lib.escapeShellArg cfg.listen} \
-                --port ${toString cfg.port} \
-                --status-port ${toString cfg.statusPort} \
-                ${escapeShellArgs cfg.extraArguments}
-              '';
+          ''
+            ${pkgs.pixiecore}/bin/pixiecore \
+              ${lib.escapeShellArgs argString} \
+              ${optionalString cfg.debug "--debug"} \
+              ${optionalString cfg.dhcpNoBind "--dhcp-no-bind"} \
+              --listen-addr ${lib.escapeShellArg cfg.listen} \
+              --port ${toString cfg.port} \
+              --status-port ${toString cfg.statusPort} \
+              ${escapeShellArgs cfg.extraArguments}
+          '';
       };
     };
   };

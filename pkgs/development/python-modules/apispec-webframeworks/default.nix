@@ -1,13 +1,14 @@
-{ lib
-, apispec
-, bottle
-, buildPythonPackage
-, fetchFromGitHub
-, flask
-, mock
-, pytestCheckHook
-, pythonOlder
-, tornado
+{
+  lib,
+  apispec,
+  bottle,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flask,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  tornado,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-ByNmmBLO99njw9JrT+cCW/K4NJBH92smAiIgg47Cvkk=";
   };
 
-  propagatedBuildInputs = [
-    apispec
-  ] ++ apispec.optional-dependencies.yaml;
+  propagatedBuildInputs = [ apispec ] ++ apispec.optional-dependencies.yaml;
 
   nativeCheckInputs = [
     bottle
@@ -36,9 +35,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pythonImportsCheck = [
-    "apispec_webframeworks"
-  ];
+  pythonImportsCheck = [ "apispec_webframeworks" ];
 
   meta = with lib; {
     description = "Web framework plugins for apispec";

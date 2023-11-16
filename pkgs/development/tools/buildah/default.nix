@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, go-md2man
-, installShellFiles
-, pkg-config
-, gpgme
-, lvm2
-, btrfs-progs
-, libapparmor
-, libselinux
-, libseccomp
-, testers
-, buildah
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  go-md2man,
+  installShellFiles,
+  pkg-config,
+  gpgme,
+  lvm2,
+  btrfs-progs,
+  libapparmor,
+  libselinux,
+  libseccomp,
+  testers,
+  buildah,
 }:
 
 buildGoModule rec {
@@ -26,23 +27,30 @@ buildGoModule rec {
     hash = "sha256-imhl8CezFoSi0M0nMxIFL/ZVa8eDAA4s/ZVIMr/QUJ4=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   vendorHash = null;
 
   doCheck = false;
 
-  nativeBuildInputs = [ go-md2man installShellFiles pkg-config ];
-
-  buildInputs = [
-    gpgme
-  ] ++ lib.optionals stdenv.isLinux [
-    btrfs-progs
-    libapparmor
-    libseccomp
-    libselinux
-    lvm2
+  nativeBuildInputs = [
+    go-md2man
+    installShellFiles
+    pkg-config
   ];
+
+  buildInputs =
+    [ gpgme ]
+    ++ lib.optionals stdenv.isLinux [
+      btrfs-progs
+      libapparmor
+      libseccomp
+      libselinux
+      lvm2
+    ];
 
   buildPhase = ''
     runHook preBuild
@@ -60,9 +68,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = buildah;
-  };
+  passthru.tests.version = testers.testVersion { package = buildah; };
 
   meta = with lib; {
     description = "A tool which facilitates building OCI images";

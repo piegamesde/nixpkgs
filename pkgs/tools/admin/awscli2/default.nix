@@ -1,36 +1,43 @@
-{ lib
-, stdenv
-, python3
-, groff
-, less
-, fetchFromGitHub
-, installShellFiles
-, nix-update-script
-, testers
-, awscli2
+{
+  lib,
+  stdenv,
+  python3,
+  groff,
+  less,
+  fetchFromGitHub,
+  installShellFiles,
+  nix-update-script,
+  testers,
+  awscli2,
 }:
 
 let
   py = python3 // {
-    pkgs = python3.pkgs.overrideScope (final: prev: {
-      ruamel-yaml = prev.ruamel-yaml.overridePythonAttrs (prev: {
-        src = prev.src.override {
-          version = "0.17.21";
-          hash = "sha256-i3zml6LyEnUqNcGsQURx3BbEJMlXO+SSa1b/P10jt68=";
-        };
-      });
-      urllib3 = prev.urllib3.overridePythonAttrs (prev: {
-        format = "setuptools";
-        src = prev.src.override {
-          version = "1.26.18";
-          hash = "sha256-+OzBu6VmdBNFfFKauVW/jGe0XbeZ0VkGYmFxnjKFgKA=";
-        };
-      });
-    });
+    pkgs = python3.pkgs.overrideScope (
+      final: prev: {
+        ruamel-yaml = prev.ruamel-yaml.overridePythonAttrs (
+          prev: {
+            src = prev.src.override {
+              version = "0.17.21";
+              hash = "sha256-i3zml6LyEnUqNcGsQURx3BbEJMlXO+SSa1b/P10jt68=";
+            };
+          }
+        );
+        urllib3 = prev.urllib3.overridePythonAttrs (
+          prev: {
+            format = "setuptools";
+            src = prev.src.override {
+              version = "1.26.18";
+              hash = "sha256-+OzBu6VmdBNFfFKauVW/jGe0XbeZ0VkGYmFxnjKFgKA=";
+            };
+          }
+        );
+      }
+    );
   };
-
 in
-with py.pkgs; buildPythonApplication rec {
+with py.pkgs;
+buildPythonApplication rec {
   pname = "awscli2";
   version = "2.13.33"; # N.B: if you change this, check if overrides are still up-to-date
   format = "pyproject";
@@ -89,22 +96,22 @@ with py.pkgs; buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  postInstall = ''
-    installShellCompletion --cmd aws \
-      --bash <(echo "complete -C $out/bin/aws_completer aws") \
-      --zsh $out/bin/aws_zsh_completer.sh
-  '' + lib.optionalString (!stdenv.hostPlatform.isWindows) ''
-    rm $out/bin/aws.cmd
-  '';
+  postInstall =
+    ''
+      installShellCompletion --cmd aws \
+        --bash <(echo "complete -C $out/bin/aws_completer aws") \
+        --zsh $out/bin/aws_zsh_completer.sh
+    ''
+    + lib.optionalString (!stdenv.hostPlatform.isWindows) ''
+      rm $out/bin/aws.cmd
+    '';
 
   preCheck = ''
     export PATH=$PATH:$out/bin
     export HOME=$(mktemp -d)
   '';
 
-  pytestFlagsArray = [
-    "-Wignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
 
   disabledTestPaths = [
     # Integration tests require networking
@@ -115,15 +122,16 @@ with py.pkgs; buildPythonApplication rec {
     "tests/functional"
   ];
 
-  pythonImportsCheck = [
-    "awscli"
-  ];
+  pythonImportsCheck = [ "awscli" ];
 
   passthru = {
     python = py; # for aws_shell
     updateScript = nix-update-script {
       # Excludes 1.x versions from the Github tags list
-      extraArgs = [ "--version-regex" "^(2\.(.*))" ];
+      extraArgs = [
+        "--version-regex"
+        "^(2.(.*))"
+      ];
     };
     tests.version = testers.testVersion {
       package = awscli2;
@@ -137,7 +145,13 @@ with py.pkgs; buildPythonApplication rec {
     homepage = "https://docs.aws.amazon.com/cli/latest/userguide/";
     changelog = "https://github.com/aws/aws-cli/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bhipple davegallant bryanasdev000 devusb anthonyroussel ];
+    maintainers = with maintainers; [
+      bhipple
+      davegallant
+      bryanasdev000
+      devusb
+      anthonyroussel
+    ];
     mainProgram = "aws";
   };
 }

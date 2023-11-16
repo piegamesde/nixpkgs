@@ -1,8 +1,9 @@
-{ lib
-, fetchurl
-, stdenv
-, undmg
-, nix-update-script
+{
+  lib,
+  fetchurl,
+  stdenv,
+  undmg,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,6 +32,9 @@ stdenv.mkDerivation rec {
     platforms = platforms.darwin;
     license = licenses.gpl3;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ arkivm stepbrobd ];
+    maintainers = with maintainers; [
+      arkivm
+      stepbrobd
+    ];
   };
 }

@@ -1,23 +1,24 @@
-{ resholve
-, lib
-, stdenv
-, fetchFromGitHub
-, bash
-, coreutils
-, gnugrep
-, ncurses
-, findutils
-, hostname
-, parallel
-, flock
-, procps
-, bats
-, lsof
-, callPackages
-, symlinkJoin
-, makeWrapper
-, runCommand
-, doInstallCheck ? true
+{
+  resholve,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  coreutils,
+  gnugrep,
+  ncurses,
+  findutils,
+  hostname,
+  parallel,
+  flock,
+  procps,
+  bats,
+  lsof,
+  callPackages,
+  symlinkJoin,
+  makeWrapper,
+  runCommand,
+  doInstallCheck ? true,
 }:
 
 resholve.mkDerivation rec {
@@ -96,11 +97,10 @@ resholve.mkDerivation rec {
         "$parallel_binary_name" = "${parallel}/bin/parallel";
       };
       execer = [
-        /*
-        both blatant lies for expedience; these can certainly exec args
-        they may be safe here, because they may always run things that
-        are ultimately in libexec?
-        TODO: handle parallel and flock in binlore/resholve
+        /* both blatant lies for expedience; these can certainly exec args
+           they may be safe here, because they may always run things that
+           are ultimately in libexec?
+           TODO: handle parallel and flock in binlore/resholve
         */
         "cannot:${parallel}/bin/parallel"
         "cannot:${flock}/bin/flock"
@@ -114,19 +114,16 @@ resholve.mkDerivation rec {
     };
   };
 
-  passthru.libraries = callPackages ./libraries.nix {};
+  passthru.libraries = callPackages ./libraries.nix { };
 
-  passthru.withLibraries = selector:
+  passthru.withLibraries =
+    selector:
     symlinkJoin {
       name = "bats-with-libraries-${bats.version}";
 
-      paths = [
-        bats
-      ] ++ selector bats.libraries;
+      paths = [ bats ] ++ selector bats.libraries;
 
-      nativeBuildInputs = [
-        makeWrapper
-      ];
+      nativeBuildInputs = [ makeWrapper ];
 
       postBuild = ''
         wrapProgram "$out/bin/bats" \
@@ -134,77 +131,93 @@ resholve.mkDerivation rec {
       '';
     };
 
-  passthru.tests.libraries = runCommand "${bats.name}-with-libraries-test" {
-    testScript = ''
-      setup() {
-        bats_load_library bats-support
-        bats_load_library bats-assert
-        bats_load_library bats-file
+  passthru.tests.libraries =
+    runCommand "${bats.name}-with-libraries-test"
+      {
+        testScript = ''
+          setup() {
+            bats_load_library bats-support
+            bats_load_library bats-assert
+            bats_load_library bats-file
 
-        bats_require_minimum_version 1.5.0
+            bats_require_minimum_version 1.5.0
 
-        TEST_TEMP_DIR="$(temp_make --prefix 'nixpkgs-bats-test')"
+            TEST_TEMP_DIR="$(temp_make --prefix 'nixpkgs-bats-test')"
+          }
+
+          teardown() {
+            temp_del "$TEST_TEMP_DIR"
+          }
+
+          @test echo_hi {
+            run -0 echo hi
+            assert_output "hi"
+          }
+
+          @test cp_failure {
+            run ! cp
+            assert_line --index 0 "cp: missing file operand"
+            assert_line --index 1 "Try 'cp --help' for more information."
+          }
+
+          @test file_exists {
+            echo "hi" > "$TEST_TEMP_DIR/hello.txt"
+            assert_file_exist "$TEST_TEMP_DIR/hello.txt"
+            run cat "$TEST_TEMP_DIR/hello.txt"
+            assert_output "hi"
+          }
+        '';
+        passAsFile = [ "testScript" ];
       }
+      ''
+        ${
+          bats.withLibraries (
+            p: [
+              p.bats-support
+              p.bats-assert
+              p.bats-file
+            ]
+          )
+        }/bin/bats "$testScriptPath"
+        touch "$out"
+      '';
 
-      teardown() {
-        temp_del "$TEST_TEMP_DIR"
-      }
+  passthru.tests.upstream = bats.unresholved.overrideAttrs (
+    old: {
+      name = "${bats.name}-tests";
+      dontInstall = true; # just need the build directory
+      nativeInstallCheckInputs = [
+        ncurses
+        parallel # skips some tests if it can't detect
+        flock # skips some tests if it can't detect
+        procps
+      ] ++ lib.optionals stdenv.isDarwin [ lsof ];
+      inherit doInstallCheck;
+      installCheckPhase =
+        ''
+          # TODO: cut if https://github.com/bats-core/bats-core/issues/418 allows
+          sed -i '/test works even if PATH is reset/a skip "disabled for nix build"' test/bats.bats
 
-      @test echo_hi {
-        run -0 echo hi
-        assert_output "hi"
-      }
+          # skip tests that assume bats `install.sh` will be in BATS_ROOT
+          rm test/root.bats
 
-      @test cp_failure {
-        run ! cp
-        assert_line --index 0 "cp: missing file operand"
-        assert_line --index 1 "Try 'cp --help' for more information."
-      }
+        ''
+        + (lib.optionalString stdenv.hostPlatform.isDarwin ''
+          # skip new timeout tests which are failing on macOS for unclear reasons
+          # This might relate to procps not having a pkill?
+          rm test/timeout.bats
+        '')
+        + ''
 
-      @test file_exists {
-        echo "hi" > "$TEST_TEMP_DIR/hello.txt"
-        assert_file_exist "$TEST_TEMP_DIR/hello.txt"
-        run cat "$TEST_TEMP_DIR/hello.txt"
-        assert_output "hi"
-      }
-    '';
-    passAsFile = [ "testScript" ];
-  } ''
-    ${bats.withLibraries (p: [ p.bats-support p.bats-assert p.bats-file ])}/bin/bats "$testScriptPath"
-    touch "$out"
-  '';
+          # test generates file with absolute shebang dynamically
+          substituteInPlace test/install.bats --replace \
+            "/usr/bin/env bash" "${bash}/bin/bash"
 
-  passthru.tests.upstream = bats.unresholved.overrideAttrs (old: {
-    name = "${bats.name}-tests";
-    dontInstall = true; # just need the build directory
-    nativeInstallCheckInputs = [
-      ncurses
-      parallel # skips some tests if it can't detect
-      flock # skips some tests if it can't detect
-      procps
-    ] ++ lib.optionals stdenv.isDarwin [ lsof ];
-    inherit doInstallCheck;
-    installCheckPhase = ''
-      # TODO: cut if https://github.com/bats-core/bats-core/issues/418 allows
-      sed -i '/test works even if PATH is reset/a skip "disabled for nix build"' test/bats.bats
-
-      # skip tests that assume bats `install.sh` will be in BATS_ROOT
-      rm test/root.bats
-
-      '' + (lib.optionalString stdenv.hostPlatform.isDarwin ''
-      # skip new timeout tests which are failing on macOS for unclear reasons
-      # This might relate to procps not having a pkill?
-      rm test/timeout.bats
-      '') + ''
-
-      # test generates file with absolute shebang dynamically
-      substituteInPlace test/install.bats --replace \
-        "/usr/bin/env bash" "${bash}/bin/bash"
-
-      ${bats}/bin/bats test
-      touch $out
-    '';
-  });
+          ${bats}/bin/bats test
+          touch $out
+        '';
+    }
+  );
 
   meta = with lib; {
     homepage = "https://github.com/bats-core/bats-core";

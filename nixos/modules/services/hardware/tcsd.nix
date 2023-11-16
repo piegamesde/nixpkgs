@@ -1,6 +1,12 @@
 # tcsd daemon.
 
-{ config, options, pkgs, lib, ... }:
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -27,7 +33,6 @@ let
     #host_platform_class = server_12
     #all_platform_classes = pc_11,pc_12,mobile_12
   '';
-
 in
 {
 
@@ -114,7 +119,6 @@ in
           See also the platformCred option'';
       };
     };
-
   };
 
   ###### implementation
@@ -130,10 +134,11 @@ in
       ACTION=="add", KERNEL=="tpm[0-9]*", TAG+="systemd"
     '';
 
-    systemd.tmpfiles.rules = [
-      # Initialise the state directory
-      "d ${cfg.stateDir} 0770 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [
+        # Initialise the state directory
+        "d ${cfg.stateDir} 0770 ${cfg.user} ${cfg.group} - -"
+      ];
 
     systemd.services.tcsd = {
       description = "Manager for Trusted Computing resources";
@@ -157,6 +162,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "tss") { tss = {}; };
+    users.groups = optionalAttrs (cfg.group == "tss") { tss = { }; };
   };
 }

@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "ligolo-ng";
@@ -17,7 +21,11 @@ buildGoModule rec {
     export CGO_ENABLED=0
   '';
 
-  ldflags = [ "-s" "-w" "-extldflags '-static'" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-extldflags '-static'"
+  ];
 
   doCheck = false; # tests require network access
 

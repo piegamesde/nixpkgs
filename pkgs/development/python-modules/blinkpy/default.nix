@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiofiles
-, aiohttp
-, pytestCheckHook
-, python-dateutil
-, python-slugify
-, pythonOlder
-, requests
-, setuptools
-, sortedcontainers
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiofiles,
+  aiohttp,
+  pytestCheckHook,
+  python-dateutil,
+  python-slugify,
+  pythonOlder,
+  requests,
+  setuptools,
+  sortedcontainers,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
       --replace ', "wheel~=0.40.0"' ""
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     aiofiles
@@ -44,9 +43,7 @@ buildPythonPackage rec {
     sortedcontainers
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [
     "blinkpy"

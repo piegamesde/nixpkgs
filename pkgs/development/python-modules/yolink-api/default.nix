@@ -1,12 +1,13 @@
-{ lib
-, aiohttp
-, aiomqtt
-, buildPythonPackage
-, fetchFromGitHub
-, pydantic
-, pythonOlder
-, setuptools
-, tenacity
+{
+  lib,
+  aiohttp,
+  aiomqtt,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pydantic,
+  pythonOlder,
+  setuptools,
+  tenacity,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-bxaxjUKmhScku9mBjtuwiaT4TLTsRlro3y/XatyAfs0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -37,9 +36,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "yolink"
-  ];
+  pythonImportsCheck = [ "yolink" ];
 
   meta = with lib; {
     description = "Library to interface with Yolink";

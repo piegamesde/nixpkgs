@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, testers
-, vsmtp
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  vsmtp,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -35,7 +36,10 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = vsmtp; version = "v${version}"; };
+    tests.version = testers.testVersion {
+      package = vsmtp;
+      version = "v${version}";
+    };
   };
 
   meta = with lib; {

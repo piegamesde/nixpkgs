@@ -1,35 +1,39 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, gobject-introspection
-, meson
-, ninja
-, python3
-, gtk3
-, gdk-pixbuf
-, xapp
-, wrapGAppsHook
-, gettext
-, polkit
-, glib
-, gitUpdater
-, bubblewrap
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  gobject-introspection,
+  meson,
+  ninja,
+  python3,
+  gtk3,
+  gdk-pixbuf,
+  xapp,
+  wrapGAppsHook,
+  gettext,
+  polkit,
+  glib,
+  gitUpdater,
+  bubblewrap,
 }:
 
 let
-  pythonEnv = python3.withPackages (pp: with pp; [
-    grpcio-tools
-    protobuf
-    pygobject3
-    setproctitle
-    pp.xapp
-    zeroconf
-    grpcio
-    setuptools
-    cryptography
-    pynacl
-    netifaces
-  ]);
+  pythonEnv = python3.withPackages (
+    pp:
+    with pp; [
+      grpcio-tools
+      protobuf
+      pygobject3
+      setproctitle
+      pp.xapp
+      zeroconf
+      grpcio
+      setuptools
+      cryptography
+      pynacl
+      netifaces
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "warpinator";
@@ -59,9 +63,7 @@ stdenv.mkDerivation rec {
     xapp
   ];
 
-  mesonFlags = [
-    "-Dbundle-zeroconf=false"
-  ];
+  mesonFlags = [ "-Dbundle-zeroconf=false" ];
 
   postPatch = ''
     chmod +x install-scripts/*
@@ -79,9 +81,7 @@ stdenv.mkDerivation rec {
       --replace 'GLib.find_program_in_path("bwrap")' "True"
   '';
 
-  passthru.updateScript = gitUpdater {
-    ignoredVersions = "^master.*";
-  };
+  passthru.updateScript = gitUpdater { ignoredVersions = "^master.*"; };
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/warpinator";

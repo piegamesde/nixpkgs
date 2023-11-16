@@ -1,6 +1,16 @@
-{ lib, stdenv, fetchFromGitHub
-, meson, pkg-config, ninja
-, wayland, wayland-scanner, wlroots, wlr-protocols, gtk3, glib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  wayland,
+  wayland-scanner,
+  wlroots,
+  wlr-protocols,
+  gtk3,
+  glib,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,8 +25,18 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ meson pkg-config ninja glib wayland-scanner ];
-  buildInputs = [ wayland wlroots gtk3 ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    glib
+    wayland-scanner
+  ];
+  buildInputs = [
+    wayland
+    wlroots
+    gtk3
+  ];
 
   postUnpack = ''
     rmdir source/wlr-protocols

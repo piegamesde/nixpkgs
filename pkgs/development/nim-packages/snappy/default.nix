@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, snappy }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  snappy,
+}:
 
 buildNimPackage rec {
   pname = "snappy";
@@ -11,8 +16,10 @@ buildNimPackage rec {
   };
   propagatedBuildInputs = [ snappy ];
   doCheck = false;
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "Nim implementation of snappy compression algorithm";
       license = [ lib.licenses.mit ];
       maintainers = [ maintainers.ehmry ];

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, isPy27
-, enum34
-, attrs
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  isPy27,
+  enum34,
+  attrs,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optionals isPy27 [ enum34 ];
 
-  nativeCheckInputs = [ attrs pytz ];
+  nativeCheckInputs = [
+    attrs
+    pytz
+  ];
   checkPhase = ''
     ${python.interpreter} setup.py test
   '';
@@ -29,5 +33,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/irmen/Serpent";
     license = licenses.mit;
     maintainers = with maintainers; [ prusnak ];
-    };
+  };
 }

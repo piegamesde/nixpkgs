@@ -1,4 +1,10 @@
-{ mkDerivation, appstream, qtbase, qttools, nixosTests }:
+{
+  mkDerivation,
+  appstream,
+  qtbase,
+  qttools,
+  nixosTests,
+}:
 
 # TODO: look into using the libraries from the regular appstream derivation as we keep duplicates here
 
@@ -6,9 +12,16 @@ mkDerivation {
   pname = "appstream-qt";
   inherit (appstream) version src;
 
-  outputs = [ "out" "dev" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "installedTests"
+  ];
 
-  buildInputs = appstream.buildInputs ++ [ appstream qtbase ];
+  buildInputs = appstream.buildInputs ++ [
+    appstream
+    qtbase
+  ];
 
   nativeBuildInputs = appstream.nativeBuildInputs ++ [ qttools ];
 
@@ -29,5 +42,5 @@ mkDerivation {
 
   meta = appstream.meta // {
     description = "Software metadata handling library - Qt";
- };
+  };
 }

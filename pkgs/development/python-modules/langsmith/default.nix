@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, poetry-core
-, pydantic
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/python";
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pydantic
@@ -51,14 +50,13 @@ buildPythonPackage rec {
     "test_as_runnable_async_batch"
   ];
 
-  disabledTestPaths = [
-    # due to circular import
-    "tests/integration_tests/test_client.py"
-  ];
+  disabledTestPaths =
+    [
+      # due to circular import
+      "tests/integration_tests/test_client.py"
+    ];
 
-  pythonImportsCheck = [
-    "langsmith"
-  ];
+  pythonImportsCheck = [ "langsmith" ];
 
   __darwinAllowLocalNetworking = true;
 

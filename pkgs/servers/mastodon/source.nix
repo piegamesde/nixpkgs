@@ -3,16 +3,16 @@
 let
   version = "4.2.1";
 in
-(
-  applyPatches {
-    src = fetchFromGitHub {
-      owner = "mastodon";
-      repo = "mastodon";
-      rev = "v${version}";
-      hash = "sha256-SM9WdD+xpxo+gfBft9DARV6QjwNbF2Y9McVrrdDT3fw=";
-    };
-    patches = [];
-  }) // {
+(applyPatches {
+  src = fetchFromGitHub {
+    owner = "mastodon";
+    repo = "mastodon";
+    rev = "v${version}";
+    hash = "sha256-SM9WdD+xpxo+gfBft9DARV6QjwNbF2Y9McVrrdDT3fw=";
+  };
+  patches = [ ];
+})
+// {
   inherit version;
   yarnHash = "sha256-qoLesubmSvRsXhKwMEWHHXcpcqRszqcdZgHQqnTpNPE=";
 }

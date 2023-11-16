@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, installShellFiles
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  installShellFiles,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,22 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-zEgC3tTQ6kwDovHPHRTvYndWVF79DpnAX454VDZiedE=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "xkcdpass"
-  ];
+  pythonImportsCheck = [ "xkcdpass" ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [
-    # https://github.com/redacted/XKCD-password-generator/issues/138
-    "test_entropy_printout_valid_input"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.10")
+      [
+        # https://github.com/redacted/XKCD-password-generator/issues/138
+        "test_entropy_printout_valid_input"
+      ];
 
   postInstall = ''
     installManPage *.?

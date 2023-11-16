@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, filelock
-, pytest
-, mypy
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  filelock,
+  pytest,
+  mypy,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ mypy filelock ];
+  propagatedBuildInputs = [
+    mypy
+    filelock
+  ];
 
   # does not contain tests
   doCheck = false;

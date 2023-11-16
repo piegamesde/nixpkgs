@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, eigen, boost, libnabo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  eigen,
+  boost,
+  libnabo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpointmatcher";
@@ -12,11 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ eigen boost libnabo ];
-
-  cmakeFlags = [
-    "-DEIGEN_INCLUDE_DIR=${eigen}/include/eigen3"
+  buildInputs = [
+    eigen
+    boost
+    libnabo
   ];
+
+  cmakeFlags = [ "-DEIGEN_INCLUDE_DIR=${eigen}/include/eigen3" ];
 
   doCheck = true;
   checkPhase = ''
@@ -25,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     inherit (src.meta) homepage;
-    description = "An \"Iterative Closest Point\" library for 2-D/3-D mapping in robotic";
+    description = ''An "Iterative Closest Point" library for 2-D/3-D mapping in robotic'';
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ cryptix ];

@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitLab, fetchurl, bash }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitLab,
+  fetchurl,
+  bash,
+}:
 
 let
   version = "16.5.0";
@@ -49,11 +55,12 @@ buildGoModule rec {
     rm executors/docker/services_test.go
   '';
 
-  excludedPackages = [
-    # CI helper script for pushing images to Docker and ECR registries
-    # https://gitlab.com/gitlab-org/gitlab-runner/-/merge_requests/4139
-    "./scripts/sync-docker-images"
-  ];
+  excludedPackages =
+    [
+      # CI helper script for pushing images to Docker and ECR registries
+      # https://gitlab.com/gitlab-org/gitlab-runner/-/merge_requests/4139
+      "./scripts/sync-docker-images"
+    ];
 
   postInstall = ''
     install packaging/root/usr/share/gitlab-runner/clear-docker-cache $out/bin
@@ -69,6 +76,12 @@ buildGoModule rec {
     license = licenses.mit;
     homepage = "https://about.gitlab.com/gitlab-ci/";
     platforms = platforms.unix ++ platforms.darwin;
-    maintainers = with maintainers; [ bachp zimbatm ] ++ teams.gitlab.members;
+    maintainers =
+      with maintainers;
+      [
+        bachp
+        zimbatm
+      ]
+      ++ teams.gitlab.members;
   };
 }

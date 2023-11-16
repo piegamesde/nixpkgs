@@ -1,8 +1,9 @@
-{ lib
-, python3
-, fetchFromGitHub
-, pynitrokey
-, wrapQtAppsHook
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  pynitrokey,
+  wrapQtAppsHook,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -54,9 +55,7 @@ python3.pkgs.buildPythonApplication rec {
       --set-default CRYPTOGRAPHY_OPENSSL_NO_LEGACY 1
   '';
 
-  pythonImportsCheck = [
-    "nitrokeyapp"
-  ];
+  pythonImportsCheck = [ "nitrokeyapp" ];
 
   meta = with lib; {
     description = "This application allows to manage Nitrokey 3 devices";

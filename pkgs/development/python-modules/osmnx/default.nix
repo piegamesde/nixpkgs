@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, folium
-, gdal
-, geopandas
-, matplotlib
-, networkx
-, numpy
-, pandas
-, pythonOlder
-, rasterio
-, requests
-, rtree
-, scikit-learn
-, scipy
-, shapely
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  folium,
+  gdal,
+  geopandas,
+  matplotlib,
+  networkx,
+  numpy,
+  pandas,
+  pythonOlder,
+  rasterio,
+  requests,
+  rtree,
+  scikit-learn,
+  scipy,
+  shapely,
 }:
 
 buildPythonPackage rec {
@@ -50,9 +51,7 @@ buildPythonPackage rec {
   # Tests require network
   doCheck = false;
 
-  pythonImportsCheck = [
-    "osmnx"
-  ];
+  pythonImportsCheck = [ "osmnx" ];
 
   meta = with lib; {
     description = "A package to easily download, construct, project, visualize, and analyze complex street networks from OpenStreetMap with NetworkX.";
@@ -62,4 +61,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ psyanticy ];
   };
 }
-

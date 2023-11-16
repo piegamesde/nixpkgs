@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
 
-, cmake
-, doxygen
-, zlib
-, python3Packages
+  cmake,
+  doxygen,
+  zlib,
+  python3Packages,
 }:
 
 let
@@ -26,7 +27,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-91q0M/4kAr0UoWXOQIEYS1VbgEQ/F4EBOfJE9Vr1bnw=";
   };
 
-  outputs = [ "bin" "lib" "dev" "doc" "out" ];
+  outputs = [
+    "bin"
+    "lib"
+    "dev"
+    "doc"
+    "out"
+  ];
 
   cmakeFlags = [
     # Triangle is unfree
@@ -54,9 +61,7 @@ stdenv.mkDerivation rec {
     doxygen
   ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
   patches = [
     # See https://github.com/BrunoLevy/geogram/pull/76
@@ -77,9 +82,7 @@ stdenv.mkDerivation rec {
     make doc-devkit-full
   '';
 
-  nativeCheckInputs = [
-    python3Packages.robotframework
-  ];
+  nativeCheckInputs = [ python3Packages.robotframework ];
 
   doCheck = true;
 
@@ -122,7 +125,12 @@ stdenv.mkDerivation rec {
     # See https://github.com/BrunoLevy/geogram/issues/74
     broken = stdenv.isLinux && stdenv.isAarch64;
 
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     maintainers = with maintainers; [ tmarkus ];
   };
 }

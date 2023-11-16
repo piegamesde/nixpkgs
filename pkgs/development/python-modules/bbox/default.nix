@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pyquaternion
-, numpy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pyquaternion,
+  numpy,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-GGQhKkdwmrYPEhtldPY3WUInSniU/B40NZvt1gXEuzg=";
   };
 
-  propagatedBuildInputs = [ pyquaternion numpy ];
+  propagatedBuildInputs = [
+    pyquaternion
+    numpy
+  ];
 
   pythonImportsCheck = [ "bbox" ];
 

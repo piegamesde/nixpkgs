@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, environs
-, fetchFromGitHub
-, gitpython
-, grpcio
-, grpcio-testing
-, mmh3
-, pandas
-, pytestCheckHook
-, python
-, pythonOlder
-, pythonRelaxDepsHook
-, scikit-learn
-, setuptools-scm
-, ujson
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  environs,
+  fetchFromGitHub,
+  gitpython,
+  grpcio,
+  grpcio-testing,
+  mmh3,
+  pandas,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  scikit-learn,
+  setuptools-scm,
+  ujson,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [
-    "grpcio"
-  ];
+  pythonRelaxDeps = [ "grpcio" ];
 
   nativeBuildInputs = [
     gitpython
@@ -58,13 +57,9 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  pythonImportsCheck = [
-    "pymilvus"
-  ];
+  pythonImportsCheck = [ "pymilvus" ];
 
-  disabledTests = [
-    "test_get_commit"
-  ];
+  disabledTests = [ "test_get_commit" ];
 
   meta = with lib; {
     description = "Python SDK for Milvus";

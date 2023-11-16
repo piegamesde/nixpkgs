@@ -27,7 +27,8 @@ rec {
     # Value to return
     x:
     # Value to ignore
-    y: x;
+    y:
+    x;
 
   /* Pipes a value through a list of functions, left to right.
 
@@ -58,9 +59,12 @@ rec {
      of the next function, and the last function returns the
      final value.
   */
-  pipe = val: functions:
-    let reverseApply = x: f: f x;
-    in builtins.foldl' reverseApply val functions;
+  pipe =
+    val: functions:
+    let
+      reverseApply = x: f: f x;
+    in
+    builtins.foldl' reverseApply val functions;
 
   # note please don’t add a function like `compose = flip pipe`.
   # This would confuse users, because the order of the functions
@@ -79,28 +83,22 @@ rec {
   */
   concat = x: y: x ++ y;
 
-  /* boolean “or” */
+  # boolean “or”
   or = x: y: x || y;
 
-  /* boolean “and” */
+  # boolean “and”
   and = x: y: x && y;
 
-  /* bitwise “and” */
-  bitAnd = builtins.bitAnd
-    or (import ./zip-int-bits.nix
-        (a: b: if a==1 && b==1 then 1 else 0));
+  # bitwise “and”
+  bitAnd = builtins.bitAnd or (import ./zip-int-bits.nix (a: b: if a == 1 && b == 1 then 1 else 0));
 
-  /* bitwise “or” */
-  bitOr = builtins.bitOr
-    or (import ./zip-int-bits.nix
-        (a: b: if a==1 || b==1 then 1 else 0));
+  # bitwise “or”
+  bitOr = builtins.bitOr or (import ./zip-int-bits.nix (a: b: if a == 1 || b == 1 then 1 else 0));
 
-  /* bitwise “xor” */
-  bitXor = builtins.bitXor
-    or (import ./zip-int-bits.nix
-        (a: b: if a!=b then 1 else 0));
+  # bitwise “xor”
+  bitXor = builtins.bitXor or (import ./zip-int-bits.nix (a: b: if a != b then 1 else 0));
 
-  /* bitwise “not” */
+  # bitwise “not”
   bitNot = builtins.sub (-1);
 
   /* Convert a boolean to a string.
@@ -125,7 +123,8 @@ rec {
     # Left attribute set
     x:
     # Right attribute set (higher precedence for equal keys)
-    y: x // y;
+    y:
+    x // y;
 
   /* Flip the order of the arguments of a binary function.
 
@@ -135,7 +134,9 @@ rec {
        flip concat [1] [2]
        => [ 2 1 ]
   */
-  flip = f: a: b: f b a;
+  flip =
+    f: a: b:
+    f b a;
 
   /* Apply function if the supplied argument is non-null.
 
@@ -149,21 +150,30 @@ rec {
     # Function to call
     f:
     # Argument to check for null before passing it to `f`
-    a: if a == null then a else f a;
+    a:
+    if a == null then a else f a;
 
   # Pull in some builtins not included elsewhere.
   inherit (builtins)
-    pathExists readFile isBool
-    isInt isFloat add sub lessThan
-    seq deepSeq genericClosure;
-
+    pathExists
+    readFile
+    isBool
+    isInt
+    isFloat
+    add
+    sub
+    lessThan
+    seq
+    deepSeq
+    genericClosure
+  ;
 
   ## nixpkgs version strings
 
-  /* Returns the current full nixpkgs version number. */
+  # Returns the current full nixpkgs version number.
   version = release + versionSuffix;
 
-  /* Returns the current nixpkgs release number as string. */
+  # Returns the current nixpkgs release number as string.
   release = lib.strings.fileContents ../.version;
 
   /* The latest release that is supported, at the time of release branch-off,
@@ -176,19 +186,20 @@ rec {
      losing support for supported Nixpkgs versions.
 
      This release number allows deprecation warnings to be implemented such that
-     they take effect as soon as the oldest release reaches end of life. */
+     they take effect as soon as the oldest release reaches end of life.
+  */
   oldestSupportedRelease =
     # Update on master only. Do not backport.
     2305;
 
   /* Whether a feature is supported in all supported releases (at the time of
-     release branch-off, if applicable). See `oldestSupportedRelease`. */
+     release branch-off, if applicable). See `oldestSupportedRelease`.
+  */
   isInOldestRelease =
     /* Release number of feature introduction as an integer, e.g. 2111 for 21.11.
        Set it to the upcoming release, matching the nixpkgs/.version file.
     */
-    release:
-      release <= lib.trivial.oldestSupportedRelease;
+    release: release <= lib.trivial.oldestSupportedRelease;
 
   /* Returns the current nixpkgs release code name.
 
@@ -197,12 +208,12 @@ rec {
   */
   codeName = "Tapir";
 
-  /* Returns the current nixpkgs version suffix as string. */
+  # Returns the current nixpkgs version suffix as string.
   versionSuffix =
-    let suffixFile = ../.version-suffix;
-    in if pathExists suffixFile
-    then lib.strings.fileContents suffixFile
-    else "pre-git";
+    let
+      suffixFile = ../.version-suffix;
+    in
+    if pathExists suffixFile then lib.strings.fileContents suffixFile else "pre-git";
 
   /* Attempts to return the the current revision of nixpkgs and
      returns the supplied default value otherwise.
@@ -214,13 +225,18 @@ rec {
     default:
     let
       revisionFile = "${toString ./..}/.git-revision";
-      gitRepo      = "${toString ./..}/.git";
-    in if lib.pathIsGitRepo gitRepo
-       then lib.commitIdFromGitRepo gitRepo
-       else if lib.pathExists revisionFile then lib.fileContents revisionFile
-       else default;
+      gitRepo = "${toString ./..}/.git";
+    in
+    if lib.pathIsGitRepo gitRepo then
+      lib.commitIdFromGitRepo gitRepo
+    else if lib.pathExists revisionFile then
+      lib.fileContents revisionFile
+    else
+      default;
 
-  nixpkgsVersion = builtins.trace "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
+  nixpkgsVersion =
+    builtins.trace "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!"
+      version;
 
   /* Determine whether the function is being called from inside a Nix
      shell.
@@ -235,14 +251,14 @@ rec {
 
      Type: inPureEvalMode :: bool
   */
-  inPureEvalMode = ! builtins ? currentSystem;
+  inPureEvalMode = !builtins ? currentSystem;
 
   ## Integer operations
 
-  /* Return minimum of two numbers. */
+  # Return minimum of two numbers.
   min = x: y: if x < y then x else y;
 
-  /* Return maximum of two numbers. */
+  # Return maximum of two numbers.
   max = x: y: if x > y then x else y;
 
   /* Integer modulus
@@ -255,7 +271,6 @@ rec {
   */
   mod = base: int: base - (int * (builtins.div base int));
 
-
   ## Comparisons
 
   /* C-style comparisons
@@ -264,12 +279,14 @@ rec {
      a == b, compare a b => 0
      a > b,  compare a b => 1
   */
-  compare = a: b:
-    if a < b
-    then -1
-    else if a > b
-         then 1
-         else 0;
+  compare =
+    a: b:
+    if a < b then
+      -1
+    else if a > b then
+      1
+    else
+      0;
 
   /* Split type into two subtypes by predicate `p`, take all elements
      of the first subtype to be less than all the elements of the
@@ -300,24 +317,24 @@ rec {
     a:
     # Second value to compare
     b:
-    if p a
-    then if p b then yes a b else -1
-    else if p b then 1 else no a b;
-
+    if p a then
+      if p b then yes a b else -1
+    else if p b then
+      1
+    else
+      no a b;
 
   /* Reads a JSON file.
 
      Type: importJSON :: path -> any
   */
-  importJSON = path:
-    builtins.fromJSON (builtins.readFile path);
+  importJSON = path: builtins.fromJSON (builtins.readFile path);
 
   /* Reads a TOML file.
 
      Type: importTOML :: path -> any
   */
-  importTOML = path:
-    builtins.fromTOML (builtins.readFile path);
+  importTOML = path: builtins.fromTOML (builtins.readFile path);
 
   ## Warnings
 
@@ -334,61 +351,65 @@ rec {
   # TODO: figure out a clever way to integrate location information from
   # something like __unsafeGetAttrPos.
 
-  /*
-    Print a warning before returning the second argument. This function behaves
-    like `builtins.trace`, but requires a string message and formats it as a
-    warning, including the `warning: ` prefix.
+  /* Print a warning before returning the second argument. This function behaves
+     like `builtins.trace`, but requires a string message and formats it as a
+     warning, including the `warning: ` prefix.
 
-    To get a call stack trace and abort evaluation, set the environment variable
-    `NIX_ABORT_ON_WARN=true` and set the Nix options `--option pure-eval false --show-trace`
+     To get a call stack trace and abort evaluation, set the environment variable
+     `NIX_ABORT_ON_WARN=true` and set the Nix options `--option pure-eval false --show-trace`
 
-    Type: string -> a -> a
+     Type: string -> a -> a
   */
   warn =
-    if lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") ["1" "true" "yes"]
-    then msg: builtins.trace "[1;31mwarning: ${msg}[0m" (abort "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors.")
-    else msg: builtins.trace "[1;31mwarning: ${msg}[0m";
+    if
+      lib.elem (builtins.getEnv "NIX_ABORT_ON_WARN") [
+        "1"
+        "true"
+        "yes"
+      ]
+    then
+      msg:
+      builtins.trace "[1;31mwarning: ${msg}[0m" (
+        abort "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors."
+      )
+    else
+      msg: builtins.trace "[1;31mwarning: ${msg}[0m";
 
-  /*
-    Like warn, but only warn when the first argument is `true`.
+  /* Like warn, but only warn when the first argument is `true`.
 
-    Type: bool -> string -> a -> a
+     Type: bool -> string -> a -> a
   */
   warnIf = cond: msg: if cond then warn msg else x: x;
 
-  /*
-    Like warnIf, but negated (warn if the first argument is `false`).
+  /* Like warnIf, but negated (warn if the first argument is `false`).
 
-    Type: bool -> string -> a -> a
+     Type: bool -> string -> a -> a
   */
   warnIfNot = cond: msg: if cond then x: x else warn msg;
 
-  /*
-    Like the `assert b; e` expression, but with a custom error message and
-    without the semicolon.
+  /* Like the `assert b; e` expression, but with a custom error message and
+     without the semicolon.
 
-    If true, return the identity function, `r: r`.
+     If true, return the identity function, `r: r`.
 
-    If false, throw the error message.
+     If false, throw the error message.
 
-    Calls can be juxtaposed using function application, as `(r: r) a = a`, so
-    `(r: r) (r: r) a = a`, and so forth.
+     Calls can be juxtaposed using function application, as `(r: r) a = a`, so
+     `(r: r) (r: r) a = a`, and so forth.
 
-    Type: bool -> string -> a -> a
+     Type: bool -> string -> a -> a
 
-    Example:
+     Example:
 
-        throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list."
-        lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
-        pkgs
-
+         throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list."
+         lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
+         pkgs
   */
   throwIfNot = cond: msg: if cond then x: x else throw msg;
 
-  /*
-    Like throwIfNot, but negated (throw if the first argument is `true`).
+  /* Like throwIfNot, but negated (throw if the first argument is `true`).
 
-    Type: bool -> string -> a -> a
+     Type: bool -> string -> a -> a
   */
   throwIf = cond: msg: if cond then throw msg else x: x;
 
@@ -402,12 +423,15 @@ rec {
 
      Type: String -> List ComparableVal -> List ComparableVal -> a -> a
   */
-  checkListOfEnum = msg: valid: given:
+  checkListOfEnum =
+    msg: valid: given:
     let
       unexpected = lib.subtractLists valid given;
     in
-      lib.throwIfNot (unexpected == [])
-        "${msg}: ${builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)} unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
+    lib.throwIfNot (unexpected == [ ])
+      "${msg}: ${
+        builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)
+      } unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
 
   info = msg: builtins.trace "INFO: ${msg}";
 
@@ -425,11 +449,11 @@ rec {
      function of the { a, b ? foo, ... }: format, but some facilities
      like callPackage expect to be able to query expected arguments.
   */
-  setFunctionArgs = f: args:
-    { # TODO: Should we add call-time "type" checking like built in?
-      __functor = self: f;
-      __functionArgs = args;
-    };
+  setFunctionArgs = f: args: {
+    # TODO: Should we add call-time "type" checking like built in?
+    __functor = self: f;
+    __functionArgs = args;
+  };
 
   /* Extract the expected function arguments from a function.
      This works both with nix-native { a, b ? foo, ... }: style
@@ -437,40 +461,40 @@ rec {
      has the same return type and semantics as builtins.functionArgs.
      setFunctionArgs : (a → b) → Map String Bool.
   */
-  functionArgs = f:
-    if f ? __functor
-    then f.__functionArgs or (lib.functionArgs (f.__functor f))
-    else builtins.functionArgs f;
+  functionArgs =
+    f:
+    if f ? __functor then
+      f.__functionArgs or (lib.functionArgs (f.__functor f))
+    else
+      builtins.functionArgs f;
 
   /* Check whether something is a function or something
      annotated with function args.
   */
-  isFunction = f: builtins.isFunction f ||
-    (f ? __functor && isFunction (f.__functor f));
+  isFunction = f: builtins.isFunction f || (f ? __functor && isFunction (f.__functor f));
 
-  /*
-    `mirrorFunctionArgs f g` creates a new function `g'` with the same behavior as `g` (`g' x == g x`)
-    but its function arguments mirroring `f` (`lib.functionArgs g' == lib.functionArgs f`).
+  /* `mirrorFunctionArgs f g` creates a new function `g'` with the same behavior as `g` (`g' x == g x`)
+     but its function arguments mirroring `f` (`lib.functionArgs g' == lib.functionArgs f`).
 
-    Type:
-      mirrorFunctionArgs :: (a -> b) -> (a -> c) -> (a -> c)
+     Type:
+       mirrorFunctionArgs :: (a -> b) -> (a -> c) -> (a -> c)
 
-    Example:
-      addab = {a, b}: a + b
-      addab { a = 2; b = 4; }
-      => 6
-      lib.functionArgs addab
-      => { a = false; b = false; }
-      addab1 = attrs: addab attrs + 1
-      addab1 { a = 2; b = 4; }
-      => 7
-      lib.functionArgs addab1
-      => { }
-      addab1' = lib.mirrorFunctionArgs addab addab1
-      addab1' { a = 2; b = 4; }
-      => 7
-      lib.functionArgs addab1'
-      => { a = false; b = false; }
+     Example:
+       addab = {a, b}: a + b
+       addab { a = 2; b = 4; }
+       => 6
+       lib.functionArgs addab
+       => { a = false; b = false; }
+       addab1 = attrs: addab attrs + 1
+       addab1 { a = 2; b = 4; }
+       => 7
+       lib.functionArgs addab1
+       => { }
+       addab1' = lib.mirrorFunctionArgs addab addab1
+       addab1' { a = 2; b = 4; }
+       => 7
+       lib.functionArgs addab1'
+       => { a = false; b = false; }
   */
   mirrorFunctionArgs =
     # Function to provide the argument metadata
@@ -482,24 +506,20 @@ rec {
     g:
     setFunctionArgs g fArgs;
 
-  /*
-    Turns any non-callable values into constant functions.
-    Returns callable values as is.
+  /* Turns any non-callable values into constant functions.
+     Returns callable values as is.
 
-    Example:
+     Example:
 
-      nix-repl> lib.toFunction 1 2
-      1
+       nix-repl> lib.toFunction 1 2
+       1
 
-      nix-repl> lib.toFunction (x: x + 1) 2
-      3
+       nix-repl> lib.toFunction (x: x + 1) 2
+       3
   */
   toFunction =
     # Any value
-    v:
-    if isFunction v
-    then v
-    else k: v;
+    v: if isFunction v then v else k: v;
 
   /* Convert the given positive integer to a string of its hexadecimal
      representation. For example:
@@ -510,11 +530,13 @@ rec {
 
      toHexString 250 => "FA"
   */
-  toHexString = i:
+  toHexString =
+    i:
     let
-      toHexDigit = d:
-        if d < 10
-        then toString d
+      toHexDigit =
+        d:
+        if d < 10 then
+          toString d
         else
           {
             "10" = "A";
@@ -523,9 +545,10 @@ rec {
             "13" = "D";
             "14" = "E";
             "15" = "F";
-          }.${toString d};
+          }
+          .${toString d};
     in
-      lib.concatMapStrings toHexDigit (toBaseDigits 16 i);
+    lib.concatMapStrings toHexDigit (toBaseDigits 16 i);
 
   /* `toBaseDigits base i` converts the positive integer i to a list of its
      digits in the given base. For example:
@@ -536,21 +559,23 @@ rec {
 
      toBaseDigits 16 250 => [ 15 10 ]
   */
-  toBaseDigits = base: i:
+  toBaseDigits =
+    base: i:
     let
-      go = i:
-        if i < base
-        then [i]
+      go =
+        i:
+        if i < base then
+          [ i ]
         else
           let
             r = i - ((i / base) * base);
             q = (i - r) / base;
           in
-            [r] ++ go q;
+          [ r ] ++ go q;
     in
-      assert (isInt base);
-      assert (isInt i);
-      assert (base >= 2);
-      assert (i >= 0);
-      lib.reverseList (go i);
+    assert (isInt base);
+    assert (isInt i);
+    assert (base >= 2);
+    assert (i >= 0);
+    lib.reverseList (go i);
 }

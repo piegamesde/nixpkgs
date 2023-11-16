@@ -1,16 +1,17 @@
-{ lib
-, authlib
-, buildPythonPackage
-, dataclasses-json
-, fetchFromGitHub
-, httpx
-, marshmallow
-, pytest-httpx
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, pytz
-, respx
+{
+  lib,
+  authlib,
+  buildPythonPackage,
+  dataclasses-json,
+  fetchFromGitHub,
+  httpx,
+  marshmallow,
+  pytest-httpx,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  respx,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-u2G+o/vhPri7CPSnekC8rUo/AvuvePpG51MR+FdH2XA=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     authlib
@@ -45,9 +44,7 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [
-    "pydiscovergy"
-  ];
+  pythonImportsCheck = [ "pydiscovergy" ];
 
   meta = with lib; {
     description = "Async Python 3 library for interacting with the Discovergy API";

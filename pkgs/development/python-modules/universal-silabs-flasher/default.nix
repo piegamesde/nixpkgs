@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build-system
-, setuptools
-, setuptools-git-versioning
-, wheel
+  # build-system
+  setuptools,
+  setuptools-git-versioning,
+  wheel,
 
-# dependencies
-, async-timeout
-, bellows
-, click
-, coloredlogs
-, crc
-, libgpiod
-, typing-extensions
-, zigpy
+  # dependencies
+  async-timeout,
+  bellows,
+  click,
+  coloredlogs,
+  crc,
+  libgpiod,
+  typing-extensions,
+  zigpy,
 
-# tests
-, pytestCheckHook
-, pytest-asyncio
-, pytest-mock
-, pytest-timeout
+  # tests
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-mock,
+  pytest-timeout,
 }:
 
 buildPythonPackage rec {
@@ -51,9 +52,7 @@ buildPythonPackage rec {
     crc
     typing-extensions
     zigpy
-  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [
-    libgpiod
-  ];
+  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [ libgpiod ];
 
   nativeCheckInputs = [
     pytestCheckHook

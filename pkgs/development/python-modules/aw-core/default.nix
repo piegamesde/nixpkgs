@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, jsonschema
-, peewee
-, platformdirs
-, iso8601
-, rfc3339-validator
-, strict-rfc3339
-, tomlkit
-, deprecation
-, timeslot
-, pytestCheckHook
-, gitUpdater
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  jsonschema,
+  peewee,
+  platformdirs,
+  iso8601,
+  rfc3339-validator,
+  strict-rfc3339,
+  tomlkit,
+  deprecation,
+  timeslot,
+  pytestCheckHook,
+  gitUpdater,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     jsonschema
@@ -48,9 +47,7 @@ buildPythonPackage rec {
     timeslot
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # Fake home folder for tests that write to $HOME
@@ -59,9 +56,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aw_core" ];
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     description = "Core library for ActivityWatch";

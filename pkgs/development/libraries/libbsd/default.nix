@@ -1,14 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, autoreconfHook
-, libmd
-, gitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  autoreconfHook,
+  libmd,
+  gitUpdater,
 }:
 
 # Run `./get-version` for the new value when bumping the Git revision.
-let gitVersion = "0.11.7-55-g73b2"; in
+let
+  gitVersion = "0.11.7-55-g73b2";
+in
 
 stdenv.mkDerivation {
   pname = "libbsd";
@@ -22,7 +25,11 @@ stdenv.mkDerivation {
     hash = "sha256-LS28taIMjRCl6xqg75eYOIrTDl8PzSa+OvrdiEOP1+U=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   enableParallelBuilding = true;
 
@@ -31,18 +38,21 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ autoreconfHook ];
   propagatedBuildInputs = [ libmd ];
 
-  patches = [
-    # Fix `{get,set}progname(3bsd)` conditionalization
-    # https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/24
-    (fetchpatch {
-      url = "https://github.com/emilazy/libbsd/commit/0381f8d92873c5a19ced3ff861ee8ffe7825953e.patch";
-      hash = "sha256-+RMg5eHLgC4gyX9zXM0ttNf7rd9E3UzJX/7UVCYGXx4=";
-    })
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Temporary build system hack from upstream maintainer
-    # https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/19#note_2017684
-    ./darwin-fix-libbsd.sym.patch
-  ];
+  patches =
+    [
+      # Fix `{get,set}progname(3bsd)` conditionalization
+      # https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/24
+      (fetchpatch {
+        url = "https://github.com/emilazy/libbsd/commit/0381f8d92873c5a19ced3ff861ee8ffe7825953e.patch";
+        hash = "sha256-+RMg5eHLgC4gyX9zXM0ttNf7rd9E3UzJX/7UVCYGXx4=";
+      })
+    ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # Temporary build system hack from upstream maintainer
+        # https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/19#note_2017684
+        ./darwin-fix-libbsd.sym.patch
+      ];
 
   postPatch = ''
     substituteInPlace configure.ac \
@@ -57,7 +67,14 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Common functions found on BSD systems";
     homepage = "https://libbsd.freedesktop.org/";
-    license = with licenses; [ beerware bsd2 bsd3 bsdOriginal isc mit ];
+    license = with licenses; [
+      beerware
+      bsd2
+      bsd3
+      bsdOriginal
+      isc
+      mit
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ matthewbauer ];
   };

@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
-, setuptools
-, setuptools-scm
-, jaraco-text
-, jaraco-collections
-, keyring
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  setuptools-scm,
+  jaraco-text,
+  jaraco-collections,
+  keyring,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -55,9 +56,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jaraco.email" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
     changelog = "https://github.com/jaraco/jaraco.email/blob/${src.rev}/CHANGES.rst";

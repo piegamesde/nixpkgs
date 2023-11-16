@@ -1,9 +1,11 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, nixosTests
-, alsa-lib
-, SDL2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  nixosTests,
+  alsa-lib,
+  SDL2,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,4 +36,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.littleEndian;
   };
 }
-

@@ -1,32 +1,32 @@
 {
   # eval time deps
-  lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# buildtime
-, hatchling
+  # buildtime
+  hatchling,
 
-# runtime deps
-, click
-, ghp-import
-, importlib-metadata
-, jinja2
-, markdown
-, markupsafe
-, mergedeep
-, packaging
-, pathspec
-, platformdirs
-, pyyaml
-, pyyaml-env-tag
-, watchdog
+  # runtime deps
+  click,
+  ghp-import,
+  importlib-metadata,
+  jinja2,
+  markdown,
+  markupsafe,
+  mergedeep,
+  packaging,
+  pathspec,
+  platformdirs,
+  pyyaml,
+  pyyaml-env-tag,
+  watchdog,
 
-# testing deps
-, babel
-, mock
-, unittestCheckHook
+  # testing deps
+  babel,
+  mock,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -42,9 +42,7 @@ buildPythonPackage rec {
     hash = "sha256-9sV1bewsHVJEc2kTyGxDM6SjDTEKEc/HSY6gWBC5tvE=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     click
@@ -59,9 +57,7 @@ buildPythonPackage rec {
     pyyaml
     pyyaml-env-tag
     watchdog
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   nativeCheckInputs = [
     unittestCheckHook
@@ -69,7 +65,12 @@ buildPythonPackage rec {
     mock
   ];
 
-  unittestFlagsArray = [ "-v" "-p" "'*tests.py'" "mkdocs" ];
+  unittestFlagsArray = [
+    "-v"
+    "-p"
+    "'*tests.py'"
+    "mkdocs"
+  ];
 
   pythonImportsCheck = [ "mkdocs" ];
 

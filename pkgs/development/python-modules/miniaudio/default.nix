@@ -1,25 +1,28 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, miniaudio
-, cffi
-, pytestCheckHook
-, AudioToolbox
-, CoreAudio
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  miniaudio,
+  cffi,
+  pytestCheckHook,
+  AudioToolbox,
+  CoreAudio,
 }:
 
 let
   # TODO: recheck after 1.59
-  miniaudio' = miniaudio.overrideAttrs (oldAttrs: rec {
-    version = "0.11.16"; # cffi breakage with 0.11.17
-    src = fetchFromGitHub {
-      inherit (oldAttrs.src) owner repo;
-      rev = "refs/tags/${version}";
-      hash = "sha256-POe/dYPJ25RKNGIhaLoqxm9JJ08MrTyHVN4NmaGOdwM=";
-    };
-  });
+  miniaudio' = miniaudio.overrideAttrs (
+    oldAttrs: rec {
+      version = "0.11.16"; # cffi breakage with 0.11.17
+      src = fetchFromGitHub {
+        inherit (oldAttrs.src) owner repo;
+        rev = "refs/tags/${version}";
+        hash = "sha256-POe/dYPJ25RKNGIhaLoqxm9JJ08MrTyHVN4NmaGOdwM=";
+      };
+    }
+  );
 in
 buildPythonPackage rec {
   pname = "miniaudio";
@@ -53,9 +56,7 @@ buildPythonPackage rec {
   propagatedNativeBuildInputs = [ cffi ];
   propagatedBuildInputs = [ cffi ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "miniaudio" ];
 

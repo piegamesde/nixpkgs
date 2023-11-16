@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, resholve
-, bash
-, coreutils
-, goss
-, which
+{
+  lib,
+  fetchFromGitHub,
+  resholve,
+  bash,
+  coreutils,
+  goss,
+  which,
 }:
 
 resholve.mkDerivation rec {
@@ -30,7 +31,10 @@ resholve.mkDerivation rec {
     default = {
       scripts = [ "bin/dgoss" ];
       interpreter = "${bash}/bin/bash";
-      inputs = [ coreutils which ];
+      inputs = [
+        coreutils
+        which
+      ];
       keep = {
         "$CONTAINER_RUNTIME" = true;
       };
@@ -43,6 +47,9 @@ resholve.mkDerivation rec {
     description = "Convenience wrapper around goss that aims to bring the simplicity of goss to docker containers";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hyzual anthonyroussel ];
+    maintainers = with maintainers; [
+      hyzual
+      anthonyroussel
+    ];
   };
 }

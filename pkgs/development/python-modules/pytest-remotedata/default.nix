@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -20,32 +21,23 @@ buildPythonPackage rec {
     hash = "sha256-viHFWONNfBGw9q61CVbAlSC//NArf86cb46FMaQBocg=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # These tests require a network connection
-    "tests/test_strict_check.py"
-  ];
+  disabledTestPaths =
+    [
+      # These tests require a network connection
+      "tests/test_strict_check.py"
+    ];
 
-  pythonImportsCheck = [
-    "pytest_remotedata"
-  ];
+  pythonImportsCheck = [ "pytest_remotedata" ];
 
   meta = with lib; {
     description = "Pytest plugin for controlling remote data access";

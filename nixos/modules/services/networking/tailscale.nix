@@ -1,12 +1,23 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.tailscale;
   isNetworkd = config.networking.useNetworkd;
-in {
-  meta.maintainers = with maintainers; [ danderson mbaillie twitchyliquid64 mfrw ];
+in
+{
+  meta.maintainers = with maintainers; [
+    danderson
+    mbaillie
+    twitchyliquid64
+    mfrw
+  ];
 
   options.services.tailscale = {
     enable = mkEnableOption (lib.mdDoc "Tailscale client daemon");
@@ -20,16 +31,20 @@ in {
     interfaceName = mkOption {
       type = types.str;
       default = "tailscale0";
-      description = lib.mdDoc ''The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
+      description =
+        lib.mdDoc
+          ''The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
     };
 
     permitCertUid = mkOption {
       type = types.nullOr types.nonEmptyStr;
       default = null;
-      description = lib.mdDoc "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
+      description =
+        lib.mdDoc
+          "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
     };
 
-    package = lib.mkPackageOptionMD pkgs "tailscale" {};
+    package = lib.mkPackageOptionMD pkgs "tailscale" { };
 
     openFirewall = mkOption {
       default = false;
@@ -38,7 +53,12 @@ in {
     };
 
     useRoutingFeatures = mkOption {
-      type = types.enum [ "none" "client" "server" "both" ];
+      type = types.enum [
+        "none"
+        "client"
+        "server"
+        "both"
+      ];
       default = "none";
       example = "server";
       description = lib.mdDoc ''
@@ -63,8 +83,8 @@ in {
     extraUpFlags = mkOption {
       description = lib.mdDoc "Extra flags to pass to {command}`tailscale up`.";
       type = types.listOf types.str;
-      default = [];
-      example = ["--ssh"];
+      default = [ ];
+      example = [ "--ssh" ];
     };
   };
 
@@ -75,16 +95,14 @@ in {
       wantedBy = [ "multi-user.target" ];
       path = [
         config.networking.resolvconf.package # for configuring DNS in some configs
-        pkgs.procps     # for collecting running services (opt-in feature)
-        pkgs.getent     # for `getent` to look up user shells
-        pkgs.kmod       # required to pass tailscale's v6nat check
+        pkgs.procps # for collecting running services (opt-in feature)
+        pkgs.getent # for `getent` to look up user shells
+        pkgs.kmod # required to pass tailscale's v6nat check
       ];
       serviceConfig.Environment = [
         "PORT=${toString cfg.port}"
         ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
-      ] ++ (lib.optionals (cfg.permitCertUid != null) [
-        "TS_PERMIT_CERT_UID=${cfg.permitCertUid}"
-      ]);
+      ] ++ (lib.optionals (cfg.permitCertUid != null) [ "TS_PERMIT_CERT_UID=${cfg.permitCertUid}" ]);
       # Restart tailscaled with a single `systemctl restart` at the
       # end of activation, rather than a `stop` followed by a later
       # `start`. Activation over Tailscale can hang for tens of
@@ -100,8 +118,8 @@ in {
     };
 
     systemd.services.tailscaled-autoconnect = mkIf (cfg.authKeyFile != null) {
-      after = ["tailscale.service"];
-      wants = ["tailscale.service"];
+      after = [ "tailscale.service" ];
+      wants = [ "tailscale.service" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
@@ -109,7 +127,9 @@ in {
       script = ''
         status=$(${config.systemd.package}/bin/systemctl show -P StatusText tailscaled.service)
         if [[ $status != Connected* ]]; then
-          ${cfg.package}/bin/tailscale up --auth-key 'file:${cfg.authKeyFile}' ${escapeShellArgs cfg.extraUpFlags}
+          ${cfg.package}/bin/tailscale up --auth-key 'file:${cfg.authKeyFile}' ${
+            escapeShellArgs cfg.extraUpFlags
+          }
         fi
       '';
     };
@@ -121,7 +141,9 @@ in {
 
     networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
-    networking.firewall.checkReversePath = mkIf (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both") "loose";
+    networking.firewall.checkReversePath =
+      mkIf (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
+        "loose";
 
     networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
 

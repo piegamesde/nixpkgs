@@ -1,31 +1,41 @@
-{ lib, vscode-utils
-, fetchurl, writeScript, runtimeShell
-, jq, clang-tools
-, gdbUseFixed ? true, gdb # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
-, autoPatchelfHook, makeWrapper, stdenv, lttng-ust, libkrb5, zlib
+{
+  lib,
+  vscode-utils,
+  fetchurl,
+  writeScript,
+  runtimeShell,
+  jq,
+  clang-tools,
+  gdbUseFixed ? true,
+  gdb, # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
+  autoPatchelfHook,
+  makeWrapper,
+  stdenv,
+  lttng-ust,
+  libkrb5,
+  zlib,
 }:
 
-/*
-  Note that this version of the extension still has some nix specific issues
-  which could not be fixed merely by patching (inside a C# dll).
+/* Note that this version of the extension still has some nix specific issues
+   which could not be fixed merely by patching (inside a C# dll).
 
-  In particular, the debugger requires either gnome-terminal or xterm. However
-  instead of looking for the terminal executable in `PATH`, for any linux platform
-  the dll uses an hardcoded path to one of these.
+   In particular, the debugger requires either gnome-terminal or xterm. However
+   instead of looking for the terminal executable in `PATH`, for any linux platform
+   the dll uses an hardcoded path to one of these.
 
-  So, in order for debugging to work properly, you merely need to create symlinks
-  to one of these terminals at the appropriate location.
+   So, in order for debugging to work properly, you merely need to create symlinks
+   to one of these terminals at the appropriate location.
 
-  The good news is the the utility library is open source and with some effort
-  we could build a patched version ourselves. See:
+   The good news is the the utility library is open source and with some effort
+   we could build a patched version ourselves. See:
 
-  <https://github.com/Microsoft/MIEngine/blob/2885386dc7f35e0f1e44827269341e786361f28e/src/MICore/TerminalLauncher.cs#L156>
+   <https://github.com/Microsoft/MIEngine/blob/2885386dc7f35e0f1e44827269341e786361f28e/src/MICore/TerminalLauncher.cs#L156>
 
-  Also, the extension should eventually no longer require an external terminal. See:
+   Also, the extension should eventually no longer require an external terminal. See:
 
-  <https://github.com/Microsoft/vscode-cpptools/issues/35>
+   <https://github.com/Microsoft/vscode-cpptools/issues/35>
 
-  Once the symbolic link temporary solution taken, everything shoud run smootly.
+   Once the symbolic link temporary solution taken, everything shoud run smootly.
 */
 
 let
@@ -77,14 +87,19 @@ vscode-utils.buildVscodeMarketplaceExtension {
   '';
 
   postFixup = lib.optionalString gdbUseFixed ''
-    wrapProgram $out/share/vscode/extensions/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7 --prefix PATH : ${lib.makeBinPath [ gdb ]}
+    wrapProgram $out/share/vscode/extensions/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7 --prefix PATH : ${
+      lib.makeBinPath [ gdb ]
+    }
   '';
 
   meta = {
     description = "The C/C++ extension adds language support for C/C++ to Visual Studio Code, including features such as IntelliSense and debugging.";
     homepage = "https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.jraygauthier lib.maintainers.stargate01 ];
+    maintainers = [
+      lib.maintainers.jraygauthier
+      lib.maintainers.stargate01
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

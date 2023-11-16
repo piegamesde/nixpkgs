@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "iterate";
   version = "release-b0f9a9c6-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "iterate";
 
-  asdFilesToKeep = ["iterate.asd"];
+  asdFilesToKeep = [ "iterate.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM iterate DESCRIPTION
@@ -26,4 +26,5 @@ rec {
     http://beta.quicklisp.org/archive/iterate/2021-05-31/iterate-release-b0f9a9c6-git.tgz
     MD5 0b2661e9b8195f3e5891aa14601e5a69 NAME iterate FILENAME iterate DEPS NIL
     DEPENDENCIES NIL VERSION release-b0f9a9c6-git SIBLINGS NIL PARASITES
-    (iterate/tests)) */
+    (iterate/tests))
+*/

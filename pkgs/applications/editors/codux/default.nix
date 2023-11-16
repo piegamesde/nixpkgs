@@ -1,6 +1,7 @@
-{ lib
-, appimageTools
-, fetchurl
+{
+  lib,
+  appimageTools,
+  fetchurl,
 }:
 
 let
@@ -30,6 +31,9 @@ appimageTools.wrapType2 rec {
     homepage = "https://www.codux.com";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ dit7ya kashw2 ];
+    maintainers = with maintainers; [
+      dit7ya
+      kashw2
+    ];
   };
 }

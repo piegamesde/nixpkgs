@@ -1,24 +1,25 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build
-, hatchling
+  # build
+  hatchling,
 
-# runtime
-, jsonschema
-, python-json-logger
-, pyyaml
-, traitlets
+  # runtime
+  jsonschema,
+  python-json-logger,
+  pyyaml,
+  traitlets,
 
-# optionals
-, click
-, rich
+  # optionals
+  click,
+  rich,
 
-# tests
-, pytest-asyncio
-, pytest-console-scripts
-, pytestCheckHook
+  # tests
+  pytest-asyncio,
+  pytest-console-scripts,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -33,18 +34,14 @@ buildPythonPackage rec {
     hash = "sha256-hOx2/WiFpDjtmP+qC6Ew2VY4/gdvXuv2k76qtmS+61M=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     jsonschema
     python-json-logger
     pyyaml
     traitlets
-  ]
-  ++ jsonschema.optional-dependencies.format
-  ++ jsonschema.optional-dependencies.format-nongpl;
+  ] ++ jsonschema.optional-dependencies.format ++ jsonschema.optional-dependencies.format-nongpl;
 
   passthru.optional-dependencies = {
     cli = [

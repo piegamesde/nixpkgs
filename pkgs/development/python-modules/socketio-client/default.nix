@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, requests
-, six
-, websocket-client
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  requests,
+  six,
+  websocket-client,
+  fetchFromGitHub,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   # Perform networking tests.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "socketIO_client"
-  ];
+  pythonImportsCheck = [ "socketIO_client" ];
 
   meta = with lib; {
     description = "A socket.io client library for protocol 1.x";

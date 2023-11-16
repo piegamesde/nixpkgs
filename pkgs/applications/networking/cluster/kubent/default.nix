@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "kubent";
@@ -14,7 +18,8 @@ buildGoModule rec {
   vendorHash = "sha256-XXf6CPPHVvCTZA4Ve5/wmlgXQ/gZZUW0W/jXA0bJgLA=";
 
   ldflags = [
-    "-w" "-s"
+    "-w"
+    "-s"
     "-X main.version=v${version}"
   ];
 

@@ -1,5 +1,10 @@
-{ buildPythonPackage, fetchPypi
-, requests, six, pyopenssl }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  six,
+  pyopenssl,
+}:
 
 buildPythonPackage rec {
   pname = "paypalrestsdk";
@@ -10,7 +15,11 @@ buildPythonPackage rec {
     sha256 = "sha256-kZUfNtsw1oW5ceFASYSRo1bPHfjv9xZWYDrKTtcs81o=";
   };
 
-  propagatedBuildInputs = [ requests six pyopenssl ];
+  propagatedBuildInputs = [
+    requests
+    six
+    pyopenssl
+  ];
 
   meta = {
     homepage = "https://developer.paypal.com/";

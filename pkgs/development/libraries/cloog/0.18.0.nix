@@ -1,4 +1,10 @@
-{ fetchurl, lib, stdenv, gmp, isl }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  gmp,
+  isl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cloog";
@@ -57,7 +63,6 @@ stdenv.mkDerivation rec {
        with preprocessed source if appropriate.
        See <URL:http://cygwin.com/problems.html> for instructions.
        make[3]: *** [Box.lo] Error 1
-
     */
     platforms = lib.platforms.unix; # Once had cygwin problems
   };

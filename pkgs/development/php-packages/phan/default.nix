@@ -1,8 +1,9 @@
-{ lib
-, php
-, mkDerivation
-, fetchurl
-, makeWrapper
+{
+  lib,
+  php,
+  mkDerivation,
+  fetchurl,
+  makeWrapper,
 }:
 let
   php' = php.withExtensions ({ enabled, all }: enabled ++ [ all.ast ]);

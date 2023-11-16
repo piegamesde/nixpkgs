@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, pyjwt
-, mock
-, python-dateutil
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  pyjwt,
+  mock,
+  python-dateutil,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -34,14 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "messagebird"
-  ];
+  pythonImportsCheck = [ "messagebird" ];
 
-  disabledTestPaths = [
-    # ValueError: not enough values to unpack (expected 6, got 0)
-    "tests/test_request_validator.py"
-  ];
+  disabledTestPaths =
+    [
+      # ValueError: not enough values to unpack (expected 6, got 0)
+      "tests/test_request_validator.py"
+    ];
 
   meta = with lib; {
     description = "Client for MessageBird's REST API";

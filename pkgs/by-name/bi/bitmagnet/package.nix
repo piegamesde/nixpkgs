@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-ydiZ3KMEiVkmdzhHjYYLJ7wuiKmwlMEn4OWrKSOnaSo=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = {
     description = "A self-hosted BitTorrent indexer, DHT crawler, and torrent search engine";

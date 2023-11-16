@@ -1,4 +1,8 @@
-{ lib, bundlerApp, bundlerUpdateScript }:
+{
+  lib,
+  bundlerApp,
+  bundlerUpdateScript,
+}:
 
 bundlerApp {
   pname = "pt";
@@ -9,9 +13,13 @@ bundlerApp {
 
   meta = with lib; {
     description = "Minimalist command-line Pivotal Tracker client";
-    homepage    = "http://www.github.com/raul/pt";
-    license     = licenses.mit;
-    maintainers = with maintainers; [ ebzzry manveru nicknovitski ];
-    platforms   = platforms.unix;
+    homepage = "http://www.github.com/raul/pt";
+    license = licenses.mit;
+    maintainers = with maintainers; [
+      ebzzry
+      manveru
+      nicknovitski
+    ];
+    platforms = platforms.unix;
   };
 }

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, attrs
-, funcsigs
-, requests-mock
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  attrs,
+  funcsigs,
+  requests-mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,14 @@ buildPythonPackage rec {
     sha256 = "1rqyyfwngi1xsd9a81irjxacinkj1zf6nqfvfxhi55ky34x5phf9";
   };
 
-  patches = [
-    # Fix issues due to internal API breaking in latest versions of requests-mock
-    (fetchpatch {
-      url = "https://github.com/peopledoc/mock-services/commit/88d3a0c9ef4dd7d5e011068ed2fdbbecc4a1a03a.patch";
-      sha256 = "0a4pwxr33kr525sp8q4mb4cr3n2b51mj2a3052lhg6brdbi4gnms";
-    })
-  ];
+  patches =
+    [
+      # Fix issues due to internal API breaking in latest versions of requests-mock
+      (fetchpatch {
+        url = "https://github.com/peopledoc/mock-services/commit/88d3a0c9ef4dd7d5e011068ed2fdbbecc4a1a03a.patch";
+        sha256 = "0a4pwxr33kr525sp8q4mb4cr3n2b51mj2a3052lhg6brdbi4gnms";
+      })
+    ];
 
   propagatedBuildInputs = [
     attrs
@@ -33,9 +35,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # require networking

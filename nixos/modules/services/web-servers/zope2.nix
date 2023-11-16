@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,64 +11,67 @@ let
 
   cfg = config.services.zope2;
 
-  zope2Opts = { name, ... }: {
-    options = {
+  zope2Opts =
+    { name, ... }:
+    {
+      options = {
 
-      name = mkOption {
-        default = "${name}";
-        type = types.str;
-        description = lib.mdDoc "The name of the zope2 instance. If undefined, the name of the attribute set will be used.";
-      };
+        name = mkOption {
+          default = "${name}";
+          type = types.str;
+          description =
+            lib.mdDoc
+              "The name of the zope2 instance. If undefined, the name of the attribute set will be used.";
+        };
 
-      threads = mkOption {
-        default = 2;
-        type = types.int;
-        description = lib.mdDoc "Specify the number of threads that Zope's ZServer web server will use to service requests. ";
-      };
+        threads = mkOption {
+          default = 2;
+          type = types.int;
+          description =
+            lib.mdDoc
+              "Specify the number of threads that Zope's ZServer web server will use to service requests. ";
+        };
 
-      http_address = mkOption {
-        default = "localhost:8080";
-        type = types.str;
-        description = lib.mdDoc "Give a port and address for the HTTP server.";
-      };
+        http_address = mkOption {
+          default = "localhost:8080";
+          type = types.str;
+          description = lib.mdDoc "Give a port and address for the HTTP server.";
+        };
 
-      user = mkOption {
-        default = "zope2";
-        type = types.str;
-        description = lib.mdDoc "The name of the effective user for the Zope process.";
-      };
+        user = mkOption {
+          default = "zope2";
+          type = types.str;
+          description = lib.mdDoc "The name of the effective user for the Zope process.";
+        };
 
-      clientHome = mkOption {
-        default = "/var/lib/zope2/${name}";
-        type = types.path;
-        description = lib.mdDoc "Home directory of zope2 instance.";
-      };
-      extra = mkOption {
-        default =
-          ''
-          <zodb_db main>
-            mount-point /
-            cache-size 30000
-            <blobstorage>
-                blob-dir /var/lib/zope2/${name}/blobstorage
-                <filestorage>
-                path /var/lib/zope2/${name}/filestorage/Data.fs
-                </filestorage>
-            </blobstorage>
-          </zodb_db>
+        clientHome = mkOption {
+          default = "/var/lib/zope2/${name}";
+          type = types.path;
+          description = lib.mdDoc "Home directory of zope2 instance.";
+        };
+        extra = mkOption {
+          default = ''
+            <zodb_db main>
+              mount-point /
+              cache-size 30000
+              <blobstorage>
+                  blob-dir /var/lib/zope2/${name}/blobstorage
+                  <filestorage>
+                  path /var/lib/zope2/${name}/filestorage/Data.fs
+                  </filestorage>
+              </blobstorage>
+            </zodb_db>
           '';
-        type = types.lines;
-        description = lib.mdDoc "Extra zope.conf";
-      };
+          type = types.lines;
+          description = lib.mdDoc "Extra zope.conf";
+        };
 
-      packages = mkOption {
-        type = types.listOf types.package;
-        description = lib.mdDoc "The list of packages you want to make available to the zope2 instance.";
+        packages = mkOption {
+          type = types.listOf types.package;
+          description = lib.mdDoc "The list of packages you want to make available to the zope2 instance.";
+        };
       };
-
     };
-  };
-
 in
 
 {
@@ -73,7 +81,7 @@ in
   options = {
 
     services.zope2.instances = mkOption {
-      default = {};
+      default = { };
       type = with types; attrsOf (submodule zope2Opts);
       example = literalExpression ''
         {
@@ -101,21 +109,21 @@ in
 
   ###### implementation
 
-  config = mkIf (cfg.instances != {}) {
+  config = mkIf (cfg.instances != { }) {
 
     users.users.zope2 = {
       isSystemUser = true;
       group = "zope2";
     };
-    users.groups.zope2 = {};
+    users.groups.zope2 = { };
 
     systemd.services =
       let
 
-        createZope2Instance = opts: name:
+        createZope2Instance =
+          opts: name:
           let
-            interpreter = pkgs.writeScript "interpreter"
-              ''
+            interpreter = pkgs.writeScript "interpreter" ''
               import sys
 
               _interactive = True
@@ -142,23 +150,20 @@ in
               if _interactive:
                   del _interactive
                   __import__("code").interact(banner="", local=globals())
-              '';
+            '';
             env = pkgs.buildEnv {
               name = "zope2-${name}-env";
               paths = [
                 pkgs.python27
                 pkgs.python27Packages.recursivePthLoader
                 pkgs.python27Packages."plone.recipe.zope2instance"
-              ] ++ attrValues pkgs.python27.modules
-                ++ opts.packages;
-              postBuild =
-                ''
+              ] ++ attrValues pkgs.python27.modules ++ opts.packages;
+              postBuild = ''
                 echo "#!$out/bin/python" > $out/bin/interpreter
                 cat ${interpreter} >> $out/bin/interpreter
-                '';
+              '';
             };
-            conf = pkgs.writeText "zope2-${name}-conf"
-              ''
+            conf = pkgs.writeText "zope2-${name}-conf" ''
               %define INSTANCEHOME ${env}
               instancehome $INSTANCEHOME
               %define CLIENTHOME ${opts.clientHome}/${opts.name}
@@ -209,9 +214,8 @@ in
               </zodb_db>
 
               ${opts.extra}
-              '';
-            ctlScript = pkgs.writeScript "zope2-${name}-ctl-script"
-              ''
+            '';
+            ctlScript = pkgs.writeScript "zope2-${name}-ctl-script" ''
               #!${env}/bin/python
 
               import sys
@@ -221,21 +225,20 @@ in
                   sys.exit(plone.recipe.zope2instance.ctl.main(
                       ["-C", "${conf}"]
                       + sys.argv[1:]))
-              '';
+            '';
 
-            ctl = pkgs.writeScript "zope2-${name}-ctl"
-              ''
+            ctl = pkgs.writeScript "zope2-${name}-ctl" ''
               #!${pkgs.bash}/bin/bash -e
               export PYTHONHOME=${env}
               exec ${ctlScript} "$@"
-              '';
-          in {
+            '';
+          in
+          {
             #description = "${name} instance";
-            after = [ "network.target" ];  # with RelStorage also add "postgresql.service"
+            after = [ "network.target" ]; # with RelStorage also add "postgresql.service"
             wantedBy = [ "multi-user.target" ];
             path = opts.packages;
-            preStart =
-              ''
+            preStart = ''
               mkdir -p /var/log/zope2/
               touch /var/log/zope2/${name}.log
               touch /var/log/zope2/${name}-Z2.log
@@ -247,16 +250,21 @@ in
               chown ${opts.user} ${opts.clientHome} -R
 
               ${ctl} adduser admin admin
-              '';
+            '';
 
             serviceConfig.Type = "forking";
             serviceConfig.ExecStart = "${ctl} start";
             serviceConfig.ExecStop = "${ctl} stop";
             serviceConfig.ExecReload = "${ctl} restart";
           };
-
-      in listToAttrs (map (name: { name = "zope2-${name}"; value = createZope2Instance (builtins.getAttr name cfg.instances) name; }) (builtins.attrNames cfg.instances));
-
+      in
+      listToAttrs (
+        map
+          (name: {
+            name = "zope2-${name}";
+            value = createZope2Instance (builtins.getAttr name cfg.instances) name;
+          })
+          (builtins.attrNames cfg.instances)
+      );
   };
-
 }

@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
 }:
 let
 
@@ -12,7 +13,6 @@ let
     rev = "74b863e6dcb1ec2e6c8fb02c16bb6f23b59e67f6";
     hash = "sha256-Yujki2vGzaT8Ze5Usk8FPg8bn86MvyyPTiWuWwEw7Xs=";
   };
-
 in
 rustPlatform.buildRustPackage {
   pname = "tuxedo-rs";
@@ -44,4 +44,3 @@ rustPlatform.buildRustPackage {
     platforms = platforms.linux;
   };
 }
-

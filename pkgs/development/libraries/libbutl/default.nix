@@ -1,25 +1,29 @@
-{ lib, stdenv
-, build2
-, fetchurl
-, libuuid
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableStatic ? !enableShared
+{
+  lib,
+  stdenv,
+  build2,
+  fetchurl,
+  libuuid,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? !enableShared,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libbutl";
   version = "0.15.0";
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   src = fetchurl {
     url = "https://pkg.cppget.org/1/alpha/build2/libbutl-${version}.tar.gz";
     sha256 = "sha256-yzs6DFt6peJPPaMQ3rtx+kiYu7H+bUuShcdnEN90WWI=";
   };
 
-  nativeBuildInputs = [
-    build2
-  ];
+  nativeBuildInputs = [ build2 ];
 
   strictDeps = true;
 
@@ -32,9 +36,7 @@ stdenv.mkDerivation rec {
       --replace '"libuuid.so' '"${lib.getLib libuuid}/lib/libuuid.so'
   '';
 
-  build2ConfigureFlags = [
-    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
-  ];
+  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
 
   doCheck = true;
 

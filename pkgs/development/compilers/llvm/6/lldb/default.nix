@@ -1,18 +1,21 @@
-{ lib, stdenv, llvm_meta
-, fetch
-, fetchpatch
-, cmake
-, zlib
-, ncurses
-, swig
-, which
-, libedit
-, libxml2
-, libllvm
-, libclang
-, python3
-, version
-, darwin
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  fetch,
+  fetchpatch,
+  cmake,
+  zlib,
+  ncurses,
+  swig,
+  which,
+  libedit,
+  libxml2,
+  libllvm,
+  libclang,
+  python3,
+  version,
+  darwin,
 }:
 
 stdenv.mkDerivation rec {
@@ -41,30 +44,48 @@ stdenv.mkDerivation rec {
       cmake/modules/LLDBStandalone.cmake
   '';
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   nativeBuildInputs = [
-    cmake python3 which swig
+    cmake
+    python3
+    which
+    swig
   ];
 
-  buildInputs = [
-    ncurses zlib libedit libxml2 libllvm
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.libobjc
-    darwin.apple_sdk.libs.xpc
-    darwin.apple_sdk.frameworks.Foundation darwin.bootstrap_cmds darwin.apple_sdk.frameworks.Carbon darwin.apple_sdk.frameworks.Cocoa
-  ];
+  buildInputs =
+    [
+      ncurses
+      zlib
+      libedit
+      libxml2
+      libllvm
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.libobjc
+      darwin.apple_sdk.libs.xpc
+      darwin.apple_sdk.frameworks.Foundation
+      darwin.bootstrap_cmds
+      darwin.apple_sdk.frameworks.Carbon
+      darwin.apple_sdk.frameworks.Cocoa
+    ];
 
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];
 
-  cmakeFlags = [
-    "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
-    "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-  ] ++ lib.optionals doCheck [
-    "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-    "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-  ];
+  cmakeFlags =
+    [
+      "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
+      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+    ]
+    ++ lib.optionals doCheck [
+      "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+      "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
+    ];
 
   doCheck = false;
 

@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, docopt
-, fetchFromGitHub
-, freezegun
-, mock
-, pyjwt
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
+{
+  lib,
+  buildPythonPackage,
+  docopt,
+  fetchFromGitHub,
+  freezegun,
+  mock,
+  pyjwt,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
 }:
 
 buildPythonPackage rec {
@@ -45,9 +46,7 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  pythonImportsCheck = [
-    "notifications_python_client"
-  ];
+  pythonImportsCheck = [ "notifications_python_client" ];
 
   meta = with lib; {
     description = "Python client for the GOV.UK Notify API";

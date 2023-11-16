@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "wild-package-inferred-system";
   version = "20200325-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "wild-package-inferred-system";
 
-  asdFilesToKeep = ["wild-package-inferred-system.asd"];
+  asdFilesToKeep = [ "wild-package-inferred-system.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM wild-package-inferred-system DESCRIPTION
@@ -27,4 +27,5 @@ rec {
     MD5 4dfd9f90d780b1e67640543dd4acbf21 NAME wild-package-inferred-system
     FILENAME wild-package-inferred-system DEPS ((NAME fiveam FILENAME fiveam))
     DEPENDENCIES (fiveam) VERSION 20200325-git SIBLINGS (foo-wild) PARASITES
-    (wild-package-inferred-system/test)) */
+    (wild-package-inferred-system/test))
+*/

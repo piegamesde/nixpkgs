@@ -1,10 +1,11 @@
-{ lib
-, pkgs
-, buildPythonPackage
-, fetchFromGitHub
-, pygame
-, python-i18n
-, pytestCheckHook
+{
+  lib,
+  pkgs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pygame,
+  python-i18n,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-IXU00Us1odbfS7jLPMYuCPv2l/5TUZdYKES7xHs+EWg=";
   };
 
-  propagatedBuildInputs = [ pygame python-i18n ];
+  propagatedBuildInputs = [
+    pygame
+    python-i18n
+  ];
 
   postPatch = ''
     substituteInPlace pygame_gui/core/utility.py \
@@ -46,9 +50,7 @@ buildPythonPackage rec {
     "test_process_event_text_ctrl_x"
   ];
 
-  disabledTestPaths = [
-    "tests/test_performance/test_text_performance.py"
-  ];
+  disabledTestPaths = [ "tests/test_performance/test_text_performance.py" ];
 
   meta = with lib; {
     description = "A GUI system for pygame";

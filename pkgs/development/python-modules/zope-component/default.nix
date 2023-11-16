@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_configuration
-, zope-deferredimport
-, zope-deprecation
-, zope_event
-, zope-hookable
-, zope-i18nmessageid
-, zope_interface
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_configuration,
+  zope-deferredimport,
+  zope-deprecation,
+  zope_event,
+  zope-hookable,
+  zope-i18nmessageid,
+  zope_interface,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
   # ignore tests because of a circular dependency on zope_security
   doCheck = false;
 
-  pythonImportsCheck = [
-    "zope.component"
-  ];
+  pythonImportsCheck = [ "zope.component" ];
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/zope.component";
@@ -45,5 +44,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

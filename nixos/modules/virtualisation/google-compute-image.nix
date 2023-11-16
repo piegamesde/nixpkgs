@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -59,7 +64,13 @@ in
     system.build.googleComputeImage = import ../../lib/make-disk-image.nix {
       name = "google-compute-image";
       postVM = ''
-        PATH=$PATH:${with pkgs; lib.makeBinPath [ gnutar gzip ]}
+        PATH=$PATH:${
+          with pkgs;
+          lib.makeBinPath [
+            gnutar
+            gzip
+          ]
+        }
         pushd $out
         mv $diskImage disk.raw
         tar -Sc disk.raw | gzip -${toString cfg.compressionLevel} > \
@@ -73,7 +84,5 @@ in
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };
-
   };
-
 }

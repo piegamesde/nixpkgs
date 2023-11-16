@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildGo121Module, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGo121Module,
+  nixosTests,
+}:
 
 buildGo121Module rec {
   pname = "netdata-go-plugins";
@@ -15,14 +20,20 @@ buildGo121Module rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   postInstall = ''
     mkdir -p $out/lib/netdata/conf.d
     cp -r config/* $out/lib/netdata/conf.d
   '';
 
-  passthru.tests = { inherit (nixosTests) netdata; };
+  passthru.tests = {
+    inherit (nixosTests) netdata;
+  };
 
   meta = with lib; {
     description = "Netdata orchestrator for data collection modules written in go";

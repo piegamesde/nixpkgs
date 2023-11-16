@@ -1,6 +1,4 @@
-{ lib
-, fetchurl
-}:
+{ lib, fetchurl }:
 
 let
   meta = {
@@ -21,25 +19,39 @@ let
   };
 in
 {
-  ed = let
-    pname = "ed";
-    version = "1.19";
-    src = fetchurl {
-      url = "mirror://gnu/ed/ed-${version}.tar.lz";
-      hash = "sha256-zi8uXEJHkKqW0J2suT2bv9wLfrYknJy3U4RS6Ox3zUg=";
+  ed =
+    let
+      pname = "ed";
+      version = "1.19";
+      src = fetchurl {
+        url = "mirror://gnu/ed/ed-${version}.tar.lz";
+        hash = "sha256-zi8uXEJHkKqW0J2suT2bv9wLfrYknJy3U4RS6Ox3zUg=";
+      };
+    in
+    import ./generic.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+      ;
     };
-  in import ./generic.nix {
-    inherit pname version src meta;
-  };
 
-  edUnstable = let
-    pname = "ed";
-    version = "1.20-pre2";
-    src = fetchurl {
-      url = "http://download.savannah.gnu.org/releases/ed/ed-${version}.tar.lz";
-      hash = "sha256-bHTDeMhVNNo3qqDNoBNaBA+DHDa4WJpfQNcTvAUPgsY=";
+  edUnstable =
+    let
+      pname = "ed";
+      version = "1.20-pre2";
+      src = fetchurl {
+        url = "http://download.savannah.gnu.org/releases/ed/ed-${version}.tar.lz";
+        hash = "sha256-bHTDeMhVNNo3qqDNoBNaBA+DHDa4WJpfQNcTvAUPgsY=";
+      };
+    in
+    import ./generic.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+      ;
     };
-  in import ./generic.nix {
-    inherit pname version src meta;
-  };
 }

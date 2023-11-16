@@ -1,9 +1,10 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, click
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  click,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -18,17 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-dWJF5ULSkia7O8BWv6WIhvISuiuC9OjPX8iEF2rJbXI=";
   };
 
-  propagatedBuildInputs = [
-    click
-  ];
+  propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "click_help_colors"
-  ];
+  pythonImportsCheck = [ "click_help_colors" ];
 
   meta = with lib; {
     description = "Colorization of help messages in Click";

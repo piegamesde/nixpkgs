@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, aiohttp
-, diskcache
-, gptcache
-, msal
-, nest-asyncio
-, numpy
-, openai
-, platformdirs
-, pygtrie
-, pyparsing
-, requests
-, tiktoken
-, torch
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  aiohttp,
+  diskcache,
+  gptcache,
+  msal,
+  nest-asyncio,
+  numpy,
+  openai,
+  platformdirs,
+  pygtrie,
+  pyparsing,
+  requests,
+  tiktoken,
+  torch,
 }:
 
 buildPythonPackage rec {
@@ -49,10 +50,11 @@ buildPythonPackage rec {
     torch
   ];
 
-  disabledTests = [
-    # require network access
-    "test_each_parallel_with_gen_openai"
-  ];
+  disabledTests =
+    [
+      # require network access
+      "test_each_parallel_with_gen_openai"
+    ];
 
   disabledTestPaths = [
     # require network access

@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, lxml
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [
-    "fritzprofiles"
-  ];
+  pythonImportsCheck = [ "fritzprofiles" ];
 
   # no tests
   doCheck = false;

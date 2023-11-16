@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, atpublic
-, pdm-pep517
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  atpublic,
+  pdm-pep517,
 }:
 
 buildPythonPackage rec {

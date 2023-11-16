@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, ansible-core, ... }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ansible-core,
+  ...
+}:
 
 buildPythonPackage rec {
   pname = "ansible-vault-rw";
@@ -19,8 +25,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "This project aim to R/W an ansible-vault yaml file.";
     homepage = "https://github.com/tomoh1r/ansible-vault";
-    changelog =
-      "https://github.com/tomoh1r/ansible-vault/blob/master/CHANGES.txt";
+    changelog = "https://github.com/tomoh1r/ansible-vault/blob/master/CHANGES.txt";
     license = licenses.gpl3;
     maintainers = with maintainers; [ StillerHarpo ];
   };

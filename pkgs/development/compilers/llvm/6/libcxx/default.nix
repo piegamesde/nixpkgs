@@ -1,6 +1,15 @@
-{ lib, stdenv, llvm_meta, fetch, cmake, python3, fixDarwinDylibNames, version
-, cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi
-, libcxxabi, libcxxrt
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  fetch,
+  cmake,
+  python3,
+  fixDarwinDylibNames,
+  version,
+  cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi,
+  libcxxabi,
+  libcxxrt,
 }:
 
 assert stdenv.isDarwin -> cxxabi.pname == "libcxxabi";
@@ -16,13 +25,14 @@ stdenv.mkDerivation {
     export LIBCXXABI_INCLUDE_DIR="$PWD/$(ls -d libcxxabi-${version}*)/include"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-    ../../libcxx-0001-musl-hacks.patch
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
 
   # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
@@ -34,22 +44,27 @@ stdenv.mkDerivation {
     substituteInPlace lib/CMakeLists.txt --replace "/usr/lib/libc++" "\''${LIBCXX_LIBCXXABI_LIB_PATH}/libc++"
   '';
 
-  preConfigure = ''
-    # Get headers from the cxxabi source so we can see private headers not installed by the cxxabi package
-    cmakeFlagsArray=($cmakeFlagsArray -DLIBCXX_CXX_ABI_INCLUDE_PATHS="$LIBCXXABI_INCLUDE_DIR")
-  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
-    patchShebangs utils/cat_files.py
-  '';
-  nativeBuildInputs = [ cmake ]
+  preConfigure =
+    ''
+      # Get headers from the cxxabi source so we can see private headers not installed by the cxxabi package
+      cmakeFlagsArray=($cmakeFlagsArray -DLIBCXX_CXX_ABI_INCLUDE_PATHS="$LIBCXXABI_INCLUDE_DIR")
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
+      patchShebangs utils/cat_files.py
+    '';
+  nativeBuildInputs =
+    [ cmake ]
     ++ lib.optional stdenv.hostPlatform.isMusl python3
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ cxxabi ];
 
-  cmakeFlags = [
-    "-DLIBCXX_LIBCPPABI_VERSION=2"
-    "-DLIBCXX_CXX_ABI=${cxxabi.pname}"
-  ] ++ lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1"
+  cmakeFlags =
+    [
+      "-DLIBCXX_LIBCPPABI_VERSION=2"
+      "-DLIBCXX_CXX_ABI=${cxxabi.pname}"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (cxxabi.pname == "libcxxabi") "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
@@ -80,6 +95,9 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++ is dual licensed under the MIT license and the
     # UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

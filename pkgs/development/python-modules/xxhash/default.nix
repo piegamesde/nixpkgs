@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -13,9 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-w/njIrHr7r1E49nS2bEk4MVQwe9BvVUq/c3XGVFu5Bo=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   meta = with lib; {
     homepage = "https://github.com/ifduyue/python-xxhash";

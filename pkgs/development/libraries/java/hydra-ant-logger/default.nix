@@ -1,4 +1,10 @@
-{ fetchFromGitHub, lib, stdenv, ant, jdk }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  ant,
+  jdk,
+}:
 
 stdenv.mkDerivation {
   pname = "hydra-ant-logger";
@@ -11,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-5oQ/jZfz7izTcYR+N801HYh4lH2MF54PCMnmA4CpRwc=";
   };
 
-  buildInputs = [ ant jdk ];
+  buildInputs = [
+    ant
+    jdk
+  ];
 
   buildPhase = "mkdir lib; ant";
 

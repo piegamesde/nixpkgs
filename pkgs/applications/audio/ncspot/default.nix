@@ -1,17 +1,26 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, ncurses
-, openssl
-, Cocoa
-, withALSA ? true, alsa-lib
-, withClipboard ? true, libxcb, python3
-, withCover ? false, ueberzug
-, withPulseAudio ? false, libpulseaudio
-, withPortAudio ? false, portaudio
-, withMPRIS ? true, withNotify ? true, dbus
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  ncurses,
+  openssl,
+  Cocoa,
+  withALSA ? true,
+  alsa-lib,
+  withClipboard ? true,
+  libxcb,
+  python3,
+  withCover ? false,
+  ueberzug,
+  withPulseAudio ? false,
+  libpulseaudio,
+  withPortAudio ? false,
+  portaudio,
+  withMPRIS ? true,
+  withNotify ? true,
+  dbus,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -27,10 +36,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-FdXk6SzW0f3jkTfxMd8TMzfJGTRaZjG4qp56yHqDAuw=";
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optional withClipboard python3;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional withClipboard python3;
 
-  buildInputs = [ ncurses ]
+  buildInputs =
+    [ ncurses ]
     ++ lib.optional stdenv.isLinux openssl
     ++ lib.optional withALSA alsa-lib
     ++ lib.optional withClipboard libxcb
@@ -44,7 +53,8 @@ rustPlatform.buildRustPackage rec {
 
   buildNoDefaultFeatures = true;
 
-  buildFeatures = [ "cursive/pancurses-backend" ]
+  buildFeatures =
+    [ "cursive/pancurses-backend" ]
     ++ lib.optional withALSA "alsa_backend"
     ++ lib.optional withClipboard "share_clipboard"
     ++ lib.optional withCover "cover"

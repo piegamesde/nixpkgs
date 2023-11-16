@@ -1,16 +1,17 @@
-{ mkDerivation
-, lib
-, fetchFromGitHub
-, qmake
-, qtbase
-, qtquickcontrols2
-, qtwebsockets
-, qtmultimedia
-, gst_all_1
-, wrapQtAppsHook
-, makeDesktopItem
-, copyDesktopItems
-, libvlc
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtquickcontrols2,
+  qtwebsockets,
+  qtmultimedia,
+  gst_all_1,
+  wrapQtAppsHook,
+  makeDesktopItem,
+  copyDesktopItems,
+  libvlc,
 }:
 
 mkDerivation rec {
@@ -41,13 +42,18 @@ mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-    "--prefix GST_PLUGIN_PATH : ${(with gst_all_1; lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
-      gst-plugins-bad
-      gst-plugins-good
-      gst-plugins-base
-      gst-libav
-      gstreamer
-    ])}"
+    "--prefix GST_PLUGIN_PATH : ${
+      (
+        with gst_all_1;
+        lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
+          gst-plugins-bad
+          gst-plugins-good
+          gst-plugins-base
+          gst-libav
+          gstreamer
+        ]
+      )
+    }"
   ];
 
   nativeBuildInputs = [
@@ -56,19 +62,23 @@ mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [
-    qtbase
-    qtquickcontrols2
-    qtwebsockets
-    qtmultimedia
-    libvlc
-  ] ++ (with gst_all_1; [
-    gst-plugins-bad
-    gst-plugins-good
-    gst-plugins-base
-    gst-libav
-    gstreamer
-  ]);
+  buildInputs =
+    [
+      qtbase
+      qtquickcontrols2
+      qtwebsockets
+      qtmultimedia
+      libvlc
+    ]
+    ++ (
+      with gst_all_1; [
+        gst-plugins-bad
+        gst-plugins-good
+        gst-plugins-base
+        gst-libav
+        gstreamer
+      ]
+    );
 
   desktopItems = [
     (makeDesktopItem (rec {
@@ -77,7 +87,11 @@ mkDerivation rec {
       icon = "anilibria";
       comment = meta.description;
       genericName = "AniLibria desktop client";
-      categories = [ "Qt" "AudioVideo" "Player" ];
+      categories = [
+        "Qt"
+        "AudioVideo"
+        "Player"
+      ];
       keywords = [ "anime" ];
       exec = name;
       terminal = false;

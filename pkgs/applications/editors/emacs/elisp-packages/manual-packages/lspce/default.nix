@@ -1,11 +1,12 @@
-{ lib
-, emacs
-, f
-, fetchFromGitHub
-, markdown-mode
-, rustPlatform
-, trivialBuild
-, yasnippet
+{
+  lib,
+  emacs,
+  f,
+  fetchFromGitHub,
+  markdown-mode,
+  rustPlatform,
+  trivialBuild,
+  yasnippet,
 }:
 
 let
@@ -32,10 +33,11 @@ let
 
     cargoHash = "sha256-eqSromwJrFhtJWedDVJivfbKpAtSFEtuCP098qOxFgI=";
 
-    checkFlags = [
-      # flaky test
-      "--skip=msg::tests::serialize_request_with_null_params"
-    ];
+    checkFlags =
+      [
+        # flaky test
+        "--skip=msg::tests::serialize_request_with_null_params"
+      ];
 
     postFixup = ''
       for f in $out/lib/*; do

@@ -1,16 +1,18 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchurl
-, fetchpatch
-, scons
-, pkg-config
-, SDL2
-, SDL2_image
-, SDL2_mixer
-, libGLU
-, libGL
-, libpng
-, physfs
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  scons,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  libGLU,
+  libGL,
+  libpng,
+  physfs,
 }:
 
 let
@@ -18,7 +20,6 @@ let
     url = "https://www.dxx-rebirth.com/download/dxx/res/d2xr-sc55-music.dxa";
     sha256 = "05mz77vml396mff43dbs50524rlm4fyds6widypagfbh5hc55qdc";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "dxx-rebirth";
@@ -31,9 +32,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-cr5QdkKO/HNvtc2w4ynJixuLauhPCwtsSC3UEV7+C1A=";
   };
 
-  nativeBuildInputs = [ pkg-config scons ];
+  nativeBuildInputs = [
+    pkg-config
+    scons
+  ];
 
-  buildInputs = [ libGLU libGL libpng physfs SDL2 SDL2_image SDL2_mixer ];
+  buildInputs = [
+    libGLU
+    libGL
+    libpng
+    physfs
+    SDL2
+    SDL2_image
+    SDL2_mixer
+  ];
 
   enableParallelBuilding = true;
 

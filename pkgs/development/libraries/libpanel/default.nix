@@ -1,27 +1,34 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, vala
-, gi-docgen
-, glib
-, gtk4
-, libadwaita
-, gnome
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gi-docgen,
+  glib,
+  gtk4,
+  libadwaita,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libpanel";
   version = "1.2.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libpanel/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libpanel/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "2QVbu6uWJfP1zm0f1xMutuo0proHqH6ZOJAfuLMVgeI=";
   };
 
@@ -40,9 +47,7 @@ stdenv.mkDerivation rec {
     libadwaita
   ];
 
-  mesonFlags = [
-    "-Dinstall-examples=true"
-  ];
+  mesonFlags = [ "-Dinstall-examples=true" ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
@@ -50,9 +55,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

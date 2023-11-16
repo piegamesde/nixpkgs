@@ -1,14 +1,16 @@
-{ lib, stdenv
-, fetchurl
-, python3
-, m4
-, cairo
-, libX11
-, mesa_glu
-, ncurses
-, tcl
-, tcsh
-, tk
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  m4,
+  cairo,
+  libX11,
+  mesa_glu,
+  ncurses,
+  tcl,
+  tcsh,
+  tk,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +18,7 @@ stdenv.mkDerivation rec {
   version = "8.3.447";
 
   src = fetchurl {
-    url    = "http://opencircuitdesign.com/magic/archive/magic-${version}.tgz";
+    url = "http://opencircuitdesign.com/magic/archive/magic-${version}.tgz";
     sha256 = "sha256-t/gJ43VIdBIiozLfqaTy7tJsXK674gWBbW1aPHKEj3U=";
   };
 
@@ -48,8 +50,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "VLSI layout tool written in Tcl";
-    homepage    = "http://opencircuitdesign.com/magic/";
-    license     = licenses.mit;
-    maintainers = with maintainers; [ anna328p thoughtpolice AndersonTorres ];
+    homepage = "http://opencircuitdesign.com/magic/";
+    license = licenses.mit;
+    maintainers = with maintainers; [
+      anna328p
+      thoughtpolice
+      AndersonTorres
+    ];
   };
 }

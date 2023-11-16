@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, hatchling
-, opentelemetry-api
-, opentelemetry-instrumentation
-, opentelemetry-semantic-conventions
-, opentelemetry-test-utils
-, opentelemetry-util-http
-, wrapt
-, pytestCheckHook
-, aiohttp
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-instrumentation,
+  opentelemetry-semantic-conventions,
+  opentelemetry-test-utils,
+  opentelemetry-util-http,
+  wrapt,
+  pytestCheckHook,
+  aiohttp,
 }:
 
 buildPythonPackage {
@@ -21,9 +22,7 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     opentelemetry-api

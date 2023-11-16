@@ -1,20 +1,21 @@
-{ lib
-, fetchFromGitHub
-, fetchNpmDeps
-, buildPythonPackage
+{
+  lib,
+  fetchFromGitHub,
+  fetchNpmDeps,
+  buildPythonPackage,
 
-# build-system
-, gettext
-, nodejs
-, npmHooks
-, setuptools-scm
+  # build-system
+  gettext,
+  nodejs,
+  npmHooks,
+  setuptools-scm,
 
-# dependencies
-, django
+  # dependencies
+  django,
 
-# tests
-, pytest-django
-, pytestCheckHook
+  # tests
+  pytest-django,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -51,9 +52,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -63,8 +62,10 @@ buildPythonPackage rec {
   env.DJANGO_SETTINGS_MODULE = "hijack.tests.test_app.settings";
 
   pytestFlagsArray = [
-    "--pyargs" "hijack"
-    "-W" "ignore::DeprecationWarning"
+    "--pyargs"
+    "hijack"
+    "-W"
+    "ignore::DeprecationWarning"
   ];
 
   meta = with lib; {

@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, gtk3
-, libayatana-indicator
-, mate
-, hicolor-icon-theme
-, wrapGAppsHook
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk3,
+  libayatana-indicator,
+  mate,
+  hicolor-icon-theme,
+  wrapGAppsHook,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +17,9 @@ stdenv.mkDerivation rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "144fh9f3lag2cqnmb6zxlh8k83ya8kha6rmd7r8gg3z5w3nzpyz4";
   };
 
@@ -59,7 +62,10 @@ stdenv.mkDerivation rec {
       Existing indicators include the Message Menu, Battery Menu and Sound
       menu.
     '';
-    license = with licenses; [ gpl3Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl3Plus
+      lgpl2Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

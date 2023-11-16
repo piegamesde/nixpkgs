@@ -1,17 +1,18 @@
-{ stdenv
-, llvmPackages
-, lib
-, fetchFromGitHub
-, cmake
-, libffi
-, libpng
-, libjpeg
-, mesa
-, libGL
-, eigen
-, openblas
-, blas
-, lapack
+{
+  stdenv,
+  llvmPackages,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libffi,
+  libpng,
+  libjpeg,
+  mesa,
+  libGL,
+  eigen,
+  openblas,
+  blas,
+  lapack,
 }:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
@@ -40,20 +41,22 @@ stdenv.mkDerivation rec {
   # Note: only openblas and not atlas part of this Nix expression
   # see pkgs/development/libraries/science/math/liblapack/3.5.0.nix
   # to get a hint howto setup atlas instead of openblas
-  buildInputs = [
-    llvmPackages.llvm
-    llvmPackages.lld
-    llvmPackages.openmp
-    llvmPackages.libclang
-    libffi
-    libpng
-    libjpeg
-    eigen
-    openblas
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    mesa
-    libGL
-  ];
+  buildInputs =
+    [
+      llvmPackages.llvm
+      llvmPackages.lld
+      llvmPackages.openmp
+      llvmPackages.libclang
+      libffi
+      libpng
+      libjpeg
+      eigen
+      openblas
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+      mesa
+      libGL
+    ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -62,6 +65,10 @@ stdenv.mkDerivation rec {
     homepage = "https://halide-lang.org";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ck3d atila twesterhout ];
+    maintainers = with maintainers; [
+      ck3d
+      atila
+      twesterhout
+    ];
   };
 }

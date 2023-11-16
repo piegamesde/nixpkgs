@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+}:
 
 stdenv.mkDerivation {
   pname = "core-symbolication";
@@ -11,7 +15,10 @@ stdenv.mkDerivation {
     hash = "sha256-PzvLq94eNhP0+rLwGMKcMzxuD6MlrNI7iT/eV0obtSE=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = with lib; {
     description = "Reverse engineered headers for Apple's CoreSymbolication framework";

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -37,9 +36,7 @@ buildPythonPackage rec {
       --replace " --cov aioshutil --cov-report xml" ""
   '';
 
-  pythonImportsCheck = [
-    "aioshutil"
-  ];
+  pythonImportsCheck = [ "aioshutil" ];
 
   meta = with lib; {
     description = "Asynchronous version of function of shutil module";

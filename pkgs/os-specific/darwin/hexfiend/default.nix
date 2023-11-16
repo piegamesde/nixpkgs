@@ -1,11 +1,18 @@
-{ stdenv, lib, fetchurl, undmg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  undmg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hexfiend";
   version = "2.16.0";
 
   src = fetchurl {
-    url = "https://github.com/HexFiend/HexFiend/releases/download/v${version}/Hex_Fiend_${lib.versions.majorMinor version}.dmg";
+    url = "https://github.com/HexFiend/HexFiend/releases/download/v${version}/Hex_Fiend_${
+        lib.versions.majorMinor version
+      }.dmg";
     sha256 = "sha256-jO57bW5TyuQ0mjKKsSwDoGLp2TZ1d+m159flVGaVrLc=";
   };
 

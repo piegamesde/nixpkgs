@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-scm
-, pytestCheckHook
-, pythonOlder
-, pythonAtLeast
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-scm,
+  pytestCheckHook,
+  pythonOlder,
+  pythonAtLeast,
 }:
 
 buildPythonPackage rec {
@@ -21,21 +22,15 @@ buildPythonPackage rec {
     hash = "sha256-19taP6adzmO4zH2As1OTXeYNFj6KwjhxBr09X+SrZRk=";
   };
 
-  nativeBuildInputs = [
-    flit-scm
-  ];
+  nativeBuildInputs = [ flit-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   doCheck = pythonAtLeast "3.11"; # infinite recursion with pytest
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "exceptiongroup"
-  ];
+  pythonImportsCheck = [ "exceptiongroup" ];
 
   meta = with lib; {
     description = "Backport of PEP 654 (exception groups)";

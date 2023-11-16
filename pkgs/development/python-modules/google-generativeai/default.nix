@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, google-ai-generativelanguage
-, google-api-core
-, google-auth
-, protobuf
-, pythonOlder
-, pythonRelaxDepsHook
-, tqdm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  google-ai-generativelanguage,
+  google-api-core,
+  google-auth,
+  protobuf,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  tqdm,
 }:
 
 buildPythonPackage rec {
@@ -24,13 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-WiDoeScro7TcW5nQBmLpVQriL6IzR9CAVqBj36nqivk=";
   };
 
-  pythonRelaxDeps = [
-    "google-ai-generativelanguage"
-  ];
+  pythonRelaxDeps = [ "google-ai-generativelanguage" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     google-ai-generativelanguage
@@ -43,9 +40,7 @@ buildPythonPackage rec {
   # Issue with the google.ai module. Check with the next release
   doCheck = false;
 
-  pythonImportsCheck = [
-    "google.generativeai"
-  ];
+  pythonImportsCheck = [ "google.generativeai" ];
 
   meta = with lib; {
     description = "Python client library for Google's large language model PaLM API";

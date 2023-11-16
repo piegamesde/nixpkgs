@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fixtures
-, pytestCheckHook
-, pythonOlder
-, pyxdg
-, requests
-, requests-mock
-, setuptools
-, tomli
-, urllib3
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fixtures,
+  pytestCheckHook,
+  pythonOlder,
+  pyxdg,
+  requests,
+  requests-mock,
+  setuptools,
+  tomli,
+  urllib3,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -49,9 +50,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [
-    "podman"
-  ];
+  pythonImportsCheck = [ "podman" ];
 
   disabledTests = [
     # Integration tests require a running container setup

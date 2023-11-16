@@ -1,15 +1,16 @@
-{ coreutils
-, fetchurl
-, gawk
-, gnused
-, jdk8
-, lib
-, makeDesktopItem
-, makeWrapper
-, stdenv
-, writeScript
-, writeTextFile
-, recommendedUdevRules ? true
+{
+  coreutils,
+  fetchurl,
+  gawk,
+  gnused,
+  jdk8,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  writeScript,
+  writeTextFile,
+  recommendedUdevRules ? true,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +18,9 @@ stdenv.mkDerivation rec {
   version = "5.20.13";
 
   src = fetchurl {
-    url = "https://www.roomeqwizard.com/installers/REW_linux_no_jre_${lib.replaceStrings [ "." ] [ "_" ] version}.sh";
+    url = "https://www.roomeqwizard.com/installers/REW_linux_no_jre_${
+        lib.replaceStrings [ "." ] [ "_" ] version
+      }.sh";
     sha256 = "sha256-6zaBDOmQlyMRQ84j64oS7TMwcctT1PSbuQOUYY9QjvY=";
   };
 
@@ -75,12 +78,19 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin $out/lib/udev/rules.d $out/share/icons/hicolor/256x256/apps
     makeWrapper $out/share/roomeqwizard/roomeqwizard $out/bin/roomeqwizard \
       --set INSTALL4J_JAVA_HOME_OVERRIDE ${jdk8} \
-      --prefix PATH : ${lib.makeBinPath [ coreutils gnused gawk ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          gnused
+          gawk
+        ]
+      }
 
     cp -r "$desktopItem/share/applications" $out/share/
     cp $out/share/roomeqwizard/.install4j/s_*.png "$out/share/icons/hicolor/256x256/apps/${pname}.png"
 
-    ${lib.optionalString recommendedUdevRules ''echo "$udevRules" > $out/lib/udev/rules.d/90-roomeqwizard.rules''}
+    ${lib.optionalString recommendedUdevRules
+      ''echo "$udevRules" > $out/lib/udev/rules.d/90-roomeqwizard.rules''}
 
     runHook postInstall
   '';

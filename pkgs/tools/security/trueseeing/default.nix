@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -15,9 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-pnIn+Rqun5J3F9cgeBUBX4e9WP5fgbm+vwN3Wqh/yEc=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    flit-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ flit-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     attrs
@@ -38,9 +37,7 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "trueseeing"
-  ];
+  pythonImportsCheck = [ "trueseeing" ];
 
   meta = with lib; {
     description = "Non-decompiling Android vulnerability scanner";

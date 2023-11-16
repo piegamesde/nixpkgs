@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 
 let
@@ -48,8 +49,6 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listenPort ];
-    };
+    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listenPort ]; };
   };
 }

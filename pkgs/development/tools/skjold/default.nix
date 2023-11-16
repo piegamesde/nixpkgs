@@ -1,20 +1,26 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 let
   py = python3.override {
     packageOverrides = self: super: {
-      packaging = super.packaging.overridePythonAttrs (oldAttrs: rec {
-        version = "21.3";
-        src = oldAttrs.src.override {
-          inherit version;
-          hash = "sha256-3UfEKSfYmrkR5gZRiQfMLTofOLvQJjhZcGQ/nFuOz+s=";
-        };
-        nativeBuildInputs = with python3.pkgs; [ setuptools ];
-        propagatedBuildInputs = with python3.pkgs; [ pyparsing six ];
-      });
+      packaging = super.packaging.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "21.3";
+          src = oldAttrs.src.override {
+            inherit version;
+            hash = "sha256-3UfEKSfYmrkR5gZRiQfMLTofOLvQJjhZcGQ/nFuOz+s=";
+          };
+          nativeBuildInputs = with python3.pkgs; [ setuptools ];
+          propagatedBuildInputs = with python3.pkgs; [
+            pyparsing
+            six
+          ];
+        }
+      );
     };
   };
 in
@@ -32,9 +38,7 @@ buildPythonApplication rec {
     hash = "sha256-rsdstzNZvokYfTjEyPrWR+0SJpf9wL0HAesq8+A+tPY=";
   };
 
-  nativeBuildInputs = with py.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with py.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with py.pkgs; [
     click
@@ -49,10 +53,11 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Too sensitive to pass
-    "tests/test_cli.py"
-  ];
+  disabledTestPaths =
+    [
+      # Too sensitive to pass
+      "tests/test_cli.py"
+    ];
 
   disabledTests = [
     # Requires network access
@@ -67,9 +72,7 @@ buildPythonApplication rec {
     "urllib3"
   ];
 
-  pythonImportsCheck = [
-    "skjold"
-  ];
+  pythonImportsCheck = [ "skjold" ];
 
   meta = with lib; {
     description = "Tool to Python dependencies against security advisory databases";

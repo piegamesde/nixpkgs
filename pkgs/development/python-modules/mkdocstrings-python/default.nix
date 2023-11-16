@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, griffe
-, mkdocs-material
-, mkdocstrings
-, pdm-backend
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  griffe,
+  mkdocs-material,
+  mkdocstrings,
+  pdm-backend,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-r/N2ZGqA1cYFkP4Ai8p6utIw/m+FiNBVbpL4Y0EO2ds=";
   };
 
-  nativeBuildInputs = [
-    pdm-backend
-  ];
+  nativeBuildInputs = [ pdm-backend ];
 
   propagatedBuildInputs = [
     griffe
@@ -37,9 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "mkdocstrings_handlers"
-  ];
+  pythonImportsCheck = [ "mkdocstrings_handlers" ];
 
   meta = with lib; {
     description = "Python handler for mkdocstrings";

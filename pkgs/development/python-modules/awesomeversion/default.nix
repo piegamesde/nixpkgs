@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,13 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-7JJNO25UfzLs1jEO7XpqFFuEqpY4UecUk25hpONRjrI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     # Upstream doesn't set a version
@@ -34,9 +31,7 @@ buildPythonPackage rec {
       --replace 'version = "0"' 'version = "${version}"'
   '';
 
-  pythonImportsCheck = [
-    "awesomeversion"
-  ];
+  pythonImportsCheck = [ "awesomeversion" ];
 
   meta = with lib; {
     description = "Python module to deal with versions";

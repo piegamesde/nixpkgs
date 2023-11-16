@@ -1,11 +1,12 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, protobuf
-, git
-, testers
-, buf
-, installShellFiles
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  protobuf,
+  git,
+  testers,
+  buf,
+  installShellFiles,
 }:
 
 buildGoModule rec {
@@ -21,14 +22,18 @@ buildGoModule rec {
 
   vendorHash = "sha256-4JSmn/TUojZjCQMZCgJic0y84VMP26J7uBybB5/BCoE=";
 
-  patches = [
-    # Skip a test that requires networking to be available to work.
-    ./skip_test_requiring_network.patch
-  ];
+  patches =
+    [
+      # Skip a test that requires networking to be available to work.
+      ./skip_test_requiring_network.patch
+    ];
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeCheckInputs = [
     git # Required for TestGitCloner
@@ -72,6 +77,9 @@ buildGoModule rec {
     changelog = "https://github.com/bufbuild/buf/releases/tag/v${version}";
     description = "Create consistent Protobuf APIs that preserve compatibility and comply with design best-practices";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk lrewega ];
+    maintainers = with maintainers; [
+      jk
+      lrewega
+    ];
   };
 }

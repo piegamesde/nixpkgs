@@ -1,7 +1,16 @@
-{ coq, mkCoqDerivation, mathcomp, lib, version ? null }:
+{
+  coq,
+  mkCoqDerivation,
+  mathcomp,
+  lib,
+  version ? null,
+}:
 
 mkCoqDerivation {
-  namePrefix = [ "coq" "mathcomp" ];
+  namePrefix = [
+    "coq"
+    "mathcomp"
+  ];
   pname = "word";
   owner = "jasmin-lang";
   repo = "coqword";
@@ -15,11 +24,29 @@ mkCoqDerivation {
   release."1.0".sha256 = "sha256:0703m97rnivcbc7vvbd9rl2dxs6l8n52cbykynw61c6w9rhxspcg";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch [ coq.version mathcomp.version ] [
-    { cases = [ (range "8.12" "8.18") (isGe "1.12") ]; out = "2.1"; }
-  ] null;
+  defaultVersion =
+    with lib.versions;
+    lib.switch
+      [
+        coq.version
+        mathcomp.version
+      ]
+      [
+        {
+          cases = [
+            (range "8.12" "8.18")
+            (isGe "1.12")
+          ];
+          out = "2.1";
+        }
+      ]
+      null;
 
-  propagatedBuildInputs = [ mathcomp.algebra mathcomp.ssreflect mathcomp.fingroup ];
+  propagatedBuildInputs = [
+    mathcomp.algebra
+    mathcomp.ssreflect
+    mathcomp.fingroup
+  ];
 
   meta = with lib; {
     description = "Yet Another Coq Library on Machine Words";

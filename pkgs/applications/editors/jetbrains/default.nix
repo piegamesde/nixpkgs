@@ -1,30 +1,41 @@
-{ lib
-, stdenv
-, callPackage
-, fetchurl
-, jdk
-, cmake
-, gdb
-, zlib
-, python3
-, lldb
-, dotnet-sdk_7
-, maven
-, autoPatchelfHook
-, libdbusmenu
-, patchelf
-, openssl
-, expat
-, libxcrypt-legacy
-, fontconfig
-, libxml2
-, xz
-, vmopts ? null
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  jdk,
+  cmake,
+  gdb,
+  zlib,
+  python3,
+  lldb,
+  dotnet-sdk_7,
+  maven,
+  autoPatchelfHook,
+  libdbusmenu,
+  patchelf,
+  openssl,
+  expat,
+  libxcrypt-legacy,
+  fontconfig,
+  libxml2,
+  xz,
+  vmopts ? null,
 }:
 
 let
-  platforms = lib.platforms.linux ++ [ "x86_64-darwin" "aarch64-darwin" ];
-  ideaPlatforms = [ "x86_64-darwin" "i686-darwin" "i686-linux" "x86_64-linux" "aarch64-darwin" "aarch64-linux" ];
+  platforms = lib.platforms.linux ++ [
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
+  ideaPlatforms = [
+    "x86_64-darwin"
+    "i686-darwin"
+    "i686-linux"
+    "x86_64-linux"
+    "aarch64-darwin"
+    "aarch64-linux"
+  ];
 
   inherit (stdenv.hostPlatform) system;
 
@@ -36,9 +47,26 @@ let
 
   # Sorted alphabetically
 
-  buildClion = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildClion =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "CLion";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/clion/";
@@ -47,47 +75,75 @@ let
           Enhancing productivity for every C and C++
           developer on Linux, macOS and Windows.
         '';
-        maintainers = with maintainers; [ edwtjo tymscar ];
+        maintainers = with maintainers; [
+          edwtjo
+          tymscar
+        ];
       };
-    }).overrideAttrs (attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
-        autoPatchelfHook
-      ];
-      buildInputs = (attrs.buildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
-        python3
-        stdenv.cc.cc
-        libdbusmenu
-        openssl.out
-        expat
-        libxcrypt-legacy
-      ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
-        libxml2
-        xz
-      ];
-      dontAutoPatchelf = true;
-      postFixup = (attrs.postFixup or "") + lib.optionalString (stdenv.isLinux) ''
-        (
-          cd $out/clion
+    }).overrideAttrs
+      (
+        attrs: {
+          nativeBuildInputs =
+            (attrs.nativeBuildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [ autoPatchelfHook ];
+          buildInputs =
+            (attrs.buildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [
+              python3
+              stdenv.cc.cc
+              libdbusmenu
+              openssl.out
+              expat
+              libxcrypt-legacy
+            ]
+            ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+              libxml2
+              xz
+            ];
+          dontAutoPatchelf = true;
+          postFixup =
+            (attrs.postFixup or "")
+            + lib.optionalString (stdenv.isLinux) ''
+              (
+                cd $out/clion
 
-          # I think the included gdb has a couple of patches, so we patch it instead of replacing
-          ls -d $PWD/bin/gdb/linux/*/lib/python3.8/lib-dynload/* |
-          xargs patchelf \
-            --replace-needed libssl.so.10 libssl.so \
-            --replace-needed libcrypto.so.10 libcrypto.so
+                # I think the included gdb has a couple of patches, so we patch it instead of replacing
+                ls -d $PWD/bin/gdb/linux/*/lib/python3.8/lib-dynload/* |
+                xargs patchelf \
+                  --replace-needed libssl.so.10 libssl.so \
+                  --replace-needed libcrypto.so.10 libcrypto.so
 
-          ls -d $PWD/bin/lldb/linux/*/lib/python3.8/lib-dynload/* |
-          xargs patchelf \
-            --replace-needed libssl.so.10 libssl.so \
-            --replace-needed libcrypto.so.10 libcrypto.so
+                ls -d $PWD/bin/lldb/linux/*/lib/python3.8/lib-dynload/* |
+                xargs patchelf \
+                  --replace-needed libssl.so.10 libssl.so \
+                  --replace-needed libcrypto.so.10 libcrypto.so
 
-          autoPatchelf $PWD/bin
-        )
-      '';
-    });
+                autoPatchelf $PWD/bin
+              )
+            '';
+        }
+      );
 
-  buildDataGrip = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildDataGrip =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "DataGrip";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/datagrip/";
@@ -101,9 +157,26 @@ let
       };
     });
 
-  buildDataSpell = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildDataSpell =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "DataSpell";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/dataspell/";
@@ -116,9 +189,28 @@ let
       };
     });
 
-  buildGateway = { pname, version, src, license, description, wmClass, buildNumber, product, ... }:
+  buildGateway =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      product,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+        product
+      ;
       productShort = "Gateway";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/remote-development/gateway/";
@@ -132,14 +224,32 @@ let
       };
     });
 
-  buildGoland = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildGoland =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "Goland";
-      extraWrapperArgs = [
-        # fortify source breaks build since delve compiles with -O0
-        ''--prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"''
-      ];
+      extraWrapperArgs =
+        [
+          # fortify source breaks build since delve compiles with -O0
+          ''--prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"''
+        ];
       meta = with lib; {
         homepage = "https://www.jetbrains.com/go/";
         inherit description license platforms;
@@ -151,17 +261,41 @@ let
         '';
         maintainers = with maintainers; [ tymscar ];
       };
-    }).overrideAttrs (attrs: {
-      postFixup = (attrs.postFixup or "") + lib.optionalString stdenv.isLinux ''
-        interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-        patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
-        chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
-      '';
-    });
+    }).overrideAttrs
+      (
+        attrs: {
+          postFixup =
+            (attrs.postFixup or "")
+            + lib.optionalString stdenv.isLinux ''
+              interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+              patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+              chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+            '';
+        }
+      );
 
-  buildIdea = { pname, version, src, license, description, wmClass, buildNumber, product, ... }:
+  buildIdea =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      product,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+        product
+      ;
       productShort = "IDEA";
       extraLdPath = [ zlib ];
       extraWrapperArgs = [
@@ -177,14 +311,39 @@ let
           with JUnit, TestNG, popular SCMs, Ant & Maven. Also known
           as IntelliJ.
         '';
-        maintainers = with maintainers; [ edwtjo gytis-ivaskevicius steinybot AnatolyPopov tymscar ];
+        maintainers = with maintainers; [
+          edwtjo
+          gytis-ivaskevicius
+          steinybot
+          AnatolyPopov
+          tymscar
+        ];
         platforms = ideaPlatforms;
       };
     });
 
-  buildMps = { pname, version, src, license, description, wmClass, product, buildNumber, ... }:
+  buildMps =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct rec {
-      inherit pname version src wmClass jdk buildNumber product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+        product
+      ;
       productShort = "MPS";
       meta = with lib; {
         broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -200,9 +359,26 @@ let
       };
     });
 
-  buildPhpStorm = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildPhpStorm =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "PhpStorm";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/phpstorm/";
@@ -212,13 +388,36 @@ let
           with on-the-fly code analysis, error prevention and
           automated refactorings for PHP and JavaScript code.
         '';
-        maintainers = with maintainers; [ dritter tymscar ];
+        maintainers = with maintainers; [
+          dritter
+          tymscar
+        ];
       };
     });
 
-  buildPycharm = { pname, version, src, license, description, wmClass, buildNumber, product, cythonSpeedup ? stdenv.isLinux, ... }:
+  buildPycharm =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      product,
+      cythonSpeedup ? stdenv.isLinux,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+        product
+      ;
       productShort = "PyCharm";
       meta = with lib; {
         broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -237,24 +436,51 @@ let
           providing you almost everything you need for your comfortable
           and productive development!
         '';
-        maintainers = with maintainers; [ genericnerdyusername tymscar ];
+        maintainers = with maintainers; [
+          genericnerdyusername
+          tymscar
+        ];
       };
-    }).overrideAttrs (finalAttrs: previousAttrs: lib.optionalAttrs cythonSpeedup {
-      buildInputs = with python3.pkgs; [ python3 setuptools ];
-      preInstall = ''
-        echo "compiling cython debug speedups"
-        if [[ -d plugins/python-ce ]]; then
-            ${python3.interpreter} plugins/python-ce/helpers/pydev/setup_cython.py build_ext --inplace
-        else
-            ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
-        fi
-      '';
-      # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
-    });
+    }).overrideAttrs
+      (
+        finalAttrs: previousAttrs:
+        lib.optionalAttrs cythonSpeedup {
+          buildInputs = with python3.pkgs; [
+            python3
+            setuptools
+          ];
+          preInstall = ''
+            echo "compiling cython debug speedups"
+            if [[ -d plugins/python-ce ]]; then
+                ${python3.interpreter} plugins/python-ce/helpers/pydev/setup_cython.py build_ext --inplace
+            else
+                ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
+            fi
+          '';
+          # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
+        }
+      );
 
-  buildRider = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildRider =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "Rider";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/rider/";
@@ -269,98 +495,167 @@ let
         '';
         maintainers = with maintainers; [ raphaelr ];
       };
-    }).overrideAttrs (attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
-        autoPatchelfHook
-      ];
-      buildInputs = (attrs.buildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
-        stdenv.cc.cc
-        zlib
-        fontconfig  # plugins/dotTrace/DotFiles/linux-*/libSkiaSharp.so
-      ];
-      dontAutoPatchelf = true;
-      postFixup = (attrs.postFixup or "") + lib.optionalString (stdenv.isLinux) ''
-        (
-          cd $out/rider
+    }).overrideAttrs
+      (
+        attrs: {
+          nativeBuildInputs =
+            (attrs.nativeBuildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [ autoPatchelfHook ];
+          buildInputs =
+            (attrs.buildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [
+              stdenv.cc.cc
+              zlib
+              fontconfig # plugins/dotTrace/DotFiles/linux-*/libSkiaSharp.so
+            ];
+          dontAutoPatchelf = true;
+          postFixup =
+            (attrs.postFixup or "")
+            + lib.optionalString (stdenv.isLinux) ''
+              (
+                cd $out/rider
 
-          # Remove dotnet copy first so it's not considered by autoPatchElf
-          rm -rf lib/ReSharperHost/linux-*/dotnet
-          autoPatchelf \
-            lib/ReSharperHost/linux-*/ \
-            plugins/dotCommon/DotFiles/linux-*/ \
-            plugins/dotTrace/DotFiles/linux-*/
+                # Remove dotnet copy first so it's not considered by autoPatchElf
+                rm -rf lib/ReSharperHost/linux-*/dotnet
+                autoPatchelf \
+                  lib/ReSharperHost/linux-*/ \
+                  plugins/dotCommon/DotFiles/linux-*/ \
+                  plugins/dotTrace/DotFiles/linux-*/
 
-          for dir in lib/ReSharperHost/linux-*; do
-            ln -s ${dotnet-sdk_7} $dir/dotnet
-          done
-        )
-      '';
-    });
+                for dir in lib/ReSharperHost/linux-*; do
+                  ln -s ${dotnet-sdk_7} $dir/dotnet
+                done
+              )
+            '';
+        }
+      );
 
-  buildRubyMine = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildRubyMine =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "RubyMine";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/ruby/";
         inherit description license platforms;
         longDescription = description;
-        maintainers = with maintainers; [ edwtjo tymscar ];
+        maintainers = with maintainers; [
+          edwtjo
+          tymscar
+        ];
       };
     });
 
-  buildRustRover = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildRustRover =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "RustRover";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/rust/";
         inherit description license platforms;
         longDescription = description;
       };
-    }).overrideAttrs (attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
-        autoPatchelfHook
-      ];
-      buildInputs = (attrs.buildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
-        python3
-        stdenv.cc.cc
-        libdbusmenu
-        openssl.out
-        libxcrypt-legacy
-      ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
-        expat
-        libxml2
-        xz
-      ];
-      dontAutoPatchelf = true;
-      postFixup = (attrs.postFixup or "") + lib.optionalString (stdenv.isLinux) ''
-        (
-          cd $out/rust-rover
+    }).overrideAttrs
+      (
+        attrs: {
+          nativeBuildInputs =
+            (attrs.nativeBuildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [ autoPatchelfHook ];
+          buildInputs =
+            (attrs.buildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [
+              python3
+              stdenv.cc.cc
+              libdbusmenu
+              openssl.out
+              libxcrypt-legacy
+            ]
+            ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+              expat
+              libxml2
+              xz
+            ];
+          dontAutoPatchelf = true;
+          postFixup =
+            (attrs.postFixup or "")
+            + lib.optionalString (stdenv.isLinux) ''
+              (
+                cd $out/rust-rover
 
-          # Copied over from clion (gdb seems to have a couple of patches)
-          ls -d $PWD/bin/gdb/linux/*/lib/python3.8/lib-dynload/* |
-          xargs patchelf \
-            --replace-needed libssl.so.10 libssl.so \
-            --replace-needed libcrypto.so.10 libcrypto.so
+                # Copied over from clion (gdb seems to have a couple of patches)
+                ls -d $PWD/bin/gdb/linux/*/lib/python3.8/lib-dynload/* |
+                xargs patchelf \
+                  --replace-needed libssl.so.10 libssl.so \
+                  --replace-needed libcrypto.so.10 libcrypto.so
 
-          ls -d $PWD/bin/lldb/linux/*/lib/python3.8/lib-dynload/* |
-          xargs patchelf \
-            --replace-needed libssl.so.10 libssl.so \
-            --replace-needed libcrypto.so.10 libcrypto.so
+                ls -d $PWD/bin/lldb/linux/*/lib/python3.8/lib-dynload/* |
+                xargs patchelf \
+                  --replace-needed libssl.so.10 libssl.so \
+                  --replace-needed libcrypto.so.10 libcrypto.so
 
-          autoPatchelf $PWD/bin
+                autoPatchelf $PWD/bin
 
-          interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-          patchelf --set-interpreter $interp $PWD/plugins/intellij-rust/bin/linux/*/intellij-rust-native-helper
-          chmod +x $PWD/plugins/intellij-rust/bin/linux/*/intellij-rust-native-helper
-        )
-      '';
-    });
+                interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+                patchelf --set-interpreter $interp $PWD/plugins/intellij-rust/bin/linux/*/intellij-rust-native-helper
+                chmod +x $PWD/plugins/intellij-rust/bin/linux/*/intellij-rust-native-helper
+              )
+            '';
+        }
+      );
 
-  buildWebStorm = { pname, version, src, license, description, wmClass, buildNumber, ... }:
+  buildWebStorm =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      buildNumber,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk buildNumber;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        buildNumber
+      ;
       product = "WebStorm";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/webstorm/";
@@ -370,10 +665,12 @@ let
           and CSS with on-the-fly code analysis, error prevention and
           automated refactorings for JavaScript code.
         '';
-        maintainers = with maintainers; [ abaldeau tymscar ];
+        maintainers = with maintainers; [
+          abaldeau
+          tymscar
+        ];
       };
     });
-
 in
 
 {
@@ -596,5 +893,4 @@ in
   };
 
   plugins = callPackage ./plugins { };
-
 }

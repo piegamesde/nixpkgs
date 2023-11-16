@@ -1,4 +1,9 @@
-{ lib, pythonPackages, fetchPypi, mopidy }:
+{
+  lib,
+  pythonPackages,
+  fetchPypi,
+  mopidy,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "Mopidy-Mopify";
@@ -9,7 +14,10 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "93ad2b3d38b1450c8f2698bb908b0b077a96b3f64cdd6486519e518132e23a5c";
   };
 
-  propagatedBuildInputs = with pythonPackages; [ mopidy configobj ];
+  propagatedBuildInputs = with pythonPackages; [
+    mopidy
+    configobj
+  ];
 
   # no tests implemented
   doCheck = false;

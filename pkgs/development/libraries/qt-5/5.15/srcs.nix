@@ -1,4 +1,8 @@
-{ lib, fetchgit, fetchFromGitHub }:
+{
+  lib,
+  fetchgit,
+  fetchFromGitHub,
+}:
 
 let
   version = "5.15.10";
@@ -6,20 +10,20 @@ let
     qtscript.version = "5.15.9";
   };
 
-  mk = name: args:
+  mk =
+    name: args:
     let
-      override = overrides.${name} or {};
+      override = overrides.${name} or { };
     in
     {
       version = override.version or version;
-      src = override.src or
-        fetchgit {
-          inherit (args) url rev sha256;
-          fetchLFS = false;
-          fetchSubmodules = true;
-          deepClone = false;
-          leaveDotGit = false;
-        };
+      src = override.src or fetchgit {
+        inherit (args) url rev sha256;
+        fetchLFS = false;
+        fetchSubmodules = true;
+        deepClone = false;
+        leaveDotGit = false;
+      };
     };
 in
 lib.mapAttrs mk (lib.importJSON ./srcs-generated.json)
@@ -77,14 +81,14 @@ lib.mapAttrs mk (lib.importJSON ./srcs-generated.json)
   };
 
   qtwebengine = rec {
-      version = "5.15.14";
+    version = "5.15.14";
 
-      src = fetchFromGitHub {
-        owner = "qt";
-        repo = "qtwebengine";
-        rev = "v${version}-lts";
-        hash = "sha256-jIoNwRdr0bZ2p0UMp/KDQuwgNjhzzGlb91UGjQgT60Y=";
-        fetchSubmodules = true;
-      };
+    src = fetchFromGitHub {
+      owner = "qt";
+      repo = "qtwebengine";
+      rev = "v${version}-lts";
+      hash = "sha256-jIoNwRdr0bZ2p0UMp/KDQuwgNjhzzGlb91UGjQgT60Y=";
+      fetchSubmodules = true;
     };
+  };
 }

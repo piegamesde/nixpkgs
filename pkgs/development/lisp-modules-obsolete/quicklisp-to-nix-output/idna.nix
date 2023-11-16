@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "idna";
   version = "20120107-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "idna";
 
-  asdFilesToKeep = ["idna.asd"];
+  asdFilesToKeep = [ "idna.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM idna DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/idna/2012-01-07/idna-20120107-git.tgz MD5
     85b91a66efe4381bf116cdb5d2b756b6 NAME idna FILENAME idna DEPS
     ((NAME split-sequence FILENAME split-sequence)) DEPENDENCIES
-    (split-sequence) VERSION 20120107-git SIBLINGS NIL PARASITES NIL) */
+    (split-sequence) VERSION 20120107-git SIBLINGS NIL PARASITES NIL)
+*/

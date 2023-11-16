@@ -1,4 +1,8 @@
-{ lib, rustPlatform, fetchFromGitea }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitea,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "dabet";
@@ -21,4 +25,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ annaaurora ];
   };
 }
-

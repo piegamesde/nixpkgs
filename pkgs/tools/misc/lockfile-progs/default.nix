@@ -1,7 +1,12 @@
-{ lib, stdenv, fetchurl, liblockfile }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  liblockfile,
+}:
 
 stdenv.mkDerivation rec {
-  pname   = "lockfile-progs";
+  pname = "lockfile-progs";
   version = "0.1.19";
 
   src = fetchurl {
@@ -11,10 +16,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ liblockfile ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    # Needed with GCC 12
-    "-Wno-error=format-overflow"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString
+      [
+        # Needed with GCC 12
+        "-Wno-error=format-overflow"
+      ];
 
   installPhase = ''
     runHook preInstall

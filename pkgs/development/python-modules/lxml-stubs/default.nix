@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytestCheckHook
-, pytest-mypy-plugins
-, lxml
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pytestCheckHook,
+  pytest-mypy-plugins,
+  lxml,
 }:
 
 buildPythonPackage rec {
@@ -19,12 +20,8 @@ buildPythonPackage rec {
     hash = "sha256-RRH/taLtgaXOl0G/ve2Ad7Xy8WRDUG2/k26EFMv1PRM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
-  propagatedBuildInputs = [
-    lxml
-  ];
+  nativeBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [ lxml ];
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mypy-plugins

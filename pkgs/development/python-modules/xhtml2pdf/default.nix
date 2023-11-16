@@ -1,16 +1,17 @@
-{ lib
-, arabic-reshaper
-, buildPythonPackage
-, fetchFromGitHub
-, html5lib
-, pillow
-, pyhanko
-, pypdf
-, pytestCheckHook
-, python-bidi
-, pythonOlder
-, reportlab
-, svglib
+{
+  lib,
+  arabic-reshaper,
+  buildPythonPackage,
+  fetchFromGitHub,
+  html5lib,
+  pillow,
+  pyhanko,
+  pypdf,
+  pytestCheckHook,
+  python-bidi,
+  pythonOlder,
+  reportlab,
+  svglib,
 }:
 
 buildPythonPackage rec {
@@ -38,13 +39,9 @@ buildPythonPackage rec {
     svglib
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "xhtml2pdf"
-  ];
+  pythonImportsCheck = [ "xhtml2pdf" ];
 
   meta = with lib; {
     description = "A PDF generator using HTML and CSS";

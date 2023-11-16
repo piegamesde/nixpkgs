@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
 
-, cairo
-, cmake
-, ffmpeg
-, freetype
-, ghostscript
-, glfw
-, libjpeg
-, libtiff
-, qhull
-, qtbase
-, wrapQtAppsHook
-, xorg
-, zeromq
+  cairo,
+  cmake,
+  ffmpeg,
+  freetype,
+  ghostscript,
+  glfw,
+  libjpeg,
+  libtiff,
+  qhull,
+  qtbase,
+  wrapQtAppsHook,
+  xorg,
+  zeromq,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,9 +30,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZFaun8PBtPTmhZ0+OHzUu27NvcJGxsImh+c7ZvCTNa0=";
   };
 
-  patches = [
-    ./Use-the-module-mode-to-search-for-the-LibXml2-package.patch
-  ];
+  patches = [ ./Use-the-module-mode-to-search-for-the-LibXml2-package.patch ];
 
   nativeBuildInputs = [
     cmake

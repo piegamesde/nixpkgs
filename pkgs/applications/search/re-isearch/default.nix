@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, lib, db, file, libnsl }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  db,
+  file,
+  libnsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "re-Isearch";
@@ -18,7 +25,9 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags = [
-    "CC=g++" "cc=gcc" "LD=g++"
+    "CC=g++"
+    "cc=gcc"
+    "LD=g++"
     "INSTALL=${placeholder "out"}/bin"
   ];
 

@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
 }:
 
 buildPythonPackage rec {
@@ -26,4 +27,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ mmai ];
   };
 }
-

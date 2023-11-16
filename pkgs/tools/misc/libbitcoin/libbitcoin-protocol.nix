@@ -1,11 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook
-, boost, libbitcoin, secp256k1, zeromq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  boost,
+  libbitcoin,
+  secp256k1,
+  zeromq,
+}:
 
 let
   pname = "libbitcoin-protocol";
   version = "3.5.0";
-
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
@@ -15,8 +24,14 @@ in stdenv.mkDerivation {
     sha256 = "1ln9r04hlnc7qmv17rakyhrnzw1a541pg5jc1sw3ccn90a5x6cfv";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libbitcoin secp256k1 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libbitcoin
+    secp256k1
+  ];
   propagatedBuildInputs = [ zeromq ];
 
   enableParallelBuilding = true;

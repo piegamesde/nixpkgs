@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, blueprint-compiler
-, cargo
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, rustPlatform
-, rustc
-, wrapGAppsHook4
-, cairo
-, dbus
-, gdk-pixbuf
-, glib
-, gtk4
-, libadwaita
-, pango
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  blueprint-compiler,
+  cargo,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  rustPlatform,
+  rustc,
+  wrapGAppsHook4,
+  cairo,
+  dbus,
+  gdk-pixbuf,
+  glib,
+  gtk4,
+  libadwaita,
+  pango,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, hatchling
-, opentelemetry-instrumentation
-, opentelemetry-sdk
-, opentelemetry-semantic-conventions
-, opentelemetry-test-utils
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  hatchling,
+  opentelemetry-instrumentation,
+  opentelemetry-sdk,
+  opentelemetry-semantic-conventions,
+  opentelemetry-test-utils,
+  pytestCheckHook,
 }:
 
 buildPythonPackage {
@@ -18,9 +19,7 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     opentelemetry-instrumentation

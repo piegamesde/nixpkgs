@@ -1,4 +1,14 @@
-{ lib, buildGoModule, fetchFromGitHub, stdenv, pkg-config, rustPlatform, libiconv, fetchpatch, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  stdenv,
+  pkg-config,
+  rustPlatform,
+  libiconv,
+  fetchpatch,
+  nixosTests,
+}:
 
 let
   libflux_version = "0.170.1";
@@ -13,16 +23,17 @@ let
       rev = "v${libflux_version}";
       sha256 = "sha256-P3SpleOVbL+nGWdscwjj9yWqRdck/9JsAwuJtGOO7N8=";
     };
-    patches = [
-      # https://github.com/influxdata/flux/pull/5273
-      # fix compile error with Rust 1.64
-      (fetchpatch {
-        url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
-        stripLen = 2;
-        extraPrefix = "";
-        sha256 = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
-      })
-    ];
+    patches =
+      [
+        # https://github.com/influxdata/flux/pull/5273
+        # fix compile error with Rust 1.64
+        (fetchpatch {
+          url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
+          stripLen = 2;
+          extraPrefix = "";
+          sha256 = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
+        })
+      ];
     sourceRoot = "${src.name}/libflux";
     cargoSha256 = "sha256-kYiZ5ZRiFHRf1RQeeUGjIhnEkTvhNSZ0t4tidpRIDyk=";
     nativeBuildInputs = [ rustPlatform.bindgenHook ];
@@ -35,14 +46,16 @@ let
       Libs: -L/out/lib -lflux -lpthread
     '';
     passAsFile = [ "pkgcfg" ];
-    postInstall = ''
-      mkdir -p $out/include $out/pkgconfig
-      cp -r $NIX_BUILD_TOP/source/libflux/include/influxdata $out/include
-      substitute $pkgcfgPath $out/pkgconfig/flux.pc \
-        --replace /out $out
-    '' + lib.optionalString stdenv.isDarwin ''
-      install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
-    '';
+    postInstall =
+      ''
+        mkdir -p $out/include $out/pkgconfig
+        cp -r $NIX_BUILD_TOP/source/libflux/include/influxdata $out/include
+        substitute $pkgcfgPath $out/pkgconfig/flux.pc \
+          --replace /out $out
+      ''
+      + lib.optionalString stdenv.isDarwin ''
+        install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
+      '';
   };
 in
 buildGoModule rec {
@@ -73,16 +86,25 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   excludedPackages = "test";
 
-  passthru.tests = { inherit (nixosTests) influxdb; };
+  passthru.tests = {
+    inherit (nixosTests) influxdb;
+  };
 
   meta = with lib; {
     description = "An open-source distributed time series database";
     license = licenses.mit;
     homepage = "https://influxdata.com/";
-    maintainers = with maintainers; [ offline zimbatm ];
+    maintainers = with maintainers; [
+      offline
+      zimbatm
+    ];
   };
 }

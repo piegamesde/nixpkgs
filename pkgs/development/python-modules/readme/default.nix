@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, readme_renderer
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  readme_renderer,
 }:
 
 buildPythonPackage rec {
@@ -14,13 +15,9 @@ buildPythonPackage rec {
     sha256 = "32fbe1538a437da160fa4e4477270bfdcd8876e2e364d0d12898302644496231";
   };
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    readme_renderer
-  ];
+  propagatedBuildInputs = [ readme_renderer ];
 
   checkPhase = ''
     pytest
@@ -36,5 +33,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = [ ];
   };
-
 }

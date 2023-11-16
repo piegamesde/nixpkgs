@@ -1,17 +1,22 @@
-{ lib, stdenv
-, fetchgit
-, autoreconfHook
-, pkg-config
-, dbus
-, fetchpatch
-, sysctl
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  dbus,
+  fetchpatch,
+  sysctl,
 }:
 
 stdenv.mkDerivation rec {
   pname = "ell";
   version = "0.58";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/libs/ell/ell.git";
@@ -30,14 +35,15 @@ stdenv.mkDerivation rec {
     sysctl
   ];
 
-  patches = [
-    # /proc/sys/net/core/somaxconn doesn't always exist in the nix build environment
-    (fetchpatch {
-      name = "skip-sysctl-test-if-sysfs-not-available.patch";
-      url = "https://patchwork.kernel.org/project/ell/patch/526DA75D-01AB-4D85-BF5C-5F25E5C39480@kloenk.dev/raw/";
-      hash = "sha256-YYGYWQ67cbMLt6RnqZmHt+tpvVIDKPbSCqPIouk6alU=";
-    })
-  ];
+  patches =
+    [
+      # /proc/sys/net/core/somaxconn doesn't always exist in the nix build environment
+      (fetchpatch {
+        name = "skip-sysctl-test-if-sysfs-not-available.patch";
+        url = "https://patchwork.kernel.org/project/ell/patch/526DA75D-01AB-4D85-BF5C-5F25E5C39480@kloenk.dev/raw/";
+        hash = "sha256-YYGYWQ67cbMLt6RnqZmHt+tpvVIDKPbSCqPIouk6alU=";
+      })
+    ];
   enableParallelBuilding = true;
 
   # tests sporadically fail on musl
@@ -52,6 +58,10 @@ stdenv.mkDerivation rec {
     changelog = "https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ChangeLog?h=${version}";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mic92 dtzWill amaxine ];
+    maintainers = with maintainers; [
+      mic92
+      dtzWill
+      amaxine
+    ];
   };
 }

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools-scm
-, kombu
-, shortuuid
-, celery
-, funcy
-, pytest-celery
-, pytest-mock
-, pytest-test-utils
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools-scm,
+  kombu,
+  shortuuid,
+  celery,
+  funcy,
+  pytest-celery,
+  pytest-mock,
+  pytest-test-utils,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     kombu
@@ -47,9 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "dvc_task"
-  ];
+  pythonImportsCheck = [ "dvc_task" ];
 
   meta = with lib; {
     description = "Celery task queue used in DVC";

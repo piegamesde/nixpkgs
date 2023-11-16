@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, makeWrapper, getconf,
-  ocaml, unzip, ncurses, curl, bubblewrap, Foundation
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  getconf,
+  ocaml,
+  unzip,
+  ncurses,
+  curl,
+  bubblewrap,
+  Foundation,
 }:
 
 assert lib.versionAtLeast ocaml.version "4.02.3";
@@ -75,16 +85,23 @@ let
       sha256 = "0s8r5gfs2zsyfn3jzqnvns3g0rkik3pw628n0dik55fwq3zjgg4a";
     };
   };
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "opam";
   version = "2.1.5";
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper unzip ocaml curl ];
-  buildInputs = [ ncurses getconf ]
-    ++ lib.optionals stdenv.isLinux [ bubblewrap ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+    ocaml
+    curl
+  ];
+  buildInputs = [
+    ncurses
+    getconf
+  ] ++ lib.optionals stdenv.isLinux [ bubblewrap ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   src = srcs.opam;
 
@@ -117,9 +134,12 @@ in stdenv.mkDerivation {
   postConfigure = "make lib-ext";
 
   # Dirty, but apparently ocp-build requires a TERM
-  makeFlags = ["TERM=screen"];
+  makeFlags = [ "TERM=screen" ];
 
-  outputs = [ "out" "installer" ];
+  outputs = [
+    "out"
+    "installer"
+  ];
   setOutputFlags = false;
 
   # change argv0 to "opam" as a workaround for
@@ -128,7 +148,9 @@ in stdenv.mkDerivation {
     mv $out/bin/opam $out/bin/.opam-wrapped
     makeWrapper $out/bin/.opam-wrapped $out/bin/opam \
       --argv0 "opam" \
-      --suffix PATH : ${unzip}/bin:${curl}/bin:${lib.optionalString stdenv.isLinux "${bubblewrap}/bin:"}${getconf}/bin \
+      --suffix PATH : ${unzip}/bin:${curl}/bin:${
+        lib.optionalString stdenv.isLinux "${bubblewrap}/bin:"
+      }${getconf}/bin \
       --set OPAM_USER_PATH_RO /run/current-system/sw/bin:/nix/
     $out/bin/opam-installer --prefix=$installer opam-installer.install
   '';
@@ -139,7 +161,10 @@ in stdenv.mkDerivation {
     description = "A package manager for OCaml";
     homepage = "https://opam.ocaml.org/";
     changelog = "https://github.com/ocaml/opam/raw/${version}/CHANGES";
-    maintainers = [ maintainers.henrytill maintainers.marsam ];
+    maintainers = [
+      maintainers.henrytill
+      maintainers.marsam
+    ];
     license = licenses.lgpl21Only;
     platforms = platforms.all;
   };

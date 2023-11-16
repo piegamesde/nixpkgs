@@ -1,10 +1,11 @@
-{ lib
-, aiohttp
-, bluetooth-data-tools
-, buildPythonPackage
-, fetchFromGitHub
-, orjson
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  bluetooth-data-tools,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
   # Project has no test
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aioshelly"
-  ];
+  pythonImportsCheck = [ "aioshelly" ];
 
   meta = with lib; {
     description = "Python library to control Shelly";

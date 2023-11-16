@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,10 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-bVGmleuOJzi/Sz7MJlnQuJsDgRWuwieLUx8hcyKkWXI=";
 
-  checkFlags = [
-    # requires network access
-    "-skip=TestIPToHostname"
-  ];
+  checkFlags =
+    [
+      # requires network access
+      "-skip=TestIPToHostname"
+    ];
 
   meta = with lib; {
     description = "Information gathering tool for DNS, ports and more";

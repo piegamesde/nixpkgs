@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
-with lib;
-{
+with lib; {
   meta = {
     maintainers = teams.freedesktop.members;
   };
@@ -25,5 +24,4 @@ with lib;
       "/etc/xdg/menus/applications-merged"
     ];
   };
-
 }

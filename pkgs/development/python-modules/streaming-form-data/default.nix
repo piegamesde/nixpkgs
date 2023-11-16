@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder,
-cython, smart-open, pytestCheckHook, moto, requests-toolbelt }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  cython,
+  smart-open,
+  pytestCheckHook,
+  moto,
+  requests-toolbelt,
+}:
 
 buildPythonPackage rec {
   pname = "streaming-form-data";
@@ -17,7 +26,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ smart-open ];
 
-  nativeCheckInputs = [ pytestCheckHook moto requests-toolbelt ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    moto
+    requests-toolbelt
+  ];
 
   pytestFlagsArray = [ "tests" ];
 

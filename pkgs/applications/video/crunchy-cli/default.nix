@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, clangStdenv
-, darwin
-, xcbuild
-, openssl
-, pkg-config
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  clangStdenv,
+  darwin,
+  xcbuild,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
@@ -22,17 +23,9 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
 
   cargoHash = "sha256-H3D55qMUAF6t45mRbGZl+DORAl1H1a7AOe+lQP0WUUQ=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [
-    xcbuild
-  ];
+  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = with lib; {
     description = "A pure Rust written Crunchyroll cli client and downloader";
@@ -41,4 +34,3 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     maintainers = with maintainers; [ stepbrobd ];
   };
 }
-

@@ -1,4 +1,9 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "qrscan";
@@ -11,9 +16,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-nAUZUE7NppsCAV8UyR8+OkikT4nJtnamsSVeyNz21EQ=";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs = [ rustPlatform.bindgenHook ];
 
   cargoHash = "sha256-P40IwFRtEQp6BGRgmt1x3UXtAKtWaMjR3kqhYq+p7wQ=";
 

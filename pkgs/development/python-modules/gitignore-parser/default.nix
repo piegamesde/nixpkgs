@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-T1XgcOHVFv/+oCEFKSoJeFAspJguimHasuREzjQwgWE=";
   };
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
-  pythonImportsCheck = [
-    "gitignore_parser"
-  ];
+  pythonImportsCheck = [ "gitignore_parser" ];
 
   meta = with lib; {
     description = "A spec-compliant gitignore parser";

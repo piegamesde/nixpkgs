@@ -1,6 +1,8 @@
-{ lib, stdenv
-, fetchurl
-, unzip
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,9 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JLFUaR/JfLRCZ7kl1iBkKXCGs/iWtXqBgce21CcCoCY=";
   };
 
-  nativeBuildInputs = [
-    unzip
-  ];
+  nativeBuildInputs = [ unzip ];
 
   sourceRoot = ".";
 

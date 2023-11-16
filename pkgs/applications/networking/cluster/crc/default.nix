@@ -1,12 +1,13 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, git
-, stdenv
-, testers
-, crc
-, runtimeShell
-, coreutils
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  git,
+  stdenv,
+  testers,
+  crc,
+  runtimeShell,
+  coreutils,
 }:
 
 let
@@ -69,6 +70,10 @@ buildGoModule rec {
     description = "Manages a local OpenShift 4.x cluster or a Podman VM optimized for testing and development purposes";
     homepage = "https://crc.dev";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthewpi shikanime tricktron ];
+    maintainers = with maintainers; [
+      matthewpi
+      shikanime
+      tricktron
+    ];
   };
 }

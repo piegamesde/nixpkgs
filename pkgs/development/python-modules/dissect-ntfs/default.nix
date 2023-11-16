@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, dissect-cstruct
-, dissect-util
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  dissect-cstruct,
+  dissect-util,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -35,18 +36,15 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dissect.ntfs"
-  ];
+  pythonImportsCheck = [ "dissect.ntfs" ];
 
-  disabledTestPaths = [
-    # Test is very time consuming
-    "tests/test_index.py"
-  ];
+  disabledTestPaths =
+    [
+      # Test is very time consuming
+      "tests/test_index.py"
+    ];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for the NTFS file system";

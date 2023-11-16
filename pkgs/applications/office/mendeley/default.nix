@@ -1,8 +1,9 @@
-{ lib
-, fetchurl
-, appimageTools
-, gconf
-, imagemagick
+{
+  lib,
+  fetchurl,
+  appimageTools,
+  gconf,
+  imagemagick,
 }:
 
 let
@@ -16,10 +17,9 @@ let
     sha256 = "sha256-uqmu7Yf4tXDlNGkeEZut4m339S6ZNKhAmej+epKLB/8=";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit name src;
-  };
-in appimageTools.wrapType2 rec {
+  appimageContents = appimageTools.extractType2 { inherit name src; };
+in
+appimageTools.wrapType2 rec {
   inherit name src;
 
   extraInstallCommands = ''
@@ -38,7 +38,9 @@ in appimageTools.wrapType2 rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers  = with maintainers; [ dtzWill atila ];
+    maintainers = with maintainers; [
+      dtzWill
+      atila
+    ];
   };
-
 }

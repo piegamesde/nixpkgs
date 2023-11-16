@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, garth
-, lxml
-, pythonOlder
-, requests
-, setuptools
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  garth,
+  lxml,
+  pythonOlder,
+  requests,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [
-    "withings_sync"
-  ];
+  pythonImportsCheck = [ "withings_sync" ];
 
   meta = with lib; {
     description = "Synchronisation of Withings weight";

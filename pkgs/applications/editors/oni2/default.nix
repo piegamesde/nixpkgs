@@ -1,7 +1,9 @@
 { callPackage }:
 
-let mkOni2 = callPackage ./common.nix { };
-in mkOni2 rec {
+let
+  mkOni2 = callPackage ./common.nix { };
+in
+mkOni2 rec {
   variant = "oni2";
   license = {
     fullName = "Outrun Labs End User License Agreement";
@@ -13,4 +15,3 @@ in mkOni2 rec {
   sha256 = "NlN0Ntdwtx5XLjd1ltUzv/bjmJQR5eyRqtmicppP6YU=";
   fetchDepsSha256 = "k7G6jPJfxCCSuSucPfiXljCVJhmjl/BxWMCEjv2tfhA=";
 }
-

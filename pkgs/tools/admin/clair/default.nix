@@ -1,9 +1,10 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, rpm
-, xz
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  rpm,
+  xz,
 }:
 
 buildGoModule rec {
@@ -19,9 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-mzrMiycW+kWtooCMWGLOHXPYJQ+y3wLMB2V+f4u4wtY=";
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   subPackages = [
     "cmd/clair"
@@ -36,7 +35,12 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/clair \
-      --prefix PATH : "${lib.makeBinPath [ rpm xz ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          rpm
+          xz
+        ]
+      }"
   '';
 
   meta = with lib; {

@@ -1,6 +1,7 @@
-{ lib
-, buildDotnetGlobalTool
-, dotnetCorePackages
+{
+  lib,
+  buildDotnetGlobalTool,
+  dotnetCorePackages,
 }:
 let
   inherit (dotnetCorePackages) sdk_7_0;

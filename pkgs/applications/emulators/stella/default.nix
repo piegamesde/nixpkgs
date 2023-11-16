@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, SDL2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,15 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-E8vbBbsVMOSY3iSSE+UCwBwmfHU7Efmre1cYlexVZ+E=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    SDL2
-  ];
+  buildInputs = [ SDL2 ];
 
-  meta = with lib;{
+  meta = with lib; {
     homepage = "https://stella-emu.github.io/";
     description = "An open-source Atari 2600 VCS emulator";
     longDescription = ''

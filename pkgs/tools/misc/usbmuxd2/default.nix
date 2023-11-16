@@ -1,14 +1,16 @@
-{ lib
-, clangStdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, pkg-config
-, libimobiledevice
-, libusb1
-, avahi
-, clang
-}: let
+{
+  lib,
+  clangStdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  libimobiledevice,
+  libusb1,
+  avahi,
+  clang,
+}:
+let
 
   libgeneral = clangStdenv.mkDerivation rec {
     pname = "libgeneral";
@@ -34,7 +36,6 @@
       platforms = platforms.all;
     };
   };
-
 in
 clangStdenv.mkDerivation rec {
   pname = "usbmuxd2";
@@ -80,9 +81,7 @@ clangStdenv.mkDerivation rec {
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
   ];
 
-  makeFlags = [
-    "sbindir=${placeholder "out"}/bin"
-  ];
+  makeFlags = [ "sbindir=${placeholder "out"}/bin" ];
 
   meta = with lib; {
     homepage = "https://github.com/tihmstar/usbmuxd2";

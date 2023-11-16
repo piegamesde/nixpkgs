@@ -1,43 +1,44 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, itstool
-, libxml2
-, meson
-, ninja
-, perl
-, python3
-, pkgconf
-, wrapGAppsHook
-, at-spi2-core
-, dbus
-, elfutils
-, libepoxy
-, gexiv2
-, glib
-, gobject-introspection
-, gst-plugins-base
-, gstreamer
-, gtk3
-, lcms2
-, libdatrie
-, libgphoto2
-, libgudev
-, libpeas
-, libraw
-, libselinux
-, libsepol
-, libthai
-, libunwind
-, libxkbcommon
-, orc
-, pcre
-, pcre2
-, udev
-, util-linux
-, xorg
-, zstd
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  itstool,
+  libxml2,
+  meson,
+  ninja,
+  perl,
+  python3,
+  pkgconf,
+  wrapGAppsHook,
+  at-spi2-core,
+  dbus,
+  elfutils,
+  libepoxy,
+  gexiv2,
+  glib,
+  gobject-introspection,
+  gst-plugins-base,
+  gstreamer,
+  gtk3,
+  lcms2,
+  libdatrie,
+  libgphoto2,
+  libgudev,
+  libpeas,
+  libraw,
+  libselinux,
+  libsepol,
+  libthai,
+  libunwind,
+  libxkbcommon,
+  orc,
+  pcre,
+  pcre2,
+  udev,
+  util-linux,
+  xorg,
+  zstd,
 }:
 
 stdenv.mkDerivation rec {
@@ -51,14 +52,15 @@ stdenv.mkDerivation rec {
     sha256 = "hz2WSDOjriQSavFlDT+35x1X5MeInq80ZrSP1WR/td0=";
   };
 
-  patches = [
-    # Fix build with meson 0.61, can be removed on next update
-    # https://gitlab.com/entangle/entangle/-/issues/67
-    (fetchpatch {
-      url = "https://gitlab.com/entangle/entangle/-/commit/54795d275a93e94331a614c8712740fcedbdd4f0.patch";
-      sha256 = "iEgqGjKa0xwSdctwvNdEV361l9nx+bz53xn3fuDgtzY=";
-    })
-  ];
+  patches =
+    [
+      # Fix build with meson 0.61, can be removed on next update
+      # https://gitlab.com/entangle/entangle/-/issues/67
+      (fetchpatch {
+        url = "https://gitlab.com/entangle/entangle/-/commit/54795d275a93e94331a614c8712740fcedbdd4f0.patch";
+        sha256 = "iEgqGjKa0xwSdctwvNdEV361l9nx+bz53xn3fuDgtzY=";
+      })
+    ];
 
   nativeBuildInputs = [
     itstool
@@ -73,37 +75,41 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    at-spi2-core
-    dbus
-    libepoxy
-    elfutils
-    gexiv2
-    glib
-    gst-plugins-base
-    gstreamer
-    gtk3
-    lcms2
-    libdatrie
-    libgphoto2
-    libgudev
-    libpeas
-    libraw
-    libselinux
-    libsepol
-    libthai
-    libunwind
-    libxkbcommon
-    orc
-    pcre # required by libselinux before we USE_PCRE2
-    pcre2 # required by glib-2.0
-    udev
-    util-linux
-    zstd
-  ] ++ (with xorg; [
-    libXdmcp
-    libXtst
-  ]);
+  buildInputs =
+    [
+      at-spi2-core
+      dbus
+      libepoxy
+      elfutils
+      gexiv2
+      glib
+      gst-plugins-base
+      gstreamer
+      gtk3
+      lcms2
+      libdatrie
+      libgphoto2
+      libgudev
+      libpeas
+      libraw
+      libselinux
+      libsepol
+      libthai
+      libunwind
+      libxkbcommon
+      orc
+      pcre # required by libselinux before we USE_PCRE2
+      pcre2 # required by glib-2.0
+      udev
+      util-linux
+      zstd
+    ]
+    ++ (
+      with xorg; [
+        libXdmcp
+        libXtst
+      ]
+    );
 
   # Disable building of doc/reference since it requires network connection to render XML to HTML
   # Patch build script shebangs

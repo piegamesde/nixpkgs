@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, packaging
-, paramiko
-, pytestCheckHook
-, requests
-, setuptools-scm
-, urllib3
-, websocket-client
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  packaging,
+  paramiko,
+  pytestCheckHook,
+  requests,
+  setuptools-scm,
+  urllib3,
+  websocket-client,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-qm0XgwBFul7wFo1eqjTTe+6xE5SMQTr/4dWZH8EfmiA=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     packaging
@@ -35,28 +34,24 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  passthru.optional-dependencies.ssh = [
-    paramiko
-  ];
+  passthru.optional-dependencies.ssh = [ paramiko ];
 
   nativeCheckInputs = [
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pytestFlagsArray = [
-    "tests/unit"
-  ];
+  pytestFlagsArray = [ "tests/unit" ];
 
   # Deselect socket tests on Darwin because it hits the path length limit for a Unix domain socket
   disabledTests = lib.optionals stdenv.isDarwin [
-    "api_test" "stream_response" "socket_file"
+    "api_test"
+    "stream_response"
+    "socket_file"
   ];
 
   dontUseSetuptoolsCheck = true;
 
-  pythonImportsCheck = [
-    "docker"
-  ];
+  pythonImportsCheck = [ "docker" ];
 
   meta = with lib; {
     description = "An API client for docker written in Python";

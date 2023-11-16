@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchPypi, installShellFiles }:
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+  installShellFiles,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "backblaze-b2";
@@ -78,6 +83,10 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Backblaze/B2_Command_Line_Tool";
     changelog = "https://github.com/Backblaze/B2_Command_Line_Tool/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hrdinka kevincox tomhoule ];
+    maintainers = with maintainers; [
+      hrdinka
+      kevincox
+      tomhoule
+    ];
   };
 }

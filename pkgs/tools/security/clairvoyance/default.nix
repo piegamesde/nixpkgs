@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -15,9 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-CVXa2HvX7M0cwqnTeZVETg07j324ATQuMNreEgAC2QA=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiohttp
@@ -34,14 +33,13 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'asyncio = "^3.4.3"' ""
   '';
 
-  pythonImportsCheck = [
-    "clairvoyance"
-  ];
+  pythonImportsCheck = [ "clairvoyance" ];
 
-  disabledTests = [
-    # KeyError
-    "test_probe_typename"
-  ];
+  disabledTests =
+    [
+      # KeyError
+      "test_probe_typename"
+    ];
 
   meta = with lib; {
     description = "Tool to obtain GraphQL API schemas";

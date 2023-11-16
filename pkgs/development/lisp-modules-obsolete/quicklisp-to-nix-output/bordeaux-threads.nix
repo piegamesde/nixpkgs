@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "bordeaux-threads";
   version = "v0.8.8";
@@ -8,7 +8,10 @@ rec {
 
   description = "Bordeaux Threads makes writing portable multi-threaded apps simple.";
 
-  deps = [ args."alexandria" args."fiveam" ];
+  deps = [
+    args."alexandria"
+    args."fiveam"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/bordeaux-threads/2020-06-10/bordeaux-threads-v0.8.8.tgz";
@@ -17,7 +20,7 @@ rec {
 
   packageName = "bordeaux-threads";
 
-  asdFilesToKeep = ["bordeaux-threads.asd"];
+  asdFilesToKeep = [ "bordeaux-threads.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM bordeaux-threads DESCRIPTION
@@ -28,4 +31,5 @@ rec {
     bordeaux-threads DEPS
     ((NAME alexandria FILENAME alexandria) (NAME fiveam FILENAME fiveam))
     DEPENDENCIES (alexandria fiveam) VERSION v0.8.8 SIBLINGS NIL PARASITES
-    (bordeaux-threads/test)) */
+    (bordeaux-threads/test))
+*/

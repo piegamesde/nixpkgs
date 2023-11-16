@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchzip
-, autoPatchelfHook
-, dotnet-runtime
-, ffmpeg
-, libglvnd
-, makeWrapper
-, openal
+{
+  lib,
+  stdenv,
+  fetchzip,
+  autoPatchelfHook,
+  dotnet-runtime,
+  ffmpeg,
+  libglvnd,
+  makeWrapper,
+  openal,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +15,9 @@ stdenv.mkDerivation rec {
   version = "4.1.3";
 
   src = fetchzip {
-    url = "https://github.com/BleuBleu/FamiStudio/releases/download/${version}/FamiStudio${lib.strings.concatStrings (lib.splitVersion version)}-LinuxAMD64.zip";
+    url = "https://github.com/BleuBleu/FamiStudio/releases/download/${version}/FamiStudio${
+        lib.strings.concatStrings (lib.splitVersion version)
+      }-LinuxAMD64.zip";
     stripRoot = false;
     hash = "sha256-eAdv0oObczbs8QLGYbxCrdFk/gN5DOCJ1dp/tg8JWIc=";
   };

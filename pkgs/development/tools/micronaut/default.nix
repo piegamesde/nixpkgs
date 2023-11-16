@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, jdk, makeWrapper, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  jdk,
+  makeWrapper,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "micronaut";
@@ -9,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9d46sXrG9tYhtAoIGzy7JYnt+wfS4vtGu81MS4W9c1s=";
   };
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
-, setuptools
-, pybind11
-, numpy
-, pytestCheckHook
-, absl-py
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  pybind11,
+  numpy,
+  pytestCheckHook,
+  absl-py,
 }:
 
 buildPythonPackage rec {
@@ -28,13 +29,14 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # See https://github.com/jax-ml/ml_dtypes/issues/106.
-    (fetchpatch {
-      url = "https://github.com/jax-ml/ml_dtypes/commit/c082a2df6bc0686b35c4b4a303fd1990485e181f.patch";
-      hash = "sha256-aVJy9vT00b98xOrJCdbCHSZBI3uyjafmN88Z2rjBS48=";
-    })
-  ];
+  patches =
+    [
+      # See https://github.com/jax-ml/ml_dtypes/issues/106.
+      (fetchpatch {
+        url = "https://github.com/jax-ml/ml_dtypes/commit/c082a2df6bc0686b35c4b4a303fd1990485e181f.patch";
+        hash = "sha256-aVJy9vT00b98xOrJCdbCHSZBI3uyjafmN88Z2rjBS48=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -50,9 +52,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -65,14 +65,15 @@ buildPythonPackage rec {
     rm -rf ./ml_dtypes
   '';
 
-  pythonImportsCheck = [
-    "ml_dtypes"
-  ];
+  pythonImportsCheck = [ "ml_dtypes" ];
 
   meta = with lib; {
     description = "A stand-alone implementation of several NumPy dtype extensions used in machine learning libraries";
     homepage = "https://github.com/jax-ml/ml_dtypes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ GaetanLepage samuela ];
+    maintainers = with maintainers; [
+      GaetanLepage
+      samuela
+    ];
   };
 }

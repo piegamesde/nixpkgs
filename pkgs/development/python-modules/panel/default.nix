@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, bleach
-, bokeh
-, param
-, pyviz-comms
-, markdown
-, pyct
-, requests
-, setuptools
-, tqdm
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  bleach,
+  bokeh,
+  param,
+  pyviz-comms,
+  markdown,
+  pyct,
+  requests,
+  setuptools,
+  tqdm,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -28,13 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-CAW6z0phPohpFjv4D1DlmomDiv52vb5qBatWN/Mmg/c=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "bokeh"
-  ];
+  pythonRelaxDeps = [ "bokeh" ];
 
   propagatedBuildInputs = [
     bleach
@@ -49,9 +46,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [
-    "panel"
-  ];
+  pythonImportsCheck = [ "panel" ];
 
   # infinite recursion in test dependencies (hvplot)
   doCheck = false;

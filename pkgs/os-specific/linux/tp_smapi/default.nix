@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, kernel
-, writeScript
-, coreutils
-, gnugrep
-, jq
-, curl
-, common-updater-scripts
-, runtimeShell
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  kernel,
+  writeScript,
+  coreutils,
+  gnugrep,
+  jq,
+  curl,
+  common-updater-scripts,
+  runtimeShell,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,14 +24,15 @@ stdenv.mkDerivation rec {
     sha256 = "1rjb0njckczc2mj05cagvj0lkyvmyk6bw7wkiinv81lw8m90g77g";
   };
 
-  patches = [
-    # update DEFINE_SEMAPHORE usage for linux 6.4+
-    # https://github.com/linux-thinkpad/tp_smapi/pull/45
-    (fetchpatch {
-      url = "https://github.com/linux-thinkpad/tp_smapi/commit/0c3398b1acf2a2cabd9cee91dc3fe3d35805fa8b.patch";
-      hash = "sha256-J/WvijrpHGwFOZMMxnHdNin5eh8vViTcNb4nwsCqsLs=";
-    })
-  ];
+  patches =
+    [
+      # update DEFINE_SEMAPHORE usage for linux 6.4+
+      # https://github.com/linux-thinkpad/tp_smapi/pull/45
+      (fetchpatch {
+        url = "https://github.com/linux-thinkpad/tp_smapi/commit/0c3398b1acf2a2cabd9cee91dc3fe3d35805fa8b.patch";
+        hash = "sha256-J/WvijrpHGwFOZMMxnHdNin5eh8vViTcNb4nwsCqsLs=";
+      })
+    ];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -53,7 +55,16 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru.updateScript = import ./update.nix {
-    inherit lib writeScript coreutils gnugrep jq curl common-updater-scripts runtimeShell;
+    inherit
+      lib
+      writeScript
+      coreutils
+      gnugrep
+      jq
+      curl
+      common-updater-scripts
+      runtimeShell
+    ;
   };
 
   meta = {
@@ -62,6 +73,9 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     maintainers = [ ];
     # driver is only ment for linux thinkpads i think  bellow platforms should cover it.
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

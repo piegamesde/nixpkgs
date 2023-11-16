@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoreconfHook
-, makeWrapper
-, pkg-config
-, systemd
-, dbus
-, pcsclite
-, wget
-, coreutils
-, perlPackages
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  makeWrapper,
+  pkg-config,
+  systemd,
+  dbus,
+  pcsclite,
+  wget,
+  coreutils,
+  perlPackages,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,20 +30,43 @@ stdenv.mkDerivation rec {
       --replace /usr/share/pcsc $out/share/pcsc
   '';
 
-  buildInputs = [ dbus perlPackages.perl pcsclite ]
-    ++ lib.optional stdenv.isLinux systemd;
+  buildInputs = [
+    dbus
+    perlPackages.perl
+    pcsclite
+  ] ++ lib.optional stdenv.isLinux systemd;
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/scriptor \
       --set PERL5LIB "${with perlPackages; makePerlPath [ pcscperl ]}"
     wrapProgram $out/bin/gscriptor \
-      --set PERL5LIB "${with perlPackages; makePerlPath [ pcscperl GlibObjectIntrospection Glib Gtk3 Pango Cairo CairoGObject ]}"
+      --set PERL5LIB "${
+        with perlPackages;
+        makePerlPath [
+          pcscperl
+          GlibObjectIntrospection
+          Glib
+          Gtk3
+          Pango
+          Cairo
+          CairoGObject
+        ]
+      }"
     wrapProgram $out/bin/ATR_analysis \
       --set PERL5LIB "${with perlPackages; makePerlPath [ pcscperl ]}"
     wrapProgram $out/bin/pcsc_scan \
-      --prefix PATH : "$out/bin:${lib.makeBinPath [ coreutils wget ]}"
+      --prefix PATH : "$out/bin:${
+        lib.makeBinPath [
+          coreutils
+          wget
+        ]
+      }"
 
     install -Dm444 -t $out/share/pcsc smartcard_list.txt
   '';

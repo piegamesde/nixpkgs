@@ -1,14 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.programs.hyprland;
 
-  finalPortalPackage = cfg.portalPackage.override {
-    hyprland = cfg.finalPackage;
-  };
+  finalPortalPackage = cfg.portalPackage.override { hyprland = cfg.finalPackage; };
 in
 {
   options.programs.hyprland = {
@@ -32,8 +32,7 @@ in
         enableXWayland = cfg.xwayland.enable;
         enableNvidiaPatches = cfg.enableNvidiaPatches;
       };
-      defaultText = literalExpression
-        "`programs.hyprland.package` with applied configuration";
+      defaultText = literalExpression "`programs.hyprland.package` with applied configuration";
       description = mdDoc ''
         The Hyprland package after applying configuration.
       '';
@@ -41,7 +40,9 @@ in
 
     portalPackage = mkPackageOptionMD pkgs "xdg-desktop-portal-hyprland" { };
 
-    xwayland.enable = mkEnableOption (mdDoc "XWayland") // { default = true; };
+    xwayland.enable = mkEnableOption (mdDoc "XWayland") // {
+      default = true;
+    };
 
     enableNvidiaPatches = mkEnableOption (mdDoc "patching wlroots for better Nvidia support");
   };
@@ -69,12 +70,25 @@ in
 
   imports = with lib; [
     (mkRemovedOptionModule
-      [ "programs" "hyprland" "xwayland" "hidpi" ]
+      [
+        "programs"
+        "hyprland"
+        "xwayland"
+        "hidpi"
+      ]
       "XWayland patches are deprecated. Refer to https://wiki.hyprland.org/Configuring/XWayland"
     )
     (mkRenamedOptionModule
-      [ "programs" "hyprland" "nvidiaPatches" ]
-      [ "programs" "hyprland" "enableNvidiaPatches" ]
+      [
+        "programs"
+        "hyprland"
+        "nvidiaPatches"
+      ]
+      [
+        "programs"
+        "hyprland"
+        "enableNvidiaPatches"
+      ]
     )
   ];
 }

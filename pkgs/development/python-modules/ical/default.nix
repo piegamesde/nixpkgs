@@ -1,19 +1,20 @@
-{ lib
-, python-dateutil
-, buildPythonPackage
-, emoji
-, fetchFromGitHub
-, freezegun
-, tzdata
-, pyparsing
-, pydantic
-, pytest-asyncio
-, pytest-benchmark
-, pytest-golden
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
+{
+  lib,
+  python-dateutil,
+  buildPythonPackage,
+  emoji,
+  fetchFromGitHub,
+  freezegun,
+  tzdata,
+  pyparsing,
+  pydantic,
+  pytest-asyncio,
+  pytest-benchmark,
+  pytest-golden,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-ewKQzjtVgx9c6h67epgFNhY4MjR7kFNCr4EKZ+UF2xA=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "tzdata"
-  ];
+  pythonRelaxDeps = [ "tzdata" ];
 
   propagatedBuildInputs = [
     emoji
@@ -55,9 +52,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [
-    "ical"
-  ];
+  pythonImportsCheck = [ "ical" ];
 
   meta = with lib; {
     description = "Library for handling iCalendar";

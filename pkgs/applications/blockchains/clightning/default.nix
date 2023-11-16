@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, darwin
-, fetchurl
-, autoconf
-, autogen
-, automake
-, gettext
-, libtool
-, lowdown
-, protobuf
-, unzip
-, which
-, gmp
-, libsodium
-, python3
-, sqlite
-, zlib
+{
+  lib,
+  stdenv,
+  darwin,
+  fetchurl,
+  autoconf,
+  autogen,
+  automake,
+  gettext,
+  libtool,
+  lowdown,
+  protobuf,
+  unzip,
+  which,
+  gmp,
+  libsodium,
+  python3,
+  sqlite,
+  zlib,
 }:
 let
   py3 = python3.withPackages (p: [ p.mako ]);
@@ -32,26 +33,53 @@ stdenv.mkDerivation rec {
   # when building on darwin we need dawin.cctools to provide the correct libtool
   # as libwally-core detects the host as darwin and tries to add the -static
   # option to libtool, also we have to add the modified gsed package.
-  nativeBuildInputs = [ autoconf autogen automake gettext libtool lowdown protobuf py3 unzip which ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.cctools darwin.autoSignDarwinBinariesHook ];
+  nativeBuildInputs =
+    [
+      autoconf
+      autogen
+      automake
+      gettext
+      libtool
+      lowdown
+      protobuf
+      py3
+      unzip
+      which
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.cctools
+      darwin.autoSignDarwinBinariesHook
+    ];
 
-  buildInputs = [ gmp libsodium sqlite zlib ];
+  buildInputs = [
+    gmp
+    libsodium
+    sqlite
+    zlib
+  ];
 
   # this causes some python trouble on a darwin host so we skip this step.
   # also we have to tell libwally-core to use sed instead of gsed.
-  postPatch = if !stdenv.isDarwin then ''
-    patchShebangs \
-      tools/generate-wire.py \
-      tools/update-mocks.sh \
-      tools/mockup.sh \
-      devtools/sql-rewrite.py \
-      plugins/clnrest/clnrest.py
-  '' else ''
-    substituteInPlace external/libwally-core/tools/autogen.sh --replace gsed sed && \
-    substituteInPlace external/libwally-core/configure.ac --replace gsed sed
-  '';
+  postPatch =
+    if !stdenv.isDarwin then
+      ''
+        patchShebangs \
+          tools/generate-wire.py \
+          tools/update-mocks.sh \
+          tools/mockup.sh \
+          devtools/sql-rewrite.py \
+          plugins/clnrest/clnrest.py
+      ''
+    else
+      ''
+        substituteInPlace external/libwally-core/tools/autogen.sh --replace gsed sed && \
+        substituteInPlace external/libwally-core/configure.ac --replace gsed sed
+      '';
 
-  configureFlags = [ "--disable-developer" "--disable-valgrind" ];
+  configureFlags = [
+    "--disable-developer"
+    "--disable-valgrind"
+  ];
 
   makeFlags = [ "VERSION=v${version}" ];
 
@@ -66,7 +94,10 @@ stdenv.mkDerivation rec {
       parties for any amount.
     '';
     homepage = "https://github.com/ElementsProject/lightning";
-    maintainers = with maintainers; [ jb55 prusnak ];
+    maintainers = with maintainers; [
+      jb55
+      prusnak
+    ];
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
   };

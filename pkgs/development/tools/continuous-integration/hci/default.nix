@@ -1,6 +1,19 @@
-{ haskell, haskellPackages, lib, makeWrapper, runc, stdenv, emptyDirectory }:
+{
+  haskell,
+  haskellPackages,
+  lib,
+  makeWrapper,
+  runc,
+  stdenv,
+  emptyDirectory,
+}:
 let
-  inherit (haskell.lib.compose) overrideCabal addBuildTools justStaticExecutables appendConfigureFlags;
+  inherit (haskell.lib.compose)
+    overrideCabal
+    addBuildTools
+    justStaticExecutables
+    appendConfigureFlags
+  ;
   inherit (lib) makeBinPath;
   bundledBins = lib.optional stdenv.isLinux runc;
 
@@ -28,12 +41,20 @@ let
           ${o.postInstall or ""}
           mkdir -p $out/libexec
           mv $out/bin/hci $out/libexec
-          makeWrapper $out/libexec/hci $out/bin/hci --prefix PATH : ${lib.escapeShellArg (makeBinPath bundledBins)}
+          makeWrapper $out/libexec/hci $out/bin/hci --prefix PATH : ${
+            lib.escapeShellArg (makeBinPath bundledBins)
+          }
         '';
       })
-      (addBuildTools [ makeWrapper ] (justStaticExecutables (haskellPackages.hercules-ci-cli.override overrides)));
-in pkg // {
-    meta = pkg.meta // {
-      position = toString ./default.nix + ":1";
-    };
-  }
+      (
+        addBuildTools [ makeWrapper ] (
+          justStaticExecutables (haskellPackages.hercules-ci-cli.override overrides)
+        )
+      );
+in
+pkg
+// {
+  meta = pkg.meta // {
+    position = toString ./default.nix + ":1";
+  };
+}

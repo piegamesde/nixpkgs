@@ -1,21 +1,24 @@
-{ fetchFromGitHub
-, rustPlatform
-, pkg-config
-, python3
-, cmake
-, libmysqlclient
-, makeBinaryWrapper
-, lib
+{
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  python3,
+  cmake,
+  libmysqlclient,
+  makeBinaryWrapper,
+  lib,
 }:
 
 let
-  pyFxADeps = python3.withPackages (p: [
-    p.setuptools # imports pkg_resources
-    # remainder taken from requirements.txt
-    p.pyfxa
-    p.tokenlib
-    p.cryptography
-  ]);
+  pyFxADeps = python3.withPackages (
+    p: [
+      p.setuptools # imports pkg_resources
+      # remainder taken from requirements.txt
+      p.pyfxa
+      p.tokenlib
+      p.cryptography
+    ]
+  );
 in
 
 rustPlatform.buildRustPackage rec {
@@ -36,9 +39,7 @@ rustPlatform.buildRustPackage rec {
     python3
   ];
 
-  buildInputs = [
-    libmysqlclient
-  ];
+  buildInputs = [ libmysqlclient ];
 
   preFixup = ''
     wrapProgram $out/bin/syncserver \

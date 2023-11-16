@@ -1,10 +1,22 @@
-{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, scdoc, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "poweralertd";
   version = "0.2.0";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchFromSourcehut {
     owner = "~kennylevinsen";
@@ -14,12 +26,12 @@ stdenv.mkDerivation rec {
   };
 
   postPatch = ''
-    substituteInPlace meson.build --replace "systemd.get_pkgconfig_variable('systemduserunitdir')" "'${placeholder "out"}/lib/systemd/user'"
+    substituteInPlace meson.build --replace "systemd.get_pkgconfig_variable('systemduserunitdir')" "'${
+      placeholder "out"
+    }/lib/systemd/user'"
   '';
 
-  buildInputs = [
-    systemd
-  ];
+  buildInputs = [ systemd ];
 
   nativeBuildInputs = [
     meson

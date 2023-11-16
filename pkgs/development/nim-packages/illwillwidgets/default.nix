@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, illwill }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  illwill,
+}:
 
 buildNimPackage rec {
   pname = "illwillwidgets";
@@ -14,8 +19,10 @@ buildNimPackage rec {
   propagatedBuildInputs = [ illwill ];
   doCheck = false;
 
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "Mouse enabled widgets for illwill";
 
       license = [ licenses.mit ];

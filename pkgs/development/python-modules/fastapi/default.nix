@@ -1,36 +1,37 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build-system
-, hatchling
+  # build-system
+  hatchling,
 
-# dependencies
-, starlette
-, pydantic
-, typing-extensions
+  # dependencies
+  starlette,
+  pydantic,
+  typing-extensions,
 
-# tests
-, dirty-equals
-, flask
-, passlib
-, pytest-asyncio
-, pytestCheckHook
-, python-jose
-, sqlalchemy
-, trio
+  # tests
+  dirty-equals,
+  flask,
+  passlib,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-jose,
+  sqlalchemy,
+  trio,
 
-# optional-dependencies
-, httpx
-, jinja2
-, python-multipart
-, itsdangerous
-, pyyaml
-, ujson
-, orjson
-, email-validator
-, uvicorn
+  # optional-dependencies
+  httpx,
+  jinja2,
+  python-multipart,
+  itsdangerous,
+  pyyaml,
+  ujson,
+  orjson,
+  email-validator,
+  uvicorn,
 }:
 
 buildPythonPackage rec {
@@ -47,9 +48,7 @@ buildPythonPackage rec {
     hash = "sha256-2J8c3S4Ca+c5bI0tyjMJArJKux9qPmu+ohqve5PhSGI=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     starlette
@@ -82,11 +81,12 @@ buildPythonPackage rec {
     sqlalchemy
   ] ++ passthru.optional-dependencies.all;
 
-  pytestFlagsArray = [
-    # ignoring deprecation warnings to avoid test failure from
-    # tests/test_tutorial/test_testing/test_tutorial001.py
-    "-W ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray =
+    [
+      # ignoring deprecation warnings to avoid test failure from
+      # tests/test_tutorial/test_testing/test_tutorial001.py
+      "-W ignore::DeprecationWarning"
+    ];
 
   disabledTestPaths = [
     # Disabled tests require orjson which requires rust nightly
@@ -113,9 +113,7 @@ buildPythonPackage rec {
     "test_dependency_gets_exception"
   ];
 
-  pythonImportsCheck = [
-    "fastapi"
-  ];
+  pythonImportsCheck = [ "fastapi" ];
 
   meta = with lib; {
     description = "Web framework for building APIs";

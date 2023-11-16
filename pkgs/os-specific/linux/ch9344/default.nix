@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchzip, kernel }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  kernel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ch9344";
@@ -10,13 +15,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-g55ftAfjKKlUFzGhI1a/O7Eqbz6rkGf1vWuEJjBZxBE=";
   };
 
-  patches = lib.optionals (lib.versionAtLeast kernel.modDirVersion "6.1") [
-    # https://github.com/torvalds/linux/commit/a8c11c1520347be74b02312d10ef686b01b525f1
-    ./fix-incompatible-pointer-types.patch
-  ] ++ lib.optionals (lib.versionAtLeast kernel.modDirVersion "6.3") [
-    # https://github.com/torvalds/linux/commit/5d420399073770134d2b03e004b2c0201c7fa26f
-    ./fix-incompatible-pointer-types_6_3.patch
-  ];
+  patches =
+    lib.optionals (lib.versionAtLeast kernel.modDirVersion "6.1")
+      [
+        # https://github.com/torvalds/linux/commit/a8c11c1520347be74b02312d10ef686b01b525f1
+        ./fix-incompatible-pointer-types.patch
+      ]
+    ++ lib.optionals (lib.versionAtLeast kernel.modDirVersion "6.3")
+      [
+        # https://github.com/torvalds/linux/commit/5d420399073770134d2b03e004b2c0201c7fa26f
+        ./fix-incompatible-pointer-types_6_3.patch
+      ];
 
   sourceRoot = "${src.name}/driver";
   hardeningDisable = [ "pic" ];
@@ -26,9 +35,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "KERNELDIR :=" "KERNELDIR ?="
   '';
 
-  makeFlags = [
-    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags = [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   installPhase = ''
     runHook preInstall

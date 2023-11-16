@@ -1,4 +1,9 @@
-{ buildPythonApplication, fetchPypi, lib, pycryptodome }:
+{
+  buildPythonApplication,
+  fetchPypi,
+  lib,
+  pycryptodome,
+}:
 
 buildPythonApplication rec {
   pname = "dcnnt";
@@ -9,9 +14,7 @@ buildPythonApplication rec {
     sha256 = "sha256-YG+NLKI9cz8Uu2y+Ut2q+vn67ExTya00XjHlWRAksz8=";
   };
 
-  propagatedBuildInputs = [
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ pycryptodome ];
 
   meta = with lib; {
     homepage = "https://github.com/cyanomiko/dcnnt-py";

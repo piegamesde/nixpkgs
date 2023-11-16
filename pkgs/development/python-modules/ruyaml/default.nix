@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, distro
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, setuptools-scm-git-archive
+{
+  lib,
+  buildPythonPackage,
+  distro,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  setuptools-scm-git-archive,
 }:
 
 buildPythonPackage rec {
@@ -29,21 +30,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [
-    distro
-  ];
+  propagatedBuildInputs = [ distro ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pytestFlagsArray = [
-    "-W" "ignore::DeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [
-    "ruyaml"
-  ];
+  pythonImportsCheck = [ "ruyaml" ];
 
   meta = with lib; {
     description = "YAML 1.2 loader/dumper package for Python";

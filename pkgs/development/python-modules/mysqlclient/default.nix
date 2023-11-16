@@ -1,21 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, libmysqlclient
-, pkg-config
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  libmysqlclient,
+  pkg-config,
 }:
 
 buildPythonPackage rec {
   pname = "mysqlclient";
   version = "2.2.0";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libmysqlclient
-  ];
+  buildInputs = [ libmysqlclient ];
 
   # Tests need a MySQL database
   doCheck = false;

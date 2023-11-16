@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, git
-, greenlet
-, fetchFromGitHub
-, pyee
-, python
-, pythonOlder
-, setuptools-scm
-, playwright-driver
+{
+  lib,
+  buildPythonPackage,
+  git,
+  greenlet,
+  fetchFromGitHub,
+  pyee,
+  python,
+  pythonOlder,
+  setuptools-scm,
+  playwright-driver,
 }:
 
 let
@@ -27,14 +28,15 @@ buildPythonPackage rec {
     hash = "sha256-K3ZLDnDtV9PWX0etVv6RIDHp0vZZ7b7DGJ1GjP2kfXU=";
   };
 
-  patches = [
-    # This patches two things:
-    # - The driver location, which is now a static package in the Nix store.
-    # - The setup script, which would try to download the driver package from
-    #   a CDN and patch wheels so that they include it. We don't want this
-    #   we have our own driver build.
-    ./driver-location.patch
-  ];
+  patches =
+    [
+      # This patches two things:
+      # - The driver location, which is now a static package in the Nix store.
+      # - The setup script, which would try to download the driver package from
+      #   a CDN and patch wheels so that they include it. We don't want this
+      #   we have our own driver build.
+      ./driver-location.patch
+    ];
 
   postPatch = ''
     # if setuptools_scm is not listing files via git almost all python files are excluded
@@ -61,8 +63,10 @@ buildPythonPackage rec {
       --replace "@driver@" "${driver}/bin/playwright"
   '';
 
-
-  nativeBuildInputs = [ git setuptools-scm ];
+  nativeBuildInputs = [
+    git
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [
     greenlet
@@ -78,9 +82,7 @@ buildPythonPackage rec {
   # Skip tests because they require network access.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "playwright"
-  ];
+  pythonImportsCheck = [ "playwright" ];
 
   passthru = {
     inherit driver;
@@ -95,7 +97,15 @@ buildPythonPackage rec {
     description = "Python version of the Playwright testing and automation library";
     homepage = "https://github.com/microsoft/playwright-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ techknowlogick yrd ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      techknowlogick
+      yrd
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

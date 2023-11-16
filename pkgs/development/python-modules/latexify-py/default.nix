@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, dill
-, fetchFromGitHub
-, hatchling
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  dill,
+  fetchFromGitHub,
+  hatchling,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,21 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-uWSLs7Dem+cj93RWIincCXzPkjZUwQskpDac/L+fgjQ=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    dill
-  ];
+  propagatedBuildInputs = [ dill ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "latexify"
-  ];
+  pythonImportsCheck = [ "latexify" ];
 
   preCheck = ''
     cd src

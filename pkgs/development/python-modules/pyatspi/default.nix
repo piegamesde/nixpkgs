@@ -1,4 +1,14 @@
-{ lib, fetchurl, pkg-config, buildPythonPackage, isPy3k, at-spi2-core, pygobject3, gnome, python }:
+{
+  lib,
+  fetchurl,
+  pkg-config,
+  buildPythonPackage,
+  isPy3k,
+  at-spi2-core,
+  pygobject3,
+  gnome,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pyatspi";
@@ -6,7 +16,9 @@ buildPythonPackage rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1FSJzz1HqhULGjXolJs7MQNfjCB15YjSa278Yllwxi4=";
   };
 
@@ -17,9 +29,7 @@ buildPythonPackage rec {
     pygobject3
   ];
 
-  configureFlags = [
-    "PYTHON=${python.pythonOnBuildForHost.interpreter}"
-  ];
+  configureFlags = [ "PYTHON=${python.pythonOnBuildForHost.interpreter}" ];
 
   postPatch = ''
     # useless python existence check for us

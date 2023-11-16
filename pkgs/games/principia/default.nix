@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
 
-, curl
-, freetype
-, glew
-, gtk2
-, libGL
-, libjpeg
-, libpng
-, SDL2
-, SDL2_gfx
-, SDL2_image
-, SDL2_mixer
-, SDL2_ttf
+  curl,
+  freetype,
+  glew,
+  gtk2,
+  libGL,
+  libjpeg,
+  libpng,
+  SDL2,
+  SDL2_gfx,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
 }:
 
 stdenv.mkDerivation {

@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, treelog
-, stringly
-, flit-core
-, bottombar
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  treelog,
+  stringly,
+  flit-core,
+  bottombar,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-6VvzUKKUB5SkmvC7PFPqGayc51t3PTMPwrxgZI5+jHA=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     numpy
@@ -36,18 +35,15 @@ buildPythonPackage rec {
     bottombar
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "nutils"
-  ];
+  pythonImportsCheck = [ "nutils" ];
 
-  disabledTestPaths = [
-    # AttributeError: type object 'setup' has no attribute '__code__'
-    "tests/test_cli.py"
-  ];
+  disabledTestPaths =
+    [
+      # AttributeError: type object 'setup' has no attribute '__code__'
+      "tests/test_cli.py"
+    ];
 
   meta = with lib; {
     description = "Numerical Utilities for Finite Element Analysis";

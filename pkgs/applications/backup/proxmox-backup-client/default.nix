@@ -1,4 +1,5 @@
-{ lib,
+{
+  lib,
   fetchgit,
   rustPlatform,
   pkg-config,
@@ -52,7 +53,12 @@ in
 rustPlatform.buildRustPackage {
   inherit pname version;
 
-  srcs = [ proxmox-backup_src proxmox_src proxmox-fuse_src proxmox-pxar_src ];
+  srcs = [
+    proxmox-backup_src
+    proxmox_src
+    proxmox-fuse_src
+    proxmox-pxar_src
+  ];
 
   sourceRoot = proxmox-backup_src.name;
 
@@ -119,8 +125,20 @@ rustPlatform.buildRustPackage {
 
   doCheck = false;
 
-  nativeBuildInputs = [ git pkg-config rustPlatform.bindgenHook installShellFiles sphinx ];
-  buildInputs = [ openssl fuse3 libuuid acl libxcrypt ];
+  nativeBuildInputs = [
+    git
+    pkg-config
+    rustPlatform.bindgenHook
+    installShellFiles
+    sphinx
+  ];
+  buildInputs = [
+    openssl
+    fuse3
+    libuuid
+    acl
+    libxcrypt
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = proxmox-backup-client;
@@ -132,7 +150,10 @@ rustPlatform.buildRustPackage {
     homepage = "https://pbs.proxmox.com/docs/backup-client.html";
     changelog = "https://git.proxmox.com/?p=proxmox-backup.git;a=blob;f=debian/changelog;hb=refs/tags/v${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ cofob christoph-heiss ];
+    maintainers = with maintainers; [
+      cofob
+      christoph-heiss
+    ];
     platforms = platforms.linux;
     mainProgram = pname;
   };

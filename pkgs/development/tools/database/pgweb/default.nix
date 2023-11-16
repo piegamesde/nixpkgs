@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
-, pgweb
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  pgweb,
 }:
 
 buildGoModule rec {
@@ -23,22 +24,29 @@ buildGoModule rec {
 
   vendorHash = "sha256-Jpvf6cST3kBvYzCQLoJ1fijUC/hP1ouptd2bQZ1J/Lo=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   checkFlags =
     let
-      skippedTests = [
-        # There is a `/tmp/foo` file on the test machine causing the test case to fail on macOS
-        "TestParseOptions"
-      ];
+      skippedTests =
+        [
+          # There is a `/tmp/foo` file on the test machine causing the test case to fail on macOS
+          "TestParseOptions"
+        ];
     in
-    [ "-skip" "${builtins.concatStringsSep "|" skippedTests}" ];
+    [
+      "-skip"
+      "${builtins.concatStringsSep "|" skippedTests}"
+    ];
 
-    passthru.tests.version = testers.testVersion {
-      version = "v${version}";
-      package = pgweb;
-      command = "pgweb --version";
-    };
+  passthru.tests.version = testers.testVersion {
+    version = "v${version}";
+    package = pgweb;
+    command = "pgweb --version";
+  };
 
   meta = with lib; {
     changelog = "https://github.com/sosedoff/pgweb/releases/tag/v${version}";
@@ -50,6 +58,9 @@ buildGoModule rec {
     homepage = "https://sosedoff.github.io/pgweb/";
     license = licenses.mit;
     mainProgram = "pgweb";
-    maintainers = with maintainers; [ zupo luisnquin ];
+    maintainers = with maintainers; [
+      zupo
+      luisnquin
+    ];
   };
 }

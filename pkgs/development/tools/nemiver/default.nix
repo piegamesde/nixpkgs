@@ -1,23 +1,25 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, gnome
-, gtk3
-, libxml2
-, intltool
-, itstool
-, gdb
-, boost
-, sqlite
-, libgtop
-, glibmm
-, gtkmm3
-, vte
-, gtksourceview
-, gsettings-desktop-schemas
-, gtksourceviewmm
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  gnome,
+  gtk3,
+  libxml2,
+  intltool,
+  itstool,
+  gdb,
+  boost,
+  sqlite,
+  libgtop,
+  glibmm,
+  gtkmm3,
+  vte,
+  gtksourceview,
+  gsettings-desktop-schemas,
+  gtksourceviewmm,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,7 +27,9 @@ stdenv.mkDerivation rec {
   version = "0.9.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/nemiver/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/nemiver/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "85ab8cf6c4f83262f441cb0952a6147d075c3c53d0687389a3555e946b694ef2";
   };
 
@@ -67,9 +71,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [
-    "--enable-gsettings"
-  ];
+  configureFlags = [ "--enable-gsettings" ];
 
   passthru = {
     updateScript = gnome.updateScript {

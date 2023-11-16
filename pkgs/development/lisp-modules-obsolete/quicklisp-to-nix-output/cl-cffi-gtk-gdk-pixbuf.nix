@@ -1,12 +1,23 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-cffi-gtk-gdk-pixbuf";
   version = "cl-cffi-gtk-20201220-git";
 
   description = "A Lisp binding to GDK Pixbuf 2";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cffi" args."cl-cffi-gtk-glib" args."cl-cffi-gtk-gobject" args."closer-mop" args."iterate" args."trivial-features" args."trivial-garbage" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cl-cffi-gtk-glib"
+    args."cl-cffi-gtk-gobject"
+    args."closer-mop"
+    args."iterate"
+    args."trivial-features"
+    args."trivial-garbage"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-cffi-gtk/2020-12-20/cl-cffi-gtk-20201220-git.tgz";
@@ -15,7 +26,7 @@ rec {
 
   packageName = "cl-cffi-gtk-gdk-pixbuf";
 
-  asdFilesToKeep = ["cl-cffi-gtk-gdk-pixbuf.asd"];
+  asdFilesToKeep = [ "cl-cffi-gtk-gdk-pixbuf.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-cffi-gtk-gdk-pixbuf DESCRIPTION A Lisp binding to GDK Pixbuf 2
@@ -39,4 +50,5 @@ rec {
      cl-cffi-gtk-demo-gobject cl-cffi-gtk-example-gtk cl-cffi-gtk-opengl-demo
      cl-cffi-gtk-gdk cl-cffi-gtk-gio cl-cffi-gtk-glib cl-cffi-gtk-gobject
      cl-cffi-gtk cl-cffi-gtk-pango)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

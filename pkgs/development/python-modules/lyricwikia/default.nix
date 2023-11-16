@@ -1,12 +1,13 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
-, six
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -39,14 +40,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [
-    "lyricwikia"
-  ];
+  pythonImportsCheck = [ "lyricwikia" ];
 
-  disabledTests = [
-    # Test requires network access
-    "test_integration"
-  ];
+  disabledTests =
+    [
+      # Test requires network access
+      "test_integration"
+    ];
 
   meta = with lib; {
     description = "LyricWikia API for song lyrics";

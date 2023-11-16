@@ -1,42 +1,47 @@
-{ lib
-, installShellFiles
-, python3
-, fetchPypi
-, fetchFromGitHub
-, nix-update-script
-, testers
-, gimme-aws-creds
+{
+  lib,
+  installShellFiles,
+  python3,
+  fetchPypi,
+  fetchFromGitHub,
+  nix-update-script,
+  testers,
+  gimme-aws-creds,
 }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      fido2 = super.fido2.overridePythonAttrs (oldAttrs: rec {
-        version = "0.9.3";
-        format = "setuptools";
-        src = fetchPypi {
-          inherit (oldAttrs) pname;
-          inherit version;
-          hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
-        };
-      });
+      fido2 = super.fido2.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "0.9.3";
+          format = "setuptools";
+          src = fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
+          };
+        }
+      );
 
-      okta = super.okta.overridePythonAttrs (oldAttrs: rec {
-        version = "0.0.4";
-        format = "setuptools";
-        src = fetchPypi {
-          inherit (oldAttrs) pname;
-          inherit version;
-          hash = "sha256-U+eSxo02hP9BQLTLHAKvOCEJA2j4EQ/eVMC9tjhEkzI=";
-        };
-        propagatedBuildInputs = [
-          self.six
-          self.python-dateutil
-          self.requests
-        ];
-        pythonImportsCheck = [ "okta" ];
-        doCheck = false; # no tests were included with this version
-      });
+      okta = super.okta.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "0.0.4";
+          format = "setuptools";
+          src = fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-U+eSxo02hP9BQLTLHAKvOCEJA2j4EQ/eVMC9tjhEkzI=";
+          };
+          propagatedBuildInputs = [
+            self.six
+            self.python-dateutil
+            self.requests
+          ];
+          pythonImportsCheck = [ "okta" ];
+          doCheck = false; # no tests were included with this version
+        }
+      );
     };
   };
 in
@@ -57,9 +62,7 @@ python.pkgs.buildPythonApplication rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRemoveDeps = [
-    "configparser"
-  ];
+  pythonRemoveDeps = [ "configparser" ];
 
   propagatedBuildInputs = with python.pkgs; [
     boto3
@@ -81,13 +84,9 @@ python.pkgs.buildPythonApplication rec {
     responses
   ];
 
-  disabledTests = [
-    "test_build_factor_name_webauthn_registered"
-  ];
+  disabledTests = [ "test_build_factor_name_webauthn_registered" ];
 
-  pythonImportsCheck = [
-    "gimme_aws_creds"
-  ];
+  pythonImportsCheck = [ "gimme_aws_creds" ];
 
   postInstall = ''
     rm $out/bin/gimme-aws-creds.cmd

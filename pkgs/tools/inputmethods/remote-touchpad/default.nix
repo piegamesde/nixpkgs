@@ -1,10 +1,11 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, libXi
-, libXrandr
-, libXt
-, libXtst
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  libXi,
+  libXrandr,
+  libXt,
+  libXtst,
 }:
 
 buildGoModule rec {
@@ -18,7 +19,12 @@ buildGoModule rec {
     sha256 = "sha256-EfZ8h65jFVdy/U7I2YDoIMHgnnYpUcrOYUAMCPOmK6U=";
   };
 
-  buildInputs = [ libXi libXrandr libXt libXtst ];
+  buildInputs = [
+    libXi
+    libXrandr
+    libXt
+    libXtst
+  ];
   tags = [ "portal,x11" ];
 
   vendorHash = "sha256-UX366UWROeorwYV4l1A3R03J10Gm7EajM+wEczIJEJM=";

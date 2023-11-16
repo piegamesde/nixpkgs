@@ -44,7 +44,13 @@ final: prev:
 let
   # NOTE: We use hasAttr throughout instead of the (?) operator because hasAttr does not require
   # us to interpolate our variables into strings (like ${attrName}).
-  inherit (builtins) attrNames concatMap hasAttr listToAttrs removeAttrs;
+  inherit (builtins)
+    attrNames
+    concatMap
+    hasAttr
+    listToAttrs
+    removeAttrs
+  ;
   inherit (final) callPackage;
   inherit (prev) cudaVersion;
   inherit (prev.lib.attrsets) nameValuePair optionalAttrs;
@@ -81,9 +87,16 @@ let
     let
       # Remove meta attributes from the manifest
       # removeAttrs : AttrSet String b -> Attr String b
-      removeMetaAttrs = flip removeAttrs [ "release_date" "release_label" "release_product" ];
+      removeMetaAttrs = flip removeAttrs [
+        "release_date"
+        "release_label"
+        "release_product"
+      ];
       # processManifest : Path -> Attr Set (String PackageAttrs)
-      processManifest = flip pipe [ importJSON removeMetaAttrs ];
+      processManifest = flip pipe [
+        importJSON
+        removeMetaAttrs
+      ];
       # fullCudaVersion : String
       fullCudaVersion = cudaVersionMap.${cudaVersion};
     in
@@ -98,9 +111,11 @@ let
   buildRedistPackage = callPackage ./build-cuda-redist-package.nix { };
 
   # Function that builds all redist packages given manifests
-  buildRedistPackages = { features, manifest }:
+  buildRedistPackages =
+    { features, manifest }:
     let
-      wrapper = pname:
+      wrapper =
+        pname:
         let
           # Get the redist architectures the package provides distributables for
           packageAttrs = manifest.${pname};

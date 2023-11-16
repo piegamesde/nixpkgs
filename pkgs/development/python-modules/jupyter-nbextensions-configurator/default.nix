@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, jupyter-contrib-core
-, jupyter-core
-, jupyter-server
-, notebook
-, pyyaml
-, tornado
-, nose
-, pytestCheckHook
-, selenium
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jupyter-contrib-core,
+  jupyter-core,
+  jupyter-server,
+  notebook,
+  pyyaml,
+  tornado,
+  nose,
+  pytestCheckHook,
+  selenium,
 }:
 
 buildPythonPackage rec {
@@ -24,14 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-ovKYHATRAC5a5qTMv32ohU2gJd15/fRKXa5HI0zGp/0=";
   };
 
-  patches = [
-    # https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/pull/166
-    (fetchpatch {
-      name = "notebook-v7-compat.patch";
-      url = "https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/commit/a600cef9222ca0c61a6912eb29d8fa0323409705.patch";
-      hash = "sha256-Rt9r5ZOgnhBcs18+ET5+k0/t980I2DiVN8oHkGLp0iw=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/pull/166
+      (fetchpatch {
+        name = "notebook-v7-compat.patch";
+        url = "https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/commit/a600cef9222ca0c61a6912eb29d8fa0323409705.patch";
+        hash = "sha256-Rt9r5ZOgnhBcs18+ET5+k0/t980I2DiVN8oHkGLp0iw=";
+      })
+    ];
 
   propagatedBuildInputs = [
     jupyter-contrib-core

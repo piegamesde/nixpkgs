@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytest
-, pytestCheckHook
-, docutils
-, pygments
-, pytest-rerunfailures
-, pytest-asyncio
-, anyio
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytest,
+  pytestCheckHook,
+  docutils,
+  pygments,
+  pytest-rerunfailures,
+  pytest-asyncio,
+  anyio,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-u9d9RhbikOyknMWs18j2efYJb9YdHsQrp31LfcbudoA=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   nativeCheckInputs = [
     pytestCheckHook

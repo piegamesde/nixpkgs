@@ -1,15 +1,16 @@
-{ lib
-, assertpy
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytest-mockservers
-, pytest-resource-path
-, pytest-sugar
-, pytestCheckHook
-, pythonOlder
-, time-machine
+{
+  lib,
+  assertpy,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytest-mockservers,
+  pytest-resource-path,
+  pytest-sugar,
+  pytestCheckHook,
+  pythonOlder,
+  time-machine,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-coTENnNX8GFLstpQtuJOC8050llW4QuLiutYARDWaSo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   preCheck = ''
     export TZ=Asia/Jerusalem
@@ -53,9 +52,7 @@ buildPythonPackage rec {
     "test_hexadecimale_timestamp_to_localtime_with_the_current_timestamp_should_return_a_time_string"
   ];
 
-  pythonImportsCheck = [
-    "aioswitcher"
-  ];
+  pythonImportsCheck = [ "aioswitcher" ];
 
   meta = with lib; {
     description = "Python module to interact with Switcher water heater";

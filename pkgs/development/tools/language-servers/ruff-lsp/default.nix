@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-, ruff
-, pygls
-, lsprotocol
-, hatchling
-, typing-extensions
-, packaging
-, pytestCheckHook
-, python-lsp-jsonrpc
-, pytest-asyncio
+{
+  lib,
+  stdenv,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ruff,
+  pygls,
+  lsprotocol,
+  hatchling,
+  typing-extensions,
+  packaging,
+  pytestCheckHook,
+  python-lsp-jsonrpc,
+  pytest-asyncio,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     sed -i '/"ruff>=/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     packaging
@@ -68,6 +67,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/astral-sh/ruff-lsp";
     changelog = "https://github.com/astral-sh/ruff-lsp/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda kalekseev ];
+    maintainers = with maintainers; [
+      figsoda
+      kalekseev
+    ];
   };
 }

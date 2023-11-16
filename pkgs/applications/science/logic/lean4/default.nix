@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, cmake
-, fetchFromGitHub
-, git
-, gmp
-, perl
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
+  git,
+  gmp,
+  perl,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,22 +32,16 @@ stdenv.mkDerivation rec {
     patchShebangs stage0/src/bin/ src/bin/
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    gmp
-  ];
+  buildInputs = [ gmp ];
 
   nativeCheckInputs = [
     git
     perl
   ];
 
-  cmakeFlags = [
-    "-DUSE_GITHASH=OFF"
-  ];
+  cmakeFlags = [ "-DUSE_GITHASH=OFF" ];
 
   meta = with lib; {
     description = "Automatic and interactive theorem prover";

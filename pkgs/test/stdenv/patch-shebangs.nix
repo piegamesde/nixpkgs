@@ -1,4 +1,8 @@
-{ lib, stdenv, pkgs }:
+{
+  lib,
+  stdenv,
+  pkgs,
+}:
 
 # since the tests are using a early stdenv, the stdenv will have dontPatchShebangs=1, so it has to be unset
 # https://github.com/NixOS/nixpkgs/blob/768a982bfc9d29a6bd3beb963ed4b054451ce3d0/pkgs/stdenv/linux/default.nix#L148-L153
@@ -35,7 +39,7 @@ let
         dontPatchShebangs=
       '';
       passthru = {
-        assertion = "grep \"^#!$NIX_STORE/path/to/bash\" $out/bin/test > /dev/null";
+        assertion = ''grep "^#!$NIX_STORE/path/to/bash" $out/bin/test > /dev/null'';
       };
     };
 
@@ -71,12 +75,18 @@ let
         assertion = "grep -v '^#!${pkgs.coreutils}/bin/env -S ${stdenv.shell} --posix' $out/bin/test > /dev/null";
       };
     };
-
   };
 in
 stdenv.mkDerivation {
   name = "test-patch-shebangs";
-  passthru = { inherit (tests) bad-shebang ignores-nix-store updates-nix-store split-string; };
+  passthru = {
+    inherit (tests)
+      bad-shebang
+      ignores-nix-store
+      updates-nix-store
+      split-string
+    ;
+  };
   buildCommand = ''
     validate() {
       local name=$1
@@ -100,9 +110,13 @@ stdenv.mkDerivation {
     echo "checking whether patchShebangs works properly... ">&2
 
     fail=
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (_: test: ''
-      validate "${test.name}" "${test}" ${lib.escapeShellArg test.assertion} || fail=1
-    '') tests)}
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList
+        (_: test: ''
+          validate "${test.name}" "${test}" ${lib.escapeShellArg test.assertion} || fail=1
+        '')
+        tests
+    )}
 
     if [ "$fail" ]; then
       echo "failed"

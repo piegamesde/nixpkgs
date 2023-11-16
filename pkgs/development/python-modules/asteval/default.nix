@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -27,22 +28,17 @@ buildPythonPackage rec {
       --replace " --cov=asteval --cov-report xml" ""
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "asteval"
-  ];
+  pythonImportsCheck = [ "asteval" ];
 
-  disabledTests = [
-    # AssertionError: 'ImportError' != None
-    "test_set_default_nodehandler"
-  ];
+  disabledTests =
+    [
+      # AssertionError: 'ImportError' != None
+      "test_set_default_nodehandler"
+    ];
 
   meta = with lib; {
     description = "AST evaluator of Python expression using ast module";

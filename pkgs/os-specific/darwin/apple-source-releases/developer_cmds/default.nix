@@ -1,14 +1,24 @@
-{ lib, appleDerivation, xcbuildHook, llvmPackages, makeWrapper }:
+{
+  lib,
+  appleDerivation,
+  xcbuildHook,
+  llvmPackages,
+  makeWrapper,
+}:
 
 appleDerivation {
-  nativeBuildInputs = [ xcbuildHook makeWrapper ];
-
-  patches = [
-    # The following copied from
-    # https://github.com/Homebrew/homebrew-core/commit/712ed3e948868e17f96b7e59972b5f45d4faf688
-    # is needed to build libvirt.
-    ./rpcgen-support-hyper-and-quad-types.patch
+  nativeBuildInputs = [
+    xcbuildHook
+    makeWrapper
   ];
+
+  patches =
+    [
+      # The following copied from
+      # https://github.com/Homebrew/homebrew-core/commit/712ed3e948868e17f96b7e59972b5f45d4faf688
+      # is needed to build libvirt.
+      ./rpcgen-support-hyper-and-quad-types.patch
+    ];
 
   postPatch = ''
     makeWrapper ${llvmPackages.clang}/bin/clang $out/bin/clang-cpp --add-flags "--driver-mode=cpp"

@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-KdL0lwlmBEG++JRociR92HdYxzArTeL5uEyUjvvwi1Y=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "iteration_utilities"
-  ];
+  pythonImportsCheck = [ "iteration_utilities" ];
 
   meta = with lib; {
     description = "Utilities based on Pythons iterators and generators";

@@ -1,29 +1,42 @@
-{ pkgspath ? ../../.., test-pkgspath ? pkgspath
-, localSystem ? { system = builtins.currentSystem; }
-, crossSystem ? null
-, bootstrapFiles ? null
+{
+  pkgspath ? ../../..,
+  test-pkgspath ? pkgspath,
+  localSystem ? { system = builtins.currentSystem; },
+  crossSystem ? null,
+  bootstrapFiles ? null,
 }:
 
-let cross = if crossSystem != null
-      then { inherit crossSystem; }
-      else {};
-    custom-bootstrap = if bootstrapFiles != null
-      then { stdenvStages = args:
-              let args' = args // { bootstrapFiles = bootstrapFiles; };
-              in (import "${pkgspath}/pkgs/stdenv/darwin" args');
-           }
-      else {};
-in with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
+let
+  cross = if crossSystem != null then { inherit crossSystem; } else { };
+  custom-bootstrap =
+    if bootstrapFiles != null then
+      {
+        stdenvStages =
+          args:
+          let
+            args' = args // {
+              bootstrapFiles = bootstrapFiles;
+            };
+          in
+          (import "${pkgspath}/pkgs/stdenv/darwin" args');
+      }
+    else
+      { };
+in
+with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
 
 let
   llvmPackages = llvmPackages_11;
-in rec {
-  coreutils_ = coreutils.override (args: {
-    # We want coreutils without ACL support.
-    aclSupport = false;
-    # Cannot use a single binary build, or it gets dynamically linked against gmp.
-    singleBinary = false;
-  });
+in
+rec {
+  coreutils_ = coreutils.override (
+    args: {
+      # We want coreutils without ACL support.
+      aclSupport = false;
+      # Cannot use a single binary build, or it gets dynamically linked against gmp.
+      singleBinary = false;
+    }
+  );
 
   cctools_ = darwin.cctools;
 
@@ -31,12 +44,20 @@ in rec {
   bzip2_ = bzip2.override (args: { linkStatic = true; });
 
   # Avoid messing with libkrb5 and libnghttp2.
-  curl_ = curlMinimal.override (args: { gssSupport = false; http2Support = false; });
+  curl_ = curlMinimal.override (
+    args: {
+      gssSupport = false;
+      http2Support = false;
+    }
+  );
 
   build = stdenv.mkDerivation {
     name = "stdenv-bootstrap-tools";
 
-    nativeBuildInputs = [ nukeReferences dumpnar ];
+    nativeBuildInputs = [
+      nukeReferences
+      dumpnar
+    ];
 
     buildCommand = ''
       mkdir -p $out/bin $out/lib $out/lib/system $out/lib/darwin
@@ -168,12 +189,15 @@ in rec {
         fi
       done
 
-      ${if stdenv.targetPlatform.isx86_64 then ''
-        rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
-      '' else ''
-        sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
-          $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
-      ''}
+      ${if stdenv.targetPlatform.isx86_64 then
+        ''
+          rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+        ''
+      else
+        ''
+          sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
+            $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
+        ''}
 
       nuke-refs $out/lib/*
       nuke-refs $out/lib/system/*
@@ -190,7 +214,7 @@ in rec {
       dumpnar $out/pack | ${xz}/bin/xz > $out/on-server/bootstrap-tools.nar.xz
     '';
 
-    allowedReferences = [];
+    allowedReferences = [ ];
 
     meta = {
       maintainers = [ lib.maintainers.copumpkin ];
@@ -311,15 +335,14 @@ in rec {
 
   # The ultimate test: bootstrap a whole stdenv from the tools specified above and get a package set out of it
   # TODO: uncomment once https://github.com/NixOS/nixpkgs/issues/222717 is resolved
-  /*
-  test-pkgs = import test-pkgspath {
-    # if the bootstrap tools are for another platform, we should be testing
-    # that platform.
-    localSystem = if crossSystem != null then crossSystem else localSystem;
+  /* test-pkgs = import test-pkgspath {
+       # if the bootstrap tools are for another platform, we should be testing
+       # that platform.
+       localSystem = if crossSystem != null then crossSystem else localSystem;
 
-    stdenvStages = args: let
-        args' = args // { inherit bootstrapFiles; };
-      in (import (test-pkgspath + "/pkgs/stdenv/darwin") args');
-  };
+       stdenvStages = args: let
+           args' = args // { inherit bootstrapFiles; };
+         in (import (test-pkgspath + "/pkgs/stdenv/darwin") args');
+     };
   */
 }

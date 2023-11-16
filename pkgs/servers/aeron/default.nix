@@ -6,7 +6,7 @@
   gradle,
   makeWrapper,
   perl,
-  writeText
+  writeText,
 }:
 
 let
@@ -86,14 +86,12 @@ let
       implementation 'org.eclipse.jgit:org.eclipse.jgit:5.13.1.202206130422-r'
     }
   '';
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
 
   inherit pname src version;
 
-  buildInputs = [
-    jdk11
-  ];
+  buildInputs = [ jdk11 ];
 
   nativeBuildInputs = [
     gradle

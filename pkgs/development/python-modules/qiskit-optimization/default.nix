@@ -1,19 +1,20 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
   # Python Inputs
-, decorator
-, docplex
-, networkx
-, numpy
-, qiskit-terra
-, scipy
+  decorator,
+  docplex,
+  networkx,
+  numpy,
+  qiskit-terra,
+  scipy,
   # Check Inputs
-, pytestCheckHook
-, ddt
-, pylatexenc
-, qiskit-aer
+  pytestCheckHook,
+  ddt,
+  pylatexenc,
+  qiskit-aer,
 }:
 
 buildPythonPackage rec {

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, sphinx
-, requests
-, flit-core
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  requests,
+  flit-core,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-/mu/OGMc+iP7DV36fmE8pb5y6MMOQ0fmzT8R7RP/tjM=";
   };
 
-  propagatedBuildInputs = [ sphinx requests ];
+  propagatedBuildInputs = [
+    sphinx
+    requests
+  ];
 
   # tests require internet access
   doCheck = false;

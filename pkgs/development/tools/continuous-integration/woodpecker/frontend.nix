@@ -1,19 +1,28 @@
-{ lib, buildPackages, callPackage, fetchFromGitHub, fetchYarnDeps, mkYarnPackage }:
+{
+  lib,
+  buildPackages,
+  callPackage,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  mkYarnPackage,
+}:
 let
   common = callPackage ./common.nix { };
 
-  esbuild_0_17_19 = buildPackages.esbuild.overrideAttrs (_: rec {
-    version = "0.17.19";
+  esbuild_0_17_19 = buildPackages.esbuild.overrideAttrs (
+    _: rec {
+      version = "0.17.19";
 
-    src = fetchFromGitHub {
-      owner = "evanw";
-      repo = "esbuild";
-      rev = "v${version}";
-      hash = "sha256-PLC7OJLSOiDq4OjvrdfCawZPfbfuZix4Waopzrj8qsU=";
-    };
+      src = fetchFromGitHub {
+        owner = "evanw";
+        repo = "esbuild";
+        rev = "v${version}";
+        hash = "sha256-PLC7OJLSOiDq4OjvrdfCawZPfbfuZix4Waopzrj8qsU=";
+      };
 
-    vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-  });
+      vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+    }
+  );
 in
 mkYarnPackage {
   pname = "woodpecker-frontend";

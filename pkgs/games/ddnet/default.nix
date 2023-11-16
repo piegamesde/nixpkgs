@@ -1,35 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cargo
-, cmake
-, ninja
-, pkg-config
-, rustPlatform
-, rustc
-, curl
-, freetype
-, libGLU
-, libnotify
-, libogg
-, libX11
-, opusfile
-, pcre
-, python3
-, SDL2
-, sqlite
-, wavpack
-, ffmpeg
-, x264
-, vulkan-headers
-, vulkan-loader
-, glslang
-, spirv-tools
-, gtest
-, Carbon
-, Cocoa
-, OpenGL
-, Security
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cargo,
+  cmake,
+  ninja,
+  pkg-config,
+  rustPlatform,
+  rustc,
+  curl,
+  freetype,
+  libGLU,
+  libnotify,
+  libogg,
+  libX11,
+  opusfile,
+  pcre,
+  python3,
+  SDL2,
+  sqlite,
+  wavpack,
+  ffmpeg,
+  x264,
+  vulkan-headers,
+  vulkan-loader,
+  glslang,
+  spirv-tools,
+  gtest,
+  Carbon,
+  Cocoa,
+  OpenGL,
+  Security,
 }:
 
 stdenv.mkDerivation rec {
@@ -58,39 +59,42 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
   ];
 
-  nativeCheckInputs = [
-    gtest
-  ];
+  nativeCheckInputs = [ gtest ];
 
-  buildInputs = [
-    curl
-    freetype
-    libGLU
-    libnotify
-    libogg
-    libX11
-    opusfile
-    pcre
-    python3
-    SDL2
-    sqlite
-    wavpack
-    ffmpeg
-    x264
-    vulkan-loader
-    vulkan-headers
-    glslang
-    spirv-tools
-  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa OpenGL Security ];
+  buildInputs =
+    [
+      curl
+      freetype
+      libGLU
+      libnotify
+      libogg
+      libX11
+      opusfile
+      pcre
+      python3
+      SDL2
+      sqlite
+      wavpack
+      ffmpeg
+      x264
+      vulkan-loader
+      vulkan-headers
+      glslang
+      spirv-tools
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      Cocoa
+      OpenGL
+      Security
+    ];
 
   postPatch = ''
     substituteInPlace src/engine/shared/storage.cpp \
       --replace /usr/ $out/
   '';
 
-  cmakeFlags = [
-    "-DAUTOUPDATE=OFF"
-  ];
+  cmakeFlags = [ "-DAUTOUPDATE=OFF" ];
 
   doCheck = true;
   checkTarget = "run_tests";
@@ -106,7 +110,11 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://ddnet.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sirseruju lom ncfavier ];
+    maintainers = with maintainers; [
+      sirseruju
+      lom
+      ncfavier
+    ];
     mainProgram = "DDNet";
   };
 }

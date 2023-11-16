@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libiodbc, postgresql, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libiodbc,
+  postgresql,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "psqlodbc";
@@ -9,7 +16,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-s5t+XEH9ZHXFUREvpyS/V8SkRhdexBiKkOKETMFhJYU=";
   };
 
-  buildInputs = [ libiodbc postgresql openssl ];
+  buildInputs = [
+    libiodbc
+    postgresql
+    openssl
+  ];
 
   configureFlags = [
     "--with-iodbc=${libiodbc}"

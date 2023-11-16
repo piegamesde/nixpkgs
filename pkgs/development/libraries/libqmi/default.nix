@@ -1,32 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, help2man
-, glib
-, python3
-, mesonEmulatorHook
-, libgudev
-, bash-completion
-, libmbim
-, libqrtr-glib
-, buildPackages
-, withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection && stdenv.hostPlatform.emulatorAvailable buildPackages
-, withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  help2man,
+  glib,
+  python3,
+  mesonEmulatorHook,
+  libgudev,
+  bash-completion,
+  libmbim,
+  libqrtr-glib,
+  buildPackages,
+  withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection
+    && stdenv.hostPlatform.emulatorAvailable buildPackages,
+  withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libqmi";
   version = "1.32.4";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optional withIntrospection "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -36,34 +40,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-cczGvoD+2+G6uiAt0Iv1BO4/FqzO9bkqhFsEwOfp7qw=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-  ] ++ lib.optionals withMan [
-    help2man
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      python3
+    ]
+    ++ lib.optionals withMan [ help2man ]
+    ++ lib.optionals withIntrospection [
+      gobject-introspection
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+    ]
+    ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     bash-completion
     libmbim
-  ] ++ lib.optionals withIntrospection [
-    libgudev
-  ];
+  ] ++ lib.optionals withIntrospection [ libgudev ];
 
-  propagatedBuildInputs = [
-    glib
-  ] ++ lib.optionals withIntrospection [
-    libqrtr-glib
-  ];
+  propagatedBuildInputs = [ glib ] ++ lib.optionals withIntrospection [ libqrtr-glib ];
 
   mesonFlags = [
     "-Dudevdir=${placeholder "out"}/lib/udev"

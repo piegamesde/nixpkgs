@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cython_3
-, gdal
-, oldest-supported-numpy
-, setuptools
-, wheel
-, attrs
-, certifi
-, click
-, click-plugins
-, cligj
-, munch
-, shapely
-, boto3
-, pytestCheckHook
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cython_3,
+  gdal,
+  oldest-supported-numpy,
+  setuptools,
+  wheel,
+  attrs,
+  certifi,
+  click,
+  click-plugins,
+  cligj,
+  munch,
+  shapely,
+  boto3,
+  pytestCheckHook,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [
-    gdal
-  ];
+  buildInputs = [ gdal ];
 
   propagatedBuildInputs = [
     attrs
@@ -68,11 +67,12 @@ buildPythonPackage rec {
     rm -r fiona # prevent importing local fiona
   '';
 
-  pytestFlagsArray = [
-    # Tests with gdal marker do not test the functionality of Fiona,
-    # but they are used to check GDAL driver capabilities.
-    "-m 'not gdal'"
-  ];
+  pytestFlagsArray =
+    [
+      # Tests with gdal marker do not test the functionality of Fiona,
+      # but they are used to check GDAL driver capabilities.
+      "-m 'not gdal'"
+    ];
 
   disabledTests = [
     # Some tests access network, others test packaging
@@ -84,9 +84,7 @@ buildPythonPackage rec {
     "test_append_memoryfile_drivers"
   ];
 
-  pythonImportsCheck = [
-    "fiona"
-  ];
+  pythonImportsCheck = [ "fiona" ];
 
   doInstallCheck = true;
 

@@ -1,8 +1,9 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-nKXZXOpwVN8Xe1vwwPGPucvyffiIQ8I4D+0A3qGco5w=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "asyncsleepiq"
-  ];
+  pythonImportsCheck = [ "asyncsleepiq" ];
 
   meta = with lib; {
     description = "Async interface to SleepIQ API";

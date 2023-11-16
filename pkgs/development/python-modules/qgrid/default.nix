@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, ipywidgets
-, notebook
-, pandas
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  ipywidgets,
+  notebook,
+  pandas,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,14 +18,15 @@ buildPythonPackage rec {
     sha256 = "sha256-/or1tQgzCE3AtqJlzRrHuDfAPA+FIRUBY1YNzneNcRw=";
   };
 
-  patches = [
-    # Fixes compatibility of qgrid with ipywidgets >= 8.0.0
-    # See https://github.com/quantopian/qgrid/pull/331
-    (fetchpatch {
-      url = "https://github.com/quantopian/qgrid/pull/331/commits/8cc50d5117d4208a9dd672418021c59898e2d1b2.patch";
-      hash = "sha256-+NLz4yBUGUXKyukPVE4PehenPzjnfljR5RAX7CEtpV4=";
-    })
-  ];
+  patches =
+    [
+      # Fixes compatibility of qgrid with ipywidgets >= 8.0.0
+      # See https://github.com/quantopian/qgrid/pull/331
+      (fetchpatch {
+        url = "https://github.com/quantopian/qgrid/pull/331/commits/8cc50d5117d4208a9dd672418021c59898e2d1b2.patch";
+        hash = "sha256-+NLz4yBUGUXKyukPVE4PehenPzjnfljR5RAX7CEtpV4=";
+      })
+    ];
 
   propagatedBuildInputs = [
     ipywidgets
@@ -32,9 +34,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Those tests are also failing upstream
   disabledTests = [

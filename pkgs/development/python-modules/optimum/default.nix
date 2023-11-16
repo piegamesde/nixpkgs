@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, coloredlogs
-, datasets
-, evaluate
-, h5py
-, huggingface-hub
-, numpy
-, onnx
-, onnxruntime
-, packaging
-, protobuf
-, sympy
-, tensorflow
-, tf2onnx
-, timm
-, torch
-, transformers
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  coloredlogs,
+  datasets,
+  evaluate,
+  h5py,
+  huggingface-hub,
+  numpy,
+  onnx,
+  onnxruntime,
+  packaging,
+  protobuf,
+  sympy,
+  tensorflow,
+  tf2onnx,
+  timm,
+  torch,
+  transformers,
 }:
 
 buildPythonPackage rec {
@@ -67,37 +68,46 @@ buildPythonPackage rec {
       h5py
       numpy
     ];
-    diffusers = [
-      # diffusers
-    ];
-    intel = [
-      # optimum-intel
-    ];
-    openvino = [
-      # optimum-intel
-    ]; # ++ optimum-intel.optional-dependencies.openvino;
-    nncf = [
-      # optimum-intel
-    ]; # ++ optimum-intel.optional-dependencies.nncf;
-    neural-compressor = [
-      # optimum-intel
-    ]; # ++ optimum-intel.optional-dependencies.neural-compressor;
-    graphcore = [
-      # optimum-graphcore
-    ];
+    diffusers =
+      [
+        # diffusers
+      ];
+    intel =
+      [
+        # optimum-intel
+      ];
+    openvino =
+      [
+        # optimum-intel
+      ]; # ++ optimum-intel.optional-dependencies.openvino;
+    nncf =
+      [
+        # optimum-intel
+      ]; # ++ optimum-intel.optional-dependencies.nncf;
+    neural-compressor =
+      [
+        # optimum-intel
+      ]; # ++ optimum-intel.optional-dependencies.neural-compressor;
+    graphcore =
+      [
+        # optimum-graphcore
+      ];
     habana = [
       transformers
       # optimum-habana
     ];
-    neuron = [
-      # optimum-neuron
-    ]; # ++ optimum-neuron.optional-dependencies.neuron;
-    neuronx = [
-      # optimum-neuron
-    ]; # ++ optimum-neuron.optional-dependencies.neuronx;
-    furiosa = [
-      # optimum-furiosa
-    ];
+    neuron =
+      [
+        # optimum-neuron
+      ]; # ++ optimum-neuron.optional-dependencies.neuron;
+    neuronx =
+      [
+        # optimum-neuron
+      ]; # ++ optimum-neuron.optional-dependencies.neuronx;
+    furiosa =
+      [
+        # optimum-furiosa
+      ];
   };
 
   # almost all tests try to connect to https://huggingface.co

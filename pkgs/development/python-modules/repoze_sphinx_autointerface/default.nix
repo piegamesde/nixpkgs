@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, zope_interface
-, zope_testrunner
-, sphinx
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  zope_interface,
+  zope_testrunner,
+  sphinx,
 }:
 
 buildPythonPackage rec {

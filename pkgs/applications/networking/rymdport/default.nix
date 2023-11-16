@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, pkg-config
-, libGL
-, xorg
-, Carbon
-, Cocoa
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  libGL,
+  xorg,
+  Carbon,
+  Cocoa,
 }:
 
 buildGoModule rec {
@@ -22,24 +23,25 @@ buildGoModule rec {
 
   vendorHash = "sha256-SDNCVROfwCTfoQpUyChxtX3rTf0OPFOTzH5PeH4ahUI=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = with xorg; [
-    libGL
-    libX11
-    libXcursor
-    libXext
-    libXi
-    libXinerama
-    libXrandr
-    libXxf86vm
-  ] ++ lib.optionals stdenv.isDarwin [
-    Carbon
-    Cocoa
-    IOKit
-  ];
+  buildInputs =
+    with xorg;
+    [
+      libGL
+      libX11
+      libXcursor
+      libXext
+      libXi
+      libXinerama
+      libXrandr
+      libXxf86vm
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      Cocoa
+      IOKit
+    ];
 
   meta = {
     description = "Easy encrypted file, folder, and text sharing between devices";

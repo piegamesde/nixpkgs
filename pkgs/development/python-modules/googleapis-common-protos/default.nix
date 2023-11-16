@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, grpc
-, protobuf
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  grpc,
+  protobuf,
 }:
 
 buildPythonPackage rec {
@@ -14,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-5z67QECY20BbqV0eGuCqkcPhWnHaAxou62suI+e8Nwg=";
   };
 
-  propagatedBuildInputs = [ grpc protobuf ];
+  propagatedBuildInputs = [
+    grpc
+    protobuf
+  ];
 
   # does not contain tests
   doCheck = false;

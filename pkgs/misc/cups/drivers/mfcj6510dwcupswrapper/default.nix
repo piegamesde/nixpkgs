@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, mfcj6510dwlpr, makeWrapper}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mfcj6510dwlpr,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mfcj6510dw-cupswrapper";
@@ -16,7 +22,7 @@ stdenv.mkDerivation rec {
     cd brcupsconfig
     make all
     cd ..
-    '';
+  '';
 
   installPhase = ''
     TARGETFOLDER=$out/opt/brother/Printers/mfcj6510dw/cupswrapper
@@ -47,12 +53,12 @@ stdenv.mkDerivation rec {
     #substituteInPlace $CPUSFILTERFOLDER/brother_lpdwrapper_mfcj6510dw \
     #  --replace "$``{printer_model``}" "mfcj6510dw" \
     #  --replace "$``{printer_name``}" "MFCJ6510DW"
-    '';
+  '';
 
   cleanPhase = ''
     cd brcupsconfpt1
     make clean
-    '';
+  '';
 
   meta = with lib; {
     homepage = "http://www.brother.com/";

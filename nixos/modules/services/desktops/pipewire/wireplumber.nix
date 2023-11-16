@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   pwCfg = config.services.pipewire;
@@ -14,7 +19,9 @@ in
         type = lib.types.bool;
         default = config.services.pipewire.enable;
         defaultText = lib.literalExpression "config.services.pipewire.enable";
-        description = lib.mdDoc "Whether to enable Wireplumber, a modular session / policy manager for PipeWire";
+        description =
+          lib.mdDoc
+            "Whether to enable Wireplumber, a modular session / policy manager for PipeWire";
       };
 
       package = lib.mkOption {
@@ -42,20 +49,24 @@ in
         alsa_monitor.enable = function() end
       '';
     };
-    environment.etc."wireplumber/main.lua.d/80-systemwide.lua" = lib.mkIf config.services.pipewire.systemWide {
-      text = ''
-        -- When running system-wide, these settings need to be disabled (they
-        -- use functions that aren't available on the system dbus).
-        alsa_monitor.properties["alsa.reserve"] = false
-        default_access.properties["enable-flatpak-portal"] = false
-      '';
-    };
-    environment.etc."wireplumber/bluetooth.lua.d/80-systemwide.lua" = lib.mkIf config.services.pipewire.systemWide {
-      text = ''
-        -- When running system-wide, logind-integration needs to be disabled.
-        bluez_monitor.properties["with-logind"] = false
-      '';
-    };
+    environment.etc."wireplumber/main.lua.d/80-systemwide.lua" =
+      lib.mkIf config.services.pipewire.systemWide
+        {
+          text = ''
+            -- When running system-wide, these settings need to be disabled (they
+            -- use functions that aren't available on the system dbus).
+            alsa_monitor.properties["alsa.reserve"] = false
+            default_access.properties["enable-flatpak-portal"] = false
+          '';
+        };
+    environment.etc."wireplumber/bluetooth.lua.d/80-systemwide.lua" =
+      lib.mkIf config.services.pipewire.systemWide
+        {
+          text = ''
+            -- When running system-wide, logind-integration needs to be disabled.
+            bluez_monitor.properties["with-logind"] = false
+          '';
+        };
 
     systemd.packages = [ cfg.package ];
 

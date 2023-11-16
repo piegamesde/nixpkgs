@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, buildNpmPackage
-, makeWrapper
-, electron_25
-, python3
-, stdenv
-, copyDesktopItems
-, makeDesktopItem
+{
+  lib,
+  fetchFromGitHub,
+  buildNpmPackage,
+  makeWrapper,
+  electron_25,
+  python3,
+  stdenv,
+  copyDesktopItems,
+  makeDesktopItem,
 }:
 
 let
@@ -21,13 +22,14 @@ let
   };
 
   electron = electron_25;
-
 in
 buildNpmPackage {
   inherit pname version src;
 
-  nativeBuildInputs = [ makeWrapper python3 ]
-    ++ lib.optionals (!stdenv.isDarwin) [ copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    python3
+  ] ++ lib.optionals (!stdenv.isDarwin) [ copyDesktopItems ];
 
   npmDepsHash = "sha256-XGV0mTywYYxpMitojzIILB/Eu/8dfk/aCvUxIkx4SDQ=";
   makeCacheWritable = true;
@@ -36,36 +38,42 @@ buildNpmPackage {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
   };
 
-  postBuild = lib.optionalString stdenv.isDarwin ''
-    cp -R ${electron}/Applications/Electron.app Electron.app
-    chmod -R u+w Electron.app
-  '' + ''
-    npm exec electron-builder -- \
-      --dir \
-      -c.electronDist=${if stdenv.isDarwin then "." else "${electron}/libexec/electron"} \
-      -c.electronVersion=${electron.version}
-  '';
+  postBuild =
+    lib.optionalString stdenv.isDarwin ''
+      cp -R ${electron}/Applications/Electron.app Electron.app
+      chmod -R u+w Electron.app
+    ''
+    + ''
+      npm exec electron-builder -- \
+        --dir \
+        -c.electronDist=${if stdenv.isDarwin then "." else "${electron}/libexec/electron"} \
+        -c.electronVersion=${electron.version}
+    '';
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/{Applications,bin}
-    mv pack/mac*/YouTube\ Music.app $out/Applications
-    makeWrapper $out/Applications/YouTube\ Music.app/Contents/MacOS/YouTube\ Music $out/bin/youtube-music
-  '' + lib.optionalString (!stdenv.isDarwin) ''
-    mkdir -p "$out/share/lib/youtube-music"
-    cp -r pack/*-unpacked/{locales,resources{,.pak}} "$out/share/lib/youtube-music"
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/{Applications,bin}
+      mv pack/mac*/YouTube\ Music.app $out/Applications
+      makeWrapper $out/Applications/YouTube\ Music.app/Contents/MacOS/YouTube\ Music $out/bin/youtube-music
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
+      mkdir -p "$out/share/lib/youtube-music"
+      cp -r pack/*-unpacked/{locales,resources{,.pak}} "$out/share/lib/youtube-music"
 
-    pushd assets/generated/icons/png
-    for file in *.png; do
-      install -Dm0644 $file $out/share/icons/hicolor/''${file//.png}/apps/youtube-music.png
-    done
-    popd
-  '' + ''
+      pushd assets/generated/icons/png
+      for file in *.png; do
+        install -Dm0644 $file $out/share/icons/hicolor/''${file//.png}/apps/youtube-music.png
+      done
+      popd
+    ''
+    + ''
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   postFixup = lib.optionalString (!stdenv.isDarwin) ''
     makeWrapper ${electron}/bin/electron $out/bin/youtube-music \
@@ -83,7 +91,7 @@ buildNpmPackage {
       icon = "youtube-music";
       desktopName = "Youtube Music";
       startupWMClass = "Youtube Music";
-      categories = ["AudioVideo"];
+      categories = [ "AudioVideo" ];
     })
   ];
 

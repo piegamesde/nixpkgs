@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, numpy
-, cython
-, zlib
-, python-lzo
-, nose
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  numpy,
+  cython,
+  zlib,
+  python-lzo,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -23,22 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-j2GKj2IGDBk4LBnISRx6ZW/lh5VSdQBasC0gCRj0Fiw=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
   propagatedBuildInputs = [
     numpy
     python-lzo
   ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   postInstall = ''
     cp -r scripts/* $out/bin

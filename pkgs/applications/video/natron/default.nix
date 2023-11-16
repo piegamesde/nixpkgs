@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapQtAppsHook
-, boost
-, cairo
-, ceres-solver
-, expat
-, extra-cmake-modules
-, glog
-, libXdmcp
-, python3
-, wayland
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
+  boost,
+  cairo,
+  ceres-solver,
+  expat,
+  extra-cmake-modules,
+  glog,
+  libXdmcp,
+  python3,
+  wayland,
 }:
 
 let
@@ -66,7 +67,12 @@ stdenv.mkDerivation {
 
   postFixup = ''
     wrapProgram $out/bin/Natron \
-      --prefix PYTHONPATH : "${python3.pkgs.makePythonPath [ python3.pkgs.qtpy python3.pkgs.pyside2 ]}" \
+      --prefix PYTHONPATH : "${
+        python3.pkgs.makePythonPath [
+          python3.pkgs.qtpy
+          python3.pkgs.pyside2
+        ]
+      }" \
       --set-default OCIO "$out/share/OpenColorIO-Configs/blender/config.ocio"
   '';
 

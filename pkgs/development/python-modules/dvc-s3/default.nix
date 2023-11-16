@@ -1,13 +1,15 @@
-{ lib
-, aiobotocore
-, boto3
-, buildPythonPackage
-, dvc-objects
-, fetchPypi
-, flatten-dict
-, pythonRelaxDepsHook
-, s3fs
-, setuptools-scm }:
+{
+  lib,
+  aiobotocore,
+  boto3,
+  buildPythonPackage,
+  dvc-objects,
+  fetchPypi,
+  flatten-dict,
+  pythonRelaxDepsHook,
+  s3fs,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-s3";
@@ -27,10 +29,17 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace 'aiobotocore[boto3]' 'aiobotocore'
   '';
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
-    aiobotocore boto3 dvc-objects flatten-dict s3fs
+    aiobotocore
+    boto3
+    dvc-objects
+    flatten-dict
+    s3fs
   ];
 
   # Network access is needed for tests

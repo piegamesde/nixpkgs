@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, attrs
-, asn1crypto
-, cryptodatahub
-, python-dateutil
-, urllib3
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  attrs,
+  asn1crypto,
+  cryptodatahub,
+  python-dateutil,
+  urllib3,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-fgPmgZxv/UpaoeBO08xcUbPxmjVV4AUEgivNOvWxd04=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     asn1crypto
@@ -33,9 +32,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  pythonImportsCheck = [
-    "cryptoparser"
-  ];
+  pythonImportsCheck = [ "cryptoparser" ];
 
   meta = with lib; {
     description = "Security protocol parser and generator";

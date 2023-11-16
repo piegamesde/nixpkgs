@@ -1,21 +1,22 @@
-{ lib
-, python
-, buildPythonPackage
-, fetchFromGitHub
-, openmp
-, ply
-, gast
-, numpy
-, beniget
-, xsimd
-, isPy3k
-, substituteAll
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  openmp,
+  ply,
+  gast,
+  numpy,
+  beniget,
+  xsimd,
+  isPy3k,
+  substituteAll,
 }:
 
 let
   inherit (python) stdenv;
-
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "pythran";
   version = "0.13.1";
 
@@ -26,13 +27,16 @@ in buildPythonPackage rec {
     hash = "sha256-baDrReJgQXbaKA8KNhHiFjr0X34yb8WK/nUJmiM9EZs=";
   };
 
-  patches = [
-    # Hardcode path to mp library
-    (substituteAll {
-      src = ./0001-hardcode-path-to-libgomp.patch;
-      gomp = "${if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib}/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches =
+    [
+      # Hardcode path to mp library
+      (substituteAll {
+        src = ./0001-hardcode-path-to-libgomp.patch;
+        gomp = "${
+            if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib
+          }/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   # xsimd: unvendor this header-only C++ lib
   postPatch = ''

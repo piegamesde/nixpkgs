@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, et-xmlfile
-, fetchFromGitLab
-, jdcal
-, lxml
-, pillow
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  et-xmlfile,
+  fetchFromGitLab,
+  jdcal,
+  lxml,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "openpyxl"
-  ];
+  pythonImportsCheck = [ "openpyxl" ];
 
   meta = with lib; {
     description = "Python library to read/write Excel 2010 xlsx/xlsm files";

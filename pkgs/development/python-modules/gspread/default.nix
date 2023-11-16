@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, google-auth
-, google-auth-oauthlib
-, pytest-vcr
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  google-auth,
+  google-auth-oauthlib,
+  pytest-vcr,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-v6kpje5rw3/OfcoMWdSCZdkmETyIJ08cly8lLUt9j64=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     google-auth
@@ -39,9 +38,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "gspread"
-  ];
+  pythonImportsCheck = [ "gspread" ];
 
   meta = with lib; {
     description = "Google Spreadsheets client library";

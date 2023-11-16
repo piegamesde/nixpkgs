@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, prettytable
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  prettytable,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     prettytable
   ];
 
-  pythonImportsCheck = [
-    "aiosomecomfort"
-  ];
+  pythonImportsCheck = [ "aiosomecomfort" ];
 
   doCheck = false; # tests only run on windows, due to WindowsSelectorEventLoopPolicy
 

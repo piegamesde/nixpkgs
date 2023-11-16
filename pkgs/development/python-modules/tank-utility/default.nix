@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
-, setuptools
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+  setuptools,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [
-    "tank_utility"
-  ];
+  pythonImportsCheck = [ "tank_utility" ];
 
   meta = with lib; {
     description = "Library for the Tank Utility API";

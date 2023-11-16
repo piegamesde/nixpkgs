@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, aspell
-, boost
-, expat
-, intltool
-, pkg-config
-, libxml2
-, libxslt
-, pcre2
-, wxGTK32
-, xercesc
-, Cocoa
+{
+  lib,
+  stdenv,
+  fetchurl,
+  aspell,
+  boost,
+  expat,
+  intltool,
+  pkg-config,
+  libxml2,
+  libxslt,
+  pcre2,
+  wxGTK32,
+  xercesc,
+  Cocoa,
 }:
 
 stdenv.mkDerivation rec {
@@ -39,9 +40,7 @@ stdenv.mkDerivation rec {
     pcre2
     wxGTK32
     xercesc
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   enableParallelBuilding = true;
 
@@ -50,6 +49,9 @@ stdenv.mkDerivation rec {
     homepage = "https://xml-copy-editor.sourceforge.io/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ candeira wegank ];
+    maintainers = with maintainers; [
+      candeira
+      wegank
+    ];
   };
 }

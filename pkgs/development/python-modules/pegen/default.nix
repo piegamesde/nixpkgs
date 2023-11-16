@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, setuptools
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -29,18 +30,16 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pegen"
-  ];
+  pythonImportsCheck = [ "pegen" ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    # https://github.com/we-like-parsers/pegen/issues/89
-    "test_invalid_def_stmt"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.11")
+      [
+        # https://github.com/we-like-parsers/pegen/issues/89
+        "test_invalid_def_stmt"
+      ];
 
   meta = with lib; {
     description = "Library to generate PEG parsers";

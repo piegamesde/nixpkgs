@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pythonRelaxDepsHook
-, python3
-, snagboot
-, testers
-, gitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pythonRelaxDepsHook,
+  python3,
+  snagboot,
+  testers,
+  gitUpdater,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -20,9 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-OuHY5+2puZAERtwmXduUW5Wjus6KeQLJLcGcl48umLA=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRemoveDeps = [
     "pylibfdt"

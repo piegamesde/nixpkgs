@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-json";
   version = "20141217-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "cl-json";
 
-  asdFilesToKeep = ["cl-json.asd"];
+  asdFilesToKeep = [ "cl-json.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-json DESCRIPTION
@@ -26,4 +26,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-json/2014-12-17/cl-json-20141217-git.tgz
     MD5 9d873fa462b93c76d90642d8e3fb4881 NAME cl-json FILENAME cl-json DEPS
     ((NAME fiveam FILENAME fiveam)) DEPENDENCIES (fiveam) VERSION 20141217-git
-    SIBLINGS NIL PARASITES (cl-json.test)) */
+    SIBLINGS NIL PARASITES (cl-json.test))
+*/

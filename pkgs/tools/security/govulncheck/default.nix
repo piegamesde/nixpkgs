@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,9 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-r9XshbgVA5rppJF46SFYPad344ZHMLWTHTnL6vbIFH8=";
 
-  subPackages = [
-    "cmd/govulncheck"
-  ];
+  subPackages = [ "cmd/govulncheck" ];
 
   # Vendoring breaks tests
   doCheck = false;
@@ -54,6 +53,9 @@ buildGoModule rec {
       reported for a Linux build.
     '';
     license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ jk SuperSandro2000 ];
+    maintainers = with maintainers; [
+      jk
+      SuperSandro2000
+    ];
   };
 }

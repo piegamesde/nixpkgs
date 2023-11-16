@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, bitarray
-, setuptools
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  bitarray,
+  setuptools,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,13 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-e4OnXwEuXz5m8d2PZOL5zDw8iGEzUg8LLk+xs/eGleA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    bitarray
-  ];
+  propagatedBuildInputs = [ bitarray ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

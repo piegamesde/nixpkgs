@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, fetchzip
-, ffmpeg
-, gtk2
-, hunspell
-, icoutils
-, mono
-, mpv
-, tesseract4
-, nix-update-script
+{
+  lib,
+  stdenv,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  fetchzip,
+  ffmpeg,
+  gtk2,
+  hunspell,
+  icoutils,
+  mono,
+  mpv,
+  tesseract4,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,9 @@ stdenv.mkDerivation rec {
   version = "4.0.1";
 
   src = fetchzip {
-    url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${lib.replaceStrings [ "." ] [ "" ] version}.zip";
+    url = "https://github.com/SubtitleEdit/subtitleedit/releases/download/${version}/SE${
+        lib.replaceStrings [ "." ] [ "" ] version
+      }.zip";
     hash = "sha256-Z7NVn4F19Hx55YWPNmbpWZ8yQulXd50bcy2A/8pCqJ4=";
     stripRoot = false;
   };

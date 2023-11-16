@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, pytz
-, simplejson
-, packaging
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  simplejson,
+  packaging,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-sPYiup7ontnubtBxv+rIT0up4IHPJNCUlH9J4FlHsss=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-  ];
+  propagatedBuildInputs = [ packaging ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -32,9 +31,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  pythonImportsCheck = [
-    "marshmallow"
-  ];
+  pythonImportsCheck = [ "marshmallow" ];
 
   meta = with lib; {
     description = "Library for converting complex objects to and from simple Python datatypes";

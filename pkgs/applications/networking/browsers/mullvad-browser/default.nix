@@ -1,51 +1,52 @@
-{ lib
-, stdenv
-, fetchurl
-, makeDesktopItem
-, copyDesktopItems
-, makeWrapper
-, writeText
-, wrapGAppsHook
-, callPackage
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  writeText,
+  wrapGAppsHook,
+  callPackage,
 
-# Common run-time dependencies
-, zlib
+  # Common run-time dependencies
+  zlib,
 
-# libxul run-time dependencies
-, atk
-, cairo
-, dbus
-, dbus-glib
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, libxcb
-, libX11
-, libXext
-, libXrender
-, libXt
-, libXtst
-, mesa
-, pango
-, pciutils
+  # libxul run-time dependencies
+  atk,
+  cairo,
+  dbus,
+  dbus-glib,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libxcb,
+  libX11,
+  libXext,
+  libXrender,
+  libXt,
+  libXtst,
+  mesa,
+  pango,
+  pciutils,
 
-, libnotifySupport ? stdenv.isLinux
-, libnotify
+  libnotifySupport ? stdenv.isLinux,
+  libnotify,
 
-, audioSupport ? mediaSupport
-, pulseaudioSupport ? mediaSupport
-, libpulseaudio
-, apulse
-, alsa-lib
+  audioSupport ? mediaSupport,
+  pulseaudioSupport ? mediaSupport,
+  libpulseaudio,
+  apulse,
+  alsa-lib,
 
-# Media support (implies audio support)
-, mediaSupport ? true
-, ffmpeg
+  # Media support (implies audio support)
+  mediaSupport ? true,
+  ffmpeg,
 
-# Extra preferences
-, extraPrefs ? ""
+  # Extra preferences
+  extraPrefs ? "",
 }:
 
 let
@@ -73,9 +74,10 @@ let
       stdenv.cc.cc
       stdenv.cc.libc
       zlib
-    ] ++ lib.optionals libnotifySupport [ libnotify ]
-      ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-      ++ lib.optionals mediaSupport [ ffmpeg ]
+    ]
+    ++ lib.optionals libnotifySupport [ libnotify ]
+    ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ++ lib.optionals mediaSupport [ ffmpeg ]
   );
 
   version = "13.0.1";
@@ -94,39 +96,51 @@ let
     };
   };
 
-  distributionIni = writeText "distribution.ini" (lib.generators.toINI {} {
-    # Some light branding indicating this build uses our distro preferences
-    Global = {
-      id = "nixos";
-      version = "1.0";
-      about = "Mullvad Browser for NixOS";
-    };
-  });
+  distributionIni = writeText "distribution.ini" (
+    lib.generators.toINI { } {
+      # Some light branding indicating this build uses our distro preferences
+      Global = {
+        id = "nixos";
+        version = "1.0";
+        about = "Mullvad Browser for NixOS";
+      };
+    }
+  );
 
-  policiesJson = writeText "policies.json" (builtins.toJSON {
-    policies.DisableAppUpdate = true;
-  });
+  policiesJson = writeText "policies.json" (builtins.toJSON { policies.DisableAppUpdate = true; });
 in
 stdenv.mkDerivation rec {
   pname = "mullvad-browser";
   inherit version;
 
-  src = sources.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+  src =
+    sources.${stdenv.hostPlatform.system}
+      or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  desktopItems = [(makeDesktopItem {
-    name = "mullvadbrowser";
-    exec = "mullvad-browser %U";
-    icon = "mullvad-browser";
-    desktopName = "Mullvad Browser";
-    genericName = "Web Browser";
-    comment = meta.description;
-    categories = [ "Network" "WebBrowser" "Security" ];
-  })];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "mullvadbrowser";
+      exec = "mullvad-browser %U";
+      icon = "mullvad-browser";
+      desktopName = "Mullvad Browser";
+      genericName = "Web Browser";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "WebBrowser"
+        "Security"
+      ];
+    })
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -175,11 +189,14 @@ stdenv.mkDerivation rec {
     lockPref("noscript.firstRunRedirection", false);
 
     // Allow sandbox access to sound devices if using ALSA directly
-    ${if (audioSupport && !pulseaudioSupport) then ''
-      pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
-    '' else ''
-      clearPref("security.sandbox.content.write_path_whitelist");
-    ''}
+    ${if (audioSupport && !pulseaudioSupport) then
+      ''
+        pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
+      ''
+    else
+      ''
+        clearPref("security.sandbox.content.write_path_whitelist");
+      ''}
 
     ${lib.optionalString (extraPrefs != "") ''
       ${extraPrefs}
@@ -240,11 +257,19 @@ stdenv.mkDerivation rec {
     description = "Privacy-focused browser made in a collaboration between The Tor Project and Mullvad";
     homepage = "https://mullvad.net/en/browser";
     platforms = attrNames sources;
-    maintainers = with maintainers; [ felschr panicgh ];
+    maintainers = with maintainers; [
+      felschr
+      panicgh
+    ];
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain
     # restrictions on redistribution), it's free enough for our purposes.
-    license = with licenses; [ mpl20 lgpl21Plus lgpl3Plus free ];
+    license = with licenses; [
+      mpl20
+      lgpl21Plus
+      lgpl3Plus
+      free
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }

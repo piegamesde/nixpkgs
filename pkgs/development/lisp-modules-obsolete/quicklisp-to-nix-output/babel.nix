@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "babel";
   version = "20200925-git";
 
   description = "Babel, a charset conversion library.";
 
-  deps = [ args."alexandria" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/babel/2020-09-25/babel-20200925-git.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "babel";
 
-  asdFilesToKeep = ["babel.asd"];
+  asdFilesToKeep = [ "babel.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM babel DESCRIPTION Babel, a charset conversion library. SHA256
@@ -25,4 +28,5 @@ rec {
     ((NAME alexandria FILENAME alexandria)
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES (alexandria trivial-features) VERSION 20200925-git SIBLINGS
-    (babel-streams babel-tests) PARASITES NIL) */
+    (babel-streams babel-tests) PARASITES NIL)
+*/

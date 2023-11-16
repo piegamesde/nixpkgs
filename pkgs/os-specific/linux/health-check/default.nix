@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, json_c, libbsd }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  json_c,
+  libbsd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "health-check";
@@ -11,9 +17,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-QLa/7kA0juefzOba7ELopDmOVfiGJReo4LCfhnxW1tk=";
   };
 
-  buildInputs = [ json_c libbsd ];
+  buildInputs = [
+    json_c
+    libbsd
+  ];
 
-  makeFlags = [ "JSON_OUTPUT=y" "FNOTIFY=y" ];
+  makeFlags = [
+    "JSON_OUTPUT=y"
+    "FNOTIFY=y"
+  ];
 
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"

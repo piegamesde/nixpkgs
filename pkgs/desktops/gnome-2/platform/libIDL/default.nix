@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, flex, bison, pkg-config, glib, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  pkg-config,
+  glib,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libIDL";
@@ -9,7 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "08129my8s9fbrk0vqvnmx6ph4nid744g5vbwphzkaik51664vln5";
   };
 
-  buildInputs = [ glib gettext ];
+  buildInputs = [
+    glib
+    gettext
+  ];
 
-  nativeBuildInputs = [ flex bison pkg-config ];
+  nativeBuildInputs = [
+    flex
+    bison
+    pkg-config
+  ];
 }

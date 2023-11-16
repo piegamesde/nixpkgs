@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, strace
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  strace,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,10 +21,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ strace ];
 
-  checkFlags = lib.optionals stdenv.isAarch64 [
-    # thread 'analysis::tests::analyze_dd' panicked at 'assertion failed: ...'
-    "--skip=analysis::tests::analyze_dd"
-  ];
+  checkFlags =
+    lib.optionals stdenv.isAarch64
+      [
+        # thread 'analysis::tests::analyze_dd' panicked at 'assertion failed: ...'
+        "--skip=analysis::tests::analyze_dd"
+      ];
 
   meta = with lib; {
     description = "Analyzes strace output";

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, pbr
-, python-mimeparse
-, extras
-, traceback2
-, testscenarios
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  pbr,
+  python-mimeparse,
+  extras,
+  traceback2,
+  testscenarios,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +19,11 @@ buildPythonPackage rec {
     sha256 = "sha256-KLZeFMDy0+y7+19VydzeXk+qgKwWo3qCOQmh/jy8swo=";
   };
 
-  propagatedBuildInputs = [ pbr python-mimeparse extras ];
+  propagatedBuildInputs = [
+    pbr
+    python-mimeparse
+    extras
+  ];
   buildInputs = [ traceback2 ];
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 

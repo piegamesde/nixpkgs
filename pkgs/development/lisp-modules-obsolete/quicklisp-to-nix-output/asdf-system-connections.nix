@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "asdf-system-connections";
   version = "20170124-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "asdf-system-connections";
 
-  asdFilesToKeep = ["asdf-system-connections.asd"];
+  asdFilesToKeep = [ "asdf-system-connections.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM asdf-system-connections DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/asdf-system-connections/2017-01-24/asdf-system-connections-20170124-git.tgz
     MD5 23bdbb69c433568e3e15ed705b803992 NAME asdf-system-connections FILENAME
     asdf-system-connections DEPS NIL DEPENDENCIES NIL VERSION 20170124-git
-    SIBLINGS NIL PARASITES NIL) */
+    SIBLINGS NIL PARASITES NIL)
+*/

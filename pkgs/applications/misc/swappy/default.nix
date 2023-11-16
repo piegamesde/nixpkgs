@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, wayland
-, cairo
-, pango
-, gtk
-, pkg-config
-, scdoc
-, libnotify
-, glib
-, wrapGAppsHook
-, hicolor-icon-theme
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  wayland,
+  cairo,
+  pango,
+  gtk,
+  pkg-config,
+  scdoc,
+  libnotify,
+  glib,
+  wrapGAppsHook,
+  hicolor-icon-theme,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,18 +27,32 @@ stdenv.mkDerivation rec {
     hash = "sha256-/XPvy98Il4i8cDl9vH6f0/AZmiSqseSXnen7HfMqCDo=";
   };
 
-  nativeBuildInputs = [ glib meson ninja pkg-config scdoc wrapGAppsHook ];
+  nativeBuildInputs = [
+    glib
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wrapGAppsHook
+  ];
 
   buildInputs = [
-    cairo pango gtk libnotify wayland glib hicolor-icon-theme
+    cairo
+    pango
+    gtk
+    libnotify
+    wayland
+    glib
+    hicolor-icon-theme
   ];
 
   strictDeps = true;
 
-  mesonFlags = [
-    # TODO: https://github.com/NixOS/nixpkgs/issues/36468
-    "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
-  ];
+  mesonFlags =
+    [
+      # TODO: https://github.com/NixOS/nixpkgs/issues/36468
+      "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
+    ];
 
   meta = with lib; {
     description = "A Wayland native snapshot editing tool, inspired by Snappy on macOS";

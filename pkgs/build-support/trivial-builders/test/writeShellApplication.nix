@@ -1,11 +1,14 @@
-/*
-  Run with:
+/* Run with:
 
       cd nixpkgs
       nix-build -A tests.trivial-builders.writeShellApplication
 */
 
-{ lib, writeShellApplication, runCommand }:
+{
+  lib,
+  writeShellApplication,
+  runCommand,
+}:
 let
   pkg = writeShellApplication {
     name = "test-script";
@@ -17,13 +20,12 @@ let
     '';
   };
 in
-  assert pkg.meta.mainProgram == "test-script";
-  runCommand "test-writeShellApplication" { } ''
+assert pkg.meta.mainProgram == "test-script";
+runCommand "test-writeShellApplication" { } ''
 
-    echo Testing if writeShellApplication builds without shellcheck error...
+  echo Testing if writeShellApplication builds without shellcheck error...
 
-    target=${lib.getExe pkg}
+  target=${lib.getExe pkg}
 
-    touch $out
-  ''
-
+  touch $out
+''

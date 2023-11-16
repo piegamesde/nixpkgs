@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, kubectl, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  kubectl,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "gsctl";
@@ -14,13 +20,12 @@ buildGoModule rec {
   vendorHash = "sha256-6b4H8YAY8d/qIGnnGPYZoXne1LXHLsc0OEq0lCeqivo=";
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X github.com/giantswarm/gsctl/buildinfo.Version=${version}"
   ];
 
-  nativeCheckInputs = [
-    kubectl
-  ];
+  nativeCheckInputs = [ kubectl ];
 
   doCheck = !stdenv.isDarwin;
 

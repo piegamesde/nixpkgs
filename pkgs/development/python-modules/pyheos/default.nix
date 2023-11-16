@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,10 +22,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # accesses network
-    "test_connect_timeout"
-  ];
+  disabledTests =
+    [
+      # accesses network
+      "test_connect_timeout"
+    ];
 
   pythonImportsCheck = [ "pyheos" ];
 

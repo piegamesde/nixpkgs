@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, AppKit, installShellFiles }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  AppKit,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "du-dust";

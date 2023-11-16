@@ -1,12 +1,20 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-prevalence";
   version = "20210531-git";
 
   description = "Common Lisp Prevalence Package";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."s-sysdeps" args."s-xml" args."split-sequence" args."usocket" args."usocket-server" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."s-sysdeps"
+    args."s-xml"
+    args."split-sequence"
+    args."usocket"
+    args."usocket-server"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-prevalence/2021-05-31/cl-prevalence-20210531-git.tgz";
@@ -15,7 +23,7 @@ rec {
 
   packageName = "cl-prevalence";
 
-  asdFilesToKeep = ["cl-prevalence.asd"];
+  asdFilesToKeep = [ "cl-prevalence.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-prevalence DESCRIPTION Common Lisp Prevalence Package SHA256
@@ -32,4 +40,5 @@ rec {
     DEPENDENCIES
     (alexandria bordeaux-threads s-sysdeps s-xml split-sequence usocket
      usocket-server)
-    VERSION 20210531-git SIBLINGS (cl-prevalence-test) PARASITES NIL) */
+    VERSION 20210531-git SIBLINGS (cl-prevalence-test) PARASITES NIL)
+*/

@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, flask
-, flask-sessionstore
-, flask-sqlalchemy
-, captcha
-, pytestCheckHook
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  flask,
+  flask-sessionstore,
+  flask-sqlalchemy,
+  captcha,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,11 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-V0f3mXCfqwH2l3OtJKOHGdrlKAFxs2ynqXvNve7Amkc=";
   };
 
-  propagatedBuildInputs = [ flask flask-sessionstore captcha ];
+  propagatedBuildInputs = [
+    flask
+    flask-sessionstore
+    captcha
+  ];
 
   pythonImportsCheck = [ "flask_session_captcha" ];
 
-  nativeCheckInputs = [ flask-sqlalchemy pytestCheckHook ];
+  nativeCheckInputs = [
+    flask-sqlalchemy
+    pytestCheckHook
+  ];
 
   # RuntimeError: Working outside of application context.
   doCheck = false;

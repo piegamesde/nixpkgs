@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation {
   pname = "f2c";
@@ -9,7 +13,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-dLpnwyGjtikhbH7VpIoGHD5cNyKshc6wHczmkTdRcFo=";
   };
 
-  makeFlags = [ "-f" "makefile.u" ];
+  makeFlags = [
+    "-f"
+    "makefile.u"
+  ];
 
   installPhase = ''
     runHook preInstall

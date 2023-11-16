@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
 
-# darwin
-, Security
+  # darwin
+  Security,
 
-# tests
-, firefox-esr-unwrapped
-, firefox-unwrapped
-, thunderbird-unwrapped
+  # tests
+  firefox-esr-unwrapped,
+  firefox-unwrapped,
+  thunderbird-unwrapped,
 }:
 
 let
@@ -30,15 +31,9 @@ rustPlatform.buildRustPackage {
 
   cargoSha256 = "sha256-5WiGckh/jq7AHH3JWZL8tIsj1Gqr8iLX7IyppKsW96k=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals (stdenv.isDarwin) [
-    Security
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals (stdenv.isDarwin) [ Security ];
 
   checkFlags = [
     # Disable tests that require network access

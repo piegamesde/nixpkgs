@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, django
-, django-stubs-ext
-, fetchPypi
-, mypy
-, pytestCheckHook
-, pythonOlder
-, tomli
-, types-pytz
-, types-pyyaml
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  django,
+  django-stubs-ext,
+  fetchPypi,
+  mypy,
+  pytestCheckHook,
+  pythonOlder,
+  tomli,
+  types-pytz,
+  types-pyyaml,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -31,13 +32,9 @@ buildPythonPackage rec {
     types-pytz
     types-pyyaml
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "PEP-484 stubs for Django";

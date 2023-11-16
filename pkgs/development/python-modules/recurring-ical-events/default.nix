@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, icalendar
-, pytz
-, python-dateutil
-, x-wr-timezone
-, pytestCheckHook
-, restructuredtext-lint
-, pygments
-, tzdata
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  icalendar,
+  pytz,
+  python-dateutil,
+  x-wr-timezone,
+  pytestCheckHook,
+  restructuredtext-lint,
+  pygments,
+  tzdata,
 }:
 
 buildPythonPackage rec {

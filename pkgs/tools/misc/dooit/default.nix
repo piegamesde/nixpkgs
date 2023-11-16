@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, dooit
-, python3
-, testers
+{
+  lib,
+  fetchFromGitHub,
+  dooit,
+  python3,
+  testers,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -17,9 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-ZCEBpaQHaFb09MUlN6acYB3LrfX456uRbhVh9YPz7NU=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     appdirs
@@ -49,6 +48,9 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/kraanzu/dooit";
     changelog = "https://github.com/kraanzu/dooit/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ khaneliman wesleyjrz ];
+    maintainers = with maintainers; [
+      khaneliman
+      wesleyjrz
+    ];
   };
 }

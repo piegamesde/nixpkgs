@@ -1,15 +1,16 @@
-import ../make-test-python.nix ({ pkgs, ... }:
+import ../make-test-python.nix (
+  { pkgs, ... }:
   {
     name = "stratis";
 
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ nickcao ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ nickcao ]; };
 
-    nodes.machine = { pkgs, ... }: {
-      services.stratis.enable = true;
-      virtualisation.emptyDiskImages = [ 2048 ];
-    };
+    nodes.machine =
+      { pkgs, ... }:
+      {
+        services.stratis.enable = true;
+        virtualisation.emptyDiskImages = [ 2048 ];
+      };
 
     testScript =
       let
@@ -29,4 +30,5 @@ import ../make-test-python.nix ({ pkgs, ... }:
         machine.succeed("stratis pool stop  --name testpool")
         machine.succeed("stratis pool start --name testpool --unlock-method keyring")
       '';
-  })
+  }
+)

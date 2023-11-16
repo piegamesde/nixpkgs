@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, curl
-, pkg-config
-, libgit2_1_5
-, openssl
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  curl,
+  pkg-config,
+  libgit2_1_5,
+  openssl,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -25,20 +26,25 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    libgit2_1_5
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreFoundation
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs =
+    [
+      curl
+      libgit2_1_5
+      openssl
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.CoreFoundation
+      darwin.apple_sdk.frameworks.Security
+    ];
 
   meta = with lib; {
     description = "A tool to find potential unused enabled feature flags and prune them";
     homepage = "https://github.com/timonpost/cargo-unused-features";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda matthiasbeyer ];
+    maintainers = with maintainers; [
+      figsoda
+      matthiasbeyer
+    ];
     mainProgram = "unused-features";
   };
 }

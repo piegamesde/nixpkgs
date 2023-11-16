@@ -1,23 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, coreutils
-, emacs
-, glib
-, gmime3
-, texinfo
-, xapian
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  coreutils,
+  emacs,
+  glib,
+  gmime3,
+  texinfo,
+  xapian,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
   pname = "mu";
   version = "1.10.8";
 
-  outputs = [ "out" "mu4e" ];
+  outputs = [
+    "out"
+    "mu4e"
+  ];
 
   src = fetchFromGitHub {
     owner = "djcb";
@@ -61,7 +65,13 @@ stdenv.mkDerivation rec {
     fi
   '';
 
-  buildInputs = [ emacs glib gmime3 texinfo xapian ];
+  buildInputs = [
+    emacs
+    glib
+    gmime3
+    texinfo
+    xapian
+  ];
 
   mesonFlags = [
     "-Dguile=disabled"
@@ -69,7 +79,11 @@ stdenv.mkDerivation rec {
     "-Dlispdir=${placeholder "mu4e"}/share/emacs/site-lisp"
   ];
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
   doCheck = true;
 
@@ -78,7 +92,11 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     homepage = "https://www.djcbsoftware.nl/code/mu/";
     changelog = "https://github.com/djcb/mu/releases/tag/v${version}";
-    maintainers = with maintainers; [ antono chvp peterhoeg ];
+    maintainers = with maintainers; [
+      antono
+      chvp
+      peterhoeg
+    ];
     mainProgram = "mu";
     platforms = platforms.unix;
   };

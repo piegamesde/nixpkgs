@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchYarnDeps
-, makeWrapper
-, nodejs
-, yarn
-, yarn2nix-moretea
-, nixosTests
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  makeWrapper,
+  nodejs,
+  yarn,
+  yarn2nix-moretea,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,8 +21,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-y54EYWI1DbxosUflp5z+b4i1vO1qDju8LxEK0nt4S/g=";
   };
 
-  nativeBuildInputs = [ makeWrapper yarn2nix-moretea.fixup_yarn_lock ];
-  buildInputs = [ yarn nodejs ];
+  nativeBuildInputs = [
+    makeWrapper
+    yarn2nix-moretea.fixup_yarn_lock
+  ];
+  buildInputs = [
+    yarn
+    nodejs
+  ];
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";
@@ -78,7 +85,11 @@ stdenv.mkDerivation rec {
     homepage = "https://www.getoutline.com/";
     changelog = "https://github.com/outline/outline/releases";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ cab404 yrd xanderio ];
+    maintainers = with maintainers; [
+      cab404
+      yrd
+      xanderio
+    ];
     platforms = platforms.linux;
   };
 }

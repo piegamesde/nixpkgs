@@ -1,18 +1,19 @@
 # SolidPython is an unmaintained library with old dependencies.
-{ buildPythonPackage
-, callPackage
-, fetchFromGitHub
-, fetchFromGitLab
-, fetchpatch
-, lib
-, pythonRelaxDepsHook
+{
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchpatch,
+  lib,
+  pythonRelaxDepsHook,
 
-, poetry-core
-, prettytable
-, pypng
-, ply
-, setuptools
-, euclid3
+  poetry-core,
+  prettytable,
+  pypng,
+  ply,
+  setuptools,
+  euclid3,
 }:
 buildPythonPackage rec {
   pname = "solidpython";
@@ -39,22 +40,22 @@ buildPythonPackage rec {
     prettytable
   ];
 
-  pythonRelaxDeps = [
-    # SolidPython has PrettyTable pinned to a hyper-specific version due to
-    # some ancient bug with Poetry. They aren't interested in unpinning because
-    # SolidPython v1 seems to be deprecated in favor of v2:
-    # https://github.com/SolidCode/SolidPython/issues/207
-    "PrettyTable"
-  ];
+  pythonRelaxDeps =
+    [
+      # SolidPython has PrettyTable pinned to a hyper-specific version due to
+      # some ancient bug with Poetry. They aren't interested in unpinning because
+      # SolidPython v1 seems to be deprecated in favor of v2:
+      # https://github.com/SolidCode/SolidPython/issues/207
+      "PrettyTable"
+    ];
 
-  pythonRemoveDeps = [
-    # The pypng dependency is only used in an example script.
-    "pypng"
-  ];
+  pythonRemoveDeps =
+    [
+      # The pypng dependency is only used in an example script.
+      "pypng"
+    ];
 
-  pythonImportsCheck = [
-    "solid"
-  ];
+  pythonImportsCheck = [ "solid" ];
 
   meta = with lib; {
     description = "Python interface to the OpenSCAD declarative geometry language";

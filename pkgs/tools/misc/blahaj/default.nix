@@ -1,6 +1,7 @@
-{ lib
-, crystal
-, fetchFromGitHub
+{
+  lib,
+  crystal,
+  fetchFromGitHub,
 }:
 
 crystal.buildCrystalPackage rec {
@@ -18,6 +19,9 @@ crystal.buildCrystalPackage rec {
     description = "Gay sharks at your local terminal - lolcat-like CLI tool";
     homepage = "https://blahaj.queer.software";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ aleksana cafkafk ];
+    maintainers = with maintainers; [
+      aleksana
+      cafkafk
+    ];
   };
 }

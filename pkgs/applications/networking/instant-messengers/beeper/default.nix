@@ -1,13 +1,14 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, appimageTools
-, libsecret
-, makeWrapper
-, writeShellApplication
-, curl
-, yq
-, common-updater-scripts
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  appimageTools,
+  libsecret,
+  makeWrapper,
+  writeShellApplication,
+  curl,
+  yq,
+  common-updater-scripts,
 }:
 let
   pname = "beeper";
@@ -21,9 +22,7 @@ let
     inherit version pname src;
     extraPkgs = pkgs: with pkgs; [ libsecret ];
   };
-  appimageContents = appimageTools.extractType2 {
-    inherit version pname src;
-  };
+  appimageContents = appimageTools.extractType2 { inherit version pname src; };
 in
 stdenvNoCC.mkDerivation rec {
   inherit name pname version;
@@ -55,17 +54,23 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = lib.getExe (writeShellApplication {
-      name = "update-beeper";
-      runtimeInputs = [ curl yq common-updater-scripts ];
-      text = ''
-        set -o errexit
-        latestLinux="$(curl -s https://download.todesktop.com/2003241lzgn20jd/latest-linux.yml)"
-        version="$(echo "$latestLinux" | yq -r .version)"
-        filename="$(echo "$latestLinux" | yq -r '.files[] | .url | select(. | endswith(".AppImage"))')"
-        update-source-version beeper "$version" "" "https://download.todesktop.com/2003241lzgn20jd/$filename" --source-key=src.src
-      '';
-    });
+    updateScript = lib.getExe (
+      writeShellApplication {
+        name = "update-beeper";
+        runtimeInputs = [
+          curl
+          yq
+          common-updater-scripts
+        ];
+        text = ''
+          set -o errexit
+          latestLinux="$(curl -s https://download.todesktop.com/2003241lzgn20jd/latest-linux.yml)"
+          version="$(echo "$latestLinux" | yq -r .version)"
+          filename="$(echo "$latestLinux" | yq -r '.files[] | .url | select(. | endswith(".AppImage"))')"
+          update-source-version beeper "$version" "" "https://download.todesktop.com/2003241lzgn20jd/$filename" --source-key=src.src
+        '';
+      }
+    );
   };
 
   meta = with lib; {
@@ -77,7 +82,10 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://beeper.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jshcmpbll mjm ];
+    maintainers = with maintainers; [
+      jshcmpbll
+      mjm
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

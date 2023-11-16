@@ -1,11 +1,14 @@
-{ lib
-, callPackage
-, config
+{
+  lib,
+  callPackage,
+  config,
 }:
 
-let buildLua = callPackage ./buildLua.nix { };
-in lib.recurseIntoAttrs
-  ({
+let
+  buildLua = callPackage ./buildLua.nix { };
+in
+lib.recurseIntoAttrs (
+  {
     acompressor = callPackage ./acompressor.nix { inherit buildLua; };
     autocrop = callPackage ./autocrop.nix { };
     autodeint = callPackage ./autodeint.nix { };
@@ -28,7 +31,8 @@ in lib.recurseIntoAttrs
     webtorrent-mpv-hook = callPackage ./webtorrent-mpv-hook.nix { };
     cutter = callPackage ./cutter.nix { };
   }
-  // (callPackage ./occivink.nix { inherit buildLua; }))
-  // lib.optionalAttrs config.allowAliases {
+  // (callPackage ./occivink.nix { inherit buildLua; })
+)
+// lib.optionalAttrs config.allowAliases {
   youtube-quality = throw "'youtube-quality' is no longer maintained, use 'quality-menu' instead"; # added 2023-07-14
 }

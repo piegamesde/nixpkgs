@@ -1,14 +1,15 @@
-{ lib
-, aiohttp
-, aresponses
-, awesomeversion
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aresponses,
+  awesomeversion,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-iyDRhTV5GSBTVK7ccJhUOrCpE9YuiI1vJM4XroCyIwE=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     awesomeversion
@@ -42,9 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "homewizard_energy"
-  ];
+  pythonImportsCheck = [ "homewizard_energy" ];
 
   meta = with lib; {
     description = "Library to communicate with HomeWizard Energy devices";

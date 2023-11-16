@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, msgpack
-, numpy
-, pytest-asyncio
-, pytestCheckHook
-, python-rapidjson
-, pythonOlder
-, pyzmq
-, ruamel-yaml
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  msgpack,
+  numpy,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-rapidjson,
+  pythonOlder,
+  pyzmq,
+  ruamel-yaml,
 }:
 
 buildPythonPackage rec {
@@ -43,14 +44,13 @@ buildPythonPackage rec {
       --replace "msgpack>=0.6,<1.0" "msgpack"
   '';
 
-  disabledTests = [
-    # Test doesn't work properly on Hydra
-    "test_client_backlog"
-  ];
+  disabledTests =
+    [
+      # Test doesn't work properly on Hydra
+      "test_client_backlog"
+    ];
 
-  pythonImportsCheck = [
-    "rpcq"
-  ];
+  pythonImportsCheck = [ "rpcq" ];
 
   meta = with lib; {
     description = "The RPC framework and message specification for rigetti Quantum Cloud services";

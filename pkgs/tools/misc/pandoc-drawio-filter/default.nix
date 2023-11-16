@@ -1,11 +1,12 @@
-{ buildPythonApplication
-, drawio-headless
-, fetchFromGitHub
-, lib
-, pandoc
-, pandocfilters
-, runCommand
-, texliveTeTeX
+{
+  buildPythonApplication,
+  drawio-headless,
+  fetchFromGitHub,
+  lib,
+  pandoc,
+  pandocfilters,
+  runCommand,
+  texliveTeTeX,
 }:
 
 let
@@ -50,7 +51,6 @@ let
       maintainers = with maintainers; [ tfc ];
     };
   };
-
 in
 
 pandoc-drawio-filter

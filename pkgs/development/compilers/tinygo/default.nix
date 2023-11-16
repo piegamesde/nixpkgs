@@ -1,29 +1,35 @@
-{ stdenv
-, lib
-, buildPackages
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, substituteAll
-, llvmPackages
-, go
-, libffi
-, zlib
-, ncurses
-, libxml2
-, xar
-, wasi-libc
-, binaryen
-, avrdude
-, gdb
-, openocd
-, runCommand
-, tinygoTests ? [ "smoketest" ]
+{
+  stdenv,
+  lib,
+  buildPackages,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  substituteAll,
+  llvmPackages,
+  go,
+  libffi,
+  zlib,
+  ncurses,
+  libxml2,
+  xar,
+  wasi-libc,
+  binaryen,
+  avrdude,
+  gdb,
+  openocd,
+  runCommand,
+  tinygoTests ? [ "smoketest" ],
 }:
 
 let
   llvmMajor = lib.versions.major llvm.version;
-  inherit (llvmPackages) llvm clang compiler-rt lld;
+  inherit (llvmPackages)
+    llvm
+    clang
+    compiler-rt
+    lld
+  ;
 
   # only doing this because only on darwin placing clang.cc in nativeBuildInputs
   # doesn't build
@@ -33,7 +39,8 @@ let
     ln -s ${lib.getBin lld}/bin/ld.lld $out/ld.lld-${llvmMajor}
     ln -s ${lib.getBin lld}/bin/wasm-ld $out/wasm-ld-${llvmMajor}
     # GDB upstream does not support ARM darwin
-    ${lib.optionalString (!(stdenv.isDarwin && stdenv.isAarch64)) "ln -s ${gdb}/bin/gdb $out/gdb-multiarch" }
+    ${lib.optionalString (!(stdenv.isDarwin && stdenv.isAarch64))
+      "ln -s ${gdb}/bin/gdb $out/gdb-multiarch"}
   '';
 in
 
@@ -75,8 +82,18 @@ buildGoModule rec {
 
   nativeCheckInputs = [ binaryen ];
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ llvm clang.cc ]
-    ++ lib.optionals stdenv.isDarwin [ zlib ncurses libffi libxml2 xar ];
+  buildInputs =
+    [
+      llvm
+      clang.cc
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      zlib
+      ncurses
+      libffi
+      libxml2
+      xar
+    ];
 
   doCheck = (stdenv.buildPlatform.canExecute stdenv.hostPlatform);
   inherit tinygoTests;
@@ -96,34 +113,36 @@ buildGoModule rec {
     done
   '';
 
-  postPatch = ''
-    # Copy wasi-libc, symlink seems not working
-    rm -rf lib/wasi-libc/*
-    mkdir -p lib/wasi-libc/sysroot/lib/wasm32-wasi lib/wasi-libc/sysroot/include
-    cp -a ${wasi-libc}/lib/* lib/wasi-libc/sysroot/lib/wasm32-wasi/
-    cp -a ${wasi-libc.dev}/include/* lib/wasi-libc/sysroot/include/
+  postPatch =
+    ''
+      # Copy wasi-libc, symlink seems not working
+      rm -rf lib/wasi-libc/*
+      mkdir -p lib/wasi-libc/sysroot/lib/wasm32-wasi lib/wasi-libc/sysroot/include
+      cp -a ${wasi-libc}/lib/* lib/wasi-libc/sysroot/lib/wasm32-wasi/
+      cp -a ${wasi-libc.dev}/include/* lib/wasi-libc/sysroot/include/
 
-    # Borrow compiler-rt builtins from our source
-    # See https://github.com/tinygo-org/tinygo/pull/2471
-    mkdir -p lib/compiler-rt-builtins
-    cp -a ${compiler-rt.src}/compiler-rt/lib/builtins/* lib/compiler-rt-builtins/
+      # Borrow compiler-rt builtins from our source
+      # See https://github.com/tinygo-org/tinygo/pull/2471
+      mkdir -p lib/compiler-rt-builtins
+      cp -a ${compiler-rt.src}/compiler-rt/lib/builtins/* lib/compiler-rt-builtins/
 
-    substituteInPlace Makefile \
-      --replace "\$(TINYGO)" "$(pwd)/build/tinygo" \
-      --replace "@\$(MD5SUM)" "md5sum" \
-      --replace "build/release/tinygo/bin" "$out/bin" \
-      --replace "build/release/" "$out/share/"
+      substituteInPlace Makefile \
+        --replace "\$(TINYGO)" "$(pwd)/build/tinygo" \
+        --replace "@\$(MD5SUM)" "md5sum" \
+        --replace "build/release/tinygo/bin" "$out/bin" \
+        --replace "build/release/" "$out/share/"
 
-    substituteInPlace builder/buildid.go \
-      --replace "OUT_PATH" "$out"
+      substituteInPlace builder/buildid.go \
+        --replace "OUT_PATH" "$out"
 
-    # TODO: Fix mingw
-    # Disable windows cross-compile tests
-    sed -i "/GOOS=windows/d" Makefile
-  '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    substituteInPlace Makefile \
-      --replace "./build/tinygo" "${buildPackages.tinygo}/bin/tinygo"
-  '';
+      # TODO: Fix mingw
+      # Disable windows cross-compile tests
+      sed -i "/GOOS=windows/d" Makefile
+    ''
+    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      substituteInPlace Makefile \
+        --replace "./build/tinygo" "${buildPackages.tinygo}/bin/tinygo"
+    '';
 
   preBuild = ''
     export PATH=${bootstrapTools}:$PATH
@@ -150,7 +169,14 @@ buildGoModule rec {
     make build/release
 
     wrapProgram $out/bin/tinygo \
-      --prefix PATH : ${lib.makeBinPath [ go avrdude openocd binaryen ]}:${bootstrapTools}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          go
+          avrdude
+          openocd
+          binaryen
+        ]
+      }:${bootstrapTools}
 
     runHook postInstall
   '';
@@ -161,6 +187,9 @@ buildGoModule rec {
     homepage = "https://tinygo.org/";
     description = "Go compiler for small places";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Madouura muscaln ];
+    maintainers = with maintainers; [
+      Madouura
+      muscaln
+    ];
   };
 }

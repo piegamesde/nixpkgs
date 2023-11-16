@@ -1,31 +1,32 @@
-{ mkDerivation
-, lib
-, fetchFromGitLab
-, ffmpeg
-, cmake
-, ninja
-, qtbase
-, qtx11extras
-, qtconnectivity
-, v4l-utils
-, grim
-, wf-recorder
-, libdbusmenu
-, playerctl
-, xorg
-, iio-sensor-proxy
-, inotify-tools
-, bluez
-, networkmanager
-, connman
-, redshift
-, gawk
-, polkit
-, libnotify
-, systemd
-, xdg-utils
-, libcprime
-, libcsys
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  ffmpeg,
+  cmake,
+  ninja,
+  qtbase,
+  qtx11extras,
+  qtconnectivity,
+  v4l-utils,
+  grim,
+  wf-recorder,
+  libdbusmenu,
+  playerctl,
+  xorg,
+  iio-sensor-proxy,
+  inotify-tools,
+  bluez,
+  networkmanager,
+  connman,
+  redshift,
+  gawk,
+  polkit,
+  libnotify,
+  systemd,
+  xdg-utils,
+  libcprime,
+  libcsys,
 }:
 
 mkDerivation rec {
@@ -39,10 +40,11 @@ mkDerivation rec {
     hash = "sha256-IYUkPGgFGI6889IyromMBobIoqSZtALVsSswQ7O1Bp0=";
   };
 
-  patches = [
-    # Fix file cannot create directory: /var/empty/share/polkit-1/actions
-    ./0001-fix-install-phase.patch
-  ];
+  patches =
+    [
+      # Fix file cannot create directory: /var/empty/share/polkit-1/actions
+      ./0001-fix-install-phase.patch
+    ];
 
   nativeBuildInputs = [
     cmake

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -65,12 +70,12 @@ in
         {
           User = cfg.user;
           Group = "duplicati";
-          ExecStart = "${cfg.package}/bin/duplicati-server --webservice-interface=${cfg.interface} --webservice-port=${toString cfg.port} --server-datafolder=${cfg.dataDir}";
+          ExecStart = "${cfg.package}/bin/duplicati-server --webservice-interface=${cfg.interface} --webservice-port=${
+              toString cfg.port
+            } --server-datafolder=${cfg.dataDir}";
           Restart = "on-failure";
         }
-        (mkIf (cfg.dataDir == "/var/lib/duplicati") {
-          StateDirectory = "duplicati";
-        })
+        (mkIf (cfg.dataDir == "/var/lib/duplicati") { StateDirectory = "duplicati"; })
       ];
     };
 
@@ -82,6 +87,5 @@ in
       };
     };
     users.groups.duplicati.gid = config.ids.gids.duplicati;
-
   };
 }

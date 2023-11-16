@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -17,7 +22,10 @@ in
       package = mkPackageOptionMD pkgs "frp" { };
 
       role = mkOption {
-        type = types.enum [ "server" "client" ];
+        type = types.enum [
+          "server"
+          "client"
+        ];
         description = mdDoc ''
           The frp consists of `client` and `server`. The server is usually
           deployed on the machine with a public IP address, and
@@ -76,7 +84,10 @@ in
             ProtectKernelModules = true;
             ProtectKernelLogs = true;
             ProtectControlGroups = true;
-            RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ] ++ optionals isClient [ "AF_UNIX" ];
+            RestrictAddressFamilies = [
+              "AF_INET"
+              "AF_INET6"
+            ] ++ optionals isClient [ "AF_UNIX" ];
             LockPersonality = true;
             MemoryDenyWriteExecute = true;
             RestrictRealtime = true;

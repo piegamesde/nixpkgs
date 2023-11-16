@@ -1,31 +1,32 @@
-{ stdenv
-, lib
-, makeWrapper
-, socat
-, iptables
-, iproute2
-, ipset
-, bridge-utils
-, btrfs-progs
-, conntrack-tools
-, buildGoModule
-, runc
-, rsync
-, kmod
-, libseccomp
-, pkg-config
-, ethtool
-, util-linux
-, fetchFromGitHub
-, fetchurl
-, fetchzip
-, fetchgit
-, zstd
-, yq-go
-, sqlite
-, nixosTests
-, k3s
-, pkgsBuildBuild
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  socat,
+  iptables,
+  iproute2,
+  ipset,
+  bridge-utils,
+  btrfs-progs,
+  conntrack-tools,
+  buildGoModule,
+  runc,
+  rsync,
+  kmod,
+  libseccomp,
+  pkg-config,
+  ethtool,
+  util-linux,
+  fetchFromGitHub,
+  fetchurl,
+  fetchzip,
+  fetchgit,
+  zstd,
+  yq-go,
+  sqlite,
+  nixosTests,
+  k3s,
+  pkgsBuildBuild,
 }:
 
 # k3s is a kinda weird derivation. One of the main points of k3s is the
@@ -48,7 +49,7 @@
 # Those pieces of software we entirely ignore upstream's handling of, and just
 # make sure they're in the path if desired.
 let
-  k3sVersion = "1.24.10+k3s1";     # k3s git tag
+  k3sVersion = "1.24.10+k3s1"; # k3s git tag
   k3sCommit = "546a94e9ae1c3be6f9c0dcde32a6e6672b035bc8"; # k3s git commit at the above version
   k3sRepoSha256 = "sha256-HfkGb3GtR2wQkVIze26aFh6A6W0fegr8ovpSel7oujQ=";
   k3sVendorHash = "sha256-YAerisDr/knlKPaO2fVMZA4FUpwshFmkpi3mJAmLqKM=";
@@ -173,12 +174,18 @@ let
     vendorHash = k3sVendorHash;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libseccomp sqlite.dev ];
+    buildInputs = [
+      libseccomp
+      sqlite.dev
+    ];
 
     subPackages = [ "cmd/server" ];
     ldflags = versionldflags;
 
-    tags = [ "libsqlite3" "linux" ];
+    tags = [
+      "libsqlite3"
+      "linux"
+    ];
 
     # create the multicall symlinks for k3s
     postInstall = ''
@@ -212,7 +219,10 @@ let
     };
     vendorHash = null;
     buildInputs = [ btrfs-progs ];
-    subPackages = [ "cmd/containerd" "cmd/containerd-shim-runc-v2" ];
+    subPackages = [
+      "cmd/containerd"
+      "cmd/containerd-shim-runc-v2"
+    ];
     ldflags = versionldflags;
   };
 in

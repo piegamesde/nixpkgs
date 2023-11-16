@@ -1,14 +1,15 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, dask
-, urllib3
-, geojson
-, pandas
-, pythonOlder
-, sqlalchemy
-, pytestCheckHook
-, pytz
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  dask,
+  urllib3,
+  geojson,
+  pandas,
+  pythonOlder,
+  sqlalchemy,
+  pytestCheckHook,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -48,10 +49,11 @@ buildPythonPackage rec {
     "test_verbosity"
   ];
 
-  disabledTestPaths = [
-    # imports setuptools.ssl_support, which doesn't exist anymore
-    "src/crate/client/test_http.py"
-  ];
+  disabledTestPaths =
+    [
+      # imports setuptools.ssl_support, which doesn't exist anymore
+      "src/crate/client/test_http.py"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/crate/crate-python";

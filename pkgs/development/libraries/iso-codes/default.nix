@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gettext, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iso-codes";
@@ -9,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uDtUudfdbrh3OAs+xG83CwXa8sv6ExxhLwNZjWVMDvg=";
   };
 
-  nativeBuildInputs = [ gettext python3 ];
+  nativeBuildInputs = [
+    gettext
+    python3
+  ];
 
   enableParallelBuilding = true;
 

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, django
-, hatchling
-, opentelemetry-api
-, opentelemetry-instrumentation
-, opentelemetry-instrumentation-asgi
-, opentelemetry-instrumentation-wsgi
-, opentelemetry-semantic-conventions
-, opentelemetry-test-utils
-, opentelemetry-util-http
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  django,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-instrumentation,
+  opentelemetry-instrumentation-asgi,
+  opentelemetry-instrumentation-wsgi,
+  opentelemetry-semantic-conventions,
+  opentelemetry-test-utils,
+  opentelemetry-util-http,
+  pytestCheckHook,
 }:
 
 buildPythonPackage {
@@ -22,9 +23,7 @@ buildPythonPackage {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     django

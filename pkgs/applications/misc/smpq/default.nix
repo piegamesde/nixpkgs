@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, StormLib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  StormLib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smpq";
@@ -9,9 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jqq5x3b17jy66x3kkf5hs5l322dx2v14djxxrqrnqp8bn5drlmm";
   };
 
-  cmakeFlags = [
-    "-DWITH_KDE=OFF"
-  ];
+  cmakeFlags = [ "-DWITH_KDE=OFF" ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ StormLib ];
@@ -21,6 +25,9 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/smpq";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ aanderse karolchmist ];
+    maintainers = with maintainers; [
+      aanderse
+      karolchmist
+    ];
   };
 }

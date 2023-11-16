@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, libtool
-, autoconf
-, automake
-, texinfo
-, gmp
-, mpfr
-, libffi
-, makeWrapper
-, noUnicode ? false
-, gcc
-, threadSupport ? true
-, useBoehmgc ? false
-, boehmgc
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libtool,
+  autoconf,
+  automake,
+  texinfo,
+  gmp,
+  mpfr,
+  libffi,
+  makeWrapper,
+  noUnicode ? false,
+  gcc,
+  threadSupport ? true,
+  useBoehmgc ? false,
+  boehmgc,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,35 +34,42 @@ stdenv.mkDerivation rec {
     texinfo
     makeWrapper
   ];
-  propagatedBuildInputs = [
-    libffi
-    gmp
-    mpfr
-    gcc
-    # replaces ecl's own gc which other packages can depend on, thus propagated
-  ] ++ lib.optionals useBoehmgc [
-    # replaces ecl's own gc which other packages can depend on, thus propagated
-    boehmgc
-  ];
+  propagatedBuildInputs =
+    [
+      libffi
+      gmp
+      mpfr
+      gcc
+      # replaces ecl's own gc which other packages can depend on, thus propagated
+    ]
+    ++ lib.optionals useBoehmgc
+      [
+        # replaces ecl's own gc which other packages can depend on, thus propagated
+        boehmgc
+      ];
 
-  patches = [
-    # https://gitlab.com/embeddable-common-lisp/ecl/-/merge_requests/1
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/sagemath/sage/9.2/build/pkgs/ecl/patches/write_error.patch";
-      sha256 = "0hfxacpgn4919hg0mn4wf4m8r7y592r4gw7aqfnva7sckxi6w089";
-    })
-  ];
+  patches =
+    [
+      # https://gitlab.com/embeddable-common-lisp/ecl/-/merge_requests/1
+      (fetchpatch {
+        url = "https://raw.githubusercontent.com/sagemath/sage/9.2/build/pkgs/ecl/patches/write_error.patch";
+        sha256 = "0hfxacpgn4919hg0mn4wf4m8r7y592r4gw7aqfnva7sckxi6w089";
+      })
+    ];
 
-  configureFlags = [
-    (if threadSupport then "--enable-threads" else "--disable-threads")
-    "--with-gmp-incdir=${lib.getDev gmp}/include"
-    "--with-gmp-libdir=${lib.getLib gmp}/lib"
-    "--with-libffi-incdir=${lib.getDev libffi}/include"
-    "--with-libffi-libdir=${lib.getLib libffi}/lib"
-  ] ++ lib.optionals useBoehmgc [
-    "--with-libgc-incdir=${lib.getDev boehmgc}/include"
-    "--with-libgc-libdir=${lib.getLib boehmgc}/lib"
-  ] ++ lib.optional (!noUnicode) "--enable-unicode";
+  configureFlags =
+    [
+      (if threadSupport then "--enable-threads" else "--disable-threads")
+      "--with-gmp-incdir=${lib.getDev gmp}/include"
+      "--with-gmp-libdir=${lib.getLib gmp}/lib"
+      "--with-libffi-incdir=${lib.getDev libffi}/include"
+      "--with-libffi-libdir=${lib.getLib libffi}/lib"
+    ]
+    ++ lib.optionals useBoehmgc [
+      "--with-libgc-incdir=${lib.getDev boehmgc}/include"
+      "--with-libgc-libdir=${lib.getLib boehmgc}/lib"
+    ]
+    ++ lib.optional (!noUnicode) "--enable-unicode";
 
   hardeningDisable = [ "format" ];
 
@@ -69,7 +77,7 @@ stdenv.mkDerivation rec {
     sed -e 's/@[-a-zA-Z_]*@//g' -i $out/bin/ecl-config
     wrapProgram "$out/bin/ecl" --prefix PATH ':' "${
       lib.makeBinPath [
-        gcc                   # for the C compiler
+        gcc # for the C compiler
         gcc.bintools.bintools # for ar
       ]
     }"

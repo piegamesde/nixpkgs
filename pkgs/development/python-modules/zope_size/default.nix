@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope-i18nmessageid
-, zope_interface
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope-i18nmessageid,
+  zope_interface,
 }:
 
 buildPythonPackage rec {
@@ -14,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-bhv3QJdZtNpyAuL6/aZXWD1Acx8661VweWaItJPpkHk=";
   };
 
-  propagatedBuildInputs = [ zope-i18nmessageid zope_interface ];
+  propagatedBuildInputs = [
+    zope-i18nmessageid
+    zope_interface
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/zope.size";
@@ -22,5 +26,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

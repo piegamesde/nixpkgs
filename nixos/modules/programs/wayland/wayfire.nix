@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.programs.wayfire;
 in
@@ -12,7 +17,10 @@ in
 
     plugins = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs.wayfirePlugins; [ wcm wf-shell ];
+      default = with pkgs.wayfirePlugins; [
+        wcm
+        wf-shell
+      ];
       defaultText = lib.literalExpression "with pkgs.wayfirePlugins; [ wcm wf-shell ]";
       example = lib.literalExpression ''
         with pkgs.wayfirePlugins; [
@@ -27,22 +35,21 @@ in
     };
   };
 
-  config = let
-    finalPackage = pkgs.wayfire-with-plugins.override {
-      wayfire = cfg.package;
-      plugins = cfg.plugins;
-    };
-  in
-  lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      finalPackage
-    ];
+  config =
+    let
+      finalPackage = pkgs.wayfire-with-plugins.override {
+        wayfire = cfg.package;
+        plugins = cfg.plugins;
+      };
+    in
+    lib.mkIf cfg.enable {
+      environment.systemPackages = [ finalPackage ];
 
-    services.xserver.displayManager.sessionPackages = [ finalPackage ];
+      services.xserver.displayManager.sessionPackages = [ finalPackage ];
 
-    xdg.portal = {
-      enable = lib.mkDefault true;
-      wlr.enable = lib.mkDefault true;
+      xdg.portal = {
+        enable = lib.mkDefault true;
+        wlr.enable = lib.mkDefault true;
+      };
     };
-  };
 }

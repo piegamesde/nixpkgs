@@ -1,25 +1,26 @@
-{ lib
-, boto3
-, buildPythonPackage
-, fetchFromGitHub
-, ftfy
-, mailchecker
-, openpyxl
-, orjson
-, phonenumbers
-, pytestCheckHook
-, python-dateutil
-, python-decouple
-, python-fsutil
-, python-slugify
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
-, requests
-, six
-, toml
-, xlrd
-, xmltodict
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ftfy,
+  mailchecker,
+  openpyxl,
+  orjson,
+  phonenumbers,
+  pytestCheckHook,
+  python-dateutil,
+  python-decouple,
+  python-fsutil,
+  python-slugify,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  requests,
+  six,
+  toml,
+  xlrd,
+  xmltodict,
 }:
 
 buildPythonPackage rec {
@@ -36,13 +37,9 @@ buildPythonPackage rec {
     hash = "sha256-q9EIOMmUcttL1ohxQD+SkZTxKv8PwdN29+ez2xB7rvM=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "boto3"
-  ];
+  pythonRelaxDeps = [ "boto3" ];
 
   propagatedBuildInputs = [
     boto3
@@ -80,9 +77,7 @@ buildPythonPackage rec {
     "test_from_yaml_with_valid_url_valid_content"
   ];
 
-  pythonImportsCheck = [
-    "benedict"
-  ];
+  pythonImportsCheck = [ "benedict" ];
 
   meta = with lib; {
     description = "Module with keylist/keypath support";

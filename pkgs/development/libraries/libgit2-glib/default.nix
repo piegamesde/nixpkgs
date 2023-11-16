@@ -1,28 +1,35 @@
-{ stdenv
-, lib
-, fetchurl
-, gnome
-, meson
-, ninja
-, pkg-config
-, vala
-, libssh2
-, gtk-doc
-, gobject-introspection
-, gi-docgen
-, libgit2
-, glib
-, python3
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gnome,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  libssh2,
+  gtk-doc,
+  gobject-introspection,
+  gi-docgen,
+  libgit2,
+  glib,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libgit2-glib";
   version = "1.1.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "w43XV12vgUHh5CIzOldfr2XzySEMCOg+mBuI3UG/HvM=";
   };
 
@@ -47,9 +54,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.pygobject3 # this should really be a propagated input of python output
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" ];
 
   postPatch = ''
     for f in meson_vapi_link.py meson_python_compile.py; do

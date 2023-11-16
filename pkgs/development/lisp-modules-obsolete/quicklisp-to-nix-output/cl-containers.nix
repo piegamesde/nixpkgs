@@ -1,14 +1,21 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-containers";
   version = "20200427-git";
 
-  parasites = [ "cl-containers/with-moptilities" "cl-containers/with-utilities" ];
+  parasites = [
+    "cl-containers/with-moptilities"
+    "cl-containers/with-utilities"
+  ];
 
   description = "A generic container library for Common Lisp";
 
-  deps = [ args."asdf-system-connections" args."metatilities-base" args."moptilities" ];
+  deps = [
+    args."asdf-system-connections"
+    args."metatilities-base"
+    args."moptilities"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-containers/2020-04-27/cl-containers-20200427-git.tgz";
@@ -17,7 +24,7 @@ rec {
 
   packageName = "cl-containers";
 
-  asdFilesToKeep = ["cl-containers.asd"];
+  asdFilesToKeep = [ "cl-containers.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-containers DESCRIPTION
@@ -31,4 +38,5 @@ rec {
      (NAME moptilities FILENAME moptilities))
     DEPENDENCIES (asdf-system-connections metatilities-base moptilities)
     VERSION 20200427-git SIBLINGS (cl-containers-test) PARASITES
-    (cl-containers/with-moptilities cl-containers/with-utilities)) */
+    (cl-containers/with-moptilities cl-containers/with-utilities))
+*/

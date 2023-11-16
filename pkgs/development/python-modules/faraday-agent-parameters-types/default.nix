@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, marshmallow
-, packaging
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  marshmallow,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -39,10 +38,11 @@ buildPythonPackage rec {
     "faraday_agent_parameters_types.utils"
   ];
 
-  disabledTests = [
-    # assert 'Version requested not valid' in "Invalid version: 'hola'"
-    "test_incorrect_version_requested"
-  ];
+  disabledTests =
+    [
+      # assert 'Version requested not valid' in "Invalid version: 'hola'"
+      "test_incorrect_version_requested"
+    ];
 
   meta = with lib; {
     description = "Collection of Faraday agent parameters types";

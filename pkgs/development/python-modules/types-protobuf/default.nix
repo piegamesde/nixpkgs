@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, types-futures
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  types-futures,
 }:
 
 buildPythonPackage rec {
@@ -14,16 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-V6tCyxcd/bosdLtbUMJQR4U4zDxe2VuLNokprQyfkKU=";
   };
 
-  propagatedBuildInputs = [
-    types-futures
-  ];
+  propagatedBuildInputs = [ types-futures ];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "google-stubs"
-  ];
+  pythonImportsCheck = [ "google-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for protobuf";

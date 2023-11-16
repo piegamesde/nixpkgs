@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, flask
-, marshmallow
-, packaging
-, pytestCheckHook
-, flask-sqlalchemy
-, marshmallow-sqlalchemy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  flask,
+  marshmallow,
+  packaging,
+  pytestCheckHook,
+  flask-sqlalchemy,
+  marshmallow-sqlalchemy,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.sqlalchemy;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.sqlalchemy;
 
-  pythonImportsCheck = [
-    "flask_marshmallow"
-  ];
+  pythonImportsCheck = [ "flask_marshmallow" ];
 
   passthru.optional-dependencies = {
     sqlalchemy = [

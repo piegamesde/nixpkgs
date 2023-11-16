@@ -1,32 +1,33 @@
-{ stdenv
-, fetchFromGitHub
-, fetchgit
-, lib
-, autoconf
-, automake
-, bison
-, blas
-, flex
-, fftw
-, gfortran
-, lapack
-, libtool_2
-, mpi
-, suitesparse
-, trilinos
-, withMPI ? false
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchgit,
+  lib,
+  autoconf,
+  automake,
+  bison,
+  blas,
+  flex,
+  fftw,
+  gfortran,
+  lapack,
+  libtool_2,
+  mpi,
+  suitesparse,
+  trilinos,
+  withMPI ? false,
   # for doc
-, texliveMedium
-, pandoc
-, enableDocs ? true
+  texliveMedium,
+  pandoc,
+  enableDocs ? true,
   # for tests
-, bash
-, bc
-, openssh # required by MPI
-, perl
-, perlPackages
-, python3
-, enableTests ? true
+  bash,
+  bc,
+  openssh, # required by MPI
+  perl,
+  perlPackages,
+  python3,
+  enableTests ? true,
 }:
 
 assert withMPI -> trilinos.withMPI;
@@ -54,42 +55,52 @@ stdenv.mkDerivation rec {
   pname = "xyce";
   inherit version;
 
-  srcs = [ xyce_src regression_src ];
+  srcs = [
+    xyce_src
+    regression_src
+  ];
 
   sourceRoot = xyce_src.name;
 
   preConfigure = "./bootstrap";
 
-  configureFlags = [
-    "CXXFLAGS=-O3"
-    "--enable-xyce-shareable"
-    "--enable-shared"
-    "--enable-stokhos"
-    "--enable-amesos2"
-  ] ++ lib.optionals withMPI [
-    "--enable-mpi"
-    "CXX=mpicxx"
-    "CC=mpicc"
-    "F77=mpif77"
-  ];
+  configureFlags =
+    [
+      "CXXFLAGS=-O3"
+      "--enable-xyce-shareable"
+      "--enable-shared"
+      "--enable-stokhos"
+      "--enable-amesos2"
+    ]
+    ++ lib.optionals withMPI [
+      "--enable-mpi"
+      "CXX=mpicxx"
+      "CC=mpicc"
+      "F77=mpif77"
+    ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    gfortran
-    libtool_2
-  ] ++ lib.optionals enableDocs [
-    (texliveMedium.withPackages (ps: with ps; [
-        koma-script
-        optional
-        framed
-        enumitem
-        multirow
-        preprint
-      ]))
-  ];
+  nativeBuildInputs =
+    [
+      autoconf
+      automake
+      gfortran
+      libtool_2
+    ]
+    ++ lib.optionals enableDocs [
+      (texliveMedium.withPackages (
+        ps:
+        with ps; [
+          koma-script
+          optional
+          framed
+          enumitem
+          multirow
+          preprint
+        ]
+      ))
+    ];
 
   buildInputs = [
     bison
@@ -118,11 +129,22 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  nativeCheckInputs = [
-    bc
-    perl
-    (python3.withPackages (ps: with ps; [ numpy scipy ]))
-  ] ++ lib.optionals withMPI [ mpi openssh ];
+  nativeCheckInputs =
+    [
+      bc
+      perl
+      (python3.withPackages (
+        ps:
+        with ps; [
+          numpy
+          scipy
+        ]
+      ))
+    ]
+    ++ lib.optionals withMPI [
+      mpi
+      openssh
+    ];
 
   checkPhase = ''
     XYCE_BINARY="$(pwd)/src/Xyce"
@@ -136,7 +158,7 @@ stdenv.mkDerivation rec {
     # Gold standard has additional ":R" suffix in result column label
     echo "Output/HB/hb-step-tecplot.cir" >> $EXLUDE_TESTS_FILE
     # This test makes Xyce access /sys/class/net when run with MPI
-    ${lib.optionalString withMPI "echo \"CommandLine/command_line.cir\" >> $EXLUDE_TESTS_FILE"}
+    ${lib.optionalString withMPI ''echo "CommandLine/command_line.cir" >> $EXLUDE_TESTS_FILE''}
 
     $TEST_ROOT/TestScripts/run_xyce_regression \
       --output="$(pwd)/Xyce_Test" \
@@ -147,12 +169,17 @@ stdenv.mkDerivation rec {
       "''${EXECSTRING}"
   '';
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   postInstall = lib.optionalString enableDocs ''
     local docFiles=("doc/Users_Guide/Xyce_UG"
       "doc/Reference_Guide/Xyce_RG"
-      "doc/Release_Notes/Release_Notes_${lib.versions.majorMinor version}/Release_Notes_${lib.versions.majorMinor version}")
+      "doc/Release_Notes/Release_Notes_${lib.versions.majorMinor version}/Release_Notes_${
+        lib.versions.majorMinor version
+      }")
 
     # Release notes refer to an image not in the repo.
     sed -i -E 's/\\includegraphics\[height=(0.5in)\]\{snllineblubrd\}/\\mbox\{\\rule\{0mm\}\{\1\}\}/' ''${docFiles[2]}.tex

@@ -1,11 +1,29 @@
-{ lib, stdenv, appleDerivation', launchd, bootstrap_cmds, xnu, xpc, ppp, IOKit, eap8021x, Security
-, headersOnly ? false }:
+{
+  lib,
+  stdenv,
+  appleDerivation',
+  launchd,
+  bootstrap_cmds,
+  xnu,
+  xpc,
+  ppp,
+  IOKit,
+  eap8021x,
+  Security,
+  headersOnly ? false,
+}:
 
 appleDerivation' stdenv {
   meta.broken = stdenv.cc.nativeLibc;
 
   nativeBuildInputs = lib.optionals (!headersOnly) [ bootstrap_cmds ];
-  buildInputs = lib.optionals (!headersOnly) [ launchd ppp xpc IOKit eap8021x ];
+  buildInputs = lib.optionals (!headersOnly) [
+    launchd
+    ppp
+    xpc
+    IOKit
+    eap8021x
+  ];
 
   propagatedBuildInputs = lib.optionals (!headersOnly) [ Security ];
 
@@ -22,7 +40,7 @@ appleDerivation' stdenv {
       --replace '#include <xpc/private.h>' ""
 
     substituteInPlace SystemConfiguration.fproj/SCNetworkReachability.c \
-      --replace ''$'#define\tHAVE_VPN_STATUS' ""
+      --replace $'#define\tHAVE_VPN_STATUS' ""
 
     # Our neutered CoreFoundation doesn't have this function, but I think we'll live...
     substituteInPlace SystemConfiguration.fproj/SCNetworkConnectionPrivate.c \
@@ -172,11 +190,13 @@ appleDerivation' stdenv {
     popd >/dev/null
   '';
 
-  installPhase = ''
-    mkdir -p $out/include
-    cp dnsinfo/*.h $out/include/
-  '' + lib.optionalString (!headersOnly) ''
-    mkdir -p $out/Library/Frameworks/
-    mv SystemConfiguration.fproj/SystemConfiguration.framework $out/Library/Frameworks
-  '';
+  installPhase =
+    ''
+      mkdir -p $out/include
+      cp dnsinfo/*.h $out/include/
+    ''
+    + lib.optionalString (!headersOnly) ''
+      mkdir -p $out/Library/Frameworks/
+      mv SystemConfiguration.fproj/SystemConfiguration.framework $out/Library/Frameworks
+    '';
 }

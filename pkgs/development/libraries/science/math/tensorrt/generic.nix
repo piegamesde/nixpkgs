@@ -1,22 +1,26 @@
-{ lib
-, backendStdenv
-, requireFile
-, autoPatchelfHook
-, autoAddOpenGLRunpathHook
-, cudaVersion
-, cudatoolkit
-, cudnn
+{
+  lib,
+  backendStdenv,
+  requireFile,
+  autoPatchelfHook,
+  autoAddOpenGLRunpathHook,
+  cudaVersion,
+  cudatoolkit,
+  cudnn,
 }:
 
-{ fullVersion
-, fileVersionCudnn ? null
-, tarball
-, sha256
-, supportedCudaVersions ? [ ]
+{
+  fullVersion,
+  fileVersionCudnn ? null,
+  tarball,
+  sha256,
+  supportedCudaVersions ? [ ],
 }:
 
-assert fileVersionCudnn == null || lib.assertMsg (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)
-  "This version of TensorRT requires at least cuDNN ${fileVersionCudnn} (current version is ${cudnn.version})";
+assert fileVersionCudnn == null
+  ||
+    lib.assertMsg (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)
+      "This version of TensorRT requires at least cuDNN ${fileVersionCudnn} (current version is ${cudnn.version})";
 
 backendStdenv.mkDerivation rec {
   pname = "cudatoolkit-${cudatoolkit.majorVersion}-tensorrt";
@@ -36,7 +40,10 @@ backendStdenv.mkDerivation rec {
     '';
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -63,8 +70,7 @@ backendStdenv.mkDerivation rec {
   # (postFixup phase is run before autoPatchelfHook.)
   postFixup =
     let
-      mostOfVersion = builtins.concatStringsSep "."
-        (lib.take 3 (lib.versions.splitVersion version));
+      mostOfVersion = builtins.concatStringsSep "." (lib.take 3 (lib.versions.splitVersion version));
     in
     ''
       echo 'Patching RPATH of libnvinfer libs'

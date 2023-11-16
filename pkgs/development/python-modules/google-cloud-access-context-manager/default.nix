@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, pythonOlder
-, protobuf
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  pythonOlder,
+  protobuf,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   # No tests in repo
   doCheck = false;
 
-  pythonImportsCheck = [
-    "google.identity.accesscontextmanager"
-  ];
+  pythonImportsCheck = [ "google.identity.accesscontextmanager" ];
 
   meta = with lib; {
     description = "Protobufs for Google Access Context Manager";

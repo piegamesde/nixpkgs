@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, perl
-, ffmpeg-full, imagemagick, xdpyinfo, xprop, xrectsel, xwininfo
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  makeWrapper,
+  perl,
+  ffmpeg-full,
+  imagemagick,
+  xdpyinfo,
+  xprop,
+  xrectsel,
+  xwininfo,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,22 +24,28 @@ stdenv.mkDerivation rec {
     sha256 = "047y32bixhc8ksr98vwpgd0k1xxgsv2vs0n3kc2xdac4krc9454h";
   };
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper perl /*for pod2man*/ ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    perl # for pod2man
+  ];
 
   configureFlags = [ "--disable-xrectsel" ];
 
-  postInstall = let
-    binPath = lib.makeBinPath [
-      ffmpeg-full
-      imagemagick
-      xdpyinfo
-      xprop
-      xrectsel
-      xwininfo
-    ];
-  in ''
-    wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
-  '';
+  postInstall =
+    let
+      binPath = lib.makeBinPath [
+        ffmpeg-full
+        imagemagick
+        xdpyinfo
+        xprop
+        xrectsel
+        xwininfo
+      ];
+    in
+    ''
+      wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
+    '';
 
   meta = with lib; {
     description = "Run commands on rectangular screen regions";

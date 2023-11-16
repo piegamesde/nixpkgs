@@ -1,17 +1,17 @@
-{ lib
-, fetchFromGitHub
-, hostPlatform
-, targetPlatform
-, cargo
-, rustc
-, lld
+{
+  lib,
+  fetchFromGitHub,
+  hostPlatform,
+  targetPlatform,
+  cargo,
+  rustc,
+  lld,
 }:
 
 let
   arch = targetPlatform.qemuArch;
 
   target = ./. + "/${arch}-unknown-none.json";
-
 in
 
 assert lib.assertMsg (builtins.pathExists target) "Target spec not found";
@@ -28,10 +28,7 @@ let
   # inherit (cross) rustPlatform;
   # ^ breaks because we are doing a no_std embedded build with a custom sysroot,
   # but the fast_cross rustc wrapper already passes a sysroot argument
-  rustPlatform = cross.makeRustPlatform {
-    inherit rustc cargo;
-  };
-
+  rustPlatform = cross.makeRustPlatform { inherit rustc cargo; };
 in
 
 rustPlatform.buildRustPackage rec {
@@ -53,9 +50,7 @@ rustPlatform.buildRustPackage rec {
 
   RUSTC_BOOTSTRAP = 1;
 
-  nativeBuildInputs = [
-    lld
-  ];
+  nativeBuildInputs = [ lld ];
 
   RUSTFLAGS = "-C linker=lld -C linker-flavor=ld.lld";
 

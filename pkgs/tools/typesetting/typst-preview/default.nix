@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, fetchYarnDeps, mkYarnPackage, darwin
-, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  fetchYarnDeps,
+  mkYarnPackage,
+  darwin,
+  stdenv,
+}:
 
 let
   name = "typst-preview";
@@ -35,26 +42,26 @@ let
     '';
     doDist = false;
   };
-
-in rustPlatform.buildRustPackage rec {
+in
+rustPlatform.buildRustPackage rec {
 
   pname = name;
   inherit version src;
 
-  buildInputs = lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [
+  buildInputs = lib.optionals stdenv.isDarwin (
+    with darwin.apple_sdk.frameworks; [
       Security
       SystemConfiguration
       CoreServices
-    ]);
+    ]
+  );
 
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "hayagriva-0.4.0" = "sha256-377lXL3+TO8U91OopMYEI0NrWWwzy6+O7B65bLhP+X4=";
       "typst-0.9.0" = "sha256-+rnsUSGi3QZlbC4i8racsM4U6+l8oA9YjjUOtQAIWOk=";
-      "typst-ts-compiler-0.4.0-rc9" =
-        "sha256-NVmbAodDRJBJlGGDRjaEcTHGoCeN4hNjIynIDKqvNbM=";
+      "typst-ts-compiler-0.4.0-rc9" = "sha256-NVmbAodDRJBJlGGDRjaEcTHGoCeN4hNjIynIDKqvNbM=";
     };
   };
 

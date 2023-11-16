@@ -1,11 +1,12 @@
-{ lib
-, aiohttp
-, aioresponses
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-e0MJjE4zgBPL+vt9EkgsdGrgqUyKK/1S9ZFxy56PUjc=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   nativeCheckInputs = [
     aioresponses
@@ -38,9 +37,7 @@ buildPythonPackage rec {
     "tests/test_endpoint_availibility.py"
   ];
 
-  pythonImportsCheck = [
-    "rki_covid_parser"
-  ];
+  pythonImportsCheck = [ "rki_covid_parser" ];
 
   meta = with lib; {
     description = "Python module for working with data from the Robert-Koch Institut";

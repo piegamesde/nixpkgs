@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, stdenv
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  stdenv,
 }:
 
 buildGoModule rec {
@@ -17,7 +18,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-BpqxCCuWyUgzPyh7sq3/HyQ29qm/PWD7mQFh1nkkAkA=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   doCheck = false; # requires network access
 

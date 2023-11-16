@@ -1,31 +1,32 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchsvn
-, cmake
-, pkg-config
-, makeWrapper
-, SDL2
-, glew
-, openal
-, OpenAL
-, libvorbis
-, libogg
-, curl
-, freetype
-, libjpeg
-, libpng
-, harfbuzz
-, mcpp
-, wiiuse
-, angelscript
-, libopenglrecorder
-, sqlite
-, Cocoa
-, IOKit
-, IOBluetooth
-, libsamplerate
-, shaderc
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchsvn,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  SDL2,
+  glew,
+  openal,
+  OpenAL,
+  libvorbis,
+  libogg,
+  curl,
+  freetype,
+  libjpeg,
+  libpng,
+  harfbuzz,
+  mcpp,
+  wiiuse,
+  angelscript,
+  libopenglrecorder,
+  sqlite,
+  Cocoa,
+  IOKit,
+  IOBluetooth,
+  libsamplerate,
+  shaderc,
 }:
 let
   assets = fetchsvn {
@@ -81,7 +82,9 @@ stdenv.mkDerivation rec {
   postPatch = ''
     # Deletes all bundled libs in stk-code/lib except those
     # That couldn't be replaced with system packages
-    find lib -maxdepth 1 -type d | egrep -v "^lib$|${(lib.concatStringsSep "|" bundledLibraries)}" | xargs -n1 -L1 -r -I{} rm -rf {}
+    find lib -maxdepth 1 -type d | egrep -v "^lib$|${
+      (lib.concatStringsSep "|" bundledLibraries)
+    }" | xargs -n1 -L1 -r -I{} rm -rf {}
 
     # Allow building with system-installed wiiuse on Darwin
     substituteInPlace CMakeLists.txt \
@@ -94,28 +97,37 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    shaderc
-    SDL2
-    glew
-    libvorbis
-    libogg
-    freetype
-    curl
-    libjpeg
-    libpng
-    harfbuzz
-    mcpp
-    wiiuse
-    angelscript
-    sqlite
-  ]
-  ++ lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) libopenglrecorder
-  ++ lib.optional stdenv.hostPlatform.isLinux openal
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [ OpenAL IOKit Cocoa IOBluetooth libsamplerate ];
+  buildInputs =
+    [
+      shaderc
+      SDL2
+      glew
+      libvorbis
+      libogg
+      freetype
+      curl
+      libjpeg
+      libpng
+      harfbuzz
+      mcpp
+      wiiuse
+      angelscript
+      sqlite
+    ]
+    ++ lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) libopenglrecorder
+    ++ lib.optional stdenv.hostPlatform.isLinux openal
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      OpenAL
+      IOKit
+      Cocoa
+      IOBluetooth
+      libsamplerate
+    ];
 
   cmakeFlags = [
-    "-DBUILD_RECORDER=${if (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) then "ON" else "OFF"}"
+    "-DBUILD_RECORDER=${
+      if (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) then "ON" else "OFF"
+    }"
     "-DUSE_SYSTEM_ANGELSCRIPT=ON"
     "-DCHECK_ASSETS=OFF"
     "-DUSE_SYSTEM_WIIUSE=ON"
@@ -145,7 +157,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://supertuxkart.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ pyrolagus peterhoeg ];
+    maintainers = with maintainers; [
+      pyrolagus
+      peterhoeg
+    ];
     platforms = with platforms; unix;
     changelog = "https://github.com/supertuxkart/stk-code/blob/${version}/CHANGELOG.md";
   };

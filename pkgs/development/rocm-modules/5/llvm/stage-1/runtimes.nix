@@ -1,7 +1,8 @@
-{ lib
-, callPackage
-, rocmUpdateScript
-, llvm
+{
+  lib,
+  callPackage,
+  rocmUpdateScript,
+  llvm,
 }:
 
 callPackage ../base.nix rec {

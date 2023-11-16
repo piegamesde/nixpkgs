@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, peewee
-, wtforms
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  peewee,
+  wtforms,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-cTbYRdvAUTY86MPR33BH+nA6H/epR8sgHDgOBQ/TUkQ=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     peewee

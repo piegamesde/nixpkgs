@@ -1,14 +1,20 @@
-{ lib, stdenv, ruby, rake, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  ruby,
+  rake,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mruby";
   version = "3.2.0";
 
   src = fetchFromGitHub {
-    owner   = "mruby";
-    repo    = "mruby";
-    rev     = version;
-    sha256  = "sha256-MmrbWeg/G29YBvVrOtceTOZChrQ2kx9+apl7u7BiGjA=";
+    owner = "mruby";
+    repo = "mruby";
+    rev = version;
+    sha256 = "sha256-MmrbWeg/G29YBvVrOtceTOZChrQ2kx9+apl7u7BiGjA=";
   };
 
   nativeBuildInputs = [ rake ];
@@ -31,7 +37,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An embeddable implementation of the Ruby language";
     homepage = "https://mruby.org";
-    maintainers = with maintainers; [ nicknovitski marsam ];
+    maintainers = with maintainers; [
+      nicknovitski
+      marsam
+    ];
     license = licenses.mit;
     platforms = platforms.all;
   };

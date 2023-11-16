@@ -1,14 +1,21 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-unicode";
   version = "20210228-git";
 
-  parasites = [ "cl-unicode/base" "cl-unicode/build" "cl-unicode/test" ];
+  parasites = [
+    "cl-unicode/base"
+    "cl-unicode/build"
+    "cl-unicode/test"
+  ];
 
   description = "Portable Unicode Library";
 
-  deps = [ args."cl-ppcre" args."flexi-streams" ];
+  deps = [
+    args."cl-ppcre"
+    args."flexi-streams"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-unicode/2021-02-28/cl-unicode-20210228-git.tgz";
@@ -17,7 +24,7 @@ rec {
 
   packageName = "cl-unicode";
 
-  asdFilesToKeep = ["cl-unicode.asd"];
+  asdFilesToKeep = [ "cl-unicode.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-unicode DESCRIPTION Portable Unicode Library SHA256
@@ -28,4 +35,5 @@ rec {
     ((NAME cl-ppcre FILENAME cl-ppcre)
      (NAME flexi-streams FILENAME flexi-streams))
     DEPENDENCIES (cl-ppcre flexi-streams) VERSION 20210228-git SIBLINGS NIL
-    PARASITES (cl-unicode/base cl-unicode/build cl-unicode/test)) */
+    PARASITES (cl-unicode/base cl-unicode/build cl-unicode/test))
+*/

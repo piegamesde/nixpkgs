@@ -1,14 +1,15 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, dataclasses-json
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, syrupy
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  dataclasses-json,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  syrupy,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-XJw3oy5IHyXmdoVxSU15dWHcc4Wd435Lyr/wpz53aZI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -41,9 +40,7 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [
-    "aioelectricitymaps"
-  ];
+  pythonImportsCheck = [ "aioelectricitymaps" ];
 
   meta = with lib; {
     description = "Module for interacting with Electricity maps";

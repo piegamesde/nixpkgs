@@ -1,25 +1,28 @@
-{ stdenvNoCC
-, fetchurl
-, unzip
-, pname
-, version
-, meta
+{
+  stdenvNoCC,
+  fetchurl,
+  unzip,
+  pname,
+  version,
+  meta,
 }:
 
 let
   appName = "Postman.app";
-  dist = {
-    aarch64-darwin = {
-      arch = "arm64";
-      sha256 = "sha256-Dy37gqClpV/9GzlpX6FjF+grDN/txbZO7G5BpEA2sms=";
-    };
+  dist =
+    {
+      aarch64-darwin = {
+        arch = "arm64";
+        sha256 = "sha256-Dy37gqClpV/9GzlpX6FjF+grDN/txbZO7G5BpEA2sms=";
+      };
 
-    x86_64-darwin = {
-      arch = "64";
-      sha256 = "sha256-gYlgrq3IyQtcecv9kuh1bHP1TVTPM8Apx2ZU5JLSSkQ=";
-    };
-  }.${stdenvNoCC.hostPlatform.system} or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
-
+      x86_64-darwin = {
+        arch = "64";
+        sha256 = "sha256-gYlgrq3IyQtcecv9kuh1bHP1TVTPM8Apx2ZU5JLSSkQ=";
+      };
+    }
+    .${stdenvNoCC.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 in
 
 stdenvNoCC.mkDerivation {

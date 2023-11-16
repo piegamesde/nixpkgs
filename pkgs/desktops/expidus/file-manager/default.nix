@@ -1,4 +1,8 @@
-{ lib, flutter, fetchFromGitHub }:
+{
+  lib,
+  flutter,
+  fetchFromGitHub,
+}:
 flutter.buildFlutterApplication rec {
   pname = "expidus-file-manager";
   version = "0.2.1";
@@ -10,9 +14,7 @@ flutter.buildFlutterApplication rec {
     hash = "sha256-R6eszy4Dz8tAPRTwZzRiZWIgVMiGv5zlhFB/HcD6gqg=";
   };
 
-  flutterBuildFlags = [
-    "--dart-define=COMMIT_HASH=b4181b9cff18a07e958c81d8f41840d2d36a6705"
-  ];
+  flutterBuildFlags = [ "--dart-define=COMMIT_HASH=b4181b9cff18a07e958c81d8f41840d2d36a6705" ];
 
   depsListFile = ./deps.json;
   vendorHash = "sha256-JFAX8Tq4vhX801WAxMrsc20tsSrwQhQduYCkeU67OTw=";
@@ -40,7 +42,10 @@ flutter.buildFlutterApplication rec {
     homepage = "https://expidusos.com";
     license = licenses.gpl3;
     maintainers = with maintainers; [ RossComputerGuy ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "expidus-file-manager";
   };
 }

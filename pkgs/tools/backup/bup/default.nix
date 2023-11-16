@@ -1,6 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper
-, perl, pandoc, python3, git
-, par2cmdline ? null, par2Support ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  perl,
+  pandoc,
+  python3,
+  git,
+  par2cmdline ? null,
+  par2Support ? true,
 }:
 
 assert par2Support -> par2cmdline != null;
@@ -8,8 +16,17 @@ assert par2Support -> par2cmdline != null;
 let
   version = "0.33.2";
 
-  pythonDeps = with python3.pkgs; [ setuptools tornado ]
-    ++ lib.optionals (!stdenv.isDarwin) [ pyxattr pylibacl fuse ];
+  pythonDeps =
+    with python3.pkgs;
+    [
+      setuptools
+      tornado
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+      pyxattr
+      pylibacl
+      fuse
+    ];
 in
 
 stdenv.mkDerivation {
@@ -23,8 +40,15 @@ stdenv.mkDerivation {
     hash = "sha256-DDVCrY4SFqzKukXm8rIq90xAW2U+yYyhyPmUhslMMWI=";
   };
 
-  buildInputs = [ git python3 ];
-  nativeBuildInputs = [ pandoc perl makeWrapper ];
+  buildInputs = [
+    git
+    python3
+  ];
+  nativeBuildInputs = [
+    pandoc
+    perl
+    makeWrapper
+  ];
 
   postPatch = "patchShebangs .";
 
@@ -37,11 +61,18 @@ stdenv.mkDerivation {
     "LIBDIR=$(out)/lib/bup"
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-error=implicit-function-declaration";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin
+      "-Wno-error=implicit-function-declaration";
 
   postInstall = ''
     wrapProgram $out/bin/bup \
-      --prefix PATH : ${lib.makeBinPath [ git par2cmdline ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          git
+          par2cmdline
+        ]
+      } \
       --prefix NIX_PYTHONPATH : ${lib.makeSearchPathOutput "lib" python3.sitePackages pythonDeps}
   '';
 

@@ -1,7 +1,9 @@
-{ lib, stdenv
-, fetchFromGitHub
-, ncurses
-, SDL
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  SDL,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,4 +36,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 }
-

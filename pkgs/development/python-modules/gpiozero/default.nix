@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, sphinx-rtd-theme
-, sphinxHook
-, colorzero
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx-rtd-theme,
+  sphinxHook,
+  colorzero,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -37,23 +38,20 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  propagatedBuildInputs = [
-    colorzero
-  ];
+  propagatedBuildInputs = [ colorzero ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [
     "gpiozero"
     "gpiozero.tools"
   ];
 
-  disabledTests = [
-    # https://github.com/gpiozero/gpiozero/issues/1087
-    "test_spi_hardware_write"
-  ];
+  disabledTests =
+    [
+      # https://github.com/gpiozero/gpiozero/issues/1087
+      "test_spi_hardware_write"
+    ];
 
   meta = with lib; {
     description = "A simple interface to GPIO devices with Raspberry Pi";

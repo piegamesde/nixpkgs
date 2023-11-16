@@ -1,9 +1,10 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, qmake
-, qtwebengine
-, gitUpdater
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtwebengine,
+  gitUpdater,
 }:
 
 let
@@ -49,17 +50,19 @@ in
 mkDerivation rec {
   inherit pname version;
 
-  srcs = [ main_src aux_src qlogger_src qpinnabletab_src git_src ];
+  srcs = [
+    main_src
+    aux_src
+    qlogger_src
+    qpinnabletab_src
+    git_src
+  ];
 
   sourceRoot = main_src.name;
 
-  nativeBuildInputs = [
-    qmake
-  ];
+  nativeBuildInputs = [ qmake ];
 
-  buildInputs = [
-    qtwebengine
-  ];
+  buildInputs = [ qtwebengine ];
 
   postUnpack = ''
     for dep in AuxiliarCustomWidgets QPinnableTabWidget QLogger git; do
@@ -68,13 +71,9 @@ mkDerivation rec {
     done
   '';
 
-  qmakeFlags = [
-    "GitQlient.pro"
-  ];
+  qmakeFlags = [ "GitQlient.pro" ];
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     homepage = "https://github.com/francescmm/GitQlient";

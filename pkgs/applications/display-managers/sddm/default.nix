@@ -1,6 +1,20 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchpatch
-, cmake, extra-cmake-modules, pkg-config, qttools
-, libxcb, libXau, pam, qtbase, qtdeclarative, qtquickcontrols2, systemd, xkeyboardconfig
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  qttools,
+  libxcb,
+  libXau,
+  pam,
+  qtbase,
+  qtdeclarative,
+  qtquickcontrols2,
+  systemd,
+  xkeyboardconfig,
 }:
 mkDerivation rec {
   pname = "sddm";
@@ -42,7 +56,12 @@ mkDerivation rec {
       --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config qttools ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    qttools
+  ];
 
   buildInputs = [
     libxcb
@@ -89,9 +108,12 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "QML based X11 display manager";
-    homepage    = "https://github.com/sddm/sddm";
-    maintainers = with maintainers; [ abbradar ttuegel ];
-    platforms   = platforms.linux;
-    license     = licenses.gpl2Plus;
+    homepage = "https://github.com/sddm/sddm";
+    maintainers = with maintainers; [
+      abbradar
+      ttuegel
+    ];
+    platforms = platforms.linux;
+    license = licenses.gpl2Plus;
   };
 }

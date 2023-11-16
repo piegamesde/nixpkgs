@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, aiohttp
-, dask
-, distributed
-, fsspec
-, numpy
-, requests
-, scikit-image
-, toolz
-, zarr
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  aiohttp,
+  dask,
+  distributed,
+  fsspec,
+  numpy,
+  requests,
+  scikit-image,
+  toolz,
+  zarr,
 }:
 
 buildPythonPackage rec {
@@ -39,14 +40,13 @@ buildPythonPackage rec {
     toolz
   ] ++ fsspec.passthru.optional-dependencies.s3;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # attempts to access network
-    "test_s3_info"
-  ];
+  disabledTests =
+    [
+      # attempts to access network
+      "test_s3_info"
+    ];
 
   pythonImportsCheck = [
     "ome_zarr"

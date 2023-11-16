@@ -1,21 +1,22 @@
-{ lib
-, fetchFromGitHub
-, python3
-, gtk3
-, wrapGAppsHook
-, glibcLocales
-, gobject-introspection
-, gettext
-, pango
-, gdk-pixbuf
-, librsvg
-, atk
-, libnotify
-, libappindicator-gtk3
-, gst_all_1
-, makeWrapper
-, picotts
-, sox
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  gtk3,
+  wrapGAppsHook,
+  glibcLocales,
+  gobject-introspection,
+  gettext,
+  pango,
+  gdk-pixbuf,
+  librsvg,
+  atk,
+  libnotify,
+  libappindicator-gtk3,
+  gst_all_1,
+  makeWrapper,
+  picotts,
+  sox,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -56,8 +57,18 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/gspeech --prefix PATH : ${lib.makeBinPath [ picotts sox ]}
-    wrapProgram $out/bin/gspeech-cli --prefix PATH : ${lib.makeBinPath [ picotts sox ]}
+    wrapProgram $out/bin/gspeech --prefix PATH : ${
+      lib.makeBinPath [
+        picotts
+        sox
+      ]
+    }
+    wrapProgram $out/bin/gspeech-cli --prefix PATH : ${
+      lib.makeBinPath [
+        picotts
+        sox
+      ]
+    }
   '';
 
   strictDeps = false;
@@ -70,4 +81,3 @@ python3.pkgs.buildPythonApplication rec {
     platforms = platforms.unix;
   };
 }
-

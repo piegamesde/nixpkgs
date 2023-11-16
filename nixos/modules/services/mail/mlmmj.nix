@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -13,7 +18,7 @@ let
   listCtl = domain: list: "${listDir domain list}/control";
   transport = domain: list: "${domain}--${list}@local.list.mlmmj mlmmj:${domain}/${list}";
   virtual = domain: list: "${list}@${domain} ${domain}--${list}@local.list.mlmmj";
-  alias = domain: list: "${list}: \"|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/\"";
+  alias = domain: list: ''${list}: "|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/"'';
   subjectPrefix = list: "[${list}]";
   listAddress = domain: list: "${list}@${domain}";
   customHeaders = domain: list: [
@@ -25,8 +30,11 @@ let
     "List-Unsubscribe: <mailto:${list}+unsubscribe@${domain}>"
   ];
   footer = domain: list: "To unsubscribe send a mail to ${list}+unsubscribe@${domain}";
-  createList = d: l:
-    let ctlDir = listCtl d l; in
+  createList =
+    d: l:
+    let
+      ctlDir = listCtl d l;
+    in
     ''
       for DIR in incoming queue queue/discarded archive text subconf unsubconf \
                  bounce control moderation subscribers.d digesters.d requeue \
@@ -79,7 +87,7 @@ in
 
       mailLists = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "The collection of hosted maillists";
       };
 
@@ -91,9 +99,7 @@ in
           {manpage}`systemd.time(7)` for format information.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -115,7 +121,7 @@ in
 
     services.postfix = {
       enable = true;
-      recipientDelimiter= "+";
+      recipientDelimiter = "+";
       masterConfig.mlmmj = {
         type = "unix";
         private = true;
@@ -169,5 +175,4 @@ in
       wantedBy = [ "timers.target" ];
     };
   };
-
 }

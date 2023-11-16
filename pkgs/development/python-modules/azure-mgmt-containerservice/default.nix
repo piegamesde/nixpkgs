@@ -1,12 +1,13 @@
-{ lib
-, azure-common
-, azure-mgmt-core
-, azure-mgmt-nspkg
-, buildPythonPackage
-, fetchPypi
-, isodate
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  azure-common,
+  azure-mgmt-core,
+  azure-mgmt-nspkg,
+  buildPythonPackage,
+  fetchPypi,
+  isodate,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -25,16 +26,12 @@ buildPythonPackage rec {
     azure-common
     azure-mgmt-core
     isodate
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.mgmt.containerservice"
-  ];
+  pythonImportsCheck = [ "azure.mgmt.containerservice" ];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Container Service Management Client Library";

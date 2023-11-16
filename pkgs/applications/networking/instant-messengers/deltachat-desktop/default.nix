@@ -1,36 +1,42 @@
-{ lib
-, buildNpmPackage
-, copyDesktopItems
-, electron_26
-, buildGoModule
-, esbuild
-, fetchFromGitHub
-, libdeltachat
-, makeDesktopItem
-, makeWrapper
-, noto-fonts-color-emoji
-, pkg-config
-, python3
-, roboto
-, sqlcipher
-, stdenv
-, CoreServices
-, testers
-, deltachat-desktop
+{
+  lib,
+  buildNpmPackage,
+  copyDesktopItems,
+  electron_26,
+  buildGoModule,
+  esbuild,
+  fetchFromGitHub,
+  libdeltachat,
+  makeDesktopItem,
+  makeWrapper,
+  noto-fonts-color-emoji,
+  pkg-config,
+  python3,
+  roboto,
+  sqlcipher,
+  stdenv,
+  CoreServices,
+  testers,
+  deltachat-desktop,
 }:
 
 let
   esbuild' = esbuild.override {
-    buildGoModule = args: buildGoModule (args // rec {
-      version = "0.14.54";
-      src = fetchFromGitHub {
-        owner = "evanw";
-        repo = "esbuild";
-        rev = "v${version}";
-        hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
-      };
-      vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-    });
+    buildGoModule =
+      args:
+      buildGoModule (
+        args
+        // rec {
+          version = "0.14.54";
+          src = fetchFromGitHub {
+            owner = "evanw";
+            repo = "esbuild";
+            rev = "v${version}";
+            hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
+          };
+          vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+        }
+      );
   };
 in
 buildNpmPackage rec {
@@ -50,15 +56,9 @@ buildNpmPackage rec {
     makeWrapper
     pkg-config
     python3
-  ] ++ lib.optionals stdenv.isLinux [
-    copyDesktopItems
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
 
-  buildInputs = [
-    libdeltachat
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = [ libdeltachat ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -101,27 +101,31 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  desktopItems = lib.singleton (makeDesktopItem {
-    name = "deltachat";
-    exec = "deltachat %u";
-    icon = "deltachat";
-    desktopName = "Delta Chat";
-    genericName = "Delta Chat";
-    comment = meta.description;
-    categories = [ "Network" "InstantMessaging" "Chat" ];
-    startupWMClass = "DeltaChat";
-    mimeTypes = [
-      "x-scheme-handler/openpgp4fpr"
-      "x-scheme-handler/dcaccount"
-      "x-scheme-handler/dclogin"
-      "x-scheme-handler/mailto"
-    ];
-  });
+  desktopItems = lib.singleton (
+    makeDesktopItem {
+      name = "deltachat";
+      exec = "deltachat %u";
+      icon = "deltachat";
+      desktopName = "Delta Chat";
+      genericName = "Delta Chat";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+      ];
+      startupWMClass = "DeltaChat";
+      mimeTypes = [
+        "x-scheme-handler/openpgp4fpr"
+        "x-scheme-handler/dcaccount"
+        "x-scheme-handler/dclogin"
+        "x-scheme-handler/mailto"
+      ];
+    }
+  );
 
   passthru.tests = {
-    version = testers.testVersion {
-      package = deltachat-desktop;
-    };
+    version = testers.testVersion { package = deltachat-desktop; };
   };
 
   meta = with lib; {

@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, nixosTests
-, testers
-, sqlite3-to-mysql
-, fetchPypi
-, mysql80
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  nixosTests,
+  testers,
+  sqlite3-to-mysql,
+  fetchPypi,
+  mysql80,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -22,9 +23,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-g3W6ts5Mk//l6E4Yg49rf9dmu+yzgH+mCjz+vPW9ZRQ=";
   };
 
-  nativeBuildInputs = with python3Packages; [
-    hatchling
-  ];
+  nativeBuildInputs = with python3Packages; [ hatchling ];
 
   propagatedBuildInputs = with python3Packages; [
     click

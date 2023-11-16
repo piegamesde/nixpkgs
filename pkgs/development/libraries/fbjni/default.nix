@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, fetchpatch
-, jdk_headless
-, gtest
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fetchpatch,
+  jdk_headless,
+  gtest,
 }:
 
 stdenv.mkDerivation rec {
@@ -37,13 +38,9 @@ stdenv.mkDerivation rec {
     jdk_headless
   ];
 
-  buildInputs = [
-    gtest
-  ];
+  buildInputs = [ gtest ];
 
-  cmakeFlags = [
-    "-DJAVA_HOME=${jdk_headless.passthru.home}"
-  ];
+  cmakeFlags = [ "-DJAVA_HOME=${jdk_headless.passthru.home}" ];
 
   meta = with lib; {
     description = "A library designed to simplify the usage of the Java Native Interface";

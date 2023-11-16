@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, termcolor
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  termcolor,
 }:
 
 buildPythonPackage rec {
@@ -21,17 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-cYTCJyHZ9yNg6BfpZ+g3P0yMWFhYUxgYtlbANNgfohQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    termcolor
-  ];
+  propagatedBuildInputs = [ termcolor ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     # https://github.com/pavdmyt/yaspin/pull/212
@@ -39,9 +34,7 @@ buildPythonPackage rec {
       --replace 'termcolor-whl = "1.1.2"' 'termcolor = "*"'
   '';
 
-  pythonImportsCheck = [
-    "yaspin"
-  ];
+  pythonImportsCheck = [ "yaspin" ];
 
   meta = with lib; {
     description = "Yet Another Terminal Spinner";

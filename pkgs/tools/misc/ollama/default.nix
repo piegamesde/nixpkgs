@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, llama-cpp
-, stdenv
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  llama-cpp,
+  stdenv,
 }:
 
 buildGoModule rec {
@@ -44,7 +45,10 @@ buildGoModule rec {
     homepage = "https://github.com/jmorganca/ollama";
     license = licenses.mit;
     mainProgram = "ollama";
-    maintainers = with maintainers; [ dit7ya elohmeier ];
+    maintainers = with maintainers; [
+      dit7ya
+      elohmeier
+    ];
     platforms = platforms.unix;
   };
 }

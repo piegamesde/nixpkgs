@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, pythonOlder
-, pythonRelaxDepsHook
-, altair
-, ipytablewidgets
-, ipywidgets
-, jupyter
-, jupyter-core
-, jupyterlab
-, pandas
-, poetry-core
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  altair,
+  ipytablewidgets,
+  ipywidgets,
+  jupyter,
+  jupyter-core,
+  jupyterlab,
+  pandas,
+  poetry-core,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -27,23 +28,22 @@ buildPythonPackage rec {
     hash = "sha256-v1/8taHdN1n9+gy7L+g/wAJ2x9FwYCaxZiEdFqLct1Y=";
   };
 
-  patches = [
-    # https://github.com/vega/ipyvega/pull/507
-    (fetchpatch {
-      name = "replace-poetry-with-poetry-core.patch";
-      url = "https://github.com/vega/ipyvega/commit/1a5028ee5d54e24b9650b66685f54c42b72c7899.patch";
-      hash = "sha256-W8UmMit7DJGKCM9+/OSRLTuRvC0ZR42AP/b/frVEvsk=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/vega/ipyvega/pull/507
+      (fetchpatch {
+        name = "replace-poetry-with-poetry-core.patch";
+        url = "https://github.com/vega/ipyvega/commit/1a5028ee5d54e24b9650b66685f54c42b72c7899.patch";
+        hash = "sha256-W8UmMit7DJGKCM9+/OSRLTuRvC0ZR42AP/b/frVEvsk=";
+      })
+    ];
 
   nativeBuildInputs = [
     poetry-core
     pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [
-    "pandas"
-  ];
+  pythonRelaxDeps = [ "pandas" ];
 
   propagatedBuildInputs = [
     ipytablewidgets
@@ -53,12 +53,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    widget = [
-      ipywidgets
-    ];
-    jupyterlab = [
-      jupyterlab
-    ];
+    widget = [ ipywidgets ];
+    jupyterlab = [ jupyterlab ];
   };
 
   nativeCheckInputs = [
@@ -66,10 +62,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # these tests are broken with jupyter-notebook >= 7
-    "vega/tests/test_entrypoint.py"
-  ];
+  disabledTestPaths =
+    [
+      # these tests are broken with jupyter-notebook >= 7
+      "vega/tests/test_entrypoint.py"
+    ];
 
   pythonImportsCheck = [ "vega" ];
 

@@ -1,4 +1,8 @@
-{ lib, rustPlatform, fetchFromGitHub }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "lazycli";
@@ -13,10 +17,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-1BIUXepR7ppEkTLDOCZz9RBv+RazNMXnCnH1rvzVFgs=";
 
-  checkFlags = [
-    # currently broken: https://github.com/jesseduffield/lazycli/pull/20
-    "--skip=command::test_run_command_fail"
-  ];
+  checkFlags =
+    [
+      # currently broken: https://github.com/jesseduffield/lazycli/pull/20
+      "--skip=command::test_run_command_fail"
+    ];
 
   meta = with lib; {
     description = "A tool to static turn CLI commands into TUIs";

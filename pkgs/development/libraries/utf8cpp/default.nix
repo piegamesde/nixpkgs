@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "utf8cpp";
@@ -12,9 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cWiGggn2GP25K/8eopvnFPq6iwcBteNI3i9Lo1Sr+ig=";
   };
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   nativeBuildInputs = [ cmake ];
 

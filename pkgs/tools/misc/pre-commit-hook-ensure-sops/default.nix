@@ -1,7 +1,8 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, fetchpatch
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  fetchpatch,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -16,23 +17,19 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-8sMmHNzmYwOmHYSWoZ4rKb/2lKziFmT6ux+s+chd/Do=";
   };
 
-  patches = [
-    # Add the command-line entrypoint to pyproject.toml
-    # Can be removed after v1.2 release that includes changes
-    (fetchpatch {
-      url =
-        "https://github.com/yuvipanda/pre-commit-hook-ensure-sops/commit/ed88126afa253df6009af7cbe5aa2369f963be1c.patch";
-      hash = "sha256-mMxAoC3WEciO799Rq8gZ2PJ6FT/GbeSpxlr1EPj7r4s=";
-    })
-  ];
+  patches =
+    [
+      # Add the command-line entrypoint to pyproject.toml
+      # Can be removed after v1.2 release that includes changes
+      (fetchpatch {
+        url = "https://github.com/yuvipanda/pre-commit-hook-ensure-sops/commit/ed88126afa253df6009af7cbe5aa2369f963be1c.patch";
+        hash = "sha256-mMxAoC3WEciO799Rq8gZ2PJ6FT/GbeSpxlr1EPj7r4s=";
+      })
+    ];
 
-  propagatedBuildInputs = [
-    python3Packages.ruamel-yaml
-  ];
+  propagatedBuildInputs = [ python3Packages.ruamel-yaml ];
 
-  pythonImportsCheck = [
-    "pre_commit_hook_ensure_sops"
-  ];
+  pythonImportsCheck = [ "pre_commit_hook_ensure_sops" ];
 
   # Test entrypoint
   checkPhase = ''

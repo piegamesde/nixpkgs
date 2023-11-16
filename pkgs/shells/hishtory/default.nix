@@ -1,6 +1,7 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
 }:
 
 buildGoModule rec {
@@ -34,4 +35,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ Enzime ];
   };
 }
-

@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation {
     description = "various audio visualization";
     homepage = "https://github.com/mfcc64/mpv-scripts";
     platforms = platforms.all;
-    maintainers = with maintainers; [kmein];
+    maintainers = with maintainers; [ kmein ];
   };
 }

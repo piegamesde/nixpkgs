@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope-i18nmessageid
-, zope_schema
-, zope_testrunner
-, manuel
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope-i18nmessageid,
+  zope_schema,
+  zope_testrunner,
+  manuel,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-giPqSvU5hmznqccwrH6xjlHRfrUVk6p3c7NZPI1tdgg=";
   };
 
-  nativeCheckInputs = [ zope_testrunner manuel ];
+  nativeCheckInputs = [
+    zope_testrunner
+    manuel
+  ];
 
-  propagatedBuildInputs = [ zope-i18nmessageid zope_schema ];
+  propagatedBuildInputs = [
+    zope-i18nmessageid
+    zope_schema
+  ];
 
   # Need to investigate how to run the tests with zope-testrunner
   doCheck = false;
@@ -29,5 +36,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

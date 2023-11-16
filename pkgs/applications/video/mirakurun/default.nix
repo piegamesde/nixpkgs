@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, bash
-, buildNpmPackage
-, fetchFromGitHub
-, installShellFiles
-, makeWrapper
-, nodejs
-, substituteAll
-, v4l-utils
-, which
+{
+  lib,
+  stdenv,
+  bash,
+  buildNpmPackage,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  nodejs,
+  substituteAll,
+  v4l-utils,
+  which,
 }:
 
 buildNpmPackage rec {
@@ -22,15 +23,19 @@ buildNpmPackage rec {
     sha256 = "sha256-Qg+wET5H9t3Mv2Hv0iT/C85/SEaQ+BHSBL3JjMQW5+Q=";
   };
 
-  patches = [
-    # NOTE: fixes for hardcoded paths and assumptions about filesystem
-    # permissions
-    ./nix-filesystem.patch
-  ];
+  patches =
+    [
+      # NOTE: fixes for hardcoded paths and assumptions about filesystem
+      # permissions
+      ./nix-filesystem.patch
+    ];
 
   npmDepsHash = "sha256-e7m7xb7p1SBzLAyQ82TTR/qLXv4lRm37x0JJPWYYGvI=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   # workaround for https://github.com/webpack/webpack/issues/14532
   NODE_OPTIONS = "--openssl-legacy-provider";

@@ -1,4 +1,10 @@
-testModuleArgs@{ config, lib, hostPkgs, nodes, ... }:
+testModuleArgs@{
+  config,
+  lib,
+  hostPkgs,
+  nodes,
+  ...
+}:
 
 let
   inherit (lib)
@@ -8,40 +14,40 @@ let
     mdDoc
     mkDefault
     mkIf
-    mkOption mkForce
+    mkOption
+    mkForce
     optional
     optionalAttrs
     types
-    ;
+  ;
 
-  baseOS =
-    import ../eval-config.nix {
-      inherit lib;
-      system = null; # use modularly defined system
-      inherit (config.node) specialArgs;
-      modules = [ config.defaults ];
-      baseModules = (import ../../modules/module-list.nix) ++
-        [
-          ./nixos-test-base.nix
-          { key = "nodes"; _module.args.nodes = config.nodesCompat; }
-          ({ config, ... }:
-            {
-              virtualisation.qemu.package = testModuleArgs.config.qemu.package;
-            })
-          ({ options, ... }: {
-            key = "nodes.nix-pkgs";
-            config = optionalAttrs (!config.node.pkgsReadOnly) (
-              mkIf (!options.nixpkgs.pkgs.isDefined) {
-                # TODO: switch to nixpkgs.hostPlatform and make sure containers-imperative test still evaluates.
-                nixpkgs.system = hostPkgs.stdenv.hostPlatform.system;
-              }
-            );
-          })
-          testModuleArgs.config.extraBaseModules
-        ];
-    };
-
-
+  baseOS = import ../eval-config.nix {
+    inherit lib;
+    system = null; # use modularly defined system
+    inherit (config.node) specialArgs;
+    modules = [ config.defaults ];
+    baseModules = (import ../../modules/module-list.nix) ++ [
+      ./nixos-test-base.nix
+      {
+        key = "nodes";
+        _module.args.nodes = config.nodesCompat;
+      }
+      ({ config, ... }: { virtualisation.qemu.package = testModuleArgs.config.qemu.package; })
+      (
+        { options, ... }:
+        {
+          key = "nodes.nix-pkgs";
+          config = optionalAttrs (!config.node.pkgsReadOnly) (
+            mkIf (!options.nixpkgs.pkgs.isDefined) {
+              # TODO: switch to nixpkgs.hostPlatform and make sure containers-imperative test still evaluates.
+              nixpkgs.system = hostPkgs.stdenv.hostPlatform.system;
+            }
+          );
+        }
+      )
+      testModuleArgs.config.extraBaseModules
+    ];
+  };
 in
 
 {
@@ -104,7 +110,7 @@ in
       '';
       type = types.bool;
       default = config.node.pkgs != null;
-      defaultText = literalExpression ''node.pkgs != null'';
+      defaultText = literalExpression "node.pkgs != null";
     };
 
     node.specialArgs = mkOption {
@@ -131,11 +137,16 @@ in
     _module.args.nodes = config.nodesCompat;
     nodesCompat =
       mapAttrs
-        (name: config: config // {
-          config = lib.warnIf (lib.isInOldestRelease 2211)
-            "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
-            config;
-        })
+        (
+          name: config:
+          config
+          // {
+            config =
+              lib.warnIf (lib.isInOldestRelease 2211)
+                "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
+                config;
+          }
+        )
         config.nodes;
 
     passthru.nodes = config.nodesCompat;
@@ -144,6 +155,5 @@ in
       nixpkgs.pkgs = config.node.pkgs;
       imports = [ ../../modules/misc/nixpkgs/read-only.nix ];
     };
-
   };
 }

@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, buildNpmPackage
-, nixosTests
-, gettext
-, python3
-, ghostscript
-, imagemagickBig
-, jbig2enc
-, optipng
-, pngquant
-, qpdf
-, tesseract5
-, unpaper
-, poppler_utils
-, liberation_ttf
-, xcbuild
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildNpmPackage,
+  nixosTests,
+  gettext,
+  python3,
+  ghostscript,
+  imagemagickBig,
+  jbig2enc,
+  optipng,
+  pngquant,
+  qpdf,
+  tesseract5,
+  unpaper,
+  poppler_utils,
+  liberation_ttf,
+  xcbuild,
 }:
 
 let
@@ -30,11 +31,7 @@ let
   };
 
   # Use specific package versions required by paperless-ngx
-  python = python3.override {
-    packageOverrides = self: super: {
-      django = super.django_4;
-    };
-  };
+  python = python3.override { packageOverrides = self: super: { django = super.django_4; }; };
 
   path = lib.makeBinPath [
     ghostscript
@@ -54,11 +51,7 @@ let
 
     npmDepsHash = "sha256-5Q9NtIO7k/6AiF9Er10HhmEBFyQOP9CiTkTZglUeChg=";
 
-    nativeBuildInputs = [
-      python3
-    ] ++ lib.optionals stdenv.isDarwin [
-      xcbuild
-    ];
+    nativeBuildInputs = [ python3 ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
     postPatch = ''
       cd src-ui
@@ -68,7 +61,9 @@ let
     NG_CLI_ANALYTICS = "false";
 
     npmBuildFlags = [
-      "--" "--configuration" "production"
+      "--"
+      "--configuration"
+      "production"
     ];
 
     doCheck = true;
@@ -92,134 +87,134 @@ python.pkgs.buildPythonApplication rec {
 
   inherit version src;
 
-  patches = [
-    # https://github.com/paperless-ngx/paperless-ngx/pull/4146
-    (fetchpatch {
-      name = "fix-tests-for-python311.patch";
-      url = "https://github.com/paperless-ngx/paperless-ngx/commit/73f6c0a056e3859061339e295f57213fd4239b2d.patch";
-      hash = "sha256-sZcRug5T4cw5ppKpGYrrfz9RxtYxnkeNOlXcMgdWT0E=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/paperless-ngx/paperless-ngx/pull/4146
+      (fetchpatch {
+        name = "fix-tests-for-python311.patch";
+        url = "https://github.com/paperless-ngx/paperless-ngx/commit/73f6c0a056e3859061339e295f57213fd4239b2d.patch";
+        hash = "sha256-sZcRug5T4cw5ppKpGYrrfz9RxtYxnkeNOlXcMgdWT0E=";
+      })
+    ];
 
+  nativeBuildInputs = [ gettext ];
 
-  nativeBuildInputs = [
-    gettext
-  ];
-
-  propagatedBuildInputs = with python.pkgs; [
-    amqp
-    anyio
-    asgiref
-    async-timeout
-    attrs
-    autobahn
-    automat
-    billiard
-    bleach
-    celery
-    certifi
-    cffi
-    channels-redis
-    channels
-    charset-normalizer
-    click
-    click-didyoumean
-    click-plugins
-    click-repl
-    coloredlogs
-    concurrent-log-handler
-    constantly
-    cryptography
-    dateparser
-    django-celery-results
-    django-cors-headers
-    django-compression-middleware
-    django-extensions
-    django-filter
-    django-guardian
-    django
-    djangorestframework-guardian2
-    djangorestframework
-    filelock
-    gunicorn
-    h11
-    hiredis
-    httptools
-    httpx
-    humanfriendly
-    humanize
-    hyperlink
-    idna
-    imap-tools
-    img2pdf
-    incremental
-    inotify-simple
-    inotifyrecursive
-    joblib
-    langdetect
-    lxml
-    msgpack
-    mysqlclient
-    nltk
-    ocrmypdf
-    packaging
-    pathvalidate
-    pdf2image
-    pikepdf
-    pillow
-    pluggy
-    portalocker
-    prompt-toolkit
-    psycopg2
-    pyasn1-modules
-    pyasn1
-    pycparser
-    pyopenssl
-    python-dateutil
-    python-dotenv
-    python-ipware
-    python-gnupg
-    python-magic
-    pytz
-    pyyaml
-    pyzbar
-    rapidfuzz
-    redis
-    regex
-    reportlab
-    requests
-    scikit-learn
-    scipy
-    service-identity
-    setproctitle
-    sniffio
-    sqlparse
-    threadpoolctl
-    tika-client
-    tornado
-    tqdm
-    twisted
-    txaio
-    tzdata
-    tzlocal
-    urllib3
-    uvicorn
-    uvloop
-    vine
-    watchdog
-    watchfiles
-    wcwidth
-    webencodings
-    websockets
-    whitenoise
-    whoosh
-    zipp
-    zope_interface
-    zxing-cpp
-  ]
-  ++ redis.optional-dependencies.hiredis
-  ++ twisted.optional-dependencies.tls
-  ++ uvicorn.optional-dependencies.standard;
+  propagatedBuildInputs =
+    with python.pkgs;
+    [
+      amqp
+      anyio
+      asgiref
+      async-timeout
+      attrs
+      autobahn
+      automat
+      billiard
+      bleach
+      celery
+      certifi
+      cffi
+      channels-redis
+      channels
+      charset-normalizer
+      click
+      click-didyoumean
+      click-plugins
+      click-repl
+      coloredlogs
+      concurrent-log-handler
+      constantly
+      cryptography
+      dateparser
+      django-celery-results
+      django-cors-headers
+      django-compression-middleware
+      django-extensions
+      django-filter
+      django-guardian
+      django
+      djangorestframework-guardian2
+      djangorestframework
+      filelock
+      gunicorn
+      h11
+      hiredis
+      httptools
+      httpx
+      humanfriendly
+      humanize
+      hyperlink
+      idna
+      imap-tools
+      img2pdf
+      incremental
+      inotify-simple
+      inotifyrecursive
+      joblib
+      langdetect
+      lxml
+      msgpack
+      mysqlclient
+      nltk
+      ocrmypdf
+      packaging
+      pathvalidate
+      pdf2image
+      pikepdf
+      pillow
+      pluggy
+      portalocker
+      prompt-toolkit
+      psycopg2
+      pyasn1-modules
+      pyasn1
+      pycparser
+      pyopenssl
+      python-dateutil
+      python-dotenv
+      python-ipware
+      python-gnupg
+      python-magic
+      pytz
+      pyyaml
+      pyzbar
+      rapidfuzz
+      redis
+      regex
+      reportlab
+      requests
+      scikit-learn
+      scipy
+      service-identity
+      setproctitle
+      sniffio
+      sqlparse
+      threadpoolctl
+      tika-client
+      tornado
+      tqdm
+      twisted
+      txaio
+      tzdata
+      tzlocal
+      urllib3
+      uvicorn
+      uvloop
+      vine
+      watchdog
+      watchfiles
+      wcwidth
+      webencodings
+      websockets
+      whitenoise
+      whoosh
+      zipp
+      zope_interface
+      zxing-cpp
+    ]
+    ++ redis.optional-dependencies.hiredis
+    ++ twisted.optional-dependencies.tls
+    ++ uvicorn.optional-dependencies.standard;
 
   postBuild = ''
     # Compile manually because `pythonRecompileBytecodeHook` only works
@@ -265,9 +260,7 @@ python.pkgs.buildPythonApplication rec {
     reportlab
   ];
 
-  pytestFlagsArray = [
-    "src"
-  ];
+  pytestFlagsArray = [ "src" ];
 
   # The tests require:
   # - PATH with runtime binaries
@@ -299,7 +292,9 @@ python.pkgs.buildPythonApplication rec {
 
   passthru = {
     inherit python path frontend;
-    tests = { inherit (nixosTests) paperless; };
+    tests = {
+      inherit (nixosTests) paperless;
+    };
   };
 
   meta = with lib; {
@@ -308,6 +303,11 @@ python.pkgs.buildPythonApplication rec {
     changelog = "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lukegb gador erikarvstedt leona ];
+    maintainers = with maintainers; [
+      lukegb
+      gador
+      erikarvstedt
+      leona
+    ];
   };
 }

@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, rustPlatform
-, libgit2
-, openssl
-, pkg-config
-, makeWrapper
-, git
-, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  libgit2,
+  openssl,
+  pkg-config,
+  makeWrapper,
+  git,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -50,13 +51,13 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     libgit2
     openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    darwin.Security
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.Security ];
 
   cargoBuildFlags = [
-    "-p" "josh"
-    "-p" "josh-proxy"
+    "-p"
+    "josh"
+    "-p"
+    "josh-proxy"
     # TODO: josh-ui
   ];
 

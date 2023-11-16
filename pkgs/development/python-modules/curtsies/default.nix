@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, backports-cached-property
-, blessed
-, buildPythonPackage
-, cwcwidth
-, fetchPypi
-, pyte
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  backports-cached-property,
+  blessed,
+  buildPythonPackage,
+  cwcwidth,
+  fetchPypi,
+  pyte,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     blessed
     cwcwidth
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    backports-cached-property
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ backports-cached-property ];
 
   nativeCheckInputs = [
     pyte

@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -38,5 +39,4 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ StillerHarpo ];
   };
-
 }

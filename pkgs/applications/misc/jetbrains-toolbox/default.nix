@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchzip
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, runCommand
-, appimageTools
-, icu
+{
+  stdenv,
+  lib,
+  fetchzip,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  runCommand,
+  appimageTools,
+  icu,
 }:
 let
   pname = "jetbrains-toolbox";
@@ -18,13 +19,11 @@ let
     stripRoot = false;
   };
 
-  appimageContents = runCommand "${pname}-extracted"
-    {
-      nativeBuildInputs = [ appimageTools.appimage-exec ];
-    }
-    ''
-      appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
-    '';
+  appimageContents =
+    runCommand "${pname}-extracted" { nativeBuildInputs = [ appimageTools.appimage-exec ]; }
+      ''
+        appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
+      '';
 
   appimage = appimageTools.wrapAppImage {
     inherit pname version;
@@ -46,9 +45,17 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit pname version src appimage;
+  inherit
+    pname
+    version
+    src
+    appimage
+  ;
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -56,7 +63,7 @@ stdenv.mkDerivation {
     install -Dm644 ${appimageContents}/.DirIcon $out/share/icons/hicolor/scalable/apps/jetbrains-toolbox.svg
     makeWrapper ${appimage}/bin/${pname}-${version} $out/bin/${pname} \
       --append-flags "--update-failed" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [icu]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ icu ]}
 
     runHook postInstall
   '';

@@ -1,38 +1,40 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
 
-# build-system
-, setuptools
-, wheel
+  # build-system
+  setuptools,
+  wheel,
 
-# propagates
-, aiofiles
-, html5tagger
-, httptools
-, multidict
-, sanic-routing
-, tracerite
-, typing-extensions
-, ujson
-, uvloop
-, websockets
+  # propagates
+  aiofiles,
+  html5tagger,
+  httptools,
+  multidict,
+  sanic-routing,
+  tracerite,
+  typing-extensions,
+  ujson,
+  uvloop,
+  websockets,
 
-# optionals
-, aioquic
+  # optionals
+  aioquic,
 
-# tests
-, doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
+  # tests
+  doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
+  ,
 
-, beautifulsoup4
-, gunicorn
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, sanic-testing
-, uvicorn
+  beautifulsoup4,
+  gunicorn,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  sanic-testing,
+  uvicorn,
 }:
 
 buildPythonPackage rec {
@@ -49,14 +51,15 @@ buildPythonPackage rec {
     hash = "sha256-Ffw92mlYNV+ikb6299uw24EI1XPpl3Ju2st1Yt/YHKw=";
   };
 
-  patches = [
-    # https://github.com/sanic-org/sanic/pull/2801
-    (fetchpatch {
-      name = "fix-test-one-cpu.patch";
-      url = "https://github.com/sanic-org/sanic/commit/a1df2a6de1c9c88a85d166e7e2636d26f7925852.patch";
-      hash = "sha256-vljGuoP/Q9HrP+/AOoI1iUpbDQ4/1Pn7AURP1dncI00=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/sanic-org/sanic/pull/2801
+      (fetchpatch {
+        name = "fix-test-one-cpu.patch";
+        url = "https://github.com/sanic-org/sanic/commit/a1df2a6de1c9c88a85d166e7e2636d26f7925852.patch";
+        hash = "sha256-vljGuoP/Q9HrP+/AOoI1iUpbDQ4/1Pn7AURP1dncI00=";
+      })
+    ];
 
   nativeBuildInputs = [
     setuptools
@@ -77,12 +80,11 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    ext = [
-      # TODO: sanic-ext
-    ];
-    http3 = [
-      aioquic
-    ];
+    ext =
+      [
+        # TODO: sanic-ext
+      ];
+    http3 = [ aioquic ];
   };
 
   nativeCheckInputs = [
@@ -96,17 +98,19 @@ buildPythonPackage rec {
 
   inherit doCheck;
 
-  preCheck = ''
-    # Some tests depends on sanic on PATH
-    PATH="$out/bin:$PATH"
-    PYTHONPATH=$PWD:$PYTHONPATH
+  preCheck =
+    ''
+      # Some tests depends on sanic on PATH
+      PATH="$out/bin:$PATH"
+      PYTHONPATH=$PWD:$PYTHONPATH
 
-    # needed for relative paths for some packages
-    cd tests
-  '' + lib.optionalString stdenv.isDarwin ''
-    # OSError: [Errno 24] Too many open files
-    ulimit -n 1024
-  '';
+      # needed for relative paths for some packages
+      cd tests
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      # OSError: [Errno 24] Too many open files
+      ulimit -n 1024
+    '';
 
   # uvloop usage is buggy
   #SANIC_NO_UVLOOP = true;

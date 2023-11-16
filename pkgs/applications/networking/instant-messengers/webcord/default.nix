@@ -1,14 +1,15 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, copyDesktopItems
-, python3
-, pipewire
-, libpulseaudio
-, xdg-utils
-, electron_27
-, makeDesktopItem
-, nix-update-script
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  copyDesktopItems,
+  python3,
+  pipewire,
+  libpulseaudio,
+  xdg-utils,
+  electron_27,
+  makeDesktopItem,
+  nix-update-script,
 }:
 
 buildNpmPackage rec {
@@ -47,26 +48,26 @@ buildNpmPackage rec {
       ];
       binPath = lib.makeBinPath [ xdg-utils ];
     in
-  ''
-    runHook preInstall
+    ''
+      runHook preInstall
 
-    # Remove dev deps that aren't necessary for running the app
-    npm prune --omit=dev
+      # Remove dev deps that aren't necessary for running the app
+      npm prune --omit=dev
 
-    mkdir -p $out/lib/node_modules/webcord
-    cp -r app node_modules sources package.json $out/lib/node_modules/webcord/
+      mkdir -p $out/lib/node_modules/webcord
+      cp -r app node_modules sources package.json $out/lib/node_modules/webcord/
 
-    install -Dm644 sources/assets/icons/app.png $out/share/icons/hicolor/256x256/apps/webcord.png
+      install -Dm644 sources/assets/icons/app.png $out/share/icons/hicolor/256x256/apps/webcord.png
 
-    # Add xdg-utils to path via suffix, per PR #181171
-    makeWrapper '${lib.getExe electron_27}' $out/bin/webcord \
-      --prefix LD_LIBRARY_PATH : ${libPath}:$out/opt/webcord \
-      --suffix PATH : "${binPath}" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-      --add-flags $out/lib/node_modules/webcord/
+      # Add xdg-utils to path via suffix, per PR #181171
+      makeWrapper '${lib.getExe electron_27}' $out/bin/webcord \
+        --prefix LD_LIBRARY_PATH : ${libPath}:$out/opt/webcord \
+        --suffix PATH : "${binPath}" \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+        --add-flags $out/lib/node_modules/webcord/
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -75,7 +76,10 @@ buildNpmPackage rec {
       icon = "webcord";
       desktopName = "WebCord";
       comment = meta.description;
-      categories = [ "Network" "InstantMessaging" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+      ];
     })
   ];
 
@@ -88,7 +92,10 @@ buildNpmPackage rec {
     changelog = "https://github.com/SpacingBat3/WebCord/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "webcord";
-    maintainers = with lib.maintainers; [ eclairevoyant huantian ];
+    maintainers = with lib.maintainers; [
+      eclairevoyant
+      huantian
+    ];
     platforms = lib.platforms.linux;
   };
 }

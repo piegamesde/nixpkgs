@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, nodejs, bash, asar, unzip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nodejs,
+  bash,
+  asar,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openasar";
@@ -41,7 +49,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Open-source alternative of Discord desktop's \"app.asar\".";
+    description = ''Open-source alternative of Discord desktop's "app.asar".'';
     homepage = "https://openasar.dev";
     license = licenses.mit;
     maintainers = with maintainers; [ pedrohlc ];

@@ -1,7 +1,8 @@
-{ mkYarnPackage
-, fetchFromGitHub
-, fetchYarnDeps
-, lib
+{
+  mkYarnPackage,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  lib,
 }:
 
 mkYarnPackage rec {

@@ -1,8 +1,9 @@
-{ lib
-, python3
-, fetchFromGitHub
-, espeak-ng
-, tts
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  espeak-ng,
+  tts,
 }:
 
 let
@@ -26,34 +27,40 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-GYVr/Wam1IGCSR2vHMAu5Fg/jRB333L6iNjltnRKh4E=";
   };
 
-  postPatch = let
-    relaxedConstraints = [
-      "bnunicodenormalizer"
-      "cython"
-      "gruut"
-      "inflect"
-      "librosa"
-      "mecab-python3"
-      "numba"
-      "numpy"
-      "unidic-lite"
-      "trainer"
-    ];
-  in ''
-    sed -r -i \
-      ${lib.concatStringsSep "\n" (map (package:
-        ''-e 's/${package}\s*[<>=]+.+/${package}/g' \''
-      ) relaxedConstraints)}
-    requirements.txt
+  postPatch =
+    let
+      relaxedConstraints = [
+        "bnunicodenormalizer"
+        "cython"
+        "gruut"
+        "inflect"
+        "librosa"
+        "mecab-python3"
+        "numba"
+        "numpy"
+        "unidic-lite"
+        "trainer"
+      ];
+    in
+    ''
+      sed -r -i \
+        ${
+          lib.concatStringsSep "\n" (
+            map (package: "-e 's/${package}\\s*[<>=]+.+/${package}/g' \\") relaxedConstraints
+          )
+        }
+      requirements.txt
 
-    sed -r -i \
-      ${lib.concatStringsSep "\n" (map (package:
-        ''-e 's/${package}\s*[<>=]+[^"]+/${package}/g' \''
-      ) relaxedConstraints)}
-    pyproject.toml
-    # only used for notebooks and visualization
-    sed -r -i -e '/umap-learn/d' requirements.txt
-  '';
+      sed -r -i \
+        ${
+          lib.concatStringsSep "\n" (
+            map (package: ''-e 's/${package}\s*[<>=]+[^"]+/${package}/g' \'') relaxedConstraints
+          )
+        }
+      pyproject.toml
+      # only used for notebooks and visualization
+      sed -r -i -e '/umap-learn/d' requirements.txt
+    '';
 
   nativeBuildInputs = with python.pkgs; [
     cython

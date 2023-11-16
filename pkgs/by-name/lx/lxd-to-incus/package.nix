@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nix-update-script
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -15,9 +16,7 @@ buildGoModule rec {
     hash = "sha256-WhprzGzTeB8sEMMTYN5j1Zrwg0GiGLlXTqCkcPq0XVo=";
   };
 
-  patches = [
-    ./d7f7ae55a54437616174f80fb8faa80ae4ffcda4.patch
-  ];
+  patches = [ ./d7f7ae55a54437616174f80fb8faa80ae4ffcda4.patch ];
 
   modRoot = "cmd/lxd-to-incus";
 
@@ -27,10 +26,11 @@ buildGoModule rec {
 
   passthru = {
     updateScript = nix-update-script {
-       extraArgs = [
-        "-vr" "incus-\(.*\)"
-       ];
-     };
+      extraArgs = [
+        "-vr"
+        "incus-(.*)"
+      ];
+    };
   };
 
   meta = {

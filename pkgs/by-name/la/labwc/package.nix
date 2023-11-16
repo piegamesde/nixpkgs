@@ -1,81 +1,85 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cairo
-, gettext
-, glib
-, libdrm
-, libinput
-, libpng
-, librsvg
-, libxcb
-, libxkbcommon
-, libxml2
-, meson
-, ninja
-, pango
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
-, wlroots
-, xcbutilwm
-, xwayland
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cairo,
+  gettext,
+  glib,
+  libdrm,
+  libinput,
+  libpng,
+  librsvg,
+  libxcb,
+  libxkbcommon,
+  libxml2,
+  meson,
+  ninja,
+  pango,
+  pkg-config,
+  scdoc,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  wlroots,
+  xcbutilwm,
+  xwayland,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "labwc";
-  version = "0.6.5";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "labwc";
+    version = "0.6.5";
 
-  src = fetchFromGitHub {
-    owner = "labwc";
-    repo = "labwc";
-    rev = finalAttrs.version;
-    hash = "sha256-nQLxE2Q4GiLUjkag/yqctzmkKKWFw1XNFjotE8MMgBA=";
-  };
+    src = fetchFromGitHub {
+      owner = "labwc";
+      repo = "labwc";
+      rev = finalAttrs.version;
+      hash = "sha256-nQLxE2Q4GiLUjkag/yqctzmkKKWFw1XNFjotE8MMgBA=";
+    };
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    pkg-config
-    scdoc
-    wayland-scanner
-  ];
+    nativeBuildInputs = [
+      gettext
+      meson
+      ninja
+      pkg-config
+      scdoc
+      wayland-scanner
+    ];
 
-  buildInputs = [
-    cairo
-    glib
-    libdrm
-    libinput
-    libpng
-    librsvg
-    libxcb
-    libxkbcommon
-    libxml2
-    pango
-    wayland
-    wayland-protocols
-    wlroots
-    xcbutilwm
-    xwayland
-  ];
+    buildInputs = [
+      cairo
+      glib
+      libdrm
+      libinput
+      libpng
+      librsvg
+      libxcb
+      libxkbcommon
+      libxml2
+      pango
+      wayland
+      wayland-protocols
+      wlroots
+      xcbutilwm
+      xwayland
+    ];
 
-  outputs = [ "out" "man" ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  mesonFlags = [
-    (lib.mesonEnable "xwayland" true)
-  ];
+    mesonFlags = [ (lib.mesonEnable "xwayland" true) ];
 
-  meta = {
-    homepage = "https://github.com/labwc/labwc";
-    description = "A Wayland stacking compositor, inspired by Openbox";
-    changelog = "https://raw.githubusercontent.com/labwc/labwc/${finalAttrs.version}/NEWS.md";
-    license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ AndersonTorres ];
-    inherit (wayland.meta) platforms;
-  };
-})
+    meta = {
+      homepage = "https://github.com/labwc/labwc";
+      description = "A Wayland stacking compositor, inspired by Openbox";
+      changelog = "https://raw.githubusercontent.com/labwc/labwc/${finalAttrs.version}/NEWS.md";
+      license = lib.licenses.gpl2Plus;
+      maintainers = with lib.maintainers; [ AndersonTorres ];
+      inherit (wayland.meta) platforms;
+    };
+  }
+)

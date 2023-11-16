@@ -1,4 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -19,4 +22,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ Scriptkiddi ];
   };
 }
-

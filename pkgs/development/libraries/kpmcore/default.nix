@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchurl
-, extra-cmake-modules
-, qca-qt5
-, kauth
-, kio
-, polkit-qt
-, util-linux
+{
+  stdenv,
+  lib,
+  fetchurl,
+  extra-cmake-modules,
+  qca-qt5,
+  kauth,
+  kio,
+  polkit-qt,
+  util-linux,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,9 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-NFIq8CZwYvpqDOOYLlBqoGdgfNPsyf15FkB3dToDCB8=";
   };
 
-  patches = [
-    ./nixostrustedprefix.patch
-  ];
+  patches = [ ./nixostrustedprefix.patch ];
 
   nativeBuildInputs = [ extra-cmake-modules ];
 
@@ -46,7 +45,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "KDE Partition Manager core library";
     homepage = "https://invent.kde.org/system/kpmcore";
-    license = with licenses; [ cc-by-40 cc0 gpl3Plus mit ];
-    maintainers = with maintainers; [ peterhoeg oxalica ];
+    license = with licenses; [
+      cc-by-40
+      cc0
+      gpl3Plus
+      mit
+    ];
+    maintainers = with maintainers; [
+      peterhoeg
+      oxalica
+    ];
   };
 }

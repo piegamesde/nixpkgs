@@ -1,25 +1,26 @@
-{ lib
-, config
-, buildPythonPackage
-, fetchFromGitHub
-, addOpenGLRunpath
-, pytestCheckHook
-, pythonRelaxDepsHook
-, pkgsTargetTarget
-, cmake
-, ninja
-, pybind11
-, gtest
-, zlib
-, ncurses
-, libxml2
-, lit
-, llvm
-, filelock
-, torchWithRocm
-, python
-, cudaPackages
-, cudaSupport ? config.cudaSupport
+{
+  lib,
+  config,
+  buildPythonPackage,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pkgsTargetTarget,
+  cmake,
+  ninja,
+  pybind11,
+  gtest,
+  zlib,
+  ncurses,
+  libxml2,
+  lit,
+  llvm,
+  filelock,
+  torchWithRocm,
+  python,
+  cudaPackages,
+  cudaSupport ? config.cudaSupport,
 }:
 
 let
@@ -58,9 +59,7 @@ buildPythonPackage rec {
     #   url = "https://github.com/openai/triton/commit/fc7c0b0e437a191e421faa61494b2ff4870850f1.patch";
     #   hash = "sha256-f0shIqHJkVvuil2Yku7vuqWFn7VCRKFSFjYRlwx25ig=";
     # })
-  ] ++ lib.optionals (!cudaSupport) [
-    ./0000-dont-download-ptxas.patch
-  ];
+  ] ++ lib.optionals (!cudaSupport) [ ./0000-dont-download-ptxas.patch ];
 
   nativeBuildInputs = [
     pythonRelaxDepsHook
@@ -86,55 +85,64 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ filelock ];
 
-  postPatch = let
-    # Bash was getting weird without linting,
-    # but basically upstream contains [cc, ..., "-lcuda", ...]
-    # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-    old = [ "-lcuda" ];
-    new = [ "-lcuda" "-L${addOpenGLRunpath.driverLink}" "-L${cudaPackages.cuda_cudart}/lib/stubs/" ];
+  postPatch =
+    let
+      # Bash was getting weird without linting,
+      # but basically upstream contains [cc, ..., "-lcuda", ...]
+      # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
+      old = [ "-lcuda" ];
+      new = [
+        "-lcuda"
+        "-L${addOpenGLRunpath.driverLink}"
+        "-L${cudaPackages.cuda_cudart}/lib/stubs/"
+      ];
 
-    quote = x: ''"${x}"'';
-    oldStr = lib.concatMapStringsSep ", " quote old;
-    newStr = lib.concatMapStringsSep ", " quote new;
-  in ''
-    # Use our `cmakeFlags` instead and avoid downloading dependencies
-    substituteInPlace python/setup.py \
-      --replace "= get_thirdparty_packages(triton_cache_path)" "= os.environ[\"cmakeFlags\"].split()"
+      quote = x: ''"${x}"'';
+      oldStr = lib.concatMapStringsSep ", " quote old;
+      newStr = lib.concatMapStringsSep ", " quote new;
+    in
+    ''
+      # Use our `cmakeFlags` instead and avoid downloading dependencies
+      substituteInPlace python/setup.py \
+        --replace "= get_thirdparty_packages(triton_cache_path)" "= os.environ[\"cmakeFlags\"].split()"
 
-    # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
-    substituteInPlace bin/CMakeLists.txt \
-      --replace "add_subdirectory(FileCheck)" ""
+      # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
+      substituteInPlace bin/CMakeLists.txt \
+        --replace "add_subdirectory(FileCheck)" ""
 
-    # Don't fetch googletest
-    substituteInPlace unittest/CMakeLists.txt \
-      --replace "include (\''${CMAKE_CURRENT_SOURCE_DIR}/googletest.cmake)" ""\
-      --replace "include(GoogleTest)" "find_package(GTest REQUIRED)"
-  '' + lib.optionalString cudaSupport ''
-    # Use our linker flags
-    substituteInPlace python/triton/compiler.py \
-      --replace '${oldStr}' '${newStr}'
-  '';
+      # Don't fetch googletest
+      substituteInPlace unittest/CMakeLists.txt \
+        --replace "include (\''${CMAKE_CURRENT_SOURCE_DIR}/googletest.cmake)" ""\
+        --replace "include(GoogleTest)" "find_package(GTest REQUIRED)"
+    ''
+    + lib.optionalString cudaSupport ''
+      # Use our linker flags
+      substituteInPlace python/triton/compiler.py \
+        --replace '${oldStr}' '${newStr}'
+    '';
 
   # Avoid GLIBCXX mismatch with other cuda-enabled python packages
-  preConfigure = ''
-    # Upstream's setup.py tries to write cache somewhere in ~/
-    export HOME=$(mktemp -d)
+  preConfigure =
+    ''
+      # Upstream's setup.py tries to write cache somewhere in ~/
+      export HOME=$(mktemp -d)
 
-    # Upstream's github actions patch setup.cfg to write base-dir. May be redundant
-    echo "
-    [build_ext]
-    base-dir=$PWD" >> python/setup.cfg
+      # Upstream's github actions patch setup.cfg to write base-dir. May be redundant
+      echo "
+      [build_ext]
+      base-dir=$PWD" >> python/setup.cfg
 
-    # The rest (including buildPhase) is relative to ./python/
-    cd python
-  '' + lib.optionalString cudaSupport ''
-    export CC=${cudaPackages.backendStdenv.cc}/bin/cc;
-    export CXX=${cudaPackages.backendStdenv.cc}/bin/c++;
+      # The rest (including buildPhase) is relative to ./python/
+      cd python
+    ''
+    + lib.optionalString cudaSupport ''
+      export CC=${cudaPackages.backendStdenv.cc}/bin/cc;
+      export CXX=${cudaPackages.backendStdenv.cc}/bin/c++;
 
-    # Work around download_and_copy_ptxas()
-    mkdir -p $PWD/triton/third_party/cuda/bin
-    ln -s ${ptxas} $PWD/triton/third_party/cuda/bin
-  '';
+      # Work around download_and_copy_ptxas()
+      mkdir -p $PWD/triton/third_party/cuda/bin
+      ln -s ${ptxas} $PWD/triton/third_party/cuda/bin
+    '';
 
   # CMake is run by setup.py instead
   dontUseCmakeConfigure = true;
@@ -163,7 +171,9 @@ buildPythonPackage rec {
   # ];
 
   # Ultimately, torch is our test suite:
-  passthru.tests = { inherit torchWithRocm; };
+  passthru.tests = {
+    inherit torchWithRocm;
+  };
 
   pythonRemoveDeps = [
     # Circular dependency, cf. https://github.com/openai/triton/issues/1374
@@ -179,6 +189,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/openai/triton";
     platforms = lib.platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ SomeoneSerge Madouura ];
+    maintainers = with maintainers; [
+      SomeoneSerge
+      Madouura
+    ];
   };
 }

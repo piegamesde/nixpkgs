@@ -1,15 +1,16 @@
-{ faad2
-, fetchFromGitHub
-, flac
-, lame
-, lib
-, makeWrapper
-, monkeysAudio
-, perlPackages
-, sox
-, stdenv
-, wavpack
-, zlib
+{
+  faad2,
+  fetchFromGitHub,
+  flac,
+  lame,
+  lib,
+  makeWrapper,
+  monkeysAudio,
+  perlPackages,
+  sox,
+  stdenv,
+  wavpack,
+  zlib,
 }:
 
 perlPackages.buildPerlPackage rec {
@@ -25,7 +26,10 @@ perlPackages.buildPerlPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ perlPackages.CryptOpenSSLRSA perlPackages.IOSocketSSL ];
+  buildInputs = [
+    perlPackages.CryptOpenSSLRSA
+    perlPackages.IOSocketSSL
+  ];
 
   prePatch = ''
     rm -rf Bin
@@ -37,8 +41,22 @@ perlPackages.buildPerlPackage rec {
   installPhase = ''
     cp -r . $out
     wrapProgram $out/slimserver.pl \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ zlib stdenv.cc.cc.lib ]}" \
-      --prefix PATH : "${lib.makeBinPath [ lame flac faad2 sox monkeysAudio wavpack ]}"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          zlib
+          stdenv.cc.cc.lib
+        ]
+      }" \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          lame
+          flac
+          faad2
+          sox
+          monkeysAudio
+          wavpack
+        ]
+      }"
   '';
 
   outputs = [ "out" ];
@@ -49,7 +67,10 @@ perlPackages.buildPerlPackage rec {
     # the firmware is not under a free license!
     # https://github.com/Logitech/slimserver/blob/public/8.3/License.txt
     license = licenses.unfree;
-    maintainers = with maintainers; [ adamcstephens jecaro ];
+    maintainers = with maintainers; [
+      adamcstephens
+      jecaro
+    ];
     platforms = platforms.unix;
   };
 }

@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   makewhatis = "${lib.getBin cfg.package}/bin/makewhatis";
 
   cfg = config.documentation.man.mandoc;
-
-in {
+in
+{
   meta.maintainers = [ lib.maintainers.sternenseemann ];
 
   options = {
@@ -15,7 +20,7 @@ in {
       manPath = lib.mkOption {
         type = with lib.types; listOf str;
         default = [ "share/man" ];
-        example = lib.literalExpression "[ \"share/man\" \"share/man/fr\" ]";
+        example = lib.literalExpression ''[ "share/man" "share/man/fr" ]'';
         description = lib.mdDoc ''
           Change the manpath, i. e. the directories where
           {manpage}`man(1)`
@@ -44,18 +49,19 @@ in {
       systemPackages = [ cfg.package ];
 
       # tell mandoc about man pages
-      etc."man.conf".text = lib.concatMapStrings (path: ''
-        manpath /run/current-system/sw/${path}
-      '') cfg.manPath;
+      etc."man.conf".text =
+        lib.concatMapStrings
+          (path: ''
+            manpath /run/current-system/sw/${path}
+          '')
+          cfg.manPath;
 
       # create mandoc.db for whatis(1), apropos(1) and man(1) -k
       # TODO(@sternenseemman): fix symlinked directories not getting indexed,
       # see: https://inbox.vuxu.org/mandoc-tech/20210906171231.GF83680@athene.usta.de/T/#e85f773c1781e3fef85562b2794f9cad7b2909a3c
       extraSetup = lib.mkIf config.documentation.man.generateCaches ''
         ${makewhatis} -T utf8 ${
-          lib.concatMapStringsSep " " (path:
-            "$out/" + lib.escapeShellArg path
-          ) cfg.manPath
+          lib.concatMapStringsSep " " (path: "$out/" + lib.escapeShellArg path) cfg.manPath
         }
       '';
     };

@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, cairocffi
-, cython
-, fetchPypi
-, igraph
-, leidenalg
-, pandas
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, scipy
-, setuptools
-, spacy
-, spacy-lookups-data
-, en_core_web_sm
-, toolz
-, tqdm
-, wasabi
+{
+  lib,
+  buildPythonPackage,
+  cairocffi,
+  cython,
+  fetchPypi,
+  igraph,
+  leidenalg,
+  pandas,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  setuptools,
+  spacy,
+  spacy-lookups-data,
+  en_core_web_sm,
+  toolz,
+  tqdm,
+  wasabi,
 }:
 
 buildPythonPackage rec {
@@ -55,15 +56,14 @@ buildPythonPackage rec {
     en_core_web_sm
   ];
 
-  pythonImportsCheck = [
-    "textnets"
-  ];
+  pythonImportsCheck = [ "textnets" ];
 
-  disabledTests = [
-    # Test fails: A warning is triggered because of a deprecation notice by pandas.
-    # TODO: Try to re-enable it when pandas is updated to 2.1.1
-    "test_corpus_czech"
-  ];
+  disabledTests =
+    [
+      # Test fails: A warning is triggered because of a deprecation notice by pandas.
+      # TODO: Try to re-enable it when pandas is updated to 2.1.1
+      "test_corpus_czech"
+    ];
 
   meta = with lib; {
     description = "Text analysis with networks";

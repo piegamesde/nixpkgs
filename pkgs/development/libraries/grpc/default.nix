@@ -1,29 +1,30 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, buildPackages
-, cmake
-, zlib
-, c-ares
-, pkg-config
-, re2
-, openssl
-, protobuf
-, grpc
-, abseil-cpp
-, libnsl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPackages,
+  cmake,
+  zlib,
+  c-ares,
+  pkg-config,
+  re2,
+  openssl,
+  protobuf,
+  grpc,
+  abseil-cpp,
+  libnsl,
 
-# tests
-, python3
-, arrow-cpp
+  # tests
+  python3,
+  arrow-cpp,
 }:
 
 stdenv.mkDerivation rec {
   pname = "grpc";
   version = "1.57.0"; # N.B: if you change this, please update:
-    # pythonPackages.grpcio-tools
-    # pythonPackages.grpcio-status
+  # pythonPackages.grpcio-tools
+  # pythonPackages.grpcio-status
 
   src = fetchFromGitHub {
     owner = "grpc";
@@ -48,37 +49,50 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc;
-  propagatedBuildInputs = [ c-ares re2 zlib abseil-cpp ];
-  buildInputs = [ openssl protobuf ]
-    ++ lib.optionals stdenv.isLinux [ libnsl ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc;
+  propagatedBuildInputs = [
+    c-ares
+    re2
+    zlib
+    abseil-cpp
+  ];
+  buildInputs = [
+    openssl
+    protobuf
+  ] ++ lib.optionals stdenv.isLinux [ libnsl ];
 
-  cmakeFlags = [
-    "-DgRPC_ZLIB_PROVIDER=package"
-    "-DgRPC_CARES_PROVIDER=package"
-    "-DgRPC_RE2_PROVIDER=package"
-    "-DgRPC_SSL_PROVIDER=package"
-    "-DgRPC_PROTOBUF_PROVIDER=package"
-    "-DgRPC_ABSL_PROVIDER=package"
-    "-DBUILD_SHARED_LIBS=ON"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
-    "-D_gRPC_CPP_PLUGIN=${buildPackages.grpc}/bin/grpc_cpp_plugin"
-  ]
-  # The build scaffold defaults to c++14 on darwin, even when the compiler uses
-  # a more recent c++ version by default [1]. However, downgrades are
-  # problematic, because the compatibility types in abseil will have different
-  # interface definitions than the ones used for building abseil itself.
-  # [1] https://github.com/grpc/grpc/blob/v1.57.0/CMakeLists.txt#L239-L243
-  ++ (let
-    defaultCxxIsOlderThan17 =
-      (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.cc.version "16.0")
-       || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.cc.version "11.0");
-    in lib.optionals (stdenv.hostPlatform.isDarwin && defaultCxxIsOlderThan17)
-  [
-    "-DCMAKE_CXX_STANDARD=17"
-  ]);
+  cmakeFlags =
+    [
+      "-DgRPC_ZLIB_PROVIDER=package"
+      "-DgRPC_CARES_PROVIDER=package"
+      "-DgRPC_RE2_PROVIDER=package"
+      "-DgRPC_SSL_PROVIDER=package"
+      "-DgRPC_PROTOBUF_PROVIDER=package"
+      "-DgRPC_ABSL_PROVIDER=package"
+      "-DBUILD_SHARED_LIBS=ON"
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
+      "-D_gRPC_CPP_PLUGIN=${buildPackages.grpc}/bin/grpc_cpp_plugin"
+    ]
+    # The build scaffold defaults to c++14 on darwin, even when the compiler uses
+    # a more recent c++ version by default [1]. However, downgrades are
+    # problematic, because the compatibility types in abseil will have different
+    # interface definitions than the ones used for building abseil itself.
+    # [1] https://github.com/grpc/grpc/blob/v1.57.0/CMakeLists.txt#L239-L243
+    ++ (
+      let
+        defaultCxxIsOlderThan17 =
+          (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.cc.version "16.0")
+          || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.cc.version "11.0");
+      in
+      lib.optionals (stdenv.hostPlatform.isDarwin && defaultCxxIsOlderThan17) [
+        "-DCMAKE_CXX_STANDARD=17"
+      ]
+    );
 
   # CMake creates a build directory by default, this conflicts with the
   # basel BUILD file on case-insensitive filesystems.
@@ -96,11 +110,8 @@ stdenv.mkDerivation rec {
   '';
 
   env.NIX_CFLAGS_COMPILE = lib.concatStringsSep " " (
-    lib.optionals stdenv.cc.isClang [
-      "-Wno-error=unknown-warning-option"
-    ] ++ lib.optionals stdenv.isAarch64 [
-      "-Wno-error=format-security"
-    ]
+    lib.optionals stdenv.cc.isClang [ "-Wno-error=unknown-warning-option" ]
+    ++ lib.optionals stdenv.isAarch64 [ "-Wno-error=format-security" ]
   );
 
   enableParallelBuilds = true;
@@ -113,7 +124,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The C based gRPC (C++, Python, Ruby, Objective-C, PHP, C#)";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lnl7 marsam ];
+    maintainers = with maintainers; [
+      lnl7
+      marsam
+    ];
     homepage = "https://grpc.io/";
     platforms = platforms.all;
     changelog = "https://github.com/grpc/grpc/releases/tag/v${version}";

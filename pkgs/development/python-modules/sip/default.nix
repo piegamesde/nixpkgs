@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, wheel
-, packaging
-, ply
-, toml
-, tomli
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  wheel,
+  packaging,
+  ply,
+  toml,
+  tomli,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,11 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ packaging ply toml ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [
+    packaging
+    ply
+    toml
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   # There aren't tests
   doCheck = false;
@@ -38,8 +41,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Creates C++ bindings for Python modules";
-    homepage    = "https://riverbankcomputing.com/";
-    license     = licenses.gpl3Only;
+    homepage = "https://riverbankcomputing.com/";
+    license = licenses.gpl3Only;
     maintainers = with maintainers; [ nrdxp ];
   };
 }

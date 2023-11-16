@@ -1,25 +1,26 @@
-{ stdenvNoCC
-, stdenv
-, lib
-, dpkg
-, autoPatchelfHook
-, makeWrapper
-, fetchurl
-, alsa-lib
-, openssl
-, udev
-, libglvnd
-, libX11
-, libXcursor
-, libXi
-, libXrandr
-, libXfixes
-, libpulseaudio
-, libva
-, ffmpeg
-, libpng
-, libjpeg8
-, curl
+{
+  stdenvNoCC,
+  stdenv,
+  lib,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
+  fetchurl,
+  alsa-lib,
+  openssl,
+  udev,
+  libglvnd,
+  libX11,
+  libXcursor,
+  libXi,
+  libXrandr,
+  libXfixes,
+  libpulseaudio,
+  libva,
+  ffmpeg,
+  libpng,
+  libjpeg8,
+  curl,
 }:
 
 stdenvNoCC.mkDerivation {
@@ -39,7 +40,11 @@ stdenvNoCC.mkDerivation {
     runHook postUnpack
   '';
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    makeWrapper
+  ];
 
   buildInputs = [
     stdenv.cc.cc # libstdc++
@@ -69,7 +74,9 @@ stdenvNoCC.mkDerivation {
   prepareParsec = ''
     if [[ ! -e "$HOME/.parsec/appdata.json" ]]; then
       mkdir -p "$HOME/.parsec"
-      cp --no-preserve=mode,ownership,timestamps ${placeholder "out"}/share/parsec/skel/* "$HOME/.parsec/"
+      cp --no-preserve=mode,ownership,timestamps ${
+        placeholder "out"
+      }/share/parsec/skel/* "$HOME/.parsec/"
     fi
   '';
 

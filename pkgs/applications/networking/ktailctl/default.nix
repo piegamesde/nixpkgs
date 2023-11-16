@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildGo121Module
-, cmake
-, extra-cmake-modules
-, git
-, go_1_21
-, wrapQtAppsHook
-, qtbase
-, qtquickcontrols2
-, kconfig
-, kcoreaddons
-, kguiaddons
-, ki18n
-, kirigami2
-, kirigami-addons
-, knotifications
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGo121Module,
+  cmake,
+  extra-cmake-modules,
+  git,
+  go_1_21,
+  wrapQtAppsHook,
+  qtbase,
+  qtquickcontrols2,
+  kconfig,
+  kcoreaddons,
+  kguiaddons,
+  ki18n,
+  kirigami2,
+  kirigami-addons,
+  knotifications,
 }:
 
 let
@@ -28,13 +29,15 @@ let
     hash = "sha256-nY6DEHkDVWIlvc64smXb9KshrhNgNLKiilYydbMKCqc=";
   };
 
-  goDeps = (buildGo121Module {
-    pname = "tailwrap";
-    inherit src version;
-    modRoot = "tailwrap";
-    vendorHash = "sha256-Y9xhoTf3vCtiNi5qOPg020EQmASo58BZI3rAoUEC8qE=";
-  }).goModules;
-in stdenv.mkDerivation {
+  goDeps =
+    (buildGo121Module {
+      pname = "tailwrap";
+      inherit src version;
+      modRoot = "tailwrap";
+      vendorHash = "sha256-Y9xhoTf3vCtiNi5qOPg020EQmASo58BZI3rAoUEC8qE=";
+    }).goModules;
+in
+stdenv.mkDerivation {
   pname = "ktailctl";
   inherit version src;
 
@@ -47,10 +50,11 @@ in stdenv.mkDerivation {
     export HOME=$TMPDIR
   '';
 
-  cmakeFlags = [
-    # actually just disables Go vendoring updates
-    "-DKTAILCTL_FLATPAK_BUILD=ON"
-  ];
+  cmakeFlags =
+    [
+      # actually just disables Go vendoring updates
+      "-DKTAILCTL_FLATPAK_BUILD=ON"
+    ];
 
   nativeBuildInputs = [
     cmake

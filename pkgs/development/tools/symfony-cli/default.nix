@@ -1,8 +1,9 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, testers
-, symfony-cli
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  testers,
+  symfony-cli,
 }:
 
 buildGoModule rec {

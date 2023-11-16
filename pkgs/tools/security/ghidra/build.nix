@@ -1,15 +1,16 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, gradle_7
-, perl
-, makeWrapper
-, openjdk17
-, unzip
-, makeDesktopItem
-, icoutils
-, xcbuild
-, protobuf
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  gradle_7,
+  perl,
+  makeWrapper,
+  openjdk17,
+  unzip,
+  makeDesktopItem,
+  icoutils,
+  xcbuild,
+  protobuf,
 }:
 
 let
@@ -38,44 +39,44 @@ let
   # postPatch scripts.
   # Tells ghidra to use our own protoc binary instead of the prebuilt one.
   fixProtoc = ''
-    cat >>Ghidra/Debug/Debugger-gadp/build.gradle <<HERE
-protobuf {
-  protoc {
-    path = '${protobuf}/bin/protoc'
-  }
-}
-HERE
-    cat >>Ghidra/Debug/Debugger-isf/build.gradle <<HERE
-protobuf {
-  protoc {
-    path = '${protobuf}/bin/protoc'
-  }
-}
-HERE
+        cat >>Ghidra/Debug/Debugger-gadp/build.gradle <<HERE
+    protobuf {
+      protoc {
+        path = '${protobuf}/bin/protoc'
+      }
+    }
+    HERE
+        cat >>Ghidra/Debug/Debugger-isf/build.gradle <<HERE
+    protobuf {
+      protoc {
+        path = '${protobuf}/bin/protoc'
+      }
+    }
+    HERE
   '';
 
   # Adds a gradle step that downloads all the dependencies to the gradle cache.
   addResolveStep = ''
-    cat >>build.gradle <<HERE
-task resolveDependencies {
-  doLast {
-    project.rootProject.allprojects.each { subProject ->
-      subProject.buildscript.configurations.each { configuration ->
-        resolveConfiguration(subProject, configuration, "buildscript config \''${configuration.name}")
-      }
-      subProject.configurations.each { configuration ->
-        resolveConfiguration(subProject, configuration, "config \''${configuration.name}")
+        cat >>build.gradle <<HERE
+    task resolveDependencies {
+      doLast {
+        project.rootProject.allprojects.each { subProject ->
+          subProject.buildscript.configurations.each { configuration ->
+            resolveConfiguration(subProject, configuration, "buildscript config \''${configuration.name}")
+          }
+          subProject.configurations.each { configuration ->
+            resolveConfiguration(subProject, configuration, "config \''${configuration.name}")
+          }
+        }
       }
     }
-  }
-}
-void resolveConfiguration(subProject, configuration, name) {
-  if (configuration.canBeResolved) {
-    logger.info("Resolving project {} {}", subProject.name, name)
-    configuration.resolve()
-  }
-}
-HERE
+    void resolveConfiguration(subProject, configuration, name) {
+      if (configuration.canBeResolved) {
+        logger.info("Resolving project {} {}", subProject.name, name)
+        configuration.resolve()
+      }
+    }
+    HERE
   '';
 
   # fake build to pre-download deps into fixed-output derivation
@@ -87,7 +88,10 @@ HERE
     patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
     postPatch = fixProtoc + addResolveStep;
 
-    nativeBuildInputs = [ gradle perl ] ++ lib.optional stdenv.isDarwin xcbuild;
+    nativeBuildInputs = [
+      gradle
+      perl
+    ] ++ lib.optional stdenv.isDarwin xcbuild;
     buildPhase = ''
       export HOME="$NIX_BUILD_TOP/home"
       mkdir -p "$HOME"
@@ -111,12 +115,15 @@ HERE
     outputHashMode = "recursive";
     outputHash = "sha256-HveS3f8XHpJqefc4djYmnYfd01H2OBFK5PLNOsHAqlc=";
   };
-
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   inherit pname version src;
 
   nativeBuildInputs = [
-    gradle unzip makeWrapper icoutils
+    gradle
+    unzip
+    makeWrapper
+    icoutils
   ] ++ lib.optional stdenv.isDarwin xcbuild;
 
   dontStrip = true;
@@ -167,14 +174,18 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://ghidra-sre.org/";
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.asl20;
     maintainers = with maintainers; [ roblabla ];
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };
-
 }

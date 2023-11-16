@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, installShellFiles
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  installShellFiles,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -33,7 +34,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "\"zpool iostats\" for humans; find the slow parts of your ZFS pool";
+    description = ''"zpool iostats" for humans; find the slow parts of your ZFS pool'';
     homepage = "https://github.com/chadmiller/zpool-iostat-viz";
     license = licenses.bsd2;
     maintainers = with maintainers; [ julm ];

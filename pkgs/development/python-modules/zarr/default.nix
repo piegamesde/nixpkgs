@@ -1,13 +1,14 @@
-{ lib
-, asciitree
-, buildPythonPackage
-, fasteners
-, fetchPypi
-, numcodecs
-, numpy
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  asciitree,
+  buildPythonPackage,
+  fasteners,
+  fetchPypi,
+  numcodecs,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-QnbPS0plNDEELNU/8igrxNKSpoQkEeiFKZZFBPsHMoY=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     asciitree
@@ -33,13 +32,9 @@ buildPythonPackage rec {
     numcodecs
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "zarr"
-  ];
+  pythonImportsCheck = [ "zarr" ];
 
   meta = with lib; {
     description = "An implementation of chunked, compressed, N-dimensional arrays for Python";

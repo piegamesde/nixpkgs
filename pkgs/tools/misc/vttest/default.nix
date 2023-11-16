@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vttest";
@@ -19,4 +23,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 }
-

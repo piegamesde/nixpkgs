@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bzip2, libtomcrypt, zlib, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bzip2,
+  libtomcrypt,
+  zlib,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "StormLib";
@@ -22,14 +31,20 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ bzip2 libtomcrypt zlib ] ++
-    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ];
+  buildInputs = [
+    bzip2
+    libtomcrypt
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ];
 
   meta = with lib; {
     homepage = "https://github.com/ladislav-zezula/StormLib";
     license = licenses.mit;
     description = "An open-source project that can work with Blizzard MPQ archives";
     platforms = platforms.all;
-    maintainers = with maintainers; [ aanderse karolchmist ];
+    maintainers = with maintainers; [
+      aanderse
+      karolchmist
+    ];
   };
 }

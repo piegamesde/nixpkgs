@@ -1,10 +1,16 @@
-{ lib, buildGo121Module, fetchFromGitHub, installShellFiles, nixosTests }:
+{
+  lib,
+  buildGo121Module,
+  fetchFromGitHub,
+  installShellFiles,
+  nixosTests,
+}:
 
 let
   pname = "miniflux";
   version = "2.0.50";
-
-in buildGo121Module {
+in
+buildGo121Module {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -21,7 +27,9 @@ in buildGo121Module {
   checkFlags = [ "-skip=TestClient" ]; # skip client tests as they require network access
 
   ldflags = [
-    "-s" "-w" "-X miniflux.app/v2/internal/version.Version=${version}"
+    "-s"
+    "-w"
+    "-X miniflux.app/v2/internal/version.Version=${version}"
   ];
 
   postInstall = ''
@@ -35,6 +43,9 @@ in buildGo121Module {
     description = "Minimalist and opinionated feed reader";
     homepage = "https://miniflux.app/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rvolosatovs benpye ];
+    maintainers = with maintainers; [
+      rvolosatovs
+      benpye
+    ];
   };
 }

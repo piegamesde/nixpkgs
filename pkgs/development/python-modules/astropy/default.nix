@@ -1,27 +1,28 @@
-{ lib
-, fetchPypi
-, fetchpatch
-, buildPythonPackage
-, pythonOlder
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+  pythonOlder,
 
-# build time
-, astropy-extension-helpers
-, cython
-, jinja2
-, oldest-supported-numpy
-, setuptools-scm
-, wheel
-# testing
-, pytestCheckHook
-, pytest-xdist
-, pytest-astropy
-, python
+  # build time
+  astropy-extension-helpers,
+  cython,
+  jinja2,
+  oldest-supported-numpy,
+  setuptools-scm,
+  wheel,
+  # testing
+  pytestCheckHook,
+  pytest-xdist,
+  pytest-astropy,
+  python,
 
-# runtime
-, numpy
-, packaging
-, pyerfa
-, pyyaml
+  # runtime
+  numpy,
+  packaging,
+  pyerfa,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -72,20 +73,22 @@ buildPythonPackage rec {
     export HOME="$(mktemp -d)"
     export OMP_NUM_THREADS=$(( $NIX_BUILD_CORES / 4 ))
   '';
-  pythonImportsCheck = [
-    "astropy"
-  ];
-  disabledTests = [
-    # May fail due to parallelism, see:
-    # https://github.com/astropy/astropy/issues/15441
-    "TestUnifiedOutputRegistry"
-  ];
+  pythonImportsCheck = [ "astropy" ];
+  disabledTests =
+    [
+      # May fail due to parallelism, see:
+      # https://github.com/astropy/astropy/issues/15441
+      "TestUnifiedOutputRegistry"
+    ];
 
   meta = {
     description = "Astronomy/Astrophysics library for Python";
     homepage = "https://www.astropy.org";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ kentjames doronbehar ];
+    maintainers = with lib.maintainers; [
+      kentjames
+      doronbehar
+    ];
   };
 }

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, fftwFloat }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fftwFloat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zita-convolver";
@@ -22,7 +27,9 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     # create lib link for building apps
-    ln -s $out/lib/libzita-convolver.so.${version} $out/lib/libzita-convolver.so.${lib.versions.major version}
+    ln -s $out/lib/libzita-convolver.so.${version} $out/lib/libzita-convolver.so.${
+      lib.versions.major version
+    }
   '';
 
   meta = {

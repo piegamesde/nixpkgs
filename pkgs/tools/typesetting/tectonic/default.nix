@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, darwin
-, fontconfig
-, harfbuzz
-, openssl
-, pkg-config
-, makeBinaryWrapper
-, icu
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  darwin,
+  fontconfig,
+  harfbuzz,
+  openssl,
+  pkg-config,
+  makeBinaryWrapper,
+  icu,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -25,10 +26,25 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-1WjZbmZFPB1+QYpjqq5Y+fDkMZNmWJYIxmMFWg7Tiac=";
 
-  nativeBuildInputs = [ pkg-config makeBinaryWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeBinaryWrapper
+  ];
 
-  buildInputs = [ icu fontconfig harfbuzz openssl ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ ApplicationServices Cocoa Foundation ]);
+  buildInputs =
+    [
+      icu
+      fontconfig
+      harfbuzz
+      openssl
+    ]
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        ApplicationServices
+        Cocoa
+        Foundation
+      ]
+    );
 
   postInstall = lib.optionalString stdenv.isLinux ''
     substituteInPlace dist/appimage/tectonic.desktop \
@@ -47,6 +63,9 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/tectonic-typesetting/tectonic/blob/tectonic@${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     mainProgram = "tectonic";
-    maintainers = with maintainers; [ lluchs doronbehar ];
+    maintainers = with maintainers; [
+      lluchs
+      doronbehar
+    ];
   };
 }

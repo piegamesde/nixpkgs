@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, mock
-, prettytable
-, prompt-toolkit
-, ptable
-, pygments
-, pytestCheckHook
-, pythonOlder
-, requests
-, rich
-, sphinx
-, testtools
-, tkinter
-, urllib3
-, zeep
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  mock,
+  prettytable,
+  prompt-toolkit,
+  ptable,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  rich,
+  sphinx,
+  testtools,
+  tkinter,
+  urllib3,
+  zeep,
 }:
 
 buildPythonPackage rec {
@@ -66,14 +67,13 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTestPaths = [
-    # Test fails with ConnectionError trying to connect to api.softlayer.com
-    "tests/transports/soap_tests.py.unstable"
-  ];
+  disabledTestPaths =
+    [
+      # Test fails with ConnectionError trying to connect to api.softlayer.com
+      "tests/transports/soap_tests.py.unstable"
+    ];
 
-  pythonImportsCheck = [
-    "SoftLayer"
-  ];
+  pythonImportsCheck = [ "SoftLayer" ];
 
   meta = with lib; {
     description = "Python libraries that assist in calling the SoftLayer API";

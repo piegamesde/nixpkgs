@@ -1,31 +1,33 @@
-{ vapoursynth, cython, buildPythonPackage, unittestCheckHook, python }:
+{
+  vapoursynth,
+  cython,
+  buildPythonPackage,
+  unittestCheckHook,
+  python,
+}:
 
 buildPythonPackage {
   pname = "vapoursynth";
 
   inherit (vapoursynth) version src;
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    vapoursynth
-  ];
+  buildInputs = [ vapoursynth ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "$src/test" "-p" "'*test.py'" ];
+  unittestFlagsArray = [
+    "-s"
+    "$src/test"
+    "-p"
+    "'*test.py'"
+  ];
 
   passthru = {
-    withPlugins = plugins:
-      python.pkgs.vapoursynth.override {
-        vapoursynth = vapoursynth.withPlugins plugins;
-      };
+    withPlugins =
+      plugins: python.pkgs.vapoursynth.override { vapoursynth = vapoursynth.withPlugins plugins; };
   };
 
   inherit (vapoursynth) meta;
 }
-

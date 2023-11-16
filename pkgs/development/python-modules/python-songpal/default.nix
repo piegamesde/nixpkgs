@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, aiohttp
-, async-upnp-client
-, attrs
-, click
-, importlib-metadata
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  async-upnp-client,
+  attrs,
+  click,
+  importlib-metadata,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-wHyq63RG0lhzG33ssWyvzLjc7s1OqquXMN26N2MBHU8=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp

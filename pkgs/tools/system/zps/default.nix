@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,9 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-t0kVMrJn+eqUUD98pp3iIK28MoLwOplLk0sYgRJkO4c=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   postInstall = ''
     mkdir -p $out/share/applications

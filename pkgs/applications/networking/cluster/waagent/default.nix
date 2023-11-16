@@ -1,4 +1,5 @@
-{ fetchFromGitHub,
+{
+  fetchFromGitHub,
   findutils,
   gnugrep,
   gnused,
@@ -17,7 +18,6 @@
 
 let
   inherit (lib) makeBinPath;
-
 in
 python39.pkgs.buildPythonPackage rec {
   pname = "waagent";
@@ -28,11 +28,12 @@ python39.pkgs.buildPythonPackage rec {
     rev = "04ded9f0b708cfaf4f9b68eead1aef4cc4f32eeb";
     sha256 = "0fvjanvsz1zyzhbjr2alq5fnld43mdd776r2qid5jy5glzv0xbhf";
   };
-  patches = [
-    # Suppress the following error when waagent try to configure sshd:
-    # Read-only file system: '/etc/ssh/sshd_config'
-    ./dont-configure-sshd.patch
-  ];
+  patches =
+    [
+      # Suppress the following error when waagent try to configure sshd:
+      # Read-only file system: '/etc/ssh/sshd_config'
+      ./dont-configure-sshd.patch
+    ];
   doCheck = false;
 
   buildInputs = with python39.pkgs; [ distro ];
@@ -52,21 +53,21 @@ python39.pkgs.buildPythonPackage rec {
   ];
 
   fixupPhase = ''
-     mkdir -p $out/bin/
-     WAAGENT=$(find $out -name waagent | grep sbin)
-     cp $WAAGENT $out/bin/waagent
-     wrapProgram "$out/bin/waagent" \
-         --prefix PYTHONPATH : $PYTHONPATH \
-         --prefix PATH : "${makeBinPath runtimeDeps}"
-     patchShebangs --build "$out/bin/"
+    mkdir -p $out/bin/
+    WAAGENT=$(find $out -name waagent | grep sbin)
+    cp $WAAGENT $out/bin/waagent
+    wrapProgram "$out/bin/waagent" \
+        --prefix PYTHONPATH : $PYTHONPATH \
+        --prefix PATH : "${makeBinPath runtimeDeps}"
+    patchShebangs --build "$out/bin/"
   '';
 
   meta = {
-    description = "The Microsoft Azure Linux Agent (waagent)
-                   manages Linux provisioning and VM interaction with the Azure
-                   Fabric Controller";
+    description = ''
+      The Microsoft Azure Linux Agent (waagent)
+                         manages Linux provisioning and VM interaction with the Azure
+                         Fabric Controller'';
     homepage = "https://github.com/Azure/WALinuxAgent";
     license = with lib.licenses; [ asl20 ];
   };
-
 }

@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, patsh
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  patsh,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,18 +16,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-847JAoDEfA9K4LB8z9cqSw+GTImqmITBylB/4odLDb0=";
   };
 
-  patches = [
-    # patch csvheader to use csvquote from the derivation
-    ./csvquote-path.patch
-  ];
+  patches =
+    [
+      # patch csvheader to use csvquote from the derivation
+      ./csvquote-path.patch
+    ];
 
-  nativeBuildInputs = [
-    patsh
-  ];
+  nativeBuildInputs = [ patsh ];
 
-  makeFlags = [
-    "BINDIR=$(out)/bin"
-  ];
+  makeFlags = [ "BINDIR=$(out)/bin" ];
 
   preInstall = ''
     mkdir -p "$out/bin"

@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, wayland-scanner
-, wayland
-, wayland-protocols
-, json_c
-, libxkbcommon
-, fontconfig
-, giflib
-, libheif
-, libjpeg
-, libwebp
-, libtiff
-, librsvg
-, libpng
-, libjxl
-, libexif
-, bash-completion
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  wayland,
+  wayland-protocols,
+  json_c,
+  libxkbcommon,
+  fontconfig,
+  giflib,
+  libheif,
+  libjpeg,
+  libwebp,
+  libtiff,
+  librsvg,
+  libpng,
+  libjxl,
+  libexif,
+  bash-completion,
 }:
 stdenv.mkDerivation rec {
   pname = "swayimg";
@@ -43,11 +44,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
 
   buildInputs = [
     bash-completion

@@ -1,8 +1,14 @@
-{ stdenv, lib, fetchurl, zip, unzip
-, jdk, python2
-, confFile ? ""
-, extraLibraryPaths ? []
-, extraJars ? []
+{
+  stdenv,
+  lib,
+  fetchurl,
+  zip,
+  unzip,
+  jdk,
+  python2,
+  confFile ? "",
+  extraLibraryPaths ? [ ],
+  extraJars ? [ ],
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VFNcaISPBRMGR5l/P6/pGnK7lHClDW2AmXJ00gzxwMY=";
   };
 
-  nativeBuildInputs = [ zip unzip ];
+  nativeBuildInputs = [
+    zip
+    unzip
+  ];
 
   installPhase = ''
     mkdir -p $out/share/${name}
@@ -46,7 +55,9 @@ stdenv.mkDerivation rec {
     unzip  $out/lib/storm-client-${version}.jar defaults.yaml;
     zip -d $out/lib/storm-client-${version}.jar defaults.yaml;
     sed -i \
-       -e 's|java.library.path: .*|java.library.path: "${lib.concatStringsSep ":" extraLibraryPaths}"|' \
+       -e 's|java.library.path: .*|java.library.path: "${
+         lib.concatStringsSep ":" extraLibraryPaths
+       }"|' \
        -e 's|storm.log4j2.conf.dir: .*|storm.log4j2.conf.dir: "conf/log4j2"|' \
       defaults.yaml
     ${lib.optionalString (confFile != "") "cat ${confFile} >> defaults.yaml"}
@@ -54,7 +65,11 @@ stdenv.mkDerivation rec {
 
     # Link to extra jars
     cd $out/lib;
-    ${lib.concatMapStrings (jar: "ln -s ${jar};\n") extraJars}
+    ${lib.concatMapStrings
+      (jar: ''
+        ln -s ${jar};
+      '')
+      extraJars}
   '';
 
   dontStrip = true;
@@ -64,7 +79,10 @@ stdenv.mkDerivation rec {
     description = "Distributed realtime computation system";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ edwtjo vizanto ];
+    maintainers = with maintainers; [
+      edwtjo
+      vizanto
+    ];
     platforms = with platforms; unix;
   };
 }

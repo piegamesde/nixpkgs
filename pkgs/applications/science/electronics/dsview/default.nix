@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, cmake, wrapQtAppsHook
-, libzip, boost, fftw, qtbase, qtwayland, qtsvg, libusb1
-, python3, fetchpatch
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  wrapQtAppsHook,
+  libzip,
+  boost,
+  fftw,
+  qtbase,
+  qtwayland,
+  qtsvg,
+  libusb1,
+  python3,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
@@ -9,21 +22,32 @@ stdenv.mkDerivation rec {
   version = "1.3.1";
 
   src = fetchFromGitHub {
-      owner = "DreamSourceLab";
-      repo = "DSView";
-      rev = "v${version}";
-      sha256 = "sha256-LwrlB+Nwq34YjwGmnbUWS3W//ZHr8Do2Wf2te+2oBeI=";
+    owner = "DreamSourceLab";
+    repo = "DSView";
+    rev = "v${version}";
+    sha256 = "sha256-LwrlB+Nwq34YjwGmnbUWS3W//ZHr8Do2Wf2te+2oBeI=";
   };
 
-  patches = [
-    # Fix absolute install paths
-    ./install.patch
+  patches =
+    [
+      # Fix absolute install paths
+      ./install.patch
+    ];
+
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
   ];
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
-
   buildInputs = [
-    boost fftw qtbase qtwayland qtsvg libusb1 libzip
+    boost
+    fftw
+    qtbase
+    qtwayland
+    qtsvg
+    libusb1
+    libzip
     python3
   ];
 

@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, itstool
-, gtk3
-, libxml2
-, libxslt
-, libatasmart
-, libnotify
-, lm_sensors
-, mate
-, hicolor-icon-theme
-, wrapGAppsHook
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  itstool,
+  gtk3,
+  libxml2,
+  libxslt,
+  libatasmart,
+  libnotify,
+  lm_sensors,
+  mate,
+  hicolor-icon-theme,
+  wrapGAppsHook,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +22,9 @@ stdenv.mkDerivation rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "0s19r30fsicqvvcnz57lv158pi35w9zn5i7h5hz59224y0zpqhsc";
   };
 

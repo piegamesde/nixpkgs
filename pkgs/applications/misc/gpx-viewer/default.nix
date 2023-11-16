@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, libxml2
-, meson
-, ninja
-, vala
-, pkg-config
-, gnome
-, libchamplain
-, gdl
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libxml2,
+  meson,
+  ninja,
+  vala,
+  pkg-config,
+  gnome,
+  libchamplain,
+  gdl,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,13 +25,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-6AChX0UEIrQExaq3oo9Be5Sr13+POHFph7pZegqcjio=";
   };
 
-  patches = [
-    # Compile with libchamplain>=0.12.21
-    (fetchpatch {
-      url = "https://github.com/DaveDavenport/gpx-viewer/commit/12ed6003bdad840586351bdb4e00c18719873c0e.patch";
-      hash = "sha256-2/r0M3Yxj+vWgny1Pd5G7NYMb0uC/ByZ7y3tqLVccOc=";
-    })
-  ];
+  patches =
+    [
+      # Compile with libchamplain>=0.12.21
+      (fetchpatch {
+        url = "https://github.com/DaveDavenport/gpx-viewer/commit/12ed6003bdad840586351bdb4e00c18719873c0e.patch";
+        hash = "sha256-2/r0M3Yxj+vWgny1Pd5G7NYMb0uC/ByZ7y3tqLVccOc=";
+      })
+    ];
 
   nativeBuildInputs = [
     meson

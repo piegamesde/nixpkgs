@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "diamond";
@@ -10,7 +16,6 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-6L/eS3shfJ33bsXo1BaCO4lKklh2KbOIO2tZsvwcjnA=";
   };
-
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zlib ];

@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pyasn1
-, pyasn1-modules
-, pythonAtLeast
-, pythonOlder
-, pytestCheckHook
-, openldap
-, cyrus_sasl
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyasn1,
+  pyasn1-modules,
+  pythonAtLeast,
+  pythonOlder,
+  pytestCheckHook,
+  openldap,
+  cyrus_sasl,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
     pyasn1-modules
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # Needed by tests to setup a mockup ldap server.
@@ -45,10 +44,11 @@ buildPythonPackage rec {
     export SCHEMA="${openldap}/etc/schema"
   '';
 
-  disabledTests = [
-    # https://github.com/python-ldap/python-ldap/issues/501
-    "test_tls_ext_noca"
-  ];
+  disabledTests =
+    [
+      # https://github.com/python-ldap/python-ldap/issues/501
+      "test_tls_ext_noca"
+    ];
 
   doCheck = !stdenv.isDarwin;
 

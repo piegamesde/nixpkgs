@@ -1,22 +1,27 @@
-{ stdenv
-, lib
-, fetchzip
-, makeWrapper
-, jre
-, nixosTests
-, callPackage
-, confFile ? null
-, plugins ? [ ]
-, extraFeatures ? [ ]
-, disabledFeatures ? [ ]
+{
+  stdenv,
+  lib,
+  fetchzip,
+  makeWrapper,
+  jre,
+  nixosTests,
+  callPackage,
+  confFile ? null,
+  plugins ? [ ],
+  extraFeatures ? [ ],
+  disabledFeatures ? [ ],
 }:
 
 let
   featuresSubcommand = ''
-    ${lib.optionalString (extraFeatures != [ ]) "--features=${lib.concatStringsSep "," extraFeatures}"} \
-    ${lib.optionalString (disabledFeatures != [ ]) "--features-disabled=${lib.concatStringsSep "," disabledFeatures}"}
+    ${
+      lib.optionalString (extraFeatures != [ ]) "--features=${lib.concatStringsSep "," extraFeatures}"
+    } \
+    ${lib.optionalString (disabledFeatures != [ ])
+      "--features-disabled=${lib.concatStringsSep "," disabledFeatures}"}
   '';
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "keycloak";
   version = "22.0.5";
 
@@ -25,35 +30,43 @@ in stdenv.mkDerivation rec {
     hash = "sha256-D08WPJUOIIDD9JTTq4C4+wzj/fTZvFbxVXWbVzx0MKY=";
   };
 
-  nativeBuildInputs = [ makeWrapper jre ];
-
-  patches = [
-    # Make home.dir and config.dir configurable through the
-    # KC_HOME_DIR and KC_CONF_DIR environment variables.
-    ./config_vars.patch
+  nativeBuildInputs = [
+    makeWrapper
+    jre
   ];
 
-  buildPhase = ''
-    runHook preBuild
-  '' + lib.optionalString (confFile != null) ''
-    install -m 0600 ${confFile} conf/keycloak.conf
-  '' + ''
-    install_plugin() {
-      if [ -d "$1" ]; then
-        find "$1" -type f \( -iname \*.ear -o -iname \*.jar \) -exec install -m 0500 "{}" "providers/" \;
-      else
-        install -m 0500 "$1" "providers/"
-      fi
-    }
-    ${lib.concatMapStringsSep "\n" (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
-  '' + ''
-    patchShebangs bin/kc.sh
-    export KC_HOME_DIR=$(pwd)
-    export KC_CONF_DIR=$(pwd)/conf
-    bin/kc.sh build ${featuresSubcommand}
+  patches =
+    [
+      # Make home.dir and config.dir configurable through the
+      # KC_HOME_DIR and KC_CONF_DIR environment variables.
+      ./config_vars.patch
+    ];
 
-    runHook postBuild
-  '';
+  buildPhase =
+    ''
+      runHook preBuild
+    ''
+    + lib.optionalString (confFile != null) ''
+      install -m 0600 ${confFile} conf/keycloak.conf
+    ''
+    + ''
+      install_plugin() {
+        if [ -d "$1" ]; then
+          find "$1" -type f \( -iname \*.ear -o -iname \*.jar \) -exec install -m 0500 "{}" "providers/" \;
+        else
+          install -m 0500 "$1" "providers/"
+        fi
+      }
+      ${lib.concatMapStringsSep "\n" (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
+    ''
+    + ''
+      patchShebangs bin/kc.sh
+      export KC_HOME_DIR=$(pwd)
+      export KC_CONF_DIR=$(pwd)/conf
+      bin/kc.sh build ${featuresSubcommand}
+
+      runHook postBuild
+    '';
 
   installPhase = ''
     runHook preInstall
@@ -84,7 +97,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
     platforms = jre.meta.platforms;
-    maintainers = with maintainers; [ ngerstle talyz ];
+    maintainers = with maintainers; [
+      ngerstle
+      talyz
+    ];
   };
-
 }

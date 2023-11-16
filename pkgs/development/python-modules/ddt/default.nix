@@ -1,10 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six, pyyaml, mock
-, pytestCheckHook
-, enum34
-, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  pyyaml,
+  mock,
+  pytestCheckHook,
+  enum34,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -16,11 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-9xs0hzG4x4wxAL/72VGnafvUOQiNH9uzhB7uAZr4Cs0=";
   };
 
-  propagatedBuildInputs = lib.optionals (!isPy3k) [
-    enum34
-  ];
+  propagatedBuildInputs = lib.optionals (!isPy3k) [ enum34 ];
 
-  nativeCheckInputs = [ six pyyaml mock pytestCheckHook ];
+  nativeCheckInputs = [
+    six
+    pyyaml
+    mock
+    pytestCheckHook
+  ];
 
   preCheck = ''
     # pytest can't import one file even with PYTHONPATH set

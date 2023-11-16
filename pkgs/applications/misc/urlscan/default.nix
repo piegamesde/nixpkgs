@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -22,22 +23,21 @@ python3.pkgs.buildPythonApplication rec {
     hatch-vcs
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    urwid
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ urwid ];
 
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "urlscan"
-  ];
+  pythonImportsCheck = [ "urlscan" ];
 
   meta = with lib; {
     description = "Mutt and terminal url selector (similar to urlview)";
     homepage = "https://github.com/firecat53/urlscan";
     changelog = "https://github.com/firecat53/urlscan/releases/tag/${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dpaetzel jfrankenau ];
+    maintainers = with maintainers; [
+      dpaetzel
+      jfrankenau
+    ];
   };
 }

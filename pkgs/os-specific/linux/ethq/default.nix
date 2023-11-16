@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, ncurses }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ethq";
@@ -7,7 +12,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "isc-projects";
     repo = "ethq";
-    rev = "refs/tags/v${builtins.replaceStrings ["."] ["_"] version}";
+    rev = "refs/tags/v${builtins.replaceStrings [ "." ] [ "_" ] version}";
     hash = "sha256-luvvNdH4kERAMy242kLCqlnGmfPjSjvoHa6J2J7BFi4=";
   };
 

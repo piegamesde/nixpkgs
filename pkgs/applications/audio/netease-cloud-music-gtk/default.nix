@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, cargo
-, meson
-, ninja
-, pkg-config
-, glib
-, gtk4
-, appstream-glib
-, desktop-file-utils
-, libxml2
-, rustc
-, wrapGAppsHook4
-, openssl
-, dbus
-, libadwaita
-, gst_all_1
-, Foundation
-, SystemConfiguration
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  cargo,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gtk4,
+  appstream-glib,
+  desktop-file-utils,
+  libxml2,
+  rustc,
+  wrapGAppsHook4,
+  openssl,
+  dbus,
+  libadwaita,
+  gst_all_1,
+  Foundation,
+  SystemConfiguration,
 }:
 
 stdenv.mkDerivation rec {
@@ -58,20 +59,25 @@ stdenv.mkDerivation rec {
     rustc
   ];
 
-  buildInputs = [
-    openssl
-    dbus
-    libadwaita
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-  ]) ++ lib.optionals stdenv.isDarwin [
-    Foundation
-    SystemConfiguration
-  ];
+  buildInputs =
+    [
+      openssl
+      dbus
+      libadwaita
+    ]
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+        gst-plugins-ugly
+      ]
+    )
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      SystemConfiguration
+    ];
 
   meta = with lib; {
     description = "A Rust + GTK based netease cloud music player";

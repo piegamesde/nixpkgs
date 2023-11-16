@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, IOKit, Foundation, cmake, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  IOKit,
+  Foundation,
+  cmake,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bugdom";
@@ -21,12 +30,12 @@ stdenv.mkDerivation rec {
     sed -i '/plutil/d' CMakeLists.txt
   '';
 
-  buildInputs = [
-    SDL2
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    IOKit
-    Foundation
-  ];
+  buildInputs =
+    [ SDL2 ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      IOKit
+      Foundation
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -39,24 +48,32 @@ stdenv.mkDerivation rec {
     "-DSDL2_INCLUDE_DIRS=${SDL2.dev}/include/SDL2"
   ];
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-  '' + (if stdenv.hostPlatform.isDarwin then ''
-    mkdir -p $out/{bin,Applications}
-    mv {,$out/Applications/}Bugdom.app
-    makeWrapper $out/{Applications/Bugdom.app/Contents/MacOS,bin}/Bugdom
-  '' else ''
-    mkdir -p $out/share/bugdom
-    mv Data $out/share/bugdom
-    install -Dm755 {.,$out/bin}/Bugdom
-    wrapProgram $out/bin/Bugdom --run "cd $out/share/bugdom"
-    install -Dm644 $src/packaging/bugdom.desktop $out/share/applications/bugdom.desktop
-    install -Dm644 $src/packaging/bugdom-desktopicon.png $out/share/pixmaps/bugdom-desktopicon.png
-  '') + ''
+    ''
+    + (
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          mkdir -p $out/{bin,Applications}
+          mv {,$out/Applications/}Bugdom.app
+          makeWrapper $out/{Applications/Bugdom.app/Contents/MacOS,bin}/Bugdom
+        ''
+      else
+        ''
+          mkdir -p $out/share/bugdom
+          mv Data $out/share/bugdom
+          install -Dm755 {.,$out/bin}/Bugdom
+          wrapProgram $out/bin/Bugdom --run "cd $out/share/bugdom"
+          install -Dm644 $src/packaging/bugdom.desktop $out/share/applications/bugdom.desktop
+          install -Dm644 $src/packaging/bugdom-desktopicon.png $out/share/pixmaps/bugdom-desktopicon.png
+        ''
+    )
+    + ''
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     description = "A port of Bugdom, a 1999 Macintosh game by Pangea Software, for modern operating systems";

@@ -1,7 +1,8 @@
-{ stdenv
-, lib
-, fetchzip
-, SDL
+{
+  stdenv,
+  lib,
+  fetchzip,
+  SDL,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,11 +14,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-j7vznFI/Yg1yuRvYDmRSyHDfDN7iFV+b6MK2jdnaz6Q=";
   };
 
-  outputs = [ "out" "dev" ];
-
-  buildInputs = [
-    SDL
+  outputs = [
+    "out"
+    "dev"
   ];
+
+  buildInputs = [ SDL ];
 
   enableParallelBuilding = true;
 

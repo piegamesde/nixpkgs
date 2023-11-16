@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, graphviz
-, stdlib-list
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, toml
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  graphviz,
+  stdlib-list,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-DVSZeNuDz/y0jh/HimV+jFgNFevMhUKOu6EhZytMMqQ=";
   };
 
-  buildInputs = [
-    graphviz
-  ];
+  buildInputs = [ graphviz ];
 
   propagatedBuildInputs = [
     graphviz
@@ -44,14 +43,13 @@ buildPythonPackage rec {
       --replace "dot -Gstart=1" "${lib.makeBinPath [ graphviz ]}/dot -Gstart=1"
   '';
 
-  disabledTests = [
-    # Would require to have additional modules available
-    "test_find_package_names"
-  ];
+  disabledTests =
+    [
+      # Would require to have additional modules available
+      "test_find_package_names"
+    ];
 
-  pythonImportsCheck = [
-    "pydeps"
-  ];
+  pythonImportsCheck = [ "pydeps" ];
 
   meta = with lib; {
     description = "Python module dependency visualization";

@@ -1,17 +1,32 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption mdDoc types literalExpression;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    mdDoc
+    types
+    literalExpression
+  ;
 
   cfg = config.services.meme-bingo-web;
-in {
+in
+{
   options = {
     services.meme-bingo-web = {
-      enable = mkEnableOption (mdDoc ''
-        a web app for the meme bingo, rendered entirely on the web server and made interactive with forms.
+      enable = mkEnableOption (
+        mdDoc ''
+          a web app for the meme bingo, rendered entirely on the web server and made interactive with forms.
 
-        Note: The application's author suppose to run meme-bingo-web behind a reverse proxy for SSL and HTTP/3
-      '');
+          Note: The application's author suppose to run meme-bingo-web behind a reverse proxy for SSL and HTTP/3
+        ''
+      );
 
       package = mkOption {
         type = types.package;
@@ -77,11 +92,18 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         UMask = "0077";
         RestrictSUIDSGID = true;
         RemoveIPC = true;

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, glibcLocales
-, importlib-resources
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  glibcLocales,
+  importlib-resources,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optionals (pythonOlder "3.7") [ importlib-resources ];
 
-  nativeCheckInputs = [ glibcLocales pytestCheckHook ];
+  nativeCheckInputs = [
+    glibcLocales
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     homepage = "https://netaddr.readthedocs.io/en/latest/";

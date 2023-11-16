@@ -1,21 +1,29 @@
 # This module generates nixos-install, nixos-rebuild,
 # nixos-generate-config, etc.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
-  makeProg = args: pkgs.substituteAll (args // {
-    dir = "bin";
-    isExecutable = true;
-    nativeBuildInputs = [
-      pkgs.installShellFiles
-    ];
-    postInstall = ''
-      installManPage ${args.manPage}
-    '';
-  });
+  makeProg =
+    args:
+    pkgs.substituteAll (
+      args
+      // {
+        dir = "bin";
+        isExecutable = true;
+        nativeBuildInputs = [ pkgs.installShellFiles ];
+        postInstall = ''
+          installManPage ${args.manPage}
+        '';
+      }
+    );
 
   nixos-build-vms = makeProg {
     name = "nixos-build-vms";
@@ -59,13 +67,17 @@ let
     inherit (pkgs) runtimeShell;
     inherit (config.system.nixos) version codeName revision;
     inherit (config.system) configurationRevision;
-    json = builtins.toJSON ({
-      nixosVersion = config.system.nixos.version;
-    } // optionalAttrs (config.system.nixos.revision != null) {
-      nixpkgsRevision = config.system.nixos.revision;
-    } // optionalAttrs (config.system.configurationRevision != null) {
-      configurationRevision = config.system.configurationRevision;
-    });
+    json = builtins.toJSON (
+      {
+        nixosVersion = config.system.nixos.version;
+      }
+      // optionalAttrs (config.system.nixos.revision != null) {
+        nixpkgsRevision = config.system.nixos.revision;
+      }
+      // optionalAttrs (config.system.configurationRevision != null) {
+        configurationRevision = config.system.configurationRevision;
+      }
+    );
     manPage = ./manpages/nixos-version.8;
   };
 
@@ -73,12 +85,9 @@ let
     name = "nixos-enter";
     src = ./nixos-enter.sh;
     inherit (pkgs) runtimeShell;
-    path = makeBinPath [
-      pkgs.util-linuxMinimal
-    ];
+    path = makeBinPath [ pkgs.util-linuxMinimal ];
     manPage = ./manpages/nixos-enter.8;
   };
-
 in
 
 {
@@ -103,7 +112,7 @@ in
     desktopConfiguration = mkOption {
       internal = true;
       type = types.listOf types.lines;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Text to preseed the desktop configuration that `nixos-generate-config`
         saves to `/etc/nixos/configuration.nix`.
@@ -245,22 +254,26 @@ in
       }
     '';
 
-    environment.systemPackages =
-      [ nixos-build-vms
-        nixos-install
-        nixos-rebuild
-        nixos-generate-config
-        nixos-option
-        nixos-version
-        nixos-enter
-      ];
+    environment.systemPackages = [
+      nixos-build-vms
+      nixos-install
+      nixos-rebuild
+      nixos-generate-config
+      nixos-option
+      nixos-version
+      nixos-enter
+    ];
 
     documentation.man.man-db.skipPackages = [ nixos-version ];
 
     system.build = {
-      inherit nixos-install nixos-generate-config nixos-option nixos-rebuild nixos-enter;
+      inherit
+        nixos-install
+        nixos-generate-config
+        nixos-option
+        nixos-rebuild
+        nixos-enter
+      ;
     };
-
   };
-
 }

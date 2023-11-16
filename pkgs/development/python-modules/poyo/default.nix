@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -17,5 +18,4 @@ buildPythonPackage rec {
     description = "A lightweight YAML Parser for Python";
     license = licenses.mit;
   };
-
 }

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fixtures
-, mock
-, pbr
-, pytestCheckHook
-, pythonOlder
-, requests
-, testtools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fixtures,
+  mock,
+  pbr,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  testtools,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
     testtools
   ];
 
-  pythonImportsCheck = [
-    "pyopnsense"
-  ];
+  pythonImportsCheck = [ "pyopnsense" ];
 
   meta = with lib; {
     description = "Python client for the OPNsense API";

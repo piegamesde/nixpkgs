@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.freeswitch;
@@ -7,15 +12,18 @@ let
     mkdir -p $out
     cp -rT ${cfg.configTemplate} $out
     chmod -R +w $out
-    ${concatStringsSep "\n" (mapAttrsToList (fileName: filePath: ''
-      mkdir -p $out/$(dirname ${fileName})
-      cp ${filePath} $out/${fileName}
-    '') cfg.configDir)}
+    ${concatStringsSep "\n" (
+      mapAttrsToList
+        (fileName: filePath: ''
+          mkdir -p $out/$(dirname ${fileName})
+          cp ${filePath} $out/${fileName}
+        '')
+        cfg.configDir
+    )}
   '';
-  configPath = if cfg.enableReload
-    then "/etc/freeswitch"
-    else configDirectory;
-in {
+  configPath = if cfg.enableReload then "/etc/freeswitch" else configDirectory;
+in
+{
   options = {
     services.freeswitch = {
       enable = mkEnableOption (lib.mdDoc "FreeSWITCH");
@@ -32,8 +40,12 @@ in {
       configTemplate = mkOption {
         type = types.path;
         default = "${config.services.freeswitch.package}/share/freeswitch/conf/vanilla";
-        defaultText = literalExpression ''"''${config.services.freeswitch.package}/share/freeswitch/conf/vanilla"'';
-        example = literalExpression ''"''${config.services.freeswitch.package}/share/freeswitch/conf/minimal"'';
+        defaultText =
+          literalExpression
+            ''"''${config.services.freeswitch.package}/share/freeswitch/conf/vanilla"'';
+        example =
+          literalExpression
+            ''"''${config.services.freeswitch.package}/share/freeswitch/conf/minimal"'';
         description = lib.mdDoc ''
           Configuration template to use.
           See available templates in [FreeSWITCH repository](https://github.com/signalwire/freeswitch/tree/master/conf).
@@ -69,9 +81,7 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    environment.etc.freeswitch = mkIf cfg.enableReload {
-      source = configDirectory;
-    };
+    environment.etc.freeswitch = mkIf cfg.enableReload { source = configDirectory; };
     systemd.services.freeswitch-config-reload = mkIf cfg.enableReload {
       before = [ "freeswitch.service" ];
       wantedBy = [ "multi-user.target" ];
@@ -89,10 +99,11 @@ in {
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "freeswitch";
-        ExecStart = "${pkg}/bin/freeswitch -nf \\
-          -mod ${pkg}/lib/freeswitch/mod \\
-          -conf ${configPath} \\
-          -base /var/lib/freeswitch";
+        ExecStart = ''
+          ${pkg}/bin/freeswitch -nf \
+                    -mod ${pkg}/lib/freeswitch/mod \
+                    -conf ${configPath} \
+                    -base /var/lib/freeswitch'';
         ExecReload = "${pkg}/bin/fs_cli -x reloadxml";
         Restart = "on-failure";
         RestartSec = "5s";

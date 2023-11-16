@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pyyaml
-, setuptools
-, setuptools-scm
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -28,13 +29,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    pyyaml
-  ];
+  propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "yamlinclude" ];
 

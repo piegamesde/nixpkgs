@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, pytestCheckHook
-, mock
-, pyyaml
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  pytestCheckHook,
+  mock,
+  pyyaml,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -19,17 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-6ZJagLtmhSnxtnx/2wpdrN18v8b7C/8+pEP+Ir3WITI=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  pythonImportsCheck = [
-    "multipart"
-  ];
+  pythonImportsCheck = [ "multipart" ];
 
   preCheck = ''
     # https://github.com/andrew-d/python-multipart/issues/41

@@ -1,22 +1,27 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, symlinkJoin
-, qttools
-, cmake
-, clang_8
-, grpc
-, protobuf
-, openssl
-, pkg-config
-, c-ares
-, libGL
-, zlib
-, curl
-, v2ray
-, v2ray-geoip, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ]
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  symlinkJoin,
+  qttools,
+  cmake,
+  clang_8,
+  grpc,
+  protobuf,
+  openssl,
+  pkg-config,
+  c-ares,
+  libGL,
+  zlib,
+  curl,
+  v2ray,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  assets ? [
+    v2ray-geoip
+    v2ray-domain-list-community
+  ],
 }:
 
 mkDerivation rec {
@@ -75,7 +80,10 @@ mkDerivation rec {
     description = "An GUI frontend to v2ray";
     homepage = "https://github.com/Qv2ray/Qv2ray";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ poscat rewine ];
+    maintainers = with maintainers; [
+      poscat
+      rewine
+    ];
     platforms = platforms.all;
     # never built on aarch64-darwin, x86_64-darwin since update to unstable-2022-09-25
     broken = stdenv.isDarwin;

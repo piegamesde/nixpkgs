@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,13 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-I0CC/dcDnLdQxkTi03/Ck+c0XqOl8nmrrC9PyWLZuZY=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pybase64"
-  ];
+  pythonImportsCheck = [ "pybase64" ];
 
   meta = with lib; {
     description = "Fast Base64 encoding/decoding";

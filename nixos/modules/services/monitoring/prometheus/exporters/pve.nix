@@ -1,4 +1,9 @@
-{ config, lib, pkgs, options }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+}:
 
 with lib;
 let
@@ -113,8 +118,6 @@ in
           %d/configFile \
           ${toString cfg.port} ${cfg.listenAddress}
       '';
-    } // optionalAttrs (cfg.environmentFile != null) {
-      EnvironmentFile = cfg.environmentFile;
-    };
+    } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
   };
 }

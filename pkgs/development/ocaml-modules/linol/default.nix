@@ -1,7 +1,14 @@
-{ lib, fetchFromGitHub, buildDunePackage, yojson, logs, lsp, ppx_yojson_conv_lib }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  yojson,
+  logs,
+  lsp,
+  ppx_yojson_conv_lib,
+}:
 
-buildDunePackage
-rec {
+buildDunePackage rec {
   pname = "linol";
   version = "2023-08-04";
 
@@ -16,10 +23,13 @@ rec {
     sha256 = "sha256-51k+Eo3buzby9cWtbl+/0wbAxa2QSS+Oq0aEao0VBCM=";
   };
 
-  lsp_v = lsp.override {
-    version = "1.14.2";
-  };
-  propagatedBuildInputs = [ yojson logs lsp_v ppx_yojson_conv_lib ];
+  lsp_v = lsp.override { version = "1.14.2"; };
+  propagatedBuildInputs = [
+    yojson
+    logs
+    lsp_v
+    ppx_yojson_conv_lib
+  ];
 
   meta = with lib; {
     description = "LSP server library";

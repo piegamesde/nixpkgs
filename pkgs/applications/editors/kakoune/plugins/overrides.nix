@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchFromGitLab, fetchgit
-, buildKakounePluginFrom2Nix
-, kak-lsp, parinfer-rust, rep
-, fzf, git, guile, kakoune-unwrapped, lua5_3, plan9port
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchgit,
+  buildKakounePluginFrom2Nix,
+  kak-lsp,
+  parinfer-rust,
+  rep,
+  fzf,
+  git,
+  guile,
+  kakoune-unwrapped,
+  lua5_3,
+  plan9port,
 }:
 
 self: super: {
@@ -19,18 +31,20 @@ self: super: {
     meta.homepage = "https://gitlab.com/FlyingWombat/case.kak";
   };
 
-  fzf-kak = super.fzf-kak.overrideAttrs(oldAttrs: rec {
-    preFixup = ''
-      if [[ -x "${fzf}/bin/fzf" ]]; then
-        fzfImpl='${fzf}/bin/fzf'
-      else
-        fzfImpl='${fzf}/bin/sk'
-      fi
+  fzf-kak = super.fzf-kak.overrideAttrs (
+    oldAttrs: rec {
+      preFixup = ''
+        if [[ -x "${fzf}/bin/fzf" ]]; then
+          fzfImpl='${fzf}/bin/fzf'
+        else
+          fzfImpl='${fzf}/bin/sk'
+        fi
 
-      substituteInPlace $out/share/kak/autoload/plugins/fzf-kak/rc/fzf.kak \
-        --replace \'fzf\' \'"$fzfImpl"\'
-    '';
-  });
+        substituteInPlace $out/share/kak/autoload/plugins/fzf-kak/rc/fzf.kak \
+          --replace \'fzf\' \'"$fzfImpl"\'
+      '';
+    }
+  );
 
   kak-ansi = stdenv.mkDerivation rec {
     pname = "kak-ansi";
@@ -44,14 +58,14 @@ self: super: {
     };
 
     installPhase = ''
-      mkdir -p $out/bin $out/share/kak/autoload/plugins/
-      cp kak-ansi-filter $out/bin/
-      # Hard-code path of filter and don't try to build when Kakoune boots
-      sed '
-        /^declare-option.* ansi_filter /i\
-declare-option -hidden str ansi_filter %{'"$out"'/bin/kak-ansi-filter}
-        /^declare-option.* ansi_filter /,/^}/d
-      ' rc/ansi.kak >$out/share/kak/autoload/plugins/ansi.kak
+            mkdir -p $out/bin $out/share/kak/autoload/plugins/
+            cp kak-ansi-filter $out/bin/
+            # Hard-code path of filter and don't try to build when Kakoune boots
+            sed '
+              /^declare-option.* ansi_filter /i\
+      declare-option -hidden str ansi_filter %{'"$out"'/bin/kak-ansi-filter}
+              /^declare-option.* ansi_filter /,/^}/d
+            ' rc/ansi.kak >$out/share/kak/autoload/plugins/ansi.kak
     '';
 
     meta = with lib; {
@@ -93,16 +107,18 @@ declare-option -hidden str ansi_filter %{'"$out"'/bin/kak-ansi-filter}
     };
   };
 
-  kakoune-rainbow = super.kakoune-rainbow.overrideAttrs(oldAttrs: rec {
-    preFixup = ''
-      mkdir -p $out/bin
-      mv $out/share/kak/autoload/plugins/kakoune-rainbow/bin/kak-rainbow.scm $out/bin
-      substituteInPlace $out/bin/kak-rainbow.scm \
-        --replace '/usr/bin/env -S guile' '${guile}/bin/guile'
-      substituteInPlace $out/share/kak/autoload/plugins/kakoune-rainbow/rainbow.kak \
-        --replace '%sh{dirname "$kak_source"}' "'$out'"
-    '';
-  });
+  kakoune-rainbow = super.kakoune-rainbow.overrideAttrs (
+    oldAttrs: rec {
+      preFixup = ''
+        mkdir -p $out/bin
+        mv $out/share/kak/autoload/plugins/kakoune-rainbow/bin/kak-rainbow.scm $out/bin
+        substituteInPlace $out/bin/kak-rainbow.scm \
+          --replace '/usr/bin/env -S guile' '${guile}/bin/guile'
+        substituteInPlace $out/share/kak/autoload/plugins/kakoune-rainbow/rainbow.kak \
+          --replace '%sh{dirname "$kak_source"}' "'$out'"
+      '';
+    }
+  );
 
   kakoune-state-save = buildKakounePluginFrom2Nix {
     pname = "kakoune-state-save";
@@ -124,12 +140,14 @@ declare-option -hidden str ansi_filter %{'"$out"'/bin/kak-ansi-filter}
     };
   };
 
-  powerline-kak = super.powerline-kak.overrideAttrs(oldAttrs: rec {
-    preFixup = ''
-      substituteInPlace $out/share/kak/autoload/plugins/powerline-kak/rc/modules/git.kak \
-        --replace ' git ' ' ${git}/bin/git '
-    '';
-  });
+  powerline-kak = super.powerline-kak.overrideAttrs (
+    oldAttrs: rec {
+      preFixup = ''
+        substituteInPlace $out/share/kak/autoload/plugins/powerline-kak/rc/modules/git.kak \
+          --replace ' git ' ' ${git}/bin/git '
+      '';
+    }
+  );
 
   quickscope-kak = buildKakounePluginFrom2Nix rec {
     pname = "quickscope-kak";

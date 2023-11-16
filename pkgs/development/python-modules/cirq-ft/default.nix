@@ -1,12 +1,13 @@
-{ attrs
-, buildPythonPackage
-, cachetools
-, cirq-core
-, ipython
-, ipywidgets
-, nbconvert
-, nbformat
-, pytestCheckHook
+{
+  attrs,
+  buildPythonPackage,
+  cachetools,
+  cirq-core,
+  ipython,
+  ipywidgets,
+  nbconvert,
+  nbformat,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -32,5 +33,4 @@ buildPythonPackage rec {
 
   # cirq's importlib hook doesn't work here
   #pythonImportsCheck = [ "cirq_ft" ];
-
 }

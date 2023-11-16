@@ -1,10 +1,11 @@
-{ lib
-, callPackage
-, fetchFromGitHub
-, perl
-, rustPlatform
-, darwin
-, stdenv
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  perl,
+  rustPlatform,
+  darwin,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -25,16 +26,12 @@ rustPlatform.buildRustPackage rec {
     darwin.apple_sdk.frameworks.CoreServices
   ];
 
-  nativeBuildInputs = [
-    perl
-  ];
+  nativeBuildInputs = [ perl ];
 
   # This test checks whether the plugins specified in the plugins json file are
   # valid by making a network call to the repo that houses their binaries; but, the
   # build env can't make network calls (impurity)
-  cargoTestFlags = [
-    "-- --skip=latest_plugins_are_valid_versions"
-  ];
+  cargoTestFlags = [ "-- --skip=latest_plugins_are_valid_versions" ];
 
   # The rover-client's build script (xtask/src/commands/prep/schema.rs) will try to
   # download the API's graphql schema at build time to our read-only filesystem.
@@ -58,6 +55,9 @@ rustPlatform.buildRustPackage rec {
     description = "A CLI for interacting with ApolloGraphQL's developer tooling, including managing self-hosted and GraphOS graphs.";
     homepage = "https://www.apollographql.com/docs/rover";
     license = licenses.mit;
-    maintainers = [ maintainers.ivanbrennan maintainers.aaronarinder ];
+    maintainers = [
+      maintainers.ivanbrennan
+      maintainers.aaronarinder
+    ];
   };
 }

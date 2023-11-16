@@ -1,23 +1,30 @@
-{ lib, python3, fetchPypi }:
+{
+  lib,
+  python3,
+  fetchPypi,
+}:
 let
   localPython = python3.override {
     self = localPython;
     packageOverrides = self: super: {
       # Can be removed once this is merged
       # https://gitlab.com/pdftools/pdfposter/-/merge_requests/7
-      pypdf2 = super.pypdf2.overridePythonAttrs (oldAttrs: rec {
-        version = "2.11.1";
-        format = "setuptools";
-        src = fetchPypi {
-          pname = "PyPDF2";
-          inherit version;
-          hash = "sha256-PHut1RLCFxHrF4nC6tv5YnkonA+URS7lSoZHO/vv1zI=";
-        };
-      });
+      pypdf2 = super.pypdf2.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "2.11.1";
+          format = "setuptools";
+          src = fetchPypi {
+            pname = "PyPDF2";
+            inherit version;
+            hash = "sha256-PHut1RLCFxHrF4nC6tv5YnkonA+URS7lSoZHO/vv1zI=";
+          };
+        }
+      );
     };
   };
 in
-with localPython.pkgs; buildPythonApplication rec {
+with localPython.pkgs;
+buildPythonApplication rec {
   pname = "pdfposter";
   version = "0.8.1";
   format = "setuptools";

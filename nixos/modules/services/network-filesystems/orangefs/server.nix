@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ...} :
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -13,42 +18,59 @@ let
   # One range of handles for each meta/data instance
   handleStep = maxHandle / (length aliases) / 2;
 
-  fileSystems = mapAttrsToList (name: fs: ''
-    <FileSystem>
-      Name ${name}
-      ID ${toString fs.id}
-      RootHandle ${toString fs.rootHandle}
+  fileSystems =
+    mapAttrsToList
+      (name: fs: ''
+        <FileSystem>
+          Name ${name}
+          ID ${toString fs.id}
+          RootHandle ${toString fs.rootHandle}
 
-      ${fs.extraConfig}
+          ${fs.extraConfig}
 
-      <MetaHandleRanges>
-      ${concatStringsSep "\n" (
-          imap0 (i: alias:
-            let
-              begin = i * handleStep + 3;
-              end = begin + handleStep - 1;
-            in "Range ${alias} ${toString begin}-${toString end}") aliases
-       )}
-      </MetaHandleRanges>
+          <MetaHandleRanges>
+          ${
+            concatStringsSep "\n" (
+              imap0
+                (
+                  i: alias:
+                  let
+                    begin = i * handleStep + 3;
+                    end = begin + handleStep - 1;
+                  in
+                  "Range ${alias} ${toString begin}-${toString end}"
+                )
+                aliases
+            )
+          }
+          </MetaHandleRanges>
 
-      <DataHandleRanges>
-      ${concatStringsSep "\n" (
-          imap0 (i: alias:
-            let
-              begin = i * handleStep + 3 + (length aliases) * handleStep;
-              end = begin + handleStep - 1;
-            in "Range ${alias} ${toString begin}-${toString end}") aliases
-       )}
-      </DataHandleRanges>
+          <DataHandleRanges>
+          ${
+            concatStringsSep "\n" (
+              imap0
+                (
+                  i: alias:
+                  let
+                    begin = i * handleStep + 3 + (length aliases) * handleStep;
+                    end = begin + handleStep - 1;
+                  in
+                  "Range ${alias} ${toString begin}-${toString end}"
+                )
+                aliases
+            )
+          }
+          </DataHandleRanges>
 
-      <StorageHints>
-      TroveSyncMeta ${if fs.troveSyncMeta then "yes" else "no"}
-      TroveSyncData ${if fs.troveSyncData then "yes" else "no"}
-      ${fs.extraStorageHints}
-      </StorageHints>
+          <StorageHints>
+          TroveSyncMeta ${if fs.troveSyncMeta then "yes" else "no"}
+          TroveSyncData ${if fs.troveSyncData then "yes" else "no"}
+          ${fs.extraStorageHints}
+          </StorageHints>
 
-    </FileSystem>
-  '') cfg.fileSystems;
+        </FileSystem>
+      '')
+      cfg.fileSystems;
 
   configFile = ''
     <Defaults>
@@ -68,8 +90,8 @@ let
 
     ${concatStringsSep "\n" fileSystems}
   '';
-
-in {
+in
+{
   ###### interface
 
   options = {
@@ -77,7 +99,12 @@ in {
       enable = mkEnableOption (lib.mdDoc "OrangeFS server");
 
       logType = mkOption {
-        type = with types; enum [ "file" "syslog" ];
+        type =
+          with types;
+          enum [
+            "file"
+            "syslog"
+          ];
         default = "syslog";
         description = lib.mdDoc "Destination for log messages.";
       };
@@ -99,7 +126,10 @@ in {
       BMIModules = mkOption {
         type = with types; listOf str;
         default = [ "bmi_tcp" ];
-        example = [ "bmi_tcp" "bmi_ib"];
+        example = [
+          "bmi_tcp"
+          "bmi_ib"
+        ];
         description = lib.mdDoc "List of BMI modules to load.";
       };
 
@@ -117,19 +147,23 @@ in {
 
       servers = mkOption {
         type = with types; attrsOf types.str;
-        default = {};
+        default = { };
         example = {
           node1 = "tcp://node1:3334";
           node2 = "tcp://node2:3334";
         };
-        description = lib.mdDoc "URLs for storage server including port. The attribute names define the server alias.";
+        description =
+          lib.mdDoc
+            "URLs for storage server including port. The attribute names define the server alias.";
       };
 
       fileSystems = mkOption {
         description = lib.mdDoc ''
           These options will create the `<FileSystem>` sections of config file.
         '';
-        default = { orangefs = {}; };
+        default = {
+          orangefs = { };
+        };
         example = literalExpression ''
           {
             fs1 = {
@@ -141,45 +175,52 @@ in {
             };
           }
         '';
-        type = with types; attrsOf (submodule ({ ... } : {
-          options = {
-            id = mkOption {
-              type = types.int;
-              default = 1;
-              description = lib.mdDoc "File system ID (must be unique within configuration).";
-            };
+        type =
+          with types;
+          attrsOf (
+            submodule (
+              { ... }:
+              {
+                options = {
+                  id = mkOption {
+                    type = types.int;
+                    default = 1;
+                    description = lib.mdDoc "File system ID (must be unique within configuration).";
+                  };
 
-            rootHandle = mkOption {
-              type = types.int;
-              default = 3;
-              description = lib.mdDoc "File system root ID.";
-            };
+                  rootHandle = mkOption {
+                    type = types.int;
+                    default = 3;
+                    description = lib.mdDoc "File system root ID.";
+                  };
 
-            extraConfig = mkOption {
-              type = types.lines;
-              default = "";
-              description = lib.mdDoc "Extra config for `<FileSystem>` section.";
-            };
+                  extraConfig = mkOption {
+                    type = types.lines;
+                    default = "";
+                    description = lib.mdDoc "Extra config for `<FileSystem>` section.";
+                  };
 
-            troveSyncMeta = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc "Sync meta data.";
-            };
+                  troveSyncMeta = mkOption {
+                    type = types.bool;
+                    default = true;
+                    description = lib.mdDoc "Sync meta data.";
+                  };
 
-            troveSyncData = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc "Sync data.";
-            };
+                  troveSyncData = mkOption {
+                    type = types.bool;
+                    default = false;
+                    description = lib.mdDoc "Sync data.";
+                  };
 
-            extraStorageHints = mkOption {
-              type = types.lines;
-              default = "";
-              description = lib.mdDoc "Extra config for `<StorageHints>` section.";
-            };
-          };
-        }));
+                  extraStorageHints = mkOption {
+                    type = types.lines;
+                    default = "";
+                    description = lib.mdDoc "Extra config for `<StorageHints>` section.";
+                  };
+                };
+              }
+            )
+          );
       };
     };
   };
@@ -194,7 +235,7 @@ in {
       isSystemUser = true;
       group = "orangefs";
     };
-    users.groups.orangefs = {};
+    users.groups.orangefs = { };
 
     # To format the file system the config file is needed.
     environment.etc."orangefs/server.conf" = {
@@ -221,5 +262,4 @@ in {
       };
     };
   };
-
 }

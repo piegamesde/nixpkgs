@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "swap-bytes";
   version = "v1.2";
@@ -8,7 +8,10 @@ rec {
 
   description = "Optimized byte-swapping primitives.";
 
-  deps = [ args."fiveam" args."trivial-features" ];
+  deps = [
+    args."fiveam"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/swap-bytes/2019-11-30/swap-bytes-v1.2.tgz";
@@ -17,7 +20,7 @@ rec {
 
   packageName = "swap-bytes";
 
-  asdFilesToKeep = ["swap-bytes.asd"];
+  asdFilesToKeep = [ "swap-bytes.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM swap-bytes DESCRIPTION Optimized byte-swapping primitives. SHA256
@@ -28,4 +31,5 @@ rec {
     ((NAME fiveam FILENAME fiveam)
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES (fiveam trivial-features) VERSION v1.2 SIBLINGS NIL PARASITES
-    (swap-bytes/test)) */
+    (swap-bytes/test))
+*/

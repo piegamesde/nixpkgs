@@ -1,41 +1,48 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.virtualisation.lxc;
-in {
-  imports = [
-    ./lxc-instance-common.nix
-  ];
+in
+{
+  imports = [ ./lxc-instance-common.nix ];
 
   options = {
     virtualisation.lxc = {
-      nestedContainer = lib.mkEnableOption (lib.mdDoc ''
-        Whether this container is configured as a nested container. On LXD containers this is recommended
-        for all containers and is enabled with `security.nesting = true`.
-      '');
+      nestedContainer = lib.mkEnableOption (
+        lib.mdDoc ''
+          Whether this container is configured as a nested container. On LXD containers this is recommended
+          for all containers and is enabled with `security.nesting = true`.
+        ''
+      );
 
-      privilegedContainer = lib.mkEnableOption (lib.mdDoc ''
-        Whether this LXC container will be running as a privileged container or not. If set to `true` then
-        additional configuration will be applied to the `systemd` instance running within the container as
-        recommended by [distrobuilder](https://linuxcontainers.org/distrobuilder/introduction/).
-      '');
+      privilegedContainer = lib.mkEnableOption (
+        lib.mdDoc ''
+          Whether this LXC container will be running as a privileged container or not. If set to `true` then
+          additional configuration will be applied to the `systemd` instance running within the container as
+          recommended by [distrobuilder](https://linuxcontainers.org/distrobuilder/introduction/).
+        ''
+      );
     };
   };
 
   config = {
     boot.isContainer = true;
-    boot.postBootCommands =
-      ''
-        # After booting, register the contents of the Nix store in the Nix
-        # database.
-        if [ -f /nix-path-registration ]; then
-          ${config.nix.package.out}/bin/nix-store --load-db < /nix-path-registration &&
-          rm /nix-path-registration
-        fi
+    boot.postBootCommands = ''
+      # After booting, register the contents of the Nix store in the Nix
+      # database.
+      if [ -f /nix-path-registration ]; then
+        ${config.nix.package.out}/bin/nix-store --load-db < /nix-path-registration &&
+        rm /nix-path-registration
+      fi
 
-        # nixos-rebuild also requires a "system" profile
-        ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
-      '';
+      # nixos-rebuild also requires a "system" profile
+      ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
+    '';
 
     system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
       extraArgs = "--owner=0";
@@ -69,7 +76,7 @@ in {
       noStrip = true; # keep directory structure
       comp = "zstd -Xcompression-level 6";
 
-      storeContents = [config.system.build.toplevel];
+      storeContents = [ config.system.build.toplevel ];
 
       pseudoFiles = [
         "/sbin d 0755 0 0"
@@ -85,7 +92,9 @@ in {
       ${pkgs.coreutils}/bin/ln -fs "$1/init" /sbin/init
     '';
 
-    systemd.additionalUpstreamSystemUnits = lib.mkIf cfg.nestedContainer ["systemd-udev-trigger.service"];
+    systemd.additionalUpstreamSystemUnits = lib.mkIf cfg.nestedContainer [
+      "systemd-udev-trigger.service"
+    ];
 
     # Add the overrides from lxd distrobuilder
     # https://github.com/lxc/distrobuilder/blob/05978d0d5a72718154f1525c7d043e090ba7c3e0/distrobuilder/main.go#L630
@@ -93,24 +102,26 @@ in {
       (pkgs.writeTextFile {
         name = "systemd-lxc-service-overrides";
         destination = "/etc/systemd/system/service.d/zzz-lxc-service.conf";
-        text = ''
-          [Service]
-          ProcSubset=all
-          ProtectProc=default
-          ProtectControlGroups=no
-          ProtectKernelTunables=no
-          NoNewPrivileges=no
-          LoadCredential=
-        '' + lib.optionalString cfg.privilegedContainer ''
-          # Additional settings for privileged containers
-          ProtectHome=no
-          ProtectSystem=no
-          PrivateDevices=no
-          PrivateTmp=no
-          ProtectKernelLogs=no
-          ProtectKernelModules=no
-          ReadWritePaths=
-        '';
+        text =
+          ''
+            [Service]
+            ProcSubset=all
+            ProtectProc=default
+            ProtectControlGroups=no
+            ProtectKernelTunables=no
+            NoNewPrivileges=no
+            LoadCredential=
+          ''
+          + lib.optionalString cfg.privilegedContainer ''
+            # Additional settings for privileged containers
+            ProtectHome=no
+            ProtectSystem=no
+            PrivateDevices=no
+            PrivateTmp=no
+            ProtectKernelLogs=no
+            ProtectKernelModules=no
+            ReadWritePaths=
+          '';
       })
     ];
 

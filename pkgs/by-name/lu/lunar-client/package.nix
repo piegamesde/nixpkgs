@@ -1,7 +1,8 @@
-{ appimageTools
-, fetchurl
-, lib
-, makeWrapper
+{
+  appimageTools,
+  fetchurl,
+  lib,
+  makeWrapper,
 }:
 
 let
@@ -36,7 +37,11 @@ appimageTools.wrapType2 rec {
     description = "Free Minecraft client with mods, cosmetics, and performance boost.";
     homepage = "https://www.lunarclient.com/";
     license = with licenses; [ unfree ];
-    maintainers = with maintainers; [ zyansheep Technical27 surfaceflinger ];
+    maintainers = with maintainers; [
+      zyansheep
+      Technical27
+      surfaceflinger
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

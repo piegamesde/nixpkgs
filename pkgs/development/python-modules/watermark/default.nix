@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, importlib-metadata
-, ipython
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  importlib-metadata,
+  ipython,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,19 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-4/1Y7cdh1tF33jgPrqdxCGPcRnnxx+Wf8lyztF54Ck0=";
   };
 
-  propagatedBuildInputs = [
-    ipython
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ ipython ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs =  [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "watermark"
-  ];
+  pythonImportsCheck = [ "watermark" ];
 
   meta = with lib; {
     description = "IPython extension for printing date and timestamps, version numbers, and hardware information";

@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, buildPgxExtension
-, postgresql
-, nixosTests
-, cargo-pgx_0_7_1
-, nix-update-script
-, stdenv
+{
+  lib,
+  fetchFromGitHub,
+  buildPgxExtension,
+  postgresql,
+  nixosTests,
+  cargo-pgx_0_7_1,
+  nix-update-script,
+  stdenv,
 }:
 
-(buildPgxExtension.override {cargo-pgx = cargo-pgx_0_7_1;})rec {
+(buildPgxExtension.override { cargo-pgx = cargo-pgx_0_7_1; }) rec {
   inherit postgresql;
 
   pname = "timescaledb_toolkit";

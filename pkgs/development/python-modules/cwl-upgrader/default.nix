@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mypy-extensions
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, ruamel-yaml
-, schema-salad
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mypy-extensions,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  ruamel-yaml,
+  schema-salad,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "cwlupgrader"
-  ];
+  pythonImportsCheck = [ "cwlupgrader" ];
 
   meta = with lib; {
     description = "Library to interface with Yolink";

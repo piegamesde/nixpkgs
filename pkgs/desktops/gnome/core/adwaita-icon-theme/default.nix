@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, autoreconfHook
-, gnome
-, gtk3
-, gdk-pixbuf
-, librsvg
-, hicolor-icon-theme
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  gnome,
+  gtk3,
+  gdk-pixbuf,
+  librsvg,
+  hicolor-icon-theme,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +16,9 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/adwaita-icon-theme/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/adwaita-icon-theme/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "SInFYBu/7NJdgLo0IgnQqTbc9pHuVr1uykzeNh8aZkw=";
   };
 
@@ -30,10 +33,11 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedBuildInputs = [
-    # For convenience, we can specify adwaita-icon-theme only in packages
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs =
+    [
+      # For convenience, we can specify adwaita-icon-theme only in packages
+      hicolor-icon-theme
+    ];
 
   dontDropIconThemeCache = true;
 

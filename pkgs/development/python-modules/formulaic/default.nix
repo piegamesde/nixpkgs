@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, hatchling
-, hatch-vcs
-, git
-, astor
-, interface-meta
-, numpy
-, pandas
-, scipy
-, sympy
-, wrapt
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  hatchling,
+  hatch-vcs,
+  git,
+  astor,
+  interface-meta,
+  numpy,
+  pandas,
+  scipy,
+  sympy,
+  wrapt,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -50,9 +51,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    "tests/transforms/test_poly.py"
-  ];
+  disabledTestPaths = [ "tests/transforms/test_poly.py" ];
 
   meta = {
     homepage = "https://matthewwardrop.github.io/formulaic/";

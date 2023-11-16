@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,13 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-Afv3SkHvhc9BPx7eUpoUEfZYvaZu0i1F0nKArZzrpHE=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "packageurl"
-  ];
+  pythonImportsCheck = [ "packageurl" ];
 
   meta = with lib; {
     description = "Python parser and builder for package URLs";

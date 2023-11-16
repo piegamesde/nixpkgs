@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyserial
-, pyserial-asyncio
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, zigpy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  zigpy,
 }:
 
 buildPythonPackage rec {
@@ -35,10 +36,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # fixed in https://github.com/zigpy/zigpy-xbee/commit/f85233fc28ae01c08267965e99a29e43b00e1561
-    "test_shutdown"
-  ];
+  disabledTests =
+    [
+      # fixed in https://github.com/zigpy/zigpy-xbee/commit/f85233fc28ae01c08267965e99a29e43b00e1561
+      "test_shutdown"
+    ];
 
   meta = with lib; {
     changelog = "https://github.com/zigpy/zigpy-xbee/releases/tag/${version}";

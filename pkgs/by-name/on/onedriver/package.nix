@@ -1,11 +1,12 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, pkg-config
-, webkitgtk
-, glib
-, fuse
-, installShellFiles
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  webkitgtk,
+  glib,
+  fuse,
+  installShellFiles,
 }:
 let
   pname = "onedriver";
@@ -22,8 +23,15 @@ buildGoModule {
   inherit pname version src;
   vendorHash = "sha256-OOiiKtKb+BiFkoSBUQQfqm4dMfDW3Is+30Kwcdg8LNA=";
 
-  nativeBuildInputs = [ pkg-config installShellFiles ];
-  buildInputs = [ webkitgtk glib fuse ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
+  buildInputs = [
+    webkitgtk
+    glib
+    fuse
+  ];
 
   ldflags = [ "-X github.com/jstaf/onedriver/cmd/common.commit=v${version}" ];
 

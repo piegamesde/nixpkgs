@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -28,9 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     mv $out/bin/WebSecProbe $out/bin/$pname
   '';
 
-  pythonImportsCheck = [
-    "WebSecProbe"
-  ];
+  pythonImportsCheck = [ "WebSecProbe" ];
 
   meta = with lib; {
     description = "Web Security Assessment Tool";

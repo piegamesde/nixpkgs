@@ -1,11 +1,12 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, oniguruma
-, openssl
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  oniguruma,
+  openssl,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,16 +22,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-7GSgyh2aJ2f8pozoh/0Yxzbk8Wg3JYuqSy/34ywAc2s=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     oniguruma
     openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   env = {
     OPENSSL_NO_VENDOR = true;
@@ -42,6 +39,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/szabodanika/microbin";
     changelog = "https://github.com/szabodanika/microbin/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dit7ya figsoda ];
+    maintainers = with maintainers; [
+      dit7ya
+      figsoda
+    ];
   };
 }

@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapQtAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapQtAppsHook,
 
-, qtbase
-, qttools
-, qtsvg
-, qtimageformats
+  qtbase,
+  qttools,
+  qtsvg,
+  qtimageformats,
 
-, exiv2
-, opencv4
-, libraw
-, libtiff
-, quazip
+  exiv2,
+  opencv4,
+  libraw,
+  libtiff,
+  quazip,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,26 +33,32 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */ImageLounge)
   '';
 
-  nativeBuildInputs = [cmake
-                       pkg-config
-                       wrapQtAppsHook];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [qtbase
-                 qttools
-                 qtsvg
-                 qtimageformats
-                 exiv2
-                 opencv4
-                 libraw
-                 libtiff
-                 quazip];
+  buildInputs = [
+    qtbase
+    qttools
+    qtsvg
+    qtimageformats
+    exiv2
+    opencv4
+    libraw
+    libtiff
+    quazip
+  ];
 
-  cmakeFlags = ["-DENABLE_OPENCV=ON"
-                "-DENABLE_RAW=ON"
-                "-DENABLE_TIFF=ON"
-                "-DENABLE_QUAZIP=ON"
-                "-DENABLE_TRANSLATIONS=ON"
-                "-DUSE_SYSTEM_QUAZIP=ON"];
+  cmakeFlags = [
+    "-DENABLE_OPENCV=ON"
+    "-DENABLE_RAW=ON"
+    "-DENABLE_TIFF=ON"
+    "-DENABLE_QUAZIP=ON"
+    "-DENABLE_TRANSLATIONS=ON"
+    "-DUSE_SYSTEM_QUAZIP=ON"
+  ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/lib

@@ -1,27 +1,28 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, h5py
-, hickle
-, hypothesis
-, ipython
-, lazy-loader
-, matplotlib
-, numpy
-, pandas
-, pyqt5
-, pyqtgraph
-, pytest-mock
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, qcodes
-, setuptools
-, slack-sdk
-, versioningit
-, wheel
-, xarray
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  h5py,
+  hickle,
+  hypothesis,
+  ipython,
+  lazy-loader,
+  matplotlib,
+  numpy,
+  pandas,
+  pyqt5,
+  pyqtgraph,
+  pytest-mock,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  qcodes,
+  setuptools,
+  slack-sdk,
+  versioningit,
+  wheel,
+  xarray,
 }:
 
 buildPythonPackage rec {
@@ -56,12 +57,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    qtplot = [
-      pyqtgraph
-    ];
-    slack = [
-      slack-sdk
-    ];
+    qtplot = [ pyqtgraph ];
+    slack = [ slack-sdk ];
   };
 
   nativeCheckInputs = [
@@ -72,18 +69,17 @@ buildPythonPackage rec {
     pyqt5
   ];
 
-  pythonImportsCheck = [
-    "qcodes_loop"
-  ];
+  pythonImportsCheck = [ "qcodes_loop" ];
 
   postInstall = ''
     export HOME="$TMPDIR"
   '';
 
-  disabledTests = [
-    # AssertionError: False is not true
-    "TestHDF5_Format"
-  ];
+  disabledTests =
+    [
+      # AssertionError: False is not true
+      "TestHDF5_Format"
+    ];
 
   meta = with lib; {
     description = "Features previously in QCoDeS";

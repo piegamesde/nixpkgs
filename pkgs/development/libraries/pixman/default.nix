@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, libpng
-, glib /*just passthru*/
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libpng,
+  glib, # just passthru
 
-# for passthru.tests
-, cairo
-, qemu
-, scribus
-, tigervnc
-, wlroots
-, xwayland
+  # for passthru.tests
+  cairo,
+  qemu,
+  scribus,
+  tigervnc,
+  wlroots,
+  xwayland,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,7 +33,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libpng ];
 
-  configureFlags = lib.optional stdenv.isAarch32 "--disable-arm-iwmmxt"
+  configureFlags =
+    lib.optional stdenv.isAarch32 "--disable-arm-iwmmxt"
     # Disable until https://gitlab.freedesktop.org/pixman/pixman/-/issues/46 is resolved
     ++ lib.optional (stdenv.isAarch64 && !stdenv.cc.isGNU) "--disable-arm-a64-neon";
 
@@ -46,7 +48,14 @@ stdenv.mkDerivation rec {
   postInstall = glib.flattenInclude;
 
   passthru.tests = {
-    inherit cairo qemu scribus tigervnc wlroots xwayland;
+    inherit
+      cairo
+      qemu
+      scribus
+      tigervnc
+      wlroots
+      xwayland
+    ;
   };
 
   meta = with lib; {

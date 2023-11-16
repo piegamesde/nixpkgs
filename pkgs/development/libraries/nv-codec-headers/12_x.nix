@@ -1,6 +1,7 @@
-{ stdenv
-, lib
-, fetchgit
+{
+  stdenv,
+  lib,
+  fetchgit,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,9 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8YZU9pb0kzat0JBVEotaZUkNicQvLNIrIyPU9KTTjwg=";
   };
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "FFmpeg version of headers for NVENC";

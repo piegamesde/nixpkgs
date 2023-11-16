@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -65,13 +70,21 @@ in
         ExecStart = "${cfg.package}/bin/jellyfin --datadir '/var/lib/${StateDirectory}' --cachedir '/var/cache/${CacheDirectory}'";
         Restart = "on-failure";
         TimeoutSec = 15;
-        SuccessExitStatus = ["0" "143"];
+        SuccessExitStatus = [
+          "0"
+          "143"
+        ];
 
         # Security options:
         NoNewPrivileges = true;
         SystemCallArchitectures = "native";
         # AF_NETLINK needed because Jellyfin monitors the network connection
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         RestrictNamespaces = !config.boot.isContainer;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -115,16 +128,19 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "jellyfin") {
-      jellyfin = {};
-    };
+    users.groups = mkIf (cfg.group == "jellyfin") { jellyfin = { }; };
 
     networking.firewall = mkIf cfg.openFirewall {
       # from https://jellyfin.org/docs/general/networking/index.html
-      allowedTCPPorts = [ 8096 8920 ];
-      allowedUDPPorts = [ 1900 7359 ];
+      allowedTCPPorts = [
+        8096
+        8920
+      ];
+      allowedUDPPorts = [
+        1900
+        7359
+      ];
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ minijackson ];

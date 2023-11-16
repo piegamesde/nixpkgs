@@ -1,14 +1,17 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 let
   cfg = config.systemd.sysupdate;
 
   format = pkgs.formats.ini { };
 
-  definitionsDirectory = utils.systemdUtils.lib.definitions
-    "sysupdate.d"
-    format
-    cfg.transfers;
+  definitionsDirectory = utils.systemdUtils.lib.definitions "sysupdate.d" format cfg.transfers;
 in
 {
   options.systemd.sysupdate = {
@@ -106,7 +109,6 @@ in
         for all available options.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {

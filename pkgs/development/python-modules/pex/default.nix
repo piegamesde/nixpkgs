@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,22 +18,21 @@ buildPythonPackage rec {
     hash = "sha256-op7V7Xn0qzcCTyISyi/Z4bhdk/W7Ol5YbmvD2Sl5zkM=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   # A few more dependencies I don't want to handle right now...
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pex"
-  ];
+  pythonImportsCheck = [ "pex" ];
 
   meta = with lib; {
     description = "Python library and tool for generating .pex (Python EXecutable) files";
     homepage = "https://github.com/pantsbuild/pex";
     changelog = "https://github.com/pantsbuild/pex/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ copumpkin phaer ];
+    maintainers = with maintainers; [
+      copumpkin
+      phaer
+    ];
   };
 }

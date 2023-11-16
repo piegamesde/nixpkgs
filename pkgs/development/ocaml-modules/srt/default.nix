@@ -1,7 +1,10 @@
-{ lib, buildDunePackage, fetchFromGitHub
-, dune-configurator
-, posix-socket
-, srt
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  posix-socket,
+  srt,
 }:
 
 buildDunePackage rec {
@@ -19,12 +22,18 @@ buildDunePackage rec {
   };
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ posix-socket srt ];
+  propagatedBuildInputs = [
+    posix-socket
+    srt
+  ];
 
   meta = with lib; {
     description = "OCaml bindings for the libsrt library";
     license = lib.licenses.gpl2Only;
     inherit (src.meta) homepage;
-    maintainers = with maintainers; [ vbgl dandellion ];
+    maintainers = with maintainers; [
+      vbgl
+      dandellion
+    ];
   };
 }

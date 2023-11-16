@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -21,5 +22,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     platforms = platforms.linux;
   };
-
 }

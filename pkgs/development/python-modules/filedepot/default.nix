@@ -1,17 +1,18 @@
-{ lib
-, anyascii
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, flaky
-, google-cloud-storage
-, mock
-, pillow
-, pymongo
-, pytestCheckHook
-, pythonOlder
-, requests
-, sqlalchemy
+{
+  lib,
+  anyascii,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  flaky,
+  google-cloud-storage,
+  mock,
+  pillow,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  sqlalchemy,
 }:
 
 buildPythonPackage rec {
@@ -28,14 +29,15 @@ buildPythonPackage rec {
     hash = "sha256-vPceky5cvmy3MooWz7dRdy68VoAHN7i3a7egBs4dPE8=";
   };
 
-  patches = [
-    # Add support for Pillow 10, https://github.com/amol-/depot/pull/84
-    (fetchpatch {
-      name = "support-pillow-10.patch";
-      url = "https://github.com/amol-/depot/commit/bdb73d1b3898279068b421bc061ecc18c5108fa4.patch";
-      hash = "sha256-7+VGrdJstkiy0bYAqA9FjF1NftZiurgyPd8Wlz6GUy8=";
-    })
-  ];
+  patches =
+    [
+      # Add support for Pillow 10, https://github.com/amol-/depot/pull/84
+      (fetchpatch {
+        name = "support-pillow-10.patch";
+        url = "https://github.com/amol-/depot/commit/bdb73d1b3898279068b421bc061ecc18c5108fa4.patch";
+        hash = "sha256-7+VGrdJstkiy0bYAqA9FjF1NftZiurgyPd8Wlz6GUy8=";
+      })
+    ];
 
   propagatedBuildInputs = [
     anyascii
@@ -62,9 +64,7 @@ buildPythonPackage rec {
     "tests/test_wsgi_middleware.py"
   ];
 
-  pythonImportsCheck = [
-    "depot"
-  ];
+  pythonImportsCheck = [ "depot" ];
 
   meta = with lib; {
     description = "Toolkit for storing files and attachments in web applications";

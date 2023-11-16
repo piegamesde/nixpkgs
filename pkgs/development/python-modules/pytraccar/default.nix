@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pydantic
-, pytestCheckHook
-, pytest-asyncio
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pydantic,
+  pytestCheckHook,
+  pytest-asyncio,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-ngyLe6sbTTQ7n4WdV06OlQnn/vqkD+JUruyMYS1Ym+Q=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -39,9 +38,7 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
   postPatch = ''
     # Upstream doesn't set version in the repo
@@ -49,9 +46,7 @@ buildPythonPackage rec {
       --replace 'version = "0"' 'version = "${version}"'
   '';
 
-  pythonImportsCheck = [
-    "pytraccar"
-  ];
+  pythonImportsCheck = [ "pytraccar" ];
 
   meta = with lib; {
     description = "Python library to handle device information from Traccar";

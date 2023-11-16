@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, importlib-metadata
-, openai
-, python-dotenv
-, tiktoken
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  importlib-metadata,
+  openai,
+  python-dotenv,
+  tiktoken,
 }:
 let
   version = "0.11.1";
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     rm -rf dist
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     importlib-metadata

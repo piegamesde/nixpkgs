@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, openssl
-, pkg-config
-, rustPlatform
-, Security
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,20 +21,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-T1TgwnohUDvfpn6GXNP4xJGHM3aenMK+ORxE3z3PPA4=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  checkFlags = [
-    # requires network access
-    "--skip=utils::test_get_infos"
-  ];
+  checkFlags =
+    [
+      # requires network access
+      "--skip=utils::test_get_infos"
+    ];
 
   meta = with lib; {
     description = "Live cryptocurrency prices CLI";

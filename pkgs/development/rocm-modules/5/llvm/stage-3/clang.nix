@@ -1,45 +1,48 @@
-{ stdenv
-, wrapCCWith
-, llvm
-, lld
-, clang-unwrapped
-, bintools
-, libc
-, libunwind
-, libcxxabi
-, libcxx
-, compiler-rt
+{
+  stdenv,
+  wrapCCWith,
+  llvm,
+  lld,
+  clang-unwrapped,
+  bintools,
+  libc,
+  libunwind,
+  libcxxabi,
+  libcxx,
+  compiler-rt,
 }:
 
 wrapCCWith rec {
   inherit libcxx bintools;
 
   # We do this to avoid HIP pathing problems, and mimic a monolithic install
-  cc = stdenv.mkDerivation (finalAttrs: {
-    inherit (clang-unwrapped) version;
-    pname = "rocm-llvm-clang";
-    dontUnpack = true;
+  cc = stdenv.mkDerivation (
+    finalAttrs: {
+      inherit (clang-unwrapped) version;
+      pname = "rocm-llvm-clang";
+      dontUnpack = true;
 
-    installPhase = ''
-      runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-      clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
-      mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
+        clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
+        mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
 
-      for path in ${llvm} ${clang-unwrapped} ${lld} ${libc} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
-        cp -as $path/* $out
-        chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
-        rm -f $out/lib/libc++.so
-      done
+        for path in ${llvm} ${clang-unwrapped} ${lld} ${libc} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
+          cp -as $path/* $out
+          chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
+          rm -f $out/lib/libc++.so
+        done
 
-      ln -s $out/lib/* $out/lib/clang/$clang_version/lib
-      ln -sf $out/include/* $out/lib/clang/$clang_version/include
+        ln -s $out/lib/* $out/lib/clang/$clang_version/lib
+        ln -sf $out/include/* $out/lib/clang/$clang_version/include
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
 
-    passthru.isClang = true;
-  });
+      passthru.isClang = true;
+    }
+  );
 
   extraPackages = [
     llvm
@@ -68,6 +71,7 @@ wrapCCWith rec {
 
     # GPU compilation uses builtin `lld`
     substituteInPlace $out/bin/{clang,clang++} \
-      --replace "-MM) dontLink=1 ;;" "-MM | --cuda-device-only) dontLink=1 ;;''\n--cuda-host-only | --cuda-compile-host-device) dontLink=0 ;;"
+      --replace "-MM) dontLink=1 ;;" "-MM | --cuda-device-only) dontLink=1 ;;
+    --cuda-host-only | --cuda-compile-host-device) dontLink=0 ;;"
   '';
 }

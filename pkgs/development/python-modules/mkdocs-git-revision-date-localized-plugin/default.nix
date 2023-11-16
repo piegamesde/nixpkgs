@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, gitpython
-, mkdocs
-, pytz
-, pytestCheckHook
-, git
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  gitpython,
+  mkdocs,
+  pytz,
+  pytestCheckHook,
+  git,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    "tests/test_builds.py"
-  ];
+  disabledTestPaths = [ "tests/test_builds.py" ];
 
   pythonImportsCheck = [ "mkdocs_git_revision_date_localized_plugin" ];
 

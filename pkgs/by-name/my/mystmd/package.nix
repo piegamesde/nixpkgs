@@ -1,4 +1,10 @@
-{ lib, buildNpmPackage, fetchFromGitHub, mystmd, testers }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  mystmd,
+  testers,
+}:
 
 buildNpmPackage rec {
   pname = "mystmd";

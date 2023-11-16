@@ -1,7 +1,8 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, withCmd ? false
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  withCmd ? false,
 }:
 
 rustPlatform.buildRustPackage rec {

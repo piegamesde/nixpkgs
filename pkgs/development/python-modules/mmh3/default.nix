@@ -1,7 +1,8 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-rYvmldxORKeWMXSLpVYtgD8KxC02prl6U6yoSnCAk4U=";
   };
 
-  pythonImportsCheck = [
-    "mmh3"
-  ];
+  pythonImportsCheck = [ "mmh3" ];
 
   meta = with lib; {
     description = "Python wrapper for MurmurHash3, a set of fast and robust hash functions";

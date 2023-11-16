@@ -3,7 +3,13 @@
 { libpath }:
 let
   lib = import libpath;
-  inherit (lib.path) hasPrefix removePrefix append splitRoot subpath;
+  inherit (lib.path)
+    hasPrefix
+    removePrefix
+    append
+    splitRoot
+    subpath
+  ;
 
   cases = lib.runTests {
     # Test examples from the lib.path.append documentation
@@ -76,15 +82,24 @@ let
 
     testSplitRootExample1 = {
       expr = splitRoot /foo/bar;
-      expected = { root = /.; subpath = "./foo/bar"; };
+      expected = {
+        root = /.;
+        subpath = "./foo/bar";
+      };
     };
     testSplitRootExample2 = {
       expr = splitRoot /.;
-      expected = { root = /.; subpath = "./."; };
+      expected = {
+        root = /.;
+        subpath = "./.";
+      };
     };
     testSplitRootExample3 = {
       expr = splitRoot /foo/../bar;
-      expected = { root = /.; subpath = "./bar"; };
+      expected = {
+        root = /.;
+        subpath = "./bar";
+      };
     };
     testSplitRootExample4 = {
       expr = (builtins.tryEval (splitRoot "/foo/bar")).success;
@@ -160,11 +175,18 @@ let
 
     # Test examples from the lib.path.subpath.join documentation
     testSubpathJoinExample1 = {
-      expr = subpath.join [ "foo" "bar/baz" ];
+      expr = subpath.join [
+        "foo"
+        "bar/baz"
+      ];
       expected = "./foo/bar/baz";
     };
     testSubpathJoinExample2 = {
-      expr = subpath.join [ "./foo" "." "bar//./baz/" ];
+      expr = subpath.join [
+        "./foo"
+        "."
+        "bar//./baz/"
+      ];
       expected = "./foo/bar/baz";
     };
     testSubpathJoinExample3 = {
@@ -245,7 +267,11 @@ let
     };
     testSubpathComponentsExample2 = {
       expr = subpath.components "./foo//bar/./baz/";
-      expected = [ "foo" "bar" "baz" ];
+      expected = [
+        "foo"
+        "bar"
+        "baz"
+      ];
     };
     testSubpathComponentsExample3 = {
       expr = (builtins.tryEval (subpath.components "/foo")).success;
@@ -253,5 +279,7 @@ let
     };
   };
 in
-  if cases == [] then "Unit tests successful"
-  else throw "Path unit tests failed: ${lib.generators.toPretty {} cases}"
+if cases == [ ] then
+  "Unit tests successful"
+else
+  throw "Path unit tests failed: ${lib.generators.toPretty { } cases}"

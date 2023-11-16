@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, defusedxml
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  defusedxml,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,13 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-laKmWGDEzlBVJCUSKxekjPEXVlAz4MIzM7dNJfta/ek=";
   };
 
-  propagatedBuildInputs = [
-    defusedxml
-  ];
+  propagatedBuildInputs = [ defusedxml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "didl_lite" ];
 

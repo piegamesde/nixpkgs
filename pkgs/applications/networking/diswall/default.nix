@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  darwin,
+}:
 
 let
   inherit (darwin.apple_sdk.frameworks) Security;
@@ -14,9 +20,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-uWGpSpT8TyEkF5OI2enZwbcsyoHIemC0Dm1LExi+AC8=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   cargoHash = "sha256-Te2mqrBKHDKbFaO0ZNV2C6AHz07v1jWCMm05YiXg+w0=";
 

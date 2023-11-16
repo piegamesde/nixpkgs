@@ -1,11 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, jdk8, ant, makeWrapper, jre8 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk8,
+  ant,
+  makeWrapper,
+  jre8,
+}:
 
-let jdk = jdk8; jre = jre8; in
+let
+  jdk = jdk8;
+  jre = jre8;
+in
 stdenv.mkDerivation rec {
   pname = "ili2c";
   version = "5.1.1";
 
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
 
   src = fetchFromGitHub {
     owner = "claeis";
@@ -16,15 +31,14 @@ stdenv.mkDerivation rec {
 
   buildPhase = "ant jar";
 
-  installPhase =
-    ''
-      mkdir -p $out/share/${pname}
-      cp $build/build/source/build/jar/ili2c.jar $out/share/${pname}
+  installPhase = ''
+    mkdir -p $out/share/${pname}
+    cp $build/build/source/build/jar/ili2c.jar $out/share/${pname}
 
-      mkdir -p $out/bin
-      makeWrapper ${jre}/bin/java $out/bin/ili2c \
-        --add-flags "-jar $out/share/${pname}/ili2c.jar"
-    '';
+    mkdir -p $out/bin
+    makeWrapper ${jre}/bin/java $out/bin/ili2c \
+      --add-flags "-jar $out/share/${pname}/ili2c.jar"
+  '';
 
   meta = with lib; {
     description = "The INTERLIS Compiler";
@@ -34,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.interlis.ch/downloads/ili2c";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # source bundles dependencies as jars
+      binaryBytecode # source bundles dependencies as jars
     ];
     license = licenses.lgpl21Plus;
     maintainers = [ maintainers.das-g ];

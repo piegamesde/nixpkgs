@@ -1,11 +1,12 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, python
-, srht
-, pyyaml
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  python,
+  srht,
+  pyyaml,
+  unzip,
 }:
 
 buildPythonPackage rec {
@@ -23,12 +24,15 @@ buildPythonPackage rec {
     substituteInPlace Makefile --replace "all: api" ""
   '';
 
-  hubsrht-api = buildGoModule ({
-    inherit src version;
-    pname = "hubsrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-K5EmZ4U+xItTR85+SCwhwg5KUGLkKHo9Nr2pkvmJpfo=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  hubsrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "hubsrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-K5EmZ4U+xItTR85+SCwhwg5KUGLkKHo9Nr2pkvmJpfo=";
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   propagatedBuildInputs = [
     srht

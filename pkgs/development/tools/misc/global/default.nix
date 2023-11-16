@@ -1,10 +1,21 @@
-{ fetchurl, lib, stdenv, libtool, makeWrapper
-, coreutils, ctags, ncurses, python3Packages, sqlite, universal-ctags
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libtool,
+  makeWrapper,
+  coreutils,
+  ctags,
+  ncurses,
+  python3Packages,
+  sqlite,
+  universal-ctags,
 }:
 
 let
   pygments = python3Packages.pygments;
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "global";
   version = "6.6.10";
 
@@ -13,9 +24,15 @@ in stdenv.mkDerivation rec {
     hash = "sha256-LdHmqUXpPAE5D7lBpOaU9McbvXVp1kFJwE6Se79NzOg=";
   };
 
-  nativeBuildInputs = [ libtool makeWrapper ];
+  nativeBuildInputs = [
+    libtool
+    makeWrapper
+  ];
 
-  buildInputs = [ ncurses sqlite ];
+  buildInputs = [
+    ncurses
+    sqlite
+  ];
 
   propagatedBuildInputs = [ pygments ];
 
@@ -55,8 +72,13 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gnu.org/software/global/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub peterhoeg ];
+    maintainers = with maintainers; [
+      pSub
+      peterhoeg
+    ];
     platforms = platforms.unix;
-    changelog = "https://cvs.savannah.gnu.org/viewvc/global/global/NEWS?view=markup&pathrev=VERSION-${lib.replaceStrings [ "." ] [ "_" ] version}";
+    changelog = "https://cvs.savannah.gnu.org/viewvc/global/global/NEWS?view=markup&pathrev=VERSION-${
+        lib.replaceStrings [ "." ] [ "_" ] version
+      }";
   };
 }

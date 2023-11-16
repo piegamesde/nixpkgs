@@ -1,14 +1,15 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, srht
-, aiosmtpd
-, asyncpg
-, pygit2
-, emailthreads
-, python
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  aiosmtpd,
+  asyncpg,
+  pygit2,
+  emailthreads,
+  python,
+  unzip,
 }:
 
 buildPythonPackage rec {
@@ -22,12 +23,15 @@ buildPythonPackage rec {
     sha256 = "sha256-nQZRSTAyTWxcPHrRVCZ5TgcrNgrlxBFc1vRds0cQwA0=";
   };
 
-  listssrht-api = buildGoModule ({
-    inherit src version;
-    pname = "listssrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-E5Zzft9ANJT/nhhCuenZpdo3t9QYLmA+AyDyrbGectE=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  listssrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "listssrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-E5Zzft9ANJT/nhhCuenZpdo3t9QYLmA+AyDyrbGectE=";
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   postPatch = ''
     substituteInPlace Makefile \

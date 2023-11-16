@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, xar
-, cpio
-, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xar,
+  cpio,
+  makeWrapper,
 }:
 
 let
@@ -20,8 +21,14 @@ let
     downloadPage = "https://teams.microsoft.com/downloads";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ liff tricktron ];
-    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      liff
+      tricktron
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     mainProgram = "teams";
   };
 
@@ -36,14 +43,18 @@ let
       hash = hashes.darwin;
     };
 
-    nativeBuildInputs = [ xar cpio makeWrapper ];
+    nativeBuildInputs = [
+      xar
+      cpio
+      makeWrapper
+    ];
 
     unpackPhase = ''
       xar -xf $src
       zcat < Teams_osx_app.pkg/Payload | cpio -i
     '';
 
-    sourceRoot = "Microsoft\ Teams.app";
+    sourceRoot = "Microsoft Teams.app";
     dontPatch = true;
     dontConfigure = true;
     dontBuild = true;
@@ -57,6 +68,7 @@ let
     '';
   };
 in
-if stdenv.isDarwin
-then darwin
-else throw "Teams app for Linux has been removed as it is unmaintained by upstream. (2023-09-29)"
+if stdenv.isDarwin then
+  darwin
+else
+  throw "Teams app for Linux has been removed as it is unmaintained by upstream. (2023-09-29)"

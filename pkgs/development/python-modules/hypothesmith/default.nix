@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hypothesis
-, lark
-, libcst
-, parso
-, pytestCheckHook
-, pytest-xdist
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hypothesis,
+  lark,
+  libcst,
+  parso,
+  pytestCheckHook,
+  pytest-xdist,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-Uj2gTAY7hzko1sKO8WUGz2S/MXdwOYN+F+a73G4szNs=";
   };
 
-  patches = [
-    ./remove-black.patch
-  ];
+  patches = [ ./remove-black.patch ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -37,23 +36,31 @@ buildPythonPackage rec {
       --replace "--cov-fail-under=100" ""
   '';
 
-  propagatedBuildInputs = [ hypothesis lark libcst ];
-
-  nativeCheckInputs = [ parso pytestCheckHook pytest-xdist ];
-
-  pytestFlagsArray = [
-    "-v"
+  propagatedBuildInputs = [
+    hypothesis
+    lark
+    libcst
   ];
 
-  disabledTests = [
-    # https://github.com/Zac-HD/hypothesmith/issues/21
-    "test_source_code_from_libcst_node_type"
+  nativeCheckInputs = [
+    parso
+    pytestCheckHook
+    pytest-xdist
   ];
 
-  disabledTestPaths = [
-    # missing blib2to3
-    "tests/test_syntactic.py"
-  ];
+  pytestFlagsArray = [ "-v" ];
+
+  disabledTests =
+    [
+      # https://github.com/Zac-HD/hypothesmith/issues/21
+      "test_source_code_from_libcst_node_type"
+    ];
+
+  disabledTestPaths =
+    [
+      # missing blib2to3
+      "tests/test_syntactic.py"
+    ];
 
   pythonImportsCheck = [ "hypothesmith" ];
 

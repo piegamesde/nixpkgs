@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, bison
-, libevent
-, libressl
-, ncurses
-, autoreconfHook
-, buildPackages
-, memstreamHook
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  bison,
+  libevent,
+  libressl,
+  ncurses,
+  autoreconfHook,
+  buildPackages,
+  memstreamHook,
 }:
 
 stdenv.mkDerivation rec {

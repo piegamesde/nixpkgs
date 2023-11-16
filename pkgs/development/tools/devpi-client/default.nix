@@ -1,9 +1,10 @@
-{ lib
-, devpi-server
-, git
-, glibcLocales
-, python3
-, fetchPypi
+{
+  lib,
+  devpi-server,
+  git,
+  glibcLocales,
+  python3,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -27,9 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     wheel
   ];
 
-  buildInputs = [
-    glibcLocales
-  ];
+  buildInputs = [ glibcLocales ];
 
   propagatedBuildInputs = with python3.pkgs; [
     build
@@ -41,42 +40,48 @@ python3.pkgs.buildPythonApplication rec {
     platformdirs
   ];
 
-  nativeCheckInputs = [
-    devpi-server
-    git
-  ] ++ (with python3.pkgs; [
-    mercurial
-    mock
-    pypitoken
-    pytestCheckHook
-    sphinx
-    virtualenv
-    webtest
-    wheel
-  ]);
+  nativeCheckInputs =
+    [
+      devpi-server
+      git
+    ]
+    ++ (
+      with python3.pkgs; [
+        mercurial
+        mock
+        pypitoken
+        pytestCheckHook
+        sphinx
+        virtualenv
+        webtest
+        wheel
+      ]
+    );
 
   preCheck = ''
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray = [
-    # --fast skips tests which try to start a devpi-server improperly
-    "--fast"
-  ];
+  pytestFlagsArray =
+    [
+      # --fast skips tests which try to start a devpi-server improperly
+      "--fast"
+    ];
 
   LC_ALL = "en_US.UTF-8";
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "devpi"
-  ];
+  pythonImportsCheck = [ "devpi" ];
 
   meta = with lib; {
     description = "Client for devpi, a pypi index server and packaging meta tool";
     homepage = "http://doc.devpi.net";
     changelog = "https://github.com/devpi/devpi/blob/client-${version}/client/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ lewo makefu ];
+    maintainers = with maintainers; [
+      lewo
+      makefu
+    ];
   };
 }

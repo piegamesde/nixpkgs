@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, python ? null
-, swig
-, llvmPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python ? null,
+  swig,
+  llvmPackages,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,22 +19,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-hnmP/56P2anR0S8zQyQqN1lbge5GgK+P8Lx8bRkwSxA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ] ++ lib.optionals (python != null) [
-    python
-    swig
-  ];
+  nativeBuildInputs =
+    [ cmake ]
+    ++ lib.optionals (python != null) [
+      python
+      swig
+    ];
 
   cmakeFlags = [
     "-DPLFIT_USE_OPENMP=ON"
-  ] ++ lib.optionals (python != null) [
-    "-DPLFIT_COMPILE_PYTHON_MODULE=ON"
-  ];
+  ] ++ lib.optionals (python != null) [ "-DPLFIT_COMPILE_PYTHON_MODULE=ON" ];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ];
+  buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
   meta = with lib; {
     description = "Fitting power-law distributions to empirical data";

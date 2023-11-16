@@ -1,9 +1,10 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, git
-, nixosTests
-, python3
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  git,
+  nixosTests,
+  python3,
 }:
 
 let
@@ -15,7 +16,8 @@ let
     rev = "v${version}";
     hash = "sha256-5vfmMJIGKyZlTQDi/t1YKAALbW/6BFAcWODfkypk/eA=";
   };
-in buildNpmPackage rec {
+in
+buildNpmPackage rec {
   pname = "vaultwarden-webvault";
   inherit version;
 
@@ -34,9 +36,7 @@ in buildNpmPackage rec {
       bash ${bw_web_builds}/scripts/apply_patches.sh
   '';
 
-  nativeBuildInputs = [
-    python3
-  ];
+  nativeBuildInputs = [ python3 ];
 
   makeCacheWritable = true;
 
@@ -45,7 +45,8 @@ in buildNpmPackage rec {
   npmBuildScript = "dist:oss:selfhost";
 
   npmBuildFlags = [
-    "--workspace" "apps/web"
+    "--workspace"
+    "apps/web"
   ];
 
   installPhase = ''
@@ -65,6 +66,10 @@ in buildNpmPackage rec {
     homepage = "https://github.com/dani-garcia/bw_web_builds";
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda msteen mic92 ];
+    maintainers = with maintainers; [
+      dotlambda
+      msteen
+      mic92
+    ];
   };
 }

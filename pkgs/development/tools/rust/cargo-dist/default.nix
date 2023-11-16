@@ -1,14 +1,15 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, bzip2
-, xz
-, zstd
-, stdenv
-, darwin
-, git
-, rustup
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  xz,
+  zstd,
+  stdenv,
+  darwin,
+  git,
+  rustup,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,17 +25,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-lUeCMyH6qE76SVjubWVo/Hpj6J8PM6ndOqrJufcfByw=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     bzip2
     xz
     zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
 
   nativeCheckInputs = [
     git
@@ -54,7 +51,13 @@ rustPlatform.buildRustPackage rec {
     description = "A tool for building final distributable artifacts and uploading them to an archive";
     homepage = "https://github.com/axodotdev/cargo-dist";
     changelog = "https://github.com/axodotdev/cargo-dist/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ asl20 mit ];
-    maintainers = with maintainers; [ figsoda matthiasbeyer ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
+    maintainers = with maintainers; [
+      figsoda
+      matthiasbeyer
+    ];
   };
 }

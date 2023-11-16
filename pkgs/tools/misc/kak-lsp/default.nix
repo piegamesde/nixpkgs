@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, CoreServices, Security, SystemConfiguration }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  CoreServices,
+  Security,
+  SystemConfiguration,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "kak-lsp";
@@ -13,12 +21,19 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-g63Kfi4xJZO/+fq6eK2iB1dUGoSGWIIRaJr8BWO/txM=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices Security SystemConfiguration ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    CoreServices
+    Security
+    SystemConfiguration
+  ];
 
   meta = with lib; {
     description = "Kakoune Language Server Protocol Client";
     homepage = "https://github.com/kak-lsp/kak-lsp";
-    license = with licenses; [ unlicense /* or */ mit ];
+    license = with licenses; [
+      unlicense # or
+      mit
+    ];
     maintainers = [ maintainers.spacekookie ];
   };
 }

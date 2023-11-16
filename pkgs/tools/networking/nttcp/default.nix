@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nttcp";
@@ -9,14 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "1bl17dsd53lbpjdqfmpgpd7dms6d2w3scpg7ki7qgfjhs8sarq50";
   };
 
-  patches = [
-    # Fix format string compiler error
-    ./format-security.patch
-  ];
+  patches =
+    [
+      # Fix format string compiler error
+      ./format-security.patch
+    ];
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-  ];
+  makeFlags = [ "prefix=${placeholder "out"}" ];
 
   meta = with lib; {
     description = "New test TCP program";

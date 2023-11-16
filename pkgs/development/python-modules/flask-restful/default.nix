@@ -1,16 +1,17 @@
-{ lib
-, aniso8601
-, blinker
-, buildPythonPackage
-, fetchPypi
-, flask
-, mock
-, nose
-, pytestCheckHook
-, pythonOlder
-, pytz
-, six
-, werkzeug
+{
+  lib,
+  aniso8601,
+  blinker,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  mock,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  six,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -53,9 +54,7 @@ buildPythonPackage rec {
     "test_media_types_q"
   ];
 
-  pythonImportsCheck = [
-    "flask_restful"
-  ];
+  pythonImportsCheck = [ "flask_restful" ];
 
   meta = with lib; {
     description = "Framework for creating REST APIs";

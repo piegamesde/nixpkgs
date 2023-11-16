@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, beautifulsoup4
-, html5lib
-, requests
-, lxml
-, mock
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  beautifulsoup4,
+  html5lib,
+  requests,
+  lxml,
+  mock,
+  nose,
 }:
 
 buildPythonPackage rec {

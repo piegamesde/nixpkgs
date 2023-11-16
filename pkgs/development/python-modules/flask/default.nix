@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, asgiref
-, blinker
-, click
-, flit-core
-, importlib-metadata
-, itsdangerous
-, jinja2
-, python-dotenv
-, werkzeug
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  asgiref,
+  blinker,
+  click,
+  flit-core,
+  importlib-metadata,
+  itsdangerous,
+  jinja2,
+  python-dotenv,
+  werkzeug,
+  pytestCheckHook,
+  pythonOlder,
   # used in passthru.tests
-, flask-limiter
-, flask-restful
-, flask-restx
-, moto
+  flask-limiter,
+  flask-restful,
+  flask-restx,
+  moto,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-CcNHqSqn/0qOfzIGeV8w2CZlS684uHPQdEzVccpgnvw=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     click
@@ -41,12 +40,15 @@ buildPythonPackage rec {
     werkzeug
   ] ++ lib.optional (pythonOlder "3.10") importlib-metadata;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   passthru.tests = {
-    inherit flask-limiter flask-restful flask-restx moto;
+    inherit
+      flask-limiter
+      flask-restful
+      flask-restx
+      moto
+    ;
   };
   passthru.optional-dependencies = {
     dotenv = [ python-dotenv ];

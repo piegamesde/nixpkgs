@@ -1,13 +1,14 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, wrapGAppsHook
-, gtk3
-, librsvg
-, withWayland ? false
-, gtk-layer-shell
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  gtk3,
+  librsvg,
+  withWayland ? false,
+  gtk-layer-shell,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,16 +24,23 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-4yeu5AgleZMOLKNynGMd0XuyZxyyZ+RmzNtuJiNPN8g=";
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
-
-  buildInputs = [ gtk3 librsvg ] ++ lib.optional withWayland gtk-layer-shell;
-
-  buildNoDefaultFeatures = true;
-  buildFeatures = [
-    (if withWayland then "wayland" else "x11")
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
   ];
 
-  cargoBuildFlags = [ "--bin" "eww" ];
+  buildInputs = [
+    gtk3
+    librsvg
+  ] ++ lib.optional withWayland gtk-layer-shell;
+
+  buildNoDefaultFeatures = true;
+  buildFeatures = [ (if withWayland then "wayland" else "x11") ];
+
+  cargoBuildFlags = [
+    "--bin"
+    "eww"
+  ];
 
   cargoTestFlags = cargoBuildFlags;
 
@@ -43,7 +51,10 @@ rustPlatform.buildRustPackage rec {
     description = "ElKowars wacky widgets";
     homepage = "https://github.com/elkowar/eww";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda lom ];
+    maintainers = with maintainers; [
+      figsoda
+      lom
+    ];
     mainProgram = "eww";
     broken = stdenv.isDarwin;
   };

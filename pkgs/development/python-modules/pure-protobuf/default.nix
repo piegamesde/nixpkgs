@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools-scm
-, toml
-, pytestCheckHook
-, pytest-benchmark
-, hatch-vcs
-, hatchling
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools-scm,
+  toml,
+  pytestCheckHook,
+  pytest-benchmark,
+  hatch-vcs,
+  hatchling,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
     pytest-benchmark
   ];
 
-  pythonImportsCheck = [
-    "pure_protobuf"
-  ];
+  pythonImportsCheck = [ "pure_protobuf" ];
 
   meta = with lib; {
     description = "Python implementation of Protocol Buffers with dataclass-based schemas";

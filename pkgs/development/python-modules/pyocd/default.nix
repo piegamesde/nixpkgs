@@ -1,27 +1,28 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, capstone
-, cmsis-pack-manager
-, colorama
-, importlib-metadata
-, importlib-resources
-, intelhex
-, intervaltree
-, lark
-, natsort
-, prettytable
-, pyelftools
-, pylink-square
-, pyusb
-, pyyaml
-, setuptools
-, setuptools-scm
-, typing-extensions
-, stdenv
-, hidapi
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  capstone,
+  cmsis-pack-manager,
+  colorama,
+  importlib-metadata,
+  importlib-resources,
+  intelhex,
+  intervaltree,
+  lark,
+  natsort,
+  prettytable,
+  pyelftools,
+  pylink-square,
+  pyusb,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+  typing-extensions,
+  stdenv,
+  hidapi,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -34,14 +35,15 @@ buildPythonPackage rec {
     hash = "sha256-k3eCrMna/wVNUPt8b3iM2UqE+A8LhfJarKuZ3Jgihkg=";
   };
 
-  patches = [
-    # https://github.com/pyocd/pyOCD/pull/1332
-    (fetchpatch {
-      name = "libusb-package-optional.patch";
-      url = "https://github.com/pyocd/pyOCD/commit/0b980cf253e3714dd2eaf0bddeb7172d14089649.patch";
-      hash = "sha256-B2+50VntcQELeakJbCeJdgI1iBU+h2NkXqba+LRYa/0=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/pyocd/pyOCD/pull/1332
+      (fetchpatch {
+        name = "libusb-package-optional.patch";
+        url = "https://github.com/pyocd/pyOCD/commit/0b980cf253e3714dd2eaf0bddeb7172d14089649.patch";
+        hash = "sha256-B2+50VntcQELeakJbCeJdgI1iBU+h2NkXqba+LRYa/0=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -69,17 +71,11 @@ buildPythonPackage rec {
     pyusb
     pyyaml
     typing-extensions
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    hidapi
-  ];
+  ] ++ lib.optionals (!stdenv.isLinux) [ hidapi ];
 
-  pythonImportsCheck = [
-    "pyocd"
-  ];
+  pythonImportsCheck = [ "pyocd" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     changelog = "https://github.com/pyocd/pyOCD/releases/tag/v${version}";
@@ -87,6 +83,9 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/pyocd/pyOCD";
     homepage = "https://pyocd.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

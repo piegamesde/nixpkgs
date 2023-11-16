@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
 
-# build-system
-, setuptools
+  # build-system
+  setuptools,
 
-# dependencies
-, asn1crypto
-, attrs
-, pathlib2
-, python-dateutil
-, six
-, urllib3
+  # dependencies
+  asn1crypto,
+  attrs,
+  pathlib2,
+  python-dateutil,
+  six,
+  urllib3,
 
-# tests
-, beautifulsoup4
-, pyfakefs
-, unittestCheckHook
+  # tests
+  beautifulsoup4,
+  pyfakefs,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-eLdK5gFrLnbIBB1NTeQzpdCLPdATVjzPn5LhhUsDuwo=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     asn1crypto

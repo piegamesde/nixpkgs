@@ -1,8 +1,9 @@
-{ lib
-, fetchurl
-, python3Packages
-, mercurial
-, qt5
+{
+  lib,
+  fetchurl,
+  python3Packages,
+  mercurial,
+  qt5,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -14,19 +15,18 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-Xbvg/FcuX/AL2reWsaM2oaFyLby3+HDCfYtRyswE7DA=";
   };
 
-  nativeBuildInputs = [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
   propagatedBuildInputs = with python3Packages; [
     mercurial
     # The one from python3Packages
     qscintilla-qt5
     iniparse
   ];
-  buildInputs = [
-    # Makes wrapQtAppsHook add these qt libraries to the wrapper search paths
-    qt5.qtwayland
-  ];
+  buildInputs =
+    [
+      # Makes wrapQtAppsHook add these qt libraries to the wrapper search paths
+      qt5.qtwayland
+    ];
 
   # In order to spare double wrapping, we use:
   preFixup = ''
@@ -65,6 +65,9 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://tortoisehg.bitbucket.io/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ danbst gbtb ];
+    maintainers = with lib.maintainers; [
+      danbst
+      gbtb
+    ];
   };
 }

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, nose
-, coverage
-, isPy27
-, wrapt
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  coverage,
+  isPy27,
+  wrapt,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-7lDOI1SHPpRZLTHRTmfbKlZH18T73poJdFyVmb+HKms=";
   };
 
-  propagatedBuildInputs = [
-    wrapt
-  ];
+  propagatedBuildInputs = [ wrapt ];
 
   nativeCheckInputs = [
     nose

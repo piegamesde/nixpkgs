@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivial-file-size";
   version = "20200427-git";
@@ -8,7 +8,10 @@ rec {
 
   description = "Stat a file's size.";
 
-  deps = [ args."fiveam" args."uiop" ];
+  deps = [
+    args."fiveam"
+    args."uiop"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-file-size/2020-04-27/trivial-file-size-20200427-git.tgz";
@@ -17,7 +20,7 @@ rec {
 
   packageName = "trivial-file-size";
 
-  asdFilesToKeep = ["trivial-file-size.asd"];
+  asdFilesToKeep = [ "trivial-file-size.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivial-file-size DESCRIPTION Stat a file's size. SHA256
@@ -27,4 +30,5 @@ rec {
     trivial-file-size DEPS
     ((NAME fiveam FILENAME fiveam) (NAME uiop FILENAME uiop)) DEPENDENCIES
     (fiveam uiop) VERSION 20200427-git SIBLINGS NIL PARASITES
-    (trivial-file-size/tests)) */
+    (trivial-file-size/tests))
+*/

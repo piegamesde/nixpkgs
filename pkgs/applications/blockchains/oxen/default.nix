@@ -1,12 +1,24 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, cmake, pkg-config
-, boost, openssl, unbound
-, pcsclite, readline, libsodium, hidapi
-, rapidjson
-, curl, sqlite
-, trezorSupport ? true
-, libusb1
-, protobuf
-, python3
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  boost,
+  openssl,
+  unbound,
+  pcsclite,
+  readline,
+  libsodium,
+  hidapi,
+  rapidjson,
+  curl,
+  sqlite,
+  trezorSupport ? true,
+  libusb1,
+  protobuf,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
@@ -37,14 +49,30 @@ stdenv.mkDerivation rec {
     rm -R $out/lib $out/include
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [
-    boost openssl unbound
-    pcsclite readline
-    libsodium hidapi rapidjson
-    protobuf curl sqlite
-  ] ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
+  buildInputs =
+    [
+      boost
+      openssl
+      unbound
+      pcsclite
+      readline
+      libsodium
+      hidapi
+      rapidjson
+      protobuf
+      curl
+      sqlite
+    ]
+    ++ lib.optionals trezorSupport [
+      libusb1
+      protobuf
+      python3
+    ];
 
   cmakeFlags = [
     # "-DUSE_DEVICE_TREZOR=ON"

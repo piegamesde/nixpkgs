@@ -1,31 +1,32 @@
-{ stdenv
-, lib
-, makeWrapper
-, socat
-, iptables
-, iproute2
-, ipset
-, bridge-utils
-, btrfs-progs
-, conntrack-tools
-, buildGoModule
-, runc
-, rsync
-, kmod
-, libseccomp
-, pkg-config
-, ethtool
-, util-linux
-, fetchFromGitHub
-, fetchurl
-, fetchzip
-, fetchgit
-, zstd
-, yq-go
-, sqlite
-, nixosTests
-, pkgsBuildBuild
-, k3s
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  socat,
+  iptables,
+  iproute2,
+  ipset,
+  bridge-utils,
+  btrfs-progs,
+  conntrack-tools,
+  buildGoModule,
+  runc,
+  rsync,
+  kmod,
+  libseccomp,
+  pkg-config,
+  ethtool,
+  util-linux,
+  fetchFromGitHub,
+  fetchurl,
+  fetchzip,
+  fetchgit,
+  zstd,
+  yq-go,
+  sqlite,
+  nixosTests,
+  pkgsBuildBuild,
+  k3s,
 }:
 
 # k3s is a kinda weird derivation. One of the main points of k3s is the
@@ -48,7 +49,7 @@
 # Those pieces of software we entirely ignore upstream's handling of, and just
 # make sure they're in the path if desired.
 let
-  k3sVersion = "1.25.3+k3s1";     # k3s git tag
+  k3sVersion = "1.25.3+k3s1"; # k3s git tag
   k3sCommit = "f2585c1671b31b4b34bddbb3bf4e7d69662b0821"; # k3s git commit at the above version
   k3sRepoSha256 = "0zwf3iwjcidx14zw36s1hr0q8wmmbfc0rfqwd7fmpjq597h8zkms";
   k3sVendorHash = "sha256-U67tJRGqPFk5AfRe7I50zKGC9HJ2oh+iI/C7qF/76BQ=";
@@ -172,12 +173,18 @@ let
     vendorHash = k3sVendorHash;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libseccomp sqlite.dev ];
+    buildInputs = [
+      libseccomp
+      sqlite.dev
+    ];
 
     subPackages = [ "cmd/server" ];
     ldflags = versionldflags;
 
-    tags = [ "libsqlite3" "linux" ];
+    tags = [
+      "libsqlite3"
+      "linux"
+    ];
 
     # create the multicall symlinks for k3s
     postInstall = ''
@@ -210,7 +217,10 @@ let
     };
     vendorHash = null;
     buildInputs = [ btrfs-progs ];
-    subPackages = [ "cmd/containerd" "cmd/containerd-shim-runc-v2" ];
+    subPackages = [
+      "cmd/containerd"
+      "cmd/containerd-shim-runc-v2"
+    ];
     ldflags = versionldflags;
   };
 in
@@ -221,9 +231,7 @@ buildGoModule rec {
   src = k3sRepo;
   vendorHash = k3sVendorHash;
 
-  patches = [
-    ./0001-script-download-strip-downloading-just-package-CRD.patch
-  ];
+  patches = [ ./0001-script-download-strip-downloading-just-package-CRD.patch ];
 
   postPatch = ''
     # Nix prefers dynamically linked binaries over static binary.

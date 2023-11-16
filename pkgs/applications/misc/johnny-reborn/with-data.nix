@@ -1,11 +1,11 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, fetchzip
-, johnny-reborn-engine
-, makeWrapper
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchzip,
+  johnny-reborn-engine,
+  makeWrapper,
 }:
-
 
 let
   sounds = fetchFromGitHub {
@@ -27,7 +27,10 @@ stdenvNoCC.mkDerivation {
   pname = "johnny-reborn";
   inherit (johnny-reborn-engine) version;
 
-  srcs = [ sounds resources ];
+  srcs = [
+    sounds
+    resources
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -53,7 +56,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "An open-source engine for the classic \"Johnny Castaway\" screensaver (ready to use, with resources)";
+    description = ''
+      An open-source engine for the classic "Johnny Castaway" screensaver (ready to use, with resources)'';
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ pedrohlc ];
     inherit (johnny-reborn-engine.meta) homepage platforms;

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, poetry
-, safety
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  poetry,
+  safety,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -23,22 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-49OnYz3EFiqOe+cLgfynjy14Ve4Ga6OUrLdM8HhZuKQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [
-    poetry
-  ];
+  buildInputs = [ poetry ];
 
-  propagatedBuildInputs = [
-    safety
-  ];
+  propagatedBuildInputs = [ safety ];
 
   pythonImportsCheck = [ "poetry_audit_plugin" ];
 
   nativeCheckInputs = [
-    poetry  # for the executable
+    poetry # for the executable
     pytestCheckHook
   ];
 

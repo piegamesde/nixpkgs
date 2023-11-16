@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pyaudio
-, numpy
-, libsndfile
-, substituteAll
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pyaudio,
+  numpy,
+  libsndfile,
+  substituteAll,
 }:
 
 buildPythonPackage rec {
@@ -20,18 +21,14 @@ buildPythonPackage rec {
     sha256 = "9sHj1gb93mCVpejRGSdLJzeFDCeTflZctE7kMWfqFrE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   buildInputs = [
     pyaudio
     libsndfile
   ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   nativeCheckInputs = [
     pyaudio
@@ -39,20 +36,21 @@ buildPythonPackage rec {
     libsndfile
   ];
 
-  patches = [
-    # Fix check error
-    # OSError: libsndfile.so.1: cannot open shared object file: No such file or directory
-    (substituteAll {
-      src = ./libsndfile.py.patch;
-      libsndfile = "${lib.getLib libsndfile}/lib/libsndfile${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches =
+    [
+      # Fix check error
+      # OSError: libsndfile.so.1: cannot open shared object file: No such file or directory
+      (substituteAll {
+        src = ./libsndfile.py.patch;
+        libsndfile = "${
+            lib.getLib libsndfile
+          }/lib/libsndfile${stdenv.hostPlatform.extensions.sharedLibrary}";
+      })
+    ];
 
   doCheck = false; # all test files (test/wavefileTest.py) are failing
 
-  pythonImportsCheck = [
-    "wavefile"
-  ];
+  pythonImportsCheck = [ "wavefile" ];
 
   meta = with lib; {
     description = "Pythonic libsndfile wrapper to read and write audio files";

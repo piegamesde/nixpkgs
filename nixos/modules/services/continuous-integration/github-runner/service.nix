@@ -1,21 +1,23 @@
-{ config
-, lib
-, pkgs
+{
+  config,
+  lib,
+  pkgs,
 
-, cfg ? config.services.github-runner
-, svcName
+  cfg ? config.services.github-runner,
+  svcName,
 
-, systemdDir ? "${svcName}/${cfg.name}"
+  systemdDir ? "${svcName}/${cfg.name}",
   # %t: Runtime directory root (usually /run); see systemd.unit(5)
-, runtimeDir ? "%t/${systemdDir}"
+  runtimeDir ? "%t/${systemdDir}",
   # %S: State directory root (usually /var/lib); see systemd.unit(5)
-, stateDir ? "%S/${systemdDir}"
+  stateDir ? "%S/${systemdDir}",
   # %L: Log directory root (usually /var/log); see systemd.unit(5)
-, logsDir ? "%L/${systemdDir}"
+  logsDir ? "%L/${systemdDir}",
   # Name of file stored in service state directory
-, currentConfigTokenFilename ? ".current-token"
+  currentConfigTokenFilename ? ".current-token"
 
-, ...
+  ,
+  ...
 }:
 
 with lib;
@@ -29,22 +31,28 @@ in
 
   wantedBy = [ "multi-user.target" ];
   wants = [ "network-online.target" ];
-  after = [ "network.target" "network-online.target" ];
+  after = [
+    "network.target"
+    "network-online.target"
+  ];
 
   environment = {
     HOME = workDir;
     RUNNER_ROOT = stateDir;
   } // cfg.extraEnvironment;
 
-  path = (with pkgs; [
-    bash
-    coreutils
-    git
-    gnutar
-    gzip
-  ]) ++ [
-    config.nix.package
-  ] ++ cfg.extraPackages;
+  path =
+    (
+      with pkgs; [
+        bash
+        coreutils
+        git
+        gnutar
+        gzip
+      ]
+    )
+    ++ [ config.nix.package ]
+    ++ cfg.extraPackages;
 
   serviceConfig = mkMerge [
     {
@@ -66,16 +74,29 @@ in
           # to contain more than one directory. This causes systemd to set the respective
           # environment variables with the path of all of the given directories, separated
           # by a colon.
-          writeScript = name: lines: pkgs.writeShellScript "${svcName}-${name}.sh" ''
-            set -euo pipefail
+          writeScript =
+            name: lines:
+            pkgs.writeShellScript "${svcName}-${name}.sh" ''
+              set -euo pipefail
 
-            STATE_DIRECTORY="$1"
-            WORK_DIRECTORY="$2"
-            LOGS_DIRECTORY="$3"
+              STATE_DIRECTORY="$1"
+              WORK_DIRECTORY="$2"
+              LOGS_DIRECTORY="$3"
 
-            ${lines}
-          '';
-          runnerRegistrationConfig = getAttrs [ "name" "tokenFile" "url" "runnerGroup" "extraLabels" "ephemeral" "workDir" ] cfg;
+              ${lines}
+            '';
+          runnerRegistrationConfig =
+            getAttrs
+              [
+                "name"
+                "tokenFile"
+                "url"
+                "runnerGroup"
+                "extraLabels"
+                "ephemeral"
+                "workDir"
+              ]
+              cfg;
           newConfigPath = builtins.toFile "${svcName}-config.json" (builtins.toJSON runnerRegistrationConfig);
           currentConfigPath = "$STATE_DIRECTORY/.nixos-current-config.json";
           newConfigTokenPath = "$STATE_DIRECTORY/.new-token";
@@ -105,7 +126,9 @@ in
                 || changed=1
               # Also check the content of the token file
               [[ -f "${currentConfigTokenPath}" ]] \
-                && ${pkgs.diffutils}/bin/diff -q "${currentConfigTokenPath}" ${escapeShellArg cfg.tokenFile} >/dev/null 2>&1 \
+                && ${pkgs.diffutils}/bin/diff -q "${currentConfigTokenPath}" ${
+                  escapeShellArg cfg.tokenFile
+                } >/dev/null 2>&1 \
                 || changed=1
               # If the config has changed, remove old state and copy tokens
               if [[ "$changed" -eq 1 ]]; then
@@ -169,11 +192,22 @@ in
             ln -s "$STATE_DIRECTORY"/{${lib.concatStringsSep "," runnerCredFiles}} "$WORK_DIRECTORY/"
           '';
         in
-        map (x: "${x} ${escapeShellArgs [ stateDir workDir logsDir ]}") [
-          "+${unconfigureRunner}" # runs as root
-          configureRunner
-          setupWorkDir
-        ];
+        map
+          (
+            x:
+            "${x} ${
+              escapeShellArgs [
+                stateDir
+                workDir
+                logsDir
+              ]
+            }"
+          )
+          [
+            "+${unconfigureRunner}" # runs as root
+            configureRunner
+            setupWorkDir
+          ];
 
       # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)
       # to trigger a fresh registration.
@@ -238,7 +272,12 @@ in
         "~setdomainname"
         "~sethostname"
       ];
-      RestrictAddressFamilies = mkBefore [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
+      RestrictAddressFamilies = mkBefore [
+        "AF_INET"
+        "AF_INET6"
+        "AF_UNIX"
+        "AF_NETLINK"
+      ];
 
       BindPaths = lib.optionals (cfg.workDir != null) [ cfg.workDir ];
 

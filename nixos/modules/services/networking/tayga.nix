@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -18,9 +23,9 @@ let
     data-dir ${cfg.dataDir}
   '';
 
-  addrOpts = v:
-    assert v == 4 || v == 6;
-    {
+  addrOpts =
+    v:
+    assert v == 4 || v == 6; {
       options = {
         address = mkOption {
           type = types.str;
@@ -126,19 +131,21 @@ in
       virtualOwner = mkIf config.networking.useNetworkd "";
       ipv4 = {
         addresses = [
-          { address = cfg.ipv4.router.address; prefixLength = 32; }
+          {
+            address = cfg.ipv4.router.address;
+            prefixLength = 32;
+          }
         ];
-        routes = [
-          cfg.ipv4.pool
-        ];
+        routes = [ cfg.ipv4.pool ];
       };
       ipv6 = {
         addresses = [
-          { address = cfg.ipv6.router.address; prefixLength = 128; }
+          {
+            address = cfg.ipv6.router.address;
+            prefixLength = 128;
+          }
         ];
-        routes = [
-          cfg.ipv6.pool
-        ];
+        routes = [ cfg.ipv6.pool ];
       };
     };
 
@@ -163,9 +170,7 @@ in
           "~@resources"
         ];
         ProtectKernelLogs = true;
-        AmbientCapabilities = [
-          "CAP_NET_ADMIN"
-        ];
+        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
         CapabilityBoundingSet = "";
         RestrictAddressFamilies = [
           "AF_INET"

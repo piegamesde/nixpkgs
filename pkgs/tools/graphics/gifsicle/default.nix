@@ -1,6 +1,12 @@
-{ lib, stdenv, fetchurl, xorgproto, libXt, libX11
-, gifview ? false
-, static ? stdenv.hostPlatform.isStatic
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xorgproto,
+  libXt,
+  libX11,
+  gifview ? false,
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-S8lwBcB4liDedfiZl9PC9wdYxyxhqgou8E96Zxov+Js=";
   };
 
-  buildInputs = lib.optionals gifview [ xorgproto libXt libX11 ];
+  buildInputs = lib.optionals gifview [
+    xorgproto
+    libXt
+    libX11
+  ];
 
   configureFlags = lib.optional (!gifview) "--disable-gifview";
 

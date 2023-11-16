@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rust
-, rustPlatform
-, pkg-config
-, ronn
-, systemd
-, kmod
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rust,
+  rustPlatform,
+  pkg-config,
+  ronn,
+  systemd,
+  kmod,
+  nixosTests,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -39,9 +40,7 @@ rustPlatform.buildRustPackage rec {
     ronn
   ];
 
-  buildInputs = [
-    systemd
-  ];
+  buildInputs = [ systemd ];
 
   preBuild = ''
     # embedded into the binary at build time

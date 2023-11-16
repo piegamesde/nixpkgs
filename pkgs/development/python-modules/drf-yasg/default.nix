@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, inflection
-, ruamel-yaml
-, setuptools-scm
-, six
-, coreapi
-, djangorestframework
-, pytestCheckHook
-, pytest-django
-, datadiff
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  inflection,
+  ruamel-yaml,
+  setuptools-scm,
+  six,
+  coreapi,
+  djangorestframework,
+  pytestCheckHook,
+  pytest-django,
+  datadiff,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     sed -i "/packaging/d" requirements/base.txt
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     six

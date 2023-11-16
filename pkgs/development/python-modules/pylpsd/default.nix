@@ -1,8 +1,9 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, numpy
-, scipy
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  numpy,
+  scipy,
 }:
 
 buildPythonPackage rec {
@@ -15,9 +16,7 @@ buildPythonPackage rec {
 
   # Tests fail and there are none
   doCheck = false;
-  pythonImportsCheck = [
-    "pylpsd"
-  ];
+  pythonImportsCheck = [ "pylpsd" ];
 
   propagatedBuildInputs = [
     numpy

@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, textual
-, universal-pathlib
-, adlfs
-, aiohttp
-, gcsfs
-, paramiko
-, requests
-, s3fs
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  textual,
+  universal-pathlib,
+  adlfs,
+  aiohttp,
+  gcsfs,
+  paramiko,
+  requests,
+  s3fs,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-FL2bwPGqBmDn33Rhj7+VEpuqB4znEAw+GGAODTs25oo=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     textual

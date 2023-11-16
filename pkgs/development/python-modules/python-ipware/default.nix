@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  unittestCheckHook,
 }:
 buildPythonPackage rec {
   pname = "python-ipware";
@@ -18,12 +19,8 @@ buildPythonPackage rec {
     hash = "sha256-RK624ktIzoLBD/2mB65zcYZ+o8axDE16bJpB6TwG4h4=";
   };
 
-  pythonImportsCheck = [
-    "ipware"
-  ];
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  pythonImportsCheck = [ "ipware" ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   meta = with lib; {
     description = "A python package for server applications to retrieve client's IP address";

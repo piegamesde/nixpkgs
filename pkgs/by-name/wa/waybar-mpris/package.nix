@@ -1,7 +1,8 @@
-{ lib
-, fetchgit
-, buildGoModule
-, installShellFiles
+{
+  lib,
+  fetchgit,
+  buildGoModule,
+  installShellFiles,
 }:
 
 buildGoModule {
@@ -30,4 +31,3 @@ buildGoModule {
     maintainers = with maintainers; [ khaneliman ];
   };
 }
-

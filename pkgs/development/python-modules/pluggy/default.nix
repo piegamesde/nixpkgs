@@ -1,10 +1,11 @@
-{ buildPythonPackage
-, lib
-, fetchFromGitHub
-, setuptools-scm
-, pythonOlder
-, importlib-metadata
-, callPackage
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  setuptools-scm,
+  pythonOlder,
+  importlib-metadata,
+  callPackage,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # To prevent infinite recursion with pytest
   doCheck = false;

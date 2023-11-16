@@ -1,7 +1,21 @@
-{ lib, buildFHSEnv, callPackage, makeDesktopItem, writeScript, runtimeShell
-, runCommand, quartus-prime-lite
-, supportedDevices ? [ "Arria II" "Cyclone V" "Cyclone IV" "Cyclone 10 LP" "MAX II/V" "MAX 10 FPGA" ]
-, unwrapped ? callPackage ./quartus.nix { inherit supportedDevices; }
+{
+  lib,
+  buildFHSEnv,
+  callPackage,
+  makeDesktopItem,
+  writeScript,
+  runtimeShell,
+  runCommand,
+  quartus-prime-lite,
+  supportedDevices ? [
+    "Arria II"
+    "Cyclone V"
+    "Cyclone IV"
+    "Cyclone 10 LP"
+    "MAX II/V"
+    "MAX 10 FPGA"
+  ],
+  unwrapped ? callPackage ./quartus.nix { inherit supportedDevices; },
 }:
 
 let
@@ -13,49 +27,56 @@ let
     genericName = "Quartus Prime";
     categories = [ "Development" ];
   };
+in
 # I think modelsim_ase/linux/vlm checksums itself, so use FHSUserEnv instead of `patchelf`
-in buildFHSEnv rec {
+buildFHSEnv rec {
   name = "quartus-prime-lite"; # wrapped
 
-  targetPkgs = pkgs: with pkgs; [
-    (runCommand "ld-lsb-compat" {} ''
-      mkdir -p "$out/lib"
-      ln -sr "${glibc}/lib/ld-linux-x86-64.so.2" "$out/lib/ld-lsb-x86-64.so.3"
-      ln -sr "${pkgsi686Linux.glibc}/lib/ld-linux.so.2" "$out/lib/ld-lsb.so.3"
-    '')
-    # quartus requirements
-    glib
-    xorg.libICE
-    xorg.libSM
-    zlib
-    # qsys requirements
-    xorg.libXtst
-    xorg.libXi
-  ];
+  targetPkgs =
+    pkgs:
+    with pkgs; [
+      (runCommand "ld-lsb-compat" { } ''
+        mkdir -p "$out/lib"
+        ln -sr "${glibc}/lib/ld-linux-x86-64.so.2" "$out/lib/ld-lsb-x86-64.so.3"
+        ln -sr "${pkgsi686Linux.glibc}/lib/ld-linux.so.2" "$out/lib/ld-lsb.so.3"
+      '')
+      # quartus requirements
+      glib
+      xorg.libICE
+      xorg.libSM
+      zlib
+      # qsys requirements
+      xorg.libXtst
+      xorg.libXi
+    ];
 
   # Also support 32-bit executables.
   multiArch = true;
 
-  multiPkgs = pkgs: with pkgs; let
-    # This seems ugly - can we override `libpng = libpng12` for all `pkgs`?
-    freetype = pkgs.freetype.override { libpng = libpng12; };
-    fontconfig = pkgs.fontconfig.override { inherit freetype; };
-    libXft = pkgs.xorg.libXft.override { inherit freetype fontconfig; };
-  in [
-    # modelsim requirements
-    libxml2
-    ncurses5
-    unixODBC
-    libXft
-    # common requirements
-    freetype
-    fontconfig
-    xorg.libX11
-    xorg.libXext
-    xorg.libXrender
-    libudev0-shim
-    libxcrypt-legacy
-  ];
+  multiPkgs =
+    pkgs:
+    with pkgs;
+    let
+      # This seems ugly - can we override `libpng = libpng12` for all `pkgs`?
+      freetype = pkgs.freetype.override { libpng = libpng12; };
+      fontconfig = pkgs.fontconfig.override { inherit freetype; };
+      libXft = pkgs.xorg.libXft.override { inherit freetype fontconfig; };
+    in
+    [
+      # modelsim requirements
+      libxml2
+      ncurses5
+      unixODBC
+      libXft
+      # common requirements
+      freetype
+      fontconfig
+      xorg.libX11
+      xorg.libXext
+      xorg.libXrender
+      libudev0-shim
+      libxcrypt-legacy
+    ];
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications $out/share/icons/128x128
@@ -113,7 +134,7 @@ in buildFHSEnv rec {
   passthru = {
     inherit unwrapped;
     tests = {
-      modelsimEncryptedModel = runCommand "quartus-prime-lite-test-modelsim-encrypted-model" {} ''
+      modelsimEncryptedModel = runCommand "quartus-prime-lite-test-modelsim-encrypted-model" { } ''
         "${quartus-prime-lite}/bin/vlog" "${quartus-prime-lite.unwrapped}/modelsim_ase/altera/verilog/src/arriav_atoms_ncrypt.v"
         touch "$out"
       '';

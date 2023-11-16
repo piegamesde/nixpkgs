@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, stdenvNoCC
-, gcc13Stdenv
-, fetchFromGitHub
-, substituteAll
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, vencord
-, electron
-, pipewire
-, libpulseaudio
-, libicns
-, jq
-, moreutils
-, nodePackages
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  gcc13Stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  vencord,
+  electron,
+  pipewire,
+  libpulseaudio,
+  libicns,
+  jq,
+  moreutils,
+  nodePackages,
 }:
 stdenv.mkDerivation rec {
   pname = "vesktop";
@@ -29,7 +30,12 @@ stdenv.mkDerivation rec {
 
   pnpm-deps = stdenvNoCC.mkDerivation {
     pname = "${pname}-pnpm-deps";
-    inherit src version patches ELECTRON_SKIP_BINARY_DOWNLOAD;
+    inherit
+      src
+      version
+      patches
+      ELECTRON_SKIP_BINARY_DOWNLOAD
+    ;
 
     nativeBuildInputs = [
       jq
@@ -53,10 +59,12 @@ stdenv.mkDerivation rec {
 
     dontFixup = true;
     outputHashMode = "recursive";
-    outputHash = {
-      "aarch64-linux" = "sha256-OcAQbUi+wpBAumncYxP3qtTzjyxiHL69kbQefwaeBfg=";
-      "x86_64-linux" = "sha256-R5/2MSH/jXHrj2x1Ap2OoOFLBLQp3Sq91o01uW8hWOw=";
-    }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    outputHash =
+      {
+        "aarch64-linux" = "sha256-OcAQbUi+wpBAumncYxP3qtTzjyxiHL69kbQefwaeBfg=";
+        "x86_64-linux" = "sha256-R5/2MSH/jXHrj2x1Ap2OoOFLBLQp3Sq91o01uW8hWOw=";
+      }
+      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   nativeBuildInputs = [
@@ -67,7 +75,10 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-    (substituteAll { inherit vencord; src = ./use_system_vencord.patch; })
+    (substituteAll {
+      inherit vencord;
+      src = ./use_system_vencord.patch;
+    })
   ];
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
@@ -133,7 +144,12 @@ stdenv.mkDerivation rec {
       icon = "vencorddesktop";
       startupWMClass = "VencordDesktop";
       genericName = "Internet Messenger";
-      keywords = [ "discord" "vencord" "electron" "chat" ];
+      keywords = [
+        "discord"
+        "vencord"
+        "electron"
+        "chat"
+      ];
     })
   ];
 
@@ -141,8 +157,16 @@ stdenv.mkDerivation rec {
     description = "An alternate client for Discord with Vencord built-in";
     homepage = "https://github.com/Vencord/Vesktop";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ getchoo Scrumplex vgskye pluiedev ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      getchoo
+      Scrumplex
+      vgskye
+      pluiedev
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "vencorddesktop";
   };
 }

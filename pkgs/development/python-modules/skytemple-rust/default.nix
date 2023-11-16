@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cargo
-, fetchFromGitHub
-, libiconv
-, Foundation
-, rustPlatform
-, rustc
-, setuptools-rust
-, range-typed-integers
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cargo,
+  fetchFromGitHub,
+  libiconv,
+  Foundation,
+  rustPlatform,
+  rustc,
+  setuptools-rust,
+  range-typed-integers,
 }:
 
 buildPythonPackage rec {
@@ -28,8 +29,16 @@ buildPythonPackage rec {
     hash = "sha256-KQA8dfHnuysx9EUySJXZ/52Hfq6AbALwkBp3B1WJJuc=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Foundation ];
-  nativeBuildInputs = [ setuptools-rust rustPlatform.cargoSetupHook cargo rustc ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Foundation
+  ];
+  nativeBuildInputs = [
+    setuptools-rust
+    rustPlatform.cargoSetupHook
+    cargo
+    rustc
+  ];
   propagatedBuildInputs = [ range-typed-integers ];
 
   GETTEXT_SYSTEM = true;
@@ -41,6 +50,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/SkyTemple/skytemple-rust";
     description = "Binary Rust extensions for SkyTemple";
     license = licenses.mit;
-    maintainers = with maintainers; [ xfix marius851000 ];
+    maintainers = with maintainers; [
+      xfix
+      marius851000
+    ];
   };
 }

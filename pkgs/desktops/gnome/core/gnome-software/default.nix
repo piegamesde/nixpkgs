@@ -1,42 +1,43 @@
-{ lib
-, stdenv
-, fetchurl
-, substituteAll
-, pkg-config
-, meson
-, ninja
-, gettext
-, gnome
-, wrapGAppsHook4
-, packagekit
-, ostree
-, glib
-, appstream
-, libsoup_3
-, libadwaita
-, polkit
-, isocodes
-, gspell
-, libxslt
-, gobject-introspection
-, flatpak
-, fwupd
-, gtk4
-, gsettings-desktop-schemas
-, gnome-desktop
-, libgudev
-, libxmlb
-, malcontent
-, json-glib
-, libsecret
-, valgrind-light
-, docbook-xsl-nons
-, docbook_xml_dtd_42
-, docbook_xml_dtd_43
-, gtk-doc
-, desktop-file-utils
-, libsysprof-capture
-, gst_all_1
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  gnome,
+  wrapGAppsHook4,
+  packagekit,
+  ostree,
+  glib,
+  appstream,
+  libsoup_3,
+  libadwaita,
+  polkit,
+  isocodes,
+  gspell,
+  libxslt,
+  gobject-introspection,
+  flatpak,
+  fwupd,
+  gtk4,
+  gsettings-desktop-schemas,
+  gnome-desktop,
+  libgudev,
+  libxmlb,
+  malcontent,
+  json-glib,
+  libsecret,
+  valgrind-light,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
+  docbook_xml_dtd_43,
+  gtk-doc,
+  desktop-file-utils,
+  libsysprof-capture,
+  gst_all_1,
 }:
 
 let
@@ -48,7 +49,9 @@ stdenv.mkDerivation rec {
   version = "44.4";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-software/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-software/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "i1N2fvbMVKLbWI7xxZJoOLDWe42bIRc95ROc0PvSgJU=";
   };
 
@@ -97,16 +100,14 @@ stdenv.mkDerivation rec {
     # For video screenshots
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
-  ] ++ lib.optionals withFwupd [
-    fwupd
-  ];
+  ] ++ lib.optionals withFwupd [ fwupd ];
 
-  mesonFlags = [
-    # Requires /etc/machine-id, D-Bus system bus, etc.
-    "-Dtests=false"
-  ] ++ lib.optionals (!withFwupd) [
-    "-Dfwupd=false"
-  ];
+  mesonFlags =
+    [
+      # Requires /etc/machine-id, D-Bus system bus, etc.
+      "-Dtests=false"
+    ]
+    ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ];
 
   passthru = {
     updateScript = gnome.updateScript {

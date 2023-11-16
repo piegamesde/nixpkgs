@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, grpcio
-, protobuf
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  grpcio,
+  protobuf,
 }:
 
 buildPythonPackage rec {
@@ -16,12 +17,8 @@ buildPythonPackage rec {
     hash = "sha256-l5bcvFnc+59tVGXVnn+mKld3o+TVqolPRIVciWpG+os=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
-  pythonRelaxDeps = [
-    "grpcio"
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  pythonRelaxDeps = [ "grpcio" ];
 
   propagatedBuildInputs = [
     grpcio

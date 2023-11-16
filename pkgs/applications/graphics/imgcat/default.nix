@@ -1,10 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cimg, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cimg,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "imgcat";
   version = "2.5.2";
 
-  buildInputs = [ ncurses cimg ];
+  buildInputs = [
+    ncurses
+    cimg
+  ];
 
   preConfigure = ''
     sed -i -e "s|-ltermcap|-L ${ncurses}/lib -lncurses|" Makefile
@@ -29,4 +38,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
-

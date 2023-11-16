@@ -1,9 +1,10 @@
-{ lib
-, python
-, buildPythonPackage
-, autoPatchelfHook
-, unzip
-, cudaPackages
+{
+  lib,
+  python,
+  buildPythonPackage,
+  autoPatchelfHook,
+  unzip,
+  cudaPackages,
 }:
 
 let
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     cudaPackages.tensorrt
   ];
 
-  pythonImportsCheck = [
-    "tensorrt"
-  ];
+  pythonImportsCheck = [ "tensorrt" ];
 
   meta = with lib; {
     description = "Python bindings for TensorRT, a high-performance deep learning interface";

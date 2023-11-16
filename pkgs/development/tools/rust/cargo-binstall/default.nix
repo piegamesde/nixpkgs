@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, bzip2
-, xz
-, zstd
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  xz,
+  zstd,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,17 +23,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-3OuyN+nm2t+LH8lue3xYoBQp7OYjzhDbnc2LCGqFJgY=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     bzip2
     xz
     zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = [
@@ -44,8 +41,14 @@ rustPlatform.buildRustPackage rec {
     "zstd-thin"
   ];
 
-  cargoBuildFlags = [ "-p" "cargo-binstall" ];
-  cargoTestFlags = [ "-p" "cargo-binstall" ];
+  cargoBuildFlags = [
+    "-p"
+    "cargo-binstall"
+  ];
+  cargoTestFlags = [
+    "-p"
+    "cargo-binstall"
+  ];
 
   checkFlags = [
     # requires internet access

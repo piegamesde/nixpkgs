@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, paramiko
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-toolbelt
-, responses
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  paramiko,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-toolbelt,
+  responses,
 }:
 
 buildPythonPackage rec {
@@ -34,14 +35,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  disabledTestPaths = [
-    # Tests require openssh_wrapper which is outdated and not available
-    "tests/test_openssh.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests require openssh_wrapper which is outdated and not available
+      "tests/test_openssh.py"
+    ];
 
-  pythonImportsCheck = [
-    "proxmoxer"
-  ];
+  pythonImportsCheck = [ "proxmoxer" ];
 
   meta = with lib; {
     description = "Python wrapper for Proxmox API v2";

@@ -1,11 +1,12 @@
-{ lib
-, buildGo121Module
-, fetchFromGitHub
-, curl
-, stdenv
-, testers
-, static-server
-, substituteAll
+{
+  lib,
+  buildGo121Module,
+  fetchFromGitHub,
+  curl,
+  stdenv,
+  testers,
+  static-server,
+  substituteAll,
 }:
 
 buildGo121Module rec {
@@ -21,27 +22,27 @@ buildGo121Module rec {
 
   vendorHash = "sha256-1p3dCLLo+MTPxf/Y3zjxTagUi+tq7nZSj4ZB/aakJGY=";
 
-  patches = [
-    # patch out debug.ReadBuidlInfo since version information is not available with buildGoModule
-    (substituteAll {
-      src = ./version.patch;
-      inherit version;
-    })
-  ];
+  patches =
+    [
+      # patch out debug.ReadBuidlInfo since version information is not available with buildGoModule
+      (substituteAll {
+        src = ./version.patch;
+        inherit version;
+      })
+    ];
 
-  nativeCheckInputs = [
-    curl
-  ];
+  nativeCheckInputs = [ curl ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # tests sometimes fail with SIGQUIT on darwin
   doCheck = !stdenv.isDarwin;
 
   passthru.tests = {
-    version = testers.testVersion {
-      package = static-server;
-    };
+    version = testers.testVersion { package = static-server; };
   };
 
   __darwinAllowLocalNetworking = true;

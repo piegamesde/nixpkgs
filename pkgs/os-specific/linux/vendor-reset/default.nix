@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, fetchpatch, kernel, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  kernel,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vendor-reset";
@@ -11,14 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xa7P7+mRk4FVgi+YYCcsFLfyNqPmXvy3xhGoTDVqPxw=";
   };
 
-  patches = [
-    # Fix build with Linux 5.18.
-    # https://github.com/gnif/vendor-reset/pull/58
-    (fetchpatch {
-      url = "https://github.com/gnif/vendor-reset/commit/5bbffcd6fee5348e8808bdbfcb5b21d455b02f55.patch";
-      sha256 = "sha256-L1QxVpcZAVYiaMFCBfL2EJgeMyOR8sDa1UqF1QB3bns=";
-    })
-  ];
+  patches =
+    [
+      # Fix build with Linux 5.18.
+      # https://github.com/gnif/vendor-reset/pull/58
+      (fetchpatch {
+        url = "https://github.com/gnif/vendor-reset/commit/5bbffcd6fee5348e8808bdbfcb5b21d455b02f55.patch";
+        sha256 = "sha256-L1QxVpcZAVYiaMFCBfL2EJgeMyOR8sDa1UqF1QB3bns=";
+      })
+    ];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 

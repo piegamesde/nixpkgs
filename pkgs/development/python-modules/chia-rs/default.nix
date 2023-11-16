@@ -1,8 +1,9 @@
-{ buildPythonPackage
-, lib
-, fetchFromGitHub
-, pytestCheckHook
-, rustPlatform
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  pytestCheckHook,
+  rustPlatform,
 }:
 
 buildPythonPackage rec {
@@ -16,14 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-MFVWdpfvmvGfWIuVdrigGucP52/dB4xCO4Pn1RvUJnM=";
   };
 
-  patches = [
-    # undo a hack from upstream that confuses our build hook
-    ./fix-build.patch
-  ];
+  patches =
+    [
+      # undo a hack from upstream that confuses our build hook
+      ./fix-build.patch
+    ];
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -39,9 +39,7 @@ buildPythonPackage rec {
     touch wheel/Cargo.lock
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   buildAndTestSubdir = "wheel";
 

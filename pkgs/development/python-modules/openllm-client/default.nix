@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, bentoml
-, hatch-fancy-pypi-readme
-, hatch-vcs
-, hatchling
-, attrs
-, cattrs
-, httpx
-, openllm-core
-, orjson
-, soundfile
-, transformers
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  bentoml,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  attrs,
+  cattrs,
+  httpx,
+  openllm-core,
+  orjson,
+  soundfile,
+  transformers,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    grpc = [
-      bentoml
-    ] ++ bentoml.optional-dependencies.grpc;
+    grpc = [ bentoml ] ++ bentoml.optional-dependencies.grpc;
     agents = [
       transformers
       # diffusers

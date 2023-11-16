@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, runCommand
-, shaka-packager
+{
+  lib,
+  stdenv,
+  fetchurl,
+  runCommand,
+  shaka-packager,
 }:
 
 let
@@ -21,42 +22,45 @@ let
     };
   };
 
-  source = sources."${stdenv.hostPlatform.system}"
-    or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  source =
+    sources."${stdenv.hostPlatform.system}"
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "shaka-packager";
-  version = "2.6.1";
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "shaka-packager";
+    version = "2.6.1";
 
-  src = fetchurl {
-    url = "https://github.com/shaka-project/shaka-packager/releases/download/v${finalAttrs.version}/${source.filename}";
-    inherit (source) hash;
-  };
+    src = fetchurl {
+      url = "https://github.com/shaka-project/shaka-packager/releases/download/v${finalAttrs.version}/${source.filename}";
+      inherit (source) hash;
+    };
 
-  dontUnpack = true;
-  sourceRoot = ".";
+    dontUnpack = true;
+    sourceRoot = ".";
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -m755 -D $src $out/bin/packager
+      install -m755 -D $src $out/bin/packager
 
-    runHook postInstall
-  '';
-
-  passthru.tests = {
-    simple = runCommand "${finalAttrs.pname}-test" { } ''
-      ${shaka-packager}/bin/packager -version | grep ${finalAttrs.version} > $out
+      runHook postInstall
     '';
-  };
 
-  meta = {
-    description = "Media packaging framework for VOD and Live DASH and HLS applications";
-    homepage = "https://shaka-project.github.io/shaka-packager/html/";
-    license = lib.licenses.bsd3;
-    mainProgram = "packager";
-    maintainers = with lib.maintainers; [ ];
-    platforms = builtins.attrNames sources;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-})
+    passthru.tests = {
+      simple = runCommand "${finalAttrs.pname}-test" { } ''
+        ${shaka-packager}/bin/packager -version | grep ${finalAttrs.version} > $out
+      '';
+    };
+
+    meta = {
+      description = "Media packaging framework for VOD and Live DASH and HLS applications";
+      homepage = "https://shaka-project.github.io/shaka-packager/html/";
+      license = lib.licenses.bsd3;
+      mainProgram = "packager";
+      maintainers = with lib.maintainers; [ ];
+      platforms = builtins.attrNames sources;
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    };
+  }
+)

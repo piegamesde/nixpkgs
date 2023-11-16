@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, defusedxml
-, fetchFromGitHub
-, marshmallow
-, pytest-datafiles
-, pytest-vcr
-, pytestCheckHook
-, python-box
-, python-dateutil
-, pythonOlder
-, requests
-, requests-pkcs12
-, responses
-, restfly
-, semver
-, setuptools
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  marshmallow,
+  pytest-datafiles,
+  pytest-vcr,
+  pytestCheckHook,
+  python-box,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  requests-pkcs12,
+  responses,
+  restfly,
+  semver,
+  setuptools,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-UY3AFnPplmU0jrV4LIKH4+2tcJEFkKMqO2GWVkgaHYE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     defusedxml
@@ -55,10 +54,11 @@ buildPythonPackage rec {
     responses
   ];
 
-  disabledTestPaths = [
-    # Disable tests that requires network access
-    "tests/io/"
-  ];
+  disabledTestPaths =
+    [
+      # Disable tests that requires network access
+      "tests/io/"
+    ];
 
   disabledTests = [
     # Disable tests that requires a Docker container
@@ -71,9 +71,7 @@ buildPythonPackage rec {
     "test_events_list_vcr"
   ];
 
-  pythonImportsCheck = [
-    "tenable"
-  ];
+  pythonImportsCheck = [ "tenable" ];
 
   meta = with lib; {
     description = "Python library for the Tenable.io and TenableSC API";

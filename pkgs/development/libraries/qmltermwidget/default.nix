@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, qmake
-, qtbase
-, qtquick1
-, qtmultimedia
-, utmp
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qmake,
+  qtbase,
+  qtquick1,
+  qtmultimedia,
+  utmp,
 }:
 
 stdenv.mkDerivation {
@@ -20,9 +21,7 @@ stdenv.mkDerivation {
     hash = "sha256-aVaiRpkYvuyomdkQYAgjIfi6a3wG2a6hNH1CfkA2WKQ=";
   };
 
-  nativeBuildInputs = [
-    qmake
-  ];
+  nativeBuildInputs = [ qmake ];
 
   buildInputs = [
     qtbase

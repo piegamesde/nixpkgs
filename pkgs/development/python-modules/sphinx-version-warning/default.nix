@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pythonImportsCheckHook
-, sphinx
-, sphinxHook
-, sphinx-autoapi
-, sphinx-rtd-theme
-, sphinx-tabs
-, sphinx-prompt
-, sphinxemoji
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonImportsCheckHook,
+  sphinx,
+  sphinxHook,
+  sphinx-autoapi,
+  sphinx-rtd-theme,
+  sphinx-tabs,
+  sphinx-prompt,
+  sphinxemoji,
 }:
 
 # Latest tagged release release "1.1.2" (Nov 2018) does not contain
@@ -20,7 +21,10 @@ buildPythonPackage {
   version = "unstable-2019-08-10";
   format = "pyproject";
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "humitos";

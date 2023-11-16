@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, bitstruct
-, diskcache
-, prompt-toolkit
-, pyparsing
-, python
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bitstruct,
+  diskcache,
+  prompt-toolkit,
+  pyparsing,
+  python,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -30,22 +31,15 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-depdendencies = {
-    shell = [
-      prompt-toolkit
-    ];
-    cache = [
-      diskcache
-    ];
+    shell = [ prompt-toolkit ];
+    cache = [ diskcache ];
   };
 
   nativeCheckInputs = [
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-depdendencies);
 
-
-  pythonImportsCheck = [
-    "asn1tools"
-  ];
+  pythonImportsCheck = [ "asn1tools" ];
 
   meta = with lib; {
     description = "ASN.1 parsing, encoding and decoding";

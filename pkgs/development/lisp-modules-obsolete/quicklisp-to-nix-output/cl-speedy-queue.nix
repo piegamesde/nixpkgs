@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-speedy-queue";
   version = "20150302-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-speedy-queue";
 
-  asdFilesToKeep = ["cl-speedy-queue.asd"];
+  asdFilesToKeep = [ "cl-speedy-queue.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-speedy-queue DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-speedy-queue/2015-03-02/cl-speedy-queue-20150302-git.tgz
     MD5 509d1acf7e4cfcef99127de75b16521f NAME cl-speedy-queue FILENAME
     cl-speedy-queue DEPS NIL DEPENDENCIES NIL VERSION 20150302-git SIBLINGS NIL
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

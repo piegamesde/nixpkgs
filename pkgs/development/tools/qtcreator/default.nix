@@ -1,30 +1,31 @@
-{ stdenv
-, lib
-, fetchurl
-, cmake
-, pkg-config
-, ninja
-, python3
-, qtbase
-, qt5compat
-, qtdeclarative
-, qtdoc
-, qtquick3d
-, qtquicktimeline
-, qtserialport
-, qtsvg
-, qttools
-, qtwebengine
-, qtwayland
-, qtshadertools
-, wrapQtAppsHook
-, yaml-cpp
-, litehtml
-, gumbo
-, llvmPackages
-, rustc-demangle
-, elfutils
-, perf
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  pkg-config,
+  ninja,
+  python3,
+  qtbase,
+  qt5compat,
+  qtdeclarative,
+  qtdoc,
+  qtquick3d,
+  qtquicktimeline,
+  qtserialport,
+  qtsvg,
+  qttools,
+  qtwebengine,
+  qtwayland,
+  qtshadertools,
+  wrapQtAppsHook,
+  yaml-cpp,
+  litehtml,
+  gumbo,
+  llvmPackages,
+  rustc-demangle,
+  elfutils,
+  perf,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,7 +33,9 @@ stdenv.mkDerivation rec {
   version = "11.0.3";
 
   src = fetchurl {
-    url = "https://download.qt.io/official_releases/${pname}/${lib.versions.majorMinor version}/${version}/qt-creator-opensource-src-${version}.tar.xz";
+    url = "https://download.qt.io/official_releases/${pname}/${
+        lib.versions.majorMinor version
+      }/${version}/qt-creator-opensource-src-${version}.tar.xz";
     hash = "sha256-X1AeZOg2t+PlC5iz68NFsgE5al/ZLklzjau14mjVzxw=";
   };
 
@@ -80,9 +83,7 @@ stdenv.mkDerivation rec {
     "-DCLANGTOOLING_LINK_CLANG_DYLIB=ON"
   ];
 
-  qtWrapperArgs = [
-    "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
-  ];
+  qtWrapperArgs = [ "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin" ];
 
   postInstall = ''
     substituteInPlace $out/share/applications/org.qt-project.qtcreator.desktop \

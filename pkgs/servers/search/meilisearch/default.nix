@@ -1,13 +1,15 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, Security
-, nixosTests
-, nix-update-script
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  Security,
+  nixosTests,
+  nix-update-script,
 }:
 
-let version = "1.3.1";
+let
+  version = "1.3.1";
 in
 rustPlatform.buildRustPackage {
   pname = "meilisearch";
@@ -20,9 +22,7 @@ rustPlatform.buildRustPackage {
     hash = "sha256-jttT4qChoqwTnjjoW0Zc15ZieZN7KD1Us64Tk0eDG3Y=";
   };
 
-  cargoBuildFlags = [
-    "--package=meilisearch"
-  ];
+  cargoBuildFlags = [ "--package=meilisearch" ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -37,9 +37,7 @@ rustPlatform.buildRustPackage {
   # Default features include mini dashboard which downloads something from the internet.
   buildNoDefaultFeatures = true;
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   passthru = {
     updateScript = nix-update-script { };
@@ -57,6 +55,11 @@ rustPlatform.buildRustPackage {
     changelog = "https://github.com/meilisearch/meilisearch/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
-    platforms = [ "aarch64-linux" "aarch64-darwin" "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-linux"
+      "aarch64-darwin"
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

@@ -1,11 +1,26 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, groff, pkg-config, guile, gtk2, flex, gawk, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  groff,
+  pkg-config,
+  guile,
+  gtk2,
+  flex,
+  gawk,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "geda";
   version = "1.10.2";
 
   src = fetchurl {
-    url = "http://ftp.geda-project.org/geda-gaf/stable/v${lib.versions.majorMinor version}/${version}/geda-gaf-${version}.tar.gz";
+    url = "http://ftp.geda-project.org/geda-gaf/stable/v${
+        lib.versions.majorMinor version
+      }/${version}/geda-gaf-${version}.tar.gz";
     hash = "sha256-6GKrJBUoU4+jvuJzkmH1aAERArYMXjmi8DWGY8BCyKQ=";
   };
 
@@ -22,8 +37,18 @@ stdenv.mkDerivation rec {
     "--without-libfam"
   ];
 
-  nativeBuildInputs = [ autoreconfHook groff pkg-config ];
-  buildInputs = [ guile gtk2 flex gawk perl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    groff
+    pkg-config
+  ];
+  buildInputs = [
+    guile
+    gtk2
+    flex
+    gawk
+    perl
+  ];
 
   meta = with lib; {
     description = "Full GPL'd suite of Electronic Design Automation tools";

@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, pkg-config
-, ninja
-, wayland-scanner
-, expat
-, libxml2
-, withLibraries ? stdenv.isLinux || stdenv.isDarwin
-, withTests ? stdenv.isLinux
-, libffi
-, epoll-shim
-, withDocumentation ? withLibraries && stdenv.hostPlatform == stdenv.buildPlatform
-, graphviz-nox
-, doxygen
-, libxslt
-, xmlto
-, python3
-, docbook_xsl
-, docbook_xml_dtd_45
-, docbook_xml_dtd_42
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  pkg-config,
+  ninja,
+  wayland-scanner,
+  expat,
+  libxml2,
+  withLibraries ? stdenv.isLinux || stdenv.isDarwin,
+  withTests ? stdenv.isLinux,
+  libffi,
+  epoll-shim,
+  withDocumentation ? withLibraries && stdenv.hostPlatform == stdenv.buildPlatform,
+  graphviz-nox,
+  doxygen,
+  libxslt,
+  xmlto,
+  python3,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  docbook_xml_dtd_42,
 }:
 
 # Documentation is only built when building libraries.
@@ -40,19 +41,28 @@ stdenv.mkDerivation rec {
     hash = "sha256-FUCvHqaYpHHC2OnSiDMsfg/TYMjx0Sk267fny8JCWEI=";
   };
 
-  patches = [
-    ./darwin.patch
-  ];
+  patches = [ ./darwin.patch ];
 
-  postPatch = lib.optionalString withDocumentation ''
-    patchShebangs doc/doxygen/gen-doxygen.py
-  '' + lib.optionalString stdenv.hostPlatform.isStatic ''
-    # delete line containing os-wrappers-test, disables
-    # the building of os-wrappers-test
-    sed -i '/os-wrappers-test/d' tests/meson.build
-  '';
+  postPatch =
+    lib.optionalString withDocumentation ''
+      patchShebangs doc/doxygen/gen-doxygen.py
+    ''
+    + lib.optionalString stdenv.hostPlatform.isStatic ''
+      # delete line containing os-wrappers-test, disables
+      # the building of os-wrappers-test
+      sed -i '/os-wrappers-test/d' tests/meson.build
+    '';
 
-  outputs = [ "out" "bin" "dev" ] ++ lib.optionals withDocumentation [ "doc" "man" ];
+  outputs =
+    [
+      "out"
+      "bin"
+      "dev"
+    ]
+    ++ lib.optionals withDocumentation [
+      "doc"
+      "man"
+    ];
   separateDebugInfo = true;
 
   mesonFlags = [
@@ -61,38 +71,37 @@ stdenv.mkDerivation rec {
     "-Dtests=${lib.boolToString withTests}"
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ] ++ lib.optionals isCross [
-    wayland-scanner
-  ] ++ lib.optionals withDocumentation [
-    (graphviz-nox.override { pango = null; }) # To avoid an infinite recursion
-    doxygen
-    libxslt
-    xmlto
-    python3
-    docbook_xml_dtd_45
-    docbook_xsl
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      pkg-config
+      ninja
+    ]
+    ++ lib.optionals isCross [ wayland-scanner ]
+    ++ lib.optionals withDocumentation [
+      (graphviz-nox.override { pango = null; }) # To avoid an infinite recursion
+      doxygen
+      libxslt
+      xmlto
+      python3
+      docbook_xml_dtd_45
+      docbook_xsl
+    ];
 
-  buildInputs = [
-    expat
-    libxml2
-  ] ++ lib.optionals withLibraries [
-    libffi
-  ] ++ lib.optionals (withLibraries && !stdenv.hostPlatform.isLinux) [
-    epoll-shim
-  ] ++ lib.optionals withDocumentation [
-    docbook_xsl
-    docbook_xml_dtd_45
-    docbook_xml_dtd_42
-  ];
+  buildInputs =
+    [
+      expat
+      libxml2
+    ]
+    ++ lib.optionals withLibraries [ libffi ]
+    ++ lib.optionals (withLibraries && !stdenv.hostPlatform.isLinux) [ epoll-shim ]
+    ++ lib.optionals withDocumentation [
+      docbook_xsl
+      docbook_xml_dtd_45
+      docbook_xml_dtd_42
+    ];
 
   postFixup = ''
     # The pkg-config file is required for cross-compilation:
@@ -106,7 +115,9 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  passthru = { inherit withLibraries; };
+  passthru = {
+    inherit withLibraries;
+  };
 
   meta = with lib; {
     description = "Core Wayland window system code and protocol";
@@ -121,6 +132,10 @@ stdenv.mkDerivation rec {
     homepage = "https://wayland.freedesktop.org/";
     license = licenses.mit; # Expat version
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos codyopel qyliss ];
+    maintainers = with maintainers; [
+      primeos
+      codyopel
+      qyliss
+    ];
   };
 }

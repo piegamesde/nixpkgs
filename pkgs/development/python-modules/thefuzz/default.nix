@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, hypothesis
-, levenshtein
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  hypothesis,
+  levenshtein,
 }:
 
 buildPythonPackage rec {
@@ -26,19 +27,18 @@ buildPythonPackage rec {
     substituteInPlace test_thefuzz.py --replace "import pycodestyle" ""
   '';
 
-  pythonImportsCheck = [
-    "thefuzz"
-  ];
+  pythonImportsCheck = [ "thefuzz" ];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Skip linting
-    "test_pep8_conformance"
-  ];
+  disabledTests =
+    [
+      # Skip linting
+      "test_pep8_conformance"
+    ];
 
   meta = with lib; {
     description = "Fuzzy string matching for Python";

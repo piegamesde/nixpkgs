@@ -1,10 +1,12 @@
-{ lib, stdenv
-, python3Packages
-, python3
-, fetchFromGitHub
-, pkgsCross
-, makeWrapper
-} :
+{
+  lib,
+  stdenv,
+  python3Packages,
+  python3,
+  fetchFromGitHub,
+  pkgsCross,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation {
   pname = "fusee-launcher";
@@ -28,8 +30,15 @@ stdenv.mkDerivation {
       --prefix PYTHONPATH : "$PYTHONPATH:$(toPythonPath $out)"
   '';
 
-  nativeBuildInputs = [ pkgsCross.arm-embedded.buildPackages.gcc makeWrapper python3Packages.wrapPython ];
-  buildInputs = [ python3 python3Packages.pyusb ];
+  nativeBuildInputs = [
+    pkgsCross.arm-embedded.buildPackages.gcc
+    makeWrapper
+    python3Packages.wrapPython
+  ];
+  buildInputs = [
+    python3
+    python3Packages.pyusb
+  ];
   pythonPath = with python3Packages; [ pyusb ];
 
   meta = with lib; {
@@ -38,5 +47,4 @@ stdenv.mkDerivation {
     license = licenses.gpl2;
     maintainers = with maintainers; [ pneumaticat ];
   };
-
 }

@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, h5py
-, ipython
-, lxml
-, mung
-, muscima
-, numpy
-, pillow
-, pytestCheckHook
-, scikit-image
-, sphinx-rtd-theme
-, sympy
-, pandas
-, pyhamcrest
-, tqdm
-, twine
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  h5py,
+  ipython,
+  lxml,
+  mung,
+  muscima,
+  numpy,
+  pillow,
+  pytestCheckHook,
+  scikit-image,
+  sphinx-rtd-theme,
+  sympy,
+  pandas,
+  pyhamcrest,
+  tqdm,
+  twine,
 }:
 
 buildPythonPackage rec {
@@ -44,14 +45,13 @@ buildPythonPackage rec {
     ipython
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # The download tests require internet access
-    "omrdatasettools/tests/test_downloader.py"
-  ];
+  disabledTestPaths =
+    [
+      # The download tests require internet access
+      "omrdatasettools/tests/test_downloader.py"
+    ];
 
   disabledTests = [
     # The download tests require internet access

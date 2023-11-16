@@ -1,16 +1,18 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, chex
-, jaxlib
-, tensorflow-probability
-, optax
-, dm-haiku
-, bsuite
-, frozendict
-, pytestCheckHook
-, dm-env
-, distrax }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  chex,
+  jaxlib,
+  tensorflow-probability,
+  optax,
+  dm-haiku,
+  bsuite,
+  frozendict,
+  pytestCheckHook,
+  dm-env,
+  distrax,
+}:
 
 buildPythonPackage rec {
   pname = "rlax";
@@ -37,9 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "rlax"
-  ];
+  pythonImportsCheck = [ "rlax" ];
 
   disabledTests = [
     # RuntimeErrors

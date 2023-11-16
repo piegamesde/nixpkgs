@@ -1,9 +1,10 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, python3
-, nixosTests
-, nix-update-script
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  python3,
+  nixosTests,
+  nix-update-script,
 }:
 
 buildNpmPackage rec {
@@ -19,9 +20,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-9bOFM8Ie0334H2L94ypgkMrB6zyVJ9YTvNnKeBJjOUI=";
 
-  nativeBuildInputs = [
-    python3
-  ];
+  nativeBuildInputs = [ python3 ];
 
   passthru.tests.zigbee2mqtt = nixosTests.zigbee2mqtt;
   passthru.updateScript = nix-update-script { };
@@ -37,7 +36,10 @@ buildNpmPackage rec {
       It bridges events and allows you to control your Zigbee devices via MQTT.
       In this way you can integrate your Zigbee devices with whatever smart home infrastructure you are using.
     '';
-    maintainers = with maintainers; [ sweber hexa ];
+    maintainers = with maintainers; [
+      sweber
+      hexa
+    ];
     platforms = platforms.linux;
   };
 }

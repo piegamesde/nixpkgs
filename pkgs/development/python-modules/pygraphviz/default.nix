@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, substituteAll
-, graphviz
-, coreutils
-, pkg-config
-, pytest
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  substituteAll,
+  graphviz,
+  coreutils,
+  pkg-config,
+  pytest,
 }:
 
 buildPythonPackage rec {
@@ -21,13 +22,17 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  patches = [
-    # pygraphviz depends on graphviz executables and wc being in PATH
-    (substituteAll {
-      src = ./path.patch;
-      path = lib.makeBinPath [ graphviz coreutils ];
-    })
-  ];
+  patches =
+    [
+      # pygraphviz depends on graphviz executables and wc being in PATH
+      (substituteAll {
+        src = ./path.patch;
+        path = lib.makeBinPath [
+          graphviz
+          coreutils
+        ];
+      })
+    ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -47,6 +52,9 @@ buildPythonPackage rec {
     description = "Python interface to Graphviz graph drawing package";
     homepage = "https://github.com/pygraphviz/pygraphviz";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ matthiasbeyer dotlambda ];
+    maintainers = with maintainers; [
+      matthiasbeyer
+      dotlambda
+    ];
   };
 }

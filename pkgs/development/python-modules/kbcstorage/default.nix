@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build
-, setuptools
-, setuptools-git-versioning
-, setuptools-scm
+  # build
+  setuptools,
+  setuptools-git-versioning,
+  setuptools-scm,
 
-# propagates
-, azure-storage-blob
-, boto3
-, requests
+  # propagates
+  azure-storage-blob,
+  boto3,
+  requests,
 
-# tests
-, responses
-, unittestCheckHook
+  # tests
+  responses,
+  unittestCheckHook,
 }:
 buildPythonPackage rec {
   pname = "sapi-python-client";

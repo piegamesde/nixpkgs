@@ -143,5 +143,5 @@ mkDerivation {
   description = "Parses output of nix-build to show additional information";
   license = lib.licenses.agpl3Plus;
   mainProgram = "nom";
-  maintainers = [lib.maintainers.maralorn];
+  maintainers = [ lib.maintainers.maralorn ];
 }

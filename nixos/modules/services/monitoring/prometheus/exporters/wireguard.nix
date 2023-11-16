@@ -1,14 +1,23 @@
-{ config, lib, pkgs, options }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+}:
 
 with lib;
 
 let
   cfg = config.services.prometheus.exporters.wireguard;
-in {
+in
+{
   port = 9586;
   imports = [
     (mkRenamedOptionModule [ "addr" ] [ "listenAddress" ])
-    ({ options.warnings = options.warnings; options.assertions = options.assertions; })
+    ({
+      options.warnings = options.warnings;
+      options.assertions = options.assertions;
+    })
   ];
   extraOpts = {
     verbose = mkEnableOption (lib.mdDoc "verbose logging mode for prometheus-wireguard-exporter");
@@ -62,10 +71,11 @@ in {
           ${optionalString cfg.withRemoteIp "-r true"} \
           ${optionalString (cfg.wireguardConfig != null) "-n ${escapeShellArg cfg.wireguardConfig}"}
       '';
-      RestrictAddressFamilies = [
-        # Need AF_NETLINK to collect data
-        "AF_NETLINK"
-      ];
+      RestrictAddressFamilies =
+        [
+          # Need AF_NETLINK to collect data
+          "AF_NETLINK"
+        ];
     };
   };
 }

@@ -1,4 +1,9 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "diskonaut";
@@ -20,6 +25,9 @@ rustPlatform.buildRustPackage rec {
     description = "Terminal disk space navigator";
     homepage = "https://github.com/imsnif/diskonaut";
     license = licenses.mit;
-    maintainers = with maintainers; [ evanjs figsoda ];
+    maintainers = with maintainers; [
+      evanjs
+      figsoda
+    ];
   };
 }

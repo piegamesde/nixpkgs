@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchpatch
-, fetchPypi
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchpatch,
+  fetchPypi,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,24 +21,23 @@ buildPythonPackage rec {
     hash = "sha256-iTHa84+KTIUnSg6LfLJa3f2NHyj5+4++0FPdUa7HXck=";
   };
 
-  patches = [
-    # https://github.com/certbot/josepy/pull/158
-    (fetchpatch {
-      name = "fix-setuptools-deprecation.patch";
-      url = "https://github.com/certbot/josepy/commit/8f1b4b57a29a868a87fd6eee19a67a7ebfc07ea1.patch";
-      hash = "sha256-9d+Bk/G4CJXpnjJU0YkXLsg0G3tPxR8YN2niqriQQkI=";
-      includes = [ "tests/test_util.py" ];
-    })
-  ];
+  patches =
+    [
+      # https://github.com/certbot/josepy/pull/158
+      (fetchpatch {
+        name = "fix-setuptools-deprecation.patch";
+        url = "https://github.com/certbot/josepy/commit/8f1b4b57a29a868a87fd6eee19a67a7ebfc07ea1.patch";
+        hash = "sha256-9d+Bk/G4CJXpnjJU0YkXLsg0G3tPxR8YN2niqriQQkI=";
+        includes = [ "tests/test_util.py" ];
+      })
+    ];
 
   propagatedBuildInputs = [
     pyopenssl
     cryptography
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pytest.ini \
@@ -45,9 +45,7 @@ buildPythonPackage rec {
     sed -i '/flake8-ignore/d' pytest.ini
   '';
 
-  pythonImportsCheck = [
-    "josepy"
-  ];
+  pythonImportsCheck = [ "josepy" ];
 
   meta = with lib; {
     description = "JOSE protocol implementation in Python";

@@ -1,4 +1,10 @@
-{ lib, buildNimPackage, fetchFromGitHub, libui, pkg-config }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  libui,
+  pkg-config,
+}:
 
 buildNimPackage rec {
   pname = "ui";
@@ -14,8 +20,10 @@ buildNimPackage rec {
   postPatch = ''
     echo {.passL: r\"$(pkg-config --libs libui)\".} >> ui/rawui.nim
   '';
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "Nim bindings to libui";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

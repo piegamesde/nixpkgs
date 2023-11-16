@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libgit2_1_6
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2_1_6,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,9 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libgit2_1_6
-  ];
+  buildInputs = [ libgit2_1_6 ];
 
   cargoHash = "sha256-XBBZ56jvBtYI5J/sSc4ckk/KXzCHNgM9A4jGolGKh2E=";
 
@@ -28,7 +27,14 @@ rustPlatform.buildRustPackage rec {
     description = "Git Explorer: cross-platform git workflow improvement tool inspired by Magit";
     homepage = "https://github.com/Piturnah/gex";
     changelog = "https://github.com/Piturnah/gex/releases/tag/${src.rev}";
-    license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ azd325 evanrichter piturnah ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
+    maintainers = with maintainers; [
+      azd325
+      evanrichter
+      piturnah
+    ];
   };
 }

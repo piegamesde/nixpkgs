@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, ant
-, jre
-, jdk
-, makeWrapper
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ant,
+  jre,
+  jdk,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,7 +34,11 @@ stdenv.mkDerivation rec {
 
   # note for the future:
   # if you use makeBinaryWrapper, you will trade bash for glibc, the closure will be slightly larger
-  nativeBuildInputs = [ makeWrapper ant jdk ];
+  nativeBuildInputs = [
+    makeWrapper
+    ant
+    jdk
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -53,9 +58,10 @@ stdenv.mkDerivation rec {
     makeWrapper ${jre}/bin/java $out/bin/abcl \
       --prefix CLASSPATH : $out/lib/abcl/abcl.jar \
       --prefix CLASSPATH : $out/lib/abcl/abcl-contrib.jar \
-      ${lib.optionalString (lib.versionAtLeast jre.version "17")
-        # Fix for https://github.com/armedbear/abcl/issues/484
-        "--add-flags --add-opens=java.base/java.util.jar=ALL-UNNAMED \\"
+      ${
+        lib.optionalString (lib.versionAtLeast jre.version "17")
+          # Fix for https://github.com/armedbear/abcl/issues/484
+          "--add-flags --add-opens=java.base/java.util.jar=ALL-UNNAMED \\"
       }
       --add-flags org.armedbear.lisp.Main
 
@@ -66,7 +72,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A JVM-based Common Lisp implementation";
-    license = lib.licenses.gpl3 ;
+    license = lib.licenses.gpl3;
     maintainers = lib.teams.lisp.members;
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
     homepage = "https://common-lisp.net/project/armedbear/";

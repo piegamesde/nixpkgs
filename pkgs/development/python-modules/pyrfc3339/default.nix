@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytz
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytz,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -22,5 +23,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/kurtraschke/pyRFC3339";
     license = licenses.mit;
   };
-
 }

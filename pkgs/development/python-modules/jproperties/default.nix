@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, six
-, pytest-datadir
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  six,
+  pytest-datadir,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -21,13 +22,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   nativeCheckInputs = [
     pytest-datadir
@@ -41,14 +38,13 @@ buildPythonPackage rec {
       --replace "--cov=jproperties --cov-report=term --cov-report=html --cov-branch" ""
   '';
 
-  disabledTestPaths = [
-    # TypeError: 'PosixPath' object...
-    "tests/test_simple_utf8.py"
-  ];
+  disabledTestPaths =
+    [
+      # TypeError: 'PosixPath' object...
+      "tests/test_simple_utf8.py"
+    ];
 
-  pythonImportsCheck = [
-    "jproperties"
-  ];
+  pythonImportsCheck = [ "jproperties" ];
 
   meta = with lib; {
     description = "Java Property file parser and writer for Python";

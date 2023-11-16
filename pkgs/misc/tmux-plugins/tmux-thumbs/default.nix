@@ -1,4 +1,10 @@
-{ lib, mkTmuxPlugin, fetchFromGitHub, thumbs, substituteAll }:
+{
+  lib,
+  mkTmuxPlugin,
+  fetchFromGitHub,
+  thumbs,
+  substituteAll,
+}:
 
 mkTmuxPlugin rec {
   pluginName = "tmux-thumbs";

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, msgpack
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  msgpack,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
   # Requires libasan to be accessible
   doCheck = false;
 
-  pythonImportsCheck = [
-    "msgspec"
-  ];
+  pythonImportsCheck = [ "msgspec" ];
 
   meta = with lib; {
     description = "Module to handle JSON/MessagePack";

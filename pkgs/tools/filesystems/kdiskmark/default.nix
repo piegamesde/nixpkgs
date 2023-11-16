@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, wrapQtAppsHook
-, qtbase
-, qttools
-, fio
-, cmake
-, kauth
-, extra-cmake-modules
-, fetchFromGitHub
+{
+  stdenv,
+  lib,
+  wrapQtAppsHook,
+  qtbase,
+  qttools,
+  fio,
+  cmake,
+  kauth,
+  extra-cmake-modules,
+  fetchFromGitHub,
 }:
 stdenv.mkDerivation rec {
   name = "kdiskmark";
@@ -20,7 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fDimH0BX0zxGuOMNLhNbMGMr2pS+qbZhflSpoLFK+Ng=";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -35,8 +39,12 @@ stdenv.mkDerivation rec {
     ln -s ${kauth}/share/dbus-1/system.d/org.kde.kf5auth.conf $out/share/dbus-1/system.d/00-kdiskmark-needs-org.kde.kf5auth.conf
   '';
 
-  qtWrapperArgs =
-    [ "--prefix" "PATH" ":" (lib.makeBinPath [ fio ]) ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ fio ])
+  ];
 
   meta = with lib; {
     description = "HDD and SSD benchmark tool with a friendly graphical user interface";
@@ -51,4 +59,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

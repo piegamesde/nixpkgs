@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, semver
-, deepmerge
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  semver,
+  deepmerge,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -39,9 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "blebox_uniapi"
-  ];
+  pythonImportsCheck = [ "blebox_uniapi" ];
 
   meta = with lib; {
     changelog = "https://github.com/blebox/blebox_uniapi/blob/v${version}/HISTORY.rst";

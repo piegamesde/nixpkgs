@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   version = "6.40";
@@ -15,7 +19,10 @@ stdenv.mkDerivation rec {
     substituteInPlace core/makefile --replace 'gcc' '${stdenv.cc.targetPrefix}cc'
   '';
 
-  makeFlags = [ "-C" "core" ];
+  makeFlags = [
+    "-C"
+    "core"
+  ];
 
   installPhase = ''
     runHook preInstall

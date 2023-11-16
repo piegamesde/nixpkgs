@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, editdistance-s
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, ukkonen
+{
+  lib,
+  buildPythonPackage,
+  editdistance-s,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  ukkonen,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     ukkonen
   ];
 
-  pythonImportsCheck = [
-    "identify"
-  ];
+  pythonImportsCheck = [ "identify" ];
 
   meta = with lib; {
     description = "File identification library for Python";

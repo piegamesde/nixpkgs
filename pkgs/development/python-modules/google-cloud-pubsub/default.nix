@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-testutils
-, grpc-google-iam-v1
-, grpcio
-, grpcio-status
-, libcst
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-testutils,
+  grpc-google-iam-v1,
+  grpcio,
+  grpcio-status,
+  libcst,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
   ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
-    libcst = [
-      libcst
-    ];
+    libcst = [ libcst ];
   };
 
   nativeCheckInputs = [
@@ -53,14 +52,13 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  disabledTestPaths = [
-    # Tests in pubsub_v1 attempt to contact pubsub.googleapis.com
-    "tests/unit/pubsub_v1"
-  ];
+  disabledTestPaths =
+    [
+      # Tests in pubsub_v1 attempt to contact pubsub.googleapis.com
+      "tests/unit/pubsub_v1"
+    ];
 
-  pythonImportsCheck = [
-    "google.cloud.pubsub"
-  ];
+  pythonImportsCheck = [ "google.cloud.pubsub" ];
 
   meta = with lib; {
     description = "Google Cloud Pub/Sub API client library";

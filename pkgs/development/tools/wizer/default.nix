@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, testers
-, wizer
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  testers,
+  wizer,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,9 +22,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-M0EhyZH2maZCr4tWDo9ppKBM3CXEfwjUfnVksqVWKgU=";
 
-  cargoBuildFlags = [ "--bin" pname ];
+  cargoBuildFlags = [
+    "--bin"
+    pname
+  ];
 
-  buildFeatures = [ "env_logger" "structopt" ];
+  buildFeatures = [
+    "env_logger"
+    "structopt"
+  ];
 
   # Setting $HOME to a temporary directory is necessary to prevent checks from failing, as
   # the test suite creates a cache directory at $HOME/Library/Caches/BytecodeAlliance.wasmtime.
@@ -39,6 +46,9 @@ rustPlatform.buildRustPackage rec {
     description = "The WebAssembly pre-initializer";
     homepage = "https://github.com/bytecodealliance/wizer";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins amesgen ];
+    maintainers = with maintainers; [
+      lucperkins
+      amesgen
+    ];
   };
 }

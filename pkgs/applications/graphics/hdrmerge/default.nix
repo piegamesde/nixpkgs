@@ -1,17 +1,18 @@
-{ lib
-, mkDerivation
-, fetchpatch
-, fetchFromGitHub
-, cmake
-, qtbase
-, wrapQtAppsHook
-, libraw
-, exiv2
-, zlib
-, alglib
-, pkg-config
-, makeDesktopItem
-, copyDesktopItems
+{
+  lib,
+  mkDerivation,
+  fetchpatch,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  wrapQtAppsHook,
+  libraw,
+  exiv2,
+  zlib,
+  alglib,
+  pkg-config,
+  makeDesktopItem,
+  copyDesktopItems,
 }:
 
 mkDerivation rec {
@@ -31,20 +32,25 @@ mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ qtbase libraw exiv2 zlib alglib ];
-
-  cmakeFlags = [
-    "-DALGLIB_DIR:PATH=${alglib}"
+  buildInputs = [
+    qtbase
+    libraw
+    exiv2
+    zlib
+    alglib
   ];
 
-  patches = [
-    # https://github.com/jcelaya/hdrmerge/pull/222
-    (fetchpatch {
-      name = "exiv2-0.28.patch";
-      url = "https://github.com/jcelaya/hdrmerge/commit/377d8e6f3c7cdd1a45b63bce2493ad177dde03fb.patch";
-      hash = "sha256-lXHML6zGkVeWKvmY5ECoJL2xjmtZz77XJd5prpgJiZo=";
-    })
-  ];
+  cmakeFlags = [ "-DALGLIB_DIR:PATH=${alglib}" ];
+
+  patches =
+    [
+      # https://github.com/jcelaya/hdrmerge/pull/222
+      (fetchpatch {
+        name = "exiv2-0.28.patch";
+        url = "https://github.com/jcelaya/hdrmerge/commit/377d8e6f3c7cdd1a45b63bce2493ad177dde03fb.patch";
+        hash = "sha256-lXHML6zGkVeWKvmY5ECoJL2xjmtZz77XJd5prpgJiZo=";
+      })
+    ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -55,7 +61,10 @@ mkDerivation rec {
       icon = "hdrmerge";
       exec = "hdrmerge %F";
       categories = [ "Graphics" ];
-      mimeTypes = [ "image/x-dcraw" "image/x-adobe-dng" ];
+      mimeTypes = [
+        "image/x-dcraw"
+        "image/x-adobe-dng"
+      ];
       terminal = false;
     })
   ];

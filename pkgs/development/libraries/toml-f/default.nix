@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, gfortran
-, cmake
-, test-drive
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gfortran,
+  cmake,
+  test-drive,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-sCU0uMdcXIA5O964hlK37cOrLTlk1CJeTcWD9FhevOs=";
   };
 
-  nativeBuildInputs = [ gfortran cmake ];
+  nativeBuildInputs = [
+    gfortran
+    cmake
+  ];
 
   buildInputs = [ test-drive ];
 
@@ -30,7 +34,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "TOML parser implementation for data serialization and deserialization in Fortran";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     homepage = "https://github.com/toml-f/toml-f";
     platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.sheepforce ];

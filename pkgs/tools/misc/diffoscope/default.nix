@@ -1,78 +1,79 @@
-{ lib
-, stdenv
-, abootimg
-, apksigcopier
-, apksigner
-, apktool
-, binutils-unwrapped-all-targets
-, bzip2
-, cbfstool
-, cdrkit
-, colord
-, colordiff
-, coreutils
-, cpio
-, db
-, diffutils
-, docutils
-, dtc
-, e2fsprogs
-, enableBloat ? true
-, enjarify
-, fetchurl
-, file
-, findutils
-, fontforge-fonttools
-, ffmpeg
-, fpc
-, gettext
-, ghc
-, ghostscriptX
-, giflib
-, gnumeric
-, gnupg
-, gnutar
-, gzip
-, hdf5
-, help2man
-, html2text
-, imagemagick
-, installShellFiles
-, jdk
-, libarchive
-, libcaca
-, libxmlb
-, llvm
-, lz4
-, lzip
-, mono
-, ocaml
-, odt2txt
-, oggvideotools
-, openssh
-, openssl
-, pdftk
-, pgpdump
-, poppler_utils
-, procyon
-, python3
-, qemu
-, R
-, radare2
-, sng
-, sqlite
-, squashfsTools
-, tcpdump
-, ubootTools
-, unzip
-, wabt
-, xmlbeans
-, xxd
-, xz
-, zip
-, zstd
+{
+  lib,
+  stdenv,
+  abootimg,
+  apksigcopier,
+  apksigner,
+  apktool,
+  binutils-unwrapped-all-targets,
+  bzip2,
+  cbfstool,
+  cdrkit,
+  colord,
+  colordiff,
+  coreutils,
+  cpio,
+  db,
+  diffutils,
+  docutils,
+  dtc,
+  e2fsprogs,
+  enableBloat ? true,
+  enjarify,
+  fetchurl,
+  file,
+  findutils,
+  fontforge-fonttools,
+  ffmpeg,
+  fpc,
+  gettext,
+  ghc,
+  ghostscriptX,
+  giflib,
+  gnumeric,
+  gnupg,
+  gnutar,
+  gzip,
+  hdf5,
+  help2man,
+  html2text,
+  imagemagick,
+  installShellFiles,
+  jdk,
+  libarchive,
+  libcaca,
+  libxmlb,
+  llvm,
+  lz4,
+  lzip,
+  mono,
+  ocaml,
+  odt2txt,
+  oggvideotools,
+  openssh,
+  openssl,
+  pdftk,
+  pgpdump,
+  poppler_utils,
+  procyon,
+  python3,
+  qemu,
+  R,
+  radare2,
+  sng,
+  sqlite,
+  squashfsTools,
+  tcpdump,
+  ubootTools,
+  unzip,
+  wabt,
+  xmlbeans,
+  xxd,
+  xz,
+  zip,
+  zstd,
   # updater only
-, writeScript
+  writeScript,
 }:
 
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
@@ -90,9 +91,7 @@ python3.pkgs.buildPythonApplication rec {
     "man"
   ];
 
-  patches = [
-    ./ignore_links.patch
-  ];
+  patches = [ ./ignore_links.patch ];
 
   postPatch = ''
     # Upstream doesn't provide a PKG-INFO file
@@ -121,142 +120,150 @@ python3.pkgs.buildPythonApplication rec {
   # r2pipe
   #
   # We filter automatically all packages for the host platform (some dependencies are not supported on Darwin, aarch64, etc.).
-  pythonPath = lib.filter (lib.meta.availableOn stdenv.hostPlatform) ([
-    binutils-unwrapped-all-targets
-    bzip2
-    cdrkit
-    colordiff
-    coreutils
-    cpio
-    db
-    diffutils
-    dtc
-    e2fsprogs
-    file
-    findutils
-    fontforge-fonttools
-    gettext
-    gnutar
-    gzip
-    html2text
-    libarchive
-    libxmlb
-    lz4
-    lzip
-    openssl
-    pgpdump
-    sng
-    sqlite
-    squashfsTools
-    unzip
-    xxd
-    xz
-    zip
-    zstd
-  ]
-  ++ (with python3.pkgs; [
-    argcomplete
-    debian
-    defusedxml
-    jsbeautifier
-    jsondiff
-    libarchive-c
-    progressbar33
-    pypdf2
-    python-magic
-    pyxattr
-    rpm
-    tlsh
-  ])
-  ++ lib.optionals enableBloat (
+  pythonPath = lib.filter (lib.meta.availableOn stdenv.hostPlatform) (
     [
-      abootimg
-      apksigcopier
-      apksigner
-      apktool
-      cbfstool
-      colord
-      enjarify
-      ffmpeg
-      fpc
-      ghc
-      ghostscriptX
-      giflib
-      gnupg
-      hdf5
-      imagemagick
-      jdk
-      libcaca
-      llvm
-      mono
-      ocaml
-      odt2txt
-      openssh
-      pdftk
-      poppler_utils
-      procyon
-      qemu
-      R
-      radare2
-      tcpdump
-      ubootTools
-      wabt
-      xmlbeans
+      binutils-unwrapped-all-targets
+      bzip2
+      cdrkit
+      colordiff
+      coreutils
+      cpio
+      db
+      diffutils
+      dtc
+      e2fsprogs
+      file
+      findutils
+      fontforge-fonttools
+      gettext
+      gnutar
+      gzip
+      html2text
+      libarchive
+      libxmlb
+      lz4
+      lzip
+      openssl
+      pgpdump
+      sng
+      sqlite
+      squashfsTools
+      unzip
+      xxd
+      xz
+      zip
+      zstd
     ]
-    ++ (with python3.pkgs; [
-      androguard
-      binwalk
-      guestfs
-      h5py
-      pdfminer-six
-    ])
-    # oggvideotools is broken on Darwin, please put it back when it will be fixed?
-    ++ lib.optionals stdenv.isLinux [ oggvideotools ]
-    # This doesn't work on aarch64-darwin
-    ++ lib.optionals (stdenv.hostPlatform != "aarch64-darwin") [ gnumeric ]
-  ));
+    ++ (
+      with python3.pkgs; [
+        argcomplete
+        debian
+        defusedxml
+        jsbeautifier
+        jsondiff
+        libarchive-c
+        progressbar33
+        pypdf2
+        python-magic
+        pyxattr
+        rpm
+        tlsh
+      ]
+    )
+    ++ lib.optionals enableBloat (
+      [
+        abootimg
+        apksigcopier
+        apksigner
+        apktool
+        cbfstool
+        colord
+        enjarify
+        ffmpeg
+        fpc
+        ghc
+        ghostscriptX
+        giflib
+        gnupg
+        hdf5
+        imagemagick
+        jdk
+        libcaca
+        llvm
+        mono
+        ocaml
+        odt2txt
+        openssh
+        pdftk
+        poppler_utils
+        procyon
+        qemu
+        R
+        radare2
+        tcpdump
+        ubootTools
+        wabt
+        xmlbeans
+      ]
+      ++ (
+        with python3.pkgs; [
+          androguard
+          binwalk
+          guestfs
+          h5py
+          pdfminer-six
+        ]
+      )
+      # oggvideotools is broken on Darwin, please put it back when it will be fixed?
+      ++ lib.optionals stdenv.isLinux [ oggvideotools ]
+      # This doesn't work on aarch64-darwin
+      ++ lib.optionals (stdenv.hostPlatform != "aarch64-darwin") [ gnumeric ]
+    )
+  );
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ] ++ pythonPath;
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ] ++ pythonPath;
 
-  pytestFlagsArray = [
-    # Always show more information when tests fail
-    "-vv"
-  ];
+  pytestFlagsArray =
+    [
+      # Always show more information when tests fail
+      "-vv"
+    ];
 
   postInstall = ''
     make -C doc
     installManPage doc/diffoscope.1
   '';
 
-  disabledTests = [
-    "test_sbin_added_to_path"
-    "test_diff_meta"
-    "test_diff_meta2"
+  disabledTests =
+    [
+      "test_sbin_added_to_path"
+      "test_diff_meta"
+      "test_diff_meta2"
 
-    # Fails because it fails to determine llvm version
-    "test_item3_deflate_llvm_bitcode"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Disable flaky tests on Darwin
-    "test_non_unicode_filename"
-    "test_listing"
-    "test_symlink_root"
-  ];
+      # Fails because it fails to determine llvm version
+      "test_item3_deflate_llvm_bitcode"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # Disable flaky tests on Darwin
+      "test_non_unicode_filename"
+      "test_listing"
+      "test_symlink_root"
+    ];
 
-  disabledTestPaths = [
-    # fails due to https://github.com/NixOS/nixpkgs/issues/256896
-    # should be removed once that issue is resolved in coreboot or diffoscope
-    "tests/comparators/test_cbfs.py"
-  ]
-  # Flaky tests on Darwin
-  ++ lib.optionals stdenv.isDarwin [
-    "tests/comparators/test_git.py"
-    "tests/comparators/test_java.py"
-    "tests/comparators/test_uimage.py"
-    "tests/comparators/test_device.py"
-    "tests/comparators/test_macho.py"
-  ];
+  disabledTestPaths =
+    [
+      # fails due to https://github.com/NixOS/nixpkgs/issues/256896
+      # should be removed once that issue is resolved in coreboot or diffoscope
+      "tests/comparators/test_cbfs.py"
+    ]
+    # Flaky tests on Darwin
+    ++ lib.optionals stdenv.isDarwin [
+      "tests/comparators/test_git.py"
+      "tests/comparators/test_java.py"
+      "tests/comparators/test_uimage.py"
+      "tests/comparators/test_device.py"
+      "tests/comparators/test_macho.py"
+    ];
 
   passthru = {
     updateScript = writeScript "update-diffoscope" ''
@@ -286,7 +293,11 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://diffoscope.org/";
     changelog = "https://diffoscope.org/news/diffoscope-${version}-released/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dezgeg danielfullmer raitobezarius ];
+    maintainers = with maintainers; [
+      dezgeg
+      danielfullmer
+      raitobezarius
+    ];
     platforms = platforms.unix;
   };
 }

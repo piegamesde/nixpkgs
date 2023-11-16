@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 
-# build-system
-, setuptools
-, setuptools-scm
+  # build-system
+  setuptools,
+  setuptools-scm,
 
-# propagates
-, typing-extensions
+  # propagates
+  typing-extensions,
 
-# tests
-, pytestCheckHook
-, pytest-subtests
-, numpy
-, matplotlib
-, uncertainties
+  # tests
+  pytestCheckHook,
+  pytest-subtests,
+  numpy,
+  matplotlib,
+  uncertainties,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -52,10 +51,11 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTests = [
-    # https://github.com/hgrecco/pint/issues/1825
-    "test_equal_zero_nan_NP"
-  ];
+  disabledTests =
+    [
+      # https://github.com/hgrecco/pint/issues/1825
+      "test_equal_zero_nan_NP"
+    ];
 
   meta = with lib; {
     changelog = "https://github.com/hgrecco/pint/blob/${version}/CHANGES";

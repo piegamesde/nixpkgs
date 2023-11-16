@@ -1,10 +1,11 @@
-{ fetchFromGitHub
-, lib
-, buildPythonPackage
-, git
-, which
-, pythonOlder
-, unittestCheckHook
+{
+  fetchFromGitHub,
+  lib,
+  buildPythonPackage,
+  git,
+  which,
+  pythonOlder,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-oIR2iEiOBQ1VKouJTLqEiWWNzrMSJcnxK+m/j9Ia/m8=";
   };
 
-  nativeCheckInputs = [ unittestCheckHook git which ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    git
+    which
+  ];
 
   # ignore tests which are impure
   DISABLED_TESTS = "network requires_nix_build";

@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -14,13 +15,14 @@ buildGoModule rec {
     hash = "sha256-qSW8O13UW5L2eVsqIuqOguhCyZBPqevZ9fJ7qkraa7M=";
   };
 
-  patches = [
-    ./fix-go.mod-dependency.patch
-  ];
+  patches = [ ./fix-go.mod-dependency.patch ];
 
   vendorHash = "sha256-ktsQvWc0CTnqOer+9cc0BddrQp0F3Xk7YJP3jxfuw1w=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "A sensitive data detection tool capable of scanning source code repositories for passwords, key files, and more";

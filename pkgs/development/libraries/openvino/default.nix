@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, substituteAll
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  substituteAll,
 
-# build
-, addOpenGLRunpath
-, autoPatchelfHook
-, cmake
-, git
-, libarchive
-, pkg-config
-, python
-, shellcheck
+  # build
+  addOpenGLRunpath,
+  autoPatchelfHook,
+  cmake,
+  git,
+  libarchive,
+  pkg-config,
+  python,
+  shellcheck,
 
-# runtime
-, libusb1
-, libxml2
-, opencv
-, protobuf
-, pugixml
-, tbb
+  # runtime
+  libusb1,
+  libxml2,
+  opencv,
+  protobuf,
+  pugixml,
+  tbb,
 }:
 
 let
@@ -62,11 +63,14 @@ stdenv.mkDerivation rec {
     git
     libarchive
     pkg-config
-    (python.withPackages (ps: with ps; [
-      cython
-      pybind11
-      setuptools
-    ]))
+    (python.withPackages (
+      ps:
+      with ps; [
+        cython
+        pybind11
+        setuptools
+      ]
+    ))
     shellcheck
   ];
 
@@ -122,9 +126,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isAarch64 "-Wno-narrowing";
 
-  autoPatchelfIgnoreMissingDeps = [
-    "libngraph_backend.so"
-  ];
+  autoPatchelfIgnoreMissingDeps = [ "libngraph_backend.so" ];
 
   buildInputs = [
     libusb1
@@ -164,7 +166,8 @@ stdenv.mkDerivation rec {
     homepage = "https://docs.openvinotoolkit.org/";
     license = with licenses; [ asl20 ];
     platforms = platforms.all;
-    broken = (stdenv.isLinux && stdenv.isAarch64) # requires scons, then fails with *** Source directory cannot be under variant directory.
+    broken =
+      (stdenv.isLinux && stdenv.isAarch64) # requires scons, then fails with *** Source directory cannot be under variant directory.
       || stdenv.isDarwin; # Cannot find macos sdk
     maintainers = with maintainers; [ tfmoraes ];
   };

@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchPypi
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchPypi,
+  fetchFromGitHub,
 }:
 
 let
@@ -10,15 +11,17 @@ let
     # https://github.com/NixOS/nixpkgs/issues/258504
     # https://github.com/Flexget/Flexget/issues/3847
     packageOverrides = self: super: {
-      transmission-rpc = super.transmission-rpc.overridePythonAttrs (old: rec {
-        version = "4.3.1";
-        src = fetchPypi {
-          pname = "transmission_rpc";
-          inherit version;
-          hash = "sha256-Kh2eARIfM6MuXu7RjPPVhvPZ+bs0AXkA4qUCbfu5hHU=";
-        };
-        doCheck = false;
-      });
+      transmission-rpc = super.transmission-rpc.overridePythonAttrs (
+        old: rec {
+          version = "4.3.1";
+          src = fetchPypi {
+            pname = "transmission_rpc";
+            inherit version;
+            hash = "sha256-Kh2eARIfM6MuXu7RjPPVhvPZ+bs0AXkA4qUCbfu5hHU=";
+          };
+          doCheck = false;
+        }
+      );
     };
   };
 in

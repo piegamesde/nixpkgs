@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, gettext, pkg-config, wxGTK32,
-  boost, icu, lucenepp, asciidoc, libxslt, xmlto, gtk3, gtkspell3, pugixml,
-  nlohmann_json, hicolor-icon-theme, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  gettext,
+  pkg-config,
+  wxGTK32,
+  boost,
+  icu,
+  lucenepp,
+  asciidoc,
+  libxslt,
+  xmlto,
+  gtk3,
+  gtkspell3,
+  pugixml,
+  nlohmann_json,
+  hicolor-icon-theme,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "poedit";
@@ -13,17 +33,32 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z2DT+RO35EcJFOnrjmJ8v2tsINQnsPkbFhZW9OZqob4=";
   };
 
-  nativeBuildInputs = [ autoconf automake asciidoc wrapGAppsHook
-    libxslt xmlto boost libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    asciidoc
+    wrapGAppsHook
+    libxslt
+    xmlto
+    boost
+    libtool
+    pkg-config
+  ];
 
-  buildInputs = [ lucenepp nlohmann_json wxGTK32 icu pugixml gtk3 gtkspell3 hicolor-icon-theme ];
+  buildInputs = [
+    lucenepp
+    nlohmann_json
+    wxGTK32
+    icu
+    pugixml
+    gtk3
+    gtkspell3
+    hicolor-icon-theme
+  ];
 
   propagatedBuildInputs = [ gettext ];
 
-  preConfigure = "
-    patchShebangs bootstrap
-    ./bootstrap
-  ";
+  preConfigure = "\n    patchShebangs bootstrap\n    ./bootstrap\n  ";
 
   configureFlags = [
     "--without-cld2"

@@ -1,16 +1,17 @@
-{ lib
-, betamax
-, betamax-matchers
-, betamax-serializers
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, prawcore
-, pytestCheckHook
-, pythonOlder
-, requests-toolbelt
-, update_checker
-, websocket-client
+{
+  lib,
+  betamax,
+  betamax-matchers,
+  betamax-serializers,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  prawcore,
+  pytestCheckHook,
+  pythonOlder,
+  requests-toolbelt,
+  update_checker,
+  websocket-client,
 }:
 
 buildPythonPackage rec {
@@ -42,14 +43,13 @@ buildPythonPackage rec {
     requests-toolbelt
   ];
 
-  disabledTestPaths = [
-    # tests requiring network
-    "tests/integration"
-  ];
+  disabledTestPaths =
+    [
+      # tests requiring network
+      "tests/integration"
+    ];
 
-  pythonImportsCheck = [
-    "praw"
-  ];
+  pythonImportsCheck = [ "praw" ];
 
   meta = with lib; {
     description = "Python Reddit API wrapper";

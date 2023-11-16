@@ -6,14 +6,14 @@ let
 
   sysctlOption = mkOptionType {
     name = "sysctl option value";
-    check = val:
+    check =
+      val:
       let
         checkType = x: isBool x || isString x || isInt x || x == null;
       in
-        checkType val || (val._type or "" == "override" && checkType val.content);
+      checkType val || (val._type or "" == "override" && checkType val.content);
     merge = loc: defs: mergeOneOption loc (filterOverrides defs);
   };
-
 in
 
 {
@@ -25,17 +25,17 @@ in
         freeformType = types.attrsOf sysctlOption;
         options."net.core.rmem_max" = mkOption {
           type = types.nullOr types.ints.unsigned // {
-            merge = loc: defs:
-              foldl
-                (a: b: if b.value == null then null else lib.max a b.value)
-                0
-                (filterOverrides defs);
+            merge =
+              loc: defs:
+              foldl (a: b: if b.value == null then null else lib.max a b.value) 0 (filterOverrides defs);
           };
           default = null;
-          description = lib.mdDoc "The maximum socket receive buffer size. In case of conflicting values, the highest will be used.";
+          description =
+            lib.mdDoc
+              "The maximum socket receive buffer size. In case of conflicting values, the highest will be used.";
         };
       };
-      default = {};
+      default = { };
       example = literalExpression ''
         { "net.ipv4.tcp_syncookies" = false; "vm.swappiness" = 60; }
       '';
@@ -48,22 +48,26 @@ in
         parameter may be a string, integer, boolean, or null
         (signifying the option will not appear at all).
       '';
-
     };
-
   };
 
   config = {
 
-    environment.etc."sysctl.d/60-nixos.conf".text =
-      concatStrings (mapAttrsToList (n: v:
-        optionalString (v != null) "${n}=${if v == false then "0" else toString v}\n"
-      ) config.boot.kernel.sysctl);
+    environment.etc."sysctl.d/60-nixos.conf".text = concatStrings (
+      mapAttrsToList
+        (
+          n: v:
+          optionalString (v != null) ''
+            ${n}=${if v == false then "0" else toString v}
+          ''
+        )
+        config.boot.kernel.sysctl
+    );
 
-    systemd.services.systemd-sysctl =
-      { wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ config.environment.etc."sysctl.d/60-nixos.conf".source ];
-      };
+    systemd.services.systemd-sysctl = {
+      wantedBy = [ "multi-user.target" ];
+      restartTriggers = [ config.environment.etc."sysctl.d/60-nixos.conf".source ];
+    };
 
     # Hide kernel pointers (e.g. in /proc/modules) for unprivileged
     # users as these make it easier to exploit kernel vulnerabilities.

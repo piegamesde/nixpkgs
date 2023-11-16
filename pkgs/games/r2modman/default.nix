@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, yarn
-, fetchYarnDeps
-, fixup_yarn_lock
-, nodejs
-, electron
-, fetchFromGitHub
-, gitUpdater
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
+{
+  lib,
+  stdenv,
+  yarn,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  nodejs,
+  electron,
+  fetchFromGitHub,
+  gitUpdater,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,10 +29,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-CXitb/b2tvTfrkFrFv4KP4WdmMg+1sDtC/s2u5ezDfI=";
   };
 
-  patches = [
-    # Make it possible to launch Steam games from r2modman.
-    ./steam-launch-fix.patch
-  ];
+  patches =
+    [
+      # Make it possible to launch Steam games from r2modman.
+      ./steam-launch-fix.patch
+    ];
 
   nativeBuildInputs = [
     yarn
@@ -99,20 +101,25 @@ stdenv.mkDerivation rec {
       desktopName = pname;
       comment = meta.description;
       categories = [ "Game" ];
-      keywords = [ "launcher" "mod manager" "thunderstore" ];
+      keywords = [
+        "launcher"
+        "mod manager"
+        "thunderstore"
+      ];
     })
   ];
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     description = "Unofficial Thunderstore mod manager";
     homepage = "https://github.com/ebkr/r2modmanPlus";
     changelog = "https://github.com/ebkr/r2modmanPlus/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ aidalgol huantian ];
+    maintainers = with maintainers; [
+      aidalgol
+      huantian
+    ];
     inherit (electron.meta) platforms;
   };
 }

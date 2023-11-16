@@ -1,14 +1,15 @@
-{ lib
-, fetchzip
-, libXxf86vm
-, makeWrapper
-, openal
-, openjdk
-, stdenv
-, xorg
-, copyDesktopItems
-, makeDesktopItem
-, writeScript
+{
+  lib,
+  fetchzip,
+  libXxf86vm,
+  makeWrapper,
+  openal,
+  openjdk,
+  stdenv,
+  xorg,
+  copyDesktopItems,
+  makeDesktopItem,
+  writeScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,8 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RBSnms+QlKgTOhm3t2hDfv7OcMrQCk1rfkz9GaM74WM=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
-  buildInputs = [ xorg.libXxf86vm openal ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
+  buildInputs = [
+    xorg.libXxf86vm
+    openal
+  ];
 
   dontBuild = true;
 

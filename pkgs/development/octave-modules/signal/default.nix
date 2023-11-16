@@ -1,7 +1,8 @@
-{ buildOctavePackage
-, lib
-, fetchurl
-, control
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  control,
 }:
 
 buildOctavePackage rec {
@@ -13,9 +14,7 @@ buildOctavePackage rec {
     sha256 = "sha256-VFuXVA6+ujtCDwiQb905d/wpOzvI/Db2uosJTOqI8zk=";
   };
 
-  requiredOctavePackages = [
-    control
-  ];
+  requiredOctavePackages = [ control ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/signal/index.html";

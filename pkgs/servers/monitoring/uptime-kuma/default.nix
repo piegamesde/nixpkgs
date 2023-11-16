@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, buildNpmPackage, python3, nodejs, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildNpmPackage,
+  python3,
+  nodejs,
+  nixosTests,
+}:
 
 buildNpmPackage rec {
   pname = "uptime-kuma";
@@ -13,11 +21,12 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-USyLvC6ior1YhiZz6YySaG7xiYziHB01SHC9BPwuvJo=";
 
-  patches = [
-    # Fixes the permissions of the database being not set correctly
-    # See https://github.com/louislam/uptime-kuma/pull/2119
-    ./fix-database-permissions.patch
-  ];
+  patches =
+    [
+      # Fixes the permissions of the database being not set correctly
+      # See https://github.com/louislam/uptime-kuma/pull/2119
+      ./fix-database-permissions.patch
+    ];
 
   nativeBuildInputs = [ python3 ];
 

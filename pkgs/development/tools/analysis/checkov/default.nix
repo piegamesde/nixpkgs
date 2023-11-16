@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -15,9 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-cRc5mBMTh5HCqq5hKfvJmYROs74ZiWjX17cgQv7ub+I=";
   };
 
-  patches = [
-    ./flake8-compat-5.x.patch
-  ];
+  patches = [ ./flake8-compat-5.x.patch ];
 
   pythonRelaxDeps = [
     "bc-detect-secrets"
@@ -134,9 +133,7 @@ python3.pkgs.buildPythonApplication rec {
     "dogfood_tests/test_checkov_dogfood.py"
   ];
 
-  pythonImportsCheck = [
-    "checkov"
-  ];
+  pythonImportsCheck = [ "checkov" ];
 
   postInstall = ''
     chmod +x $out/bin/checkov
@@ -151,6 +148,9 @@ python3.pkgs.buildPythonApplication rec {
       Kubernetes, Serverless framework and other infrastructure-as-code-languages.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ anhdle14 fab ];
+    maintainers = with maintainers; [
+      anhdle14
+      fab
+    ];
   };
 }

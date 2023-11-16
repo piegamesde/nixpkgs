@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, ensureNewerSourcesForZipFilesHook
-, pkg-config
-, scons
-, glibmm
-, libpulseaudio
-, libao
-, speechd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ensureNewerSourcesForZipFilesHook,
+  pkg-config,
+  scons,
+  glibmm,
+  libpulseaudio,
+  libao,
+  speechd,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,15 +23,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-G5886rjBaAp0AXcr07O0q7K1OXTayfIbd4zniKwDiLw=";
   };
 
-  patches = [
-    # SConstruct patch
-    #     Scons creates an independent environment that assumes standard POSIX paths.
-    #     The patch is needed to push the nix environment.
-    #     - PATH
-    #     - PKG_CONFIG_PATH, to find available (sound) libraries
-    #     - RPATH, to link to the newly built libraries
-    ./honor_nix_environment.patch
-  ];
+  patches =
+    [
+      # SConstruct patch
+      #     Scons creates an independent environment that assumes standard POSIX paths.
+      #     The patch is needed to push the nix environment.
+      #     - PATH
+      #     - PKG_CONFIG_PATH, to find available (sound) libraries
+      #     - RPATH, to link to the newly built libraries
+      ./honor_nix_environment.patch
+    ];
 
   nativeBuildInputs = [
     ensureNewerSourcesForZipFilesHook

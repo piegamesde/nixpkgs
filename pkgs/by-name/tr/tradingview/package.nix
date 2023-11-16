@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, squashfsTools
-, makeBinaryWrapper
-, alsa-lib
-, atk
-, at-spi2-atk
-, cups
-, gtk3
-, libdrm
-, libsecret
-, libxkbcommon
-, mesa
-, pango
-, sqlite
-, systemd
-, wayland
-, xorg
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  squashfsTools,
+  makeBinaryWrapper,
+  alsa-lib,
+  atk,
+  at-spi2-atk,
+  cups,
+  gtk3,
+  libdrm,
+  libsecret,
+  libxkbcommon,
+  mesa,
+  pango,
+  sqlite,
+  systemd,
+  wayland,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {
@@ -75,7 +76,9 @@ stdenv.mkDerivation rec {
     cp squashfs-root/meta/gui/icon.png $out/share/icons/tradingview.png
 
     mkdir $out/bin
-    makeBinaryWrapper $out/share/tradingview/tradingview $out/bin/tradingview --prefix LD_LIBRARY_PATH : ${ lib.makeLibraryPath buildInputs }
+    makeBinaryWrapper $out/share/tradingview/tradingview $out/bin/tradingview --prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath buildInputs
+    }
 
     runHook postInstall
   '';

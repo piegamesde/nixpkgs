@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchCrate, rustPlatform, pkg-config, openssl, Security }:
+{
+  lib,
+  stdenv,
+  fetchCrate,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  Security,
+}:
 
 let
   pname = "cargo-pgrx";
@@ -16,17 +24,17 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   preCheck = ''
     export PGRX_HOME=$(mktemp -d)
   '';
 
-  checkFlags = [
-    # requires pgrx to be properly initialized with cargo pgrx init
-    "--skip=command::schema::tests::test_parse_managed_postmasters"
-  ];
+  checkFlags =
+    [
+      # requires pgrx to be properly initialized with cargo pgrx init
+      "--skip=command::schema::tests::test_parse_managed_postmasters"
+    ];
 
   meta = with lib; {
     description = "Build Postgres Extensions with Rust!";

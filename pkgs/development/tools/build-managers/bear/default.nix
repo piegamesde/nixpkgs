@@ -1,18 +1,20 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, grpc
-, protobuf
-, openssl
-, nlohmann_json
-, gtest
-, spdlog
-, c-ares
-, zlib
-, sqlite
-, re2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  grpc,
+  protobuf,
+  openssl,
+  nlohmann_json,
+  gtest,
+  spdlog,
+  c-ares,
+  zlib,
+  sqlite,
+  re2,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,7 +28,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-1nZPzgLWcmaRkOUXdm16IW2Nw/p1w8GBGEfZX/v+En0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     grpc
@@ -41,10 +46,11 @@ stdenv.mkDerivation rec {
     re2
   ];
 
-  patches = [
-    # Default libexec would be set to /nix/store/*-bear//nix/store/*-bear/libexec/...
-    ./no-double-relative.patch
-  ];
+  patches =
+    [
+      # Default libexec would be set to /nix/store/*-bear//nix/store/*-bear/libexec/...
+      ./no-double-relative.patch
+    ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -57,6 +63,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rizsotto/Bear";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ babariviere qyliss ];
+    maintainers = with maintainers; [
+      babariviere
+      qyliss
+    ];
   };
 }

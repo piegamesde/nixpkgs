@@ -1,4 +1,9 @@
-{ lib, fetchurl, stdenv, undmg }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  undmg,
+}:
 
 # This cannot be built from source due to the problematic nature of XCode - so
 # this is what it's like when doves cry?
@@ -8,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "4.1.0";
 
   src = fetchurl {
-    url =
-      "https://github.com/MonitorControl/${pname}/releases/download/v${version}/MonitorControl.${version}.dmg";
+    url = "https://github.com/MonitorControl/${pname}/releases/download/v${version}/MonitorControl.${version}.dmg";
     sha256 = "iaxM9j78Sq1EH5TCY240N+D5bG6quk2dZj8T7nt9ATo=";
   };
 

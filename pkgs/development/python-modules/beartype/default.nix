@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [
-    "beartype"
-  ];
+  pythonImportsCheck = [ "beartype" ];
 
   meta = with lib; {
     description = "Fast runtime type checking for Python";

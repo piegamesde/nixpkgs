@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, jdk
-, ant
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, glib
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  ant,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  glib,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,8 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "0qmvlcqhqw5k500v2xdakk340ymgv5amhbfqxib5s4db1w32pi60";
   };
 
-  nativeBuildInputs = [ copyDesktopItems jdk ant makeWrapper wrapGAppsHook ];
-  buildInputs = [ glib jdk ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    jdk
+    ant
+    makeWrapper
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    glib
+    jdk
+  ];
 
   buildPhase = ''
     runHook preBuild

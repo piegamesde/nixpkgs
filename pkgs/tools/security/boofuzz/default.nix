@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -44,13 +45,9 @@ python3.pkgs.buildPythonApplication rec {
     "TestSocketConnection"
     # SyntaxError: invalid syntax, https://github.com/jtpereyda/boofuzz/issues/663
     "test_msg_60_bytes"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_time_repeater"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "test_time_repeater" ];
 
-  pythonImportsCheck = [
-    "boofuzz"
-  ];
+  pythonImportsCheck = [ "boofuzz" ];
 
   meta = with lib; {
     description = "Network protocol fuzzing tool";

@@ -1,17 +1,18 @@
-{ stdenv
-, fetchurl
-, fontconfig
-, freetype
-, lib
-, libICE
-, libSM
-, udev
-, libX11
-, libXcursor
-, libXext
-, libXfixes
-, libXrandr
-, libXrender
+{
+  stdenv,
+  fetchurl,
+  fontconfig,
+  freetype,
+  lib,
+  libICE,
+  libSM,
+  udev,
+  libX11,
+  libXcursor,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libXrender,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,24 +20,27 @@ stdenv.mkDerivation rec {
   version = "3.28e";
 
   src = fetchurl {
-    url = "https://www.segger.com/downloads/jlink/Ozone_Linux_V${(lib.replaceStrings ["."] [""] version)}_x86_64.tgz";
+    url = "https://www.segger.com/downloads/jlink/Ozone_Linux_V${
+        (lib.replaceStrings [ "." ] [ "" ] version)
+      }_x86_64.tgz";
     sha256 = "BfmKBAKyTA0V31zkwFLrbT0Xob221KfHa6v0VxKFsSI=";
   };
 
-  rpath = lib.makeLibraryPath [
-    fontconfig
-    freetype
-    libICE
-    libSM
-    udev
-    libX11
-    libXcursor
-    libXext
-    libXfixes
-    libXrandr
-    libXrender
-  ]
-  + ":${stdenv.cc.cc.lib}/lib64";
+  rpath =
+    lib.makeLibraryPath [
+      fontconfig
+      freetype
+      libICE
+      libSM
+      udev
+      libX11
+      libXcursor
+      libXext
+      libXfixes
+      libXrandr
+      libXrender
+    ]
+    + ":${stdenv.cc.cc.lib}/lib64";
 
   installPhase = ''
     mkdir -p $out/bin

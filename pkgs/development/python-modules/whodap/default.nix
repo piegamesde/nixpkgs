@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, httpx
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  httpx,
 }:
 
 buildPythonPackage rec {
@@ -21,23 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-IX4sxuOxH4rXZlpRiWncXvaB2TkfZl1rKioZ3eqDGHs=";
   };
 
-  propagatedBuildInputs = [
-    httpx
-  ];
+  propagatedBuildInputs = [ httpx ];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Requires network access
-    "tests/test_client.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requires network access
+      "tests/test_client.py"
+    ];
 
-  pythonImportsCheck = [
-    "whodap"
-  ];
+  pythonImportsCheck = [ "whodap" ];
 
   meta = with lib; {
     description = "Python RDAP utility for querying and parsing information about domain names";

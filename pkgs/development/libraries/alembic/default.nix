@@ -1,7 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openexr, hdf5-threadsafe, ilmbase }:
-
-stdenv.mkDerivation rec
 {
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openexr,
+  hdf5-threadsafe,
+  ilmbase,
+}:
+
+stdenv.mkDerivation rec {
   pname = "alembic";
   version = "1.8.6";
 
@@ -13,7 +20,12 @@ stdenv.mkDerivation rec
   };
 
   # note: out is unused (but required for outputDoc anyway)
-  outputs = [ "bin" "dev" "out" "lib" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "lib"
+  ];
 
   # Prevent cycle between bin and dev (only occurs on Darwin for some reason)
   propagatedBuildOutputs = [ "lib" ];
@@ -22,7 +34,11 @@ stdenv.mkDerivation rec
 
   # NOTE: Alembic also support imath instead of ilmbase, but some users of Alembic (e.g. Blender)
   # are incompatible with the imath version of Alembic
-  buildInputs = [ openexr hdf5-threadsafe ilmbase ];
+  buildInputs = [
+    openexr
+    hdf5-threadsafe
+    ilmbase
+  ];
 
   # Downstream packages trying to use Alembic via CMake need ilmbase as well
   # For some reason this won't be picked up correctly otherwise
@@ -63,6 +79,9 @@ stdenv.mkDerivation rec
     homepage = "http://alembic.io/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ guibou tmarkus ];
+    maintainers = with maintainers; [
+      guibou
+      tmarkus
+    ];
   };
 }

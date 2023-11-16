@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, pkg-config
-, bzip2
-, xz
-, zlib
-, zstd
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  bzip2,
+  xz,
+  zlib,
+  zstd,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,9 +23,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-TfAAU46rH6Jq0MuLRjbaVMRjzoSLYNAWBnUcT8DyIVg=";
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
-  buildInputs = [ bzip2 xz zlib zstd ];
+  buildInputs = [
+    bzip2
+    xz
+    zlib
+    zstd
+  ];
 
   buildFeatures = [ "zstd/pkg-config" ];
 
@@ -40,6 +49,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ouch-org/ouch";
     changelog = "https://github.com/ouch-org/ouch/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda psibi ];
+    maintainers = with maintainers; [
+      figsoda
+      psibi
+    ];
   };
 }

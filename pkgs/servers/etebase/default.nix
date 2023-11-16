@@ -1,18 +1,19 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, aiofiles
-, django_3
-, fastapi
-, msgpack
-, pynacl
-, redis
-, typing-extensions
-, withLdap ? true
-, python-ldap
-, withPostgres ? true
-, psycopg2
-, nix-update-script
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  aiofiles,
+  django_3,
+  fastapi,
+  msgpack,
+  pynacl,
+  redis,
+  typing-extensions,
+  withLdap ? true,
+  python-ldap,
+  withPostgres ? true,
+  psycopg2,
+  nix-update-script,
 }:
 
 buildPythonPackage rec {
@@ -37,8 +38,7 @@ buildPythonPackage rec {
     pynacl
     redis
     typing-extensions
-  ] ++ lib.optional withLdap python-ldap
-    ++ lib.optional withPostgres psycopg2;
+  ] ++ lib.optional withLdap python-ldap ++ lib.optional withPostgres psycopg2;
 
   installPhase = ''
     mkdir -p $out/bin $out/lib
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     chmod +x $out/bin/etebase-server
   '';
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://github.com/etesync/server";

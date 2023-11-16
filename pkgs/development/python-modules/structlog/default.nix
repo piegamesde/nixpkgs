@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, hatch-fancy-pypi-readme
-, hatch-vcs
-, hatchling
-, pretend
-, pytest-asyncio
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, simplejson
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  pretend,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  simplejson,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   nativeCheckInputs = [
     freezegun
@@ -48,9 +47,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  pythonImportsCheck = [
-    "structlog"
-  ];
+  pythonImportsCheck = [ "structlog" ];
 
   meta = with lib; {
     description = "Painless structural logging";

@@ -1,16 +1,17 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, ujson
-, yarl
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  ujson,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-G+/ooNhiYOaV0kjfr8Z1d31XxRYFArQnt1oIuMQfXdY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -47,14 +46,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Ignore the examples directory as the files are prefixed with test_.
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples directory as the files are prefixed with test_.
+      "examples/"
+    ];
 
-  pythonImportsCheck = [
-    "pyoutbreaksnearme"
-  ];
+  pythonImportsCheck = [ "pyoutbreaksnearme" ];
 
   meta = with lib; {
     description = "Library for retrieving data from for Outbreaks Near Me";

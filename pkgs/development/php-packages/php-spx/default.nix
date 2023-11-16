@@ -1,8 +1,14 @@
-{ buildPecl, lib, fetchFromGitHub, zlib }:
+{
+  buildPecl,
+  lib,
+  fetchFromGitHub,
+  zlib,
+}:
 
 let
   version = "0.4.14";
-in buildPecl {
+in
+buildPecl {
   inherit version;
   pname = "php-spx";
 
@@ -13,13 +19,13 @@ in buildPecl {
     hash = "sha256-LdR3ilknSUuNTAb9wfIpNGdaR3uwd4C47nZYRzfTfx8=";
   };
 
-  configureFlags = [
-    "--with-zlib-dir=${zlib.dev}"
-  ];
+  configureFlags = [ "--with-zlib-dir=${zlib.dev}" ];
 
   preConfigure = ''
     substituteInPlace Makefile.frag \
-      --replace '$(INSTALL_ROOT)$(prefix)/share/misc/php-spx/assets/web-ui' '${placeholder "out"}/share/misc/php-spx/assets/web-ui'
+      --replace '$(INSTALL_ROOT)$(prefix)/share/misc/php-spx/assets/web-ui' '${
+        placeholder "out"
+      }/share/misc/php-spx/assets/web-ui'
   '';
 
   meta = {

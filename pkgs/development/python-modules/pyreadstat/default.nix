@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cython_3
-, fetchFromGitHub
-, libiconv
-, pandas
-, python
-, pythonOlder
-, readstat
-, zlib
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cython_3,
+  fetchFromGitHub,
+  libiconv,
+  pandas,
+  python,
+  pythonOlder,
+  readstat,
+  zlib,
 }:
 
 buildPythonPackage rec {
@@ -25,24 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-+wa8HxQyEwdGF2LWJXTZ/gOFpC8P9+k5p4Lj3ePP2n8=";
   };
 
-  nativeBuildInputs = [
-    cython_3
-  ];
+  nativeBuildInputs = [ cython_3 ];
 
-  buildInputs = [
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-  ];
+  buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   propagatedBuildInputs = [
     readstat
     pandas
   ];
 
-  pythonImportsCheck = [
-    "pyreadstat"
-  ];
+  pythonImportsCheck = [ "pyreadstat" ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

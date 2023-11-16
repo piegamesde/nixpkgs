@@ -1,4 +1,5 @@
-final: prev: let
+final: prev:
+let
 
   sha256 = {
     "10.0" = "1zvh4xsdyc59m87brpcmssxsjlp9dkynh4asnkcmc3g94f53l0jw";
@@ -17,9 +18,7 @@ final: prev: let
     "12.1" = "sha256-xE0luOMq46zVsIEWwK4xjLs7NorcTIi9gbfZPVjIlqo=";
     "12.2" = "sha256-pOy0qfDjA/Nr0T9PNKKefK/63gQnJV2MQsN2g3S2yng=";
   };
-
-in prev.lib.attrsets.optionalAttrs (builtins.hasAttr prev.cudaVersion sha256) {
-  cuda-samples = final.callPackage ./generic.nix {
-    sha256 = sha256.${prev.cudaVersion};
-  };
+in
+prev.lib.attrsets.optionalAttrs (builtins.hasAttr prev.cudaVersion sha256) {
+  cuda-samples = final.callPackage ./generic.nix { sha256 = sha256.${prev.cudaVersion}; };
 }

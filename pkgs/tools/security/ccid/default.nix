@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pcsclite, pkg-config, libusb1, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pcsclite,
+  pkg-config,
+  libusb1,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ccid";
@@ -18,12 +26,18 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("--enable-usbdropdir=$out/pcsc/drivers")
   '';
 
-  nativeBuildInputs = [ pkg-config perl ];
-  buildInputs = [ pcsclite libusb1 ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    pcsclite
+    libusb1
+  ];
 
   # The resulting shared object ends up outside of the default paths which are
   # usually getting stripped.
-  stripDebugList = ["pcsc"];
+  stripDebugList = [ "pcsc" ];
 
   meta = with lib; {
     description = "ccid drivers for pcsclite";

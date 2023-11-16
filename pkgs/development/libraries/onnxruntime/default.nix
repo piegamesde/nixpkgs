@@ -1,26 +1,26 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchFromGitLab
-, fetchpatch
-, fetchurl
-, Foundation
-, abseil-cpp
-, cmake
-, libpng
-, nlohmann_json
-, nsync
-, pkg-config
-, python3Packages
-, re2
-, zlib
-, microsoft-gsl
-, iconv
-, gtest
-, protobuf3_21
-, pythonSupport ? true
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchpatch,
+  fetchurl,
+  Foundation,
+  abseil-cpp,
+  cmake,
+  libpng,
+  nlohmann_json,
+  nsync,
+  pkg-config,
+  python3Packages,
+  re2,
+  zlib,
+  microsoft-gsl,
+  iconv,
+  gtest,
+  protobuf3_21,
+  pythonSupport ? true,
 }:
-
 
 let
   howard-hinnant-date = fetchFromGitHub {
@@ -66,15 +66,17 @@ let
     sha256 = "sha256-L1B5Y/c897Jg9fGwT2J3+vaXsZ+lfXnskp8Gto1p/Tg=";
   };
 
-  gtest' = gtest.overrideAttrs (oldAttrs: rec {
-    version = "1.13.0";
-    src = fetchFromGitHub {
-      owner = "google";
-      repo = "googletest";
-      rev = "v${version}";
-      hash = "sha256-LVLEn+e7c8013pwiLzJiiIObyrlbBHYaioO/SWbItPQ=";
-    };
-    });
+  gtest' = gtest.overrideAttrs (
+    oldAttrs: rec {
+      version = "1.13.0";
+      src = fetchFromGitHub {
+        owner = "google";
+        repo = "googletest";
+        rev = "v${version}";
+        hash = "sha256-LVLEn+e7c8013pwiLzJiiIObyrlbBHYaioO/SWbItPQ=";
+      };
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "onnxruntime";
@@ -88,44 +90,56 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.python
-    protobuf3_21
-  ] ++ lib.optionals pythonSupport (with python3Packages; [
-    setuptools
-    wheel
-    pip
-    pythonOutputDistHook
-  ]);
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      python3Packages.python
+      protobuf3_21
+    ]
+    ++ lib.optionals pythonSupport (
+      with python3Packages; [
+        setuptools
+        wheel
+        pip
+        pythonOutputDistHook
+      ]
+    );
 
-  buildInputs = [
-    libpng
-    zlib
-    nlohmann_json
-    nsync
-    re2
-    microsoft-gsl
-  ] ++ lib.optionals pythonSupport [
-    python3Packages.numpy
-    python3Packages.pybind11
-    python3Packages.packaging
-  ] ++ lib.optionals stdenv.isDarwin [
-    Foundation
-    iconv
-  ];
+  buildInputs =
+    [
+      libpng
+      zlib
+      nlohmann_json
+      nsync
+      re2
+      microsoft-gsl
+    ]
+    ++ lib.optionals pythonSupport [
+      python3Packages.numpy
+      python3Packages.pybind11
+      python3Packages.packaging
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      iconv
+    ];
 
-  nativeCheckInputs = lib.optionals pythonSupport (with python3Packages; [
-    gtest'
-    pytest
-    sympy
-    onnx
-  ]);
+  nativeCheckInputs = lib.optionals pythonSupport (
+    with python3Packages; [
+      gtest'
+      pytest
+      sympy
+      onnx
+    ]
+  );
 
   # TODO: build server, and move .so's to lib output
   # Python's wheel is stored in a separate dist output
-  outputs = [ "out" "dev" ] ++ lib.optionals pythonSupport [ "dist" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals pythonSupport [ "dist" ];
 
   enableParallelBuilding = true;
 
@@ -150,19 +164,19 @@ stdenv.mkDerivation rec {
     "-Donnxruntime_BUILD_UNIT_TESTS=ON"
     "-Donnxruntime_ENABLE_LTO=ON"
     "-Donnxruntime_USE_FULL_PROTOBUF=OFF"
-  ] ++ lib.optionals pythonSupport [
-    "-Donnxruntime_ENABLE_PYTHON=ON"
-  ];
+  ] ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ];
 
   doCheck = true;
 
-  postPatch = ''
-    substituteInPlace cmake/libonnxruntime.pc.cmake.in \
-      --replace '$'{prefix}/@CMAKE_INSTALL_ @CMAKE_INSTALL_
-  '' + lib.optionalString (stdenv.hostPlatform.system == "aarch64-linux") ''
-    # https://github.com/NixOS/nixpkgs/pull/226734#issuecomment-1663028691
-    rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
-  '';
+  postPatch =
+    ''
+      substituteInPlace cmake/libonnxruntime.pc.cmake.in \
+        --replace '$'{prefix}/@CMAKE_INSTALL_ @CMAKE_INSTALL_
+    ''
+    + lib.optionalString (stdenv.hostPlatform.system == "aarch64-linux") ''
+      # https://github.com/NixOS/nixpkgs/pull/226734#issuecomment-1663028691
+      rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
+    '';
 
   postBuild = lib.optionalString pythonSupport ''
     python ../setup.py bdist_wheel
@@ -178,9 +192,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     protobuf = protobuf3_21;
-    tests = lib.optionalAttrs pythonSupport {
-      python = python3Packages.onnxruntime;
-    };
+    tests = lib.optionalAttrs pythonSupport { python = python3Packages.onnxruntime; };
   };
 
   meta = with lib; {
@@ -199,6 +211,11 @@ stdenv.mkDerivation rec {
     # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer puffnfresh ck3d cbourjau ];
+    maintainers = with maintainers; [
+      jonringer
+      puffnfresh
+      ck3d
+      cbourjau
+    ];
   };
 }

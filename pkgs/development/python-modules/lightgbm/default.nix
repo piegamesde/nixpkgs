@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
 
-# build-system
-, cmake
-, ninja
-, pathspec
-, pyproject-metadata
-, scikit-build-core
+  # build-system
+  cmake,
+  ninja,
+  pathspec,
+  pyproject-metadata,
+  scikit-build-core,
 
-# dependencies
-, llvmPackages
-, numpy
-, scipy
-, scikit-learn
-, pythonOlder
+  # dependencies
+  llvmPackages,
+  numpy,
+  scipy,
+  scikit-learn,
+  pythonOlder,
 
-# optionals: gpu
-, boost
-, cudatoolkit
-, ocl-icd
-, opencl-headers
-, gpuSupport ? stdenv.isLinux
+  # optionals: gpu
+  boost,
+  cudatoolkit,
+  ocl-icd,
+  opencl-headers,
+  gpuSupport ? stdenv.isLinux,
 }:
 
 buildPythonPackage rec {
@@ -47,14 +48,14 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = (lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ]) ++ (lib.optionals gpuSupport [
-    boost
-    cudatoolkit
-    ocl-icd
-    opencl-headers
-  ]);
+  buildInputs =
+    (lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ])
+    ++ (lib.optionals gpuSupport [
+      boost
+      cudatoolkit
+      ocl-icd
+      opencl-headers
+    ]);
 
   propagatedBuildInputs = [
     numpy
@@ -73,9 +74,7 @@ buildPythonPackage rec {
   # `make check`.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "lightgbm"
-  ];
+  pythonImportsCheck = [ "lightgbm" ];
 
   meta = {
     description = "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";

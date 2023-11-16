@@ -1,27 +1,35 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, docbook_xml_dtd_43
-, docbook-xsl-nons
-, glib
-, json-glib
-, gnutls
-, gpgme
-, gobject-introspection
-, vala
-, gtk-doc
-, meson
-, ninja
-, pkg-config
-, python3
-, nixosTests
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  docbook_xml_dtd_43,
+  docbook-xsl-nons,
+  glib,
+  json-glib,
+  gnutls,
+  gpgme,
+  gobject-introspection,
+  vala,
+  gtk-doc,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libjcat";
   version = "0.1.14";
 
-  outputs = [ "bin" "out" "dev" "devdoc" "man" "installedTests" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "hughsie";
@@ -30,10 +38,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XN7/ZtWCCO7lSspXM4vNowoWN1U0NGQPUTM9KjTEHjY=";
   };
 
-  patches = [
-    # Installed tests are installed to different output
-    ./installed-tests-path.patch
-  ];
+  patches =
+    [
+      # Installed tests are installed to different output
+      ./installed-tests-path.patch
+    ];
 
   nativeBuildInputs = [
     meson

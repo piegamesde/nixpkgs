@@ -1,17 +1,18 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, bunch
-, fetchPypi
-, kitchen
-, lockfile
-, munch
-, openidc-client
-, paver
-, pythonOlder
-, requests
-, six
-, urllib3
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  bunch,
+  fetchPypi,
+  kitchen,
+  lockfile,
+  munch,
+  openidc-client,
+  paver,
+  pythonOlder,
+  requests,
+  six,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "fedora"
-  ];
+  pythonImportsCheck = [ "fedora" ];
 
   meta = with lib; {
     description = "Module to interact with the infrastructure of the Fedora Project";

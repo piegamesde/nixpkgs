@@ -1,11 +1,12 @@
-{ fdupes
-, fetchzip
-, icoutils
-, imagemagick
-, jdk17
-, lib
-, makeDesktopItem
-, stdenv
+{
+  fdupes,
+  fetchzip,
+  icoutils,
+  imagemagick,
+  jdk17,
+  lib,
+  makeDesktopItem,
+  stdenv,
 }:
 
 let
@@ -16,12 +17,18 @@ stdenv.mkDerivation rec {
   version = "6.9.2";
 
   src = fetchzip {
-    url = "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${builtins.replaceStrings ["."] [""] version}-lin.zip";
+    url = "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }-lin.zip";
     sha256 = "sha256-x3ZRMtTvFGz2/0gJMx4zOx9rSnrSkCEl3pj5raeyVHg=";
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ fdupes icoutils imagemagick ];
+  nativeBuildInputs = [
+    fdupes
+    icoutils
+    imagemagick
+  ];
   desktopItem = makeDesktopItem {
     name = "STM32CubeMX";
     exec = "stm32cubemx";
@@ -78,7 +85,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.st.com/en/development-tools/stm32cubemx.html";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ angaz wucke13 ];
+    maintainers = with maintainers; [
+      angaz
+      wucke13
+    ];
     platforms = platforms.all;
   };
 }

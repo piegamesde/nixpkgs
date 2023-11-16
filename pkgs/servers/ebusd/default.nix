@@ -1,4 +1,17 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, argparse, mosquitto, cmake, autoconf, automake, libtool, pkg-config, openssl }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  fetchFromGitHub,
+  argparse,
+  mosquitto,
+  cmake,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ebusd";
@@ -25,9 +38,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  patches = [
-    ./patches/ebusd-cmake.patch
-  ];
+  patches = [ ./patches/ebusd-cmake.patch ];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_SYSCONFDIR=${placeholder "out"}/etc"
@@ -46,5 +57,5 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ nathan-gs ];
     platforms = platforms.linux;
- };
+  };
 }

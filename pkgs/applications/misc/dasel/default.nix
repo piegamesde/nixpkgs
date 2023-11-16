@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
 }:
 
 buildGoModule rec {
@@ -18,7 +19,9 @@ buildGoModule rec {
   vendorHash = "sha256-CbR0uHtha2OoHW9mcB1I2lGJbjerbZARVN/mTstv/Y0=";
 
   ldflags = [
-    "-s" "-w" "-X github.com/tomwright/dasel/v2/internal.Version=${version}"
+    "-s"
+    "-w"
+    "-X github.com/tomwright/dasel/v2/internal.Version=${version}"
   ];
 
   nativeBuildInputs = [ installShellFiles ];

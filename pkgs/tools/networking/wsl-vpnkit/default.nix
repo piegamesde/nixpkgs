@@ -1,26 +1,29 @@
-{ lib
-, resholve
-, fetchFromGitHub
+{
+  lib,
+  resholve,
+  fetchFromGitHub,
 
   # Runtime dependencies
-, coreutils
-, dnsutils
-, gawk
-, gnugrep
-, gvproxy
-, iproute2
-, iptables
-, iputils
-, wget
+  coreutils,
+  dnsutils,
+  gawk,
+  gnugrep,
+  gvproxy,
+  iproute2,
+  iptables,
+  iputils,
+  wget,
 }:
 
 let
   version = "0.4.1";
-  gvproxyWin = gvproxy.overrideAttrs (_: {
-    buildPhase = ''
-      GOARCH=amd64 GOOS=windows go build -ldflags '-s -w' -o bin/gvproxy-windows.exe ./cmd/gvproxy
-    '';
-  });
+  gvproxyWin = gvproxy.overrideAttrs (
+    _: {
+      buildPhase = ''
+        GOARCH=amd64 GOOS=windows go build -ldflags '-s -w' -o bin/gvproxy-windows.exe ./cmd/gvproxy
+      '';
+    }
+  );
 in
 resholve.mkDerivation {
   pname = "wsl-vpnkit";

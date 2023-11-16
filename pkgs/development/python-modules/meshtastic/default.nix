@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, dotmap
-, fetchFromGitHub
-, pexpect
-, protobuf
-, pygatt
-, pypubsub
-, pyqrcode
-, pyserial
-, pytap2
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, setuptools
-, tabulate
-, timeago
+{
+  lib,
+  buildPythonPackage,
+  dotmap,
+  fetchFromGitHub,
+  pexpect,
+  protobuf,
+  pygatt,
+  pypubsub,
+  pyqrcode,
+  pyserial,
+  pytap2,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  setuptools,
+  tabulate,
+  timeago,
 }:
 
 buildPythonPackage rec {
@@ -48,9 +49,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    tunnel = [
-      pytap2
-    ];
+    tunnel = [ pytap2 ];
   };
 
   nativeCheckInputs = [
@@ -62,9 +61,7 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [
-    "meshtastic"
-  ];
+  pythonImportsCheck = [ "meshtastic" ];
 
   disabledTests = [
     # AttributeError: 'HardwareMessage'...

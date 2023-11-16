@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, beautifulsoup4
-, comicon
-, feedparser
-, filetype
-, lxml
-, natsort
-, pillow
-, python-slugify
-, requests
-, typer
-, pyside6
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  beautifulsoup4,
+  comicon,
+  feedparser,
+  filetype,
+  lxml,
+  natsort,
+  pillow,
+  python-slugify,
+  requests,
+  typer,
+  pyside6,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-2kFzB1xLVEvO7Vo39lwQsVirRY6Z8GMczWK2b1oVYTg=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -45,9 +44,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    gui = [
-      pyside6
-    ];
+    gui = [ pyside6 ];
   };
 
   postPatch = ''

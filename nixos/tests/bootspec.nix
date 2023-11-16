@@ -1,6 +1,7 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
@@ -124,7 +125,7 @@ in
     nodes.machine = {
       imports = [ standard ];
       environment.systemPackages = [ pkgs.jq ];
-      specialisation.something.configuration = {};
+      specialisation.something.configuration = { };
     };
 
     testScript = ''
@@ -148,15 +149,17 @@ in
     name = "bootspec-with-extensions";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
 
-    nodes.machine = { config, ... }: {
-      imports = [ standard ];
-      environment.systemPackages = [ pkgs.jq ];
-      boot.bootspec.extensions = {
-        "org.nix-tests.product" = {
-          osRelease = config.environment.etc."os-release".source;
+    nodes.machine =
+      { config, ... }:
+      {
+        imports = [ standard ];
+        environment.systemPackages = [ pkgs.jq ];
+        boot.bootspec.extensions = {
+          "org.nix-tests.product" = {
+            osRelease = config.environment.etc."os-release".source;
+          };
         };
       };
-    };
 
     testScript = ''
       machine.start()
@@ -168,5 +171,4 @@ in
       assert current_os_release == bootspec_os_release, "Filename referenced by extension has unexpected contents"
     '';
   };
-
 }

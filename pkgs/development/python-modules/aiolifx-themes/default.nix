@@ -1,13 +1,14 @@
-{ lib
-, aiolifx
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, typer
+{
+  lib,
+  aiolifx,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  typer,
 }:
 
 buildPythonPackage rec {
@@ -36,13 +37,9 @@ buildPythonPackage rec {
       --replace 'aiolifx = "^0.8.6"' 'aiolifx = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiolifx
-  ];
+  propagatedBuildInputs = [ aiolifx ];
 
   nativeCheckInputs = [
     async-timeout
@@ -50,9 +47,7 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [
-    "aiolifx_themes"
-  ];
+  pythonImportsCheck = [ "aiolifx_themes" ];
 
   meta = with lib; {
     description = "Color themes for LIFX lights running on aiolifx";

@@ -1,9 +1,10 @@
-{ lib
-, callPackage
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, hatchling
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  hatchling,
 }:
 
 buildPythonPackage rec {
@@ -17,18 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-YnmDbVgVE6JvG/I1+azTM7yRFWg/FPfo+uRsmPxQ4BU=";
   };
 
-  patches = [
-    # hatch-vcs and hatch-fancy-pypi-readme depend on pytest, which depends on attrs
-    ./remove-hatch-plugins.patch
-  ];
+  patches =
+    [
+      # hatch-vcs and hatch-fancy-pypi-readme depend on pytest, which depends on attrs
+      ./remove-hatch-plugins.patch
+    ];
 
   postPatch = ''
     substituteAllInPlace pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   outputs = [
     "out"
@@ -41,9 +41,7 @@ buildPythonPackage rec {
     cp -R conftest.py tests $testout
   '';
 
-  pythonImportsCheck = [
-    "attr"
-  ];
+  pythonImportsCheck = [ "attr" ];
 
   # pytest depends on attrs, so we can't do this out-of-the-box.
   # Instead, we do this as a passthru.tests test.

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, db, gtk2, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  db,
+  gtk2,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jigdo";
@@ -17,7 +24,11 @@ stdenv.mkDerivation rec {
     ./sizewidth.patch
   ];
 
-  buildInputs = [ db gtk2 bzip2 ];
+  buildInputs = [
+    db
+    gtk2
+    bzip2
+  ];
 
   configureFlags = [ "--without-libdb" ];
 

@@ -1,14 +1,18 @@
-{ lib, stdenv, fetchFromGitHub
-, autoPatchelfHook
-, fuse3
-, maven, jdk, makeShellWrapper, glib, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  fuse3,
+  maven,
+  jdk,
+  makeShellWrapper,
+  glib,
+  wrapGAppsHook,
 }:
 
-
 let
-  mavenJdk = maven.override {
-    jdk = jdk;
-  };
+  mavenJdk = maven.override { jdk = jdk; };
 in
 assert stdenv.isLinux; # better than `called with unexpected argument 'enableJavaFX'`
 mavenJdk.buildMavenPackage rec {
@@ -29,7 +33,6 @@ mavenJdk.buildMavenPackage rec {
     VERSION=${version}
     SEMVER_STR=${version}
   '';
-
 
   # This is based on the instructins in https://github.com/cryptomator/cryptomator/blob/develop/dist/linux/appimage/build.sh
   installPhase = ''
@@ -58,7 +61,12 @@ mavenJdk.buildMavenPackage rec {
       --add-flags "-Djavafx.embed.singleThread=true " \
       --add-flags "-Dawt.useSystemAAFontSettings=on" \
       --add-flags "--module org.cryptomator.desktop/org.cryptomator.launcher.Cryptomator" \
-      --prefix PATH : "$out/share/cryptomator/libs/:${lib.makeBinPath [ jdk glib ]}" \
+      --prefix PATH : "$out/share/cryptomator/libs/:${
+        lib.makeBinPath [
+          jdk
+          glib
+        ]
+      }" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fuse3 ]}" \
       --set JAVA_HOME "${jdk.home}"
 
@@ -80,14 +88,18 @@ mavenJdk.buildMavenPackage rec {
     wrapGAppsHook
     jdk
   ];
-  buildInputs = [ fuse3 jdk glib ];
+  buildInputs = [
+    fuse3
+    jdk
+    glib
+  ];
 
   meta = with lib; {
     description = "Free client-side encryption for your cloud files";
     homepage = "https://cryptomator.org";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ bachp ];

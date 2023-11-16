@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, python
-, oldest-supported-numpy
-, setuptools
-, wheel
-, numpy
-, zlib
-, netcdf
-, hdf5
-, curl
-, libjpeg
-, cython
-, cftime
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  python,
+  oldest-supported-numpy,
+  setuptools,
+  wheel,
+  numpy,
+  zlib,
+  netcdf,
+  hdf5,
+  curl,
+  libjpeg,
+  cython,
+  cftime,
 }:
 
 buildPythonPackage rec {

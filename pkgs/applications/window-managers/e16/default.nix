@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, freetype
-, imlib2
-, libSM
-, libXcomposite
-, libXdamage
-, libXext
-, libXfixes
-, libXft
-, libXinerama
-, libXrandr
-, libpulseaudio
-, libsndfile
-, pango
-, perl
-, gitUpdater
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  freetype,
+  imlib2,
+  libSM,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXft,
+  libXinerama,
+  libXrandr,
+  libpulseaudio,
+  libsndfile,
+  pango,
+  perl,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,9 +29,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-k3W2IoBc75DNQ2QSjChsC/yVRO/aZT3E31Tl/njgH30=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     freetype

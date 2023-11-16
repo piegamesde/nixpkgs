@@ -1,5 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, gettext
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  gettext,
+  python3,
 }:
 
 stdenv.mkDerivation {
@@ -29,15 +34,20 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  propagatedBuildInputs = with python3.pkgs; [ mutagen wxPython_4_2 pillow six ];
+  propagatedBuildInputs = with python3.pkgs; [
+    mutagen
+    wxPython_4_2
+    pillow
+    six
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "a graphical mass renaming program for files and folders";
-    homepage    = "https://github.com/timinaust/metamorphose2";
-    license     = with licenses; gpl3Plus;
+    homepage = "https://github.com/timinaust/metamorphose2";
+    license = with licenses; gpl3Plus;
     maintainers = with maintainers; [ ramkromberg ];
-    platforms   = with platforms; linux;
+    platforms = with platforms; linux;
   };
 }

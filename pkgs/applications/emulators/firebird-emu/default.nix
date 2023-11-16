@@ -1,4 +1,11 @@
-{ mkDerivation, lib, fetchFromGitHub, qmake, qtbase, qtdeclarative }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtdeclarative,
+}:
 
 mkDerivation rec {
   pname = "firebird-emu";
@@ -14,7 +21,10 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtbase qtdeclarative ];
+  buildInputs = [
+    qtbase
+    qtdeclarative
+  ];
 
   meta = {
     homepage = "https://github.com/nspire-emus/firebird";

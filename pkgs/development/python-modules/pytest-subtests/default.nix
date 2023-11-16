@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -24,13 +25,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_subtests"
-  ];
+  pythonImportsCheck = [ "pytest_subtests" ];
 
   meta = with lib; {
     description = "Pytest plugin for unittest subTest() support and subtests fixture";

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -18,19 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-7Vt06ZfuoqvjwTIfkW40QUTujpBypvM0Y+6OV/hYpLE=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "w3lib"
-  ];
+  pythonImportsCheck = [ "w3lib" ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    # regressed on Python 3.11.4
-    # https://github.com/scrapy/w3lib/issues/212
-    "test_safe_url_string_url"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.11")
+      [
+        # regressed on Python 3.11.4
+        # https://github.com/scrapy/w3lib/issues/212
+        "test_safe_url_string_url"
+      ];
 
   meta = with lib; {
     description = "Library of web-related functions";

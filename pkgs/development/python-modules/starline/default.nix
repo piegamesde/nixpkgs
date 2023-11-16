@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, requests
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     sha256 = "550b00ab95cf59d933f7708abab40a4e41e5790e62b653471afe86a3af3320e6";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # no tests implemented
   doCheck = false;

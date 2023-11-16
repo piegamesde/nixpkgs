@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "kubepug";
@@ -19,9 +23,7 @@ buildGoModule rec {
     "-X sigs.k8s.io/release-utils/version.gitVersion=${version}"
   ];
 
-  patches = [
-    ./skip-external-network-tests.patch
-  ];
+  patches = [ ./skip-external-network-tests.patch ];
 
   meta = with lib; {
     description = "Checks a Kubernetes cluster for objects using deprecated API versions";

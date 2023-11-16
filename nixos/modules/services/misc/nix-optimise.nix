@@ -14,7 +14,7 @@ in
       };
 
       dates = lib.mkOption {
-        default = ["03:45"];
+        default = [ "03:45" ];
         type = with lib.types; listOf str;
         description = lib.mdDoc ''
           Specification (in the format described by
@@ -29,7 +29,7 @@ in
     assertions = [
       {
         assertion = cfg.automatic -> config.nix.enable;
-        message = ''nix.optimise.automatic requires nix.enable'';
+        message = "nix.optimise.automatic requires nix.enable";
       }
     ];
 

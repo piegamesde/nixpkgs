@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, python3
-, glibcLocales
-, coreutils
-, git
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  glibcLocales,
+  coreutils,
+  git,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -68,10 +69,26 @@ python3.pkgs.buildPythonApplication rec {
     HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [ glibcLocales git ] ++
-    (with python3.pkgs; [ pip pyte pytestCheckHook pytest-mock pytest-subprocess ]);
+  nativeCheckInputs =
+    [
+      glibcLocales
+      git
+    ]
+    ++ (
+      with python3.pkgs; [
+        pip
+        pyte
+        pytestCheckHook
+        pytest-mock
+        pytest-subprocess
+      ]
+    );
 
-  propagatedBuildInputs = with python3.pkgs; [ ply prompt-toolkit pygments ];
+  propagatedBuildInputs = with python3.pkgs; [
+    ply
+    prompt-toolkit
+    pygments
+  ];
 
   meta = with lib; {
     description = "A Python-ish, BASHwards-compatible shell";

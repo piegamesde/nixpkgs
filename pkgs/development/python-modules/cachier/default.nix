@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pythonRelaxDepsHook
-, setuptools
-, watchdog
-, portalocker
-, pathtools
-, pytestCheckHook
-, pymongo
-, dnspython
-, pymongo-inmemory
-, pandas
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  setuptools,
+  watchdog,
+  portalocker,
+  pathtools,
+  pytestCheckHook,
+  pymongo,
+  dnspython,
+  pymongo-inmemory,
+  pandas,
 }:
 
 buildPythonPackage rec {

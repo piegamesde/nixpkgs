@@ -1,61 +1,65 @@
-{ lib
-, stdenv
-, fetchurl
-, ninja
-, meson
-, mesonEmulatorHook
-, pkg-config
-, vala
-, gobject-introspection
-, libxml2
-, gtk-doc
-, docbook_xsl
-, docbook_xml_dtd_43
-, dbus
-, xvfb-run
-, glib
-, gtk3
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ninja,
+  meson,
+  mesonEmulatorHook,
+  pkg-config,
+  vala,
+  gobject-introspection,
+  libxml2,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  dbus,
+  xvfb-run,
+  glib,
+  gtk3,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libdazzle";
   version = "3.44.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libdazzle/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libdazzle/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "PNPkXrbiaAywXVLh6A3Y+dWdR2UhLw4o945sF4PRjq4=";
   };
 
-  nativeBuildInputs = [
-    ninja
-    meson
-    pkg-config
-    vala
-    gobject-introspection
-    libxml2
-    gtk-doc
-    docbook_xsl
-    docbook_xml_dtd_43
-    dbus
-    glib
-  ] ++ lib.optionals stdenv.isLinux [
-    xvfb-run
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  nativeBuildInputs =
+    [
+      ninja
+      meson
+      pkg-config
+      vala
+      gobject-introspection
+      libxml2
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_43
+      dbus
+      glib
+    ]
+    ++ lib.optionals stdenv.isLinux [ xvfb-run ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     glib
     gtk3
   ];
 
-  mesonFlags = [
-    "-Denable_gtk_doc=true"
-  ];
+  mesonFlags = [ "-Denable_gtk_doc=true" ];
 
   doCheck = stdenv.isLinux;
 
@@ -66,9 +70,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

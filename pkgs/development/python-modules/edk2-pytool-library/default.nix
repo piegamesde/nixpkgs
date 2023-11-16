@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, pythonRelaxDepsHook
-, pyasn1
-, pyasn1-modules
-, cryptography
-, joblib
-, gitpython
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  pythonRelaxDepsHook,
+  pyasn1,
+  pyasn1-modules,
+  cryptography,
+  joblib,
+  gitpython,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -46,14 +47,13 @@ buildPythonPackage rec {
     gitpython
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # requires network access
-    "test_basic_parse"
-  ];
+  disabledTests =
+    [
+      # requires network access
+      "test_basic_parse"
+    ];
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

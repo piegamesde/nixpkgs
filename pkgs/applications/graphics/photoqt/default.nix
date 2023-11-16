@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, extra-cmake-modules
-, qttools
-, wrapQtAppsHook
-, exiv2
-, graphicsmagick
-, kimageformats
-, libarchive
-, libraw
-, mpv
-, poppler
-, pugixml
-, qtbase
-, qtdeclarative
-, qtgraphicaleffects
-, qtmultimedia
-, qtquickcontrols
-, qtquickcontrols2
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  qttools,
+  wrapQtAppsHook,
+  exiv2,
+  graphicsmagick,
+  kimageformats,
+  libarchive,
+  libraw,
+  mpv,
+  poppler,
+  pugixml,
+  qtbase,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtmultimedia,
+  qtquickcontrols,
+  qtquickcontrols2,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,16 +31,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-kVf9+zI9rtEMmS0N4qrN673T/1fnqfcV3hQPnMXMLas=";
   };
 
-  postPatch = ''
-    # exiv2 0.28.1
-    substituteInPlace CMakeLists.txt \
-      --replace "exiv2lib" "exiv2"
-  ''
-  # error: no member named 'setlocale' in namespace 'std'; did you mean simply 'setlocale'?
-  + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace cplusplus/main.cpp \
-      --replace "std::setlocale" "setlocale"
-  '';
+  postPatch =
+    ''
+      # exiv2 0.28.1
+      substituteInPlace CMakeLists.txt \
+        --replace "exiv2lib" "exiv2"
+    ''
+    # error: no member named 'setlocale' in namespace 'std'; did you mean simply 'setlocale'?
+    + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace cplusplus/main.cpp \
+        --replace "std::setlocale" "setlocale"
+    '';
 
   nativeBuildInputs = [
     cmake

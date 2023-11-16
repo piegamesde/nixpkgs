@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.matrix-synapse.sliding-sync;
@@ -37,7 +42,14 @@ in
           };
 
           SYNCV3_LOG_LEVEL = lib.mkOption {
-            type = lib.types.enum [ "trace" "debug" "info" "warn" "error" "fatal" ];
+            type = lib.types.enum [
+              "trace"
+              "debug"
+              "info"
+              "warn"
+              "error"
+              "fatal"
+            ];
             default = "info";
             description = lib.mdDoc "The level of verbosity for messages logged.";
           };
@@ -74,10 +86,12 @@ in
     services.postgresql = lib.optionalAttrs cfg.createDatabase {
       enable = true;
       ensureDatabases = [ "matrix-sliding-sync" ];
-      ensureUsers = [ rec {
-        name = "matrix-sliding-sync";
-        ensurePermissions."DATABASE \"${name}\"" = "ALL PRIVILEGES";
-      } ];
+      ensureUsers = [
+        rec {
+          name = "matrix-sliding-sync";
+          ensurePermissions."DATABASE \"${name}\"" = "ALL PRIVILEGES";
+        }
+      ];
     };
 
     systemd.services.matrix-sliding-sync = rec {

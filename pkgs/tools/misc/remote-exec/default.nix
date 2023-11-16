@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonApplication
-, click
-, pydantic
-, toml
-, watchdog
-, pytestCheckHook
-, rsync
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonApplication,
+  click,
+  pydantic,
+  toml,
+  watchdog,
+  pytestCheckHook,
+  rsync,
 }:
 
 buildPythonApplication rec {
@@ -41,19 +42,17 @@ buildPythonApplication rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    rsync
-  ];
+  nativeCheckInputs = [ rsync ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = lib.optionals stdenv.isDarwin [
-    # `watchdog` dependency does not correctly detect fsevents on darwin.
-    # this only affects `remote --stream-changes`
-    "test/test_file_changes.py"
-  ];
+  disabledTestPaths =
+    lib.optionals stdenv.isDarwin
+      [
+        # `watchdog` dependency does not correctly detect fsevents on darwin.
+        # this only affects `remote --stream-changes`
+        "test/test_file_changes.py"
+      ];
 
   meta = with lib; {
     description = "Work with remote hosts seamlessly via rsync and ssh";

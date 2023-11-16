@@ -1,26 +1,27 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build-system
-, flit-core
+  # build-system
+  flit-core,
 
-# docs
-, sphinxHook
-, sphinx-rtd-theme
-, myst-parser
+  # docs
+  sphinxHook,
+  sphinx-rtd-theme,
+  myst-parser,
 
-# propagates
-, typing-extensions
+  # propagates
+  typing-extensions,
 
-# optionals
-, cryptography
-, pillow
+  # optionals
+  cryptography,
+  pillow,
 
-# tests
-, pytestCheckHook
-, pytest-timeout
+  # tests
+  pytestCheckHook,
+  pytest-timeout,
 }:
 
 buildPythonPackage rec {
@@ -56,23 +57,15 @@ buildPythonPackage rec {
       --replace "--disable-socket" ""
   '';
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   passthru.optional-dependencies = rec {
     full = crypto ++ image;
-    crypto = [
-      cryptography
-    ];
-    image = [
-      pillow
-    ];
+    crypto = [ cryptography ];
+    image = [ pillow ];
   };
 
-  pythonImportsCheck = [
-    "pypdf"
-  ];
+  pythonImportsCheck = [ "pypdf" ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -81,13 +74,15 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     # don't access the network
-    "-m" "'not enable_socket'"
+    "-m"
+    "'not enable_socket'"
   ];
 
-  disabledTests = [
-    # requires fpdf2 which we don't package yet
-    "test_compression"
-  ];
+  disabledTests =
+    [
+      # requires fpdf2 which we don't package yet
+      "test_compression"
+    ];
 
   meta = with lib; {
     description = "A pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files";

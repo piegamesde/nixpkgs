@@ -1,19 +1,20 @@
-{ lib
-, branca
-, buildPythonPackage
-, fetchFromGitHub
-, geopandas
-, jinja2
-, nbconvert
-, numpy
-, pandas
-, pillow
-, pytestCheckHook
-, pythonOlder
-, requests
-, selenium
-, setuptools-scm
-, xyzservices
+{
+  lib,
+  branca,
+  buildPythonPackage,
+  fetchFromGitHub,
+  geopandas,
+  jinja2,
+  nbconvert,
+  numpy,
+  pandas,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  selenium,
+  setuptools-scm,
+  xyzservices,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     branca
@@ -64,9 +63,7 @@ buildPythonPackage rec {
     "test_valid_png"
   ];
 
-  pythonImportsCheck = [
-    "folium"
-  ];
+  pythonImportsCheck = [ "folium" ];
 
   meta = {
     description = "Make beautiful maps with Leaflet.js & Python";

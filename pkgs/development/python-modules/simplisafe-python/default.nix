@@ -1,20 +1,21 @@
-{ lib
-, aiohttp
-, aresponses
-, backoff
-, beautifulsoup4
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
-, types-pytz
-, voluptuous
-, websockets
+{
+  lib,
+  aiohttp,
+  aresponses,
+  backoff,
+  beautifulsoup4,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  types-pytz,
+  voluptuous,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -31,10 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-U3SbaR8PTTvoAMu65+LAHSwTmR7iwqiidbefW8bNSCo=";
   };
 
-
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -62,14 +60,13 @@ buildPythonPackage rec {
     "test_client_async_from_refresh_token_unknown_error"
   ];
 
-  disabledTestPaths = [
-    # Ignore the examples as they are prefixed with test_
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples as they are prefixed with test_
+      "examples/"
+    ];
 
-  pythonImportsCheck = [
-    "simplipy"
-  ];
+  pythonImportsCheck = [ "simplipy" ];
 
   __darwinAllowLocalNetworking = true;
 

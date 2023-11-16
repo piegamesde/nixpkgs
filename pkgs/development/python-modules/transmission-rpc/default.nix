@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, python-dotenv
-, pytz
-, requests
-, typing-extensions
-, yarl
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  python-dotenv,
+  pytz,
+  requests,
+  typing-extensions,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-HthWeFInolNEs7RNA773DJjhGvl1rfDhvhO8WwRwuuY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     requests
@@ -41,14 +40,13 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [
-    "transmission_rpc"
-  ];
+  pythonImportsCheck = [ "transmission_rpc" ];
 
-  disabledTests = [
-    # Tests require a running Transmission instance
-    "test_real"
-  ];
+  disabledTests =
+    [
+      # Tests require a running Transmission instance
+      "test_real"
+    ];
 
   meta = with lib; {
     description = "Python module that implements the Transmission bittorent client RPC protocol";

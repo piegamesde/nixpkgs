@@ -1,32 +1,33 @@
-{ fetchurl
-, fetchpatch
-, lib
-, stdenv
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, gnome
-, glib
-, gtk3
-, gsettings-desktop-schemas
-, gnome-desktop
-, dbus
-, json-glib
-, libICE
-, xmlto
-, docbook_xsl
-, docbook_xml_dtd_412
-, python3
-, libxslt
-, gettext
-, makeWrapper
-, systemd
-, xorg
-, libepoxy
-, bash
-, gnome-session-ctl
-, gnomeShellSupport ? true
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  glib,
+  gtk3,
+  gsettings-desktop-schemas,
+  gnome-desktop,
+  dbus,
+  json-glib,
+  libICE,
+  xmlto,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  python3,
+  libxslt,
+  gettext,
+  makeWrapper,
+  systemd,
+  xorg,
+  libepoxy,
+  bash,
+  gnome-session-ctl,
+  gnomeShellSupport ? true,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,10 +35,15 @@ stdenv.mkDerivation rec {
   # Also bump ./ctl.nix when bumping major version.
   version = "44.0";
 
-  outputs = [ "out" "sessions" ];
+  outputs = [
+    "out"
+    "sessions"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-session/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-session/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "zPgpqWUmE16en5F1JlFdNqUJK9+jFvNzfdjFpSTb8sY=";
   };
 
@@ -121,7 +127,9 @@ stdenv.mkDerivation rec {
     wrapProgram "$out/libexec/gnome-session-binary" \
       --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
       --suffix XDG_DATA_DIRS : "$out/share:$GSETTINGS_SCHEMAS_PATH" \
-      ${lib.optionalString gnomeShellSupport "--suffix XDG_DATA_DIRS : \"${gnome.gnome-shell}/share\""} \
+      ${
+        lib.optionalString gnomeShellSupport ''--suffix XDG_DATA_DIRS : "${gnome.gnome-shell}/share"''
+      } \
       --suffix XDG_CONFIG_DIRS : "${gnome.gnome-settings-daemon}/etc/xdg"
   '';
 

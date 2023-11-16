@@ -1,4 +1,16 @@
-{ lib, fetchFromGitHub, fetchPypi, substituteAll, python39, fluidsynth, soundfont-fluid, wrapGAppsHook, abcmidi, abcm2ps, ghostscript }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchPypi,
+  substituteAll,
+  python39,
+  fluidsynth,
+  soundfont-fluid,
+  wrapGAppsHook,
+  abcmidi,
+  abcm2ps,
+  ghostscript,
+}:
 
 let
   # requires python39 due to https://stackoverflow.com/a/71902541 https://github.com/jwdj/EasyABC/issues/52
@@ -7,17 +19,20 @@ let
     packageOverrides = self: super: {
       # currently broken with 4.2.1
       # https://github.com/jwdj/EasyABC/issues/75
-      wxPython_4_2 = super.wxPython_4_2.overrideAttrs (args: rec {
-        version = "4.2.0";
-        src = fetchPypi {
-          inherit version;
-          pname = "wxPython";
-          hash = "sha256-ZjzrxFCdfl0RNRiGX+J093+VQ0xdV7w4btWNZc7thsc=";
-        };
-      });
+      wxPython_4_2 = super.wxPython_4_2.overrideAttrs (
+        args: rec {
+          version = "4.2.0";
+          src = fetchPypi {
+            inherit version;
+            pname = "wxPython";
+            hash = "sha256-ZjzrxFCdfl0RNRiGX+J093+VQ0xdV7w4btWNZc7thsc=";
+          };
+        }
+      );
     };
   };
-in python.pkgs.buildPythonApplication {
+in
+python.pkgs.buildPythonApplication {
   pname = "easyabc";
   version = "1.3.8.6";
 

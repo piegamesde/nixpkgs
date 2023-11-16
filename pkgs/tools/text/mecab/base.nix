@@ -11,9 +11,7 @@ finalAttrs: {
 
   buildInputs = [ libiconv ];
 
-  configureFlags = [
-    "--with-charset=utf8"
-  ];
+  configureFlags = [ "--with-charset=utf8" ];
 
   doCheck = true;
 }

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, jax
-, jaxlib
-, jaxtyping
-, typing-extensions
-, beartype
-, optax
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  jax,
+  jaxlib,
+  jaxtyping,
+  typing-extensions,
+  beartype,
+  optax,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-qFTKiY/t2LCCWJBOSfaX0hYQInrpXgfhTc+J4iuyVbM=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     jax

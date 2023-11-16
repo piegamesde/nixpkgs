@@ -1,14 +1,16 @@
-{ lib, stdenv
-, fetchCrate
-, rustPlatform
-, installShellFiles
-, pkg-config
-, libsodium
-, openssl
-, xxHash
-, darwin
-, gitImportSupport ? true
-, libgit2 ? null
+{
+  lib,
+  stdenv,
+  fetchCrate,
+  rustPlatform,
+  installShellFiles,
+  pkg-config,
+  libsodium,
+  openssl,
+  xxHash,
+  darwin,
+  gitImportSupport ? true,
+  libgit2 ? null,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,12 +25,24 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-+KF1G4bDfcjHHzZR93lIR8muO6s3j5jDobr3A7Arr+Q=";
 
   doCheck = false;
-  nativeBuildInputs = [ installShellFiles pkg-config ];
-  buildInputs = [ openssl libsodium xxHash ]
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
+  buildInputs =
+    [
+      openssl
+      libsodium
+      xxHash
+    ]
     ++ (lib.optionals gitImportSupport [ libgit2 ])
-    ++ (lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreServices Security SystemConfiguration
-    ]));
+    ++ (lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        CoreServices
+        Security
+        SystemConfiguration
+      ]
+    ));
 
   buildFeatures = lib.optional gitImportSupport "git";
 
@@ -43,6 +57,10 @@ rustPlatform.buildRustPackage rec {
     description = "A distributed version control system";
     homepage = "https://pijul.org";
     license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ gal_bolle dywedir fabianhjr ];
+    maintainers = with maintainers; [
+      gal_bolle
+      dywedir
+      fabianhjr
+    ];
   };
 }

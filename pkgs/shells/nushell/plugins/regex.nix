@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, nix-update-script
-, IOKit
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix-update-script,
+  IOKit,
 }:
 
 rustPlatform.buildRustPackage {

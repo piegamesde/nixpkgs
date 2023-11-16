@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, ipython
-, ipython-genutils
-, pandas
-, prettytable
-, pytest
-, sqlalchemy
-, sqlparse
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  ipython,
+  ipython-genutils,
+  pandas,
+  prettytable,
+  pytest,
+  sqlalchemy,
+  sqlparse,
 }:
 buildPythonPackage rec {
   pname = "ipython-sql";
@@ -35,7 +36,11 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  nativeCheckInputs = [ ipython pandas pytest ];
+  nativeCheckInputs = [
+    ipython
+    pandas
+    pytest
+  ];
 
   checkPhase = ''
     runHook preCheck

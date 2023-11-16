@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, glfw
-, moderngl
-, numpy
-, pillow
-, pygame
-, pyglet
-, pyqt5
-, pyrr
-, pysdl2
-, pyside2
-, pythonOlder
-, scipy
-, trimesh
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  glfw,
+  moderngl,
+  numpy,
+  pillow,
+  pygame,
+  pyglet,
+  pyqt5,
+  pyrr,
+  pysdl2,
+  pyside2,
+  pythonOlder,
+  scipy,
+  trimesh,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-OfvIxezeZyuv5LLbe+4o1X2UCGnXT2DNvAF7t2Isw6Y=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     numpy
@@ -49,29 +48,17 @@ buildPythonPackage rec {
       trimesh
       scipy
     ];
-    glfw = [
-      glfw
-    ];
-    pygame = [
-      pygame
-    ];
-    PySDL2 = [
-      pysdl2
-    ];
-    PySide2 = [
-      pyside2
-    ];
-    pyqt5 = [
-      pyqt5
-    ];
+    glfw = [ glfw ];
+    pygame = [ pygame ];
+    PySDL2 = [ pysdl2 ];
+    PySide2 = [ pyside2 ];
+    pyqt5 = [ pyqt5 ];
   };
 
   # Tests need a display to run.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "moderngl_window"
-  ];
+  pythonImportsCheck = [ "moderngl_window" ];
 
   meta = with lib; {
     description = "Cross platform helper library for ModernGL making window creation and resource loading simple";

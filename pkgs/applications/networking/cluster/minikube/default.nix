@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, pkg-config
-, which
-, libvirt
-, vmnet
-, makeWrapper
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  which,
+  libvirt,
+  vmnet,
+  makeWrapper,
 }:
 
 buildGoModule rec {
@@ -25,9 +26,20 @@ buildGoModule rec {
     sha256 = "sha256-Ha0liXc2oXJ3dLty1veN5xN5BUKIiNXe8NTGqWDbTD0=";
   };
 
-  nativeBuildInputs = [ installShellFiles pkg-config which makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    which
+    makeWrapper
+  ];
 
-  buildInputs = if stdenv.isDarwin then [ vmnet ] else if stdenv.isLinux then [ libvirt ] else null;
+  buildInputs =
+    if stdenv.isDarwin then
+      [ vmnet ]
+    else if stdenv.isLinux then
+      [ libvirt ]
+    else
+      null;
 
   buildPhase = ''
     make COMMIT=${src.rev}
@@ -49,6 +61,12 @@ buildGoModule rec {
     homepage = "https://minikube.sigs.k8s.io";
     description = "A tool that makes it easy to run Kubernetes locally";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ebzzry copumpkin vdemeester atkinschang Chili-Man ];
+    maintainers = with maintainers; [
+      ebzzry
+      copumpkin
+      vdemeester
+      atkinschang
+      Chili-Man
+    ];
   };
 }

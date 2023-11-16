@@ -1,15 +1,16 @@
-{ lib
-, aenum
-, buildPythonPackage
-, fetchFromGitHub
-, httpx
-, poetry-core
-, pydantic
-, pytest-asyncio
-, pytest-httpx
-, pytestCheckHook
-, pythonOlder
-, rich
+{
+  lib,
+  aenum,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytest-httpx,
+  pytestCheckHook,
+  pythonOlder,
+  rich,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-CIcudKyRPVJX6QvWk6dBbYnO5EULREDhaflJTAfJEvc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aenum
@@ -37,9 +36,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  pythonImportsCheck = [
-    "intellifire4py"
-  ];
+  pythonImportsCheck = [ "intellifire4py" ];
   nativeCheckInputs = [
     pytest-asyncio
     pytest-httpx

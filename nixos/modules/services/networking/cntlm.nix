@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,27 +11,33 @@ let
 
   cfg = config.services.cntlm;
 
-  configFile = if cfg.configText != "" then
-    pkgs.writeText "cntlm.conf" ''
-      ${cfg.configText}
-    ''
+  configFile =
+    if cfg.configText != "" then
+      pkgs.writeText "cntlm.conf" ''
+        ${cfg.configText}
+      ''
     else
-    pkgs.writeText "lighttpd.conf" ''
-      # Cntlm Authentication Proxy Configuration
-      Username ${cfg.username}
-      Domain ${cfg.domain}
-      Password ${cfg.password}
-      ${optionalString (cfg.netbios_hostname != "") "Workstation ${cfg.netbios_hostname}"}
-      ${concatMapStrings (entry: "Proxy ${entry}\n") cfg.proxy}
-      ${optionalString (cfg.noproxy != []) "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
+      pkgs.writeText "lighttpd.conf" ''
+        # Cntlm Authentication Proxy Configuration
+        Username ${cfg.username}
+        Domain ${cfg.domain}
+        Password ${cfg.password}
+        ${optionalString (cfg.netbios_hostname != "") "Workstation ${cfg.netbios_hostname}"}
+        ${concatMapStrings
+          (entry: ''
+            Proxy ${entry}
+          '')
+          cfg.proxy}
+        ${optionalString (cfg.noproxy != [ ]) "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
 
-      ${concatMapStrings (port: ''
-        Listen ${toString port}
-      '') cfg.port}
+        ${concatMapStrings
+          (port: ''
+            Listen ${toString port}
+          '')
+          cfg.port}
 
-      ${cfg.extraConfig}
-    '';
-
+        ${cfg.extraConfig}
+      '';
 in
 
 {
@@ -50,7 +61,9 @@ in
     password = mkOption {
       default = "/etc/cntlm.password";
       type = types.str;
-      description = lib.mdDoc "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security.";
+      description =
+        lib.mdDoc
+          "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security.";
     };
 
     netbios_hostname = mkOption {
@@ -77,13 +90,16 @@ in
       description = lib.mdDoc ''
         A list of domains where the proxy is skipped.
       '';
-      default = [];
+      default = [ ];
       type = types.listOf types.str;
-      example = [ "*.example.com" "example.com" ];
+      example = [
+        "*.example.com"
+        "example.com"
+      ];
     };
 
     port = mkOption {
-      default = [3128];
+      default = [ 3128 ];
       type = types.listOf types.port;
       description = lib.mdDoc "Specifies on which ports the cntlm daemon listens.";
     };
@@ -91,15 +107,16 @@ in
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      description = lib.mdDoc "Additional config appended to the end of the generated {file}`cntlm.conf`.";
+      description =
+        lib.mdDoc
+          "Additional config appended to the end of the generated {file}`cntlm.conf`.";
     };
 
     configText = mkOption {
-       type = types.lines;
-       default = "";
-       description = lib.mdDoc "Verbatim contents of {file}`cntlm.conf`.";
+      type = types.lines;
+      default = "";
+      description = lib.mdDoc "Verbatim contents of {file}`cntlm.conf`.";
     };
-
   };
 
   ###### implementation

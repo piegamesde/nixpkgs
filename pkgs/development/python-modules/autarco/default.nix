@@ -1,14 +1,15 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, yarl
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,15 @@ buildPythonPackage rec {
     hash = "sha256-3f6N4b6WZPAUUQTuGeb20q0f7ZqDR+O24QRze5RpRlw=";
   };
 
-  patches = [
-    # https://github.com/klaasnicolaas/python-autarco/pull/265
-    (fetchpatch {
-      name = "remove-setuptools-dependency.patch";
-      url = "https://github.com/klaasnicolaas/python-autarco/commit/bf40e8a4f64cd9c9cf72930260895537ea5b2adc.patch";
-      hash = "sha256-Fgijy7sd67LUIqh3qjQjyothnjdW7Zcil/bQSuVsBR8=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/klaasnicolaas/python-autarco/pull/265
+      (fetchpatch {
+        name = "remove-setuptools-dependency.patch";
+        url = "https://github.com/klaasnicolaas/python-autarco/commit/bf40e8a4f64cd9c9cf72930260895537ea5b2adc.patch";
+        hash = "sha256-Fgijy7sd67LUIqh3qjQjyothnjdW7Zcil/bQSuVsBR8=";
+      })
+    ];
 
   postPatch = ''
     # Upstream doesn't set a version for the pyproject.toml
@@ -41,9 +43,7 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -58,9 +58,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "autarco"
-  ];
+  pythonImportsCheck = [ "autarco" ];
 
   meta = with lib; {
     description = "Module for the Autarco Inverter";

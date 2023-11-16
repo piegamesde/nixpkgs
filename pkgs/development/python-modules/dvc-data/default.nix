@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, dictdiffer
-, diskcache
-, dvc-objects
-, fetchFromGitHub
-, funcy
-, pygtrie
-, pythonOlder
-, setuptools-scm
-, shortuuid
-, sqltrie
+{
+  lib,
+  buildPythonPackage,
+  dictdiffer,
+  diskcache,
+  dvc-objects,
+  fetchFromGitHub,
+  funcy,
+  pygtrie,
+  pythonOlder,
+  setuptools-scm,
+  shortuuid,
+  sqltrie,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     dictdiffer
@@ -50,9 +49,7 @@ buildPythonPackage rec {
       --replace "dvc-objects==" "dvc-objects>="
   '';
 
-  pythonImportsCheck = [
-    "dvc_data"
-  ];
+  pythonImportsCheck = [ "dvc_data" ];
 
   meta = with lib; {
     description = "DVC's data management subsystem";

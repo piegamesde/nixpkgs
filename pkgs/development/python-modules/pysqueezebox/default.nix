@@ -1,10 +1,11 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,23 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-WnL9Va3uaWlUHVBtit4v+XdYOFmPpxG91mAHEGwI+7c=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "pysqueezebox"
-  ];
+  pythonImportsCheck = [ "pysqueezebox" ];
 
-  disabledTestPaths = [
-    # Tests require network access
-    "tests/test_integration.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests require network access
+      "tests/test_integration.py"
+    ];
 
   meta = with lib; {
     description = "Asynchronous library to control Logitech Media Server";

@@ -1,24 +1,25 @@
-{ fetchFromGitHub
-, fetchpatch
-, glib
-, gobject-introspection
-, meson
-, ninja
-, pkg-config
-, lib
-, stdenv
-, wrapGAppsHook
-, libxml2
-, gtk3
-, gvfs
-, cinnamon-desktop
-, xapp
-, libexif
-, exempi
-, intltool
-, shared-mime-info
-, cinnamon-translations
-, libgsf
+{
+  fetchFromGitHub,
+  fetchpatch,
+  glib,
+  gobject-introspection,
+  meson,
+  ninja,
+  pkg-config,
+  lib,
+  stdenv,
+  wrapGAppsHook,
+  libxml2,
+  gtk3,
+  gvfs,
+  cinnamon-desktop,
+  xapp,
+  libexif,
+  exempi,
+  intltool,
+  shared-mime-info,
+  cinnamon-translations,
+  libgsf,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,13 +33,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Nl/T+8mmQdCTHo3qAUd+ATflSDXiGCQfGb1gXzvLuAc=";
   };
 
-  patches = [
-    # Load extensions from NEMO_EXTENSION_DIR environment variable
-    # https://github.com/NixOS/nixpkgs/issues/78327
-    ./load-extensions-from-env.patch
-  ];
+  patches =
+    [
+      # Load extensions from NEMO_EXTENSION_DIR environment variable
+      # https://github.com/NixOS/nixpkgs/issues/78327
+      ./load-extensions-from-env.patch
+    ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   buildInputs = [
     glib
@@ -62,10 +67,11 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  mesonFlags = [
-    # use locales from cinnamon-translations
-    "--localedir=${cinnamon-translations}/share/locale"
-  ];
+  mesonFlags =
+    [
+      # use locales from cinnamon-translations
+      "--localedir=${cinnamon-translations}/share/locale"
+    ];
 
   preFixup = ''
     # Used for some non-fd.o icons (e.g. xapp-text-case-symbolic)
@@ -80,10 +86,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/linuxmint/nemo";
     description = "File browser for Cinnamon";
-    license = [ licenses.gpl2 licenses.lgpl2 ];
+    license = [
+      licenses.gpl2
+      licenses.lgpl2
+    ];
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;
     mainProgram = "nemo";
   };
 }
-

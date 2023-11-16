@@ -13,30 +13,35 @@
 #   * https://github.com/google/jax/issues/971#issuecomment-508216439
 #   * https://github.com/google/jax/issues/5723#issuecomment-913038780
 
-{ absl-py
-, addOpenGLRunpath
-, autoPatchelfHook
-, buildPythonPackage
-, config
-, fetchPypi
-, fetchurl
-, flatbuffers
-, jaxlib-build
-, lib
-, ml-dtypes
-, python
-, scipy
-, stdenv
+{
+  absl-py,
+  addOpenGLRunpath,
+  autoPatchelfHook,
+  buildPythonPackage,
+  config,
+  fetchPypi,
+  fetchurl,
+  flatbuffers,
+  jaxlib-build,
+  lib,
+  ml-dtypes,
+  python,
+  scipy,
+  stdenv,
   # Options:
-, cudaSupport ? config.cudaSupport
-, cudaPackages ? {}
+  cudaSupport ? config.cudaSupport,
+  cudaPackages ? { },
 }:
 
 let
   inherit (cudaPackages) cudatoolkit cudnn;
 in
 
-assert cudaSupport -> lib.versionAtLeast cudatoolkit.version "11.1" && lib.versionAtLeast cudnn.version "8.2" && stdenv.isLinux;
+assert cudaSupport
+  ->
+    lib.versionAtLeast cudatoolkit.version "11.1"
+    && lib.versionAtLeast cudnn.version "8.2"
+    && stdenv.isLinux;
 
 let
   version = "0.4.20";
@@ -47,14 +52,25 @@ let
   # official instructions recommend installing CPU-only versions via PyPI.
   cpuSrcs =
     let
-      getSrcFromPypi = { platform, dist, hash }: fetchPypi {
-        inherit version platform dist hash;
-        pname = "jaxlib";
-        format = "wheel";
-        # See the `disabled` attr comment below.
-        python = dist;
-        abi = dist;
-      };
+      getSrcFromPypi =
+        {
+          platform,
+          dist,
+          hash,
+        }:
+        fetchPypi {
+          inherit
+            version
+            platform
+            dist
+            hash
+          ;
+          pname = "jaxlib";
+          format = "wheel";
+          # See the `disabled` attr comment below.
+          python = dist;
+          abi = dist;
+        };
     in
     {
       "3.9-x86_64-linux" = getSrcFromPypi {
@@ -143,26 +159,33 @@ let
       hash = "sha256-bAR8FLtiqufU+rL2a1q9c61CjH1eXxGTNGnDUkHlDBA=";
     };
   };
-
 in
 buildPythonPackage {
   pname = "jaxlib";
   inherit version;
   format = "wheel";
 
-  disabled = !(pythonVersion == "3.9" || pythonVersion == "3.10" || pythonVersion == "3.11" || pythonVersion == "3.12");
+  disabled =
+    !(
+      pythonVersion == "3.9"
+      || pythonVersion == "3.10"
+      || pythonVersion == "3.11"
+      || pythonVersion == "3.12"
+    );
 
   # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
   src =
     if !cudaSupport then
-      (
-        cpuSrcs."${pythonVersion}-${stdenv.hostPlatform.system}"
-          or (throw "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}")
-      ) else gpuSrcs."${pythonVersion}";
+      (cpuSrcs."${pythonVersion}-${stdenv.hostPlatform.system}"
+        or (throw "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}")
+      )
+    else
+      gpuSrcs."${pythonVersion}";
 
   # Prebuilt wheels are dynamically linked against things that nix can't find.
   # Run `autoPatchelfHook` to automagically fix them.
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+  nativeBuildInputs =
+    lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
   # Dynamic link dependencies
   buildInputs = [ stdenv.cc.cc.lib ];
@@ -185,7 +208,12 @@ buildPythonPackage {
       rpath=$(patchelf --print-rpath $file)
       # For some reason `makeLibraryPath` on `cudatoolkit_11` maps to
       # <cudatoolkit_11.lib>/lib which is different from <cudatoolkit_11>/lib.
-      patchelf --set-rpath "$rpath:${cudatoolkit}/lib:${lib.makeLibraryPath [ cudatoolkit.lib cudnn ]}" $file
+      patchelf --set-rpath "$rpath:${cudatoolkit}/lib:${
+        lib.makeLibraryPath [
+          cudatoolkit.lib
+          cudnn
+        ]
+      }" $file
     done
   '';
 
@@ -212,6 +240,10 @@ buildPythonPackage {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];
-    platforms = [ "aarch64-darwin" "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, glib
-, gobject-introspection
-, gtk4
-, libgee
-, gettext
-, vala
-, gnome
-, libintl
-, meson
-, ninja
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  glib,
+  gobject-introspection,
+  gtk4,
+  libgee,
+  gettext,
+  vala,
+  gnome,
+  libintl,
+  meson,
+  ninja,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,9 @@ stdenv.mkDerivation rec {
   version = "2.0.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "U4Ifb+Mu3cue7zMk9kaqrIPMbT3gk339XyZkcNRT0qQ=";
   };
 
@@ -32,9 +35,7 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [
-    libintl
-  ];
+  buildInputs = [ libintl ];
 
   propagatedBuildInputs = [
     # Required by libgnome-games-support-2.pc

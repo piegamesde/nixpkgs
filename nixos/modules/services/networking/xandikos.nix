@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -43,7 +48,7 @@ in
       };
 
       extraOptions = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         example = literalExpression ''
           [ "--autocreate"
@@ -58,7 +63,7 @@ in
       };
 
       nginx = mkOption {
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Configuration for nginx reverse proxy.
         '';
@@ -82,9 +87,7 @@ in
           };
         };
       };
-
     };
-
   };
 
   config = mkIf cfg.enable (
@@ -131,18 +134,16 @@ in
         };
       }
 
-      (
-        mkIf cfg.nginx.enable {
-          services.nginx = {
-            enable = true;
-            virtualHosts."${cfg.nginx.hostName}" = {
-              locations."/" = {
-                proxyPass = "http://${cfg.address}:${toString cfg.port}/";
-              };
+      (mkIf cfg.nginx.enable {
+        services.nginx = {
+          enable = true;
+          virtualHosts."${cfg.nginx.hostName}" = {
+            locations."/" = {
+              proxyPass = "http://${cfg.address}:${toString cfg.port}/";
             };
           };
-        }
-      )
+        };
+      })
     ]
   );
 }

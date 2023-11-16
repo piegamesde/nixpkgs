@@ -1,8 +1,9 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-i3b/W2EeH/rNmMcNW+BA9w2BRzeV6EACSJI3zffVQS4=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # Module doesn't have tests
   doCheck = false;
@@ -31,9 +30,7 @@ buildPythonPackage rec {
       --replace '"pytest-runner",' ""
   '';
 
-  pythonImportsCheck = [
-    "aiooncue"
-  ];
+  pythonImportsCheck = [ "aiooncue" ];
 
   meta = with lib; {
     description = "Module to interact with the Kohler Oncue API";

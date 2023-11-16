@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, callPackage }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  callPackage,
+}:
 
 buildGoModule rec {
   pname = "micro";
@@ -17,12 +23,16 @@ buildGoModule rec {
 
   subPackages = [ "cmd/micro" ];
 
-  ldflags = let t = "github.com/zyedidia/micro/v2/internal"; in [
-    "-s"
-    "-w"
-    "-X ${t}/util.Version=${version}"
-    "-X ${t}/util.CommitHash=${src.rev}"
-  ];
+  ldflags =
+    let
+      t = "github.com/zyedidia/micro/v2/internal";
+    in
+    [
+      "-s"
+      "-w"
+      "-X ${t}/util.Version=${version}"
+      "-X ${t}/util.CommitHash=${src.rev}"
+    ];
 
   preBuild = ''
     go generate ./runtime

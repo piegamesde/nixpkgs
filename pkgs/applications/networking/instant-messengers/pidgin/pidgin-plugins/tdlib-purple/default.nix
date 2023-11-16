@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libwebp, pidgin, tdlib } :
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  libwebp,
+  pidgin,
+  tdlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tdlib-purple";
@@ -11,13 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mrowzTtNLyMc2WwLVIop8Mg2DbyiQs0OPXmJuM9QUnM=";
   };
 
-  patches = [
-    # Update to tdlib 1.8.0
-    (fetchpatch {
-      url = "https://github.com/ars3niy/tdlib-purple/commit/8c87b899ddbec32ec6ab4a34ddf0dc770f97d396.patch";
-      sha256 = "sha256-sysPYPno+wS8mZwQAXtX5eVnhwKAZrtr5gXuddN3mko=";
-    })
-  ];
+  patches =
+    [
+      # Update to tdlib 1.8.0
+      (fetchpatch {
+        url = "https://github.com/ars3niy/tdlib-purple/commit/8c87b899ddbec32ec6ab4a34ddf0dc770f97d396.patch";
+        sha256 = "sha256-sysPYPno+wS8mZwQAXtX5eVnhwKAZrtr5gXuddN3mko=";
+      })
+    ];
 
   preConfigure = ''
     sed -i -e 's|DESTINATION.*PURPLE_PLUGIN_DIR}|DESTINATION "lib/purple-2|' CMakeLists.txt
@@ -25,11 +35,17 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libwebp pidgin tdlib ];
+  buildInputs = [
+    libwebp
+    pidgin
+    tdlib
+  ];
 
   cmakeFlags = [ "-DNoVoip=True" ]; # libtgvoip required
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "-U__ARM_NEON__" ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "-U__ARM_NEON__" ]
+  );
 
   meta = with lib; {
     homepage = "https://github.com/ars3niy/tdlib-purple";

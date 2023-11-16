@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "systemc";
@@ -18,9 +23,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The language for System-level design, modeling and verification";
-    homepage    = "https://systemc.org/";
-    license     = licenses.asl20;
-    platforms   = platforms.linux;
-    maintainers = with maintainers; [ victormignot amiloradovsky ];
+    homepage = "https://systemc.org/";
+    license = licenses.asl20;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [
+      victormignot
+      amiloradovsky
+    ];
   };
 }

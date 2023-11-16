@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 }:
 
 buildPythonPackage {
@@ -20,5 +21,4 @@ buildPythonPackage {
     license = licenses.bsd3;
     platforms = platforms.unix;
   };
-
 }

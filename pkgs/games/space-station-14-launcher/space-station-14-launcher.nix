@@ -1,34 +1,35 @@
-{ lib
-, buildDotnetModule
-, dotnetCorePackages
-, fetchFromGitHub
-, wrapGAppsHook
-, iconConvTools
-, copyDesktopItems
-, makeDesktopItem
-, libX11
-, libICE
-, libSM
-, libXi
-, libXcursor
-, libXext
-, libXrandr
-, fontconfig
-, glew
-, SDL2
-, glfw
-, glibc
-, libGL
-, freetype
-, openal
-, fluidsynth
-, gtk3
-, pango
-, atk
-, cairo
-, zlib
-, glib
-, gdk-pixbuf
+{
+  lib,
+  buildDotnetModule,
+  dotnetCorePackages,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  iconConvTools,
+  copyDesktopItems,
+  makeDesktopItem,
+  libX11,
+  libICE,
+  libSM,
+  libXi,
+  libXcursor,
+  libXext,
+  libXrandr,
+  fontconfig,
+  glew,
+  SDL2,
+  glfw,
+  glibc,
+  libGL,
+  freetype,
+  openal,
+  fluidsynth,
+  gtk3,
+  pango,
+  atk,
+  cairo,
+  zlib,
+  glib,
+  gdk-pixbuf,
 }:
 let
   version = "0.24.0";
@@ -63,7 +64,12 @@ buildDotnetModule rec {
     updateScript = ./update.sh;
   };
 
-  dotnet-sdk = with dotnetCorePackages; combinePackages [ sdk_7_0 sdk_6_0 ];
+  dotnet-sdk =
+    with dotnetCorePackages;
+    combinePackages [
+      sdk_7_0
+      sdk_6_0
+    ];
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
   dotnetFlags = [
@@ -72,7 +78,11 @@ buildDotnetModule rec {
     "-nologo"
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook iconConvTools copyDesktopItems ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    iconConvTools
+    copyDesktopItems
+  ];
 
   runtimeDeps = [
     # Required by the game.

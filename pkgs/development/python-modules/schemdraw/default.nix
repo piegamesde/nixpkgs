@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pyparsing
-, matplotlib
-, latex2mathml
-, ziafont
-, ziamath
-, pytestCheckHook
-, nbval
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pyparsing,
+  matplotlib,
+  latex2mathml,
+  ziafont,
+  ziamath,
+  pytestCheckHook,
+  nbval,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,10 @@ buildPythonPackage rec {
     hash = "sha256-wa/IeNGZynU/xKwyFwebXcFaruhBFqGWsrZYaIEVa8Q=";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-  ];
+  propagatedBuildInputs = [ pyparsing ];
 
   passthru.optional-dependencies = {
-    matplotlib = [
-      matplotlib
-    ];
+    matplotlib = [ matplotlib ];
     svgmath = [
       latex2mathml
       ziafont

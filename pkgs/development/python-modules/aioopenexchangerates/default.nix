@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, aioresponses
-, pydantic
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  pydantic,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-C34GjCQdkKOTyHw4XNaXvVqqMfKv9KlZjdKfDFsOSOE=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -44,9 +43,7 @@ buildPythonPackage rec {
       --replace " --cov=aioopenexchangerates --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [
-    "aioopenexchangerates"
-  ];
+  pythonImportsCheck = [ "aioopenexchangerates" ];
 
   meta = with lib; {
     description = "Library for the Openexchangerates API";

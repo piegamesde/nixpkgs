@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, six
-, wcwidth, pytest, mock, glibcLocales
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  wcwidth,
+  pytest,
+  mock,
+  glibcLocales,
 }:
 
 buildPythonPackage rec {
@@ -11,7 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-LN1n+HRuBI8A30eiiA9NasvNs5kDG2BONLqPcdV4doA=";
   };
 
-  nativeCheckInputs = [ pytest mock glibcLocales ];
+  nativeCheckInputs = [
+    pytest
+    mock
+    glibcLocales
+  ];
 
   # Default tox.ini parameters not needed
   checkPhase = ''
@@ -19,7 +30,10 @@ buildPythonPackage rec {
     pytest
   '';
 
-  propagatedBuildInputs = [ wcwidth six ];
+  propagatedBuildInputs = [
+    wcwidth
+    six
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/jquast/blessed";

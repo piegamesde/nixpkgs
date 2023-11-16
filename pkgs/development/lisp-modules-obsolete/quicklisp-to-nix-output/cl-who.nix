@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-who";
   version = "20190710-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "cl-who";
 
-  asdFilesToKeep = ["cl-who.asd"];
+  asdFilesToKeep = [ "cl-who.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-who DESCRIPTION (X)HTML generation macros SHA256
@@ -25,4 +25,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-who/2019-07-10/cl-who-20190710-git.tgz
     MD5 e5bb2856ed62d76528e4cef7b5e701c0 NAME cl-who FILENAME cl-who DEPS
     ((NAME flexi-streams FILENAME flexi-streams)) DEPENDENCIES (flexi-streams)
-    VERSION 20190710-git SIBLINGS NIL PARASITES (cl-who-test)) */
+    VERSION 20190710-git SIBLINGS NIL PARASITES (cl-who-test))
+*/

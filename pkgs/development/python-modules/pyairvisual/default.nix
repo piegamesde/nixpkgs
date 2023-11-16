@@ -1,18 +1,19 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, fetchpatch
-, numpy
-, poetry-core
-, pygments
-, pysmb
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  fetchpatch,
+  numpy,
+  poetry-core,
+  pygments,
+  pysmb,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -29,14 +30,15 @@ buildPythonPackage rec {
     hash = "sha256-+yqN3q+uA/v01uCguzUSoeCJK9lRmiiYn8d272+Dd2M=";
   };
 
-  patches = [
-    # https://github.com/bachya/pyairvisual/pull/298
-    (fetchpatch {
-      name = "clean-up-build-dependencies.patch";
-      url = "https://github.com/bachya/pyairvisual/commit/eb32beb7229a53ff81917cc417ed66b26aae47dd.patch";
-      hash = "sha256-RLRbHmaR2A8MNc96WHx0L8ccyygoBUaOulAuRJkFuUM=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/bachya/pyairvisual/pull/298
+      (fetchpatch {
+        name = "clean-up-build-dependencies.patch";
+        url = "https://github.com/bachya/pyairvisual/commit/eb32beb7229a53ff81917cc417ed66b26aae47dd.patch";
+        hash = "sha256-RLRbHmaR2A8MNc96WHx0L8ccyygoBUaOulAuRJkFuUM=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace pyproject.toml --replace \
@@ -44,9 +46,7 @@ buildPythonPackage rec {
       'certifi = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -67,14 +67,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Ignore the examples directory as the files are prefixed with test_.
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore the examples directory as the files are prefixed with test_.
+      "examples/"
+    ];
 
-  pythonImportsCheck = [
-    "pyairvisual"
-  ];
+  pythonImportsCheck = [ "pyairvisual" ];
 
   meta = with lib; {
     description = "Python library for interacting with AirVisual";

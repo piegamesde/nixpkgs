@@ -1,4 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, applyPatches, pkg-config, which, perl, autoconf, automake, libtool, openssl, systemd, pam, fuse, libjpeg, libopus, nasm, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  applyPatches,
+  pkg-config,
+  which,
+  perl,
+  autoconf,
+  automake,
+  libtool,
+  openssl,
+  systemd,
+  pam,
+  fuse,
+  libjpeg,
+  libopus,
+  nasm,
+  xorg,
+}:
 
 let
   version = "0.9.23.1";
@@ -25,7 +44,14 @@ let
       hash = "sha256-WI1KyJDQkmNHwweZMbNd2KUfawaieoGMDMQfeD12cZs=";
     };
 
-    nativeBuildInputs = [ pkg-config autoconf automake which libtool nasm ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      automake
+      which
+      libtool
+      nasm
+    ];
 
     buildInputs = [ xorg.xorgserver ];
 
@@ -41,7 +67,7 @@ let
 
     preConfigure = "./bootstrap";
 
-    configureFlags = [ "XRDP_CFLAGS=-I${patchedXrdpSrc}/common"  ];
+    configureFlags = [ "XRDP_CFLAGS=-I${patchedXrdpSrc}/common" ];
 
     enableParallelBuilding = true;
   };
@@ -51,9 +77,27 @@ let
 
     src = patchedXrdpSrc;
 
-    nativeBuildInputs = [ pkg-config autoconf automake which libtool nasm perl ];
+    nativeBuildInputs = [
+      pkg-config
+      autoconf
+      automake
+      which
+      libtool
+      nasm
+      perl
+    ];
 
-    buildInputs = [ openssl systemd pam fuse libjpeg libopus xorg.libX11 xorg.libXfixes xorg.libXrandr ];
+    buildInputs = [
+      openssl
+      systemd
+      pam
+      fuse
+      libjpeg
+      libopus
+      xorg.libX11
+      xorg.libXfixes
+      xorg.libXrandr
+    ];
 
     postPatch = ''
       substituteInPlace sesman/xauth.c --replace "xauth -q" "${xorg.xauth}/bin/xauth -q"
@@ -64,9 +108,20 @@ let
       ./bootstrap
     '';
     dontDisableStatic = true;
-    configureFlags = [ "--with-systemdsystemunitdir=/var/empty" "--enable-ipv6" "--enable-jpeg" "--enable-fuse" "--enable-rfxcodec" "--enable-opus" "--enable-pam-config=unix" ];
+    configureFlags = [
+      "--with-systemdsystemunitdir=/var/empty"
+      "--enable-ipv6"
+      "--enable-jpeg"
+      "--enable-fuse"
+      "--enable-rfxcodec"
+      "--enable-opus"
+      "--enable-pam-config=unix"
+    ];
 
-    installFlags = [ "DESTDIR=$(out)" "prefix=" ];
+    installFlags = [
+      "DESTDIR=$(out)"
+      "prefix="
+    ];
 
     postInstall = ''
       # remove generated keys (as non-deterministic)
@@ -108,4 +163,5 @@ let
       platforms = platforms.linux;
     };
   };
-in xrdp
+in
+xrdp

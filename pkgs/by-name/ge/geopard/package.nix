@@ -1,23 +1,24 @@
-{ stdenv
-, cargo
-, rustc
-, fetchFromGitHub
-, glib
-, gtk4
-, libadwaita
-, rustPlatform
-, openssl
-, pkg-config
-, lib
-, wrapGAppsHook4
-, meson
-, ninja
-, gdk-pixbuf
-, cmake
-, desktop-file-utils
-, gettext
-, blueprint-compiler
-, appstream-glib
+{
+  stdenv,
+  cargo,
+  rustc,
+  fetchFromGitHub,
+  glib,
+  gtk4,
+  libadwaita,
+  rustPlatform,
+  openssl,
+  pkg-config,
+  lib,
+  wrapGAppsHook4,
+  meson,
+  ninja,
+  gdk-pixbuf,
+  cmake,
+  desktop-file-utils,
+  gettext,
+  blueprint-compiler,
+  appstream-glib,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,9 +32,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-elHxtFEGkdhEPHxuJtcMYwWnvo6vDaHiOyN51EOzym0=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [
     openssl

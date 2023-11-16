@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, defusedxml
-, fetchFromGitHub
-, mock
-, pytest-asyncio
-, pytest-timeout
-, pytest-vcr
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  mock,
+  pytest-asyncio,
+  pytest-timeout,
+  pytest-vcr,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     defusedxml

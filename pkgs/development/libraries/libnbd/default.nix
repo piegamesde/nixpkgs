@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, bash-completion
-, pkg-config
-, perl
-, libxml2
-, fuse
-, fuse3
-, gnutls
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash-completion,
+  pkg-config,
+  perl,
+  libxml2,
+  fuse,
+  fuse3,
+  gnutls,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +16,9 @@ stdenv.mkDerivation rec {
   version = "1.18.0";
 
   src = fetchurl {
-    url = "https://download.libguestfs.org/libnbd/${lib.versions.majorMinor version}-stable/${pname}-${version}.tar.gz";
+    url = "https://download.libguestfs.org/libnbd/${
+        lib.versions.majorMinor version
+      }-stable/${pname}-${version}.tar.gz";
     hash = "sha256-srJyd32eCIthoncvM9JQEKCWEOZxxc3YntaV4Ay8kZ8=";
   };
 
@@ -53,11 +56,13 @@ stdenv.mkDerivation rec {
       - Shell (nbdsh) for command line and scripting.
     '';
     license = with licenses; lgpl21Plus;
-    maintainers = with maintainers; [ AndersonTorres humancalico ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      humancalico
+    ];
     platforms = with platforms; linux;
   };
 }
 # TODO: package the 1.6-stable version too
 # TODO: git version needs ocaml
 # TODO: bindings for go, ocaml and python
-

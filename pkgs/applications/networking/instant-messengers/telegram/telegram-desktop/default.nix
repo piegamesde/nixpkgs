@@ -1,66 +1,67 @@
-{ lib
-, fetchFromGitHub
-, fetchurl
-, fetchpatch
-, fetchpatch2
-, callPackage
-, pkg-config
-, cmake
-, ninja
-, python3
-, gobject-introspection
-, wrapGAppsHook
-, wrapQtAppsHook
-, extra-cmake-modules
-, qtbase
-, qtwayland
-, qtsvg
-, qtimageformats
-, gtk3
-, boost
-, fmt
-, libdbusmenu
-, lz4
-, xxHash
-, ffmpeg
-, openalSoft
-, minizip
-, libopus
-, alsa-lib
-, libpulseaudio
-, perlPackages
-, pipewire
-, range-v3
-, tl-expected
-, hunspell
-, glibmm_2_68
-, webkitgtk_6_0
-, jemalloc
-, rnnoise
-, protobuf
-, abseil-cpp
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  fetchpatch2,
+  callPackage,
+  pkg-config,
+  cmake,
+  ninja,
+  python3,
+  gobject-introspection,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  extra-cmake-modules,
+  qtbase,
+  qtwayland,
+  qtsvg,
+  qtimageformats,
+  gtk3,
+  boost,
+  fmt,
+  libdbusmenu,
+  lz4,
+  xxHash,
+  ffmpeg,
+  openalSoft,
+  minizip,
+  libopus,
+  alsa-lib,
+  libpulseaudio,
+  perlPackages,
+  pipewire,
+  range-v3,
+  tl-expected,
+  hunspell,
+  glibmm_2_68,
+  webkitgtk_6_0,
+  jemalloc,
+  rnnoise,
+  protobuf,
+  abseil-cpp,
   # Transitive dependencies:
-, util-linuxMinimal
-, pcre
-, libpthreadstubs
-, libXdamage
-, libXdmcp
-, libselinux
-, libsepol
-, libepoxy
-, at-spi2-core
-, libXtst
-, libthai
-, libdatrie
-, xdg-utils
-, libsysprof-capture
-, libpsl
-, brotli
-, microsoft-gsl
-, mm-common
-, rlottie
-, stdenv
-, nix-update-script
+  util-linuxMinimal,
+  pcre,
+  libpthreadstubs,
+  libXdamage,
+  libXdmcp,
+  libselinux,
+  libsepol,
+  libepoxy,
+  at-spi2-core,
+  libXtst,
+  libthai,
+  libdatrie,
+  xdg-utils,
+  libsysprof-capture,
+  libpsl,
+  brotli,
+  microsoft-gsl,
+  mm-common,
+  rlottie,
+  stdenv,
+  nix-update-script,
 }:
 
 # Main reference:
@@ -71,35 +72,34 @@
 # - https://github.com/void-linux/void-packages/blob/master/srcpkgs/telegram-desktop/template
 
 let
-  tg_owt = callPackage ./tg_owt.nix {
-    abseil-cpp = abseil-cpp.override {
-      cxxStandard = "20";
-    };
-  };
-  glibmm = glibmm_2_68.overrideAttrs (attrs: {
-    version = "2.78.0";
-    src = fetchurl {
-      url = "mirror://gnome/sources/glibmm/2.78/glibmm-2.78.0.tar.xz";
-      hash = "sha256-XS6HJWSZbwKgbYu6w2d+fDlK+LAN0VJq69R6+EKj71A=";
-    };
-    patches = [
-      # Revert "Glib, Gio: Add new API from glib 2.77.0"
-      (fetchpatch2 {
-        url = "https://github.com/GNOME/glibmm/commit/5b9032c0298cbb49c3ed90d5f71f2636751fa638.patch";
-        revert = true;
-        hash = "sha256-UzrzIOnXh9pxuTDQsp6mnunDNNtc86hE9tCe1NgKsyo=";
-      })
-    ];
-    mesonFlags = [
-      "-Dmaintainer-mode=true"
-      "-Dbuild-documentation=false"
-    ];
-    nativeBuildInputs = attrs.nativeBuildInputs ++ [
-      mm-common
-      perlPackages.perl
-      perlPackages.XMLParser
-    ];
-  });
+  tg_owt = callPackage ./tg_owt.nix { abseil-cpp = abseil-cpp.override { cxxStandard = "20"; }; };
+  glibmm = glibmm_2_68.overrideAttrs (
+    attrs: {
+      version = "2.78.0";
+      src = fetchurl {
+        url = "mirror://gnome/sources/glibmm/2.78/glibmm-2.78.0.tar.xz";
+        hash = "sha256-XS6HJWSZbwKgbYu6w2d+fDlK+LAN0VJq69R6+EKj71A=";
+      };
+      patches =
+        [
+          # Revert "Glib, Gio: Add new API from glib 2.77.0"
+          (fetchpatch2 {
+            url = "https://github.com/GNOME/glibmm/commit/5b9032c0298cbb49c3ed90d5f71f2636751fa638.patch";
+            revert = true;
+            hash = "sha256-UzrzIOnXh9pxuTDQsp6mnunDNNtc86hE9tCe1NgKsyo=";
+          })
+        ];
+      mesonFlags = [
+        "-Dmaintainer-mode=true"
+        "-Dbuild-documentation=false"
+      ];
+      nativeBuildInputs = attrs.nativeBuildInputs ++ [
+        mm-common
+        perlPackages.perl
+        perlPackages.XMLParser
+      ];
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "telegram-desktop";
@@ -113,15 +113,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-VuMcqbGo1t1J7I8kXdqsw/01Mth9YKEbiy8aNtM3azw=";
   };
 
-  patches = [
-    # the generated .desktop files contains references to unwrapped tdesktop, breaking scheme handling
-    # and the scheme handler is already registered in the packaged .desktop file, rendering this unnecessary
-    # see https://github.com/NixOS/nixpkgs/issues/218370
-    (fetchpatch {
-      url = "https://salsa.debian.org/debian/telegram-desktop/-/raw/09b363ed5a4fcd8ecc3282b9bfede5fbb83f97ef/debian/patches/Disable-register-custom-scheme.patch";
-      hash = "sha256-B8X5lnSpwwdp1HlvyXJWQPybEN+plOwimdV5gW6aY2Y=";
-    })
-  ];
+  patches =
+    [
+      # the generated .desktop files contains references to unwrapped tdesktop, breaking scheme handling
+      # and the scheme handler is already registered in the packaged .desktop file, rendering this unnecessary
+      # see https://github.com/NixOS/nixpkgs/issues/218370
+      (fetchpatch {
+        url = "https://salsa.debian.org/debian/telegram-desktop/-/raw/09b363ed5a4fcd8ecc3282b9bfede5fbb83f97ef/debian/patches/Disable-register-custom-scheme.patch";
+        hash = "sha256-B8X5lnSpwwdp1HlvyXJWQPybEN+plOwimdV5gW6aY2Y=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioInputALSA.cpp \

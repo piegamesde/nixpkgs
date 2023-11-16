@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -22,14 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-e9ZDqcS3MaMlXi2a2JHI6NtRPqIV7rjsucGXEH6V8LA=";
   };
 
-  patches = [
-    # https://github.com/frederickjansen/polyline/pull/15
-    (fetchpatch {
-      name = "relax-build-dependencies.patch";
-      url = "https://github.com/frederickjansen/polyline/commit/cb9fc80606c33dbbcaa0d94de25ae952358443b6.patch";
-      hash = "sha256-epg2pZAG+9QuICa1ms+/EO2DDmYEz+KEtxxnvG7rsWY=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/frederickjansen/polyline/pull/15
+      (fetchpatch {
+        name = "relax-build-dependencies.patch";
+        url = "https://github.com/frederickjansen/polyline/commit/cb9fc80606c33dbbcaa0d94de25ae952358443b6.patch";
+        hash = "sha256-epg2pZAG+9QuICa1ms+/EO2DDmYEz+KEtxxnvG7rsWY=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -41,13 +43,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "polyline"
-  ];
+  pythonImportsCheck = [ "polyline" ];
 
   meta = with lib; {
     description = "Python implementation of Google's Encoded Polyline Algorithm Format";

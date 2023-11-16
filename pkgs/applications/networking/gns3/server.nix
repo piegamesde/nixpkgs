@@ -1,15 +1,17 @@
-{ channel
-, version
-, hash
+{
+  channel,
+  version,
+  hash,
 }:
 
-{ lib
-, python3
-, fetchFromGitHub
-, pkgsStatic
-, stdenv
-, testers
-, gns3-server
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  pkgsStatic,
+  stdenv,
+  testers,
+  gns3-server,
 }:
 
 python3.pkgs.buildPythonApplication {
@@ -28,27 +30,28 @@ python3.pkgs.buildPythonApplication {
     cp ${pkgsStatic.busybox}/bin/busybox gns3server/compute/docker/resources/bin/busybox
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiofiles
-    aiohttp
-    aiohttp-cors
-    async-generator
-    distro
-    jinja2
-    jsonschema
-    multidict
-    platformdirs
-    prompt-toolkit
-    psutil
-    py-cpuinfo
-    sentry-sdk
-    setuptools
-    truststore
-    yarl
-    zipstream
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      aiofiles
+      aiohttp
+      aiohttp-cors
+      async-generator
+      distro
+      jinja2
+      jsonschema
+      multidict
+      platformdirs
+      prompt-toolkit
+      psutil
+      py-cpuinfo
+      sentry-sdk
+      setuptools
+      truststore
+      yarl
+      zipstream
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   postInstall = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
     rm $out/bin/gns3loopback

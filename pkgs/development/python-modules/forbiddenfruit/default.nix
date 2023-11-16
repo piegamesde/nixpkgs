@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -32,5 +33,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/clarete/forbiddenfruit";
     license = licenses.mit;
   };
-
 }

@@ -1,20 +1,21 @@
-{ stdenv
-, lib
-, fetchFromGitea
-, pkg-config
-, meson
-, ninja
-, scdoc
-, wayland-scanner
-, fontconfig
-, freetype
-, pixman
-, libpng
-, tllist
-, wayland
-, wayland-protocols
-, dbus
-, fcft
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  pkg-config,
+  meson,
+  ninja,
+  scdoc,
+  wayland-scanner,
+  fontconfig,
+  freetype,
+  pixman,
+  libpng,
+  tllist,
+  wayland,
+  wayland-protocols,
+  dbus,
+  fcft,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,9 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8SKInlj54BP3Gn/DNVoLN62+Dfa8G5d/q2xGUXXdsjo=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -54,7 +53,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://codeberg.org/dnkl/fnott";
     description = "Keyboard driven and lightweight Wayland notification daemon for wlroots-based compositors";
-    license = with licenses; [ mit zlib ];
+    license = with licenses; [
+      mit
+      zlib
+    ];
     maintainers = with maintainers; [ polykernel ];
     platforms = platforms.linux;
   };

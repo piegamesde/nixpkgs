@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -13,13 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-gpITm6xqDkP9nXBgXU6NrrJdRmcuSE7TGiTHzgrvD7c=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  pythonImportsCheck = [
-    "repath"
-  ];
+  pythonImportsCheck = [ "repath" ];
 
   meta = {
     description = "A port of the node module path-to-regexp to Python";

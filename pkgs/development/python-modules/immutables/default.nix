@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,23 +24,21 @@ buildPythonPackage rec {
     rm tests/conftest.py
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Version mismatch
-    "testMypyImmu"
-  ];
+  disabledTests =
+    [
+      # Version mismatch
+      "testMypyImmu"
+    ];
 
-  disabledTestPaths = [
-    # avoid dependency on mypy
-    "tests/test_mypy.py"
-  ];
+  disabledTestPaths =
+    [
+      # avoid dependency on mypy
+      "tests/test_mypy.py"
+    ];
 
-  pythonImportsCheck = [
-    "immutables"
-  ];
+  pythonImportsCheck = [ "immutables" ];
 
   meta = with lib; {
     description = "An immutable mapping type";

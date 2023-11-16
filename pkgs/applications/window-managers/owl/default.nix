@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gnustep
-, libxkbcommon
-, makeWrapper
-, wayland
-, wayland-scanner
-, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gnustep,
+  libxkbcommon,
+  makeWrapper,
+  wayland,
+  wayland-scanner,
+  darwin,
 }:
 
 assert wayland.withLibraries;
@@ -35,26 +36,28 @@ mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-    wayland-scanner
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.DarwinTools
-    darwin.bootstrap_cmds
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    gnustep.make
-  ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      wayland-scanner
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.DarwinTools
+      darwin.bootstrap_cmds
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ];
 
-  buildInputs = [
-    libxkbcommon
-    wayland
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Cocoa
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    gnustep.back
-    gnustep.base
-    gnustep.gui
-  ];
+  buildInputs =
+    [
+      libxkbcommon
+      wayland
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+      gnustep.back
+      gnustep.base
+      gnustep.gui
+    ];
 
   preConfigure = ''
     mkdir -p build
@@ -71,7 +74,9 @@ mkDerivation {
 
     mkdir -p $out/{Applications,bin}
     mv Owl.app $out/Applications
-    makeWrapper $out/{Applications/Owl.app${lib.optionalString stdenv.isDarwin "/Contents/MacOS"},bin}/Owl
+    makeWrapper $out/{Applications/Owl.app${
+      lib.optionalString stdenv.isDarwin "/Contents/MacOS"
+    },bin}/Owl
 
     runHook postInstall
   '';

@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pythonOlder
-, pytest-asyncio
-, pytestCheckHook
-, pytz
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -45,9 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "odp_amsterdam"
-  ];
+  pythonImportsCheck = [ "odp_amsterdam" ];
 
   meta = with lib; {
     description = "Python client for getting garage occupancy in Amsterdam";

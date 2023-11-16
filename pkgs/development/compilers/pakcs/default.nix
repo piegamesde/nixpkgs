@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchurl, makeWrapper
-, haskellPackages, haskell
-, which, swiProlog, rlwrap, tk
-, curl, git, unzip, gnutar, coreutils, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  haskellPackages,
+  haskell,
+  which,
+  swiProlog,
+  rlwrap,
+  tk,
+  curl,
+  git,
+  unzip,
+  gnutar,
+  coreutils,
+  sqlite,
+}:
 
 let
   pname = "pakcs";
@@ -14,23 +28,34 @@ let
     sha256 = "1jyg29j8r8pgcin7ixdya6c3zzfjdi66rghpwrfnkk133fz4iz7s";
   };
 
-  curry-frontend = (haskellPackages.override {
-    overrides = self: super: {
-      curry-base = haskell.lib.compose.overrideCabal (drv: {
-        inherit src;
-        postUnpack = "sourceRoot+=/frontend/curry-base";
-      }) (super.callPackage ./curry-base.nix {});
-      curry-frontend = haskell.lib.compose.overrideCabal (drv: {
-        inherit src;
-        postUnpack = "sourceRoot+=/frontend/curry-frontend";
-      }) (super.callPackage ./curry-frontend.nix {});
-    };
-  }).curry-frontend;
-in stdenv.mkDerivation {
+  curry-frontend =
+    (haskellPackages.override {
+      overrides = self: super: {
+        curry-base =
+          haskell.lib.compose.overrideCabal
+            (drv: {
+              inherit src;
+              postUnpack = "sourceRoot+=/frontend/curry-base";
+            })
+            (super.callPackage ./curry-base.nix { });
+        curry-frontend =
+          haskell.lib.compose.overrideCabal
+            (drv: {
+              inherit src;
+              postUnpack = "sourceRoot+=/frontend/curry-frontend";
+            })
+            (super.callPackage ./curry-frontend.nix { });
+      };
+    }).curry-frontend;
+in
+stdenv.mkDerivation {
   inherit pname version src;
 
   buildInputs = [ swiProlog ];
-  nativeBuildInputs = [ which makeWrapper ];
+  nativeBuildInputs = [
+    which
+    makeWrapper
+  ];
 
   makeFlags = [
     "CURRYFRONTEND=${curry-frontend}/bin/curry-frontend"
@@ -51,7 +76,7 @@ in stdenv.mkDerivation {
                 examples/test.sh testsuite/test.sh lib/test.sh; do
         substituteInPlace $file --replace "/bin/rm" "rm"
     done
-  '' ;
+  '';
 
   # cypm new: EXISTENCE ERROR: source_sink
   # "/tmp/nix-build-pakcs-2.0.2.drv-0/pakcs-2.0.2/currytools/cpm/templates/LICENSE"
@@ -74,7 +99,16 @@ in stdenv.mkDerivation {
 
     # List of dependencies from currytools/cpm/src/CPM/Main.curry
     wrapProgram $out/pakcs/bin/cypm \
-      --prefix PATH ":" "${lib.makeBinPath [ curl git unzip gnutar coreutils sqlite ]}"
+      --prefix PATH ":" "${
+        lib.makeBinPath [
+          curl
+          git
+          unzip
+          gnutar
+          coreutils
+          sqlite
+        ]
+      }"
   '';
 
   meta = with lib; {

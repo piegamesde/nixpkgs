@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, pkg-config
-, ninja
-, glib
-, gtk3
-, nemo
-, gnome
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  glib,
+  gtk3,
+  nemo,
+  gnome,
 }:
 
 let

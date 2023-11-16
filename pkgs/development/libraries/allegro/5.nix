@@ -1,10 +1,41 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, texinfo, libXext, xorgproto, libX11
-, libXpm, libXt, libXcursor, alsa-lib, cmake, zlib, libpng, libvorbis
-, libXxf86dga, libXxf86misc
-, libXxf86vm, openal, libGLU, libGL, libjpeg, flac
-, libXi, libXfixes, freetype, libopus, libtheora
-, physfs, enet, pkg-config, gtk3, pcre, libpulseaudio, libpthreadstubs
-, libXdmcp
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  texinfo,
+  libXext,
+  xorgproto,
+  libX11,
+  libXpm,
+  libXt,
+  libXcursor,
+  alsa-lib,
+  cmake,
+  zlib,
+  libpng,
+  libvorbis,
+  libXxf86dga,
+  libXxf86misc,
+  libXxf86vm,
+  openal,
+  libGLU,
+  libGL,
+  libjpeg,
+  flac,
+  libXi,
+  libXfixes,
+  freetype,
+  libopus,
+  libtheora,
+  physfs,
+  enet,
+  pkg-config,
+  gtk3,
+  pcre,
+  libpulseaudio,
+  libpthreadstubs,
+  libXdmcp,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,16 +49,46 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uNcaeTelFNfg+YjPYc7nK4TrFDxJsEuPhsF8x1cvIYQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [
-    texinfo zlib libpng libvorbis openal libGLU libGL
-    libjpeg flac enet libtheora freetype physfs libopus
-    gtk3 pcre
-  ] ++ lib.optionals stdenv.isLinux [
-    libXext xorgproto libX11 libXpm libXt libXcursor alsa-lib
-    libXxf86dga libXxf86misc libXxf86vm libXi libXfixes
-    libXdmcp libpulseaudio libpthreadstubs
+  nativeBuildInputs = [
+    cmake
+    pkg-config
   ];
+  buildInputs =
+    [
+      texinfo
+      zlib
+      libpng
+      libvorbis
+      openal
+      libGLU
+      libGL
+      libjpeg
+      flac
+      enet
+      libtheora
+      freetype
+      physfs
+      libopus
+      gtk3
+      pcre
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      libXext
+      xorgproto
+      libX11
+      libXpm
+      libXt
+      libXcursor
+      alsa-lib
+      libXxf86dga
+      libXxf86misc
+      libXxf86vm
+      libXi
+      libXfixes
+      libXdmcp
+      libpulseaudio
+      libpthreadstubs
+    ];
 
   postPatch = ''
     sed -e 's@/XInput2.h@/XI2.h@g' -i CMakeLists.txt "src/"*.c

@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.heapster;
-in {
+in
+{
   options.services.heapster = {
     enable = mkEnableOption (lib.mdDoc "Heapster monitoring");
 
@@ -36,8 +42,11 @@ in {
 
   config = mkIf cfg.enable {
     systemd.services.heapster = {
-      wantedBy = ["multi-user.target"];
-      after = ["cadvisor.service" "kube-apiserver.service"];
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "cadvisor.service"
+        "kube-apiserver.service"
+      ];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/heapster --source=${cfg.source} --sink=${cfg.sink} ${cfg.extraOpts}";
@@ -50,6 +59,6 @@ in {
       group = "heapster";
       description = "Heapster user";
     };
-    users.groups.heapster = {};
+    users.groups.heapster = { };
   };
 }

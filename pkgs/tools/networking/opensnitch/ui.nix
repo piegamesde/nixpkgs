@@ -1,8 +1,9 @@
-{ python3Packages
-, fetchFromGitHub
-, qtwayland
-, wrapQtAppsHook
-, lib
+{
+  python3Packages,
+  fetchFromGitHub,
+  qtwayland,
+  wrapQtAppsHook,
+  lib,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -26,9 +27,7 @@ python3Packages.buildPythonApplication rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtwayland
-  ];
+  buildInputs = [ qtwayland ];
 
   propagatedBuildInputs = with python3Packages; [
     grpcio-tools

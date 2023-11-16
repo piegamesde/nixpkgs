@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -72,12 +77,15 @@ in
         EnvironmentFile = cfg.environmentFile;
         ExecStart =
           let
-            args = lib.cli.toGNUCommandLineShell { } ({
-              inherit (cfg) port;
-              ip = cfg.address;
-              name = cfg.erlang_node_name;
-              sname = cfg.erlang_node_short_name;
-            } // cfg.options);
+            args = lib.cli.toGNUCommandLineShell { } (
+              {
+                inherit (cfg) port;
+                ip = cfg.address;
+                name = cfg.erlang_node_name;
+                sname = cfg.erlang_node_short_name;
+              }
+              // cfg.options
+            );
           in
           "${pkgs.livebook}/bin/livebook server ${args}";
       };

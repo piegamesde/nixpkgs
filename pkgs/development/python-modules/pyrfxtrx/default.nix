@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyserial
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -16,18 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-sxxGu1ON5fhUCaONYJdsUFHraTh5NAdXzj7Cai9k5yc=";
   };
 
-  propagatedBuildInputs = [
-    pyserial
-  ];
+  propagatedBuildInputs = [ pyserial ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # https://github.com/Danielhiversen/pyRFXtrx/issues/130
-    "tests/test_rollertrol.py"
-  ];
+  disabledTestPaths =
+    [
+      # https://github.com/Danielhiversen/pyRFXtrx/issues/130
+      "tests/test_rollertrol.py"
+    ];
 
   meta = with lib; {
     description = "Library to communicate with the RFXtrx family of devices";

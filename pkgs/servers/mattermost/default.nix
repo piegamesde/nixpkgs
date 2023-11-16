@@ -1,21 +1,24 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchpatch
-, fetchurl
-, nixosTests
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  nixosTests,
 }:
 
 buildGoModule rec {
   pname = "mattermost";
   version = "8.1.4";
 
-  src = fetchFromGitHub {
-    owner = "mattermost";
-    repo = "mattermost";
-    rev = "v${version}";
-    hash = "sha256-mubKY1nzTmysg015368z/ORqIIOAGPUEthhXNrW1sPk=";
-  } + "/server";
+  src =
+    fetchFromGitHub {
+      owner = "mattermost";
+      repo = "mattermost";
+      rev = "v${version}";
+      hash = "sha256-mubKY1nzTmysg015368z/ORqIIOAGPUEthhXNrW1sPk=";
+    }
+    + "/server";
 
   webapp = fetchurl {
     url = "https://releases.mattermost.com/${version}/mattermost-${version}-linux-amd64.tar.gz";
@@ -50,7 +53,14 @@ buildGoModule rec {
   meta = with lib; {
     description = "Mattermost is an open source platform for secure collaboration across the entire software development lifecycle";
     homepage = "https://www.mattermost.org";
-    license = with licenses; [ agpl3 asl20 ];
-    maintainers = with maintainers; [ ryantm numinit kranzes ];
+    license = with licenses; [
+      agpl3
+      asl20
+    ];
+    maintainers = with maintainers; [
+      ryantm
+      numinit
+      kranzes
+    ];
   };
 }

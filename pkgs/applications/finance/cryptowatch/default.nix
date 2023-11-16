@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, wrapGAppsHook
-, dbus
-, libGL
-, libX11
-, libXcursor
-, libXi
-, libXrandr
-, udev
-, unzip
-, alsa-lib
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  dbus,
+  libGL,
+  libX11,
+  libXcursor,
+  libXi,
+  libXrandr,
+  udev,
+  unzip,
+  alsa-lib,
 }:
 
 stdenv.mkDerivation rec {
@@ -45,7 +46,15 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL libX11 libXcursor libXrandr libXi ]}"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          libGL
+          libX11
+          libXcursor
+          libXrandr
+          libXi
+        ]
+      }"
     )
   '';
 
@@ -55,6 +64,9 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ livnev kashw2 ];
+    maintainers = with maintainers; [
+      livnev
+      kashw2
+    ];
   };
 }

@@ -1,4 +1,21 @@
-{ coreutils, lib, stdenv, fetchgit, ant, jdk8, jdk11, git, xorg, udev, libGL, libGLU, mesa, xmlstarlet, xcbuild, darwin }:
+{
+  coreutils,
+  lib,
+  stdenv,
+  fetchgit,
+  ant,
+  jdk8,
+  jdk11,
+  git,
+  xorg,
+  udev,
+  libGL,
+  libGLU,
+  mesa,
+  xmlstarlet,
+  xcbuild,
+  darwin,
+}:
 
 {
   jogl_2_4_0 =
@@ -22,7 +39,10 @@
       pname = "jogl";
       inherit version;
 
-      srcs = [ gluegen-src jogl-src ];
+      srcs = [
+        gluegen-src
+        jogl-src
+      ];
       sourceRoot = ".";
 
       unpackCmd = "cp -r $curSrc \${curSrc##*-}";
@@ -32,10 +52,28 @@
         rm -r jogl/oculusvr-sdk
       '';
 
-      nativeBuildInputs = [ ant jdk11 git xmlstarlet ]
-        ++ lib.optionals stdenv.isDarwin [ xcbuild ];
-      buildInputs = lib.optionals stdenv.isLinux [ udev xorg.libX11 xorg.libXrandr xorg.libXcursor xorg.libXi xorg.libXt xorg.libXxf86vm xorg.libXrender mesa ]
-        ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.AppKit darwin.apple_sdk_11_0.frameworks.Cocoa ];
+      nativeBuildInputs = [
+        ant
+        jdk11
+        git
+        xmlstarlet
+      ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+      buildInputs =
+        lib.optionals stdenv.isLinux [
+          udev
+          xorg.libX11
+          xorg.libXrandr
+          xorg.libXcursor
+          xorg.libXi
+          xorg.libXt
+          xorg.libXxf86vm
+          xorg.libXrender
+          mesa
+        ]
+        ++ lib.optionals stdenv.isDarwin [
+          darwin.apple_sdk_11_0.frameworks.AppKit
+          darwin.apple_sdk_11_0.frameworks.Cocoa
+        ];
 
       # Workaround build failure on -fno-common toolchains:
       #   ld: ../obj/Bindingtest1p1Impl_JNI.o:(.bss+0x8): multiple definition of

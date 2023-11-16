@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cmake
-, confluent-kafka
-, cyrus_sasl
-, fetchFromGitHub
-, openssl
-, pkg-config
-, protobuf
-, pytestCheckHook
-, pythonOlder
-, rustPlatform
-, setuptools-rust
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cmake,
+  confluent-kafka,
+  cyrus_sasl,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  protobuf,
+  pytestCheckHook,
+  pythonOlder,
+  rustPlatform,
+  setuptools-rust,
 }:
 
 buildPythonPackage rec {
@@ -60,9 +61,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    kafka = [
-      confluent-kafka
-    ];
+    kafka = [ confluent-kafka ];
   };
 
   preCheck = ''
@@ -73,16 +72,17 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "bytewax"
-  ];
+  pythonImportsCheck = [ "bytewax" ];
 
   meta = with lib; {
     description = "Python Stream Processing";
     homepage = "https://github.com/bytewax/bytewax";
     changelog = "https://github.com/bytewax/bytewax/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mslingsby kfollesdal ];
+    maintainers = with maintainers; [
+      mslingsby
+      kfollesdal
+    ];
     # mismatched type expected u8, found i8
     broken = stdenv.isAarch64;
   };

@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, hwdata
-, gtk2
-, pkg-config
-, gettext
-, sqlite # compile GUI
-, withGUI ? false
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  hwdata,
+  gtk2,
+  pkg-config,
+  gettext,
+  sqlite, # compile GUI
+  withGUI ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,10 +26,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ahdaQeYZEFCVxwAMJPMB9bfo3ndIiqFyM6OghXwtm1A=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+  ];
 
-  buildInputs = [ hwdata ]
-    ++ lib.optionals withGUI [ gtk2 sqlite ];
+  buildInputs =
+    [ hwdata ]
+    ++ lib.optionals withGUI [
+      gtk2
+      sqlite
+    ];
 
   makeFlags = [
     "PREFIX=$(out)"

@@ -1,58 +1,65 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, libxml2
-, json-glib
-, glib
-, gettext
-, libsoup_3
-, gi-docgen
-, gobject-introspection
-, python3
-, tzdata
-, geocode-glib_2
-, vala
-, gnome
-, withIntrospection ? stdenv.buildPlatform == stdenv.hostPlatform
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  libxml2,
+  json-glib,
+  glib,
+  gettext,
+  libsoup_3,
+  gi-docgen,
+  gobject-introspection,
+  python3,
+  tzdata,
+  geocode-glib_2,
+  vala,
+  gnome,
+  withIntrospection ? stdenv.buildPlatform == stdenv.hostPlatform,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libgweather";
   version = "4.2.0";
 
-  outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "r4qBLaDYl2oADh1iVywlYIaoFzI/vzWwZtv92NLKYgM=";
   };
 
-  patches = [
-    # Headers depend on glib but it is only listed in Requires.private,
-    # which does not influence Cflags on non-static builds in nixpkgs’s
-    # pkg-config. Let’s add it to Requires to ensure Cflags are set correctly.
-    ./fix-pkgconfig.patch
-  ];
+  patches =
+    [
+      # Headers depend on glib but it is only listed in Requires.private,
+      # which does not influence Cflags on non-static builds in nixpkgs’s
+      # pkg-config. Let’s add it to Requires to ensure Cflags are set correctly.
+      ./fix-pkgconfig.patch
+    ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    glib
-    (python3.pythonOnBuildForHost.withPackages (ps: [ ps.pygobject3 ]))
-  ] ++ lib.optionals withIntrospection [
-    gi-docgen
-    gobject-introspection
-    vala
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gettext
+      glib
+      (python3.pythonOnBuildForHost.withPackages (ps: [ ps.pygobject3 ]))
+    ]
+    ++ lib.optionals withIntrospection [
+      gi-docgen
+      gobject-introspection
+      vala
+    ];
 
   buildInputs = [
     glib

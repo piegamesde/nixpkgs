@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, boto3
-, cryptography
-, setuptools
-, wrapt
-, mock
-, pytest
-, pytest-mock
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  boto3,
+  cryptography,
+  setuptools,
+  wrapt,
+  mock,
+  pytest,
+  pytest-mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

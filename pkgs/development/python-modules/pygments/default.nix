@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 
-# build-system
-, setuptools
+  # build-system
+  setuptools,
 
-# tests
-, pytestCheckHook
-, wcag-contrast-ratio
+  # tests
+  pytestCheckHook,
+  wcag-contrast-ratio,
 }:
 
-let pygments = buildPythonPackage
-  rec {
+let
+  pygments = buildPythonPackage rec {
     pname = "pygments";
     version = "2.16.1";
     format = "pyproject";
@@ -22,9 +23,7 @@ let pygments = buildPythonPackage
       hash = "sha256-Ha/wSUggxpvIlB5AeqIPV3N07og2TuEKmP2+Cuzpbik=";
     };
 
-    nativeBuildInputs = [
-      setuptools
-    ];
+    nativeBuildInputs = [ setuptools ];
 
     # circular dependencies if enabled by default
     doCheck = false;
@@ -34,14 +33,13 @@ let pygments = buildPythonPackage
       wcag-contrast-ratio
     ];
 
-    disabledTestPaths = [
-      # 5 lines diff, including one nix store path in 20000+ lines
-      "tests/examplefiles/bash/ltmain.sh"
-    ];
+    disabledTestPaths =
+      [
+        # 5 lines diff, including one nix store path in 20000+ lines
+        "tests/examplefiles/bash/ltmain.sh"
+      ];
 
-    pythonImportsCheck = [
-      "pygments"
-    ];
+    pythonImportsCheck = [ "pygments" ];
 
     passthru.tests = {
       check = pygments.overridePythonAttrs (_: { doCheck = true; });
@@ -56,4 +54,5 @@ let pygments = buildPythonPackage
       maintainers = with maintainers; [ ];
     };
   };
-in pygments
+in
+pygments

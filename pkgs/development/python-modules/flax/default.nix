@@ -1,24 +1,25 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jaxlib
-, pythonRelaxDepsHook
-, setuptools-scm
-, jax
-, msgpack
-, numpy
-, optax
-, pyyaml
-, rich
-, tensorstore
-, typing-extensions
-, matplotlib
-, cloudpickle
-, einops
-, keras
-, pytest-xdist
-, pytestCheckHook
-, tensorflow
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jaxlib,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+  jax,
+  msgpack,
+  numpy,
+  optax,
+  pyyaml,
+  rich,
+  tensorstore,
+  typing-extensions,
+  matplotlib,
+  cloudpickle,
+  einops,
+  keras,
+  pytest-xdist,
+  pytestCheckHook,
+  tensorflow,
 }:
 
 buildPythonPackage rec {
@@ -54,9 +55,7 @@ buildPythonPackage rec {
     all = [ matplotlib ];
   };
 
-  pythonImportsCheck = [
-    "flax"
-  ];
+  pythonImportsCheck = [ "flax" ];
 
   nativeCheckInputs = [
     cloudpickle

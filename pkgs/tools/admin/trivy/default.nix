@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
-, trivy
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  trivy,
 }:
 
 buildGoModule rec {
@@ -52,6 +53,9 @@ buildGoModule rec {
       application dependencies (Bundler, Composer, npm, yarn, etc.).
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab jk ];
+    maintainers = with maintainers; [
+      fab
+      jk
+    ];
   };
 }

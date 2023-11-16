@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, CoreServices
-, Security
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  CoreServices,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,16 +22,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-DEHMF6sTH3BF8lqOV5G4F3+Tsafrhzr0YLqSgV3gq9I=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-    Security
-  ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      Security
+    ];
 
   meta = with lib; {
     description = "Twitch chat in the terminal";

@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, substituteAll
-, portmidi
-, python-rtmidi
-, pytestCheckHook
-, setuptools
-, setuptools-scm
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  portmidi,
+  python-rtmidi,
+  pytestCheckHook,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -32,17 +33,11 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    python-rtmidi
-  ];
+  propagatedBuildInputs = [ python-rtmidi ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "mido"
-  ];
+  pythonImportsCheck = [ "mido" ];
 
   meta = with lib; {
     description = "MIDI Objects for Python";

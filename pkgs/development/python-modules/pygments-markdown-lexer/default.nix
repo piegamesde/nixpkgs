@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pygments
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pygments,
 }:
 
 buildPythonPackage rec {
@@ -23,5 +24,4 @@ buildPythonPackage rec {
     description = "Pygments Markdown Lexer – A Markdown lexer for Pygments to highlight Markdown code snippets";
     license = licenses.asl20;
   };
-
 }

@@ -1,16 +1,17 @@
-{ lib
-, boto3
-, buildPythonPackage
-, envs
-, fetchFromGitHub
-, isPy27
-, freezegun
-, mock
-, moto
-, pytestCheckHook
-, python-jose
-, requests
-, requests-mock
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  envs,
+  fetchFromGitHub,
+  isPy27,
+  freezegun,
+  mock,
+  moto,
+  pytestCheckHook,
+  python-jose,
+  requests,
+  requests-mock,
 }:
 
 buildPythonPackage rec {
@@ -47,10 +48,11 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests.py" ];
 
-  disabledTests = [
-    # requires network access
-    "test_srp_requests_http_auth"
-  ];
+  disabledTests =
+    [
+      # requires network access
+      "test_srp_requests_http_auth"
+    ];
 
   pythonImportsCheck = [ "pycognito" ];
 

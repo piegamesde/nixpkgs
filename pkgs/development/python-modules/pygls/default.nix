@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, lsprotocol
-, typeguard
-, pytest-asyncio
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  lsprotocol,
+  typeguard,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-OfLlYTgVCg+oiYww0RjRTjiBwTZBSNqJRryo8gZEmk4=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     lsprotocol

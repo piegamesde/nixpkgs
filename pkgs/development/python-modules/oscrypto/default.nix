@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, asn1crypto
-, buildPythonPackage
-, fetchFromGitHub
-, openssl
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  asn1crypto,
+  buildPythonPackage,
+  fetchFromGitHub,
+  openssl,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-CmDypmlc/kb6ONCUggjT1Iqd29xNSLRaGh5Hz36dvOw=";
   };
 
-  patches = [
-    ./support-openssl-3.0.10.patch
-  ];
+  patches = [ ./support-openssl-3.0.10.patch ];
 
   postPatch = ''
     for file in oscrypto/_openssl/_lib{crypto,ssl}_c{ffi,types}.py; do
@@ -34,17 +33,11 @@ buildPythonPackage rec {
     done
   '';
 
-  propagatedBuildInputs = [
-    asn1crypto
-  ];
+  propagatedBuildInputs = [ asn1crypto ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "oscrypto"
-  ];
+  pythonImportsCheck = [ "oscrypto" ];
 
   doCheck = !stdenv.isDarwin;
 

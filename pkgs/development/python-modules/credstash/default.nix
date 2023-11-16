@@ -1,4 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, cryptography, boto3, pyyaml, docutils, pytest, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  boto3,
+  pyyaml,
+  docutils,
+  pytest,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "credstash";
@@ -25,7 +35,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ cryptography boto3 pyyaml docutils ];
+  propagatedBuildInputs = [
+    cryptography
+    boto3
+    pyyaml
+    docutils
+  ];
 
   # No tests in archive
   doCheck = false;

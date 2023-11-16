@@ -1,11 +1,12 @@
-{ branch ? "mainline"
-, qt6Packages
-, fetchFromGitHub
-, fetchgit
-, fetchurl
-, fetchzip
-, runCommand
-, gnutar
+{
+  branch ? "mainline",
+  qt6Packages,
+  fetchFromGitHub,
+  fetchgit,
+  fetchurl,
+  fetchzip,
+  runCommand,
+  gnutar,
 }:
 
 let
@@ -36,22 +37,24 @@ let
     hash = sources.ea.distHash;
   };
 
-  eaGitSrc = runCommand "yuzu-ea-dist-unpacked" {
-    src = eaZip;
-    nativeBuildInputs = [ gnutar ];
-  }
-  ''
-    mkdir $out
-    tar xf $src/*.tar.xz --directory=$out --strip-components=1
-  '';
+  eaGitSrc =
+    runCommand "yuzu-ea-dist-unpacked"
+      {
+        src = eaZip;
+        nativeBuildInputs = [ gnutar ];
+      }
+      ''
+        mkdir $out
+        tar xf $src/*.tar.xz --directory=$out --strip-components=1
+      '';
 
   eaSrcRehydrated = fetchgit {
     url = eaGitSrc;
     fetchSubmodules = true;
     hash = sources.ea.fullHash;
   };
-
-in {
+in
+{
   mainline = qt6Packages.callPackage ./generic.nix {
     branch = "mainline";
     version = sources.mainline.version;
@@ -65,4 +68,5 @@ in {
     src = eaSrcRehydrated;
     inherit compat-list;
   };
-}.${branch}
+}
+.${branch}

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, beartype
-, invoke
-, numpy
-, pandas
-, feedparser
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  beartype,
+  invoke,
+  numpy,
+  pandas,
+  feedparser,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-hz4YrcvARCAA7TXapmneIwle/F4pzcIYLPSmiFHC0VQ=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   nativeCheckInputs = [
     beartype
@@ -36,10 +35,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # tries to download data
-    "test_pandas_stubs_fork_is_synchronized"
-  ];
+  disabledTests =
+    [
+      # tries to download data
+      "test_pandas_stubs_fork_is_synchronized"
+    ];
 
   disabledTestPaths = [
     # missing pyright import:
@@ -53,9 +53,7 @@ buildPythonPackage rec {
     "tests/test_wheel.py"
   ];
 
-  pythonImportsCheck = [
-    "nptyping"
-  ];
+  pythonImportsCheck = [ "nptyping" ];
 
   meta = with lib; {
     description = "Type hints for numpy";

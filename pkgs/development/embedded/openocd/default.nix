@@ -1,17 +1,19 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, hidapi
-, jimtcl
-, libjaylink
-, libusb1
-, libgpiod
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  hidapi,
+  jimtcl,
+  libjaylink,
+  libusb1,
+  libgpiod,
 
-, enableFtdi ? true, libftdi1
+  enableFtdi ? true,
+  libftdi1,
 
-# Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
-, extraHardwareSupport ? []
+  # Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
+  extraHardwareSupport ? [ ],
 }:
 
 stdenv.mkDerivation rec {
@@ -24,16 +26,27 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ hidapi jimtcl libftdi1 libjaylink libusb1 ]
+  buildInputs =
+    [
+      hidapi
+      jimtcl
+      libftdi1
+      libjaylink
+      libusb1
+    ]
     ++
     # tracking issue for v2 api changes https://sourceforge.net/p/openocd/tickets/306/
-    lib.optional stdenv.isLinux (libgpiod.overrideAttrs (old: rec {
-      version = "1.6.4";
-      src = fetchurl {
-        url = "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot/libgpiod-${version}.tar.gz";
-        sha256 = "sha256-gp1KwmjfB4U2CdZ8/H9HbpqnNssqaKYwvpno+tGXvgo=";
-      };
-    }));
+    lib.optional stdenv.isLinux (
+      libgpiod.overrideAttrs (
+        old: rec {
+          version = "1.6.4";
+          src = fetchurl {
+            url = "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot/libgpiod-${version}.tar.gz";
+            sha256 = "sha256-gp1KwmjfB4U2CdZ8/H9HbpqnNssqaKYwvpno+tGXvgo=";
+          };
+        }
+      )
+    );
 
   configureFlags = [
     "--disable-werror"
@@ -45,16 +58,16 @@ stdenv.mkDerivation rec {
     (lib.enableFeature enableFtdi "ftdi")
     (lib.enableFeature stdenv.isLinux "linuxgpiod")
     (lib.enableFeature stdenv.isLinux "sysfsgpio")
-  ] ++
-    map (hardware: "--enable-${hardware}") extraHardwareSupport
-  ;
+  ] ++ map (hardware: "--enable-${hardware}") extraHardwareSupport;
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    "-Wno-error=cpp"
-    "-Wno-error=strict-prototypes" # fixes build failure with hidapi 0.10.0
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.cc.isGNU [
+      "-Wno-error=cpp"
+      "-Wno-error=strict-prototypes" # fixes build failure with hidapi 0.10.0
+    ]
+  );
 
   postInstall = lib.optionalString stdenv.isLinux ''
     mkdir -p "$out/etc/udev/rules.d"
@@ -79,7 +92,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://openocd.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ bjornfor prusnak ];
+    maintainers = with maintainers; [
+      bjornfor
+      prusnak
+    ];
     platforms = platforms.unix;
   };
 }

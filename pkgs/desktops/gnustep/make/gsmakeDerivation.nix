@@ -1,19 +1,38 @@
-{ lib, stdenv, make, makeWrapper, which }:
-{ nativeBuildInputs ? [], ...} @ args:
-stdenv.mkDerivation (args // {
-  nativeBuildInputs = [ makeWrapper make which ] ++ nativeBuildInputs;
+{
+  lib,
+  stdenv,
+  make,
+  makeWrapper,
+  which,
+}:
+{
+  nativeBuildInputs ? [ ],
+  ...
+}@args:
+stdenv.mkDerivation (
+  args
+  // {
+    nativeBuildInputs = [
+      makeWrapper
+      make
+      which
+    ] ++ nativeBuildInputs;
 
-  builder = ./builder.sh;
-  setupHook = ./setup-hook.sh;
+    builder = ./builder.sh;
+    setupHook = ./setup-hook.sh;
 
-  GNUSTEP_MAKEFILES = "${make}/share/GNUstep/Makefiles";
+    GNUSTEP_MAKEFILES = "${make}/share/GNUstep/Makefiles";
 
-  meta = {
-    homepage = "http://gnustep.org/";
+    meta = {
+      homepage = "http://gnustep.org/";
 
-    license = lib.licenses.lgpl2Plus;
+      license = lib.licenses.lgpl2Plus;
 
-    maintainers = with lib.maintainers; [ ashalkhakov matthewbauer ];
-    platforms = lib.platforms.linux;
-  } // (lib.optionalAttrs (builtins.hasAttr "meta" args) args.meta);
-})
+      maintainers = with lib.maintainers; [
+        ashalkhakov
+        matthewbauer
+      ];
+      platforms = lib.platforms.linux;
+    } // (lib.optionalAttrs (builtins.hasAttr "meta" args) args.meta);
+  }
+)

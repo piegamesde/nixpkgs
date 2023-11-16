@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-, six
-, urllib3
-, packaging
-, setuptools
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  six,
+  urllib3,
+  packaging,
+  setuptools,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
   # Tests require internet access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "qbittorrentapi"
-  ];
+  pythonImportsCheck = [ "qbittorrentapi" ];
 
   meta = with lib; {
     description = "Python client implementation for qBittorrent's Web API";
