@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.services.saslauthd;
-
 in
 
 {
@@ -36,11 +40,8 @@ in
         default = "";
         description = lib.mdDoc "Configuration to use for Cyrus SASL authentication daemon.";
       };
-
     };
-
   };
-
 
   ###### implementation
 
@@ -52,7 +53,9 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "@${cfg.package}/sbin/saslauthd saslauthd -a ${cfg.mechanism} -O ${pkgs.writeText "saslauthd.conf" cfg.config}";
+        ExecStart = "@${cfg.package}/sbin/saslauthd saslauthd -a ${cfg.mechanism} -O ${
+            pkgs.writeText "saslauthd.conf" cfg.config
+          }";
         Type = "forking";
         PIDFile = "/run/saslauthd/saslauthd.pid";
         Restart = "always";

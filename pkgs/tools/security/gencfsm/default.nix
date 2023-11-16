@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, autoconf, automake, intltool, libtool, pkg-config
-, encfs, libsecret , glib , libgee, gtk3, vala, wrapGAppsHook, xorg
-, gobject-introspection
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  intltool,
+  libtool,
+  pkg-config,
+  encfs,
+  libsecret,
+  glib,
+  libgee,
+  gtk3,
+  vala,
+  wrapGAppsHook,
+  xorg,
+  gobject-introspection,
 }:
 
 stdenv.mkDerivation rec {
@@ -8,8 +23,11 @@ stdenv.mkDerivation rec {
   pname = "gnome-encfs-manager";
 
   src = fetchurl {
-    url = with lib.versions;
-      "https://launchpad.net/gencfsm/trunk/${major version}.${minor version}/+download/gnome-encfs-manager_${version}.tar.xz";
+    url =
+      with lib.versions;
+      "https://launchpad.net/gencfsm/trunk/${major version}.${
+        minor version
+      }/+download/gnome-encfs-manager_${version}.tar.xz";
     sha256 = "RXVwg/xhfAQv3pWp3UylOhMKDh9ZACTuKM4lPrn1dk8=";
   };
 

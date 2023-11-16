@@ -1,22 +1,29 @@
-{ lib
-, newScope
-}:
+{ lib, newScope }:
 
-lib.makeScope newScope (self: with self; {
-  inherit (import ./bootstrap-sources.nix) version hex0-seed src;
+lib.makeScope newScope (
+  self:
+  with self; {
+    inherit (import ./bootstrap-sources.nix) version hex0-seed src;
 
-  m2libc = src + "/M2libc";
+    m2libc = src + "/M2libc";
 
-  hex0 = callPackage ./hex0.nix { };
+    hex0 = callPackage ./hex0.nix { };
 
-  kaem = callPackage ./kaem { };
-  kaem-minimal = callPackage ./kaem/minimal.nix { };
+    kaem = callPackage ./kaem { };
+    kaem-minimal = callPackage ./kaem/minimal.nix { };
 
-  stage0-posix-x86 = callPackage ./stage0-posix-x86.nix { };
+    stage0-posix-x86 = callPackage ./stage0-posix-x86.nix { };
 
-  inherit (self.stage0-posix-x86) blood-elf-0 hex2 kaem-unwrapped M1 M2;
+    inherit (self.stage0-posix-x86)
+      blood-elf-0
+      hex2
+      kaem-unwrapped
+      M1
+      M2
+    ;
 
-  mescc-tools = callPackage ./mescc-tools { };
+    mescc-tools = callPackage ./mescc-tools { };
 
-  mescc-tools-extra = callPackage ./mescc-tools-extra { };
-})
+    mescc-tools-extra = callPackage ./mescc-tools-extra { };
+  }
+)

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, alsa-lib, fftw,
-  libpulseaudio, ncurses, iniparser }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  alsa-lib,
+  fftw,
+  libpulseaudio,
+  ncurses,
+  iniparser,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cava";
@@ -26,7 +35,10 @@ stdenv.mkDerivation rec {
     description = "Console-based Audio Visualizer for Alsa";
     homepage = "https://github.com/karlstav/cava";
     license = licenses.mit;
-    maintainers = with maintainers; [ offline mirrexagon ];
+    maintainers = with maintainers; [
+      offline
+      mirrexagon
+    ];
     platforms = platforms.linux;
   };
 }

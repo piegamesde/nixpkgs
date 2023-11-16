@@ -1,9 +1,10 @@
-{ buildPythonApplication
-, fetchFromGitHub
-, lib
-, natsort
-, panflute
-, setuptools
+{
+  buildPythonApplication,
+  fetchFromGitHub,
+  lib,
+  natsort,
+  panflute,
+  setuptools,
 }:
 
 buildPythonApplication rec {
@@ -18,11 +19,12 @@ buildPythonApplication rec {
     sha256 = "sha256-kuxud7m+sWcNqE8A+Fwb8ATgiUwxQvHeYBTyw1UzX4U=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ natsort panflute ];
+  propagatedBuildInputs = [
+    natsort
+    panflute
+  ];
 
   pythonImportsCheck = [ "pandoc_include.main" ];
 

@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildGoPackage
-, pkg-config
-, go-dbus-factory
-, go-gir-generator
-, go-lib
-, gettext
-, dde-api
-, libgnome-keyring
-, gtk3
-, alsa-lib
-, libpulseaudio
-, libgudev
-, libsecret
-, jq
-, wrapGAppsHook
-, runtimeShell
-, dde-polkit-agent
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoPackage,
+  pkg-config,
+  go-dbus-factory,
+  go-gir-generator,
+  go-lib,
+  gettext,
+  dde-api,
+  libgnome-keyring,
+  gtk3,
+  alsa-lib,
+  libpulseaudio,
+  libgudev,
+  libsecret,
+  jq,
+  wrapGAppsHook,
+  runtimeShell,
+  dde-polkit-agent,
 }:
 
 buildGoPackage rec {
@@ -33,9 +34,7 @@ buildGoPackage rec {
     sha256 = "sha256-dbTcYS7dEvT0eP45jKE8WiG9Pm4LU6jvR8hjMQv/yxU=";
   };
 
-  patches = [
-    ./0001-avoid-use-hardcode-path.patch
-  ];
+  patches = [ ./0001-avoid-use-hardcode-path.patch ];
 
   postPatch = ''
     substituteInPlace display/manager.go session.go \

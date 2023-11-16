@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pefile
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pefile,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-fluG/2XlUh3kPtYtSotrP02c7kdmem92Hy1R93SaTzk=";
   };
 
-  propagatedBuildInputs = [
-    pefile
-  ];
+  propagatedBuildInputs = [ pefile ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -29,9 +28,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "autoit_ripper"
-  ];
+  pythonImportsCheck = [ "autoit_ripper" ];
 
   meta = with lib; {
     description = "Python module to extract AutoIt scripts embedded in PE binaries";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libgcrypt, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libgcrypt,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libotr";
@@ -11,7 +17,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-regtest-client.patch ];
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
   propagatedBuildInputs = [ libgcrypt ];

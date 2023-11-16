@@ -1,20 +1,21 @@
-{ lib
-, fetchFromGitLab
-, fetchpatch
-, desktop-file-utils
-, gettext
-, glib
-, gobject-introspection
-, gtk4
-, libadwaita
-, libnotify
-, webkitgtk_6_0
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook4
-, nix-update-script
+{
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  desktop-file-utils,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtk4,
+  libadwaita,
+  libnotify,
+  webkitgtk_6_0,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wrapGAppsHook4,
+  nix-update-script,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -81,15 +82,16 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script {
-      attrPath = "komikku";
-    };
+    updateScript = nix-update-script { attrPath = "komikku"; };
   };
 
   meta = with lib; {
     description = "Manga reader for GNOME";
     homepage = "https://valos.gitlab.io/Komikku/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chuangzhu infinitivewitch ];
+    maintainers = with maintainers; [
+      chuangzhu
+      infinitivewitch
+    ];
   };
 }

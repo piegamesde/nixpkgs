@@ -1,13 +1,29 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeDesktopItem, copyDesktopItems, makeWrapper, electron
-, nodePackages, alsa-lib, gtk3, libdbusmenu, libxshmfence, mesa, nss }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  electron,
+  nodePackages,
+  alsa-lib,
+  gtk3,
+  libdbusmenu,
+  libxshmfence,
+  mesa,
+  nss,
+}:
 
 stdenv.mkDerivation rec {
   pname = "whalebird";
   version = "4.7.4";
 
-  src = let
-    downloads = "https://github.com/h3poteto/whalebird-desktop/releases/download/${version}";
-  in
+  src =
+    let
+      downloads = "https://github.com/h3poteto/whalebird-desktop/releases/download/${version}";
+    in
     if stdenv.system == "x86_64-linux" then
       fetchurl {
         url = downloads + "/Whalebird-${version}-linux-x64.tar.bz2";
@@ -28,7 +44,14 @@ stdenv.mkDerivation rec {
     nodePackages.asar
   ];
 
-  buildInputs = [ alsa-lib gtk3 libdbusmenu libxshmfence mesa nss ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+    libdbusmenu
+    libxshmfence
+    mesa
+    nss
+  ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -84,7 +107,13 @@ stdenv.mkDerivation rec {
     homepage = "https://whalebird.social";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang colinsane ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      wolfangaukang
+      colinsane
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

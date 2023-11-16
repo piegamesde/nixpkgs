@@ -1,16 +1,17 @@
-{ buildPythonPackage
-, certbot
-, cryptography
-, pyasn1
-, pyopenssl
-, pyRFC3339
-, josepy
-, pytz
-, requests
-, requests-toolbelt
-, six
-, werkzeug
-, ndg-httpsclient
+{
+  buildPythonPackage,
+  certbot,
+  cryptography,
+  pyasn1,
+  pyopenssl,
+  pyRFC3339,
+  josepy,
+  pytz,
+  requests,
+  requests-toolbelt,
+  six,
+  werkzeug,
+  ndg-httpsclient,
 }:
 
 buildPythonPackage rec {
@@ -19,8 +20,17 @@ buildPythonPackage rec {
   pname = "acme";
 
   propagatedBuildInputs = [
-    cryptography pyasn1 pyopenssl pyRFC3339 pytz requests requests-toolbelt six
-    werkzeug ndg-httpsclient josepy
+    cryptography
+    pyasn1
+    pyopenssl
+    pyRFC3339
+    pytz
+    requests
+    requests-toolbelt
+    six
+    werkzeug
+    ndg-httpsclient
+    josepy
   ];
 
   # does not contain any tests

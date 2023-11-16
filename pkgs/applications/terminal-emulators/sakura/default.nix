@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, glib
-, gtk3
-, makeWrapper
-, pcre2
-, perl
-, pkg-config
-, vte
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  glib,
+  gtk3,
+  makeWrapper,
+  pcre2,
+  perl,
+  pkg-config,
+  vte,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -60,7 +61,11 @@ stdenv.mkDerivation rec {
       options. No more no less.
     '';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ astsmtl codyopel AndersonTorres ];
+    maintainers = with maintainers; [
+      astsmtl
+      codyopel
+      AndersonTorres
+    ];
     platforms = platforms.linux;
- };
+  };
 }

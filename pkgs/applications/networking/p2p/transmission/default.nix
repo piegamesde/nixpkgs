@@ -1,41 +1,42 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchurl
-, cmake
-, pkg-config
-, openssl
-, curl
-, libevent
-, inotify-tools
-, systemd
-, zlib
-, pcre
-, libb64
-, libutp
-, miniupnpc
-, dht
-, libnatpmp
-, libiconv
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  pkg-config,
+  openssl,
+  curl,
+  libevent,
+  inotify-tools,
+  systemd,
+  zlib,
+  pcre,
+  libb64,
+  libutp,
+  miniupnpc,
+  dht,
+  libnatpmp,
+  libiconv,
   # Build options
-, enableGTK3 ? false
-, gtk3
-, xorg
-, wrapGAppsHook
-, enableQt ? false
-, qt5
-, nixosTests
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, enableDaemon ? true
-, enableCli ? true
-, installLib ? false
-, apparmorRulesFromClosure
+  enableGTK3 ? false,
+  gtk3,
+  xorg,
+  wrapGAppsHook,
+  enableQt ? false,
+  qt5,
+  nixosTests,
+  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  enableDaemon ? true,
+  enableCli ? true,
+  installLib ? false,
+  apparmorRulesFromClosure,
 }:
 
 let
   version = "3.00";
-
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "transmission";
   inherit version;
 
@@ -47,15 +48,19 @@ in stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # fix build with openssl 3.0
-    (fetchurl {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
-      hash = "sha256-peVrkGck8AfbC9uYNfv1CIu1alIewpca7A6kRXjVlVs=";
-    })
-  ];
+  patches =
+    [
+      # fix build with openssl 3.0
+      (fetchurl {
+        url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
+        hash = "sha256-peVrkGck8AfbC9uYNfv1CIu1alIewpca7A6kRXjVlVs=";
+      })
+    ];
 
-  outputs = [ "out" "apparmor" ];
+  outputs = [
+    "out"
+    "apparmor"
+  ];
 
   cmakeFlags =
     let
@@ -73,28 +78,32 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [
     pkg-config
     cmake
-  ]
-  ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
-  ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ]
-  ;
+  ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ] ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
 
-  buildInputs = [
-    openssl
-    curl
-    libevent
-    zlib
-    pcre
-    libb64
-    libutp
-    miniupnpc
-    dht
-    libnatpmp
-  ]
-  ++ lib.optionals enableQt [ qt5.qttools qt5.qtbase ]
-  ++ lib.optionals enableGTK3 [ gtk3 xorg.libpthreadstubs ]
-  ++ lib.optionals enableSystemd [ systemd ]
-  ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-  ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs =
+    [
+      openssl
+      curl
+      libevent
+      zlib
+      pcre
+      libb64
+      libutp
+      miniupnpc
+      dht
+      libnatpmp
+    ]
+    ++ lib.optionals enableQt [
+      qt5.qttools
+      qt5.qtbase
+    ]
+    ++ lib.optionals enableGTK3 [
+      gtk3
+      xorg.libpthreadstubs
+    ]
+    ++ lib.optionals enableSystemd [ systemd ]
+    ++ lib.optionals stdenv.isLinux [ inotify-tools ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   postInstall = ''
     mkdir $apparmor
@@ -104,11 +113,21 @@ in stdenv.mkDerivation {
       include <abstractions/base>
       include <abstractions/nameservice>
       include <abstractions/ssl_certs>
-      include "${apparmorRulesFromClosure { name = "transmission-daemon"; } ([
-        curl libevent openssl pcre zlib libnatpmp miniupnpc
-      ] ++ lib.optionals enableSystemd [ systemd ]
-        ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-      )}"
+      include "${
+        apparmorRulesFromClosure { name = "transmission-daemon"; } (
+          [
+            curl
+            libevent
+            openssl
+            pcre
+            zlib
+            libnatpmp
+            miniupnpc
+          ]
+          ++ lib.optionals enableSystemd [ systemd ]
+          ++ lib.optionals stdenv.isLinux [ inotify-tools ]
+        )
+      }"
       r @{PROC}/sys/kernel/random/uuid,
       r @{PROC}/sys/vm/overcommit_memory,
       r @{PROC}/@{pid}/environ,
@@ -145,5 +164,4 @@ in stdenv.mkDerivation {
     maintainers = with lib.maintainers; [ astsmtl ];
     platforms = lib.platforms.unix;
   };
-
 }

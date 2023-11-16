@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchPypi
-, fetchpatch
+{
+  lib,
+  python3,
+  fetchPypi,
+  fetchpatch,
 }:
 
 with python3.pkgs;
@@ -80,6 +81,9 @@ buildPythonPackage rec {
     description = "Archiver for GNU Mailman v3";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ globin qyliss ];
+    maintainers = with lib.maintainers; [
+      globin
+      qyliss
+    ];
   };
 }

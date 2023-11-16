@@ -1,28 +1,29 @@
-{ buildPythonApplication
-, charset-normalizer
-, colorama
-, commitizen
-, decli
-, fetchFromGitHub
-, git
-, jinja2
-, lib
-, packaging
-, poetry-core
-, py
-, pytest-freezer
-, pytest-mock
-, pytest-regressions
-, pytestCheckHook
-, pyyaml
-, questionary
-, termcolor
-, testers
-, tomlkit
-, typing-extensions
-, argcomplete
-, nix-update-script
-, pre-commit
+{
+  buildPythonApplication,
+  charset-normalizer,
+  colorama,
+  commitizen,
+  decli,
+  fetchFromGitHub,
+  git,
+  jinja2,
+  lib,
+  packaging,
+  poetry-core,
+  py,
+  pytest-freezer,
+  pytest-mock,
+  pytest-regressions,
+  pytestCheckHook,
+  pyyaml,
+  questionary,
+  termcolor,
+  testers,
+  tomlkit,
+  typing-extensions,
+  argcomplete,
+  nix-update-script,
+  pre-commit,
 }:
 
 buildPythonApplication rec {
@@ -109,6 +110,9 @@ buildPythonApplication rec {
     homepage = "https://github.com/commitizen-tools/commitizen";
     changelog = "https://github.com/commitizen-tools/commitizen/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault anthonyroussel ];
+    maintainers = with maintainers; [
+      lovesegfault
+      anthonyroussel
+    ];
   };
 }

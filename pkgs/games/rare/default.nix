@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, qt5
-, legendary-gl
-, pypresence
-, pyqt5
-, python
-, qtawesome
-, requests
-, typing-extensions
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  qt5,
+  legendary-gl,
+  pypresence,
+  pyqt5,
+  python,
+  qtawesome,
+  requests,
+  typing-extensions,
 }:
 
 buildPythonApplication rec {
@@ -22,9 +23,7 @@ buildPythonApplication rec {
     sha256 = "sha256-+STwVsDdvjP7HaqmaQVug+6h0n0rw/j4LGQQSNdLVQQ=";
   };
 
-  nativeBuildInputs = [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
   propagatedBuildInputs = [
     legendary-gl

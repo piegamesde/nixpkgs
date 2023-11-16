@@ -1,11 +1,25 @@
-{ lib, stdenv, fetchgit, pkg-config, asciidoc, xmlto, docbook_xsl, docbook_xml_dtd_45, libxslt, libtraceevent, libtracefs, zstd, sourceHighlight }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  asciidoc,
+  xmlto,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  libxslt,
+  libtraceevent,
+  libtracefs,
+  zstd,
+  sourceHighlight,
+}:
 stdenv.mkDerivation rec {
   pname = "trace-cmd";
   version = "3.1.6";
 
   src = fetchgit {
-    url    = "https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/";
-    rev    = "trace-cmd-v${version}";
+    url = "https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/";
+    rev = "trace-cmd-v${version}";
     sha256 = "sha256-qjfeomeExjsx/6XrUaGm5szbL7XVlekGd4Hsuncv8NY=";
   };
 
@@ -16,21 +30,39 @@ stdenv.mkDerivation rec {
     patchShebangs check-manpages.sh
   '';
 
-  nativeBuildInputs = [ asciidoc libxslt pkg-config xmlto docbook_xsl docbook_xml_dtd_45 sourceHighlight ];
+  nativeBuildInputs = [
+    asciidoc
+    libxslt
+    pkg-config
+    xmlto
+    docbook_xsl
+    docbook_xml_dtd_45
+    sourceHighlight
+  ];
 
-  buildInputs = [ libtraceevent libtracefs zstd ];
+  buildInputs = [
+    libtraceevent
+    libtracefs
+    zstd
+  ];
 
-  outputs = [ "out" "lib" "dev" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+  ];
 
-  MANPAGE_DOCBOOK_XSL="${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl";
+  MANPAGE_DOCBOOK_XSL = "${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl";
 
   dontConfigure = true;
 
   enableParallelBuilding = true;
-  makeFlags = [
-    # The following values appear in the generated .pc file
-    "prefix=${placeholder "lib"}"
-  ];
+  makeFlags =
+    [
+      # The following values appear in the generated .pc file
+      "prefix=${placeholder "lib"}"
+    ];
 
   # We do not mention targets (like "doc") explicitly in makeFlags
   # because the Makefile would not print warnings about too old
@@ -56,9 +88,15 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "User-space tools for the Linux kernel ftrace subsystem";
-    homepage    = "https://www.trace-cmd.org/";
-    license     = with licenses; [ lgpl21Only gpl2Only ];
-    platforms   = platforms.linux;
-    maintainers = with maintainers; [ thoughtpolice basvandijk ];
+    homepage = "https://www.trace-cmd.org/";
+    license = with licenses; [
+      lgpl21Only
+      gpl2Only
+    ];
+    platforms = platforms.linux;
+    maintainers = with maintainers; [
+      thoughtpolice
+      basvandijk
+    ];
   };
 }

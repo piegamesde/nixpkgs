@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, getopt
-, libcap
-, gnused
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  getopt,
+  libcap,
+  gnused,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -39,9 +40,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ getopt gnused ]
-    ++ lib.optional (!stdenv.isDarwin) libcap
-    ;
+  buildInputs = [
+    getopt
+    gnused
+  ] ++ lib.optional (!stdenv.isDarwin) libcap;
 
   postUnpack = ''
     sed -i -e "s@getopt@$(type -p getopt)@g" -e "s@sed@$(type -p sed)@g" ${pname}-${version}/scripts/fakeroot.in
@@ -58,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://salsa.debian.org/clint/fakeroot";
     description = "Give a fake root environment through LD_PRELOAD";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [viric];
+    maintainers = with lib.maintainers; [ viric ];
     platforms = lib.platforms.unix;
   };
 }

@@ -1,14 +1,15 @@
-{ lib
-, azure-common
-, azure-core
-, azure-storage-common
-, buildPythonPackage
-, cryptography
-, fetchPypi
-, isodate
-, msrest
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  azure-common,
+  azure-core,
+  azure-storage-common,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  isodate,
+  msrest,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -42,6 +43,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-storage-blob_${version}/sdk/storage/azure-storage-blob/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ cmcdragonkai maxwilson ];
+    maintainers = with maintainers; [
+      cmcdragonkai
+      maxwilson
+    ];
   };
 }

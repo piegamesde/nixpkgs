@@ -1,6 +1,10 @@
-{ buildDunePackage, containers
-, dune-configurator
-, gen, iter, qcheck-core
+{
+  buildDunePackage,
+  containers,
+  dune-configurator,
+  gen,
+  iter,
+  qcheck-core,
 }:
 
 buildDunePackage {
@@ -11,7 +15,11 @@ buildDunePackage {
   duneVersion = "3";
 
   buildInputs = [ dune-configurator ];
-  checkInputs = [ gen iter qcheck-core ];
+  checkInputs = [
+    gen
+    iter
+    qcheck-core
+  ];
 
   propagatedBuildInputs = [ containers ];
 

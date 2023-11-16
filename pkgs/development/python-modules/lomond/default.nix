@@ -1,17 +1,18 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, pythonAtLeast
-, pythonOlder
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pythonAtLeast,
+  pythonOlder,
 
-# runtime
-, six
+  # runtime
+  six,
 
-# tests
-, freezegun
-, pytest-mock
-, pytestCheckHook
-, tornado_4
+  # tests
+  freezegun,
+  pytest-mock,
+  pytestCheckHook,
+  tornado_4,
 }:
 
 buildPythonPackage rec {
@@ -30,17 +31,13 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   nativeCheckInputs = [
     freezegun
     pytest-mock
     pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    tornado_4
-  ];
+  ] ++ lib.optionals (pythonOlder "3.10") [ tornado_4 ];
 
   disabledTests = [
     # Makes HTTP requests
@@ -48,10 +45,12 @@ buildPythonPackage rec {
     "test_live"
   ];
 
-  disabledTestPaths = lib.optionals (pythonAtLeast "3.10") [
-    # requires tornado_4, which is not compatible with python3.10
-    "tests/test_integration.py"
-  ];
+  disabledTestPaths =
+    lib.optionals (pythonAtLeast "3.10")
+      [
+        # requires tornado_4, which is not compatible with python3.10
+        "tests/test_integration.py"
+      ];
 
   meta = with lib; {
     description = "Websocket Client Library";

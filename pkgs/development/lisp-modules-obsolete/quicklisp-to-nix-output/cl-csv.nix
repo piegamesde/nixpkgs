@@ -1,14 +1,26 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-csv";
   version = "20201016-git";
 
-  parasites = [ "cl-csv/speed-test" "cl-csv/test" ];
+  parasites = [
+    "cl-csv/speed-test"
+    "cl-csv/test"
+  ];
 
   description = "Facilities for reading and writing CSV format files";
 
-  deps = [ args."alexandria" args."cl-interpol" args."cl-ppcre" args."cl-unicode" args."flexi-streams" args."iterate" args."lisp-unit2" args."named-readtables" ];
+  deps = [
+    args."alexandria"
+    args."cl-interpol"
+    args."cl-ppcre"
+    args."cl-unicode"
+    args."flexi-streams"
+    args."iterate"
+    args."lisp-unit2"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-csv/2020-10-16/cl-csv-20201016-git.tgz";
@@ -17,7 +29,7 @@ rec {
 
   packageName = "cl-csv";
 
-  asdFilesToKeep = ["cl-csv.asd"];
+  asdFilesToKeep = [ "cl-csv.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-csv DESCRIPTION
@@ -35,4 +47,5 @@ rec {
     (alexandria cl-interpol cl-ppcre cl-unicode flexi-streams iterate
      lisp-unit2 named-readtables)
     VERSION 20201016-git SIBLINGS (cl-csv-clsql cl-csv-data-table) PARASITES
-    (cl-csv/speed-test cl-csv/test)) */
+    (cl-csv/speed-test cl-csv/test))
+*/

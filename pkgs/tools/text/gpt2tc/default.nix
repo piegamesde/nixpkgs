@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpt2tc";
@@ -9,16 +15,23 @@ stdenv.mkDerivation rec {
     hash = "sha256-6oTxnbBwjHAXVrWMjOQVwdODbqLRoinx00pi29ff5w0=";
   };
 
-  patches = [
-    # Add a shebang to the python script so that nix detects it as such and
-    # wraps it properly. Otherwise, it runs in shell and freezes the system.
-    ./0001-add-python-shebang.patch
-  ];
+  patches =
+    [
+      # Add a shebang to the python script so that nix detects it as such and
+      # wraps it properly. Otherwise, it runs in shell and freezes the system.
+      ./0001-add-python-shebang.patch
+    ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [
-    (python3.withPackages (p: with p; [ numpy tensorflow ]))
+    (python3.withPackages (
+      p:
+      with p; [
+        numpy
+        tensorflow
+      ]
+    ))
   ];
 
   installPhase = ''

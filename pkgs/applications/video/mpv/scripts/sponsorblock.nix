@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, fetchpatch, python3, nix-update-script }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+  nix-update-script,
+}:
 
 # Usage: `pkgs.mpv.override { scripts = [ pkgs.mpvScripts.sponsorblock ]; }`
 stdenvNoCC.mkDerivation {
@@ -41,9 +48,7 @@ stdenvNoCC.mkDerivation {
 
   passthru = {
     scriptName = "sponsorblock.lua";
-    updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
-    };
+    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
   };
 
   meta = with lib; {

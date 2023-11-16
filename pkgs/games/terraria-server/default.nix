@@ -1,4 +1,11 @@
-{ stdenv, lib, file, fetchurl, autoPatchelfHook, unzip }:
+{
+  stdenv,
+  lib,
+  file,
+  fetchurl,
+  autoPatchelfHook,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "terraria-server";
@@ -10,8 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
   };
 
-  buildInputs = [ file stdenv.cc.cc.libgcc ];
-  nativeBuildInputs = [ autoPatchelfHook unzip ];
+  buildInputs = [
+    file
+    stdenv.cc.cc.libgcc
+  ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    unzip
+  ];
 
   installPhase = ''
     runHook preInstall

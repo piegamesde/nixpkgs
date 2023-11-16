@@ -1,6 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config
-, uilib, SDL
-, buildsystem
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  uilib,
+  SDL,
+  buildsystem,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ SDL buildsystem ];
+  buildInputs = [
+    SDL
+    buildsystem
+  ];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -26,7 +34,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netsurf-browser.org/projects/${libname}/";
     description = "Netsurf framebuffer abstraction library";
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,9 +1,15 @@
-{ lib, buildDunePackage, fetchFromGitLab
-, ff-sig, zarith
-, zarith_stubs_js ? null
-, integers_stubs_js
-, integers, hex
-, alcotest, ff-pbt
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitLab,
+  ff-sig,
+  zarith,
+  zarith_stubs_js ? null,
+  integers_stubs_js,
+  integers,
+  hex,
+  alcotest,
+  ff-pbt,
 }:
 
 buildDunePackage rec {
@@ -28,7 +34,10 @@ buildDunePackage rec {
     hex
   ];
 
-  checkInputs = [ alcotest ff-pbt ];
+  checkInputs = [
+    alcotest
+    ff-pbt
+  ];
 
   doCheck = true;
 

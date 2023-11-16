@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config
-, libvorbis, libtheora, speex }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libvorbis,
+  libtheora,
+  speex,
+}:
 
 # need pkg-config so that libshout installs ${out}/lib/pkgconfig/shout.pc
 
@@ -12,11 +19,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OcvU8O/f3cl1XYghfkf48tcQj6dn+dWKK6JqFtj3yRA=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ libvorbis libtheora speex ];
+  propagatedBuildInputs = [
+    libvorbis
+    libtheora
+    speex
+  ];
 
   meta = {
     description = "icecast 'c' language bindings";

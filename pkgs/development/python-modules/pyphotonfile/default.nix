@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pillow
-, numpy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pillow,
+  numpy,
 }:
 let
   version = "0.2.1";
@@ -10,7 +11,10 @@ in
 buildPythonPackage {
   pname = "pyphotonfile";
   inherit version;
-  propagatedBuildInputs = [ pillow numpy ];
+  propagatedBuildInputs = [
+    pillow
+    numpy
+  ];
 
   src = fetchFromGitHub {
     owner = "fookatchu";
@@ -25,5 +29,4 @@ buildPythonPackage {
     description = "Library for reading and writing files for the Anycubic Photon 3D-Printer";
     homepage = "https://github.com/fookatchu/pyphotonfile";
   };
-
 }

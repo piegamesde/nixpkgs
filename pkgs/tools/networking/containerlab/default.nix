@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -19,9 +20,12 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X" "github.com/srl-labs/containerlab/cmd.version=${version}"
-    "-X" "github.com/srl-labs/containerlab/cmd.commit=${src.rev}"
-    "-X" "github.com/srl-labs/containerlab/cmd.date=1970-01-01T00:00:00Z"
+    "-X"
+    "github.com/srl-labs/containerlab/cmd.version=${version}"
+    "-X"
+    "github.com/srl-labs/containerlab/cmd.commit=${src.rev}"
+    "-X"
+    "github.com/srl-labs/containerlab/cmd.date=1970-01-01T00:00:00Z"
   ];
 
   meta = with lib; {

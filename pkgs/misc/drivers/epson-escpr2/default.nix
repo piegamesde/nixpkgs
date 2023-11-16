@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cups, busybox }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cups,
+  busybox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "epson-inkjet-printer-escpr2";
@@ -38,7 +44,10 @@ stdenv.mkDerivation rec {
       Refer to the description of epson-escpr for usage.
     '';
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ma9e ma27 ];
+    maintainers = with maintainers; [
+      ma9e
+      ma27
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch
-, autoconf, automake, libtool, openssl, pkg-config
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoconf,
+  automake,
+  libtool,
+  openssl,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -35,7 +43,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+  ];
 
   buildInputs = [ openssl ];
 

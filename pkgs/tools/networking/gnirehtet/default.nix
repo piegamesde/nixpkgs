@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, fetchzip
-, androidenv
-, makeWrapper
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchzip,
+  androidenv,
+  makeWrapper,
 }:
 let
-version = "2.5";
-apk = stdenv.mkDerivation {
-  pname = "gnirehtet.apk";
-  inherit version;
-  src = fetchzip {
-    url = "https://github.com/Genymobile/gnirehtet/releases/download/v${version}/gnirehtet-rust-linux64-v${version}.zip";
-    hash = "sha256-+H35OoTFILnJudW6+hOaLDMVZcraYT8hfJGiX958YLU=";
+  version = "2.5";
+  apk = stdenv.mkDerivation {
+    pname = "gnirehtet.apk";
+    inherit version;
+    src = fetchzip {
+      url = "https://github.com/Genymobile/gnirehtet/releases/download/v${version}/gnirehtet-rust-linux64-v${version}.zip";
+      hash = "sha256-+H35OoTFILnJudW6+hOaLDMVZcraYT8hfJGiX958YLU=";
+    };
+    installPhase = ''
+      mkdir $out
+      mv gnirehtet.apk $out
+    '';
   };
-  installPhase = ''
-    mkdir $out
-    mv gnirehtet.apk $out
-  '';
-};
 in
 rustPlatform.buildRustPackage {
   pname = "gnirehtet";
@@ -78,11 +79,10 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/Genymobile/gnirehtet";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # gnirehtet.apk
+      binaryBytecode # gnirehtet.apk
     ];
     license = licenses.asl20;
     maintainers = with maintainers; [ symphorien ];
     platforms = platforms.unix;
   };
 }
-

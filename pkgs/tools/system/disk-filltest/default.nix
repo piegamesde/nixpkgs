@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "disk-filltest";
@@ -34,5 +38,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ caadar ];
     platforms = platforms.all;
   };
-
 }

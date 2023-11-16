@@ -1,24 +1,36 @@
-{ stdenv, lib
-, build2
-, fetchurl
-, fixDarwinDylibNames
-, libbutl
-, libpkgconf
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableStatic ? !enableShared
+{
+  stdenv,
+  lib,
+  build2,
+  fetchurl,
+  fixDarwinDylibNames,
+  libbutl,
+  libpkgconf,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? !enableShared,
 }:
 let
-  configSharedStatic = enableShared: enableStatic:
-    if enableShared && enableStatic then "both"
-    else if enableShared then "shared"
-    else if enableStatic then "static"
-    else throw "neither shared nor static libraries requested";
+  configSharedStatic =
+    enableShared: enableStatic:
+    if enableShared && enableStatic then
+      "both"
+    else if enableShared then
+      "shared"
+    else if enableStatic then
+      "static"
+    else
+      throw "neither shared nor static libraries requested";
 in
 stdenv.mkDerivation rec {
   pname = "build2";
   version = "0.15.0";
 
-  outputs = [ "out" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   setupHook = ./setup-hook.sh;
 
@@ -37,9 +49,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [
-    build2
-  ];
+  nativeBuildInputs = [ build2 ];
   disallowedReferences = [
     build2
     libbutl.dev
@@ -55,9 +65,7 @@ stdenv.mkDerivation rec {
   # N.B. this only adjusts the install_name after all libraries are installed;
   # packages containing multiple interdependent libraries may have
   # LC_LOAD_DYLIB entries containing @rpath, requiring manual fixup
-  propagatedBuildInputs = lib.optionals stdenv.targetPlatform.isDarwin [
-    fixDarwinDylibNames
-  ];
+  propagatedBuildInputs = lib.optionals stdenv.targetPlatform.isDarwin [ fixDarwinDylibNames ];
 
   postPatch = ''
     patchShebangs --build tests/bash/testscript
@@ -96,7 +104,10 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://git.build2.org/cgit/build2/tree/NEWS";
     platforms = platforms.all;
-    maintainers = with maintainers; [ hiro98 r-burns ];
+    maintainers = with maintainers; [
+      hiro98
+      r-burns
+    ];
     mainProgram = "b";
   };
 }

@@ -1,7 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, libX11, libXinerama }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  libX11,
+  libXinerama,
+}:
 
 let
-  rpathLibs = [ libXinerama libX11 ];
+  rpathLibs = [
+    libXinerama
+    libX11
+  ];
 in
 
 rustPlatform.buildRustPackage rec {
@@ -17,9 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-nn/P9ZZNf1Zts4JiJ2kXWAAG/HT1GnlYHXcPijYiBlU=";
 
-  cargoPatches = [
-    ./0001-patch-version.patch
-  ];
+  cargoPatches = [ ./0001-patch-version.patch ];
 
   buildInputs = rpathLibs;
 

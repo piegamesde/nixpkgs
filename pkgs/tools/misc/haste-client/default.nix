@@ -1,7 +1,8 @@
-{ lib
-, bundlerApp
-, buildRubyGem
-, ruby
+{
+  lib,
+  bundlerApp,
+  buildRubyGem,
+  ruby,
 }:
 
 bundlerApp rec {
@@ -11,9 +12,9 @@ bundlerApp rec {
 
   meta = with lib; {
     description = "Command line interface to the AnyStyle Parser and Finder";
-    homepage    = "https://rubygems.org/gems/haste";
-    license     = licenses.mit;
+    homepage = "https://rubygems.org/gems/haste";
+    license = licenses.mit;
     maintainers = with maintainers; [ shamilton ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

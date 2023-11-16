@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, callPackage
-, fetchPypi
-, hatchling
-, pythonOlder
-, comm
-, ipython
-, jupyter-client
-, packaging
-, psutil
-, tornado
-, traitlets
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchPypi,
+  hatchling,
+  pythonOlder,
+  comm,
+  ipython,
+  jupyter-client,
+  packaging,
+  psutil,
+  tornado,
+  traitlets,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     sed -i "/debugpy/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     comm

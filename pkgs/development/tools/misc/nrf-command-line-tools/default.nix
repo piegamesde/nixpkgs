@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, udev
-, libusb1
-, segger-jlink
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  udev,
+  libusb1,
+  segger-jlink,
 }:
 
 let
@@ -31,9 +32,15 @@ let
 
   version = "10.16.0";
 
-  url = "https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-${lib.versions.major version}-x-x/${lib.versions.major version}-${lib.versions.minor version}-${lib.versions.patch version}/nrf-command-line-tools-${lib.versions.major version}.${lib.versions.minor version}.${lib.versions.patch version}_${platform.name}.tar.gz";
-
-in stdenv.mkDerivation {
+  url = "https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-${
+      lib.versions.major version
+    }-x-x/${lib.versions.major version}-${lib.versions.minor version}-${
+      lib.versions.patch version
+    }/nrf-command-line-tools-${lib.versions.major version}.${lib.versions.minor version}.${
+      lib.versions.patch version
+    }_${platform.name}.tar.gz";
+in
+stdenv.mkDerivation {
   pname = "nrf-command-line-tools";
   inherit version;
 
@@ -45,7 +52,10 @@ in stdenv.mkDerivation {
   runtimeDependencies = [ segger-jlink ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ udev libusb1 ];
+  buildInputs = [
+    udev
+    libusb1
+  ];
 
   dontConfigure = true;
   dontBuild = true;

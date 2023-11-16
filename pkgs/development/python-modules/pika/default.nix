@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gevent
-, nose2
-, mock
-, twisted
-, tornado
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gevent,
+  nose2,
+  mock,
+  twisted,
+  tornado,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-60Z+y3YXazUghfnOy4e7HzM18iju5m5OEt4I3Wg6ty4=";
   };
 
-  propagatedBuildInputs = [ gevent tornado twisted ];
+  propagatedBuildInputs = [
+    gevent
+    tornado
+    twisted
+  ];
 
-  nativeCheckInputs = [ nose2 mock ];
+  nativeCheckInputs = [
+    nose2
+    mock
+  ];
 
   postPatch = ''
     # don't stop at first test failure

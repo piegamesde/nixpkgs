@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, gettext, ncurses }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gettext,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "yash";
@@ -10,7 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ gettext ncurses ];
+  buildInputs = [
+    gettext
+    ncurses
+  ];
 
   meta = with lib; {
     homepage = "https://yash.osdn.jp/index.html.en";

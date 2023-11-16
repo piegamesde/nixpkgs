@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, requests-oauthlib
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests-oauthlib,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-y3BOhorVkJ3rFPifNOopLMqk6y1fHX5vxHGiqWvWHhE=";
   };
 
-  propagatedBuildInputs = [
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ requests-oauthlib ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "nest"
-  ];
+  pythonImportsCheck = [ "nest" ];
 
   meta = with lib; {
     description = "Python API and command line tool for talking to Nest thermostats";

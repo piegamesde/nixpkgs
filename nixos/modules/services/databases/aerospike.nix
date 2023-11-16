@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -29,7 +34,6 @@ let
     }
     ${cfg.extraConfig}
   '';
-
 in
 
 {
@@ -97,9 +101,7 @@ in
         description = lib.mdDoc "Extra configuration";
       };
     };
-
   };
-
 
   ###### implementation
 
@@ -150,7 +152,5 @@ in
         install -d -m0700 -o ${serviceConfig.User} -g ${serviceConfig.Group} "${cfg.workDir}/udf/lua"
       '';
     };
-
   };
-
 }

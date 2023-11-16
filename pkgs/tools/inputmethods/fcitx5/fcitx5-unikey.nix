@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, fcitx5
-, fcitx5-qt
-, gettext
-, wrapQtAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  fcitx5,
+  fcitx5-qt,
+  gettext,
+  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UpCXcgVUGe5/yunLqRNx2H2aLOnD1wJNA8y3q8R4+sY=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ fcitx5 fcitx5-qt gettext ];
+  buildInputs = [
+    fcitx5
+    fcitx5-qt
+    gettext
+  ];
 
   meta = with lib; {
     description = "Unikey engine support for Fcitx5";

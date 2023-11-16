@@ -1,48 +1,50 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchurl
-, fetchpatch
-, fetchFromGitHub
-, makeDesktopItem
-, copyDesktopItems
-, cmake
-, boost
-, zlib
-, openssl
-, R
-, qtbase
-, qtxmlpatterns
-, qtsensors
-, qtwebengine
-, qtwebchannel
-, libuuid
-, hunspellDicts
-, unzip
-, ant
-, jdk
-, gnumake
-, makeWrapper
-, pandoc
-, llvmPackages
-, yaml-cpp
-, soci
-, postgresql
-, nodejs
-, mkYarnModules
-, qmake
-, server ? false # build server version
-, sqlite
-, pam
-, nixosTests
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  cmake,
+  boost,
+  zlib,
+  openssl,
+  R,
+  qtbase,
+  qtxmlpatterns,
+  qtsensors,
+  qtwebengine,
+  qtwebchannel,
+  libuuid,
+  hunspellDicts,
+  unzip,
+  ant,
+  jdk,
+  gnumake,
+  makeWrapper,
+  pandoc,
+  llvmPackages,
+  yaml-cpp,
+  soci,
+  postgresql,
+  nodejs,
+  mkYarnModules,
+  qmake,
+  server ? false # build server version
+  ,
+  sqlite,
+  pam,
+  nixosTests,
 }:
 
 let
   pname = "RStudio";
   version = "2022.07.1+554";
-  RSTUDIO_VERSION_MAJOR  = "2022";
-  RSTUDIO_VERSION_MINOR  = "07";
-  RSTUDIO_VERSION_PATCH  = "1";
+  RSTUDIO_VERSION_MAJOR = "2022";
+  RSTUDIO_VERSION_MINOR = "07";
+  RSTUDIO_VERSION_PATCH = "1";
   RSTUDIO_VERSION_SUFFIX = "+554";
 
   src = fetchFromGitHub {
@@ -73,9 +75,17 @@ let
 
   description = "Set of integrated tools for the R language";
 in
-(if server then stdenv.mkDerivation else mkDerivation)
-  (rec {
-    inherit pname version src RSTUDIO_VERSION_MAJOR RSTUDIO_VERSION_MINOR RSTUDIO_VERSION_PATCH RSTUDIO_VERSION_SUFFIX;
+(if server then stdenv.mkDerivation else mkDerivation) (
+  rec {
+    inherit
+      pname
+      version
+      src
+      RSTUDIO_VERSION_MAJOR
+      RSTUDIO_VERSION_MINOR
+      RSTUDIO_VERSION_PATCH
+      RSTUDIO_VERSION_SUFFIX
+    ;
 
     nativeBuildInputs = [
       cmake
@@ -85,29 +95,34 @@ in
       makeWrapper
       pandoc
       nodejs
-    ] ++ lib.optionals (!server) [
-      copyDesktopItems
-    ];
+    ] ++ lib.optionals (!server) [ copyDesktopItems ];
 
-    buildInputs = [
-      boost
-      zlib
-      openssl
-      R
-      libuuid
-      yaml-cpp
-      soci
-      postgresql
-    ] ++ (if server then [
-      sqlite.dev
-      pam
-    ] else [
-      qtbase
-      qtxmlpatterns
-      qtsensors
-      qtwebengine
-      qtwebchannel
-    ]);
+    buildInputs =
+      [
+        boost
+        zlib
+        openssl
+        R
+        libuuid
+        yaml-cpp
+        soci
+        postgresql
+      ]
+      ++ (
+        if server then
+          [
+            sqlite.dev
+            pam
+          ]
+        else
+          [
+            qtbase
+            qtxmlpatterns
+            qtsensors
+            qtwebengine
+            qtwebchannel
+          ]
+      );
 
     cmakeFlags = [
       "-DRSTUDIO_TARGET=${if server then "Server" else "Desktop"}"
@@ -118,9 +133,7 @@ in
       "-DQUARTO_ENABLED=FALSE"
       "-DPANDOC_VERSION=${pandoc.version}"
       "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/lib/rstudio"
-    ] ++ lib.optionals (!server) [
-      "-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake"
-    ];
+    ] ++ lib.optionals (!server) [ "-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake" ];
 
     # Hack RStudio to only use the input R and provided libclang.
     patches = [
@@ -154,10 +167,10 @@ in
     # These dicts contain identically-named dict files, so we only keep the
     # -large versions in case of clashes
     largeDicts = with lib; filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
-    otherDicts = with lib; filter
-      (d: !(hasAttr "dictFileName" d &&
-        elem d.dictFileName (map (d: d.dictFileName) largeDicts)))
-      hunspellDictionaries;
+    otherDicts =
+      with lib;
+      filter (d: !(hasAttr "dictFileName" d && elem d.dictFileName (map (d: d.dictFileName) largeDicts)))
+        hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 
     preConfigure = ''
@@ -187,9 +200,12 @@ in
         ln $out/lib/rstudio/rstudio.png $out/share/icons/hicolor/48x48/apps
       ''}
 
-      for f in {${if server
-        then "crash-handler-proxy,postback,r-ldpath,rpostback,rserver,rserver-pam,rsession,rstudio-server"
-        else "diagnostics,rpostback,rstudio"}}; do
+      for f in {${
+        if server then
+          "crash-handler-proxy,postback,r-ldpath,rpostback,rserver,rserver-pam,rsession,rstudio-server"
+        else
+          "diagnostics,rpostback,rstudio"
+      }}; do
         ln -s $out/lib/rstudio/bin/$f $out/bin
       done
 
@@ -205,19 +221,23 @@ in
       inherit description;
       homepage = "https://www.rstudio.com/";
       license = licenses.agpl3Only;
-      maintainers = with maintainers; [ ciil cfhammill ];
+      maintainers = with maintainers; [
+        ciil
+        cfhammill
+      ];
       mainProgram = "rstudio" + lib.optionalString server "-server";
       platforms = platforms.linux;
     };
 
     passthru = {
       inherit server;
-      tests = { inherit (nixosTests) rstudio-server; };
+      tests = {
+        inherit (nixosTests) rstudio-server;
+      };
     };
-  } // lib.optionalAttrs (!server) {
-    qtWrapperArgs = [
-      "--suffix PATH : ${lib.makeBinPath [ gnumake ]}"
-    ];
+  }
+  // lib.optionalAttrs (!server) {
+    qtWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ gnumake ]}" ];
 
     desktopItems = [
       (makeDesktopItem {
@@ -229,11 +249,29 @@ in
         comment = description;
         categories = [ "Development" ];
         mimeTypes = [
-          "text/x-r-source" "text/x-r" "text/x-R" "text/x-r-doc" "text/x-r-sweave" "text/x-r-markdown"
-          "text/x-r-html" "text/x-r-presentation" "application/x-r-data" "application/x-r-project"
-          "text/x-r-history" "text/x-r-profile" "text/x-tex" "text/x-markdown" "text/html"
-          "text/css" "text/javascript" "text/x-chdr" "text/x-csrc" "text/x-c++hdr" "text/x-c++src"
+          "text/x-r-source"
+          "text/x-r"
+          "text/x-R"
+          "text/x-r-doc"
+          "text/x-r-sweave"
+          "text/x-r-markdown"
+          "text/x-r-html"
+          "text/x-r-presentation"
+          "application/x-r-data"
+          "application/x-r-project"
+          "text/x-r-history"
+          "text/x-r-profile"
+          "text/x-tex"
+          "text/x-markdown"
+          "text/html"
+          "text/css"
+          "text/javascript"
+          "text/x-chdr"
+          "text/x-csrc"
+          "text/x-c++hdr"
+          "text/x-c++src"
         ];
       })
     ];
-  })
+  }
+)

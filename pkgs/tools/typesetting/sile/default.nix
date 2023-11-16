@@ -1,46 +1,50 @@
-{ lib, stdenv
-, darwin
-, fetchurl
-, makeWrapper
-, pkg-config
-, poppler_utils
-, gitMinimal
-, harfbuzz
-, icu
-, fontconfig
-, lua
-, libiconv
-, makeFontsConf
-, gentium
-, runCommand
-, sile
+{
+  lib,
+  stdenv,
+  darwin,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+  poppler_utils,
+  gitMinimal,
+  harfbuzz,
+  icu,
+  fontconfig,
+  lua,
+  libiconv,
+  makeFontsConf,
+  gentium,
+  runCommand,
+  sile,
 }:
 
 let
-  luaEnv = lua.withPackages(ps: with ps; [
-    cassowary
-    cldr
-    cosmo
-    fluent
-    linenoise
-    loadkit
-    lpeg
-    lua-zlib
-    lua_cliargs
-    luaepnf
-    luaexpat
-    luafilesystem
-    luarepl
-    luasec
-    luasocket
-    luautf8
-    penlight
-    vstruct
-  ] ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [
-    bit32
-  ] ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [
-    compat53
-  ]);
+  luaEnv = lua.withPackages (
+    ps:
+    with ps;
+    [
+      cassowary
+      cldr
+      cosmo
+      fluent
+      linenoise
+      loadkit
+      lpeg
+      lua-zlib
+      lua_cliargs
+      luaepnf
+      luaexpat
+      luafilesystem
+      luarepl
+      luasec
+      luasocket
+      luautf8
+      penlight
+      vstruct
+    ]
+    ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [ bit32 ]
+    ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [ compat53 ]
+  );
 in
 
 stdenv.mkDerivation rec {
@@ -68,9 +72,7 @@ stdenv.mkDerivation rec {
     icu
     fontconfig
     libiconv
-  ]
-  ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit
-  ;
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit;
   passthru = {
     # So it will be easier to inspect this environment, in comparison to others
     inherit luaEnv;
@@ -78,28 +80,31 @@ stdenv.mkDerivation rec {
     tests.test = lib.optionalAttrs (!(stdenv.isDarwin && stdenv.isAarch64)) (
       runCommand "${pname}-test"
         {
-          nativeBuildInputs = [ poppler_utils sile ];
+          nativeBuildInputs = [
+            poppler_utils
+            sile
+          ];
           inherit FONTCONFIG_FILE;
-        } ''
-        output=$(mktemp -t selfcheck-XXXXXX.pdf)
-        echo "<sile>foo</sile>" | sile -o $output -
-        pdfinfo $output | grep "SILE v${version}" > $out
-      '');
+        }
+        ''
+          output=$(mktemp -t selfcheck-XXXXXX.pdf)
+          echo "<sile>foo</sile>" | sile -o $output -
+          pdfinfo $output | grep "SILE v${version}" > $out
+        ''
+    );
   };
 
-  postPatch = ''
-    patchShebangs build-aux/*.sh
-  '' + lib.optionalString stdenv.isDarwin ''
-    sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
-  '';
+  postPatch =
+    ''
+      patchShebangs build-aux/*.sh
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
+    '';
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 
-  FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [
-      gentium
-    ];
-  };
+  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ gentium ]; };
 
   enableParallelBuilding = true;
 
@@ -111,7 +116,12 @@ stdenv.mkDerivation rec {
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';
 
-  outputs = [ "out" "doc" "man" "dev" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "A typesetting system";
@@ -128,7 +138,10 @@ stdenv.mkDerivation rec {
     homepage = "https://sile-typesetter.org";
     changelog = "https://github.com/sile-typesetter/sile/raw/v${version}/CHANGELOG.md";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ doronbehar alerque ];
+    maintainers = with maintainers; [
+      doronbehar
+      alerque
+    ];
     license = licenses.mit;
   };
 }

@@ -1,9 +1,10 @@
-{ rustPlatform
-, lib
-, fetchurl
-, openssl
-, pkg-config
-, systemd
+{
+  rustPlatform,
+  lib,
+  fetchurl,
+  openssl,
+  pkg-config,
+  systemd,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,7 +19,10 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "0q3ibxnzw8gngvrgfkv4m64dr411c511xkvb6j9k63vhy9vwarz7";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl systemd ];
+  buildInputs = [
+    openssl
+    systemd
+  ];
 
   meta = with lib; {
     changelog = "https://git.qyliss.net/pr-tracker/plain/NEWS?h=${version}";
@@ -30,6 +34,9 @@ rustPlatform.buildRustPackage rec {
     platforms = platforms.linux;
     homepage = "https://git.qyliss.net/pr-tracker";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ qyliss sumnerevans ];
+    maintainers = with maintainers; [
+      qyliss
+      sumnerevans
+    ];
   };
 }

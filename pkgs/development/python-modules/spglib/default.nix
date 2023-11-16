@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pytest, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pytest,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "spglib";
@@ -11,7 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ pytest pyyaml ];
+  nativeCheckInputs = [
+    pytest
+    pyyaml
+  ];
 
   # pytestCheckHook doesn't work
   # ImportError: cannot import name '_spglib' from partially initialized module 'spglib'

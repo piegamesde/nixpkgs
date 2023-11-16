@@ -1,14 +1,15 @@
-{ atomEnv
-, autoPatchelfHook
-, squashfsTools
-, fetchurl
-, makeDesktopItem
-, makeWrapper
-, stdenv
-, lib
-, udev
-, wrapGAppsHook
-, libxshmfence
+{
+  atomEnv,
+  autoPatchelfHook,
+  squashfsTools,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  lib,
+  udev,
+  wrapGAppsHook,
+  libxshmfence,
 }:
 
 stdenv.mkDerivation rec {
@@ -41,7 +42,12 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontWrapGApps = true;
 
-  nativeBuildInputs = [ autoPatchelfHook squashfsTools makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    squashfsTools
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   buildInputs = atomEnv.packages ++ [ libxshmfence ];
 
@@ -77,7 +83,10 @@ stdenv.mkDerivation rec {
     downloadPage = "https://termius.com/linux/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ Br1ght0ne th0rgal ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      th0rgal
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

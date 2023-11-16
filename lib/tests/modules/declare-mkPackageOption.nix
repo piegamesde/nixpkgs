@@ -1,15 +1,15 @@
-{ lib, ... }: let
+{ lib, ... }:
+let
   pkgs.hello = {
     type = "derivation";
     pname = "hello";
   };
-in {
+in
+{
   options = {
     package = lib.mkPackageOption pkgs "hello" { };
 
-    undefinedPackage = lib.mkPackageOption pkgs "hello" {
-      default = null;
-    };
+    undefinedPackage = lib.mkPackageOption pkgs "hello" { default = null; };
 
     nullablePackage = lib.mkPackageOption pkgs "hello" {
       nullable = true;

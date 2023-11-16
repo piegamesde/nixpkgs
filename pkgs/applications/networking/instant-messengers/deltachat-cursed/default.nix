@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -14,9 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Cv2QT8GsPAcA5TTZGfNvFNwnUITSR0PmQE0QCO1nFNk=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.setuptools-scm
-  ];
+  nativeBuildInputs = [ python3.pkgs.setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

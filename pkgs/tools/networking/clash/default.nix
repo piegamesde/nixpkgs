@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, testers
-, clash
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  testers,
+  clash,
 }:
 
 buildGoModule rec {
@@ -39,6 +40,9 @@ buildGoModule rec {
     homepage = "https://dreamacro.github.io/clash/";
     changelog = "https://github.com/Dreamacro/clash/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ contrun Br1ght0ne ];
+    maintainers = with maintainers; [
+      contrun
+      Br1ght0ne
+    ];
   };
 }

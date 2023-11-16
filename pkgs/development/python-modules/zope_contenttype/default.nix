@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_testrunner
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_testrunner,
 }:
 
 buildPythonPackage rec {

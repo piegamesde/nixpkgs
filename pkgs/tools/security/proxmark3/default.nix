@@ -1,8 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, readline, pcsclite, qt5
-, gcc-arm-embedded }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  ncurses,
+  readline,
+  pcsclite,
+  qt5,
+  gcc-arm-embedded,
+}:
 
 let
-  generic = { pname, version, rev, sha256 }:
+  generic =
+    {
+      pname,
+      version,
+      rev,
+      sha256,
+    }:
     stdenv.mkDerivation rec {
       inherit pname version;
 
@@ -12,8 +27,16 @@ let
         inherit rev sha256;
       };
 
-      nativeBuildInputs = [ pkg-config gcc-arm-embedded ];
-      buildInputs = [ ncurses readline pcsclite qt5.qtbase ];
+      nativeBuildInputs = [
+        pkg-config
+        gcc-arm-embedded
+      ];
+      buildInputs = [
+        ncurses
+        readline
+        pcsclite
+        qt5.qtbase
+      ];
 
       dontWrapQtApps = true;
 

@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildGoModule
-, coreutils
-, pcsclite
-, PCSC
-, pkg-config
-, hsmSupport ? true
-, nixosTests
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  coreutils,
+  pcsclite,
+  PCSC,
+  pkg-config,
+  hsmSupport ? true,
+  nixosTests,
 }:
 
 buildGoModule rec {
@@ -57,6 +58,10 @@ buildGoModule rec {
     homepage = "https://smallstep.com/certificates/";
     changelog = "https://github.com/smallstep/certificates/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cmcdragonkai mohe2015 techknowlogick ];
+    maintainers = with maintainers; [
+      cmcdragonkai
+      mohe2015
+      techknowlogick
+    ];
   };
 }

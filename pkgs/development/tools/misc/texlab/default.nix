@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, help2man
-, installShellFiles
-, libiconv
-, Security
-, CoreServices
-, nix-update-script
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  help2man,
+  installShellFiles,
+  libiconv,
+  Security,
+  CoreServices,
+  nix-update-script,
 }:
 
 let
@@ -28,8 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   outputs = [ "out" ] ++ lib.optional (!isCross) "man";
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optional (!isCross) help2man;
+  nativeBuildInputs = [ installShellFiles ] ++ lib.optional (!isCross) help2man;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv
@@ -52,7 +52,10 @@ rustPlatform.buildRustPackage rec {
     description = "An implementation of the Language Server Protocol for LaTeX";
     homepage = "https://github.com/latex-lsp/texlab";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar kira-bruneau ];
+    maintainers = with maintainers; [
+      doronbehar
+      kira-bruneau
+    ];
     platforms = platforms.all;
   };
 }

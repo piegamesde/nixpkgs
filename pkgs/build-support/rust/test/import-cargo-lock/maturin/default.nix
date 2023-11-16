@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitHub
-, python3
-, rustPlatform
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  rustPlatform,
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -17,9 +18,7 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-NOMrrfo8WjlPhtGxWUOPJS/UDDdbLQRCXR++Zd6JmIA=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock

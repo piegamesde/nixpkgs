@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, bash, pharo, unzip, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash,
+  pharo,
+  unzip,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   version = "2017.02.28";
@@ -24,7 +32,10 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ bash pharo ];
+  buildInputs = [
+    bash
+    pharo
+  ];
 
   installPhase = ''
     mkdir -p $prefix/share/pharo-launcher

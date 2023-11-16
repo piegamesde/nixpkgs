@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, python3
-, capnproto
-, gtest
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  capnproto,
+  gtest,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,9 +25,7 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  buildInputs = [
-    capnproto
-  ];
+  buildInputs = [ capnproto ];
 
   cmakeFlags = [
     "-DUHDM_USE_HOST_GTEST=On"

@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flatten-dict
-, fsspec
-, funcy
-, pygtrie
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, shortuuid
-, tqdm
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flatten-dict,
+  fsspec,
+  funcy,
+  pygtrie,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  shortuuid,
+  tqdm,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     flatten-dict
@@ -49,9 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "dvc_objects"
-  ];
+  pythonImportsCheck = [ "dvc_objects" ];
 
   meta = with lib; {
     description = "Library for DVC objects";

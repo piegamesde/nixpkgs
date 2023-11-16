@@ -1,4 +1,10 @@
-{ config, lib, pkgs, buildEnv, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  buildEnv,
+  ...
+}:
 
 with lib;
 
@@ -13,7 +19,9 @@ let
     DB_NAME = "${cfg.dataDir}/healthchecks.sqlite";
   } // cfg.settings;
 
-  environmentFile = pkgs.writeText "healthchecks-environment" (lib.generators.toKeyValue { } environment);
+  environmentFile = pkgs.writeText "healthchecks-environment" (
+    lib.generators.toKeyValue { } environment
+  );
 
   healthchecksManageScript = pkgs.writeShellScriptBin "healthchecks-manage" ''
     sudo=exec
@@ -154,7 +162,10 @@ in
     systemd.targets.healthchecks = {
       description = "Target for all Healthchecks services";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
     };
 
     systemd.services =
@@ -168,7 +179,7 @@ in
           StateDirectoryMode = mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
         };
       in
-        {
+      {
         healthchecks-migration = {
           description = "Healthchecks migrations";
           wantedBy = [ "healthchecks.target" ];
@@ -231,19 +242,17 @@ in
       };
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
-      ${defaultUser} =
-        {
-          description = "healthchecks service owner";
-          isSystemUser = true;
-          group = defaultUser;
-        };
+      ${defaultUser} = {
+        description = "healthchecks service owner";
+        isSystemUser = true;
+        group = defaultUser;
+      };
     };
 
     users.groups = optionalAttrs (cfg.user == defaultUser) {
-      ${defaultUser} =
-        {
-          members = [ defaultUser ];
-        };
+      ${defaultUser} = {
+        members = [ defaultUser ];
+      };
     };
   };
 }

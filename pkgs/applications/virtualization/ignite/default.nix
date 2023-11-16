@@ -1,15 +1,16 @@
-{ lib
-, cni-plugins
-, buildGoModule
-, firecracker
-, containerd
-, runc
-, makeWrapper
-, fetchFromGitHub
-, git
+{
+  lib,
+  cni-plugins,
+  buildGoModule,
+  firecracker,
+  containerd,
+  runc,
+  makeWrapper,
+  fetchFromGitHub,
+  git,
 }:
 
-buildGoModule rec{
+buildGoModule rec {
   pname = "ignite";
   version = "0.10.0";
 
@@ -48,9 +49,7 @@ buildGoModule rec{
     makeWrapper
   ];
 
-  buildInputs = [
-    firecracker
-  ];
+  buildInputs = [ firecracker ];
 
   preBuild = ''
     patchShebangs ./hack/ldflags.sh
@@ -59,7 +58,14 @@ buildGoModule rec{
 
   postInstall = ''
     for prog in hack ignite ignited ignite-spawn; do
-        wrapProgram "$out/bin/$prog" --prefix PATH : ${lib.makeBinPath [ cni-plugins firecracker containerd runc ]}
+        wrapProgram "$out/bin/$prog" --prefix PATH : ${
+          lib.makeBinPath [
+            cni-plugins
+            firecracker
+            containerd
+            runc
+          ]
+        }
     done
   '';
 

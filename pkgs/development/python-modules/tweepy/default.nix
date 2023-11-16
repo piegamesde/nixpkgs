@@ -1,15 +1,16 @@
-{ lib
-, aiohttp
-, async-lru
-, buildPythonPackage
-, fetchFromGitHub
-, oauthlib
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-oauthlib
-, six
-, vcrpy
+{
+  lib,
+  aiohttp,
+  async-lru,
+  buildPythonPackage,
+  fetchFromGitHub,
+  oauthlib,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  six,
+  vcrpy,
 }:
 
 buildPythonPackage rec {
@@ -40,9 +41,7 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  pythonImportsCheck = [
-    "tweepy"
-  ];
+  pythonImportsCheck = [ "tweepy" ];
 
   meta = with lib; {
     description = "Twitter library for Python";

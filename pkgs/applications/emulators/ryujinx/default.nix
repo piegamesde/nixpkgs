@@ -1,30 +1,31 @@
-{ lib
-, buildDotnetModule
-, dotnetCorePackages
-, stdenvNoCC
-, fetchFromGitHub
-, wrapGAppsHook
-, libX11
-, libgdiplus
-, ffmpeg
-, openal
-, libsoundio
-, sndio
-, pulseaudio
-, gtk3
-, gdk-pixbuf
-, vulkan-loader
-, libICE
-, libSM
-, libXi
-, libXcursor
-, libXext
-, libXrandr
-, fontconfig
-, glew
-, libGL
-, SDL2
-, SDL2_mixer
+{
+  lib,
+  buildDotnetModule,
+  dotnetCorePackages,
+  stdenvNoCC,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  libX11,
+  libgdiplus,
+  ffmpeg,
+  openal,
+  libsoundio,
+  sndio,
+  pulseaudio,
+  gtk3,
+  gdk-pixbuf,
+  vulkan-loader,
+  libICE,
+  libSM,
+  libXi,
+  libXcursor,
+  libXext,
+  libXrandr,
+  fontconfig,
+  glew,
+  libGL,
+  SDL2,
+  SDL2_mixer,
 }:
 
 buildDotnetModule rec {
@@ -43,9 +44,7 @@ buildDotnetModule rec {
 
   nugetDeps = ./deps.nix;
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ wrapGAppsHook ];
 
   buildInputs = [
     gtk3
@@ -83,9 +82,7 @@ buildDotnetModule rec {
   testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
   doCheck = true;
 
-  dotnetFlags = [
-    "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"
-  ];
+  dotnetFlags = [ "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR" ];
 
   executables = [
     "Ryujinx.Headless.SDL2"
@@ -135,7 +132,10 @@ buildDotnetModule rec {
       2017.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ivar jk ];
+    maintainers = with maintainers; [
+      ivar
+      jk
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "Ryujinx";
   };

@@ -1,6 +1,18 @@
-{ lib, fetchurl, fetchpatch, stdenv, gnutls, glib, pkg-config, check, libotr, python3
-, enableLibPurple ? false, pidgin ? null
-, enablePam ? false, pam ? null
+{
+  lib,
+  fetchurl,
+  fetchpatch,
+  stdenv,
+  gnutls,
+  glib,
+  pkg-config,
+  check,
+  libotr,
+  python3,
+  enableLibPurple ? false,
+  pidgin ? null,
+  enablePam ? false,
+  pam ? null,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,9 +26,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional doCheck check;
 
-  buildInputs = [ gnutls libotr python3 ]
-    ++ lib.optional enableLibPurple pidgin
-    ++ lib.optional enablePam pam;
+  buildInputs = [
+    gnutls
+    libotr
+    python3
+  ] ++ lib.optional enableLibPurple pidgin ++ lib.optional enablePam pam;
 
   propagatedBuildInputs = [ glib ];
 
@@ -24,18 +38,21 @@ stdenv.mkDerivation rec {
     "--otr=1"
     "--ssl=gnutls"
     "--pidfile=/var/lib/bitlbee/bitlbee.pid"
-  ] ++ lib.optional enableLibPurple "--purple=1"
-    ++ lib.optional enablePam "--pam=1";
+  ] ++ lib.optional enableLibPurple "--purple=1" ++ lib.optional enablePam "--pam=1";
 
-  patches = [
-    # This should be dropped once the issue is fixed upstream.
-    (fetchpatch {
-      url = "https://github.com/bitlbee/bitlbee/commit/6ff651b3ec93e5fd74f80766d5e9714d963137bc.diff";
-      sha256 = "144dpm4kq7c268fpww1q3n88ayg068n73fbabr5arh1zryw48qfv";
-    })
+  patches =
+    [
+      # This should be dropped once the issue is fixed upstream.
+      (fetchpatch {
+        url = "https://github.com/bitlbee/bitlbee/commit/6ff651b3ec93e5fd74f80766d5e9714d963137bc.diff";
+        sha256 = "144dpm4kq7c268fpww1q3n88ayg068n73fbabr5arh1zryw48qfv";
+      })
+    ];
+
+  installTargets = [
+    "install"
+    "install-dev"
   ];
-
-  installTargets = [ "install" "install-dev" ];
 
   doCheck = !enableLibPurple; # Checks fail with libpurple for some reason
   checkPhase = ''
@@ -62,7 +79,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.bitlbee.org/";
     license = licenses.gpl2Plus;
 
-    maintainers = with maintainers; [ lassulus pSub ];
-    platforms = platforms.gnu ++ platforms.linux;  # arbitrary choice
+    maintainers = with maintainers; [
+      lassulus
+      pSub
+    ];
+    platforms = platforms.gnu ++ platforms.linux; # arbitrary choice
   };
 }

@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "parser-combinators";
   version = "cl-20131111-git";
 
   description = "An implementation of parser combinators for Common Lisp";
 
-  deps = [ args."alexandria" args."iterate" ];
+  deps = [
+    args."alexandria"
+    args."iterate"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-parser-combinators/2013-11-11/cl-parser-combinators-20131111-git.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "parser-combinators";
 
-  asdFilesToKeep = ["parser-combinators.asd"];
+  asdFilesToKeep = [ "parser-combinators.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM parser-combinators DESCRIPTION
@@ -28,4 +31,5 @@ rec {
     DEPENDENCIES (alexandria iterate) VERSION cl-20131111-git SIBLINGS
     (parser-combinators-cl-ppcre parser-combinators-debug
      parser-combinators-tests)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

@@ -1,15 +1,21 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [
-    ../../../modules/virtualisation/lxc-container.nix
-  ];
+  imports = [ ../../../modules/virtualisation/lxc-container.nix ];
 
   virtualisation.lxc.templates.nix = {
     enable = true;
     target = "/etc/nixos/lxd.nix";
     template = ./nix.tpl;
-    when = [ "create" "copy" ];
+    when = [
+      "create"
+      "copy"
+    ];
   };
 
   # copy the config for nixos-rebuild

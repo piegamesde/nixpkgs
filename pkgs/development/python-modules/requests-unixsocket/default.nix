@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pbr
-, requests
-, pytestCheckHook
-, waitress
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  requests,
+  pytestCheckHook,
+  waitress,
 }:
 
 buildPythonPackage rec {
@@ -17,22 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-KDBCg+qTV9Rf/1itWxHkdwjPv1gGgXqlmyo2Mijulx4=";
   };
 
-  nativeBuildInputs = [
-    pbr
-  ];
+  nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   nativeCheckInputs = [
     pytestCheckHook
     waitress
   ];
 
-  pythonImportsCheck = [
-    "requests_unixsocket"
-  ];
+  pythonImportsCheck = [ "requests_unixsocket" ];
 
   meta = with lib; {
     description = "Use requests to talk HTTP via a UNIX domain socket";

@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, python3Packages
-, ffmpeg
-, makeWrapper
-, nixosTests
-, nodejs
-, npmHooks
-, fetchNpmDeps
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  python3Packages,
+  ffmpeg,
+  makeWrapper,
+  nixosTests,
+  nodejs,
+  npmHooks,
+  fetchNpmDeps,
 
-# For the update script
-, coreutils
-, curl
-, nix-prefetch-git
-, prefetch-npm-deps
-, jq
-, writeShellScript
+  # For the update script
+  coreutils,
+  curl,
+  nix-prefetch-git,
+  prefetch-npm-deps,
+  jq,
+  writeShellScript,
 }:
 let
   srcJson = lib.importJSON ./src.json;
@@ -122,7 +123,15 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.updateScript = writeShellScript "botamusique-updater" ''
-    export PATH=${lib.makeBinPath [ coreutils curl nix-prefetch-git jq prefetch-npm-deps ]}
+    export PATH=${
+      lib.makeBinPath [
+        coreutils
+        curl
+        nix-prefetch-git
+        jq
+        prefetch-npm-deps
+      ]
+    }
     set -ex
 
     OWNER=azlux

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, importlib-metadata
-, jsonpickle
-, wrapt
-, requests
-, future
-, botocore
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  importlib-metadata,
+  jsonpickle,
+  wrapt,
+  requests,
+  future,
+  botocore,
 }:
 
 buildPythonPackage rec {
@@ -20,10 +21,12 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    jsonpickle wrapt requests future botocore
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+    jsonpickle
+    wrapt
+    requests
+    future
+    botocore
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   meta = {
     description = "AWS X-Ray SDK for the Python programming language";

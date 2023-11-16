@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, melpaBuild
-, haskellPackages
-, writeText
+{
+  lib,
+  pkgs,
+  melpaBuild,
+  haskellPackages,
+  writeText,
 }:
 
 melpaBuild {

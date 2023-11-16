@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, home-assistant
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  home-assistant,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
     cat pyproject.toml
   '';
 
-  pythonImportsCheck = [
-    "homeassistant-stubs"
-  ];
+  pythonImportsCheck = [ "homeassistant-stubs" ];
 
   doCheck = false;
 

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildNpmPackage, nodePackages, ArchiSteamFarm }:
+{
+  lib,
+  fetchFromGitHub,
+  buildNpmPackage,
+  nodePackages,
+  ArchiSteamFarm,
+}:
 
 buildNpmPackage {
   pname = "asf-ui";

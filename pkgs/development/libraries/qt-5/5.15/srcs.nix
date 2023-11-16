@@ -1,23 +1,27 @@
-{ lib, fetchgit, fetchFromGitHub }:
+{
+  lib,
+  fetchgit,
+  fetchFromGitHub,
+}:
 
 let
   version = "5.15.9";
-  overrides = {};
+  overrides = { };
 
-  mk = name: args:
+  mk =
+    name: args:
     let
-      override = overrides.${name} or {};
+      override = overrides.${name} or { };
     in
     {
       version = override.version or version;
-      src = override.src or
-        fetchgit {
-          inherit (args) url rev sha256;
-          fetchLFS = false;
-          fetchSubmodules = true;
-          deepClone = false;
-          leaveDotGit = false;
-        };
+      src = override.src or fetchgit {
+        inherit (args) url rev sha256;
+        fetchLFS = false;
+        fetchSubmodules = true;
+        deepClone = false;
+        leaveDotGit = false;
+      };
     };
 in
 lib.mapAttrs mk (lib.importJSON ./srcs-generated.json)

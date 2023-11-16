@@ -1,22 +1,29 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libmysqlclient
-, libaio
-, luajit
-# For testing:
-, testers
-, sysbench
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libmysqlclient,
+  libaio,
+  luajit,
+  # For testing:
+  testers,
+  sysbench,
 }:
 
 stdenv.mkDerivation rec {
   pname = "sysbench";
   version = "1.0.20";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libmysqlclient luajit ] ++ lib.optionals stdenv.isLinux [ libaio ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libmysqlclient
+    luajit
+  ] ++ lib.optionals stdenv.isLinux [ libaio ];
 
   src = fetchFromGitHub {
     owner = "akopytov";
@@ -27,16 +34,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    # The bundled version does not build on aarch64-darwin:
-    # https://github.com/akopytov/sysbench/issues/416
-    "--with-system-luajit"
-  ];
+  configureFlags =
+    [
+      # The bundled version does not build on aarch64-darwin:
+      # https://github.com/akopytov/sysbench/issues/416
+      "--with-system-luajit"
+    ];
 
   passthru.tests = {
-    versionTest = testers.testVersion {
-      package = sysbench;
-    };
+    versionTest = testers.testVersion { package = sysbench; };
   };
 
   meta = {

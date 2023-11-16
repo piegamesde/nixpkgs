@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyramid
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyramid,
 }:
 
 buildPythonPackage rec {
@@ -23,5 +24,4 @@ buildPythonPackage rec {
     license = licenses.bsd0;
     maintainers = with maintainers; [ domenkozar ];
   };
-
 }

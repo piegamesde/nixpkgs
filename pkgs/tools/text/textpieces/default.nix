@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, meson
-, ninja
-, pkg-config
-, vala
-, glib
-, gtk4
-, libgee
-, libadwaita
-, json-glib
-, blueprint-compiler
-, gtksourceview5
-, gobject-introspection
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  glib,
+  gtk4,
+  libgee,
+  libadwaita,
+  json-glib,
+  blueprint-compiler,
+  gtksourceview5,
+  gobject-introspection,
+  wrapGAppsHook4,
+  appstream-glib,
+  desktop-file-utils,
 }:
 
 let
-  pythonEnv = python3.withPackages ( ps: with ps; [ pyyaml ] );
+  pythonEnv = python3.withPackages (ps: with ps; [ pyyaml ]);
 in
 stdenv.mkDerivation rec {
   pname = "textpieces";
@@ -55,9 +56,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  runtimeDependencies = [
-    pythonEnv
-  ];
+  runtimeDependencies = [ pythonEnv ];
 
   postPatch = ''
     chmod +x build-aux/meson/postinstall.py

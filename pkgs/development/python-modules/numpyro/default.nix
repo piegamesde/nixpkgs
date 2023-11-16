@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jax
-, jaxlib
-, multipledispatch
-, numpy
-, pytestCheckHook
-, pythonOlder
-, tensorflow-probability
-, tqdm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jax,
+  jaxlib,
+  multipledispatch,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  tensorflow-probability,
+  tqdm,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "numpyro"
-  ];
+  pythonImportsCheck = [ "numpyro" ];
 
   disabledTests = [
     # AssertionError due to tolerance issues

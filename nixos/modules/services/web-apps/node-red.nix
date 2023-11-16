@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,13 +11,15 @@ let
   cfg = config.services.node-red;
   defaultUser = "node-red";
   finalPackage = if cfg.withNpmAndGcc then node-red_withNpmAndGcc else cfg.package;
-  node-red_withNpmAndGcc = pkgs.runCommand "node-red" {
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-  }
-  ''
+  node-red_withNpmAndGcc = pkgs.runCommand "node-red" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
     mkdir -p $out/bin
     makeWrapper ${pkgs.nodePackages.node-red}/bin/node-red $out/bin/node-red \
-      --set PATH '${lib.makeBinPath [ pkgs.nodePackages.npm pkgs.gcc ]}:$PATH' \
+      --set PATH '${
+        lib.makeBinPath [
+          pkgs.nodePackages.npm
+          pkgs.gcc
+        ]
+      }:$PATH' \
   '';
 in
 {
@@ -99,7 +106,7 @@ in
 
     define = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = lib.mdDoc "List of settings.js overrides to pass via -D to Node-RED.";
       example = literalExpression ''
         {
@@ -117,13 +124,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultUser) {
-      ${defaultUser} = { };
-    };
+    users.groups = optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     systemd.services.node-red = {
       description = "Node-RED Service";
@@ -136,7 +139,11 @@ in
         {
           User = cfg.user;
           Group = cfg.group;
-          ExecStart = "${finalPackage}/bin/node-red ${pkgs.lib.optionalString cfg.safe "--safe"} --settings ${cfg.configFile} --port ${toString cfg.port} --userDir ${cfg.userDir} ${concatStringsSep " " (mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define)}";
+          ExecStart = "${finalPackage}/bin/node-red ${
+              pkgs.lib.optionalString cfg.safe "--safe"
+            } --settings ${cfg.configFile} --port ${toString cfg.port} --userDir ${cfg.userDir} ${
+              concatStringsSep " " (mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define)
+            }";
           PrivateTmp = true;
           Restart = "always";
           WorkingDirectory = cfg.userDir;

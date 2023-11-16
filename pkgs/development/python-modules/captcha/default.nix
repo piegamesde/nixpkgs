@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, nose
-, pillow
-, wheezy-captcha
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  nose,
+  pillow,
+  wheezy-captcha,
 }:
 
 buildPythonPackage rec {
@@ -22,7 +23,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "captcha" ];
 
-  nativeCheckInputs = [ nose wheezy-captcha ];
+  nativeCheckInputs = [
+    nose
+    wheezy-captcha
+  ];
 
   checkPhase = ''
     nosetests -s

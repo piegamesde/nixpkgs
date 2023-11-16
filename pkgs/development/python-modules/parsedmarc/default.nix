@@ -1,36 +1,37 @@
-{ buildPythonPackage
-, fetchPypi
-, fetchurl
-, lib
-, nixosTests
-, python
-, pythonOlder
+{
+  buildPythonPackage,
+  fetchPypi,
+  fetchurl,
+  lib,
+  nixosTests,
+  python,
+  pythonOlder,
 
-# pythonPackages
-, hatchling
-, dnspython
-, expiringdict
-, publicsuffix2
-, xmltodict
-, geoip2
-, urllib3
-, requests
-, imapclient
-, dateparser
-, mailsuite
-, elasticsearch
-, elasticsearch-dsl
-, kafka-python
-, tqdm
-, lxml
-, boto3
-, msgraph-core
-, azure-identity
-, google-api-core
-, google-api-python-client
-, google-auth
-, google-auth-httplib2
-, google-auth-oauthlib
+  # pythonPackages
+  hatchling,
+  dnspython,
+  expiringdict,
+  publicsuffix2,
+  xmltodict,
+  geoip2,
+  urllib3,
+  requests,
+  imapclient,
+  dateparser,
+  mailsuite,
+  elasticsearch,
+  elasticsearch-dsl,
+  kafka-python,
+  tqdm,
+  lxml,
+  boto3,
+  msgraph-core,
+  azure-identity,
+  google-api-core,
+  google-api-python-client,
+  google-auth,
+  google-auth-httplib2,
+  google-auth-oauthlib,
 }:
 
 let
@@ -57,9 +58,7 @@ buildPythonPackage rec {
       --replace "elasticsearch<7.14.0" "elasticsearch"
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     dnspython
@@ -98,7 +97,9 @@ buildPythonPackage rec {
   };
 
   meta = {
-    changelog = "https://github.com/domainaware/parsedmarc/blob/master/CHANGELOG.md#${lib.replaceStrings [ "." ] [ "" ] version}";
+    changelog = "https://github.com/domainaware/parsedmarc/blob/master/CHANGELOG.md#${
+        lib.replaceStrings [ "." ] [ "" ] version
+      }";
     description = "Python module and CLI utility for parsing DMARC reports";
     homepage = "https://domainaware.github.io/parsedmarc/";
     maintainers = with lib.maintainers; [ talyz ];

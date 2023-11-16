@@ -1,4 +1,5 @@
-{ fetchFromGitHub,
+{
+  fetchFromGitHub,
   findutils,
   gnugrep,
   gnused,
@@ -17,7 +18,6 @@
 
 let
   inherit (lib) makeBinPath;
-
 in
 python3.pkgs.buildPythonPackage rec {
   pname = "waagent";
@@ -47,21 +47,21 @@ python3.pkgs.buildPythonPackage rec {
   ];
 
   fixupPhase = ''
-     mkdir -p $out/bin/
-     WAAGENT=$(find $out -name waagent | grep sbin)
-     cp $WAAGENT $out/bin/waagent
-     wrapProgram "$out/bin/waagent" \
-         --prefix PYTHONPATH : $PYTHONPATH \
-         --prefix PATH : "${makeBinPath runtimeDeps}"
-     patchShebangs --build "$out/bin/"
+    mkdir -p $out/bin/
+    WAAGENT=$(find $out -name waagent | grep sbin)
+    cp $WAAGENT $out/bin/waagent
+    wrapProgram "$out/bin/waagent" \
+        --prefix PYTHONPATH : $PYTHONPATH \
+        --prefix PATH : "${makeBinPath runtimeDeps}"
+    patchShebangs --build "$out/bin/"
   '';
 
   meta = {
-    description = "The Microsoft Azure Linux Agent (waagent)
-                   manages Linux provisioning and VM interaction with the Azure
-                   Fabric Controller";
+    description = ''
+      The Microsoft Azure Linux Agent (waagent)
+                         manages Linux provisioning and VM interaction with the Azure
+                         Fabric Controller'';
     homepage = "https://github.com/Azure/WALinuxAgent";
     license = with lib.licenses; [ asl20 ];
   };
-
 }

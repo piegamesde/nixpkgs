@@ -1,28 +1,29 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, writeText
-, isPy27
-, pytestCheckHook
-, pytest-mpl
-, numpy
-, scipy
-, scikit-learn
-, pandas
-, transformers
-, opencv4
-, lightgbm
-, catboost
-, pyspark
-, sentencepiece
-, tqdm
-, slicer
-, numba
-, matplotlib
-, nose
-, lime
-, cloudpickle
-, ipython
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  writeText,
+  isPy27,
+  pytestCheckHook,
+  pytest-mpl,
+  numpy,
+  scipy,
+  scikit-learn,
+  pandas,
+  transformers,
+  opencv4,
+  lightgbm,
+  catboost,
+  pyspark,
+  sentencepiece,
+  tqdm,
+  slicer,
+  numba,
+  matplotlib,
+  nose,
+  lime,
+  cloudpickle,
+  ipython,
 }:
 
 buildPythonPackage rec {
@@ -49,46 +50,51 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    plots = [ matplotlib ipython ];
+    plots = [
+      matplotlib
+      ipython
+    ];
     others = [ lime ];
   };
 
-  preCheck = let
-    # This pytest hook mocks and catches attempts at accessing the network
-    # tests that try to access the network will raise, get caught, be marked as skipped and tagged as xfailed.
-    conftestSkipNetworkErrors = writeText "conftest.py" ''
-      from _pytest.runner import pytest_runtest_makereport as orig_pytest_runtest_makereport
-      import urllib, requests
+  preCheck =
+    let
+      # This pytest hook mocks and catches attempts at accessing the network
+      # tests that try to access the network will raise, get caught, be marked as skipped and tagged as xfailed.
+      conftestSkipNetworkErrors = writeText "conftest.py" ''
+        from _pytest.runner import pytest_runtest_makereport as orig_pytest_runtest_makereport
+        import urllib, requests
 
-      class NetworkAccessDeniedError(RuntimeError): pass
-      def deny_network_access(*a, **kw):
-        raise NetworkAccessDeniedError
+        class NetworkAccessDeniedError(RuntimeError): pass
+        def deny_network_access(*a, **kw):
+          raise NetworkAccessDeniedError
 
-      requests.head = deny_network_access
-      requests.get  = deny_network_access
-      urllib.request.urlopen = deny_network_access
-      urllib.request.Request = deny_network_access
+        requests.head = deny_network_access
+        requests.get  = deny_network_access
+        urllib.request.urlopen = deny_network_access
+        urllib.request.Request = deny_network_access
 
-      def pytest_runtest_makereport(item, call):
-        tr = orig_pytest_runtest_makereport(item, call)
-        if call.excinfo is not None and call.excinfo.type is NetworkAccessDeniedError:
-            tr.outcome = 'skipped'
-            tr.wasxfail = "reason: Requires network access."
-        return tr
+        def pytest_runtest_makereport(item, call):
+          tr = orig_pytest_runtest_makereport(item, call)
+          if call.excinfo is not None and call.excinfo.type is NetworkAccessDeniedError:
+              tr.outcome = 'skipped'
+              tr.wasxfail = "reason: Requires network access."
+          return tr
+      '';
+    in
+    ''
+      export HOME=$TMPDIR
+      # when importing the local copy the extension is not found
+      rm -r shap
+
+      # coverage testing is a waste considering how much we have to skip
+      substituteInPlace pytest.ini \
+        --replace "--cov=shap --cov-report=term-missing" ""
+
+      # Add pytest hook skipping tests that access network.
+      # These tests are marked as "Expected fail" (xfail)
+      cat ${conftestSkipNetworkErrors} >> tests/conftest.py
     '';
-  in ''
-    export HOME=$TMPDIR
-    # when importing the local copy the extension is not found
-    rm -r shap
-
-    # coverage testing is a waste considering how much we have to skip
-    substituteInPlace pytest.ini \
-      --replace "--cov=shap --cov-report=term-missing" ""
-
-    # Add pytest hook skipping tests that access network.
-    # These tests are marked as "Expected fail" (xfail)
-    cat ${conftestSkipNetworkErrors} >> tests/conftest.py
-  '';
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mpl
@@ -123,10 +129,11 @@ buildPythonPackage rec {
     "tests/models/test_teacher_forcing_logits.py"
     "tests/models/test_text_generation.py"
   ];
-  disabledTests = [
-    # unstable. A xgboost-enabled test. possibly related: https://github.com/slundberg/shap/issues/2480
-    "test_provided_background_tree_path_dependent"
-  ];
+  disabledTests =
+    [
+      # unstable. A xgboost-enabled test. possibly related: https://github.com/slundberg/shap/issues/2480
+      "test_provided_background_tree_path_dependent"
+    ];
 
   #pytestFlagsArray = ["-x" "-W" "ignore"]; # uncomment this to debug
 

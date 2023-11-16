@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "parachute";
   version = "20211020-git";
 
   description = "An extensible and cross-compatible testing framework.";
 
-  deps = [ args."documentation-utils" args."form-fiddle" args."trivial-indent" ];
+  deps = [
+    args."documentation-utils"
+    args."form-fiddle"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/parachute/2021-10-20/parachute-20211020-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "parachute";
 
-  asdFilesToKeep = ["parachute.asd"];
+  asdFilesToKeep = [ "parachute.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM parachute DESCRIPTION
@@ -28,4 +32,5 @@ rec {
      (NAME trivial-indent FILENAME trivial-indent))
     DEPENDENCIES (documentation-utils form-fiddle trivial-indent) VERSION
     20211020-git SIBLINGS
-    (parachute-fiveam parachute-lisp-unit parachute-prove) PARASITES NIL) */
+    (parachute-fiveam parachute-lisp-unit parachute-prove) PARASITES NIL)
+*/

@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "esrap";
   version = "20211020-git";
@@ -8,7 +8,11 @@ rec {
 
   description = "A Packrat / Parsing Grammar / TDPL parser for Common Lisp.";
 
-  deps = [ args."alexandria" args."fiveam" args."trivial-with-current-source-form" ];
+  deps = [
+    args."alexandria"
+    args."fiveam"
+    args."trivial-with-current-source-form"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/esrap/2021-10-20/esrap-20211020-git.tgz";
@@ -17,7 +21,7 @@ rec {
 
   packageName = "esrap";
 
-  asdFilesToKeep = ["esrap.asd"];
+  asdFilesToKeep = [ "esrap.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM esrap DESCRIPTION
@@ -29,4 +33,5 @@ rec {
      (NAME trivial-with-current-source-form FILENAME
       trivial-with-current-source-form))
     DEPENDENCIES (alexandria fiveam trivial-with-current-source-form) VERSION
-    20211020-git SIBLINGS NIL PARASITES (esrap/tests)) */
+    20211020-git SIBLINGS NIL PARASITES (esrap/tests))
+*/

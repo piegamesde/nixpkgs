@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -19,8 +24,8 @@ let
     welcometext="${cfg.welcometext}"
     port=${toString cfg.port}
 
-    ${if cfg.hostName == "" then "" else "host="+cfg.hostName}
-    ${if cfg.password == "" then "" else "serverpassword="+cfg.password}
+    ${if cfg.hostName == "" then "" else "host=" + cfg.hostName}
+    ${if cfg.password == "" then "" else "serverpassword=" + cfg.password}
 
     bandwidth=${toString cfg.bandwidth}
     users=${toString cfg.users}
@@ -32,15 +37,15 @@ let
     bonjour=${boolToString cfg.bonjour}
     sendversion=${boolToString cfg.sendVersion}
 
-    ${if cfg.registerName     == "" then "" else "registerName="+cfg.registerName}
-    ${if cfg.registerPassword == "" then "" else "registerPassword="+cfg.registerPassword}
-    ${if cfg.registerUrl      == "" then "" else "registerUrl="+cfg.registerUrl}
-    ${if cfg.registerHostname == "" then "" else "registerHostname="+cfg.registerHostname}
+    ${if cfg.registerName == "" then "" else "registerName=" + cfg.registerName}
+    ${if cfg.registerPassword == "" then "" else "registerPassword=" + cfg.registerPassword}
+    ${if cfg.registerUrl == "" then "" else "registerUrl=" + cfg.registerUrl}
+    ${if cfg.registerHostname == "" then "" else "registerHostname=" + cfg.registerHostname}
 
     certrequired=${boolToString cfg.clientCertRequired}
-    ${if cfg.sslCert == "" then "" else "sslCert="+cfg.sslCert}
-    ${if cfg.sslKey  == "" then "" else "sslKey="+cfg.sslKey}
-    ${if cfg.sslCa   == "" then "" else "sslCA="+cfg.sslCa}
+    ${if cfg.sslCert == "" then "" else "sslCert=" + cfg.sslCert}
+    ${if cfg.sslKey == "" then "" else "sslKey=" + cfg.sslKey}
+    ${if cfg.sslCa == "" then "" else "sslCA=" + cfg.sslCa}
 
     ${lib.optionalString (cfg.dbus != null) "dbus=${cfg.dbus}"}
 
@@ -49,8 +54,26 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [ "services" "murmur" "welcome" ] [ "services" "murmur" "welcometext" ])
-    (mkRemovedOptionModule [ "services" "murmur" "pidfile" ] "Hardcoded to /run/murmur/murmurd.pid now")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "murmur"
+        "welcome"
+      ]
+      [
+        "services"
+        "murmur"
+        "welcometext"
+      ]
+    )
+    (mkRemovedOptionModule
+      [
+        "services"
+        "murmur"
+        "pidfile"
+      ]
+      "Hardcoded to /run/murmur/murmurd.pid now"
+    )
   ];
 
   options = {
@@ -286,23 +309,29 @@ in
       };
 
       dbus = mkOption {
-        type = types.enum [ null "session" "system" ];
+        type = types.enum [
+          null
+          "session"
+          "system"
+        ];
         default = null;
-        description = lib.mdDoc "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
+        description =
+          lib.mdDoc
+            "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
       };
     };
   };
 
   config = mkIf cfg.enable {
     users.users.murmur = {
-      description     = "Murmur Service user";
-      home            = "/var/lib/murmur";
-      createHome      = true;
-      uid             = config.ids.uids.murmur;
-      group           = "murmur";
+      description = "Murmur Service user";
+      home = "/var/lib/murmur";
+      createHome = true;
+      uid = config.ids.uids.murmur;
+      group = "murmur";
     };
     users.groups.murmur = {
-      gid             = config.ids.gids.murmur;
+      gid = config.ids.gids.murmur;
     };
 
     networking.firewall = mkIf cfg.openFirewall {
@@ -312,9 +341,9 @@ in
 
     systemd.services.murmur = {
       description = "Murmur Chat Service";
-      wantedBy    = [ "multi-user.target" ];
-      after       = [ "network.target" ];
-      preStart    = ''
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      preStart = ''
         ${pkgs.envsubst}/bin/envsubst \
           -o /run/murmur/murmurd.ini \
           -i ${configFile}
@@ -336,24 +365,26 @@ in
 
     # currently not included in upstream package, addition requested at
     # https://github.com/mumble-voip/mumble/issues/6078
-    services.dbus.packages = mkIf (cfg.dbus == "system") [(pkgs.writeTextFile {
-      name = "murmur-dbus-policy";
-      text = ''
-        <!DOCTYPE busconfig PUBLIC
-          "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-          "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
-        <busconfig>
-          <policy user="murmur">
-            <allow own="net.sourceforge.mumble.murmur"/>
-          </policy>
+    services.dbus.packages = mkIf (cfg.dbus == "system") [
+      (pkgs.writeTextFile {
+        name = "murmur-dbus-policy";
+        text = ''
+          <!DOCTYPE busconfig PUBLIC
+            "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+            "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+          <busconfig>
+            <policy user="murmur">
+              <allow own="net.sourceforge.mumble.murmur"/>
+            </policy>
 
-          <policy context="default">
-            <allow send_destination="net.sourceforge.mumble.murmur"/>
-            <allow receive_sender="net.sourceforge.mumble.murmur"/>
-          </policy>
-        </busconfig>
-      '';
-      destination = "/share/dbus-1/system.d/murmur.conf";
-    })];
+            <policy context="default">
+              <allow send_destination="net.sourceforge.mumble.murmur"/>
+              <allow receive_sender="net.sourceforge.mumble.murmur"/>
+            </policy>
+          </busconfig>
+        '';
+        destination = "/share/dbus-1/system.d/murmur.conf";
+      })
+    ];
   };
 }

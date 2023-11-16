@@ -1,33 +1,34 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, emcee
-, h5netcdf
-, matplotlib
-, netcdf4
-, numba
-, numpy
-, pandas
-, pytest
-, setuptools
-, cloudpickle
-, pytestCheckHook
-, scipy
-, packaging
-, typing-extensions
-, pythonOlder
-, xarray
-, xarray-einstats
-, zarr
-, ffmpeg
-, h5py
-, jaxlib
-, torchvision
-, jax
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  emcee,
+  h5netcdf,
+  matplotlib,
+  netcdf4,
+  numba,
+  numpy,
+  pandas,
+  pytest,
+  setuptools,
+  cloudpickle,
+  pytestCheckHook,
+  scipy,
+  packaging,
+  typing-extensions,
+  pythonOlder,
+  xarray,
+  xarray-einstats,
+  zarr,
+  ffmpeg,
+  h5py,
+  jaxlib,
+  torchvision,
+  jax,
   # , pymc3 (circular dependency)
-, pyro-ppl
+  pyro-ppl,
   #, pystan (not packaged)
-, numpyro
+  numpyro,
 }:
 
 buildPythonPackage rec {
@@ -78,9 +79,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray = [
-    "arviz/tests/base_tests/"
-  ];
+  pytestFlagsArray = [ "arviz/tests/base_tests/" ];
 
   disabledTests = [
     # Tests require network access
@@ -95,9 +94,7 @@ buildPythonPackage rec {
     "test_plot_ts"
   ];
 
-  pythonImportsCheck = [
-    "arviz"
-  ];
+  pythonImportsCheck = [ "arviz" ];
 
   meta = with lib; {
     description = "Library for exploratory analysis of Bayesian models";

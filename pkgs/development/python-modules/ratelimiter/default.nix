@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest-asyncio
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -20,19 +21,18 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "ratelimiter"
-  ];
+  pythonImportsCheck = [ "ratelimiter" ];
 
   preCheck = ''
     # Uses out-dated options
     rm tests/conftest.py
   '';
 
-  disabledTests = [
-    # TypeError: object Lock can't be used in 'await' expression
-    "test_alock"
-  ];
+  disabledTests =
+    [
+      # TypeError: object Lock can't be used in 'await' expression
+      "test_alock"
+    ];
 
   meta = with lib; {
     description = "Simple python rate limiting object";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -17,7 +22,6 @@ let
     /dev/vndbinder = aidl2
     /dev/hwbinder = hidl
   '';
-
 in
 {
 
@@ -38,8 +42,8 @@ in
     ];
 
     /* NOTE: we always enable this flag even if CONFIG_PSI_DEFAULT_DISABLED is not on
-      as reading the kernel config is not always possible and on kernels where it's
-      already on it will be no-op
+       as reading the kernel config is not always possible and on kernels where it's
+       already on it will be no-op
     */
     boot.kernelParams = [ "psi=1" ];
 
@@ -67,5 +71,4 @@ in
       "d /var/lib/misc 0755 root root -" # for dnsmasq.leases
     ];
   };
-
 }

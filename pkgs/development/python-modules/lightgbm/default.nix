@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, cmake
-, numpy
-, scipy
-, scikit-learn
-, llvmPackages ? null
-, pythonOlder
-, python
-, ocl-icd
-, opencl-headers
-, boost
-, gpuSupport ? stdenv.isLinux
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  cmake,
+  numpy,
+  scipy,
+  scikit-learn,
+  llvmPackages ? null,
+  pythonOlder,
+  python,
+  ocl-icd,
+  opencl-headers,
+  boost,
+  gpuSupport ? stdenv.isLinux,
 }:
 
 buildPythonPackage rec {
@@ -27,19 +28,17 @@ buildPythonPackage rec {
     hash = "sha256-ELj73PhR5PaKHwLzjZm9xEx8f7mxpi3PkkoNKf9zOVw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = (lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ]) ++ (lib.optionals gpuSupport [
-    boost
-    ocl-icd
-    opencl-headers
-  ]);
+  buildInputs =
+    (lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ])
+    ++ (lib.optionals gpuSupport [
+      boost
+      ocl-icd
+      opencl-headers
+    ]);
 
   propagatedBuildInputs = [
     numpy
@@ -64,15 +63,16 @@ buildPythonPackage rec {
   # `make check`.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "lightgbm"
-  ];
+  pythonImportsCheck = [ "lightgbm" ];
 
   meta = {
     description = "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";
     homepage = "https://github.com/Microsoft/LightGBM";
     changelog = "https://github.com/microsoft/LightGBM/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ teh costrouc ];
+    maintainers = with lib.maintainers; [
+      teh
+      costrouc
+    ];
   };
 }

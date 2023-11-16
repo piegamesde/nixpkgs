@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pytest
-, django
-, python-fsutil
-, pythonOlder
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pytest,
+  django,
+  python-fsutil,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -26,13 +27,9 @@ buildPythonPackage rec {
     python-fsutil
   ];
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
-  pythonImportsCheck = [
-    "maintenance_mode"
-  ];
+  pythonImportsCheck = [ "maintenance_mode" ];
 
   meta = with lib; {
     description = "Shows a 503 error page when maintenance-mode is on";

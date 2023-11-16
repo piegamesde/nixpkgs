@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "kubemqctl";
@@ -10,11 +14,15 @@ buildGoModule rec {
     sha256 = "0daqvd1y6b87xvnpdl2k0sa91zdmp48r0pgp6dvnb2l44ml8a4z0";
   };
 
-  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X main.version=${version}"
+  ];
 
   doCheck = false; # TODO tests are failing
 
-  vendorSha256 = null; #vendorSha256 = "";
+  vendorSha256 = null; # vendorSha256 = "";
 
   meta = {
     homepage = "https://github.com/kubemq-io/kubemqctl";

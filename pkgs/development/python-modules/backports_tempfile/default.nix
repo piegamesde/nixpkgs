@@ -1,9 +1,10 @@
-{ lib
-, unittestCheckHook
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, backports_weakref
+{
+  lib,
+  unittestCheckHook,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  backports_weakref,
 }:
 
 buildPythonPackage rec {
@@ -24,7 +25,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "tests" ];
+  unittestFlagsArray = [
+    "-s"
+    "tests"
+  ];
 
   meta = {
     description = "Backport of new features in Python's tempfile module";

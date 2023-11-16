@@ -1,9 +1,10 @@
-{ lib
-, buildDotnetModule
-, fetchFromGitHub
-, writeScript
-, jdk11
-, z3
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  writeScript,
+  jdk11,
+  z3,
 }:
 
 buildDotnetModule rec {
@@ -18,11 +19,13 @@ buildDotnetModule rec {
   };
 
   postPatch = ''
-    cp ${writeScript "fake-gradlew-for-dafny" ''
-      mkdir -p build/libs/
-      javac $(find -name "*.java" | grep "^./src/main") -d classes
-      jar cf build/libs/DafnyRuntime.jar -C classes dafny
-    ''} Source/DafnyRuntime/DafnyRuntimeJava/gradlew
+    cp ${
+      writeScript "fake-gradlew-for-dafny" ''
+        mkdir -p build/libs/
+        javac $(find -name "*.java" | grep "^./src/main") -d classes
+        jar cf build/libs/DafnyRuntime.jar -C classes dafny
+      ''
+    } Source/DafnyRuntime/DafnyRuntimeJava/gradlew
 
     # Needed to fix
     # "error NETSDK1129: The 'Publish' target is not supported without specifying a target framework. The current project targets multiple frameworks, you must specify the framework for the published application."

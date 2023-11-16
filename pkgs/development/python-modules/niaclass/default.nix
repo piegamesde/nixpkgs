@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, niapy
-, numpy
-, pandas
-, poetry-core
-, scikit-learn
-, toml-adapt
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  niapy,
+  numpy,
+  pandas,
+  poetry-core,
+  scikit-learn,
+  toml-adapt,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -42,13 +43,9 @@ buildPythonPackage rec {
     toml-adapt -path pyproject.toml -a change -dep scikit-learn -ver X
   '';
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "niaclass"
-  ];
+  pythonImportsCheck = [ "niaclass" ];
 
   meta = with lib; {
     description = "A framework for solving classification tasks using Nature-inspired algorithms";
@@ -57,4 +54,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ firefly-cpp ];
   };
 }
-

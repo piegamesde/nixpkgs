@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_interface
-, sphinx
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_interface,
+  sphinx,
 }:
 
 buildPythonPackage rec {
@@ -14,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-SGvxQjpGlrkVPkiM750ybElv/Bbd6xSwyYh7RsYOKKE=";
   };
 
-  propagatedBuildInputs = [ zope_interface sphinx ];
+  propagatedBuildInputs = [
+    zope_interface
+    sphinx
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/repoze/repoze.sphinx.autointerface";

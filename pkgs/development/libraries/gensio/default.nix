@@ -1,9 +1,10 @@
-{ autoreconfHook
-, fetchFromGitHub
-, lib
-, nix-update-script
-, pkg-config
-, stdenv
+{
+  autoreconfHook,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+  pkg-config,
+  stdenv,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,11 +22,12 @@ stdenv.mkDerivation rec {
     updateScript = nix-update-script { };
   };
 
-  configureFlags = [
-    "--with-python=no"
-  ];
+  configureFlags = [ "--with-python=no" ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "General Stream I/O";

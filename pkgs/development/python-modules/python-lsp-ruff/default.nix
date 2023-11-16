@@ -1,11 +1,12 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchPypi
-, ruff
-, lsprotocol
-, python-lsp-server
-, tomli
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  ruff,
+  lsprotocol,
+  python-lsp-server,
+  tomli,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     lsprotocol
     python-lsp-server
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   doCheck = true;
 

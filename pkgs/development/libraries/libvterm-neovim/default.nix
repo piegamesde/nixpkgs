@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, perl
-, libtool
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  libtool,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ketQiAafTm7atp4UxCEvbaAZLmVpWVbcBIAWoNq4vPY=";
   };
 
-  nativeBuildInputs = [ perl libtool ];
+  nativeBuildInputs = [
+    perl
+    libtool
+  ];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"

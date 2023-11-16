@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -17,7 +18,10 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-bEmp3Fq9Zop3YCbZH4lOG71osY0P71xuhpIPOUSnHSY=";
 
-  excludedPackages = [ "magefiles" "misc" ];
+  excludedPackages = [
+    "magefiles"
+    "misc"
+  ];
 
   ldflags = [
     "-s"

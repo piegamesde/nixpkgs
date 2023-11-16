@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -25,22 +26,17 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [
-    "vat_moss"
-  ];
+  pythonImportsCheck = [ "vat_moss" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_fetch"
-  ];
+  disabledTests = [ "test_fetch" ];
 
-  disabledTestPaths = [
-    # network access
-    "tests/test_id.py"
-  ];
+  disabledTestPaths =
+    [
+      # network access
+      "tests/test_id.py"
+    ];
 
   meta = with lib; {
     description = "A Python library for dealing with VAT MOSS and Norway VAT on digital services. Includes VAT ID validation, rate calculation based on place of supply, exchange rate and currency tools for invoices";

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, cython
-, poetry-core
-, setuptools
-, bleak
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  cython,
+  poetry-core,
+  setuptools,
+  bleak,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -34,17 +35,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [
-    bleak
-  ];
+  propagatedBuildInputs = [ bleak ];
 
-  pythonImportsCheck = [
-    "home_assistant_bluetooth"
-  ];
+  pythonImportsCheck = [ "home_assistant_bluetooth" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Basic bluetooth models used by Home Assistant";

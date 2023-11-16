@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, openssl, pkg-config, qtbase }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  openssl,
+  pkg-config,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qca-qt5";
@@ -9,8 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7lnVMdS4L7FoX02NdMLKoHd/UBgA90JuqjchCaQwUkk=";
   };
 
-  buildInputs = [ openssl qtbase ];
-  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [
+    openssl
+    qtbase
+  ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   dontWrapQtApps = true;
 

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, async-timeout
-, orjson
-, pythonOlder
-, requests
-, websocket-client
-, websockets
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  async-timeout,
+  orjson,
+  pythonOlder,
+  requests,
+  websocket-client,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sense_energy"
-  ];
+  pythonImportsCheck = [ "sense_energy" ];
 
   meta = with lib; {
     description = "API for the Sense Energy Monitor";

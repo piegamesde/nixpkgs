@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, guile, gtk2, flex, gawk, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  guile,
+  gtk2,
+  flex,
+  gawk,
+  perl,
+}:
 
 stdenv.mkDerivation {
   pname = "geda";
@@ -23,11 +34,15 @@ stdenv.mkDerivation {
     })
   ];
 
-  configureFlags = [
-    "--disable-update-xdg-database"
-  ];
+  configureFlags = [ "--disable-update-xdg-database" ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ guile gtk2 flex gawk perl ];
+  buildInputs = [
+    guile
+    gtk2
+    flex
+    gawk
+    perl
+  ];
 
   meta = with lib; {
     description = "Full GPL'd suite of Electronic Design Automation tools";

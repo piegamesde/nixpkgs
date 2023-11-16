@@ -1,10 +1,20 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "slynk";
   version = "sly-20210411-git";
 
-  parasites = [ "slynk/arglists" "slynk/fancy-inspector" "slynk/indentation" "slynk/mrepl" "slynk/package-fu" "slynk/profiler" "slynk/retro" "slynk/stickers" "slynk/trace-dialog" ];
+  parasites = [
+    "slynk/arglists"
+    "slynk/fancy-inspector"
+    "slynk/indentation"
+    "slynk/mrepl"
+    "slynk/package-fu"
+    "slynk/profiler"
+    "slynk/retro"
+    "slynk/stickers"
+    "slynk/trace-dialog"
+  ];
 
   description = "System lacks description";
 
@@ -17,7 +27,7 @@ rec {
 
   packageName = "slynk";
 
-  asdFilesToKeep = ["slynk.asd"];
+  asdFilesToKeep = [ "slynk.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM slynk DESCRIPTION System lacks description SHA256
@@ -27,4 +37,5 @@ rec {
     DEPENDENCIES NIL VERSION sly-20210411-git SIBLINGS NIL PARASITES
     (slynk/arglists slynk/fancy-inspector slynk/indentation slynk/mrepl
      slynk/package-fu slynk/profiler slynk/retro slynk/stickers
-     slynk/trace-dialog)) */
+     slynk/trace-dialog))
+*/

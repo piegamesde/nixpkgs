@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, cfitsio
-, libusb1
-, zlib
-, boost
-, libev
-, libnova
-, curl
-, libjpeg
-, gsl
-, fftw
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  cfitsio,
+  libusb1,
+  zlib,
+  boost,
+  libev,
+  libnova,
+  curl,
+  libjpeg,
+  gsl,
+  fftw,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,9 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+KFuZgM/Bl6Oezq3WXjWCHefc1wvR3wOKXejmT0pw1U=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     curl

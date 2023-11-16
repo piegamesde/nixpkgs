@@ -1,11 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, Carbon, Cocoa, CoreWLAN, DisplayServices, SkyLight }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Carbon,
+  Cocoa,
+  CoreWLAN,
+  DisplayServices,
+  SkyLight,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;
-  target = {
-    "aarch64-darwin" = "arm64";
-    "x86_64-darwin" = "x86";
-  }.${system} or (throw "Unsupported system: ${system}");
+  target =
+    {
+      "aarch64-darwin" = "arm64";
+      "x86_64-darwin" = "x86";
+    }
+    .${system} or (throw "Unsupported system: ${system}");
 in
 
 stdenv.mkDerivation rec {
@@ -19,11 +30,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-0jCVDaFc7ZvA8apeHRoQvPhAlaGlBHzqUkS9or88PcM=";
   };
 
-  buildInputs = [ Carbon Cocoa CoreWLAN DisplayServices SkyLight ];
-
-  makeFlags = [
-    target
+  buildInputs = [
+    Carbon
+    Cocoa
+    CoreWLAN
+    DisplayServices
+    SkyLight
   ];
+
+  makeFlags = [ target ];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, buildPythonPackage
-, networkx
-, jinja2
-, ipython
-, jsonpickle
-, numpy
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonPackage,
+  networkx,
+  jinja2,
+  ipython,
+  jsonpickle,
+  numpy,
 }:
 
 buildPythonPackage rec {
@@ -20,15 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-cER5XYxnURzRLtrisWBu2kxtOiRqgaRTJYyaCMh2qqE=";
   };
 
-  patches = [
-    # Fix test: https://github.com/WestHealth/pyvis/issues/138
-    (fetchpatch {
-      url = "https://github.com/WestHealth/pyvis/commit/eaa24b882401e2e74353efa78bf4e71a880cfc47.patch";
-      hash = "sha256-hyDypavoCM36SiuQda1U4FLUPdAjTIMtaeZ0KqfHKzI=";
-    })
-  ];
+  patches =
+    [
+      # Fix test: https://github.com/WestHealth/pyvis/issues/138
+      (fetchpatch {
+        url = "https://github.com/WestHealth/pyvis/commit/eaa24b882401e2e74353efa78bf4e71a880cfc47.patch";
+        hash = "sha256-hyDypavoCM36SiuQda1U4FLUPdAjTIMtaeZ0KqfHKzI=";
+      })
+    ];
 
-  propagatedBuildInputs = [ networkx jinja2 ipython jsonpickle ];
+  propagatedBuildInputs = [
+    networkx
+    jinja2
+    ipython
+    jsonpickle
+  ];
 
   nativeCheckInputs = [ numpy ];
 

@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, pytest-lazy-fixture
-, numpy
-, networkx
-, pydicom
-, colorama
-, typeguard
-, versioneer
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-lazy-fixture,
+  numpy,
+  networkx,
+  pydicom,
+  colorama,
+  typeguard,
+  versioneer,
 }:
 
 buildPythonPackage rec {
@@ -35,11 +36,15 @@ buildPythonPackage rec {
     typeguard
   ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-lazy-fixture ];
-  disabledTests = [
-    # requires Docker daemon:
-    "test_packager"
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-lazy-fixture
   ];
+  disabledTests =
+    [
+      # requires Docker daemon:
+      "test_packager"
+    ];
   pythonImportsCheck = [
     "monai.deploy"
     "monai.deploy.core"

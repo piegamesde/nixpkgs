@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, importlib-metadata
-, poetry-core
-, pydantic
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, rstcheck-core
-, typer
-, types-docutils
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  importlib-metadata,
+  poetry-core,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  rstcheck-core,
+  typer,
+  types-docutils,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -28,34 +29,31 @@ buildPythonPackage rec {
     hash = "sha256-UMByfnnP1va3v1IgyQL0f3kC+W6HoiWScb7U2FAvWkU=";
   };
 
-  pythonRelaxDeps = [
-    "typer"
-  ];
+  pythonRelaxDeps = [ "typer" ];
 
   nativeBuildInputs = [
     poetry-core
     pythonRelaxDepsHook
   ];
 
-  propagatedBuildInputs = [
-    docutils
-    rstcheck-core
-    types-docutils
-    typing-extensions
-    pydantic
-    typer
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-    importlib-metadata
-  ] ++ typer.optional-dependencies.all;
+  propagatedBuildInputs =
+    [
+      docutils
+      rstcheck-core
+      types-docutils
+      typing-extensions
+      pydantic
+      typer
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
+      typing-extensions
+      importlib-metadata
+    ]
+    ++ typer.optional-dependencies.all;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "rstcheck"
-  ];
+  pythonImportsCheck = [ "rstcheck" ];
 
   preCheck = ''
     # The tests need to find and call the rstcheck executable

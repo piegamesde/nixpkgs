@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -18,9 +19,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "OpenAIAuth"
-  ];
+  pythonImportsCheck = [ "OpenAIAuth" ];
 
   meta = with lib; {
     description = "A Python library for authenticating with the OpenAI API";

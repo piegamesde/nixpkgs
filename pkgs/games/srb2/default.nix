@@ -1,35 +1,36 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, substituteAll
-, cmake
-, curl
-, nasm
-, libopenmpt
-, p7zip
-, game-music-emu
-, libpng
-, SDL2
-, SDL2_mixer
-, zlib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  substituteAll,
+  cmake,
+  curl,
+  nasm,
+  libopenmpt,
+  p7zip,
+  game-music-emu,
+  libpng,
+  SDL2,
+  SDL2_mixer,
+  zlib,
 }:
 
 let
 
-assets_version = "2.2.5";
+  assets_version = "2.2.5";
 
-assets = fetchurl {
-  url = "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-assets.7z";
-  sha256 = "1m9xf3vraq9nipsi09cyvvfa4i37gzfxg970rnqfswd86z9v6v00";
-};
+  assets = fetchurl {
+    url = "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-assets.7z";
+    sha256 = "1m9xf3vraq9nipsi09cyvvfa4i37gzfxg970rnqfswd86z9v6v00";
+  };
 
-assets_optional = fetchurl {
-  url = "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-optional-assets.7z";
-  sha256 = "1j29jrd0r1k2bb11wyyl6yv9b90s2i6jhrslnh77qkrhrwnwcdz4";
-};
-
-in stdenv.mkDerivation rec {
+  assets_optional = fetchurl {
+    url = "https://github.com/mazmazz/SRB2/releases/download/SRB2_assets_220/srb2-${assets_version}-optional-assets.7z";
+    sha256 = "1j29jrd0r1k2bb11wyyl6yv9b90s2i6jhrslnh77qkrhrwnwcdz4";
+  };
+in
+stdenv.mkDerivation rec {
   pname = "srb2";
   version = "2.2.10";
 
@@ -64,9 +65,7 @@ in stdenv.mkDerivation rec {
     "-DSDL2_INCLUDE_DIR=${lib.getDev SDL2}/include/SDL2"
   ];
 
-  patches = [
-    ./wadlocation.patch
-  ];
+  patches = [ ./wadlocation.patch ];
 
   postPatch = ''
     substituteInPlace src/sdl/i_system.c \

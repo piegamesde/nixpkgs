@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytz
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytz,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "backports.datetime_fromisoformat"
-  ];
+  pythonImportsCheck = [ "backports.datetime_fromisoformat" ];
 
   meta = with lib; {
     changelog = "https://github.com/movermeyer/backports.datetime_fromisoformat/releases/tag/v${version}";

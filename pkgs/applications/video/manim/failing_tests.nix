@@ -70,5 +70,4 @@
 
   # mismatching expecation on the new commandline
   "test_manim_new_command"
-
 ]

@@ -1,36 +1,40 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, defusedxml
-, fetchFromGitHub
-, fetchPypi
-, importlib-resources
-, poetry-core
-, pyasn1
-, pymongo
-, pyopenssl
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, requests
-, responses
-, setuptools
-, substituteAll
-, xmlschema
-, xmlsec
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  defusedxml,
+  fetchFromGitHub,
+  fetchPypi,
+  importlib-resources,
+  poetry-core,
+  pyasn1,
+  pymongo,
+  pyopenssl,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  requests,
+  responses,
+  setuptools,
+  substituteAll,
+  xmlschema,
+  xmlsec,
 }:
 
 let
-  pymongo3 = pymongo.overridePythonAttrs(old: rec {
-    version = "3.12.3";
-    src = fetchPypi {
-      pname = "pymongo";
-      inherit version;
-      hash = "sha256-ConK3ABipeU2ZN3gQ/bAlxcrjBxfAJRJAJUoL/mZWl8=";
-    };
-  });
-in buildPythonPackage rec {
+  pymongo3 = pymongo.overridePythonAttrs (
+    old: rec {
+      version = "3.12.3";
+      src = fetchPypi {
+        pname = "pymongo";
+        inherit version;
+        hash = "sha256-ConK3ABipeU2ZN3gQ/bAlxcrjBxfAJRJAJUoL/mZWl8=";
+      };
+    }
+  );
+in
+buildPythonPackage rec {
   pname = "pysaml2";
   version = "7.4.1";
   format = "pyproject";
@@ -44,9 +48,7 @@ in buildPythonPackage rec {
     hash = "sha256-QHAbm6u5oH3O7MEVFE+sW98raquv89KJ8gonk3Yyu/0=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     cryptography
@@ -57,9 +59,7 @@ in buildPythonPackage rec {
     requests
     setuptools
     xmlschema
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [
     pyasn1
@@ -88,9 +88,7 @@ in buildPythonPackage rec {
     "test_conf_syslog"
   ];
 
-  pythonImportsCheck = [
-    "saml2"
-  ];
+  pythonImportsCheck = [ "saml2" ];
 
   meta = with lib; {
     description = "Python implementation of SAML Version 2 Standard";

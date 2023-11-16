@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, ocaml, ocaml_gettext, dune-configurator, ounit }:
+{
+  lib,
+  buildDunePackage,
+  ocaml,
+  ocaml_gettext,
+  dune-configurator,
+  ounit,
+}:
 
 buildDunePackage rec {
 
@@ -16,5 +23,5 @@ buildDunePackage rec {
 
   checkInputs = [ ounit ];
 
-  meta = builtins.removeAttrs ocaml_gettext.meta  [ "mainProgram" ];
+  meta = builtins.removeAttrs ocaml_gettext.meta [ "mainProgram" ];
 }

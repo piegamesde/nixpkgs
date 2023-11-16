@@ -1,6 +1,22 @@
-{ gccStdenv, lib, git, openssl, autoconf, pkgs, makeStaticLibraries, gcc, coreutils, gnused, gnugrep,
-  src, version, git-version,
-  gambit-support, optimizationSetting ? "-O1", gambit-params ? pkgs.gambit-support.stable-params }:
+{
+  gccStdenv,
+  lib,
+  git,
+  openssl,
+  autoconf,
+  pkgs,
+  makeStaticLibraries,
+  gcc,
+  coreutils,
+  gnused,
+  gnugrep,
+  src,
+  version,
+  git-version,
+  gambit-support,
+  optimizationSetting ? "-O1",
+  gambit-params ? pkgs.gambit-support.stable-params,
+}:
 
 # Note that according to a benchmark run by Marc Feeley on May 2018,
 # clang is 10x (with default settings) to 15% (with -O2) slower than GCC at compiling
@@ -25,7 +41,10 @@ gccStdenv.mkDerivation rec {
   inherit src version git-version;
   bootstrap = gambit-support.gambit-bootstrap;
 
-  nativeBuildInputs = [ git autoconf ];
+  nativeBuildInputs = [
+    git
+    autoconf
+  ];
   # TODO: if/when we can get all the library packages we depend on to have static versions,
   # we could use something like (makeStaticLibraries openssl) to enable creation
   # of statically linked binaries by gsc.
@@ -35,30 +54,32 @@ gccStdenv.mkDerivation rec {
   # Or wrap relevant programs to add a suitable PATH ?
   #runtimeDeps = [ gnused gnugrep ];
 
-  configureFlags = [
-    "--enable-targets=${gambit-params.targets}"
-    "--enable-single-host"
-    "--enable-c-opt=${optimizationSetting}"
-    "--enable-gcc-opts"
-    "--enable-shared"
-    "--enable-absolute-shared-libs" # Yes, NixOS will want an absolute path, and fix it.
-    "--enable-openssl"
-    "--enable-default-runtime-options=${gambit-params.defaultRuntimeOptions}"
-    # "--enable-debug" # Nope: enables plenty of good stuff, but also the costly console.log
-    # "--enable-multiple-versions" # Nope, NixOS already does version multiplexing
-    # "--enable-guide"
-    # "--enable-track-scheme"
-    # "--enable-high-res-timing"
-    # "--enable-max-processors=4"
-    # "--enable-multiple-vms"
-    # "--enable-dynamic-tls"
-    # "--enable-multiple-threaded-vms"  # when SMP branch is merged in
-    # "--enable-thread-system=posix"    # default when --enable-multiple-vms is on.
-    # "--enable-profile"
-    # "--enable-coverage"
-    # "--enable-inline-jumps"
-    # "--enable-char-size=1" # default is 4
-  ] ++
+  configureFlags =
+    [
+      "--enable-targets=${gambit-params.targets}"
+      "--enable-single-host"
+      "--enable-c-opt=${optimizationSetting}"
+      "--enable-gcc-opts"
+      "--enable-shared"
+      "--enable-absolute-shared-libs" # Yes, NixOS will want an absolute path, and fix it.
+      "--enable-openssl"
+      "--enable-default-runtime-options=${gambit-params.defaultRuntimeOptions}"
+      # "--enable-debug" # Nope: enables plenty of good stuff, but also the costly console.log
+      # "--enable-multiple-versions" # Nope, NixOS already does version multiplexing
+      # "--enable-guide"
+      # "--enable-track-scheme"
+      # "--enable-high-res-timing"
+      # "--enable-max-processors=4"
+      # "--enable-multiple-vms"
+      # "--enable-dynamic-tls"
+      # "--enable-multiple-threaded-vms"  # when SMP branch is merged in
+      # "--enable-thread-system=posix"    # default when --enable-multiple-vms is on.
+      # "--enable-profile"
+      # "--enable-coverage"
+      # "--enable-inline-jumps"
+      # "--enable-char-size=1" # default is 4
+    ]
+    ++
     # due not enable poll on darwin due to https://github.com/gambit/gambit/issues/498
     lib.optional (!gccStdenv.isDarwin) "--enable-poll";
 

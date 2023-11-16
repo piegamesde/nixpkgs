@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, hiredis, http-parser, jansson, libevent, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  hiredis,
+  http-parser,
+  jansson,
+  libevent,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "webdis";
@@ -11,7 +20,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HSAxmOtljwhQiW/spe0MEF7JK+bZe+oSUJhwp5y1fEQ=";
   };
 
-  buildInputs = [ hiredis http-parser jansson libevent ];
+  buildInputs = [
+    hiredis
+    http-parser
+    jansson
+    libevent
+  ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

@@ -1,5 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k
-, numpy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  numpy,
 }:
 
 buildPythonPackage rec {
@@ -12,9 +16,7 @@ buildPythonPackage rec {
     sha256 = "a955df768e39d459de28c7ea10ee02f67b1c70996cfa229846ab98df77a6fb69";
   };
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   meta = {
     homepage = "https://github.com/portugueslab/arrayqueues";

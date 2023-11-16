@@ -1,4 +1,4 @@
-args @ {
+args@{
   lib,
   stdenv,
   llvmPackages_12, # Anything newer than 11
@@ -37,30 +37,34 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-q5ZfX0bybyvJ0NjrJQ2/+o0n7dBLGxdIDevls3xOQMg=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ which ];
 
-  buildInputs = [
-    curl
-    librsync
-    libthreadar
-    gpgme
-    libargon2
-    libgcrypt
-    openssl
-    bzip2
-    lz4
-    lzo
-    xz
-    zlib
-    zstd
-  ] ++ lib.optionals stdenv.isLinux [
-    attr
-    e2fsprogs
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-  ];
+  buildInputs =
+    [
+      curl
+      librsync
+      libthreadar
+      gpgme
+      libargon2
+      libgcrypt
+      openssl
+      bzip2
+      lz4
+      lzo
+      xz
+      zlib
+      zstd
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      attr
+      e2fsprogs
+    ]
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation ];
 
   configureFlags = [
     "--disable-birthtime"

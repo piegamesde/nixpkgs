@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "inferior-shell";
   version = "20200925-git";
@@ -8,7 +8,31 @@ rec {
 
   description = "spawn local or remote processes and shell pipes";
 
-  deps = [ args."alexandria" args."asdf" args."closer-mop" args."fare-mop" args."fare-quasiquote" args."fare-quasiquote-extras" args."fare-quasiquote-optima" args."fare-quasiquote-readtable" args."fare-utils" args."hu_dot_dwim_dot_stefil" args."introspect-environment" args."iterate" args."lisp-namespace" args."named-readtables" args."trivia" args."trivia_dot_balland2006" args."trivia_dot_level0" args."trivia_dot_level1" args."trivia_dot_level2" args."trivia_dot_quasiquote" args."trivia_dot_trivial" args."trivial-cltl2" args."type-i" ];
+  deps = [
+    args."alexandria"
+    args."asdf"
+    args."closer-mop"
+    args."fare-mop"
+    args."fare-quasiquote"
+    args."fare-quasiquote-extras"
+    args."fare-quasiquote-optima"
+    args."fare-quasiquote-readtable"
+    args."fare-utils"
+    args."hu_dot_dwim_dot_stefil"
+    args."introspect-environment"
+    args."iterate"
+    args."lisp-namespace"
+    args."named-readtables"
+    args."trivia"
+    args."trivia_dot_balland2006"
+    args."trivia_dot_level0"
+    args."trivia_dot_level1"
+    args."trivia_dot_level2"
+    args."trivia_dot_quasiquote"
+    args."trivia_dot_trivial"
+    args."trivial-cltl2"
+    args."type-i"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/inferior-shell/2020-09-25/inferior-shell-20200925-git.tgz";
@@ -17,7 +41,7 @@ rec {
 
   packageName = "inferior-shell";
 
-  asdFilesToKeep = ["inferior-shell.asd"];
+  asdFilesToKeep = [ "inferior-shell.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM inferior-shell DESCRIPTION
@@ -52,4 +76,5 @@ rec {
      introspect-environment iterate lisp-namespace named-readtables trivia
      trivia.balland2006 trivia.level0 trivia.level1 trivia.level2
      trivia.quasiquote trivia.trivial trivial-cltl2 type-i)
-    VERSION 20200925-git SIBLINGS NIL PARASITES (inferior-shell/test)) */
+    VERSION 20200925-git SIBLINGS NIL PARASITES (inferior-shell/test))
+*/

@@ -1,4 +1,13 @@
-{ lib, atdgen-codec-runtime, menhir, easy-format, buildDunePackage, re, yojson, nixosTests }:
+{
+  lib,
+  atdgen-codec-runtime,
+  menhir,
+  easy-format,
+  buildDunePackage,
+  re,
+  yojson,
+  nixosTests,
+}:
 
 buildDunePackage rec {
   pname = "atd";
@@ -7,7 +16,11 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
   nativeBuildInputs = [ menhir ];
-  propagatedBuildInputs = [ easy-format re yojson ];
+  propagatedBuildInputs = [
+    easy-format
+    re
+    yojson
+  ];
 
   strictDeps = true;
 

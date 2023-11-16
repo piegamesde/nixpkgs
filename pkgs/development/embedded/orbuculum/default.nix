@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, czmq
-, libusb1
-, ncurses
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  czmq,
+  libusb1,
+  ncurses,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,9 +24,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  installFlags = [
-    "INSTALL_ROOT=$(out)/"
-  ];
+  installFlags = [ "INSTALL_ROOT=$(out)/" ];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d/

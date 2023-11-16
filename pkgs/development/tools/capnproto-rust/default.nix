@@ -1,7 +1,8 @@
-{ lib
-, fetchCrate
-, rustPlatform
-, capnproto
+{
+  lib,
+  fetchCrate,
+  rustPlatform,
+  capnproto,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -16,9 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-wmoXdukXWagW61jbFBODnIjlBrV6Q+wgvuFG/TqkvVk=";
 
-  nativeCheckInputs = [
-    capnproto
-  ];
+  nativeCheckInputs = [ capnproto ];
 
   meta = with lib; {
     description = "Cap'n Proto codegen plugin for Rust";

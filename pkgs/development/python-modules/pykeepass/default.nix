@@ -1,11 +1,18 @@
-{ lib, fetchFromGitHub, buildPythonPackage
-, lxml, pycryptodomex, construct
-, argon2-cffi, python-dateutil, future
-, python
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  lxml,
+  pycryptodomex,
+  construct,
+  argon2-cffi,
+  python-dateutil,
+  future,
+  python,
 }:
 
 buildPythonPackage rec {
-  pname   = "pykeepass";
+  pname = "pykeepass";
   version = "4.0.3";
 
   format = "setuptools";
@@ -22,8 +29,12 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    lxml pycryptodomex construct
-    argon2-cffi python-dateutil future
+    lxml
+    pycryptodomex
+    construct
+    argon2-cffi
+    python-dateutil
+    future
   ];
 
   propagatedNativeBuildInputs = [ argon2-cffi ];

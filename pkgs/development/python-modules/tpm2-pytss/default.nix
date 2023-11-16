@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, asn1crypto
-, cffi
-, cryptography
-, ibm-sw-tpm2
-, pkgconfig # see nativeBuildInputs
-, pkg-config # see nativeBuildInputs
-, pycparser
-, pytestCheckHook
-, python
-, pyyaml
-, setuptools-scm
-, tpm2-tss
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  asn1crypto,
+  cffi,
+  cryptography,
+  ibm-sw-tpm2,
+  pkgconfig, # see nativeBuildInputs
+  pkg-config, # see nativeBuildInputs
+  pycparser,
+  pytestCheckHook,
+  python,
+  pyyaml,
+  setuptools-scm,
+  tpm2-tss,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [
-    tpm2-tss
-  ];
+  buildInputs = [ tpm2-tss ];
 
   propagatedBuildInputs = [
     cffi
@@ -54,9 +53,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "tpm2_pytss"
-  ];
+  pythonImportsCheck = [ "tpm2_pytss" ];
 
   meta = with lib; {
     homepage = "https://github.com/tpm2-software/tpm2-pytss";

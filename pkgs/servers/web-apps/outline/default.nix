@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeWrapper
-, nodejs
-, yarn
-, yarn2nix-moretea
-, nixosTests
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  nodejs,
+  yarn,
+  yarn2nix-moretea,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,8 +20,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-XevrCUvPmAbPTysJ/o7i2xAZTQ+UFYtVal/aZKvt+Ls=";
   };
 
-  nativeBuildInputs = [ makeWrapper yarn2nix-moretea.fixup_yarn_lock ];
-  buildInputs = [ yarn nodejs ];
+  nativeBuildInputs = [
+    makeWrapper
+    yarn2nix-moretea.fixup_yarn_lock
+  ];
+  buildInputs = [
+    yarn
+    nodejs
+  ];
 
   # Replace the inline calls to yarn with our sequalize wrapper. These should be
   # the two occurrences:
@@ -86,7 +93,11 @@ stdenv.mkDerivation rec {
     homepage = "https://www.getoutline.com/";
     changelog = "https://github.com/outline/outline/releases";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ cab404 yrd xanderio ];
+    maintainers = with maintainers; [
+      cab404
+      yrd
+      xanderio
+    ];
     platforms = platforms.linux;
   };
 }

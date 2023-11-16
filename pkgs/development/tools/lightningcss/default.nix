@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -17,18 +18,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Y7aLtsnInNnh5p5keBHrfFlIi7F1tRasDmX4BFLLicU=";
 
-  buildFeatures = [
-    "cli"
-  ];
+  buildFeatures = [ "cli" ];
 
   cargoBuildFlags = [
     "--lib"
     "--bin=lightningcss"
   ];
 
-  cargoTestFlags = [
-    "--lib"
-  ];
+  cargoTestFlags = [ "--lib" ];
 
   meta = with lib; {
     description = "Extremely fast CSS parser, transformer, and minifier written in Rust";

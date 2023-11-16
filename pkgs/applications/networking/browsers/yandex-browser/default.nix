@@ -1,52 +1,53 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, wrapGAppsHook
-, flac
-, gnome2
-, harfbuzzFull
-, nss
-, snappy
-, xdg-utils
-, xorg
-, alsa-lib
-, atk
-, cairo
-, cups
-, curl
-, dbus
-, expat
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, libX11
-, libxcb
-, libXScrnSaver
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libdrm
-, libnotify
-, libopus
-, libpulseaudio
-, libuuid
-, libxshmfence
-, mesa
-, nspr
-, pango
-, systemd
-, at-spi2-atk
-, at-spi2-core
-, libqt5pas
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  flac,
+  gnome2,
+  harfbuzzFull,
+  nss,
+  snappy,
+  xdg-utils,
+  xorg,
+  alsa-lib,
+  atk,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libX11,
+  libxcb,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libdrm,
+  libnotify,
+  libopus,
+  libpulseaudio,
+  libuuid,
+  libxshmfence,
+  mesa,
+  nspr,
+  pango,
+  systemd,
+  at-spi2-atk,
+  at-spi2-core,
+  libqt5pas,
 }:
 
 stdenv.mkDerivation rec {
@@ -123,18 +124,23 @@ stdenv.mkDerivation rec {
     ln -sf $out/opt/yandex/browser-beta/yandex_browser $out/bin/yandex-browser-beta
   '';
 
-  runtimeDependencies = map lib.getLib [
-    libpulseaudio
-    curl
-    systemd
-  ] ++ buildInputs;
+  runtimeDependencies =
+    map lib.getLib [
+      libpulseaudio
+      curl
+      systemd
+    ]
+    ++ buildInputs;
 
   meta = with lib; {
     description = "Yandex Web Browser";
     homepage = "https://browser.yandex.ru/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ dan4ik605743 ionutnechita ];
+    maintainers = with maintainers; [
+      dan4ik605743
+      ionutnechita
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

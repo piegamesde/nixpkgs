@@ -1,15 +1,16 @@
-{ ripgrep
-, git
-, fzf
-, makeWrapper
-, vim-full
-, vimPlugins
-, fetchFromGitHub
-, lib
-, stdenv
-, formats
-, runCommand
-, spacevim_config ? import ./init.nix
+{
+  ripgrep,
+  git,
+  fzf,
+  makeWrapper,
+  vim-full,
+  vimPlugins,
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  formats,
+  runCommand,
+  spacevim_config ? import ./init.nix,
 }:
 
 let
@@ -36,7 +37,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:11snnh5q47nqhzjb9qya6hpnmlzc060958whqvqrh4hc7gnlnqp8";
   };
 
-  nativeBuildInputs = [ makeWrapper vim-customized ];
+  nativeBuildInputs = [
+    makeWrapper
+    vim-customized
+  ];
   buildInputs = [ vim-customized ];
 
   buildPhase = ''
@@ -46,10 +50,11 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  patches = [
-    # Don't generate helptags at runtime into read-only $SPACEVIMDIR
-    ./helptags.patch
-  ];
+  patches =
+    [
+      # Don't generate helptags at runtime into read-only $SPACEVIMDIR
+      ./helptags.patch
+    ];
 
   installPhase = ''
     runHook preInstall
@@ -60,7 +65,13 @@ stdenv.mkDerivation rec {
     # trailing slash very important for SPACEVIMDIR
     makeWrapper "${vim-customized}/bin/vim" "$out/bin/spacevim" \
         --add-flags "-u $out/SpaceVim/vimrc" --set SPACEVIMDIR "${spacevimdir}/" \
-        --prefix PATH : ${lib.makeBinPath [ fzf git ripgrep]}
+        --prefix PATH : ${
+          lib.makeBinPath [
+            fzf
+            git
+            ripgrep
+          ]
+        }
     runHook postInstall
   '';
 

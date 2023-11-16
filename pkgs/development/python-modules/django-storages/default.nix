@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
-, azure-storage-blob
-, boto3
-, dropbox
-, google-cloud-storage
-, libcloud
-, paramiko
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
+  azure-storage-blob,
+  boto3,
+  dropbox,
+  google-cloud-storage,
+  libcloud,
+  paramiko,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-y63RXJCc63JH1P/FA/Eqm+w2mZ340L73wx5XF31RJog=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   preCheck = ''
     export DJANGO_SETTINGS_MODULE=tests.settings
@@ -40,9 +39,7 @@ buildPythonPackage rec {
     paramiko
   ];
 
-  pythonImportsCheck = [
-    "storages"
-  ];
+  pythonImportsCheck = [ "storages" ];
 
   meta = with lib; {
     description = "Collection of custom storage backends for Django";

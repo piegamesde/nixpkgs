@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, alembic
-, oslo-config
-, oslo-context
-, oslo-utils
-, oslotest
-, pbr
-, sqlalchemy
-, sqlalchemy-migrate
-, stestr
-, testresources
-, testscenarios
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  alembic,
+  oslo-config,
+  oslo-context,
+  oslo-utils,
+  oslotest,
+  pbr,
+  sqlalchemy,
+  sqlalchemy-migrate,
+  stestr,
+  testresources,
+  testscenarios,
 }:
 
 buildPythonPackage rec {

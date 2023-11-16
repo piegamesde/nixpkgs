@@ -1,11 +1,12 @@
-{ buildPythonPackage
-, fetchPypi
-, setuptools
-, h2
-, lib
-, pyjwt
-, pyopenssl
-, pythonOlder
+{
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  h2,
+  lib,
+  pyjwt,
+  pyopenssl,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-3FMNIhIZrstPKTfHVmN+K28UR2G26HZ5S/JtXmaFk1c=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     h2

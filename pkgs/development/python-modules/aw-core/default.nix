@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, jsonschema
-, peewee
-, appdirs
-, iso8601
-, rfc3339-validator
-, takethetime
-, strict-rfc3339
-, tomlkit
-, deprecation
-, timeslot
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  jsonschema,
+  peewee,
+  appdirs,
+  iso8601,
+  rfc3339-validator,
+  takethetime,
+  strict-rfc3339,
+  tomlkit,
+  deprecation,
+  timeslot,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     jsonschema
@@ -49,9 +48,7 @@ buildPythonPackage rec {
     timeslot
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # Fake home folder for tests that write to $HOME

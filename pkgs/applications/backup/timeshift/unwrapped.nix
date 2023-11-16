@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gettext
-, help2man
-, meson
-, ninja
-, pkg-config
-, vala
-, gtk3
-, json-glib
-, libgee
-, util-linux
-, vte
-, xapp
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gettext,
+  help2man,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gtk3,
+  json-glib,
+  libgee,
+  util-linux,
+  vte,
+  xapp,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,9 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "epj0oaV+4lebRxcj6MQ2+lJ3juv9JZ+2UPLRc6UisX4=";
   };
 
-  patches = [
-    ./timeshift-launcher.patch
-  ];
+  patches = [ ./timeshift-launcher.patch ];
 
   postPatch = ''
     substituteInPlace ./files/meson.build \
@@ -70,6 +69,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/timeshift";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ShamrockLee bobby285271 ];
+    maintainers = with maintainers; [
+      ShamrockLee
+      bobby285271
+    ];
   };
 }

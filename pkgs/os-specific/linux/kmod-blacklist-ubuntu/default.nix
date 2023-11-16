@@ -1,9 +1,13 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 let
   version = "28-1ubuntu4"; # impish 2021-06-24
-
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "kmod-blacklist";
   inherit version;
 
@@ -15,7 +19,11 @@ in stdenv.mkDerivation {
   installPhase = ''
     mkdir "$out"
     for f in modprobe.d/*.conf; do
-      echo "''\n''\n## file: "`basename "$f"`"''\n''\n" >> "$out"/modprobe.conf
+      echo "
+
+    ## file: "`basename "$f"`"
+
+    " >> "$out"/modprobe.conf
       cat "$f" >> "$out"/modprobe.conf
       # https://bugs.launchpad.net/ubuntu/+source/kmod/+bug/1475945
       sed -i '/^blacklist i2c_i801/d' $out/modprobe.conf
@@ -34,6 +42,9 @@ in stdenv.mkDerivation {
     homepage = "https://launchpad.net/ubuntu/+source/kmod";
     description = "Linux kernel module blacklists from Ubuntu";
     platforms = platforms.linux;
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
   };
 }

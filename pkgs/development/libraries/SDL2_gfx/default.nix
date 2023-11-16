@@ -1,4 +1,11 @@
-{ lib, stdenv, darwin, fetchurl, pkg-config, SDL2 }:
+{
+  lib,
+  stdenv,
+  darwin,
+  fetchurl,
+  pkg-config,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL2_gfx";
@@ -11,11 +18,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ SDL2 ]
-    ++ lib.optional stdenv.isDarwin darwin.libobjc;
+  buildInputs = [ SDL2 ] ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
-  configureFlags = [(if stdenv.hostPlatform.isx86 then "--enable-mmx" else "--disable-mmx")]
-     ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+  configureFlags = [
+    (if stdenv.hostPlatform.isx86 then "--enable-mmx" else "--disable-mmx")
+  ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   meta = with lib; {
     description = "SDL graphics drawing primitives and support functions";

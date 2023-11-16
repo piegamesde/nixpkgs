@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, lxml
-, matplotlib
-, midiutil
-, numpy
-, pytestCheckHook
-, scikit-image
-, scikit-learn
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  matplotlib,
+  midiutil,
+  numpy,
+  pytestCheckHook,
+  scikit-image,
+  scikit-learn,
 }:
 let
   rev = "8d0ce91d831b0592c111ddb38fc9aa8eba130ed2";
@@ -34,9 +35,7 @@ buildPythonPackage {
     midiutil
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Music Notation Graph: a data model for optical music recognition";

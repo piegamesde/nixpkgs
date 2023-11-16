@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "flexi-streams";
   version = "20210807-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "flexi-streams";
 
-  asdFilesToKeep = ["flexi-streams.asd"];
+  asdFilesToKeep = [ "flexi-streams.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM flexi-streams DESCRIPTION Flexible bivalent streams for Common Lisp
@@ -27,4 +27,5 @@ rec {
     flexi-streams DEPS
     ((NAME trivial-gray-streams FILENAME trivial-gray-streams)) DEPENDENCIES
     (trivial-gray-streams) VERSION 20210807-git SIBLINGS NIL PARASITES
-    (flexi-streams-test)) */
+    (flexi-streams-test))
+*/

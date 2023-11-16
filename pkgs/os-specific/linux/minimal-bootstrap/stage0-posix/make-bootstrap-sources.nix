@@ -13,9 +13,17 @@
 #   => ./result/stage0-posix-$version-$rev-source.nar.xz
 #
 
-{ pkgs ? import ../../../../.. {} }:
+{
+  pkgs ? import ../../../../.. { },
+}:
 let
-  inherit (pkgs) callPackage runCommand fetchFromGitHub nix xz;
+  inherit (pkgs)
+    callPackage
+    runCommand
+    fetchFromGitHub
+    nix
+    xz
+  ;
 
   inherit (import ./bootstrap-sources.nix) name rev;
 
@@ -36,11 +44,18 @@ let
     '';
   };
 in
-runCommand name {
-  nativeBuildInputs = [ nix xz ];
+runCommand name
+  {
+    nativeBuildInputs = [
+      nix
+      xz
+    ];
 
-  passthru = { inherit src; };
-} ''
-  mkdir $out
-  nix-store --dump ${src} | xz -c > "$out/${name}.nar.xz"
-''
+    passthru = {
+      inherit src;
+    };
+  }
+  ''
+    mkdir $out
+    nix-store --dump ${src} | xz -c > "$out/${name}.nar.xz"
+  ''

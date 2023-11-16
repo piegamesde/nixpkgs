@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatch-vcs
-, hatchling
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,18 +22,13 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  pythonImportsCheck = [
-    "termcolor"
-  ];
+  pythonImportsCheck = [ "termcolor" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Termcolor";
     homepage = "https://pypi.python.org/pypi/termcolor";
     license = licenses.mit;
   };
-
 }

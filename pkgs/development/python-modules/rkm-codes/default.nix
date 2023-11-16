@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flitBuildHook
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flitBuildHook,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -17,12 +18,8 @@ buildPythonPackage rec {
   };
 
   format = "pyproject";
-  nativeBuildInputs = [
-    flitBuildHook
-  ];
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ flitBuildHook ];
+  propagatedBuildInputs = [ setuptools ];
 
   # this has a circular dependency on quantiphy
   preBuild = ''

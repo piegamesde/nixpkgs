@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, libsodium
-, cmake
-, substituteAll
-, python3Packages
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  libsodium,
+  cmake,
+  substituteAll,
+  python3Packages,
 }:
 
 stdenv.mkDerivation {
@@ -19,26 +20,27 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # prevent CMake from trying to get libraries on the Internet
-    (substituteAll {
-      src = ./dont_fetch_dependencies.patch;
-      pybind11_src = python3Packages.pybind11.src;
-      relic_src = fetchFromGitHub {
-        owner = "Chia-Network";
-        repo = "relic";
-        rev = "1d98e5abf3ca5b14fd729bd5bcced88ea70ecfd7";
-        hash = "sha256-IfTD8DvTEXeLUoKe4Ejafb+PEJW5DV/VXRYuutwGQHU=";
-      };
-      sodium_src = fetchFromGitHub {
-        owner = "AmineKhaldi";
-        repo = "libsodium-cmake";
-        rev = "f73a3fe1afdc4e37ac5fe0ddd401bf521f6bba65"; # pinned by upstream
-        sha256 = "sha256-lGz7o6DQVAuEc7yTp8bYS2kwjzHwGaNjugDi1ruRJOA=";
-        fetchSubmodules = true;
-      };
-    })
-  ];
+  patches =
+    [
+      # prevent CMake from trying to get libraries on the Internet
+      (substituteAll {
+        src = ./dont_fetch_dependencies.patch;
+        pybind11_src = python3Packages.pybind11.src;
+        relic_src = fetchFromGitHub {
+          owner = "Chia-Network";
+          repo = "relic";
+          rev = "1d98e5abf3ca5b14fd729bd5bcced88ea70ecfd7";
+          hash = "sha256-IfTD8DvTEXeLUoKe4Ejafb+PEJW5DV/VXRYuutwGQHU=";
+        };
+        sodium_src = fetchFromGitHub {
+          owner = "AmineKhaldi";
+          repo = "libsodium-cmake";
+          rev = "f73a3fe1afdc4e37ac5fe0ddd401bf521f6bba65"; # pinned by upstream
+          sha256 = "sha256-lGz7o6DQVAuEc7yTp8bYS2kwjzHwGaNjugDi1ruRJOA=";
+          fetchSubmodules = true;
+        };
+      })
+    ];
 
   nativeBuildInputs = [ cmake ];
 

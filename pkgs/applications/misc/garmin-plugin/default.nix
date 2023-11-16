@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, garmintools, libgcrypt, libusb-compat-0_1, pkg-config, tinyxml, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  garmintools,
+  libgcrypt,
+  libusb-compat-0_1,
+  pkg-config,
+  tinyxml,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "garmin-plugin";
@@ -17,7 +27,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ garmintools libusb-compat-0_1 libgcrypt tinyxml zlib ];
+  buildInputs = [
+    garmintools
+    libusb-compat-0_1
+    libgcrypt
+    tinyxml
+    zlib
+  ];
 
   configureFlags = [
     "--with-libgcrypt-prefix=${libgcrypt.dev}"

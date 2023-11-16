@@ -1,30 +1,33 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, cmake
-, boost
-, ogre
-, mygui
-, ois
-, SDL2
-, libvorbis
-, pkg-config
-, makeWrapper
-, enet
-, libXcursor
-, bullet
-, openal
-, tinyxml
-, tinyxml-2
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  boost,
+  ogre,
+  mygui,
+  ois,
+  SDL2,
+  libvorbis,
+  pkg-config,
+  makeWrapper,
+  enet,
+  libXcursor,
+  bullet,
+  openal,
+  tinyxml,
+  tinyxml-2,
 }:
 
 let
-  stuntrally_ogre = ogre.overrideAttrs (old: {
-    cmakeFlags = old.cmakeFlags ++ [
-      "-DOGRE_NODELESS_POSITIONING=ON"
-      "-DOGRE_RESOURCEMANAGER_STRICT=0"
-    ];
-  });
+  stuntrally_ogre = ogre.overrideAttrs (
+    old: {
+      cmakeFlags = old.cmakeFlags ++ [
+        "-DOGRE_NODELESS_POSITIONING=ON"
+        "-DOGRE_RESOURCEMANAGER_STRICT=0"
+      ];
+    }
+  );
   stuntrally_mygui = mygui.override {
     withOgre = true;
     inherit ogre;
@@ -53,7 +56,11 @@ stdenv.mkDerivation rec {
     ln -s ${tracks}/ data/tracks
   '';
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [
     boost
     stuntrally_ogre

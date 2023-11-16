@@ -1,19 +1,20 @@
-{ lib
-, fetchurl
-, gettext
-, itstool
-, python3
-, meson
-, ninja
-, wrapGAppsHook
-, libxml2
-, pkg-config
-, desktop-file-utils
-, gobject-introspection
-, gtk3
-, gtksourceview4
-, gnome
-, gsettings-desktop-schemas
+{
+  lib,
+  fetchurl,
+  gettext,
+  itstool,
+  python3,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  libxml2,
+  pkg-config,
+  desktop-file-utils,
+  gobject-introspection,
+  gtk3,
+  gtksourceview4,
+  gnome,
+  gsettings-desktop-schemas,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -23,7 +24,9 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-P8EHyY7251NY/9Kw0UyF3bSP4UoR6TmpQyL6qo6QxA0=";
   };
 
@@ -68,6 +71,9 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://meld.app/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ jtojnar mimame ];
+    maintainers = with maintainers; [
+      jtojnar
+      mimame
+    ];
   };
 }

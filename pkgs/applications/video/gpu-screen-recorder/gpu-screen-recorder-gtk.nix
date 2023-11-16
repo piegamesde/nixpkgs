@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchgit, pkg-config, makeWrapper, gtk3, libX11, libXrandr
-, libpulseaudio, gpu-screen-recorder }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  pkg-config,
+  makeWrapper,
+  gtk3,
+  libX11,
+  libXrandr,
+  libpulseaudio,
+  gpu-screen-recorder,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-gtk";
@@ -33,7 +43,9 @@ stdenv.mkDerivation rec {
     install -Dt $out/bin/ gpu-screen-recorder-gtk
     install -Dt $out/share/applications/ gpu-screen-recorder-gtk.desktop
 
-    wrapProgram $out/bin/gpu-screen-recorder-gtk --prefix PATH : ${lib.makeBinPath [ gpu-screen-recorder ]}
+    wrapProgram $out/bin/gpu-screen-recorder-gtk --prefix PATH : ${
+      lib.makeBinPath [ gpu-screen-recorder ]
+    }
   '';
 
   meta = with lib; {

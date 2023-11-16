@@ -1,11 +1,19 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre
-, htmlunit-driver, chromedriver, chromeSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  htmlunit-driver,
+  chromedriver,
+  chromeSupport ? true,
+}:
 
 let
   minorVersion = "3.141";
   patchVersion = "59";
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "selenium-server-standalone";
   version = "${minorVersion}.${patchVersion}";
 
@@ -24,7 +32,10 @@ in stdenv.mkDerivation rec {
     cp $src $out/share/lib/${pname}-${version}/${pname}-${version}.jar
     makeWrapper ${jre}/bin/java $out/bin/selenium-server \
       --add-flags "-cp $out/share/lib/${pname}-${version}/${pname}-${version}.jar:${htmlunit-driver}/share/lib/${htmlunit-driver.name}/${htmlunit-driver.name}.jar" \
-      ${lib.optionalString chromeSupport "--add-flags -Dwebdriver.chrome.driver=${chromedriver}/bin/chromedriver"} \
+      ${
+        lib.optionalString chromeSupport
+          "--add-flags -Dwebdriver.chrome.driver=${chromedriver}/bin/chromedriver"
+      } \
       --add-flags "org.openqa.grid.selenium.GridLauncherV3"
   '';
 
@@ -33,7 +44,10 @@ in stdenv.mkDerivation rec {
     description = "Selenium Server for remote WebDriver";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ coconnor offline ];
+    maintainers = with maintainers; [
+      coconnor
+      offline
+    ];
     mainProgram = "selenium-server";
     platforms = platforms.all;
   };

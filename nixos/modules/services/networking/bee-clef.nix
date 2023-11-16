@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # NOTE for now nothing is installed into /etc/bee-clef/. the config files are used as read-only from the nix store.
 
 with lib;
 let
   cfg = config.services.bee-clef;
-in {
+in
+{
   meta = {
     maintainers = with maintainers; [ attila-lendvai ];
   };
@@ -58,9 +64,9 @@ in {
     systemd.packages = [ pkgs.bee-clef ]; # include the upstream bee-clef.service file
 
     systemd.tmpfiles.rules = [
-        "d '${cfg.dataDir}/'         0750 ${cfg.user} ${cfg.group}"
-        "d '${cfg.dataDir}/keystore' 0700 ${cfg.user} ${cfg.group}"
-      ];
+      "d '${cfg.dataDir}/'         0750 ${cfg.user} ${cfg.group}"
+      "d '${cfg.dataDir}/keystore' 0700 ${cfg.user} ${cfg.group}"
+    ];
 
     systemd.services.bee-clef = {
       path = [
@@ -70,12 +76,16 @@ in {
         pkgs.gawk
       ];
 
-      wantedBy = [ "bee.service" "multi-user.target" ];
+      wantedBy = [
+        "bee.service"
+        "multi-user.target"
+      ];
 
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStartPre = ''${pkgs.bee-clef}/share/bee-clef/ensure-clef-account "${cfg.dataDir}" "${pkgs.bee-clef}/share/bee-clef/"'';
+        ExecStartPre = ''
+          ${pkgs.bee-clef}/share/bee-clef/ensure-clef-account "${cfg.dataDir}" "${pkgs.bee-clef}/share/bee-clef/"'';
         ExecStart = [
           "" # this hides/overrides what's in the original entry
           "${pkgs.bee-clef}/share/bee-clef/bee-clef-service start"
@@ -100,8 +110,6 @@ in {
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "bee-clef") {
-      bee-clef = {};
-    };
+    users.groups = optionalAttrs (cfg.group == "bee-clef") { bee-clef = { }; };
   };
 }

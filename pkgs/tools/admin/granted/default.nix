@@ -1,10 +1,11 @@
-{ bash
-, buildGoModule
-, fetchFromGitHub
-, fish
-, lib
-, makeWrapper
-, xdg-utils
+{
+  bash,
+  buildGoModule,
+  fetchFromGitHub,
+  fish,
+  lib,
+  makeWrapper,
+  xdg-utils,
 }:
 
 buildGoModule rec {
@@ -31,9 +32,7 @@ buildGoModule rec {
     "-X github.com/common-fate/granted/internal/build.BuiltBy=Nix"
   ];
 
-  subPackages = [
-    "cmd/granted"
-  ];
+  subPackages = [ "cmd/granted" ];
 
   postInstall = ''
     # Install shell script

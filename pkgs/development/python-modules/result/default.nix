@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -11,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rustedpy";
     repo = "result";
-     rev = "v${version}";
+    rev = "v${version}";
     hash = "sha256-bEf3OJg6ksDvzZE7ezA58Q2FObb5V7BG8vkKtX284Jg=";
   };
 
@@ -25,14 +26,13 @@ buildPythonPackage rec {
       --replace '"--cov-report=xml",' ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    #TODO: figure out the failure "match o:" Invalid Syntax
-    "tests/test_pattern_matching.py"
-  ];
+  disabledTestPaths =
+    [
+      #TODO: figure out the failure "match o:" Invalid Syntax
+      "tests/test_pattern_matching.py"
+    ];
 
   pythonImportsCheck = [ "result" ];
 
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "A simple Result type for Python 3 inspired by Rust, fully type annotated";
     homepage = "https://github.com/rustedpy/result";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

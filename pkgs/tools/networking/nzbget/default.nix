@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, gnutls
-, libgcrypt
-, libpar2
-, libsigcxx
-, libxml2
-, ncurses
-, openssl
-, zlib
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  gnutls,
+  libgcrypt,
+  libpar2,
+  libsigcxx,
+  libxml2,
+  ncurses,
+  openssl,
+  zlib,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,15 +24,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-To/BvrgNwq8tajajOjP0Te3d1EhgAsZE9MR5MEMHICU=";
   };
 
-  patches = [
-    # openssl 3 compatibility
-    # https://github.com/nzbget/nzbget/pull/793
-    (fetchpatch {
-      name = "daemon-connect-dont-use-fips-mode-set-with-openssl-3.patch";
-      url = "https://github.com/nzbget/nzbget/commit/f76e8555504e3af4cf8dd4a8c8e374b3ca025099.patch";
-      hash = "sha256-39lvnhBK4126TYsRbJOUxsV9s9Hjuviw7CH/wWn/VkM=";
-    })
-  ];
+  patches =
+    [
+      # openssl 3 compatibility
+      # https://github.com/nzbget/nzbget/pull/793
+      (fetchpatch {
+        name = "daemon-connect-dont-use-fips-mode-set-with-openssl-3.patch";
+        url = "https://github.com/nzbget/nzbget/commit/f76e8555504e3af4cf8dd4a8c8e374b3ca025099.patch";
+        hash = "sha256-39lvnhBK4126TYsRbJOUxsV9s9Hjuviw7CH/wWn/VkM=";
+      })
+    ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -48,7 +50,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) nzbget; };
+  passthru.tests = {
+    inherit (nixosTests) nzbget;
+  };
 
   meta = with lib; {
     homepage = "https://nzbget.net";

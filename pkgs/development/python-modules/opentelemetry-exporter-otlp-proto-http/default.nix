@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, backoff
-, googleapis-common-protos
-, hatchling
-, opentelemetry-exporter-otlp-proto-common
-, opentelemetry-test-utils
-, requests
-, responses
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  backoff,
+  googleapis-common-protos,
+  hatchling,
+  opentelemetry-exporter-otlp-proto-common,
+  opentelemetry-test-utils,
+  requests,
+  responses,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,19 +18,19 @@ buildPythonPackage rec {
   version = "1.18.0";
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "open-telemetry";
-    repo = "opentelemetry-python";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-r4jvIhRM9E4CuZyS/XvvYO+F9cPxip8ab57CUfip47Q=";
-    sparseCheckout = [ "/exporter/${pname}" ];
-  } + "/exporter/${pname}";
+  src =
+    fetchFromGitHub {
+      owner = "open-telemetry";
+      repo = "opentelemetry-python";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-r4jvIhRM9E4CuZyS/XvvYO+F9cPxip8ab57CUfip47Q=";
+      sparseCheckout = [ "/exporter/${pname}" ];
+    }
+    + "/exporter/${pname}";
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     backoff

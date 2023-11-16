@@ -1,32 +1,33 @@
-{ stdenv
-, lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, pandas
-, matplotlib
-, tox
-, coverage
-, flake8
-, nbval
-, pyvisa
-, networkx
-, ipython
-, ipykernel
-, ipywidgets
-, jupyter-client
-, sphinx-rtd-theme
-, sphinx
-, nbsphinx
-, openpyxl
-, qtpy
-, pyqtgraph
-, pyqt5
-, setuptools
-, pytestCheckHook
-, pytest-cov
+{
+  stdenv,
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  pandas,
+  matplotlib,
+  tox,
+  coverage,
+  flake8,
+  nbval,
+  pyvisa,
+  networkx,
+  ipython,
+  ipykernel,
+  ipywidgets,
+  jupyter-client,
+  sphinx-rtd-theme,
+  sphinx,
+  nbsphinx,
+  openpyxl,
+  qtpy,
+  pyqtgraph,
+  pyqt5,
+  setuptools,
+  pytestCheckHook,
+  pytest-cov,
 }:
 
 buildPythonPackage rec {
@@ -43,9 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-drH1N1rKFu/zdLmLsD1jH5xUkzK37V/+nJqGQ38vsTI=";
   };
 
-  buildInputs = [
-    setuptools
-  ];
+  buildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     numpy
@@ -54,18 +53,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    plot = [
-      matplotlib
-    ];
-    xlsx = [
-      openpyxl
-    ];
-    netw = [
-      networkx
-    ];
-    visa = [
-      pyvisa
-    ];
+    plot = [ matplotlib ];
+    xlsx = [ openpyxl ];
+    netw = [ networkx ];
+    visa = [ pyvisa ];
     docs = [
       ipython
       ipykernel
@@ -95,13 +86,9 @@ buildPythonPackage rec {
     networkx
   ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "skrf"
-  ];
+  pythonImportsCheck = [ "skrf" ];
 
   meta = with lib; {
     description = "A Python library for RF/Microwave engineering";

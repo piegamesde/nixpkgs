@@ -1,20 +1,25 @@
-{ lib, stdenv
-, fetchgit
-, autoreconfHook
-, pkg-config
-, glib
-, dbus
-, ell
-, systemd
-, bluez
-, mobile-broadband-provider-info
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  dbus,
+  ell,
+  systemd,
+  bluez,
+  mobile-broadband-provider-info,
 }:
 
 stdenv.mkDerivation rec {
   pname = "ofono";
   version = "2.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/network/ofono/ofono.git";
@@ -22,9 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GxQfh/ps5oM9G6B1EVgnjo8LqHD1hMqdnju1PCQq3kA=";
   };
 
-  patches = [
-    ./0001-Search-connectors-in-OFONO_PLUGIN_PATH.patch
-  ];
+  patches = [ ./0001-Search-connectors-in-OFONO_PLUGIN_PATH.patch ];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -47,9 +50,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
   ];
 
-  installFlags = [
-    "sysconfdir=${placeholder "out"}/etc"
-  ];
+  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
   enableParallelBuilding = true;
   enableParallelChecking = false;

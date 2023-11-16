@@ -1,4 +1,8 @@
-{lib, stdenv, fetchurl}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cminpack";
@@ -27,5 +31,4 @@ stdenv.mkDerivation rec {
     description = "Software for solving nonlinear equations and nonlinear least squares problems";
     platforms = lib.platforms.all;
   };
-
 }

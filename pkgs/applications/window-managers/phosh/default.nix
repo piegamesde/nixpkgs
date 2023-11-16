@@ -1,37 +1,38 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gitUpdater
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook
-, libadwaita
-, libhandy
-, libxkbcommon
-, libgudev
-, callaudiod
-, pulseaudio
-, evince
-, glib
-, gtk4
-, gnome
-, gnome-desktop
-, gcr
-, pam
-, systemd
-, upower
-, wayland
-, dbus
-, xvfb-run
-, phoc
-, feedbackd
-, networkmanager
-, polkit
-, libsecret
-, evolution-data-server
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gitUpdater,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wrapGAppsHook,
+  libadwaita,
+  libhandy,
+  libxkbcommon,
+  libgudev,
+  callaudiod,
+  pulseaudio,
+  evince,
+  glib,
+  gtk4,
+  gnome,
+  gnome-desktop,
+  gcr,
+  pam,
+  systemd,
+  upower,
+  wayland,
+  dbus,
+  xvfb-run,
+  phoc,
+  feedbackd,
+  networkmanager,
+  polkit,
+  libsecret,
+  evolution-data-server,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -120,15 +121,11 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    providedSessions = [
-      "sm.puri.Phosh"
-    ];
+    providedSessions = [ "sm.puri.Phosh" ];
 
     tests.phosh = nixosTests.phosh;
 
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
+    updateScript = gitUpdater { rev-prefix = "v"; };
   };
 
   meta = with lib; {
@@ -136,7 +133,11 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/Phosh/phosh";
     changelog = "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ masipcat tomfitzhenry zhaofengli ];
+    maintainers = with maintainers; [
+      masipcat
+      tomfitzhenry
+      zhaofengli
+    ];
     platforms = platforms.linux;
   };
 }

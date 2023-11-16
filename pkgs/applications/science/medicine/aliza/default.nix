@@ -1,4 +1,20 @@
-{ lib, stdenv, fetchurl, rpmextract, makeWrapper, patchelf, qt4, zlib, libX11, libXt, libSM, libICE, libXext, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  rpmextract,
+  makeWrapper,
+  patchelf,
+  qt4,
+  zlib,
+  libX11,
+  libXt,
+  libSM,
+  libICE,
+  libXext,
+  libGLU,
+  libGL,
+}:
 
 with lib;
 stdenv.mkDerivation {
@@ -14,7 +30,10 @@ stdenv.mkDerivation {
     name = "aliza.rpm";
   };
 
-  nativeBuildInputs = [ makeWrapper rpmextract ];
+  nativeBuildInputs = [
+    makeWrapper
+    rpmextract
+  ];
 
   unpackCmd = "rpmextract $curSrc";
 
@@ -31,23 +50,36 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  postInstall = let
-    libs = lib.makeLibraryPath [ qt4 zlib stdenv.cc.cc libSM libICE libX11 libXext libXt libGLU libGL ];
-  in ''
-    ${patchelf}/bin/patchelf \
-      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      $out/bin/aliza
+  postInstall =
+    let
+      libs = lib.makeLibraryPath [
+        qt4
+        zlib
+        stdenv.cc.cc
+        libSM
+        libICE
+        libX11
+        libXext
+        libXt
+        libGLU
+        libGL
+      ];
+    in
+    ''
+      ${patchelf}/bin/patchelf \
+        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        $out/bin/aliza
 
-    ${patchelf}/bin/patchelf \
-      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      $out/bin/aliza-vtkvol
+      ${patchelf}/bin/patchelf \
+        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        $out/bin/aliza-vtkvol
 
-    wrapProgram $out/bin/aliza \
-      --prefix LD_LIBRARY_PATH : ${libs}
+      wrapProgram $out/bin/aliza \
+        --prefix LD_LIBRARY_PATH : ${libs}
 
-    wrapProgram $out/bin/aliza-vtkvol \
-      --prefix LD_LIBRARY_PATH : ${libs}
-  '';
+      wrapProgram $out/bin/aliza-vtkvol \
+        --prefix LD_LIBRARY_PATH : ${libs}
+    '';
 
   meta = {
     description = "Medical imaging software with 2D, 3D and 4D capabilities";

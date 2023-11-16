@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
   '';
 
   # Skipping tests due to most relying on DISPLAY being set
-  pythonImportsCheck = [
-    "mss"
-  ];
+  pythonImportsCheck = [ "mss" ];
 
   meta = with lib; {
     description = "Cross-platform multiple screenshots module";

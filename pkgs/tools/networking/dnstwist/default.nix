@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -27,9 +28,7 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dnstwist"
-  ];
+  pythonImportsCheck = [ "dnstwist" ];
 
   meta = with lib; {
     description = "Domain name permutation engine for detecting homograph phishing attacks";

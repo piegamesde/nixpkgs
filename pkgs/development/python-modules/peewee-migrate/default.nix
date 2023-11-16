@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build-system
-, poetry-core
+  # build-system
+  poetry-core,
 
-# runtime
-, click
-, peewee
+  # runtime
+  click,
+  peewee,
 
-# tests
-, psycopg2
-, pytestCheckHook
+  # tests
+  psycopg2,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-SBHeXHfhYjyXr+tODryKQfxZKy7l4ez5C6eU6FjS2qI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   postPatch = ''
     sed -i '/addopts/d' pyproject.toml
@@ -40,9 +39,7 @@ buildPythonPackage rec {
     click
   ];
 
-  pythonImportsCheck = [
-    "peewee_migrate"
-  ];
+  pythonImportsCheck = [ "peewee_migrate" ];
 
   nativeCheckInputs = [
     psycopg2

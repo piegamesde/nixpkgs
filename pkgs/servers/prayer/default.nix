@@ -1,8 +1,19 @@
-{ lib, stdenv, fetchurl, fetchpatch, perl, openssl, db, zlib, uwimap, html-tidy, pam}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  perl,
+  openssl,
+  db,
+  zlib,
+  uwimap,
+  html-tidy,
+  pam,
+}:
 
 let
-  ssl = lib.optionals uwimap.withSSL
-    "-e 's/CCLIENT_SSL_ENABLE.*= false/CCLIENT_SSL_ENABLE=true/'";
+  ssl = lib.optionals uwimap.withSSL "-e 's/CCLIENT_SSL_ENABLE.*= false/CCLIENT_SSL_ENABLE=true/'";
 in
 stdenv.mkDerivation rec {
   pname = "prayer";
@@ -27,22 +38,32 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch = ''
-    sed -i -e s/gmake/make/ -e 's/LDAP_ENABLE.*= true/LDAP_ENABLE=false/' \
-      ${ssl} \
-      -e 's/CCLIENT_LIBS=.*/CCLIENT_LIBS=-lc-client/' \
-      -e 's,^PREFIX .*,PREFIX='$out, \
-      -e 's,^CCLIENT_DIR=.*,CCLIENT_DIR=${uwimap}/include/c-client,' \
-      Config
-    sed -i -e s,/usr/bin/perl,${perl}/bin/perl, \
-      templates/src/*.pl
-    sed -i -e '/<stropts.h>/d' lib/os_linux.h
-  '' + /* html-tidy updates */ ''
-    substituteInPlace ./session/html_secure_tidy.c \
-      --replace buffio.h tidybuffio.h
-  '';
+  postPatch =
+    ''
+      sed -i -e s/gmake/make/ -e 's/LDAP_ENABLE.*= true/LDAP_ENABLE=false/' \
+        ${ssl} \
+        -e 's/CCLIENT_LIBS=.*/CCLIENT_LIBS=-lc-client/' \
+        -e 's,^PREFIX .*,PREFIX='$out, \
+        -e 's,^CCLIENT_DIR=.*,CCLIENT_DIR=${uwimap}/include/c-client,' \
+        Config
+      sed -i -e s,/usr/bin/perl,${perl}/bin/perl, \
+        templates/src/*.pl
+      sed -i -e '/<stropts.h>/d' lib/os_linux.h
+    ''
+    # html-tidy updates
+    + ''
+      substituteInPlace ./session/html_secure_tidy.c \
+        --replace buffio.h tidybuffio.h
+    '';
 
-  buildInputs = [ openssl db zlib uwimap html-tidy pam ];
+  buildInputs = [
+    openssl
+    db
+    zlib
+    uwimap
+    html-tidy
+    pam
+  ];
   nativeBuildInputs = [ perl ];
 
   NIX_LDFLAGS = "-lpam";

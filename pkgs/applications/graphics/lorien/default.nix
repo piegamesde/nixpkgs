@@ -1,33 +1,37 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 
-, copyDesktopItems
-, makeDesktopItem
+  copyDesktopItems,
+  makeDesktopItem,
 
-, godot-export-templates
-, godot-headless
+  godot-export-templates,
+  godot-headless,
 
-, alsa-lib
-, libGL
-, libGLU
-, libX11
-, libXcursor
-, libXext
-, libXfixes
-, libXi
-, libXinerama
-, libXrandr
-, libXrender
-, zlib
-, udev # for libudev
+  alsa-lib,
+  libGL,
+  libGLU,
+  libX11,
+  libXcursor,
+  libXext,
+  libXfixes,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  zlib,
+  udev, # for libudev
 }:
 
 let
   preset =
-    if stdenv.isLinux then "Linux/X11"
-    else if stdenv.isDarwin then "Mac OSX"
-    else throw "unsupported platform";
+    if stdenv.isLinux then
+      "Linux/X11"
+    else if stdenv.isDarwin then
+      "Mac OSX"
+    else
+      throw "unsupported platform";
 in
 stdenv.mkDerivation rec {
   pname = "lorien";
@@ -69,7 +73,10 @@ stdenv.mkDerivation rec {
       desktopName = "Lorien";
       genericName = "Whiteboard";
       comment = meta.description;
-      categories = [ "Graphics" "Office" ];
+      categories = [
+        "Graphics"
+        "Office"
+      ];
       keywords = [ "whiteboard" ];
     })
   ];
@@ -118,7 +125,7 @@ stdenv.mkDerivation rec {
       small savefiles and simplicity
     '';
     license = licenses.mit;
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ hqurve ];
   };
 }

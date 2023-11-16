@@ -1,22 +1,23 @@
-{ lib
-, fetchFromGitHub
-, mkDerivation
-, SDL2
-, frei0r
-, ladspaPlugins
-, gettext
-, mlt
-, jack1
-, pkg-config
-, qtbase
-, qtmultimedia
-, qtx11extras
-, qtwebsockets
-, qtquickcontrols2
-, qtgraphicaleffects
-, qmake
-, qttools
-, gitUpdater
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  SDL2,
+  frei0r,
+  ladspaPlugins,
+  gettext,
+  mlt,
+  jack1,
+  pkg-config,
+  qtbase,
+  qtmultimedia,
+  qtx11extras,
+  qtwebsockets,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+  qmake,
+  qttools,
+  gitUpdater,
 }:
 
 assert lib.versionAtLeast mlt.version "6.24.0";
@@ -32,7 +33,10 @@ mkDerivation rec {
     sha256 = "1y46n5gmlayfl46l0vhg5g5dbbc0sg909mxb68sia0clkaas8xrh";
   };
 
-  nativeBuildInputs = [ pkg-config qmake ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
   buildInputs = [
     SDL2
     frei0r
@@ -65,7 +69,12 @@ mkDerivation rec {
   qtWrapperArgs = [
     "--prefix FREI0R_PATH : ${frei0r}/lib/frei0r-1"
     "--prefix LADSPA_PATH : ${ladspaPlugins}/lib/ladspa"
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ jack1 SDL2 ]}"
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        jack1
+        SDL2
+      ]
+    }"
     "--prefix PATH : ${mlt}/bin"
   ];
 
@@ -74,9 +83,7 @@ mkDerivation rec {
     cp -r src/qml $out/share/shotcut/
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     description = "A free, open source, cross-platform video editor";
@@ -91,7 +98,11 @@ mkDerivation rec {
     '';
     homepage = "https://shotcut.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ goibhniu woffs peti ];
+    maintainers = with maintainers; [
+      goibhniu
+      woffs
+      peti
+    ];
     platforms = platforms.linux;
   };
 }

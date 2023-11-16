@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, libcap, acl, file, readline }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libcap,
+  acl,
+  file,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clifm";
@@ -11,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kXnI8a1nGKBDc+isv9RYvputKk+/FHmM9j+G4UnI5Z4=";
   };
 
-  buildInputs = [ libcap acl file readline ];
+  buildInputs = [
+    libcap
+    acl
+    file
+    readline
+  ];
 
   makeFlags = [
     "DESTDIR=${placeholder "out"}"

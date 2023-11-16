@@ -1,12 +1,13 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, persistent
-, zope_interface
-, transaction
-, zope_testrunner
-, python
-, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  persistent,
+  zope_interface,
+  transaction,
+  zope_testrunner,
+  python,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

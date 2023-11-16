@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchgit, perl, gnutar, zlib, bzip2, xz, zstd
-, libmd, makeWrapper, coreutils, autoreconfHook, pkg-config
+{
+  lib,
+  stdenv,
+  fetchgit,
+  perl,
+  gnutar,
+  zlib,
+  bzip2,
+  xz,
+  zstd,
+  libmd,
+  makeWrapper,
+  coreutils,
+  autoreconfHook,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -55,21 +68,32 @@ stdenv.mkDerivation rec {
        --replace '"diff"' \"${coreutils}/bin/diff\"
   '';
 
-  buildInputs = [ perl zlib bzip2 xz zstd libmd ];
-  nativeBuildInputs = [ makeWrapper perl autoreconfHook pkg-config ];
+  buildInputs = [
+    perl
+    zlib
+    bzip2
+    xz
+    zstd
+    libmd
+  ];
+  nativeBuildInputs = [
+    makeWrapper
+    perl
+    autoreconfHook
+    pkg-config
+  ];
 
-  postInstall =
-    ''
-      for i in $out/bin/*; do
-        if head -n 1 $i | grep -q perl; then
-          substituteInPlace $i --replace \
-            "${perl}/bin/perl" "${perl}/bin/perl -I $out/${perl.libPrefix}"
-        fi
-      done
+  postInstall = ''
+    for i in $out/bin/*; do
+      if head -n 1 $i | grep -q perl; then
+        substituteInPlace $i --replace \
+          "${perl}/bin/perl" "${perl}/bin/perl -I $out/${perl.libPrefix}"
+      fi
+    done
 
-      mkdir -p $out/etc/dpkg
-      cp -r scripts/t/origins $out/etc/dpkg
-    '';
+    mkdir -p $out/etc/dpkg
+    cp -r scripts/t/origins $out/etc/dpkg
+  '';
 
   setupHook = ./setup-hook.sh;
 

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, click, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "turnt";

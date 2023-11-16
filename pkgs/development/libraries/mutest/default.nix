@@ -1,14 +1,19 @@
-{ lib, stdenv
-, fetchFromGitHub
-, meson
-, ninja
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
 }:
 
 stdenv.mkDerivation {
   pname = "mutest";
   version = "unstable-2019-08-26";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "ebassi";

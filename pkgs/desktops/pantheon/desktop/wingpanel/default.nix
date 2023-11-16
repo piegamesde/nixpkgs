@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, wrapGAppsHook
-, pkg-config
-, meson
-, ninja
-, vala
-, gala
-, gtk3
-, libgee
-, granite
-, gettext
-, mutter
-, mesa
-, json-glib
-, python3
-, elementary-gtk-theme
-, elementary-icon-theme
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  wrapGAppsHook,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  gala,
+  gtk3,
+  libgee,
+  granite,
+  gettext,
+  mutter,
+  mesa,
+  json-glib,
+  python3,
+  elementary-gtk-theme,
+  elementary-icon-theme,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,9 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dShC6SXjOJmiLI6TUEZsthv5scnm9Jzum+sG/NkWAyM=";
   };
 
-  patches = [
-    ./indicators.patch
-  ];
+  patches = [ ./indicators.patch ];
 
   nativeBuildInputs = [
     gettext

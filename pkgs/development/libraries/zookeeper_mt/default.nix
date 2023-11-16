@@ -1,11 +1,13 @@
-{ lib, stdenv
-, fetchurl
-, autoreconfHook
-, jre
-, openssl
-, pkg-config
-# We depend on ZooKeeper for the Jute compiler.
-, zookeeper
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  jre,
+  openssl,
+  pkg-config,
+  # We depend on ZooKeeper for the Jute compiler.
+  zookeeper,
 }:
 
 stdenv.mkDerivation rec {
@@ -41,16 +43,20 @@ stdenv.mkDerivation rec {
     cd ..
   '';
 
-  configureFlags = [
-    # We're not going to start test servers in the sandbox anyway.
-    "--without-cppunit"
-  ];
+  configureFlags =
+    [
+      # We're not going to start test servers in the sandbox anyway.
+      "--without-cppunit"
+    ];
 
   meta = with lib; {
     homepage = "https://zookeeper.apache.org";
     description = "Apache Zookeeper";
     license = licenses.asl20;
-    maintainers = with maintainers; [ commandodev ztzg ];
+    maintainers = with maintainers; [
+      commandodev
+      ztzg
+    ];
     platforms = platforms.unix;
   };
 }

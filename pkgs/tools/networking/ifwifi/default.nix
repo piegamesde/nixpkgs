@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, makeWrapper, darwin, networkmanager, iw, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  darwin,
+  networkmanager,
+  iw,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ifwifi";
@@ -18,13 +28,15 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram "$out/bin/ifwifi" \
-      --prefix PATH : "${lib.makeBinPath (
-        # `ifwifi` runtime dep
-        [ networkmanager ]
-        # `wifiscanner` crate's runtime deps
-        ++ (lib.optional stdenv.isLinux iw)
+      --prefix PATH : "${
+        lib.makeBinPath (
+          # `ifwifi` runtime dep
+          [ networkmanager ]
+          # `wifiscanner` crate's runtime deps
+          ++ (lib.optional stdenv.isLinux iw)
         # ++ (lib.optional stdenv.isDarwin airport) # airport isn't packaged
-      )}"
+        )
+      }"
   '';
 
   doCheck = true;

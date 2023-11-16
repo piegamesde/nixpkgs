@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, fltk
-, fmt
-, rtmidi
-, libsamplerate
-, libmpg123
-, libsndfile
-, jack2
-, alsa-lib
-, libpulseaudio
-, libXpm
-, libXrandr
-, flac
-, libogg
-, libvorbis
-, libopus
-, nlohmann_json
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  fltk,
+  fmt,
+  rtmidi,
+  libsamplerate,
+  libmpg123,
+  libsndfile,
+  jack2,
+  alsa-lib,
+  libpulseaudio,
+  libXpm,
+  libXrandr,
+  flac,
+  libogg,
+  libvorbis,
+  libopus,
+  nlohmann_json,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,15 +35,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # Remove when updating to the next release, this PR is already merged
-    # Fix fmt type error: https://github.com/monocasual/giada/pull/635
-    (fetchpatch {
-      name = "fix-fmt-type-error.patch";
-      url = "https://github.com/monocasual/giada/commit/032af4334f6d2bb7e77a49e7aef5b4c4d696df9a.patch";
-      hash = "sha256-QuxETvBWzA1v2ifyNzlNMGfQ6XhYQF03sGZA9rBx1xU=";
-    })
-  ];
+  patches =
+    [
+      # Remove when updating to the next release, this PR is already merged
+      # Fix fmt type error: https://github.com/monocasual/giada/pull/635
+      (fetchpatch {
+        name = "fix-fmt-type-error.patch";
+        url = "https://github.com/monocasual/giada/commit/032af4334f6d2bb7e77a49e7aef5b4c4d696df9a.patch";
+        hash = "sha256-QuxETvBWzA1v2ifyNzlNMGfQ6XhYQF03sGZA9rBx1xU=";
+      })
+    ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-w"

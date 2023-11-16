@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkgs, pandoc, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkgs,
+  pandoc,
+  CoreServices,
+}:
 
 let
   # Note for maintainers:
@@ -21,7 +28,6 @@ let
     postInstall = "npm run build";
     buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
   };
-
 in
 
 # making sure that the source and the node package are in sync

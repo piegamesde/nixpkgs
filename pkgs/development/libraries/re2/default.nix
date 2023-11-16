@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, chromium
-, grpc
-, haskellPackages
-, mercurial
-, python3Packages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  chromium,
+  grpc,
+  haskellPackages,
+  mercurial,
+  python3Packages,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +22,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-T+P7qT8x5dXkLZAL8VjvqPD345sa6ALX1f5rflE0dwc=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   postPatch = ''
     substituteInPlace re2Config.cmake.in \
@@ -46,13 +53,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru.tests = {
-    inherit
-      chromium
-      grpc
-      mercurial;
-    inherit (python3Packages)
-      fb-re2
-      google-re2;
+    inherit chromium grpc mercurial;
+    inherit (python3Packages) fb-re2 google-re2;
     haskell-re2 = haskellPackages.re2;
   };
 

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, nose
-, testtools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  nose,
+  testtools,
 }:
 
 buildPythonPackage rec {
@@ -15,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-GyNcDJIjQatsUwOQiS656S+QubdQRgY+BHys+w8FDEU=";
   };
 
-  nativeCheckInputs = [ nose testtools ];
+  nativeCheckInputs = [
+    nose
+    testtools
+  ];
   propagatedBuildInputs = [ docutils ];
 
   checkPhase = ''

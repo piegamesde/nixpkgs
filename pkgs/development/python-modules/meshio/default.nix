@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, netcdf4
-, h5py
-, exdown
-, pytestCheckHook
-, rich
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  netcdf4,
+  h5py,
+  exdown,
+  pytestCheckHook,
+  rich,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-4kBpLX/yecErE8bl17QDYpqGrStE6SMJWLPwDB7DafA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     numpy
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = ["meshio"];
+  pythonImportsCheck = [ "meshio" ];
 
   meta = with lib; {
     homepage = "https://github.com/nschloe/meshio";

@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, libusb-compat-0_1
-, readline
-, libewf
-, perl
-, zlib
-, openssl
-, libuv
-, file
-, libzip
-, lz4
-, xxHash
-, meson
-, python3
-, cmake
-, ninja
-, capstone
-, tree-sitter
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libusb-compat-0_1,
+  readline,
+  libewf,
+  perl,
+  zlib,
+  openssl,
+  libuv,
+  file,
+  libzip,
+  lz4,
+  xxHash,
+  meson,
+  python3,
+  cmake,
+  ninja,
+  capstone,
+  tree-sitter,
 }:
 
 stdenv.mkDerivation rec {
@@ -44,27 +45,27 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     meson
-    (python3.withPackages (pp: with pp; [
-      pyyaml
-    ]))
+    (python3.withPackages (pp: with pp; [ pyyaml ]))
     ninja
     cmake
   ];
 
   # meson's find_library seems to not use our compiler wrapper if static parameter
   # is either true/false... We work around by also providing LIBRARY_PATH
-  preConfigure = ''
-    LIBRARY_PATH=""
-    for b in ${toString (map lib.getLib buildInputs)}; do
-      if [[ -d "$b/lib" ]]; then
-        LIBRARY_PATH="$b/lib''${LIBRARY_PATH:+:}$LIBRARY_PATH"
-      fi
-    done
-    export LIBRARY_PATH
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace binrz/rizin/macos_sign.sh \
-      --replace 'codesign' '# codesign'
-  '';
+  preConfigure =
+    ''
+      LIBRARY_PATH=""
+      for b in ${toString (map lib.getLib buildInputs)}; do
+        if [[ -d "$b/lib" ]]; then
+          LIBRARY_PATH="$b/lib''${LIBRARY_PATH:+:}$LIBRARY_PATH"
+        fi
+      done
+      export LIBRARY_PATH
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace binrz/rizin/macos_sign.sh \
+        --replace 'codesign' '# codesign'
+    '';
 
   buildInputs = [
     file
@@ -94,7 +95,11 @@ stdenv.mkDerivation rec {
     description = "UNIX-like reverse engineering framework and command-line toolset.";
     homepage = "https://rizin.re/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ raskin makefu mic92 ];
+    maintainers = with lib.maintainers; [
+      raskin
+      makefu
+      mic92
+    ];
     platforms = with lib.platforms; unix;
   };
 }

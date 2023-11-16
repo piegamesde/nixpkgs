@@ -1,9 +1,19 @@
-{ stdenv, lib, jekyll, cmake, fetchFromGitHub, gtest }:
+{
+  stdenv,
+  lib,
+  jekyll,
+  cmake,
+  fetchFromGitHub,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jsonnet";
   version = "0.20.0";
-  outputs = ["out" "doc"];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -12,10 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FtVJE9alEl56Uik+nCpJMV5DMVVmRCnE1xMAiWdK39Y=";
   };
 
-  nativeBuildInputs = [ jekyll cmake ];
+  nativeBuildInputs = [
+    jekyll
+    cmake
+  ];
   buildInputs = [ gtest ];
 
-  cmakeFlags = ["-DBUILD_STATIC_LIBS=ON" "-DUSE_SYSTEM_GTEST=ON" ];
+  cmakeFlags = [
+    "-DBUILD_STATIC_LIBS=ON"
+    "-DUSE_SYSTEM_GTEST=ON"
+  ];
 
   enableParallelBuilding = true;
 
@@ -32,7 +48,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Purely-functional configuration language that helps you define JSON data";
-    maintainers = with lib.maintainers; [ benley copumpkin ];
+    maintainers = with lib.maintainers; [
+      benley
+      copumpkin
+    ];
     license = lib.licenses.asl20;
     homepage = "https://github.com/google/jsonnet";
     platforms = lib.platforms.unix;

@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -63,9 +64,7 @@ python3.pkgs.buildPythonApplication rec {
     rm $out/lib/python*/site-packages/LICENSE
   '';
 
-  pythonImportsCheck = [
-    "ansiblelater"
-  ];
+  pythonImportsCheck = [ "ansiblelater" ];
 
   meta = with lib; {
     description = "Best practice scanner for Ansible roles and playbooks";

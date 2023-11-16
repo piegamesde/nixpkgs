@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, pythonOlder
-, docutils
-, jinja2
-, markdown-it-py
-, mdit-py-plugins
-, pyyaml
-, sphinx
-, typing-extensions
-, beautifulsoup4
-, pytest-param-files
-, pytest-regressions
-, sphinx-pytest
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pythonOlder,
+  docutils,
+  jinja2,
+  markdown-it-py,
+  mdit-py-plugins,
+  pyyaml,
+  sphinx,
+  typing-extensions,
+  beautifulsoup4,
+  pytest-param-files,
+  pytest-regressions,
+  sphinx-pytest,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -51,9 +52,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ markdown-it-py.optional-dependencies.linkify;
 
-  pythonImportsCheck = [
-    "myst_parser"
-  ];
+  pythonImportsCheck = [ "myst_parser" ];
 
   disabledTests = [
     # AssertionError due to different files

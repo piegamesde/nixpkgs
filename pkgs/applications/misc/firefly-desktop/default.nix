@@ -1,4 +1,8 @@
-{ lib, fetchurl, appimageTools }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+}:
 
 let
   pname = "firefly-desktop";
@@ -8,8 +12,8 @@ let
     sha256 = "a052efa29aa692eeafc921a2be4a5cbf71ae0b4216bd4759ea179086fb44c6d6";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-
-in appimageTools.wrapType2 {
+in
+appimageTools.wrapType2 {
   inherit pname version src;
 
   extraPkgs = pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];

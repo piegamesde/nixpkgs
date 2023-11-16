@@ -1,4 +1,10 @@
-{ lib, stdenv, appimageTools, fetchurl, undmg }:
+{
+  lib,
+  stdenv,
+  appimageTools,
+  fetchurl,
+  undmg,
+}:
 
 let
   pname = "localsend";
@@ -14,14 +20,27 @@ let
       hash = "sha256-IASoA56Vzec+O62CjSM+2Q8XJJzpEK7hsI3L7R1+Izc=";
     };
   };
-  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system for package localsend: ${stdenv.hostPlatform.system}");
+  src =
+    srcs.${stdenv.hostPlatform.system}
+      or (throw "Unsupported system for package localsend: ${stdenv.hostPlatform.system}");
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 
   linux = appimageTools.wrapType2 rec {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
-    extraPkgs = p: [ p.ayatana-ido p.libayatana-appindicator p.libayatana-indicator p.libdbusmenu p.libepoxy ];
+    extraPkgs = p: [
+      p.ayatana-ido
+      p.libayatana-appindicator
+      p.libayatana-indicator
+      p.libdbusmenu
+      p.libepoxy
+    ];
 
     extraInstallCommands = ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -37,7 +56,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     nativeBuildInputs = [ undmg ];
 
@@ -58,6 +82,4 @@ let
     platforms = builtins.attrNames srcs;
   };
 in
-if stdenv.isDarwin
-then darwin
-else linux
+if stdenv.isDarwin then darwin else linux

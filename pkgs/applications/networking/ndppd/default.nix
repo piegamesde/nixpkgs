@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, gzip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ndppd";
@@ -13,9 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gzip ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   preConfigure = ''
     substituteInPlace Makefile --replace /bin/gzip gzip
@@ -31,6 +34,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/DanielAdolfsson/ndppd";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fadenb globin ];
+    maintainers = with maintainers; [
+      fadenb
+      globin
+    ];
   };
 }

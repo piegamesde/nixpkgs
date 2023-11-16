@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, dataclasses-json
-, fetchFromGitHub
-, fetchpatch
-, limiter
-, pythonOlder
-, requests
-, responses
+{
+  lib,
+  buildPythonPackage,
+  dataclasses-json,
+  fetchFromGitHub,
+  fetchpatch,
+  limiter,
+  pythonOlder,
+  requests,
+  responses,
 }:
 
 buildPythonPackage rec {
@@ -33,14 +34,15 @@ buildPythonPackage rec {
   # Tests requires an API token
   doCheck = false;
 
-  patches = [
-    # Update limiter import and rate limit, https://github.com/spyse-com/spyse-python/pull/11
-    (fetchpatch {
-      name = "support-later-limiter.patch";
-      url = "https://github.com/spyse-com/spyse-python/commit/ff68164c514dfb28ab77d8690b3a5153962dbe8c.patch";
-      hash = "sha256-PoWPJCK/Scsh4P7lr97u4JpVHXNlY0C9rJgY4TDYmv0=";
-    })
-  ];
+  patches =
+    [
+      # Update limiter import and rate limit, https://github.com/spyse-com/spyse-python/pull/11
+      (fetchpatch {
+        name = "support-later-limiter.patch";
+        url = "https://github.com/spyse-com/spyse-python/commit/ff68164c514dfb28ab77d8690b3a5153962dbe8c.patch";
+        hash = "sha256-PoWPJCK/Scsh4P7lr97u4JpVHXNlY0C9rJgY4TDYmv0=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -50,9 +52,7 @@ buildPythonPackage rec {
       --replace "requests~=2.26.0" "requests>=2.26.0"
   '';
 
-  pythonImportsCheck = [
-    "spyse"
-  ];
+  pythonImportsCheck = [ "spyse" ];
 
   meta = with lib; {
     description = "Python module for spyse.com API";

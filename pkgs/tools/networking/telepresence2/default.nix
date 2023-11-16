@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, kubernetes-helm }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  kubernetes-helm,
+}:
 
 buildGoModule rec {
   pname = "telepresence2";
@@ -24,7 +29,9 @@ buildGoModule rec {
   vendorSha256 = "sha256-aa40+6cjpA6/bqpFiqayCkX0PBToPmsp99ykv6e7Huc=";
 
   ldflags = [
-    "-s" "-w" "-X=github.com/telepresenceio/telepresence/v2/pkg/version.Version=${src.rev}"
+    "-s"
+    "-w"
+    "-X=github.com/telepresenceio/telepresence/v2/pkg/version.Version=${src.rev}"
   ];
 
   subPackages = [ "cmd/telepresence" ];

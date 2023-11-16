@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libjpeg, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libjpeg,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jhead";
@@ -45,7 +51,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libjpeg ];
 
-  makeFlags = [ "CPPFLAGS=" "CFLAGS=-O3" "LDFLAGS=" ];
+  makeFlags = [
+    "CPPFLAGS="
+    "CFLAGS=-O3"
+    "LDFLAGS="
+  ];
 
   installPhase = ''
     mkdir -p \

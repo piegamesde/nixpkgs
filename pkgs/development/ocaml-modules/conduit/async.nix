@@ -1,17 +1,28 @@
-{ lib, buildDunePackage, async, async_ssl ? null, ppx_sexp_conv, ppx_here, uri, conduit
-, core, ipaddr, ipaddr-sexp, sexplib
+{
+  lib,
+  buildDunePackage,
+  async,
+  async_ssl ? null,
+  ppx_sexp_conv,
+  ppx_here,
+  uri,
+  conduit,
+  core,
+  ipaddr,
+  ipaddr-sexp,
+  sexplib,
 }:
 
 buildDunePackage {
   pname = "conduit-async";
-  inherit (conduit)
-    version
-    src
-    ;
+  inherit (conduit) version src;
 
   duneVersion = "3";
 
-  buildInputs = [ ppx_sexp_conv ppx_here ];
+  buildInputs = [
+    ppx_sexp_conv
+    ppx_here
+  ];
 
   propagatedBuildInputs = [
     async

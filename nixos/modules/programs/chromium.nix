@@ -33,7 +33,7 @@ in
           [ExtensionInstallForcelist](https://cloud.google.com/docs/chrome-enterprise/policies/?policy=ExtensionInstallForcelist)
           for additional details.
         '';
-        default = [];
+        default = [ ];
         example = literalExpression ''
           [
             "chlffgpmiacpedhhbkiomidkjlcfhogd" # pushbullet
@@ -62,16 +62,14 @@ in
         type = types.nullOr types.str;
         description = lib.mdDoc "Chromium default search provider url.";
         default = null;
-        example =
-          "https://encrypted.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}{google:instantExtendedEnabledParameter}ie={inputEncoding}";
+        example = "https://encrypted.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}{google:instantExtendedEnabledParameter}ie={inputEncoding}";
       };
 
       defaultSearchProviderSuggestURL = mkOption {
         type = types.nullOr types.str;
         description = lib.mdDoc "Chromium default search provider url for suggestions.";
         default = null;
-        example =
-          "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}";
+        example = "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}";
       };
 
       extraOpts = mkOption {
@@ -82,7 +80,7 @@ in
           <https://cloud.google.com/docs/chrome-enterprise/policies/>
           Make sure the selected policy is supported on Linux and your browser version.
         '';
-        default = {};
+        default = { };
         example = literalExpression ''
           {
             "BrowserSignin" = 0;

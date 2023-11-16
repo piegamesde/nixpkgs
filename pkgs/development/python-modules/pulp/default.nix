@@ -1,10 +1,11 @@
-{ lib
-, amply
-, buildPythonPackage
-, fetchFromGitHub
-, pyparsing
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  amply,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyparsing,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -26,13 +27,9 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pulp"
-  ];
+  pythonImportsCheck = [ "pulp" ];
 
   disabledTests = [
     # The solver is not available

@@ -1,12 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, sfml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  sfml,
+}:
 
 stdenv.mkDerivation rec {
   pname = "csfml";
   version = "2.5.1";
   src = fetchFromGitHub {
     owner = "SFML";
-    repo  = "CSFML";
-    rev   = version;
+    repo = "CSFML";
+    rev = version;
     sha256 = "sha256-a46V5CakKVygNfr3/nZwlsCyqNsbti4a3cr7itK5QfI=";
   };
   nativeBuildInputs = [ cmake ];

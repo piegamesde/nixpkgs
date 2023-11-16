@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, fetchpatch
-, clipper
-, cmake
-, cups
-, doxygen
-, gdal
-, ninja
-, proj
-, qtimageformats
-, qtlocation
-, qtsensors
-, qttools
-, qttranslations
-, substituteAll
-, zlib
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  clipper,
+  cmake,
+  cups,
+  doxygen,
+  gdal,
+  ninja,
+  proj,
+  qtimageformats,
+  qtlocation,
+  qtsensors,
+  qttools,
+  qttranslations,
+  substituteAll,
+  zlib,
 }:
 
 mkDerivation rec {
@@ -61,37 +62,44 @@ mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [
-    # Building the manual and bundling licenses fails
-    # See https://github.com/NixOS/nixpkgs/issues/85306
-    "-DLICENSING_PROVIDER:BOOL=OFF"
-    "-DMapper_MANUAL_QTHELP:BOOL=OFF"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # FindGDAL is broken and always finds /Library/Framework unless this is
-    # specified
-    "-DGDAL_INCLUDE_DIR=${gdal}/include"
-    "-DGDAL_CONFIG=${gdal}/bin/gdal-config"
-    "-DGDAL_LIBRARY=${gdal}/lib/libgdal.dylib"
-    # Don't bundle libraries
-    "-DMapper_PACKAGE_PROJ=0"
-    "-DMapper_PACKAGE_QT=0"
-    "-DMapper_PACKAGE_ASSISTANT=0"
-    "-DMapper_PACKAGE_GDAL=0"
-  ];
+  cmakeFlags =
+    [
+      # Building the manual and bundling licenses fails
+      # See https://github.com/NixOS/nixpkgs/issues/85306
+      "-DLICENSING_PROVIDER:BOOL=OFF"
+      "-DMapper_MANUAL_QTHELP:BOOL=OFF"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # FindGDAL is broken and always finds /Library/Framework unless this is
+      # specified
+      "-DGDAL_INCLUDE_DIR=${gdal}/include"
+      "-DGDAL_CONFIG=${gdal}/bin/gdal-config"
+      "-DGDAL_LIBRARY=${gdal}/lib/libgdal.dylib"
+      # Don't bundle libraries
+      "-DMapper_PACKAGE_PROJ=0"
+      "-DMapper_PACKAGE_QT=0"
+      "-DMapper_PACKAGE_ASSISTANT=0"
+      "-DMapper_PACKAGE_GDAL=0"
+    ];
 
-  postInstall = with stdenv; lib.optionalString isDarwin ''
-    mkdir -p $out/Applications
-    mv $out/Mapper.app $out/Applications
-    mkdir -p $out/bin
-    ln -s $out/Applications/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
-  '';
+  postInstall =
+    with stdenv;
+    lib.optionalString isDarwin ''
+      mkdir -p $out/Applications
+      mv $out/Mapper.app $out/Applications
+      mkdir -p $out/bin
+      ln -s $out/Applications/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
+    '';
 
   meta = with lib; {
     homepage = "https://www.openorienteering.org/apps/mapper/";
     description = "An orienteering mapmaking program";
     changelog = "https://github.com/OpenOrienteering/mapper/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mpickering sikmir ];
+    maintainers = with maintainers; [
+      mpickering
+      sikmir
+    ];
     platforms = with platforms; unix;
     broken = stdenv.isDarwin;
   };

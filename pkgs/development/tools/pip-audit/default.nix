@@ -1,20 +1,23 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 let
   py = python3.override {
     packageOverrides = self: super: {
 
-      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (oldAttrs: rec {
-        version = "2.7.1";
-        src = fetchFromGitHub {
-          owner = "CycloneDX";
-          repo = "cyclonedx-python-lib";
-          rev = "v${version}";
-          hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
-        };
-      });
+      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "2.7.1";
+          src = fetchFromGitHub {
+            owner = "CycloneDX";
+            repo = "cyclonedx-python-lib";
+            rev = "v${version}";
+            hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
+          };
+        }
+      );
     };
   };
 in
@@ -32,9 +35,7 @@ buildPythonApplication rec {
     hash = "sha256-hpzJtKtvhudT7OzZnuv6LbnMHnHIBYmQsAR1oRglvT0=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     cachecontrol
@@ -52,9 +53,7 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "pip_audit"
-  ];
+  pythonImportsCheck = [ "pip_audit" ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

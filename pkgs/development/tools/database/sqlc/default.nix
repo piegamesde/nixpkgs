@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 let
   version = "1.18.0";
@@ -10,7 +14,7 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "kyleconroy";
     repo = "sqlc";
-    rev    = "v${version}";
+    rev = "v${version}";
     sha256 = "sha256-5MC7D9+33x/l76j186FCnzo0Hnx0wY6BPdneW7E7MpE=";
   };
 

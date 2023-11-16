@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnatpmp";

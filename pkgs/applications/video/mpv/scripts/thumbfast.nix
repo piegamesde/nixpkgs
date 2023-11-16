@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, mpv-unwrapped }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  mpv-unwrapped,
+}:
 
 stdenvNoCC.mkDerivation {
   name = "mpv-thumbfast";

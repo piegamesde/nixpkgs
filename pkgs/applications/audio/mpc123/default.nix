@@ -1,6 +1,15 @@
-{ fetchurl, lib, stdenv, gettext, libmpcdec, libao }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  gettext,
+  libmpcdec,
+  libao,
+}:
 
-let version = "0.2.4"; in
+let
+  version = "0.2.4";
+in
 stdenv.mkDerivation rec {
   pname = "mpc123";
   inherit version;
@@ -17,12 +26,17 @@ stdenv.mkDerivation rec {
   #   ld: /build/cc566Cj9.o:(.bss+0x0): multiple definition of `mpc123_file_reader'; ao.o:(.bss+0x40): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  buildInputs = [ gettext libmpcdec libao ];
+  buildInputs = [
+    gettext
+    libmpcdec
+    libao
+  ];
 
   installPhase =
     # XXX: Should install locales too (though there's only 1 available).
-    '' mkdir -p "$out/bin"
-       cp -v mpc123 "$out/bin"
+    ''
+      mkdir -p "$out/bin"
+            cp -v mpc123 "$out/bin"
     '';
 
   meta = {

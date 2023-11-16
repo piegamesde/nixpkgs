@@ -1,15 +1,16 @@
-{ stdenv
-, pkgs
-, lib
-, fetchurl
-, e2fsprogs
-, ntfs3g
-, xfsprogs
-, reiser4progs
-, libaal
-, jfsutils
-, libuuid
-, texinfo
+{
+  stdenv,
+  pkgs,
+  lib,
+  fetchurl,
+  e2fsprogs,
+  ntfs3g,
+  xfsprogs,
+  reiser4progs,
+  libaal,
+  jfsutils,
+  libuuid,
+  texinfo,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wymV6G4Et5TCoIztZfdb3xuzjdBHFyB5OmI4EcsJKwQ=";
   };
 
-  nativeBuildInputs = [
-    texinfo
-  ];
+  nativeBuildInputs = [ texinfo ];
 
   # missed: Reiser3 FAT12/16/32 MinixFS HFS+ OCFS
   buildInputs = [

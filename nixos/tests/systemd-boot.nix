@@ -1,6 +1,7 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
@@ -44,10 +45,12 @@ in
     name = "systemd-boot-specialisation";
     meta.maintainers = with pkgs.lib.maintainers; [ lukegb ];
 
-    nodes.machine = { pkgs, lib, ... }: {
-      imports = [ common ];
-      specialisation.something.configuration = {};
-    };
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        imports = [ common ];
+        specialisation.something.configuration = { };
+      };
 
     testScript = ''
       machine.start()
@@ -67,10 +70,12 @@ in
     name = "systemd-boot-fallback";
     meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];
 
-    nodes.machine = { pkgs, lib, ... }: {
-      imports = [ common ];
-      boot.loader.efi.canTouchEfiVariables = mkForce false;
-    };
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        imports = [ common ];
+        boot.loader.efi.canTouchEfiVariables = mkForce false;
+      };
 
     testScript = ''
       machine.start()
@@ -115,13 +120,13 @@ in
     name = "systemd-boot-memtest86";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = { pkgs, lib, ... }: {
-      imports = [ common ];
-      boot.loader.systemd-boot.memtest86.enable = true;
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-        "memtest86-efi"
-      ];
-    };
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        imports = [ common ];
+        boot.loader.systemd-boot.memtest86.enable = true;
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
+      };
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/memtest86.conf")
@@ -133,10 +138,12 @@ in
     name = "systemd-boot-netbootxyz";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = { pkgs, lib, ... }: {
-      imports = [ common ];
-      boot.loader.systemd-boot.netbootxyz.enable = true;
-    };
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        imports = [ common ];
+        boot.loader.systemd-boot.netbootxyz.enable = true;
+      };
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/o_netbootxyz.conf")
@@ -148,14 +155,14 @@ in
     name = "systemd-boot-entry-filename";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = { pkgs, lib, ... }: {
-      imports = [ common ];
-      boot.loader.systemd-boot.memtest86.enable = true;
-      boot.loader.systemd-boot.memtest86.entryFilename = "apple.conf";
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-        "memtest86-efi"
-      ];
-    };
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        imports = [ common ];
+        boot.loader.systemd-boot.memtest86.enable = true;
+        boot.loader.systemd-boot.memtest86.entryFilename = "apple.conf";
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
+      };
 
     testScript = ''
       machine.fail("test -e /boot/loader/entries/memtest86.conf")
@@ -168,14 +175,16 @@ in
     name = "systemd-boot-extra-entries";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = { pkgs, lib, ... }: {
-      imports = [ common ];
-      boot.loader.systemd-boot.extraEntries = {
-        "banana.conf" = ''
-          title banana
-        '';
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        imports = [ common ];
+        boot.loader.systemd-boot.extraEntries = {
+          "banana.conf" = ''
+            title banana
+          '';
+        };
       };
-    };
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/banana.conf")
@@ -187,12 +196,14 @@ in
     name = "systemd-boot-extra-files";
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
-    nodes.machine = { pkgs, lib, ... }: {
-      imports = [ common ];
-      boot.loader.systemd-boot.extraFiles = {
-        "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        imports = [ common ];
+        boot.loader.systemd-boot.extraFiles = {
+          "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
+        };
       };
-    };
 
     testScript = ''
       machine.succeed("test -e /boot/efi/fruits/tomato.efi")
@@ -207,76 +218,87 @@ in
     nodes = {
       inherit common;
 
-      machine = { pkgs, nodes, ... }: {
-        imports = [ common ];
-        boot.loader.systemd-boot.extraFiles = {
-          "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
+      machine =
+        { pkgs, nodes, ... }:
+        {
+          imports = [ common ];
+          boot.loader.systemd-boot.extraFiles = {
+            "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
+          };
+
+          # These are configs for different nodes, but we'll use them here in `machine`
+          system.extraDependencies = [
+            nodes.common.system.build.toplevel
+            nodes.with_netbootxyz.system.build.toplevel
+          ];
         };
 
-        # These are configs for different nodes, but we'll use them here in `machine`
-        system.extraDependencies = [
-          nodes.common.system.build.toplevel
-          nodes.with_netbootxyz.system.build.toplevel
-        ];
-      };
-
-      with_netbootxyz = { pkgs, ... }: {
-        imports = [ common ];
-        boot.loader.systemd-boot.netbootxyz.enable = true;
-      };
+      with_netbootxyz =
+        { pkgs, ... }:
+        {
+          imports = [ common ];
+          boot.loader.systemd-boot.netbootxyz.enable = true;
+        };
     };
 
-    testScript = { nodes, ... }: let
-      originalSystem = nodes.machine.system.build.toplevel;
-      baseSystem = nodes.common.system.build.toplevel;
-      finalSystem = nodes.with_netbootxyz.system.build.toplevel;
-    in ''
-      machine.succeed("test -e /boot/efi/fruits/tomato.efi")
-      machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+    testScript =
+      { nodes, ... }:
+      let
+        originalSystem = nodes.machine.system.build.toplevel;
+        baseSystem = nodes.common.system.build.toplevel;
+        finalSystem = nodes.with_netbootxyz.system.build.toplevel;
+      in
+      ''
+        machine.succeed("test -e /boot/efi/fruits/tomato.efi")
+        machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
 
-      with subtest("remove files when no longer needed"):
-          machine.succeed("${baseSystem}/bin/switch-to-configuration boot")
-          machine.fail("test -e /boot/efi/fruits/tomato.efi")
-          machine.fail("test -d /boot/efi/fruits")
-          machine.succeed("test -d /boot/efi/nixos/.extra-files")
-          machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
-          machine.fail("test -d /boot/efi/nixos/.extra-files/efi/fruits")
+        with subtest("remove files when no longer needed"):
+            machine.succeed("${baseSystem}/bin/switch-to-configuration boot")
+            machine.fail("test -e /boot/efi/fruits/tomato.efi")
+            machine.fail("test -d /boot/efi/fruits")
+            machine.succeed("test -d /boot/efi/nixos/.extra-files")
+            machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+            machine.fail("test -d /boot/efi/nixos/.extra-files/efi/fruits")
 
-      with subtest("files are added back when needed again"):
-          machine.succeed("${originalSystem}/bin/switch-to-configuration boot")
-          machine.succeed("test -e /boot/efi/fruits/tomato.efi")
-          machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+        with subtest("files are added back when needed again"):
+            machine.succeed("${originalSystem}/bin/switch-to-configuration boot")
+            machine.succeed("test -e /boot/efi/fruits/tomato.efi")
+            machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
 
-      with subtest("simultaneously removing and adding files works"):
-          machine.succeed("${finalSystem}/bin/switch-to-configuration boot")
-          machine.fail("test -e /boot/efi/fruits/tomato.efi")
-          machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
-          machine.succeed("test -e /boot/loader/entries/o_netbootxyz.conf")
-          machine.succeed("test -e /boot/efi/netbootxyz/netboot.xyz.efi")
-          machine.succeed("test -e /boot/efi/nixos/.extra-files/loader/entries/o_netbootxyz.conf")
-          machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/netbootxyz/netboot.xyz.efi")
-    '';
+        with subtest("simultaneously removing and adding files works"):
+            machine.succeed("${finalSystem}/bin/switch-to-configuration boot")
+            machine.fail("test -e /boot/efi/fruits/tomato.efi")
+            machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+            machine.succeed("test -e /boot/loader/entries/o_netbootxyz.conf")
+            machine.succeed("test -e /boot/efi/netbootxyz/netboot.xyz.efi")
+            machine.succeed("test -e /boot/efi/nixos/.extra-files/loader/entries/o_netbootxyz.conf")
+            machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/netbootxyz/netboot.xyz.efi")
+      '';
   };
 
   # See: [Firmware file size bug] in systemd/default.nix
   uefiLargeFileWorkaround = makeTest {
     name = "uefi-large-file-workaround";
 
-    nodes.machine = { pkgs, ... }: {
-      imports = [common];
-      virtualisation.efi.OVMF = pkgs.OVMF.overrideAttrs (old: {
-        # This patch deliberately breaks the FAT driver in EDK2 to
-        # exhibit (part of) the firmware bug that we are testing
-        # for. Files greater than 10MiB will fail to be read in a
-        # single Read() call, so systemd-boot will fail to load the
-        # initrd without a workaround. The number 10MiB was chosen
-        # because if it were smaller than the kernel size, even the
-        # LoadImage call would fail, which is not the failure mode
-        # we're testing for. It needs to be between the kernel size
-        # and the initrd size.
-        patches = old.patches or [] ++ [ ./systemd-boot-ovmf-broken-fat-driver.patch ];
-      });
-    };
+    nodes.machine =
+      { pkgs, ... }:
+      {
+        imports = [ common ];
+        virtualisation.efi.OVMF = pkgs.OVMF.overrideAttrs (
+          old: {
+            # This patch deliberately breaks the FAT driver in EDK2 to
+            # exhibit (part of) the firmware bug that we are testing
+            # for. Files greater than 10MiB will fail to be read in a
+            # single Read() call, so systemd-boot will fail to load the
+            # initrd without a workaround. The number 10MiB was chosen
+            # because if it were smaller than the kernel size, even the
+            # LoadImage call would fail, which is not the failure mode
+            # we're testing for. It needs to be between the kernel size
+            # and the initrd size.
+            patches = old.patches or [ ] ++ [ ./systemd-boot-ovmf-broken-fat-driver.patch ];
+          }
+        );
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

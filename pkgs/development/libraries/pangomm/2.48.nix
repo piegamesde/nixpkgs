@@ -1,25 +1,31 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, python3
-, pango
-, glibmm_2_68
-, cairomm_1_16
-, gnome
-, ApplicationServices
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  python3,
+  pango,
+  glibmm_2_68,
+  cairomm_1_16,
+  gnome,
+  ApplicationServices,
 }:
 
 stdenv.mkDerivation rec {
   pname = "pangomm";
-  version= "2.50.1";
+  version = "2.50.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-zMmSNBPkCMK/9jffZjJIMn1ygi8R45S0I+HFZSt9khQ=";
   };
 
@@ -28,9 +34,7 @@ stdenv.mkDerivation rec {
     meson
     ninja
     python3
-  ] ++ lib.optionals stdenv.isDarwin [
-    ApplicationServices
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
   propagatedBuildInputs = [
     pango
@@ -59,7 +63,14 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.pango.org/";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ lovek323 raskin ]);
+    maintainers =
+      teams.gnome.members
+      ++ (
+        with maintainers; [
+          lovek323
+          raskin
+        ]
+      );
     platforms = platforms.unix;
   };
 }

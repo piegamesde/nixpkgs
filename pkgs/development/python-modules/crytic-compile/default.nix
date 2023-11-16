@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, cbor2
-, fetchFromGitHub
-, pycryptodome
-, pythonOlder
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  cbor2,
+  fetchFromGitHub,
+  pycryptodome,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -30,15 +31,16 @@ buildPythonPackage rec {
   # Test require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "crytic_compile"
-  ];
+  pythonImportsCheck = [ "crytic_compile" ];
 
   meta = with lib; {
     description = "Abstraction layer for smart contract build systems";
     homepage = "https://github.com/crytic/crytic-compile";
     changelog = "https://github.com/crytic/crytic-compile/releases/tag/${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 arturcygan ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      arturcygan
+    ];
   };
 }

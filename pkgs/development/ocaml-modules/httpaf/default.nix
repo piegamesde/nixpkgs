@@ -1,5 +1,11 @@
-{ lib, fetchFromGitHub, fetchpatch, buildDunePackage
-, angstrom, faraday, alcotest
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildDunePackage,
+  angstrom,
+  faraday,
+  alcotest,
 }:
 
 buildDunePackage rec {
@@ -17,7 +23,10 @@ buildDunePackage rec {
   };
 
   checkInputs = [ alcotest ];
-  propagatedBuildInputs = [ angstrom faraday ];
+  propagatedBuildInputs = [
+    angstrom
+    faraday
+  ];
   doCheck = true;
 
   meta = {

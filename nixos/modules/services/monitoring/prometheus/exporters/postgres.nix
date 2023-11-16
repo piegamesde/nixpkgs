@@ -1,4 +1,9 @@
-{ config, lib, pkgs, options }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+}:
 
 with lib;
 
@@ -63,7 +68,6 @@ in
         this exporter is running.
       '';
     };
-
   };
   serviceOpts = {
     environment.DATA_SOURCE_NAME = cfg.dataSourceName;
@@ -77,10 +81,11 @@ in
           --web.telemetry-path ${cfg.telemetryPath} \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
-      RestrictAddressFamilies = [
-        # Need AF_UNIX to collect data
-        "AF_UNIX"
-      ];
+      RestrictAddressFamilies =
+        [
+          # Need AF_UNIX to collect data
+          "AF_UNIX"
+        ];
     };
   };
 }

@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, libkrb5
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  libkrb5,
 }:
 
 buildPythonPackage rec {
@@ -22,8 +23,6 @@ buildPythonPackage rec {
     description = "Kerberos high-level interface";
     homepage = "https://pypi.org/project/kerberos/";
     license = licenses.asl20;
-    knownVulnerabilities = [
-      "CVE-2015-3206"
-    ];
+    knownVulnerabilities = [ "CVE-2015-3206" ];
   };
 }

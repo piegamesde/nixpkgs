@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 
-, asciidoc
-, pkg-config
-, inetutils
+  asciidoc,
+  pkg-config,
+  inetutils,
 
-, sqlite
-, readline
-, SDL
-, SDL_gfx
-, openssl
+  sqlite,
+  readline,
+  SDL,
+  SDL_gfx,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
@@ -68,6 +69,10 @@ stdenv.mkDerivation rec {
     homepage = "http://jim.tcl.tk/";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ dbohdan fgaz vrthra ];
+    maintainers = with lib.maintainers; [
+      dbohdan
+      fgaz
+      vrthra
+    ];
   };
 }

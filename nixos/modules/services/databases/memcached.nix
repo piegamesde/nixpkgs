@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -7,7 +12,6 @@ let
   cfg = config.services.memcached;
 
   memcached = pkgs.memcached;
-
 in
 
 {
@@ -53,11 +57,12 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [];
-        description = lib.mdDoc "A list of extra options that will be added as a suffix when running memcached.";
+        default = [ ];
+        description =
+          lib.mdDoc
+            "A list of extra options that will be added as a suffix when running memcached.";
       };
     };
-
   };
 
   ###### implementation
@@ -69,7 +74,7 @@ in
       memcached.isSystemUser = true;
       memcached.group = "memcached";
     };
-    users.groups = optionalAttrs (cfg.user == "memcached") { memcached = {}; };
+    users.groups = optionalAttrs (cfg.user == "memcached") { memcached = { }; };
 
     environment.systemPackages = [ memcached ];
 
@@ -81,11 +86,16 @@ in
 
       serviceConfig = {
         ExecStart =
-        let
-          networking = if cfg.enableUnixSocket
-          then "-s /run/memcached/memcached.sock"
-          else "-l ${cfg.listen} -p ${toString cfg.port}";
-        in "${memcached}/bin/memcached ${networking} -m ${toString cfg.maxMemory} -c ${toString cfg.maxConnections} ${concatStringsSep " " cfg.extraOptions}";
+          let
+            networking =
+              if cfg.enableUnixSocket then
+                "-s /run/memcached/memcached.sock"
+              else
+                "-l ${cfg.listen} -p ${toString cfg.port}";
+          in
+          "${memcached}/bin/memcached ${networking} -m ${toString cfg.maxMemory} -c ${
+            toString cfg.maxConnections
+          } ${concatStringsSep " " cfg.extraOptions}";
 
         User = cfg.user;
 
@@ -110,9 +120,15 @@ in
     };
   };
   imports = [
-    (mkRemovedOptionModule ["services" "memcached" "socket"] ''
-      This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
-    '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "memcached"
+        "socket"
+      ]
+      ''
+        This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
+      ''
+    )
   ];
-
 }

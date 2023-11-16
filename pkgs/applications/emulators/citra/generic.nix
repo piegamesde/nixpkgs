@@ -1,30 +1,40 @@
-{ pname
-, version
-, src
-, branch
-, compat-list
+{
+  pname,
+  version,
+  src,
+  branch,
+  compat-list,
 
-, lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost17x
-, pkg-config
-, libusb1
-, zstd
-, libressl
-, enableSdl2 ? true, SDL2
-, enableQt ? true, qtbase, qtmultimedia, wrapQtAppsHook
-, enableQtTranslation ? enableQt, qttools
-, enableWebService ? true
-, enableCubeb ? true, libpulseaudio
-, enableFfmpegAudioDecoder ? true
-, enableFfmpegVideoDumper ? true
-, ffmpeg_4
-, useDiscordRichPresence ? true, rapidjson
-, enableFdk ? false, fdk_aac
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost17x,
+  pkg-config,
+  libusb1,
+  zstd,
+  libressl,
+  enableSdl2 ? true,
+  SDL2,
+  enableQt ? true,
+  qtbase,
+  qtmultimedia,
+  wrapQtAppsHook,
+  enableQtTranslation ? enableQt,
+  qttools,
+  enableWebService ? true,
+  enableCubeb ? true,
+  libpulseaudio,
+  enableFfmpegAudioDecoder ? true,
+  enableFfmpegVideoDumper ? true,
+  ffmpeg_4,
+  useDiscordRichPresence ? true,
+  rapidjson,
+  enableFdk ? false,
+  fdk_aac,
 }:
-assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk) "Can't enable both enableFfmpegAudioDecoder and enableFdk";
+assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
+    "Can't enable both enableFfmpegAudioDecoder and enableFdk";
 
 stdenv.mkDerivation rec {
   inherit pname version src;
@@ -34,10 +44,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ] ++ lib.optionals enableQt [ wrapQtAppsHook ];
 
-  buildInputs = [
-    boost17x
-    libusb1
-  ] ++ lib.optionals enableQt [ qtbase qtmultimedia ]
+  buildInputs =
+    [
+      boost17x
+      libusb1
+    ]
+    ++ lib.optionals enableQt [
+      qtbase
+      qtmultimedia
+    ]
     ++ lib.optional enableSdl2 SDL2
     ++ lib.optional enableQtTranslation qttools
     ++ lib.optional enableCubeb libpulseaudio
@@ -45,18 +60,20 @@ stdenv.mkDerivation rec {
     ++ lib.optional useDiscordRichPresence rapidjson
     ++ lib.optional enableFdk fdk_aac;
 
-  cmakeFlags = [
-    "-DUSE_SYSTEM_BOOST=ON"
-    "-DCITRA_USE_BUNDLED_FFMPEG=OFF"
-    "-DCITRA_USE_BUNDLED_QT=OFF"
-    "-DUSE_SYSTEM_SDL2=ON"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
+  cmakeFlags =
+    [
+      "-DUSE_SYSTEM_BOOST=ON"
+      "-DCITRA_USE_BUNDLED_FFMPEG=OFF"
+      "-DCITRA_USE_BUNDLED_QT=OFF"
+      "-DUSE_SYSTEM_SDL2=ON"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
 
-    # We dont want to bother upstream with potentially outdated compat reports
-    "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON"
-    "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
-  ] ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
+      # We dont want to bother upstream with potentially outdated compat reports
+      "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON"
+      "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
+    ]
+    ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
     ++ lib.optional (!enableQt) "-DENABLE_QT=OFF"
     ++ lib.optional enableQtTranslation "-DENABLE_QT_TRANSLATION=ON"
     ++ lib.optional (!enableWebService) "-DENABLE_WEB_SERVICE=OFF"

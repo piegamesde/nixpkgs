@@ -1,28 +1,34 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, python3
-, gtk4
-, glibmm_2_68
-, cairomm_1_16
-, pangomm_2_48
-, libepoxy
-, gnome
-, makeFontsConf
-, xvfb-run
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  python3,
+  gtk4,
+  glibmm_2_68,
+  cairomm_1_16,
+  pangomm_2_48,
+  libepoxy,
+  gnome,
+  makeFontsConf,
+  xvfb-run,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gtkmm";
   version = "4.10.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "4bEJdxVX7MU8upFagLbt6Cf/29AEnGL9+L1/p5r8xus=";
   };
 
@@ -33,9 +39,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    libepoxy
-  ];
+  buildInputs = [ libepoxy ];
 
   propagatedBuildInputs = [
     glibmm_2_68
@@ -44,14 +48,10 @@ stdenv.mkDerivation rec {
     pangomm_2_48
   ];
 
-  nativeCheckInputs = lib.optionals (!stdenv.isDarwin)[
-    xvfb-run
-  ];
+  nativeCheckInputs = lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
 
   # Tests require fontconfig.
-  FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ ];
-  };
+  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
   doCheck = true;
 

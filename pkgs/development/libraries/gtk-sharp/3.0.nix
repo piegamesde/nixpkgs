@@ -1,13 +1,15 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, mono
-, glib
-, pango
-, gtk3
-, libxml2
-, monoDLLFixer
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  mono,
+  glib,
+  pango,
+  gtk3,
+  libxml2,
+  monoDLLFixer,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,13 +18,18 @@ stdenv.mkDerivation rec {
 
   builder = ./builder.sh;
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "18n3l9zcldyvn4lwi8izd62307mkhz873039nl6awrv285qzah34";
   };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    mono glib pango gtk3
+    mono
+    glib
+    pango
+    gtk3
     libxml2
   ];
 

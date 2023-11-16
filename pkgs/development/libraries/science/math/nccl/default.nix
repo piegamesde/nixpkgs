@@ -1,9 +1,10 @@
-{ lib
-, backendStdenv
-, fetchFromGitHub
-, which
-, cudaPackages ? { }
-, addOpenGLRunpath
+{
+  lib,
+  backendStdenv,
+  fetchFromGitHub,
+  which,
+  cudaPackages ? { },
+  addOpenGLRunpath,
 }:
 
 with cudaPackages;
@@ -23,7 +24,10 @@ backendStdenv.mkDerivation rec {
     hash = "sha256-JyhhYKSVIqUKIbC1rCJozPT1IrIyRLGrTjdPjJqsYaU=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     which
@@ -33,9 +37,7 @@ backendStdenv.mkDerivation rec {
 
   buildInputs = [
     cuda_cudart
-  ] ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [
-    cuda_cccl
-  ];
+  ] ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [ cuda_cccl ];
 
   preConfigure = ''
     patchShebangs src/collectives/device/gen_rules.sh
@@ -72,6 +74,9 @@ backendStdenv.mkDerivation rec {
     homepage = "https://developer.nvidia.com/nccl";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ mdaiter orivej ];
+    maintainers = with maintainers; [
+      mdaiter
+      orivej
+    ];
   };
 }

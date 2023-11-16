@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jsonschema
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jsonschema,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,10 +19,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Fails with "Unresolvable JSON pointer"
-    "test_local_reference_in_meta"
-  ];
+  disabledTests =
+    [
+      # Fails with "Unresolvable JSON pointer"
+      "test_local_reference_in_meta"
+    ];
 
   meta = with lib; {
     description = "Merge a series of JSON documents";

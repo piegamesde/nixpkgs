@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocamlify";
@@ -11,7 +18,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+  ];
 
   configurePhase = ''
     substituteInPlace src/ocamlify.ml --replace 'OCamlifyConfig.version' '"0.0.2"'
@@ -29,10 +40,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://forge.ocamlcore.org/projects/ocamlmod/ocamlmod";
     description = "Generate OCaml modules from source files";
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [
-      maggesi
-    ];
+    maintainers = with lib.maintainers; [ maggesi ];
   };
 }

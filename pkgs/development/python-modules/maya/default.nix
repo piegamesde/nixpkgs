@@ -1,5 +1,14 @@
-{ lib, fetchPypi, fetchpatch, buildPythonPackage
-, dateparser, humanize, pendulum, ruamel-yaml, tzlocal }:
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+  dateparser,
+  humanize,
+  pendulum,
+  ruamel-yaml,
+  tzlocal,
+}:
 
 buildPythonPackage rec {
   pname = "maya";
@@ -19,7 +28,13 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ dateparser humanize pendulum ruamel-yaml tzlocal ];
+  propagatedBuildInputs = [
+    dateparser
+    humanize
+    pendulum
+    ruamel-yaml
+    tzlocal
+  ];
 
   # No tests
   doCheck = false;

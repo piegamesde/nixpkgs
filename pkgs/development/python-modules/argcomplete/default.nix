@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pexpect
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pexpect,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,16 +24,12 @@ buildPythonPackage rec {
       --replace " + lint_require" ""
   '';
 
-  propagatedBuildInputs = [
-    pexpect
-  ];
+  propagatedBuildInputs = [ pexpect ];
 
   # tries to build and install test packages which fails
   doCheck = false;
 
-  pythonImportsCheck = [
-    "argcomplete"
-  ];
+  pythonImportsCheck = [ "argcomplete" ];
 
   meta = with lib; {
     description = "Bash tab completion for argparse";

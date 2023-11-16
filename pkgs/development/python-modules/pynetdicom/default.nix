@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pydicom
-, pyfakefs
-, pytestCheckHook
-, sqlalchemy
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pydicom,
+  pyfakefs,
+  pytestCheckHook,
+  sqlalchemy,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-/JWQUtFBW4uqCbs/nUxj1pRBfTCXV4wcqTkqvzpdFrM=";
   };
 
-  propagatedBuildInputs = [
-    pydicom
-  ];
+  propagatedBuildInputs = [ pydicom ];
 
   nativeCheckInputs = [
     pyfakefs
@@ -60,14 +59,13 @@ buildPythonPackage rec {
     "TestStoreSCUCLI"
   ];
 
-  disabledTestPaths = [
-    # Ignore apps tests
-    "pynetdicom/apps/tests/"
-  ];
+  disabledTestPaths =
+    [
+      # Ignore apps tests
+      "pynetdicom/apps/tests/"
+    ];
 
-  pythonImportsCheck = [
-    "pynetdicom"
-  ];
+  pythonImportsCheck = [ "pynetdicom" ];
 
   meta = with lib; {
     description = "Python implementation of the DICOM networking protocol";

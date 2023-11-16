@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, libevent
-, libsodium
-, libuv
-, nlohmann_json
-, pkg-config
-, spdlog
-, sqlite
-, systemd
-, unbound
-, zeromq
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libevent,
+  libsodium,
+  libuv,
+  nlohmann_json,
+  pkg-config,
+  spdlog,
+  sqlite,
+  systemd,
+  unbound,
+  zeromq,
 }:
 
 stdenv.mkDerivation rec {

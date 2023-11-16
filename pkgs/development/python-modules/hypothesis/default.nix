@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, isPyPy
-, fetchFromGitHub
-, attrs
-, exceptiongroup
-, pexpect
-, doCheck ? true
-, pytestCheckHook
-, pytest-xdist
-, sortedcontainers
-, pythonOlder
-, sphinxHook
-, sphinx-rtd-theme
-, sphinx-hoverxref
-, sphinx-codeautolink
-, tzdata
-# Used to break internal dependency loop.
-, enableDocumentation ? true
+{
+  lib,
+  buildPythonPackage,
+  isPyPy,
+  fetchFromGitHub,
+  attrs,
+  exceptiongroup,
+  pexpect,
+  doCheck ? true,
+  pytestCheckHook,
+  pytest-xdist,
+  sortedcontainers,
+  pythonOlder,
+  sphinxHook,
+  sphinx-rtd-theme,
+  sphinx-hoverxref,
+  sphinx-codeautolink,
+  tzdata,
+  # Used to break internal dependency loop.
+  enableDocumentation ? true,
 }:
 
 buildPythonPackage rec {
@@ -59,17 +60,13 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     attrs
     sortedcontainers
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    exceptiongroup
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
   nativeCheckInputs = [
     pexpect
     pytest-xdist
     pytestCheckHook
-  ] ++ lib.optionals (isPyPy) [
-    tzdata
-  ];
+  ] ++ lib.optionals (isPyPy) [ tzdata ];
 
   inherit doCheck;
 
@@ -78,18 +75,16 @@ buildPythonPackage rec {
     rm tox.ini
   '';
 
-  pytestFlagsArray = [
-    "tests/cover"
-  ];
+  pytestFlagsArray = [ "tests/cover" ];
 
-  pythonImportsCheck = [
-    "hypothesis"
-  ];
+  pythonImportsCheck = [ "hypothesis" ];
 
   meta = with lib; {
     description = "Library for property based testing";
     homepage = "https://github.com/HypothesisWorks/hypothesis";
-    changelog = "https://hypothesis.readthedocs.io/en/latest/changes.html#v${lib.replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://hypothesis.readthedocs.io/en/latest/changes.html#v${
+        lib.replaceStrings [ "." ] [ "-" ] version
+      }";
     license = licenses.mpl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

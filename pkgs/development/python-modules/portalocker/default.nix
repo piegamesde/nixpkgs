@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pytest-mypy
-, pythonOlder
-, redis
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pytest-mypy,
+  pythonOlder,
+  redis,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-Ay6B1TSojsFzbQP3gLoHPwR6BsR4sG4pN0hvM06VXFE=";
   };
 
-  propagatedBuildInputs = [
-    redis
-  ];
+  propagatedBuildInputs = [ redis ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -32,9 +31,7 @@ buildPythonPackage rec {
     "test_combined" # no longer compatible with setuptools>=58
   ];
 
-  pythonImportsCheck = [
-    "portalocker"
-  ];
+  pythonImportsCheck = [ "portalocker" ];
 
   meta = with lib; {
     description = "A library to provide an easy API to file locking";

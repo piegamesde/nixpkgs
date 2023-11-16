@@ -1,9 +1,10 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 
-, addr ? "127.0.0.1"
-, port ? 8082
+  addr ? "127.0.0.1",
+  port ? 8082,
 }:
 
 #
@@ -13,7 +14,12 @@
 #
 
 python3.pkgs.buildPythonApplication {
-  inherit (python3.pkgs.timetagger) pname version src meta;
+  inherit (python3.pkgs.timetagger)
+    pname
+    version
+    src
+    meta
+  ;
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
@@ -29,4 +35,3 @@ python3.pkgs.buildPythonApplication {
     chmod +x $out/bin/timetagger
   '';
 }
-

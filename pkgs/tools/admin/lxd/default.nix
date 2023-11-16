@@ -1,34 +1,35 @@
-{ lib
-, hwdata
-, pkg-config
-, lxc
-, buildGoModule
-, fetchurl
-, makeWrapper
-, acl
-, rsync
-, gnutar
-, xz
-, btrfs-progs
-, gzip
-, dnsmasq
-, attr
-, squashfsTools
-, iproute2
-, iptables
-, libcap
-, dqlite
-, raft-canonical
-, sqlite
-, udev
-, writeShellScriptBin
-, apparmor-profiles
-, apparmor-parser
-, criu
-, bash
-, installShellFiles
-, nixosTests
-, gitUpdater
+{
+  lib,
+  hwdata,
+  pkg-config,
+  lxc,
+  buildGoModule,
+  fetchurl,
+  makeWrapper,
+  acl,
+  rsync,
+  gnutar,
+  xz,
+  btrfs-progs,
+  gzip,
+  dnsmasq,
+  attr,
+  squashfsTools,
+  iproute2,
+  iptables,
+  libcap,
+  dqlite,
+  raft-canonical,
+  sqlite,
+  udev,
+  writeShellScriptBin,
+  apparmor-profiles,
+  apparmor-parser,
+  criu,
+  bash,
+  installShellFiles,
+  nixosTests,
+  gitUpdater,
 }:
 
 buildGoModule rec {
@@ -50,9 +51,16 @@ buildGoModule rec {
       --replace "/usr/share/misc/usb.ids" "${hwdata}/share/hwdata/usb.ids"
   '';
 
-  excludedPackages = [ "test" "lxd/db/generate" ];
+  excludedPackages = [
+    "test"
+    "lxd/db/generate"
+  ];
 
-  nativeBuildInputs = [ installShellFiles pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [
     lxc
     acl
@@ -63,7 +71,10 @@ buildGoModule rec {
     udev.dev
   ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
   tags = [ "libsqlite3" ];
 
   preBuild = ''
@@ -72,25 +83,43 @@ buildGoModule rec {
   '';
 
   preCheck =
-    let skippedTests = [
-      "TestValidateConfig"
-      "TestConvertNetworkConfig"
-      "TestConvertStorageConfig"
-      "TestSnapshotCommon"
-      "TestContainerTestSuite"
-    ]; in
+    let
+      skippedTests = [
+        "TestValidateConfig"
+        "TestConvertNetworkConfig"
+        "TestConvertStorageConfig"
+        "TestSnapshotCommon"
+        "TestContainerTestSuite"
+      ];
+    in
     ''
       # Disable tests requiring local operations
       buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
     '';
 
   postInstall = ''
-    wrapProgram $out/bin/lxd --prefix PATH : ${lib.makeBinPath (
-      [ iptables ]
-      ++ [ acl rsync gnutar xz btrfs-progs gzip dnsmasq squashfsTools iproute2 bash criu attr ]
-      ++ [ (writeShellScriptBin "apparmor_parser" ''
-             exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
-           '') ]
+    wrapProgram $out/bin/lxd --prefix PATH : ${
+      lib.makeBinPath (
+        [ iptables ]
+        ++ [
+          acl
+          rsync
+          gnutar
+          xz
+          btrfs-progs
+          gzip
+          dnsmasq
+          squashfsTools
+          iproute2
+          bash
+          criu
+          attr
+        ]
+        ++ [
+          (writeShellScriptBin "apparmor_parser" ''
+            exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
+          '')
+        ]
       )
     }
 
@@ -109,7 +138,10 @@ buildGoModule rec {
     homepage = "https://linuxcontainers.org/lxd/";
     changelog = "https://github.com/lxc/lxd/releases/tag/lxd-${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marsam adamcstephens ];
+    maintainers = with maintainers; [
+      marsam
+      adamcstephens
+    ];
     platforms = platforms.linux;
   };
 }

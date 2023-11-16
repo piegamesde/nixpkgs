@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, sphinx-rtd-theme
-, sphinxHook
-, colorzero
-, mock
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx-rtd-theme,
+  sphinxHook,
+  colorzero,
+  mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  propagatedBuildInputs = [
-    colorzero
-  ];
+  propagatedBuildInputs = [ colorzero ];
 
   pythonImportsCheck = [
     "gpiozero"
@@ -43,7 +42,6 @@ buildPythonPackage rec {
     mock
     pytestCheckHook
   ];
-
 
   meta = with lib; {
     description = "A simple interface to GPIO devices with Raspberry Pi";

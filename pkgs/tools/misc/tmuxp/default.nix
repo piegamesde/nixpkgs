@@ -1,8 +1,12 @@
-{ lib, python3Packages, fetchPypi, installShellFiles }:
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+  installShellFiles,
+}:
 
 let
   pypkgs = python3Packages;
-
 in
 pypkgs.buildPythonApplication rec {
   pname = "tmuxp";

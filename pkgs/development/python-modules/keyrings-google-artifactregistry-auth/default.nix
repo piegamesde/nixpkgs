@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-auth
-, keyring
-, pluggy
-, requests
-, setuptools-scm
-, toml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-auth,
+  keyring,
+  pluggy,
+  requests,
+  setuptools-scm,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -30,10 +31,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [
-    "keyrings.gauth"
-  ];
-
+  pythonImportsCheck = [ "keyrings.gauth" ];
 
   meta = with lib; {
     description = "Python package which allows you to configure keyring to interact with Python repositories stored in Artifact Registry";

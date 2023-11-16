@@ -1,4 +1,9 @@
-{ buildPecl, lib, pkg-config, libyaml }:
+{
+  buildPecl,
+  lib,
+  pkg-config,
+  libyaml,
+}:
 
 buildPecl {
   pname = "yaml";

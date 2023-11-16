@@ -1,7 +1,20 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pythonOlder
-, clang_12, python
-, graphviz, matplotlib, numpy, pandas, plotly, scipy, six
-, withCuda ? false, cudatoolkit }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pythonOlder,
+  clang_12,
+  python,
+  graphviz,
+  matplotlib,
+  numpy,
+  pandas,
+  plotly,
+  scipy,
+  six,
+  withCuda ? false,
+  cudatoolkit,
+}:
 
 buildPythonPackage rec {
   pname = "catboost";
@@ -19,12 +32,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ clang_12 ];
 
-  propagatedBuildInputs = [ graphviz matplotlib numpy pandas scipy plotly six ]
-    ++ lib.optionals withCuda [ cudatoolkit ];
+  propagatedBuildInputs = [
+    graphviz
+    matplotlib
+    numpy
+    pandas
+    scipy
+    plotly
+    six
+  ] ++ lib.optionals withCuda [ cudatoolkit ];
 
-  patches = [
-    ./nix-support.patch
-  ];
+  patches = [ ./nix-support.patch ];
 
   postPatch = ''
     # substituteInPlace is too slow for these large files, and the target has lots of numbers in it that change often.

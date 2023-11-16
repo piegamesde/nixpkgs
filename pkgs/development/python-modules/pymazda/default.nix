@@ -1,9 +1,10 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, cryptography
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pymazda"
-  ];
+  pythonImportsCheck = [ "pymazda" ];
 
   meta = with lib; {
     description = "Python client for interacting with the MyMazda API";

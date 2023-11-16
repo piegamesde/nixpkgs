@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, iconnamingutils
-, librsvg
-, gtk3
-, hicolor-icon-theme
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  iconnamingutils,
+  librsvg,
+  gtk3,
+  hicolor-icon-theme,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +16,9 @@ stdenv.mkDerivation rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "0nha555fhhn0j5wmzmdc7bh93ckzwwdm8mwmzma5whkzslv09xa1";
   };
 
@@ -25,13 +28,9 @@ stdenv.mkDerivation rec {
     iconnamingutils
   ];
 
-  buildInputs = [
-    librsvg
-  ];
+  buildInputs = [ librsvg ];
 
-  propagatedBuildInputs = [
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 

@@ -1,13 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.virtualisation.vmware.host;
   wrapperDir = "/run/vmware/bin"; # Perfectly fits as /usr/local/bin
   parentWrapperDir = dirOf wrapperDir;
   vmwareWrappers = # Needed as hardcoded paths workaround
-    let mkVmwareSymlink =
-      program:
-      ''
+    let
+      mkVmwareSymlink = program: ''
         ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
       '';
     in
@@ -65,7 +69,13 @@ in
   config = lib.mkIf cfg.enable {
     boot.extraModulePackages = [ config.boot.kernelPackages.vmware ];
     boot.extraModprobeConfig = "alias char-major-10-229 fuse";
-    boot.kernelModules = [ "vmw_pvscsi" "vmw_vmci" "vmmon" "vmnet" "fuse" ];
+    boot.kernelModules = [
+      "vmw_pvscsi"
+      "vmw_vmci"
+      "vmmon"
+      "vmnet"
+      "fuse"
+    ];
 
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
     services.printing.drivers = [ cfg.package ];
@@ -93,7 +103,11 @@ in
     ###### wrappers activation script
 
     system.activationScripts.vmwareWrappers =
-      lib.stringAfter [ "specialfs" "users" ]
+      lib.stringAfter
+        [
+          "specialfs"
+          "users"
+        ]
         ''
           mkdir -p "${parentWrapperDir}"
           chmod 755 "${parentWrapperDir}"
@@ -133,9 +147,7 @@ in
       unitConfig.ConditionPathExists = "!/etc/vmware/networking";
       serviceConfig = {
         UMask = "0077";
-        ExecStart = [
-          "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1"
-        ];
+        ExecStart = [ "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1" ];
         Type = "oneshot";
         RemainAfterExit = "yes";
       };

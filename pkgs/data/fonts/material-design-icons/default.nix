@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, stdenvNoCC }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenvNoCC,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "material-design-icons";
@@ -34,6 +38,9 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://materialdesignicons.com";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ vlaci PlayerNameHere ];
+    maintainers = with maintainers; [
+      vlaci
+      PlayerNameHere
+    ];
   };
 }

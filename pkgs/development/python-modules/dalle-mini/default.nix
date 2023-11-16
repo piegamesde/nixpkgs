@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, einops
-, emoji
-, flax
-, ftfy
-, jax
-, jaxlib
-, pillow
-, transformers
-, unidecode
-, wandb
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  einops,
+  emoji,
+  flax,
+  ftfy,
+  jax,
+  jaxlib,
+  pillow,
+  transformers,
+  unidecode,
+  wandb,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
 
   format = "setuptools";
 
-  buildInputs = [
-    jaxlib
-  ];
+  buildInputs = [ jaxlib ];
 
   propagatedBuildInputs = [
     einops

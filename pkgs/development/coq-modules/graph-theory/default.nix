@@ -1,5 +1,14 @@
-{ lib, mkCoqDerivation, coq, mathcomp-algebra, mathcomp-finmap, mathcomp-fingroup
-, fourcolor, hierarchy-builder, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp-algebra,
+  mathcomp-finmap,
+  mathcomp-fingroup,
+  fourcolor,
+  hierarchy-builder,
+  version ? null,
+}:
 
 mkCoqDerivation {
   pname = "graph-theory";
@@ -10,12 +19,28 @@ mkCoqDerivation {
   releaseRev = v: "v${v}";
 
   inherit version;
-  defaultVersion = with lib.versions; lib.switch coq.coq-version [
-    { case = range "8.14" "8.16"; out = "0.9.1"; }
-    { case = range "8.12" "8.12"; out = "0.9"; }
-  ] null;
+  defaultVersion =
+    with lib.versions;
+    lib.switch coq.coq-version
+      [
+        {
+          case = range "8.14" "8.16";
+          out = "0.9.1";
+        }
+        {
+          case = range "8.12" "8.12";
+          out = "0.9";
+        }
+      ]
+      null;
 
-  propagatedBuildInputs = [ mathcomp-algebra mathcomp-finmap mathcomp-fingroup fourcolor hierarchy-builder ];
+  propagatedBuildInputs = [
+    mathcomp-algebra
+    mathcomp-finmap
+    mathcomp-fingroup
+    fourcolor
+    hierarchy-builder
+  ];
 
   meta = with lib; {
     description = "Library of formalized graph theory results in Coq";

@@ -1,18 +1,29 @@
-{ stdenv, lib, fetchurl, openssl, perl, pps-tools, libcap }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  openssl,
+  perl,
+  pps-tools,
+  libcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ntp";
   version = "4.2.8p15";
 
   src = fetchurl {
-    url = "https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-${lib.versions.majorMinor version}/ntp-${version}.tar.gz";
+    url = "https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-${
+        lib.versions.majorMinor version
+      }/ntp-${version}.tar.gz";
     sha256 = "06cwhimm71safmwvp6nhxp6hvxsg62whnbgbgiflsqb8mgg40n7n";
   };
 
-  patches = [
-    # From https://patchwork.openembedded.org/patch/180019/
-    ./glibc-2.34-fix.patch
-  ];
+  patches =
+    [
+      # From https://patchwork.openembedded.org/patch/180019/
+      ./glibc-2.34-fix.patch
+    ];
 
   configureFlags = [
     "--sysconfdir=/etc"
@@ -23,8 +34,15 @@ stdenv.mkDerivation rec {
     "--with-yielding-select=yes"
   ] ++ lib.optional stdenv.isLinux "--enable-linuxcaps";
 
-  buildInputs = [ openssl perl ]
-    ++ lib.optionals stdenv.isLinux [ pps-tools libcap ];
+  buildInputs =
+    [
+      openssl
+      perl
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      pps-tools
+      libcap
+    ];
 
   hardeningEnable = [ "pie" ];
 
@@ -39,7 +57,10 @@ stdenv.mkDerivation rec {
       # very close to isc and bsd2
       url = "https://www.eecis.udel.edu/~mills/ntp/html/copyright.html";
     };
-    maintainers = with maintainers; [ eelco thoughtpolice ];
+    maintainers = with maintainers; [
+      eelco
+      thoughtpolice
+    ];
     platforms = platforms.unix;
   };
 }

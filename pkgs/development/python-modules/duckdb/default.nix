@@ -1,18 +1,24 @@
-{ lib
-, buildPythonPackage
-, duckdb
-, google-cloud-storage
-, mypy
-, numpy
-, pandas
-, psutil
-, pybind11
-, setuptools-scm
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  duckdb,
+  google-cloud-storage,
+  mypy,
+  numpy,
+  pandas,
+  psutil,
+  pybind11,
+  setuptools-scm,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
-  inherit (duckdb) pname version src patches;
+  inherit (duckdb)
+    pname
+    version
+    src
+    patches
+  ;
   format = "setuptools";
 
   # we can't use sourceRoot otherwise patches don't apply, because the patches
@@ -46,23 +52,25 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # tries to make http request
-    "test_install_non_existent_extension"
-  ];
+  disabledTests =
+    [
+      # tries to make http request
+      "test_install_non_existent_extension"
+    ];
 
   preCheck = ''
     export HOME="$(mktemp -d)"
   '';
 
-  pythonImportsCheck = [
-    "duckdb"
-  ];
+  pythonImportsCheck = [ "duckdb" ];
 
   meta = with lib; {
     description = "Python binding for DuckDB";
     homepage = "https://duckdb.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc cpcloud ];
+    maintainers = with maintainers; [
+      costrouc
+      cpcloud
+    ];
   };
 }

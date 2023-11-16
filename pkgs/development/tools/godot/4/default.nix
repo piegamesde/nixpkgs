@@ -1,39 +1,43 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, autoPatchelfHook
-, installShellFiles
-, scons
-, vulkan-loader
-, libGL
-, libX11
-, libXcursor
-, libXinerama
-, libXext
-, libXrandr
-, libXrender
-, libXi
-, libXfixes
-, libxkbcommon
-, alsa-lib
-, libpulseaudio
-, dbus
-, speechd
-, fontconfig
-, udev
-, withPlatform ? "linuxbsd"
-, withTarget ? "editor"
-, withPrecision ? "single"
-, withPulseaudio ? true
-, withDbus ? true
-, withSpeechd ? true
-, withFontconfig ? true
-, withUdev ? true
-, withTouch ? true
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  autoPatchelfHook,
+  installShellFiles,
+  scons,
+  vulkan-loader,
+  libGL,
+  libX11,
+  libXcursor,
+  libXinerama,
+  libXext,
+  libXrandr,
+  libXrender,
+  libXi,
+  libXfixes,
+  libxkbcommon,
+  alsa-lib,
+  libpulseaudio,
+  dbus,
+  speechd,
+  fontconfig,
+  udev,
+  withPlatform ? "linuxbsd",
+  withTarget ? "editor",
+  withPrecision ? "single",
+  withPulseaudio ? true,
+  withDbus ? true,
+  withSpeechd ? true,
+  withFontconfig ? true,
+  withUdev ? true,
+  withTouch ? true,
 }:
 
-assert lib.asserts.assertOneOf "withPrecision" withPrecision [ "single" "double" ];
+assert lib.asserts.assertOneOf "withPrecision" withPrecision [
+  "single"
+  "double"
+];
 
 let
   options = {
@@ -68,31 +72,30 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [
-    scons
-  ];
+  buildInputs = [ scons ];
 
-  runtimeDependencies = [
-    vulkan-loader
-    libGL
-    libX11
-    libXcursor
-    libXinerama
-    libXext
-    libXrandr
-    libXrender
-    libXi
-    libXfixes
-    libxkbcommon
-    alsa-lib
-  ]
-  ++ lib.optional withPulseaudio libpulseaudio
-  ++ lib.optional withDbus dbus
-  ++ lib.optional withDbus dbus.lib
-  ++ lib.optional withSpeechd speechd
-  ++ lib.optional withFontconfig fontconfig
-  ++ lib.optional withFontconfig fontconfig.lib
-  ++ lib.optional withUdev udev;
+  runtimeDependencies =
+    [
+      vulkan-loader
+      libGL
+      libX11
+      libXcursor
+      libXinerama
+      libXext
+      libXrandr
+      libXrender
+      libXi
+      libXfixes
+      libxkbcommon
+      alsa-lib
+    ]
+    ++ lib.optional withPulseaudio libpulseaudio
+    ++ lib.optional withDbus dbus
+    ++ lib.optional withDbus dbus.lib
+    ++ lib.optional withSpeechd speechd
+    ++ lib.optional withFontconfig fontconfig
+    ++ lib.optional withFontconfig fontconfig.lib
+    ++ lib.optional withUdev udev;
 
   enableParallelBuilding = true;
 
@@ -100,12 +103,14 @@ stdenv.mkDerivation rec {
   sconsFlags = [ "production=true" ];
   preConfigure = ''
     sconsFlags+=" ${
-      lib.concatStringsSep " "
-      (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
+      lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
     }"
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -126,7 +131,14 @@ stdenv.mkDerivation rec {
     homepage = "https://godotengine.org";
     description = "Free and Open Source 2D and 3D game engine";
     license = licenses.mit;
-    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ twey shiryel ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      twey
+      shiryel
+    ];
   };
 }

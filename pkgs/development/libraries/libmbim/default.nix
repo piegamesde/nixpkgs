@@ -1,27 +1,30 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, glib
-, python3
-, help2man
-, systemd
-, bash-completion
-, bash
-, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, withDocs ? stdenv.hostPlatform == stdenv.buildPlatform
-, gobject-introspection
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  python3,
+  help2man,
+  systemd,
+  bash-completion,
+  bash,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  withDocs ? stdenv.hostPlatform == stdenv.buildPlatform,
+  gobject-introspection,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libmbim";
   version = "1.28.4";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals withDocs [ "man" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals withDocs [ "man" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -39,16 +42,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-  ] ++ lib.optionals withDocs [
-    help2man
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      python3
+    ]
+    ++ lib.optionals withDocs [ help2man ] ++ lib.optionals withIntrospection [ gobject-introspection ];
 
   buildInputs = [
     glib

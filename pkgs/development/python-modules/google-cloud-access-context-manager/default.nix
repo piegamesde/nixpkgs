@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, pythonOlder
-, protobuf
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  pythonOlder,
+  protobuf,
 }:
 
 buildPythonPackage rec {
@@ -26,15 +27,16 @@ buildPythonPackage rec {
   # No tests in repo
   doCheck = false;
 
-  pythonImportsCheck = [
-    "google.identity.accesscontextmanager"
-  ];
+  pythonImportsCheck = [ "google.identity.accesscontextmanager" ];
 
   meta = with lib; {
     description = "Protobufs for Google Access Context Manager";
     homepage = "https://github.com/googleapis/python-access-context-manager";
     changelog = "https://github.com/googleapis/python-access-context-manager/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ austinbutler SuperSandro2000 ];
+    maintainers = with maintainers; [
+      austinbutler
+      SuperSandro2000
+    ];
   };
 }

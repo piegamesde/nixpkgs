@@ -1,22 +1,23 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, gnutar
-, unzip
-, lhasa
-, rpm
-, binutils
-, cpio
-, gzip
-, p7zip
-, cabextract
-, unrar
-, unshield
-, bzip2
-, xz
-, lzip
-, unzipSupport ? false
-, unrarSupport ? false
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  gnutar,
+  unzip,
+  lhasa,
+  rpm,
+  binutils,
+  cpio,
+  gzip,
+  p7zip,
+  cabextract,
+  unrar,
+  unshield,
+  bzip2,
+  xz,
+  lzip,
+  unzipSupport ? false,
+  unrarSupport ? false,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -33,11 +34,25 @@ python3Packages.buildPythonApplication rec {
   postInstall =
     let
       archivers = lib.makeBinPath (
-        [ gnutar lhasa rpm binutils cpio gzip p7zip cabextract unshield bzip2 xz lzip ]
+        [
+          gnutar
+          lhasa
+          rpm
+          binutils
+          cpio
+          gzip
+          p7zip
+          cabextract
+          unshield
+          bzip2
+          xz
+          lzip
+        ]
         ++ lib.optional (unzipSupport) unzip
         ++ lib.optional (unrarSupport) unrar
       );
-    in ''
+    in
+    ''
       wrapProgram "$out/bin/dtrx" --prefix PATH : "${archivers}"
     '';
 

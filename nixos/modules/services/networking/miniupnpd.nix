@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -9,9 +14,11 @@ let
     enable_natpmp=${if cfg.natpmp then "yes" else "no"}
     enable_upnp=${if cfg.upnp then "yes" else "no"}
 
-    ${concatMapStrings (range: ''
-      listening_ip=${range}
-    '') cfg.internalIPs}
+    ${concatMapStrings
+      (range: ''
+        listening_ip=${range}
+      '')
+      cfg.internalIPs}
 
     ${cfg.appendConfig}
   '';
@@ -30,7 +37,10 @@ in
 
       internalIPs = mkOption {
         type = types.listOf types.str;
-        example = [ "192.168.1.1/24" "enp1s0" ];
+        example = [
+          "192.168.1.1/24"
+          "enp1s0"
+        ];
         description = lib.mdDoc ''
           The IP address ranges to listen on.
         '';

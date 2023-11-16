@@ -1,6 +1,21 @@
-{ buildPythonPackage, fetchPypi, lib, isPy27, marshmallow, pytestCheckHook
-, pytest-aiohttp, webtest, webtest-aiohttp, flask, django, bottle, tornado
-, pyramid, falcon, aiohttp }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  isPy27,
+  marshmallow,
+  pytestCheckHook,
+  pytest-aiohttp,
+  webtest,
+  webtest-aiohttp,
+  flask,
+  django,
+  bottle,
+  tornado,
+  pyramid,
+  falcon,
+  aiohttp,
+}:
 
 buildPythonPackage rec {
   pname = "webargs";
@@ -12,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-mdaJQMRS4HcmSFoV/vQ/EviubAxbORvLp2Bl1FJ/uF0=";
   };
 
-  pythonImportsCheck = [
-    "webargs"
-  ];
+  pythonImportsCheck = [ "webargs" ];
 
   propagatedBuildInputs = [ marshmallow ];
 

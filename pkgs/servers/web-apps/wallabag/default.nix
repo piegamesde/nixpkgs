@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
 }:
 
 # Point the environment variable $WALLABAG_DATA to a data directory

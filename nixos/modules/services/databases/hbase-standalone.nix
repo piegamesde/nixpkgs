@@ -1,4 +1,10 @@
-{ config, options, lib, pkgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,34 +12,45 @@ let
   cfg = config.services.hbase-standalone;
   opt = options.services.hbase-standalone;
 
-  buildProperty = configAttr:
-    (builtins.concatStringsSep "\n"
-      (lib.mapAttrsToList
+  buildProperty =
+    configAttr:
+    (builtins.concatStringsSep "\n" (
+      lib.mapAttrsToList
         (name: value: ''
           <property>
             <name>${name}</name>
             <value>${builtins.toString value}</value>
           </property>
         '')
-        configAttr));
+        configAttr
+    ));
 
-  configFile = pkgs.writeText "hbase-site.xml"
-    ''<configuration>
-        ${buildProperty (opt.settings.default // cfg.settings)}
-      </configuration>
-    '';
+  configFile = pkgs.writeText "hbase-site.xml" ''
+    <configuration>
+            ${buildProperty (opt.settings.default // cfg.settings)}
+          </configuration>
+  '';
 
   configDir = pkgs.runCommand "hbase-config-dir" { preferLocalBuild = true; } ''
     mkdir -p $out
     cp ${cfg.package}/conf/* $out/
     rm $out/hbase-site.xml
     ln -s ${configFile} $out/hbase-site.xml
-  '' ;
-
-in {
+  '';
+in
+{
 
   imports = [
-    (mkRenamedOptionModule [ "services" "hbase" ] [ "services" "hbase-standalone" ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hbase"
+      ]
+      [
+        "services"
+        "hbase-standalone"
+      ]
+    )
   ];
 
   ###### interface
@@ -41,10 +58,12 @@ in {
   options = {
     services.hbase-standalone = {
 
-      enable = mkEnableOption (lib.mdDoc ''
-        HBase master in standalone mode with embedded regionserver and zookeper.
-        Do not use this configuration for production nor for evaluating HBase performance.
-      '');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          HBase master in standalone mode with embedded regionserver and zookeper.
+          Do not use this configuration for production nor for evaluating HBase performance.
+        ''
+      );
 
       package = mkOption {
         type = types.package;
@@ -54,7 +73,6 @@ in {
           HBase package to use.
         '';
       };
-
 
       user = mkOption {
         type = types.str;
@@ -91,7 +109,15 @@ in {
       };
 
       settings = mkOption {
-        type = with lib.types; attrsOf (oneOf [ str int bool ]);
+        type =
+          with lib.types;
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+            ]
+          );
         default = {
           "hbase.rootdir" = "file://${cfg.dataDir}/hbase";
           "hbase.zookeeper.property.dataDir" = "${cfg.dataDir}/zookeeper";
@@ -106,7 +132,6 @@ in {
           configurations in hbase-site.xml, see <https://github.com/apache/hbase/blob/master/hbase-server/src/test/resources/hbase-site.xml> for details.
         '';
       };
-
     };
   };
 
@@ -143,6 +168,5 @@ in {
     };
 
     users.groups.hbase.gid = config.ids.gids.hbase;
-
   };
 }

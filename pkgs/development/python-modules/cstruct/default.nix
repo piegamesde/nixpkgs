@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -16,13 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-Dwogf0mmxFyBV7tPsuKV6gMZLPSCm7YhzqgJNHpaPFA=";
   };
 
-  pythonImportsCheck = [
-    "cstruct"
-  ];
+  pythonImportsCheck = [ "cstruct" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "C-style structs for Python";

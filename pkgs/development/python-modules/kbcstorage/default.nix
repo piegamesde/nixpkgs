@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build
-, setuptools-scm
+  # build
+  setuptools-scm,
 
-# propagates
-, azure-storage-blob
-, boto3
-, requests
+  # propagates
+  azure-storage-blob,
+  boto3,
+  requests,
 
-# tests
-, responses
-, unittestCheckHook
+  # tests
+  responses,
+  unittestCheckHook,
 }:
 buildPythonPackage rec {
   pname = "sapi-python-client";
@@ -31,9 +32,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     azure-storage-blob

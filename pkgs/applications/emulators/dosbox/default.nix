@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, SDL
-, SDL_net
-, SDL_sound
-, copyDesktopItems
-, graphicsmagick
-, libGL
-, libGLU
-, libpng
-, makeDesktopItem
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  SDL,
+  SDL_net,
+  SDL_sound,
+  copyDesktopItems,
+  graphicsmagick,
+  libGL,
+  libGLU,
+  libpng,
+  makeDesktopItem,
 }:
 
 stdenv.mkDerivation rec {
@@ -49,13 +50,16 @@ stdenv.mkDerivation rec {
       comment = "x86 dos emulator";
       desktopName = "DOSBox";
       genericName = "DOS emulator";
-      categories = [ "Emulator" "Game" ];
+      categories = [
+        "Emulator"
+        "Game"
+      ];
     })
   ];
 
   postInstall = ''
-     mkdir -p $out/share/icons/hicolor/256x256/apps
-     gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
   '';
 
   enableParallelBuilding = true;

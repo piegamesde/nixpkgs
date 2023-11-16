@@ -1,15 +1,16 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 
-, bubblewrap
-, nix-output-monitor
-, cacert
-, git
-, nix
+  bubblewrap,
+  nix-output-monitor,
+  cacert,
+  git,
+  nix,
 
-, withSandboxSupport ? false
-, withNom ? false
+  withSandboxSupport ? false,
+  withNom ? false,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -25,9 +26,10 @@ python3.pkgs.buildPythonApplication rec {
 
   makeWrapperArgs =
     let
-      binPath = [ nix git ]
-        ++ lib.optional withSandboxSupport bubblewrap
-        ++ lib.optional withNom nix-output-monitor;
+      binPath = [
+        nix
+        git
+      ] ++ lib.optional withSandboxSupport bubblewrap ++ lib.optional withNom nix-output-monitor;
     in
     [
       "--prefix PATH : ${lib.makeBinPath binPath}"
@@ -43,6 +45,10 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Mic92/nixpkgs-review";
     changelog = "https://github.com/Mic92/nixpkgs-review/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda mic92 SuperSandro2000 ];
+    maintainers = with maintainers; [
+      figsoda
+      mic92
+      SuperSandro2000
+    ];
   };
 }

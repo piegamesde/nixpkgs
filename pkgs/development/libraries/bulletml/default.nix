@@ -1,15 +1,24 @@
-{ lib, stdenv, fetchpatch, fetchurl, bison, perl }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  bison,
+  perl,
+}:
 
 let
   version = "0.0.6";
   debianRevision = "7";
-  debianPatch = patchname: hash: fetchpatch {
-    name = "${patchname}.patch";
-    url = "https://sources.debian.org/data/main/b/bulletml/${version}-${debianRevision}/debian/patches/${patchname}.patch";
-    sha256 = hash;
-  };
-
-in stdenv.mkDerivation {
+  debianPatch =
+    patchname: hash:
+    fetchpatch {
+      name = "${patchname}.patch";
+      url = "https://sources.debian.org/data/main/b/bulletml/${version}-${debianRevision}/debian/patches/${patchname}.patch";
+      sha256 = hash;
+    };
+in
+stdenv.mkDerivation {
   pname = "bulletml";
   inherit version;
 
@@ -35,10 +44,11 @@ in stdenv.mkDerivation {
     (debianPatch "includes" "1n11j5695hs9pspslf748w2cq5d78s6bwhyl476wp6gcq6jw20bw")
   ];
 
-  makeFlags = [
-    "-C src"
+  makeFlags = [ "-C src" ];
+  nativeBuildInputs = [
+    bison
+    perl
   ];
-  nativeBuildInputs = [ bison perl ];
   hardeningDisable = [ "format" ];
 
   installPhase = ''

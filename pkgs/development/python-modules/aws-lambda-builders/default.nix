@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, mock
-, parameterized
-, pyelftools
-, pytestCheckHook
-, pythonOlder
-, six
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  mock,
+  parameterized,
+  pyelftools,
+  pytestCheckHook,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -25,18 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-JSN51zwIh9N/Id3fhBXjmwGa2tLK/LoyPlHPl2rbVU4=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  patches = [
-    # This patch can be removed once https://github.com/aws/aws-lambda-builders/pull/475 has been merged.
-    (fetchpatch {
-      name = "setuptools-66-support";
-      url = "https://patch-diff.githubusercontent.com/raw/aws/aws-lambda-builders/pull/475.patch";
-      sha256 = "sha256-EkYQ6DNzbSnvkOads0GFwpGzeuBoLVU42THlSZNOHMc=";
-    })
-  ];
+  patches =
+    [
+      # This patch can be removed once https://github.com/aws/aws-lambda-builders/pull/475 has been merged.
+      (fetchpatch {
+        name = "setuptools-66-support";
+        url = "https://patch-diff.githubusercontent.com/raw/aws/aws-lambda-builders/pull/475.patch";
+        sha256 = "sha256-EkYQ6DNzbSnvkOads0GFwpGzeuBoLVU42THlSZNOHMc=";
+      })
+    ];
 
   nativeCheckInputs = [
     mock
@@ -66,9 +66,7 @@ buildPythonPackage rec {
     "test_move_dependencies_action_1_multiple_files"
   ];
 
-  pythonImportsCheck = [
-    "aws_lambda_builders"
-  ];
+  pythonImportsCheck = [ "aws_lambda_builders" ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

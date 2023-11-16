@@ -1,38 +1,39 @@
-{ lib
-, stdenv
-, callPackage
-, fetchFromGitHub
-, fetchurl
-, fetchpatch
-, autoPatchelfHook
-, makeWrapper
-, buildNpmPackage
-, cmake
-, avahi
-, libevdev
-, libpulseaudio
-, xorg
-, libxcb
-, openssl
-, libopus
-, ffmpeg_5-full
-, boost
-, pkg-config
-, libdrm
-, wayland
-, libffi
-, libcap
-, mesa
-, curl
-, libva
-, libvdpau
-, numactl
-, amf-headers
-, svt-av1
-, vulkan-loader
-, libappindicator
-, cudaSupport ? false
-, cudaPackages ? {}
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  autoPatchelfHook,
+  makeWrapper,
+  buildNpmPackage,
+  cmake,
+  avahi,
+  libevdev,
+  libpulseaudio,
+  xorg,
+  libxcb,
+  openssl,
+  libopus,
+  ffmpeg_5-full,
+  boost,
+  pkg-config,
+  libdrm,
+  wayland,
+  libffi,
+  libcap,
+  mesa,
+  curl,
+  libva,
+  libvdpau,
+  numactl,
+  amf-headers,
+  svt-av1,
+  vulkan-loader,
+  libappindicator,
+  cudaSupport ? false,
+  cudaPackages ? { },
 }:
 let
   libcbs = callPackage ./libcbs.nix { };
@@ -88,9 +89,7 @@ stdenv.mkDerivation rec {
     pkg-config
     autoPatchelfHook
     makeWrapper
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.autoAddOpenGLRunpathHook
-  ];
+  ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
 
   buildInputs = [
     libcbs
@@ -121,9 +120,7 @@ stdenv.mkDerivation rec {
     amf-headers
     svt-av1
     libappindicator
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.cudatoolkit
-  ];
+  ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
 
   runtimeDependencies = [
     avahi
@@ -132,9 +129,7 @@ stdenv.mkDerivation rec {
     libxcb
   ];
 
-  cmakeFlags = [
-    "-Wno-dev"
-  ];
+  cmakeFlags = [ "-Wno-dev" ];
 
   postPatch = ''
     # fix hardcoded libevdev and icon path

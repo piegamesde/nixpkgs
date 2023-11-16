@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, getent }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  getent,
+}:
 
 stdenv.mkDerivation rec {
   pname = "papirus-folders";
@@ -11,9 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Dus9f2m5Wj46Url7N3UYEvBAankppzGzdJHGPH3CT3g=";
   };
 
-  buildInputs = [
-    getent
-  ];
+  buildInputs = [ getent ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

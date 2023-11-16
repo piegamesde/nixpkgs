@@ -1,12 +1,13 @@
-{ mkDerivation
-, lib
-, fetchurl
-, cmake
-, extra-cmake-modules
-, pkg-config
-, kcoreaddons
-, kpeople
-, kcontacts
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  kcoreaddons,
+  kpeople,
+  kcontacts,
 }:
 
 mkDerivation rec {
@@ -32,9 +33,8 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "Pulseaudio bindings for Qt";
-    homepage    = "https://github.com/KDE/kpeoplevcard";
-    license     = with licenses; [ lgpl2 ];
+    homepage = "https://github.com/KDE/kpeoplevcard";
+    license = with licenses; [ lgpl2 ];
     maintainers = with maintainers; [ doronbehar ];
   };
 }
-

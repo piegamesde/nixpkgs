@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, fuse
-, android-tools
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  fuse,
+  android-tools,
 }:
 
 stdenv.mkDerivation rec {
@@ -37,7 +38,10 @@ stdenv.mkDerivation rec {
     description = "Mount Android phones on Linux with adb, no root required";
     inherit (src.meta) homepage;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Profpatsch aleksana ];
+    maintainers = with maintainers; [
+      Profpatsch
+      aleksana
+    ];
     platforms = platforms.unix;
   };
 }

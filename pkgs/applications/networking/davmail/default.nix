@@ -1,16 +1,17 @@
-{ stdenv
-, fetchurl
-, lib
-, makeWrapper
-, unzip
-, glib
-, gtk2
-, gtk3
-, jre
-, libXtst
-, zulu
-, preferGtk3 ? true
-, preferZulu ? true
+{
+  stdenv,
+  fetchurl,
+  lib,
+  makeWrapper,
+  unzip,
+  glib,
+  gtk2,
+  gtk3,
+  jre,
+  libXtst,
+  zulu,
+  preferGtk3 ? true,
+  preferZulu ? true,
 }:
 
 let
@@ -19,7 +20,6 @@ let
   gtk' = if preferGtk3 then gtk3 else gtk2;
 
   inherit (lib) makeLibraryPath versions;
-
 in
 stdenv.mkDerivation rec {
   pname = "davmail";
@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -44,9 +47,17 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/davmail
     cp -vR ./* $out/share/davmail
     makeWrapper $out/share/davmail/davmail $out/bin/davmail \
-      --set-default JAVA_OPTS "-Xmx512M -Dsun.net.inetaddr.ttl=60 -Djdk.gtk.version=${lib.versions.major gtk'.version}" \
+      --set-default JAVA_OPTS "-Xmx512M -Dsun.net.inetaddr.ttl=60 -Djdk.gtk.version=${
+        lib.versions.major gtk'.version
+      }" \
       --prefix PATH : ${jre'}/bin \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ glib gtk' libXtst ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          glib
+          gtk'
+          libXtst
+        ]
+      }
 
     runHook postInstall
   '';

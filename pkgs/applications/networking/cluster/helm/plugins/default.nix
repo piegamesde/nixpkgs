@@ -11,5 +11,4 @@
   helm-s3 = callPackage ./helm-s3.nix { };
 
   helm-secrets = callPackage ./helm-secrets.nix { };
-
 }

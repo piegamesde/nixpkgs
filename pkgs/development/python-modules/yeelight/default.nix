@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, future
-, ifaddr
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  future,
+  ifaddr,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -26,17 +27,11 @@ buildPythonPackage rec {
     ifaddr
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "yeelight/tests.py"
-  ];
+  pytestFlagsArray = [ "yeelight/tests.py" ];
 
-  pythonImportsCheck = [
-    "yeelight"
-  ];
+  pythonImportsCheck = [ "yeelight" ];
 
   meta = with lib; {
     description = "Python library for controlling YeeLight RGB bulbs";

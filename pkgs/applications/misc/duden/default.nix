@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -15,9 +16,7 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-ZrarN09Znw4m6YiZxD7q7dTJ49WjmHDobLnOt8JCwvc=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.poetry-core
-  ];
+  nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     beautifulsoup4

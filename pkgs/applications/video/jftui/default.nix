@@ -1,9 +1,11 @@
-{ lib, stdenv
-, fetchFromGitHub
-, pkg-config
-, curl
-, mpv
-, yajl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  curl,
+  mpv,
+  yajl,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4j0ypzszNWjHbb4RkMIoqvgz624zoKCKiIpidQUPIF4=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     curl

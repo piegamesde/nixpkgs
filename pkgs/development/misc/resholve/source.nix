@@ -1,6 +1,4 @@
-{ fetchFromGitHub
-, ...
-}:
+{ fetchFromGitHub, ... }:
 
 rec {
   version = "0.9.0";
@@ -10,10 +8,10 @@ rec {
     # if builtins.pathExists ./.local
     # then ./.
     # else
-      fetchFromGitHub {
-        owner = "abathur";
-        repo = "resholve";
-        rev = "v${version}";
-        hash = "sha256-FRdCeeC2c3bMEXekEyilgW0PwFfUWGstZ5mXdmRPM5w=";
-      };
+    fetchFromGitHub {
+      owner = "abathur";
+      repo = "resholve";
+      rev = "v${version}";
+      hash = "sha256-FRdCeeC2c3bMEXekEyilgW0PwFfUWGstZ5mXdmRPM5w=";
+    };
 }

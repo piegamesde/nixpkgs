@@ -1,16 +1,17 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, cython
-, git
-, pkgconfig
-, setuptools-scm
-, future
-, numpy
-, pyusb
-, mock
-, pytestCheckHook
-, zipp
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  cython,
+  git,
+  pkgconfig,
+  setuptools-scm,
+  future,
+  numpy,
+  pyusb,
+  mock,
+  pytestCheckHook,
+  zipp,
 }:
 
 ## Usage
@@ -65,7 +66,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/ap--/python-seabreeze";
     description = "A python library to access Ocean Optics spectrometers";
-    maintainers = [];
+    maintainers = [ ];
     license = licenses.mit;
   };
 }

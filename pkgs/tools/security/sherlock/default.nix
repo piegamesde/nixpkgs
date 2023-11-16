@@ -1,18 +1,27 @@
-{ stdenv, lib, fetchFromGitHub, python3, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  python3,
+  makeWrapper,
+}:
 let
-  pyenv = python3.withPackages (pp: with pp; [
-    beautifulsoup4
-    certifi
-    colorama
-    lxml
-    pandas
-    pysocks
-    requests
-    requests-futures
-    soupsieve
-    stem
-    torrequest
-  ]);
+  pyenv = python3.withPackages (
+    pp:
+    with pp; [
+      beautifulsoup4
+      certifi
+      colorama
+      lxml
+      pandas
+      pysocks
+      requests
+      requests-futures
+      soupsieve
+      stem
+      torrequest
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "sherlock";

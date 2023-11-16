@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchurl
-, pkg-config, SDL, libxml2, SDL_image, libjpeg, libpng, libGLU, libGL, zlib
-, dedicatedServer ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  SDL,
+  libxml2,
+  SDL_image,
+  libjpeg,
+  libpng,
+  libGLU,
+  libGL,
+  zlib,
+  dedicatedServer ? false,
+}:
 
 let
   versionMajor = "0.2.9";
@@ -29,8 +41,20 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libxml2 zlib ]
-    ++ lib.optionals (!dedicatedServer) [ SDL SDL_image libxml2 libjpeg libpng libGLU libGL ];
+  buildInputs =
+    [
+      libxml2
+      zlib
+    ]
+    ++ lib.optionals (!dedicatedServer) [
+      SDL
+      SDL_image
+      libxml2
+      libjpeg
+      libpng
+      libGLU
+      libGL
+    ];
 
   meta = with lib; {
     homepage = "http://armagetronad.org";

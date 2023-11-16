@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 buildGoModule rec {
   pname = "massren";
@@ -13,15 +18,19 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  patches = [
-    # Add Go Modules support
-    (fetchpatch {
-      url = "https://github.com/laurent22/massren/commit/83df215b6e112d1ec375b08d8c44dadc5107155d.patch";
-      hash = "sha256-FMTmUrv6zGq11vexUirAuK3H6r78RtoipqyWoh+pzrs=";
-    })
-  ];
+  patches =
+    [
+      # Add Go Modules support
+      (fetchpatch {
+        url = "https://github.com/laurent22/massren/commit/83df215b6e112d1ec375b08d8c44dadc5107155d.patch";
+        hash = "sha256-FMTmUrv6zGq11vexUirAuK3H6r78RtoipqyWoh+pzrs=";
+      })
+    ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   preCheck =
     let

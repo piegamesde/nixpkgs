@@ -1,40 +1,49 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, pkg-config
-, vala
-, glib
-, meson
-, ninja
-, libxslt
-, gtk3
-, enableBackend ? stdenv.isLinux
-, webkitgtk_4_1
-, json-glib
-, librest_1_0
-, libxml2
-, libsecret
-, gtk-doc
-, gobject-introspection
-, gettext
-, icu
-, glib-networking
-, libsoup_3
-, docbook-xsl-nons
-, docbook_xml_dtd_412
-, gnome
-, gcr
-, libkrb5
-, gvfs
-, dbus
-, wrapGAppsHook
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  pkg-config,
+  vala,
+  glib,
+  meson,
+  ninja,
+  libxslt,
+  gtk3,
+  enableBackend ? stdenv.isLinux,
+  webkitgtk_4_1,
+  json-glib,
+  librest_1_0,
+  libxml2,
+  libsecret,
+  gtk-doc,
+  gobject-introspection,
+  gettext,
+  icu,
+  glib-networking,
+  libsoup_3,
+  docbook-xsl-nons,
+  docbook_xml_dtd_412,
+  gnome,
+  gcr,
+  libkrb5,
+  gvfs,
+  dbus,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-online-accounts";
   version = "3.48.0";
 
-  outputs = [ "out" "dev" ] ++ lib.optionals enableBackend [ "man" "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals enableBackend [
+      "man"
+      "devdoc"
+    ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -80,9 +89,7 @@ stdenv.mkDerivation rec {
     libxml2
     libsecret
     libsoup_3
-  ] ++ lib.optionals enableBackend [
-    webkitgtk_4_1
-  ];
+  ] ++ lib.optionals enableBackend [ webkitgtk_4_1 ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

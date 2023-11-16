@@ -1,13 +1,15 @@
-{ stable
-, branch
-, version
-, sha256Hash
-, mkOverride
+{
+  stable,
+  branch,
+  version,
+  sha256Hash,
+  mkOverride,
 }:
 
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 python3.pkgs.buildPythonApplication {
@@ -28,9 +30,7 @@ python3.pkgs.buildPythonApplication {
     "sentry-sdk"
   ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiofiles

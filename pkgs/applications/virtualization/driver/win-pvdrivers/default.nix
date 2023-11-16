@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation {
   pname = "win-pvdrivers";
@@ -12,8 +16,20 @@ stdenv.mkDerivation {
   };
 
   buildPhase =
-    let unpack = x: "tar xf $src/${x}.tar; mkdir -p x86/${x} amd64/${x}; cp ${x}/x86/* x86/${x}/.; cp ${x}/x64/* amd64/${x}/.";
-    in lib.concatStringsSep "\n" (map unpack [ "xenbus" "xeniface" "xenvif" "xennet" "xenvbd" ]);
+    let
+      unpack =
+        x:
+        "tar xf $src/${x}.tar; mkdir -p x86/${x} amd64/${x}; cp ${x}/x86/* x86/${x}/.; cp ${x}/x64/* amd64/${x}/.";
+    in
+    lib.concatStringsSep "\n" (
+      map unpack [
+        "xenbus"
+        "xeniface"
+        "xenvif"
+        "xennet"
+        "xenvbd"
+      ]
+    );
 
   installPhase = ''
     mkdir -p $out

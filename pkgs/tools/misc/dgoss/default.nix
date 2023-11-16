@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, resholve
-, substituteAll
-, bash
-, coreutils
-, goss
-, which
+{
+  lib,
+  fetchFromGitHub,
+  resholve,
+  substituteAll,
+  bash,
+  coreutils,
+  goss,
+  which,
 }:
 
 resholve.mkDerivation rec {
@@ -31,7 +32,10 @@ resholve.mkDerivation rec {
     default = {
       scripts = [ "bin/dgoss" ];
       interpreter = "${bash}/bin/bash";
-      inputs = [ coreutils which ];
+      inputs = [
+        coreutils
+        which
+      ];
       keep = {
         "$CONTAINER_RUNTIME" = true;
       };

@@ -1,4 +1,12 @@
-{ lib, beamPackages, makeWrapper, rebar3, elixir, erlang, fetchFromGitHub }:
+{
+  lib,
+  beamPackages,
+  makeWrapper,
+  rebar3,
+  elixir,
+  erlang,
+  fetchFromGitHub,
+}:
 beamPackages.mixRelease rec {
   pname = "livebook";
   version = "0.9.2";

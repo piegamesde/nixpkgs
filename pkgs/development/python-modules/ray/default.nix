@@ -1,58 +1,59 @@
-{ aiohttp
-, aiohttp-cors
-, aiorwlock
-, aiosignal
-, attrs
-, autoPatchelfHook
-, buildBazelPackage
-, buildPythonPackage
-, fetchPypi
-, click
-, cloudpickle
-, colorama
-, colorful
-, cython
-, dm-tree
-, fastapi
-, filelock
-, frozenlist
-, fsspec
-, gpustat
-, grpc
-, grpcio
-, gym
-, jsonschema
-, lib
-, lz4
-, matplotlib
-, msgpack
-, numpy
-, opencensus
-, packaging
-, pandas
-, py-spy
-, prometheus-client
-, protobuf3_20
-, psutil
-, pyarrow
-, pydantic
-, python
-, pythonAtLeast
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
-, redis
-, requests
-, scikit-image
-, scipy
-, setproctitle
-, smart-open
-, starlette
-, stdenv
-, tabulate
-, tensorboardx
-, uvicorn
-, virtualenv
+{
+  aiohttp,
+  aiohttp-cors,
+  aiorwlock,
+  aiosignal,
+  attrs,
+  autoPatchelfHook,
+  buildBazelPackage,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  cloudpickle,
+  colorama,
+  colorful,
+  cython,
+  dm-tree,
+  fastapi,
+  filelock,
+  frozenlist,
+  fsspec,
+  gpustat,
+  grpc,
+  grpcio,
+  gym,
+  jsonschema,
+  lib,
+  lz4,
+  matplotlib,
+  msgpack,
+  numpy,
+  opencensus,
+  packaging,
+  pandas,
+  py-spy,
+  prometheus-client,
+  protobuf3_20,
+  psutil,
+  pyarrow,
+  pydantic,
+  python,
+  pythonAtLeast,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  redis,
+  requests,
+  scikit-image,
+  scipy,
+  setproctitle,
+  smart-open,
+  starlette,
+  stdenv,
+  tabulate,
+  tensorboardx,
+  uvicorn,
+  virtualenv,
 }:
 
 let
@@ -67,16 +68,19 @@ buildPythonPackage rec {
 
   src =
     let
-      pyShortVersion = "cp${builtins.replaceStrings ["."] [""] python.pythonVersion}";
-      binary-hash = (import ./binary-hashes.nix)."${pyShortVersion}" or {};
+      pyShortVersion = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+      binary-hash = (import ./binary-hashes.nix)."${pyShortVersion}" or { };
     in
-    fetchPypi ({
-      inherit pname version format;
-      dist = pyShortVersion;
-      python = pyShortVersion;
-      abi = pyShortVersion;
-      platform = "manylinux2014_x86_64";
-    } // binary-hash);
+    fetchPypi (
+      {
+        inherit pname version format;
+        dist = pyShortVersion;
+        python = pyShortVersion;
+        abi = pyShortVersion;
+        platform = "manylinux2014_x86_64";
+      }
+      // binary-hash
+    );
 
   passthru.optional-dependencies = rec {
     data-deps = [
@@ -157,9 +161,7 @@ buildPythonPackage rec {
     chmod +x $out/${python.sitePackages}/ray/core/src/ray/{gcs/gcs_server,raylet/raylet}
   '';
 
-  pythonImportsCheck = [
-    "ray"
-  ];
+  pythonImportsCheck = [ "ray" ];
 
   meta = with lib; {
     description = "A unified framework for scaling AI and Python applications";

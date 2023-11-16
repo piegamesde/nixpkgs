@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchgit, cmake, pkg-config, libubox }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  cmake,
+  pkg-config,
+  libubox,
+}:
 
 stdenv.mkDerivation {
   pname = "uclient";
@@ -10,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "0vy4whs64699whp92d1zl7a8kh16yrfywqq0yp2y809l9z19sw22";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buidInputs = [ libubox ];
 
   preConfigure = ''

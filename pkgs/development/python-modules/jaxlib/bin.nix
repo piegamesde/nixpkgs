@@ -13,22 +13,23 @@
 #   * https://github.com/google/jax/issues/971#issuecomment-508216439
 #   * https://github.com/google/jax/issues/5723#issuecomment-913038780
 
-{ absl-py
-, addOpenGLRunpath
-, autoPatchelfHook
-, buildPythonPackage
-, config
-, cudnn ? cudaPackages.cudnn
-, fetchurl
-, flatbuffers
-, isPy39
-, lib
-, python
-, scipy
-, stdenv
+{
+  absl-py,
+  addOpenGLRunpath,
+  autoPatchelfHook,
+  buildPythonPackage,
+  config,
+  cudnn ? cudaPackages.cudnn,
+  fetchurl,
+  flatbuffers,
+  isPy39,
+  lib,
+  python,
+  scipy,
+  stdenv,
   # Options:
-, cudaSupport ? config.cudaSupport or false
-, cudaPackages ? {}
+  cudaSupport ? config.cudaSupport or false,
+  cudaPackages ? { },
 }:
 
 let
@@ -80,14 +81,18 @@ buildPythonPackage rec {
   # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
   src =
     if !cudaSupport then
-      (
-        cpuSrcs."${stdenv.hostPlatform.system}"
-          or (throw "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}")
-      ) else gpuSrc;
+      (cpuSrcs."${stdenv.hostPlatform.system}"
+        or (throw "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}")
+      )
+    else
+      gpuSrc;
 
   # Prebuilt wheels are dynamically linked against things that nix can't find.
   # Run `autoPatchelfHook` to automagically fix them.
-  nativeBuildInputs = lib.optionals cudaSupport [ autoPatchelfHook addOpenGLRunpath ];
+  nativeBuildInputs = lib.optionals cudaSupport [
+    autoPatchelfHook
+    addOpenGLRunpath
+  ];
   # Dynamic link dependencies
   buildInputs = [ stdenv.cc.cc ];
 
@@ -109,11 +114,20 @@ buildPythonPackage rec {
       rpath=$(patchelf --print-rpath $file)
       # For some reason `makeLibraryPath` on `cudatoolkit_11` maps to
       # <cudatoolkit_11.lib>/lib which is different from <cudatoolkit_11>/lib.
-      patchelf --set-rpath "$rpath:${cudatoolkit}/lib:${lib.makeLibraryPath [ cudatoolkit.lib cudnn ]}" $file
+      patchelf --set-rpath "$rpath:${cudatoolkit}/lib:${
+        lib.makeLibraryPath [
+          cudatoolkit.lib
+          cudnn
+        ]
+      }" $file
     done
   '';
 
-  propagatedBuildInputs = [ absl-py flatbuffers scipy ];
+  propagatedBuildInputs = [
+    absl-py
+    flatbuffers
+    scipy
+  ];
 
   # Note that cudatoolkit is snecessary since jaxlib looks for "ptxas" in $PATH.
   # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
@@ -131,6 +145,10 @@ buildPythonPackage rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];
-    platforms = [ "aarch64-darwin" "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

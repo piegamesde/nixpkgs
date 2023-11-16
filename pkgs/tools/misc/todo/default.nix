@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, stdenv, openssl }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  stdenv,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "todo";

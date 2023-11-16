@@ -1,13 +1,14 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, stdenv
-, pkg-config
-, libgpg-error
-, gpgme
-, dbus
-, openssl
-, Security
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  pkg-config,
+  libgpg-error,
+  gpgme,
+  dbus,
+  openssl,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -33,8 +34,12 @@ rustPlatform.buildRustPackage rec {
     gpgme # gpgme runs a small script at build time so has to go here
   ];
 
-  buildInputs = [ openssl dbus libgpg-error gpgme ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    openssl
+    dbus
+    libgpg-error
+    gpgme
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     description = "Tool for working with a stack of patches";

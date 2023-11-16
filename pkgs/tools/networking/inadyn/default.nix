@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config
-, gnutls, libite, libconfuse }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gnutls,
+  libite,
+  libconfuse,
+}:
 
 stdenv.mkDerivation rec {
   pname = "inadyn";
@@ -12,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WNSpV3KhALzl35R1hR0QBzm8atdnbfsB5xh3h4MZBqA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ gnutls libite libconfuse ];
+  buildInputs = [
+    gnutls
+    libite
+    libconfuse
+  ];
 
   enableParallelBuilding = true;
 

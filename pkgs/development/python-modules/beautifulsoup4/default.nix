@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, chardet
-, hatchling
-, html5lib
-, lxml
-, pytestCheckHook
-, pythonOlder
-, soupsieve
-, sphinxHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  chardet,
+  hatchling,
+  html5lib,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+  soupsieve,
+  sphinxHook,
 }:
 
 buildPythonPackage rec {
@@ -16,7 +17,10 @@ buildPythonPackage rec {
   version = "4.12.2";
   format = "pyproject";
 
-  outputs = ["out" "doc"];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   disabled = pythonOlder "3.6";
 
@@ -36,21 +40,15 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    html5lib = [
-      html5lib
-    ];
-    lxml = [
-      lxml
-    ];
+    html5lib = [ html5lib ];
+    lxml = [ lxml ];
   };
 
   nativeCheckInputs = [
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "bs4"
-  ];
+  pythonImportsCheck = [ "bs4" ];
 
   meta = with lib; {
     changelog = "https://git.launchpad.net/beautifulsoup/tree/CHANGELOG?h=${version}";

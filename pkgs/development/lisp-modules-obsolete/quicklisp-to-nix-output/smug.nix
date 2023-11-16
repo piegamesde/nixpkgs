@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "smug";
   version = "20160421-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "smug";
 
-  asdFilesToKeep = ["smug.asd"];
+  asdFilesToKeep = [ "smug.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM smug DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/smug/2016-04-21/smug-20160421-git.tgz MD5
     8139d7813bb3130497b6da3bb4cb8924 NAME smug FILENAME smug DEPS
     ((NAME asdf-package-system FILENAME asdf-package-system)) DEPENDENCIES
-    (asdf-package-system) VERSION 20160421-git SIBLINGS NIL PARASITES NIL) */
+    (asdf-package-system) VERSION 20160421-git SIBLINGS NIL PARASITES NIL)
+*/

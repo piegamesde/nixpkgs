@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.twingate;
-
-in {
+in
+{
 
   options.services.twingate = {
     enable = mkEnableOption (lib.mdDoc "Twingate Client daemon");

@@ -1,16 +1,17 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, stdenv
-, installShellFiles
-, pkg-config
-, libiconv
-, openssl
-, DiskArbitration
-, Foundation
-, mandown
-, zellij
-, testers
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  installShellFiles,
+  pkg-config,
+  libiconv,
+  openssl,
+  DiskArbitration,
+  Foundation,
+  mandown,
+  zellij,
+  testers,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -32,13 +33,13 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    DiskArbitration
-    Foundation
-  ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      DiskArbitration
+      Foundation
+    ];
 
   preCheck = ''
     HOME=$TMPDIR
@@ -61,6 +62,11 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://zellij.dev/";
     changelog = "https://github.com/zellij-org/zellij/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ therealansh _0x4A6F abbe thehedgeh0g ];
+    maintainers = with maintainers; [
+      therealansh
+      _0x4A6F
+      abbe
+      thehedgeh0g
+    ];
   };
 }

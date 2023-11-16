@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -18,5 +19,4 @@ buildPythonPackage rec {
     homepage = "http://semanchuk.com/philip/sysv_ipc/";
     maintainers = with maintainers; [ ris ];
   };
-
 }

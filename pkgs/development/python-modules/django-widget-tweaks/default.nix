@@ -1,22 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# native
-, setuptools-scm
+  # native
+  setuptools-scm,
 
-# propagated
-, django
+  # propagated
+  django,
 
-# tests
-, python
+  # tests
+  python,
 }:
 
 buildPythonPackage rec {
   pname = "django-widget-tweaks";
   version = "1.4.12";
 
-  src = fetchFromGitHub { # package from Pypi missing runtests.py
+  src = fetchFromGitHub {
+    # package from Pypi missing runtests.py
     owner = "jazzband";
     repo = pname;
     rev = version;
@@ -25,13 +27,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings=tests.settings
@@ -41,8 +39,6 @@ buildPythonPackage rec {
     description = "Tweak the form field rendering in templates, not in python-level form definitions.";
     homepage = "https://github.com/jazzband/django-widget-tweaks";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      maxxk
-    ];
+    maintainers = with maintainers; [ maxxk ];
   };
 }

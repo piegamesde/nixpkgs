@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, callPackage
-, swift
-, swiftpm
-, swiftpm2nix
-, Foundation
+{
+  lib,
+  stdenv,
+  callPackage,
+  swift,
+  swiftpm,
+  swiftpm2nix,
+  Foundation,
 }:
 let
   sources = callPackage ../sources.nix { };
@@ -16,7 +17,10 @@ stdenv.mkDerivation {
   inherit (sources) version;
   src = sources.swift-format;
 
-  nativeBuildInputs = [ swift swiftpm ];
+  nativeBuildInputs = [
+    swift
+    swiftpm
+  ];
   buildInputs = [ Foundation ];
 
   configurePhase = generated.configure;
@@ -35,6 +39,12 @@ stdenv.mkDerivation {
     homepage = "https://github.com/apple/swift-format";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dtzWill trepetti dduan trundle stephank ];
+    maintainers = with lib.maintainers; [
+      dtzWill
+      trepetti
+      dduan
+      trundle
+      stephank
+    ];
   };
 }

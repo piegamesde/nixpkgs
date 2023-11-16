@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -18,5 +19,4 @@ buildPythonPackage rec {
     description = "Scripts to parse ELF, PE, Mach-O and OAT (Android Runtime)";
     maintainers = with maintainers; [ bennofs ];
   };
-
 }

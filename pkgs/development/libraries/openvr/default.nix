@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, cmake
-, libGL
-, jsoncpp
-, fetchFromGitHub
-, fetchpatch2
-, Foundation
-, AppKit
+{
+  lib,
+  stdenv,
+  cmake,
+  libGL,
+  jsoncpp,
+  fetchFromGitHub,
+  fetchpatch2,
+  Foundation,
+  AppKit,
 }:
 
 stdenv.mkDerivation rec {
@@ -43,16 +44,30 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ jsoncpp libGL ] ++ lib.optionals stdenv.isDarwin [ Foundation AppKit ];
+  buildInputs =
+    [
+      jsoncpp
+      libGL
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      AppKit
+    ];
 
-  cmakeFlags = [ "-DUSE_SYSTEM_JSONCPP=ON" "-DBUILD_SHARED=1" ];
+  cmakeFlags = [
+    "-DUSE_SYSTEM_JSONCPP=ON"
+    "-DBUILD_SHARED=1"
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "https://github.com/ValveSoftware/openvr";
     description = "An API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the hardware they are targeting";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pedrohlc Scrumplex ];
+    maintainers = with maintainers; [
+      pedrohlc
+      Scrumplex
+    ];
     platforms = platforms.unix;
   };
 }

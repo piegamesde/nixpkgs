@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
-, setuptools
-, setuptools-scm
-, pyvcd
-, jinja2
-, importlib-resources
-, importlib-metadata
-, git
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  setuptools-scm,
+  pyvcd,
+  jinja2,
+  importlib-resources,
+  importlib-metadata,
+  git,
 
-# for tests
-, pytestCheckHook
-, symbiyosys
-, yices
-, yosys
+  # for tests
+  pytestCheckHook,
+  symbiyosys,
+  yices,
+  yosys,
 }:
 
 buildPythonPackage rec {
@@ -40,7 +41,7 @@ buildPythonPackage rec {
       # This commit removes support for Python 3.6, which is unnecessary to fix
       # the build when using new setuptools. Include only one file, which has a
       # harmless comment change so that the subsequent patch applies cleanly.
-      includes = ["amaranth/_toolchain/cxx.py"];
+      includes = [ "amaranth/_toolchain/cxx.py" ];
     })
     (fetchpatch {
       name = "fix-for-setuptools-64.0.2.patch";
@@ -54,7 +55,7 @@ buildPythonPackage rec {
     })
   ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION="${realVersion}";
+  SETUPTOOLS_SCM_PRETEND_VERSION = "${realVersion}";
 
   nativeBuildInputs = [
     git
@@ -62,13 +63,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    jinja2
-    pyvcd
-    setuptools
-  ] ++
-    lib.optional (pythonOlder "3.9") importlib-resources ++
-    lib.optional (pythonOlder "3.8") importlib-metadata;
+  propagatedBuildInputs =
+    [
+      jinja2
+      pyvcd
+      setuptools
+    ]
+    ++ lib.optional (pythonOlder "3.9") importlib-resources
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -94,6 +96,9 @@ buildPythonPackage rec {
     description = "A modern hardware definition language and toolchain based on Python";
     homepage = "https://amaranth-lang.org/docs/amaranth";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ emily thoughtpolice ];
+    maintainers = with maintainers; [
+      emily
+      thoughtpolice
+    ];
   };
 }

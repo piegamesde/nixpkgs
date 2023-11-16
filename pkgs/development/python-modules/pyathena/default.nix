@@ -1,12 +1,13 @@
-{ lib
-, boto3
-, botocore
-, buildPythonPackage
-, fetchPypi
-, fsspec
-, pandas
-, pythonOlder
-, tenacity
+{
+  lib,
+  boto3,
+  botocore,
+  buildPythonPackage,
+  fetchPypi,
+  fsspec,
+  pandas,
+  pythonOlder,
+  tenacity,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
   # https://github.com/laughingman7743/PyAthena/#testing
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyathena"
-  ];
+  pythonImportsCheck = [ "pyathena" ];
 
   meta = with lib; {
     description = "Python DB API 2.0 (PEP 249) client for Amazon Athena";

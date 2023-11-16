@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docopt
-, colorama
-, pytest
-, watchdog
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docopt,
+  colorama,
+  pytest,
+  watchdog,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +19,11 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ colorama docopt watchdog ];
+  propagatedBuildInputs = [
+    colorama
+    docopt
+    watchdog
+  ];
 
   # No Tests
   doCheck = false;

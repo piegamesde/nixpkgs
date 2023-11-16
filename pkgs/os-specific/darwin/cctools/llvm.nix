@@ -1,7 +1,14 @@
 # Create a cctools-compatible bintools that uses equivalent tools from LLVM in place of the ones
 # from cctools when possible.
 
-{ lib, stdenv, makeWrapper, cctools-port, llvmPackages, enableManpages ? true }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  cctools-port,
+  llvmPackages,
+  enableManpages ? true,
+}:
 
 let
   cctoolsVersion = lib.getVersion cctools-port;
@@ -18,51 +25,55 @@ let
   # not appear to have issues, but the source is not available yet (as of June 2023).
   useLLVMStrip = lib.versionAtLeast llvmVersion "15" || lib.versionAtLeast cctoolsVersion "1005.2";
 
-  llvm_bins = [
-    "dwarfdump"
-    "nm"
-    "objdump"
-    "size"
-    "strings"
-  ]
-  ++ lib.optional useLLVMBitcodeStrip "bitcode-strip"
-  ++ lib.optional useLLVMOtool "otool"
-  ++ lib.optional useLLVMStrip "strip";
+  llvm_bins =
+    [
+      "dwarfdump"
+      "nm"
+      "objdump"
+      "size"
+      "strings"
+    ]
+    ++ lib.optional useLLVMBitcodeStrip "bitcode-strip"
+    ++ lib.optional useLLVMOtool "otool"
+    ++ lib.optional useLLVMStrip "strip";
 
   # Only include the tools that LLVM doesn’t provide and that are present normally on Darwin.
   # The only exceptions are the following tools, which should be reevaluated when LLVM is bumped.
   # - install_name_tool (llvm-objcopy): unrecognized linker commands when building open source CF;
   # - libtool (llvm-libtool-darwin): not fully compatible when used with xcbuild; and
   # - lipo (llvm-lipo): crashes when running the LLVM test suite.
-  cctools_bins = [
-    "cmpdylib"
-    "codesign_allocate"
-    "ctf_insert"
-    "install_name_tool"
-    "ld"
-    "libtool"
-    "lipo"
-    "nmedit"
-    "pagestuff"
-    "ranlib"
-    "segedit"
-    "vtool"
-  ]
-  ++ lib.optional (!useLLVMBitcodeStrip) "bitcode_strip"
-  ++ lib.optional (!useLLVMOtool) "otool"
-  ++ lib.optional (!useLLVMStrip) "strip";
+  cctools_bins =
+    [
+      "cmpdylib"
+      "codesign_allocate"
+      "ctf_insert"
+      "install_name_tool"
+      "ld"
+      "libtool"
+      "lipo"
+      "nmedit"
+      "pagestuff"
+      "ranlib"
+      "segedit"
+      "vtool"
+    ]
+    ++ lib.optional (!useLLVMBitcodeStrip) "bitcode_strip"
+    ++ lib.optional (!useLLVMOtool) "otool"
+    ++ lib.optional (!useLLVMStrip) "strip";
 
   inherit (stdenv.cc) targetPrefix;
 
-  linkManPages = pkg: source: target: lib.optionalString enableManpages ''
-    sourcePath=${pkg}/share/man/man1/${source}.1.gz
-    targetPath=$man/share/man/man1/${target}.1.gz
+  linkManPages =
+    pkg: source: target:
+    lib.optionalString enableManpages ''
+      sourcePath=${pkg}/share/man/man1/${source}.1.gz
+      targetPath=$man/share/man/man1/${target}.1.gz
 
-    if [ -f "$sourcePath" ]; then
-      mkdir -p "$(dirname "$targetPath")"
-      ln -s "$sourcePath" "$targetPath"
-    fi
-  '';
+      if [ -f "$sourcePath" ]; then
+        mkdir -p "$(dirname "$targetPath")"
+        ln -s "$sourcePath" "$targetPath"
+      fi
+    '';
 in
 stdenv.mkDerivation {
   pname = "cctools-llvm";
@@ -71,7 +82,11 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ makeWrapper ];
 
   # The `man` output has to be included unconditionally because darwin.binutils expects it.
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   buildCommand = ''
     mkdir -p "$out/bin" "$man"
@@ -96,9 +111,11 @@ stdenv.mkDerivation {
     done
 
     ${linkManPages (lib.getMan cctools-port) "ld64" "ld64"}
-    ${lib.optionalString (!useLLVMOtool)  # The actual man page for otool in cctools is llvm-otool
+    ${lib.optionalString (!useLLVMOtool) # The actual man page for otool in cctools is llvm-otool
       (linkManPages (lib.getMan cctools-port) "llvm-otool" "llvm-otool")}
   '';
 
-  passthru = { inherit targetPrefix; };
+  passthru = {
+    inherit targetPrefix;
+  };
 }

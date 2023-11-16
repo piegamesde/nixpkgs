@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "temporal_tables";
@@ -7,9 +12,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ postgresql ];
 
   src = fetchFromGitHub {
-    owner  = "arkhipov";
-    repo   = pname;
-    rev    = "3ce22da51f2549e8f8b8fbf2850c63eb3a2f1fbb";
+    owner = "arkhipov";
+    repo = pname;
+    rev = "3ce22da51f2549e8f8b8fbf2850c63eb3a2f1fbb";
     sha256 = "sha256-kmcl6vVHRZj2G5GijEyaZgDpZBDcdIUKzXv0rYYqUu4=";
   };
 
@@ -23,9 +28,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Temporal Tables PostgreSQL Extension ";
-    homepage    = "https://github.com/mlt/temporal_tables";
+    homepage = "https://github.com/mlt/temporal_tables";
     maintainers = with maintainers; [ ggpeti ];
-    platforms   = postgresql.meta.platforms;
-    license     = licenses.bsd2;
+    platforms = postgresql.meta.platforms;
+    license = licenses.bsd2;
   };
 }

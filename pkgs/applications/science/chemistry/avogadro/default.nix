@@ -1,4 +1,18 @@
-{ lib, stdenv, fetchurl, cmake, qt4, zlib, eigen, openbabel, pkg-config, libGLU, libGL, libX11, doxygen }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  qt4,
+  zlib,
+  eigen,
+  openbabel,
+  pkg-config,
+  libGLU,
+  libGL,
+  libX11,
+  doxygen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avogadro";
@@ -9,9 +23,21 @@ stdenv.mkDerivation rec {
     sha256 = "050ag9p4vg7jg8hj1wqfv7lsm6ar2isxjw2vw85s49vsl7g7nvzy";
   };
 
-  buildInputs = [ qt4 eigen zlib openbabel libGL libGLU libX11 ];
+  buildInputs = [
+    qt4
+    eigen
+    zlib
+    openbabel
+    libGL
+    libGLU
+    libX11
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config doxygen ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    doxygen
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-include ${libGLU.dev}/include/GL/glu.h";
 

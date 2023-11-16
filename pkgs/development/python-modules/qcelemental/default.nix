@@ -1,13 +1,14 @@
-{ stdenv
-, buildPythonPackage
-, lib
-, fetchPypi
-, networkx
-, numpy
-, pint
-, pydantic
-, pytestCheckHook
-, pythonOlder
+{
+  stdenv,
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  networkx,
+  numpy,
+  pint,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -29,13 +30,9 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "qcelemental"
-  ];
+  pythonImportsCheck = [ "qcelemental" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

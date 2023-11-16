@@ -1,27 +1,28 @@
-{ lib
-, appdirs
-, attrs
-, buildPythonPackage
-, bson
-, boto3
-, botocore
-, cattrs
-, exceptiongroup
-, fetchFromGitHub
-, itsdangerous
-, poetry-core
-, pymongo
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, redis
-, requests
-, requests-mock
-, rich
-, timeout-decorator
-, ujson
-, urllib3
-, url-normalize
+{
+  lib,
+  appdirs,
+  attrs,
+  buildPythonPackage,
+  bson,
+  boto3,
+  botocore,
+  cattrs,
+  exceptiongroup,
+  fetchFromGitHub,
+  itsdangerous,
+  poetry-core,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  redis,
+  requests,
+  requests-mock,
+  rich,
+  timeout-decorator,
+  ujson,
+  urllib3,
+  url-normalize,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-Xbzbwz80xY8IDPDhZEUhmmiCFJZvSQMQ6EmE4EL7QGo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     appdirs
@@ -57,24 +56,12 @@ buildPythonPackage rec {
       boto3
       botocore
     ];
-    mongodbo = [
-      pymongo
-    ];
-    redis = [
-      redis
-    ];
-    bson = [
-      bson
-    ];
-    json = [
-      ujson
-    ];
-    security = [
-      itsdangerous
-    ];
-    yaml = [
-      pyyaml
-    ];
+    mongodbo = [ pymongo ];
+    redis = [ redis ];
+    bson = [ bson ];
+    json = [ ujson ];
+    security = [ itsdangerous ];
+    yaml = [ pyyaml ];
   };
 
   nativeCheckInputs = [
@@ -82,27 +69,25 @@ buildPythonPackage rec {
     requests-mock
     rich
     timeout-decorator
-  ]
-  ++ passthru.optional-dependencies.json
-  ++ passthru.optional-dependencies.security;
+  ] ++ passthru.optional-dependencies.json ++ passthru.optional-dependencies.security;
 
   preCheck = ''
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray = [
-    # Integration tests require local DBs
-    "tests/unit"
-  ];
+  pytestFlagsArray =
+    [
+      # Integration tests require local DBs
+      "tests/unit"
+    ];
 
-  disabledTests = [
-    # Tests are flaky in the sandbox
-    "test_remove_expired_responses"
-  ];
+  disabledTests =
+    [
+      # Tests are flaky in the sandbox
+      "test_remove_expired_responses"
+    ];
 
-  pythonImportsCheck = [
-    "requests_cache"
-  ];
+  pythonImportsCheck = [ "requests_cache" ];
 
   meta = with lib; {
     description = "Persistent cache for requests library";

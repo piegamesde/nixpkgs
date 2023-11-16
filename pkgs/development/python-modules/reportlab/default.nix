@@ -1,16 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, freetype
-, pillow
-, glibcLocales
-, python
-, isPyPy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  freetype,
+  pillow,
+  glibcLocales,
+  python,
+  isPyPy,
 }:
 
 let
   ft = freetype.overrideAttrs (oldArgs: { dontDisableStatic = true; });
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "reportlab";
   version = "3.6.13";
 
@@ -19,9 +21,7 @@ in buildPythonPackage rec {
     hash = "sha256-b3XTP3o3IM9HNxq2PO0PDr0a622xk4aukviXegm+lhE=";
   };
 
-  patches = [
-    ./darwin-m1-compat.patch
-  ];
+  patches = [ ./darwin-m1-compat.patch ];
 
   nativeCheckInputs = [ glibcLocales ];
 

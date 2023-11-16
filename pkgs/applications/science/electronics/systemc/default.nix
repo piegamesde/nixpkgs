@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "systemc";
@@ -11,8 +15,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The language for System-level design, modeling and verification";
-    homepage    = "https://systemc.org/";
-    license     = licenses.asl20;
+    homepage = "https://systemc.org/";
+    license = licenses.asl20;
     maintainers = with maintainers; [ victormignot ];
   };
 }

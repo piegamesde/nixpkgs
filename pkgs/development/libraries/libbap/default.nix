@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, bap, ocaml, findlib, ctypes, autoreconfHook,
-  which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bap,
+  ocaml,
+  findlib,
+  ctypes,
+  autoreconfHook,
+  which,
+}:
 
 stdenv.mkDerivation {
   pname = "libbap";
@@ -17,8 +26,16 @@ stdenv.mkDerivation {
       --replace "-linkpkg" "-thread -linkpkg"
   '';
 
-  nativeBuildInputs = [ autoreconfHook which ocaml findlib ];
-  buildInputs = [ bap ctypes ];
+  nativeBuildInputs = [
+    autoreconfHook
+    which
+    ocaml
+    findlib
+  ];
+  buildInputs = [
+    bap
+    ctypes
+  ];
 
   preInstall = ''
     mkdir -p $out/lib

@@ -1,7 +1,8 @@
-{ buildDunePackage
-, fetchurl
-, ppx_expect
-, lib
+{
+  buildDunePackage,
+  fetchurl,
+  ppx_expect,
+  lib,
 }:
 
 buildDunePackage rec {

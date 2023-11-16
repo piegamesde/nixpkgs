@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, asgiref
-, click
-, importlib-metadata
-, itsdangerous
-, jinja2
-, python-dotenv
-, werkzeug
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  asgiref,
+  click,
+  importlib-metadata,
+  itsdangerous,
+  jinja2,
+  python-dotenv,
+  werkzeug,
+  pytestCheckHook,
+  pythonOlder,
   # used in passthru.tests
-, flask-limiter
-, flask-restful
-, flask-restx
-, moto
+  flask-limiter,
+  flask-restful,
+  flask-restx,
+  moto,
 }:
 
 buildPythonPackage rec {
@@ -34,12 +35,15 @@ buildPythonPackage rec {
     werkzeug
   ] ++ lib.optional (pythonOlder "3.10") importlib-metadata;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   passthru.tests = {
-    inherit flask-limiter flask-restful flask-restx moto;
+    inherit
+      flask-limiter
+      flask-restful
+      flask-restx
+      moto
+    ;
   };
   passthru.optional-dependencies = {
     dotenv = [ python-dotenv ];

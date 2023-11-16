@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 
-# propagates
-, packaging
+  # propagates
+  packaging,
 
-# tests
-, pyqt5
-, pyside
-, pytestCheckHook
+  # tests
+  pyqt5,
+  pyside,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-BgPJyDzMA1pHF6EpCL9rxssiUJgn6i7A6Uwtp8ntV8U=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-  ];
+  propagatedBuildInputs = [ packaging ];
 
   doCheck = false; # ModuleNotFoundError: No module named 'PyQt5.QtConnectivity'
   nativeCheckInputs = [
@@ -40,10 +39,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Fatal error in python on x86_64
-    "qtpy/tests/test_uic.py"
-  ];
+  disabledTestPaths =
+    [
+      # Fatal error in python on x86_64
+      "qtpy/tests/test_uic.py"
+    ];
 
   meta = with lib; {
     description = "Abstraction layer for PyQt5/PyQt6/PySide2/PySide6";

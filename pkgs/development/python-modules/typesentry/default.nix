@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, colorama
-, pytest
-, pytest-cov
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  colorama,
+  pytest,
+  pytest-cov,
 }:
 
 buildPythonPackage {
@@ -19,7 +20,10 @@ buildPythonPackage {
   };
 
   propagatedBuildInputs = [ colorama ];
-  nativeCheckInputs = [ pytest pytest-cov ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+  ];
   checkPhase = ''
     pytest
   '';

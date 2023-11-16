@@ -1,18 +1,19 @@
-{ lib
-, fetchFromGitHub
-, buildDunePackage
-, base64
-, omd
-, menhir
-, ott
-, linenoise
-, dune-site
-, pprint
-, makeWrapper
-, lem
-, z3
-, linksem
-, num
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  base64,
+  omd,
+  menhir,
+  ott,
+  linenoise,
+  dune-site,
+  pprint,
+  makeWrapper,
+  lem,
+  z3,
+  linksem,
+  num,
 }:
 
 buildDunePackage rec {

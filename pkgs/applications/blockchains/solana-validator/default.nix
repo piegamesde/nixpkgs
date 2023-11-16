@@ -1,19 +1,20 @@
 # largely inspired from https://github.com/saber-hq/saber-overlay/blob/master/packages/solana/solana.nix
 
-{ stdenv
-, fetchFromGitHub
-, lib
-, rustPlatform
-, pkg-config
-, udev
-, zlib
-, protobuf
-, openssl
-, libclang
-, rustfmt
-, perl
-, hidapi
-, solanaPkgs ? [
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
+  pkg-config,
+  udev,
+  zlib,
+  protobuf,
+  openssl,
+  libclang,
+  rustfmt,
+  perl,
+  hidapi,
+  solanaPkgs ? [
     "solana"
     "solana-bench-tps"
     "solana-faucet"
@@ -33,11 +34,12 @@
     "solana-test-validator"
     "solana-tokens"
     "solana-watchtower"
-  ] ++ [
-    # XXX: Ensure `solana-genesis` is built LAST!
-    # See https://github.com/solana-labs/solana/issues/5826
-    "solana-genesis"
   ]
+    ++ [
+      # XXX: Ensure `solana-genesis` is built LAST!
+      # See https://github.com/solana-labs/solana/issues/5826
+      "solana-genesis"
+    ],
 }:
 let
   pinData = lib.importJSON ./pin.json;
@@ -64,9 +66,19 @@ rustPlatform.buildRustPackage rec {
   # weird errors. see https://github.com/NixOS/nixpkgs/issues/52447#issuecomment-852079285
   # LLVM_CONFIG_PATH = "${llvm}/bin/llvm-config";
 
-  nativeBuildInputs = [ pkg-config protobuf rustfmt perl rustPlatform.bindgenHook ];
-  buildInputs =
-    [ openssl zlib libclang hidapi ] ++ (lib.optionals stdenv.isLinux [ udev ]);
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+    rustfmt
+    perl
+    rustPlatform.bindgenHook
+  ];
+  buildInputs = [
+    openssl
+    zlib
+    libclang
+    hidapi
+  ] ++ (lib.optionals stdenv.isLinux [ udev ]);
   strictDeps = true;
 
   doCheck = false;

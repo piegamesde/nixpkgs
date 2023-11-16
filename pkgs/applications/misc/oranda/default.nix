@@ -1,14 +1,15 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, bzip2
-, oniguruma
-, openssl
-, xz
-, zstd
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  oniguruma,
+  openssl,
+  xz,
+  zstd,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,9 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-dAnZc1VvOubfn7mnpttaB6FotN3Xc+t9Qn0n5uzv1Qg=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     bzip2
@@ -34,14 +33,10 @@ rustPlatform.buildRustPackage rec {
     openssl
     xz
     zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   # requires internet access
-  checkFlags = [
-    "--skip=build"
-  ];
+  checkFlags = [ "--skip=build" ];
 
   env = {
     RUSTONIG_SYSTEM_LIBONIG = true;
@@ -52,7 +47,10 @@ rustPlatform.buildRustPackage rec {
     description = "Generate beautiful landing pages for your developer tools";
     homepage = "https://github.com/axodotdev/oranda";
     changelog = "https://github.com/axodotdev/oranda/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

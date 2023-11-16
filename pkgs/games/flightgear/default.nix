@@ -1,8 +1,38 @@
-{ lib, stdenv, fetchurl, wrapQtAppsHook
-, freeglut, freealut, libGLU, libGL, libICE, libjpeg, openal, openscenegraph, plib
-, libSM, libunwind, libX11, xorgproto, libXext, libXi
-, libXmu, libXt, simgear, zlib, boost, cmake, libpng, udev, fltk13, apr
-, makeDesktopItem, qtbase, qtdeclarative, glew, curl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  wrapQtAppsHook,
+  freeglut,
+  freealut,
+  libGLU,
+  libGL,
+  libICE,
+  libjpeg,
+  openal,
+  openscenegraph,
+  plib,
+  libSM,
+  libunwind,
+  libX11,
+  xorgproto,
+  libXext,
+  libXi,
+  libXmu,
+  libXt,
+  simgear,
+  zlib,
+  boost,
+  cmake,
+  libpng,
+  udev,
+  fltk13,
+  apr,
+  makeDesktopItem,
+  qtbase,
+  qtdeclarative,
+  glew,
+  curl,
 }:
 
 let
@@ -49,15 +79,45 @@ stdenv.mkDerivation rec {
     comment = "FlightGear Flight Simulator";
     desktopName = "FlightGear";
     genericName = "Flight simulator";
-    categories = [ "Game" "Simulation" ];
+    categories = [
+      "Game"
+      "Simulation"
+    ];
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
   buildInputs = [
-    freeglut freealut libGLU libGL libICE libjpeg openal openscenegraph plib
-    libSM libunwind libX11 xorgproto libXext libXi
-    libXmu libXt simgear zlib boost libpng udev fltk13 apr qtbase
-    glew qtdeclarative curl
+    freeglut
+    freealut
+    libGLU
+    libGL
+    libICE
+    libjpeg
+    openal
+    openscenegraph
+    plib
+    libSM
+    libunwind
+    libX11
+    xorgproto
+    libXext
+    libXi
+    libXmu
+    libXt
+    simgear
+    zlib
+    boost
+    libpng
+    udev
+    fltk13
+    apr
+    qtbase
+    glew
+    qtdeclarative
+    curl
   ];
 
   postInstall = ''
@@ -65,15 +125,13 @@ stdenv.mkDerivation rec {
     cp "${desktopItem}"/share/applications/* "$out/share/applications/" #*/
   '';
 
-  qtWrapperArgs = [
-    "--set FG_ROOT ${data}/share/FlightGear"
-  ];
+  qtWrapperArgs = [ "--set FG_ROOT ${data}/share/FlightGear" ];
 
   meta = with lib; {
     description = "Flight simulator";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
-    hydraPlatforms = []; # disabled from hydra because it's so big
+    hydraPlatforms = [ ]; # disabled from hydra because it's so big
     license = licenses.gpl2;
   };
 }

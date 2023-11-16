@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, flaky
-, hatchling
-, opentelemetry-api
-, opentelemetry-semantic-conventions
-, opentelemetry-test-utils
-, setuptools
-, typing-extensions
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  flaky,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-semantic-conventions,
+  opentelemetry-test-utils,
+  setuptools,
+  typing-extensions,
+  pytestCheckHook,
 }:
 
 let
@@ -18,19 +19,19 @@ let
     version = "1.18.0";
     disabled = pythonOlder "3.7";
 
-    src = fetchFromGitHub {
-      owner = "open-telemetry";
-      repo = "opentelemetry-python";
-      rev = "refs/tags/v${self.version}";
-      hash = "sha256-YMFSmzuvm/VA9Fpe7pbF9mnGQHOQpobWMb1iGRt+d3w=";
-      sparseCheckout = [ "/${self.pname}" ];
-    } + "/${self.pname}";
+    src =
+      fetchFromGitHub {
+        owner = "open-telemetry";
+        repo = "opentelemetry-python";
+        rev = "refs/tags/v${self.version}";
+        hash = "sha256-YMFSmzuvm/VA9Fpe7pbF9mnGQHOQpobWMb1iGRt+d3w=";
+        sparseCheckout = [ "/${self.pname}" ];
+      }
+      + "/${self.pname}";
 
     format = "pyproject";
 
-    nativeBuildInputs = [
-      hatchling
-    ];
+    nativeBuildInputs = [ hatchling ];
 
     propagatedBuildInputs = [
       opentelemetry-api
@@ -45,9 +46,7 @@ let
       pytestCheckHook
     ];
 
-    disabledTestPaths = [
-      "tests/performance/benchmarks/"
-    ];
+    disabledTestPaths = [ "tests/performance/benchmarks/" ];
 
     pythonImportsCheck = [ "opentelemetry.sdk" ];
 
@@ -63,4 +62,5 @@ let
       maintainers = teams.deshaw.members;
     };
   };
-in self
+in
+self

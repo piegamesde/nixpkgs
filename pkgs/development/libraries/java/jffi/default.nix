@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, jdk, jre, ant, libffi, texinfo, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  jre,
+  ant,
+  libffi,
+  texinfo,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jffi";
@@ -11,8 +21,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fZnZH2j/IXbfsJkJG8s2ArOrWwVE2kgvSREVaSVoDyo=";
   };
 
-  nativeBuildInputs = [ jdk ant texinfo pkg-config ];
-  buildInputs = [ libffi ] ;
+  nativeBuildInputs = [
+    jdk
+    ant
+    texinfo
+    pkg-config
+  ];
+  buildInputs = [ libffi ];
 
   buildPhase = ''
     # The pkg-config script in the build.xml doesn't work propery

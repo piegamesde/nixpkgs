@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, pythonOlder
-, pytestCheckHook
-, setuptools
-, torch
-, einops
-, lion-pytorch
-, scipy
-, symlinkJoin
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
+  torch,
+  einops,
+  lion-pytorch,
+  scipy,
+  symlinkJoin,
 }:
 
 let
@@ -31,17 +32,19 @@ let
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths = with cudaPackages; [
-      cuda_cudart # cuda_runtime.h cuda_runtime_api.h
-      cuda_nvcc
-    ] ++ cuda-common-redist;
+    paths =
+      with cudaPackages;
+      [
+        cuda_cudart # cuda_runtime.h cuda_runtime_api.h
+        cuda_nvcc
+      ]
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
   };
-
 in
 buildPythonPackage {
   inherit pname version;
@@ -56,38 +59,44 @@ buildPythonPackage {
     hash = "sha256-gGlbzTDvZNo4MhcYzLvWuB2ec7q+Qt5/LtTbJ0Rc+Kk=";
   };
 
-  postPatch = ''
-    substituteInPlace Makefile --replace "/usr/bin/g++" "g++" --replace "lib64" "lib"
-    substituteInPlace bitsandbytes/cuda_setup/main.py  \
-      --replace "binary_path = package_dir / binary_name"  \
-                "binary_path = Path('$out/${python.sitePackages}/${pname}')/binary_name"
-  '' + lib.optionalString torch.cudaSupport ''
-    substituteInPlace bitsandbytes/cuda_setup/main.py  \
-      --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
-  '';
+  postPatch =
+    ''
+      substituteInPlace Makefile --replace "/usr/bin/g++" "g++" --replace "lib64" "lib"
+      substituteInPlace bitsandbytes/cuda_setup/main.py  \
+        --replace "binary_path = package_dir / binary_name"  \
+                  "binary_path = Path('$out/${python.sitePackages}/${pname}')/binary_name"
+    ''
+    + lib.optionalString torch.cudaSupport ''
+      substituteInPlace bitsandbytes/cuda_setup/main.py  \
+        --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
+    '';
 
   CUDA_HOME = "${cuda-native-redist}";
 
-  preBuild = if torch.cudaSupport then
-    with torch.cudaPackages;
-    let cudaVersion = lib.concatStrings (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion); in
-    ''make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x''
-  else
-    ''make CUDA_VERSION=CPU cpuonly'';
+  preBuild =
+    if torch.cudaSupport then
+      with torch.cudaPackages;
+      let
+        cudaVersion = lib.concatStrings (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
+      in
+      "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
+    else
+      "make CUDA_VERSION=CPU cpuonly";
 
   nativeBuildInputs = [ setuptools ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
   buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
 
-  propagatedBuildInputs = [
-    torch
+  propagatedBuildInputs = [ torch ];
+
+  doCheck = false; # tests require CUDA and also GPU access
+  nativeCheckInputs = [
+    pytestCheckHook
+    einops
+    lion-pytorch
+    scipy
   ];
 
-  doCheck = false;  # tests require CUDA and also GPU access
-  nativeCheckInputs = [ pytestCheckHook einops lion-pytorch scipy ];
-
-  pythonImportsCheck = [
-    "bitsandbytes"
-  ];
+  pythonImportsCheck = [ "bitsandbytes" ];
 
   meta = with lib; {
     homepage = "https://github.com/TimDettmers/bitsandbytes";

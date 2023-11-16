@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, postgresql, getopt, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  postgresql,
+  getopt,
+  makeWrapper,
+}:
 stdenv.mkDerivation rec {
   pname = "ephemeralpg";
   version = "3.1";
@@ -10,7 +17,12 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out
     PREFIX=$out make install
-    wrapProgram $out/bin/pg_tmp --prefix PATH : ${lib.makeBinPath [ postgresql getopt ]}
+    wrapProgram $out/bin/pg_tmp --prefix PATH : ${
+      lib.makeBinPath [
+        postgresql
+        getopt
+      ]
+    }
   '';
   meta = with lib; {
     description = "Run tests on an isolated, temporary PostgreSQL database";

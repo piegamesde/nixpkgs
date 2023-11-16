@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "reuse";
@@ -12,9 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-J+zQrokrAX5tRU/2RPPSaFDyfsACPHHQYbK5sO99CMs=";
   };
 
-  nativeBuildInputs = with python3Packages; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3Packages; [ poetry-core ];
 
   propagatedBuildInputs = with python3Packages; [
     binaryornot
@@ -31,7 +33,15 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "A tool for compliance with the REUSE Initiative recommendations";
     homepage = "https://github.com/fsfe/reuse-tool";
-    license = with licenses; [ asl20 cc-by-sa-40 cc0 gpl3Plus ];
-    maintainers = with maintainers; [ FlorianFranzen Luflosi ];
+    license = with licenses; [
+      asl20
+      cc-by-sa-40
+      cc0
+      gpl3Plus
+    ];
+    maintainers = with maintainers; [
+      FlorianFranzen
+      Luflosi
+    ];
   };
 }

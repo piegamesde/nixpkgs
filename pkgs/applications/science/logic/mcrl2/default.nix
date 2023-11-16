@@ -1,4 +1,13 @@
-{lib, stdenv, fetchurl, cmake, libGLU, libGL, qt5, boost}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  libGLU,
+  libGL,
+  qt5,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   version = "202206";
@@ -11,7 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libGLU libGL qt5.qtbase boost ];
+  buildInputs = [
+    libGLU
+    libGL
+    qt5.qtbase
+    boost
+  ];
 
   dontWrapQtApps = true;
 

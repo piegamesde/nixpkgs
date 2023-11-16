@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-xprocess
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-xprocess,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,10 +24,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # requires set up local server
-    "tests/test_dynamodb_cache.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires set up local server
+      "tests/test_dynamodb_cache.py"
+    ];
 
   pythonImportsCheck = [ "cachelib" ];
 

@@ -1,15 +1,37 @@
-{ lib, stdenv, fetchurl, pkg-config, meson, ninja, python3, gtk3, glibmm, cairomm, pangomm, atkmm, libepoxy, gnome, glib, gdk-pixbuf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  python3,
+  gtk3,
+  glibmm,
+  cairomm,
+  pangomm,
+  atkmm,
+  libepoxy,
+  gnome,
+  glib,
+  gdk-pixbuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtkmm";
   version = "3.24.7";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "HXo1r5xc7MrLJE7jwt65skVyDYUQrFx+b0tvmUfmeJw=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -21,7 +43,13 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ libepoxy ];
 
-  propagatedBuildInputs = [ glibmm gtk3 atkmm cairomm pangomm ];
+  propagatedBuildInputs = [
+    glibmm
+    gtk3
+    atkmm
+    cairomm
+    pangomm
+  ];
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=764521
   doCheck = false;

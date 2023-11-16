@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "s5";
@@ -13,9 +17,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/${pname}" ];
 
-  ldflags = [
-    "-X main.version=v${version}"
-  ];
+  ldflags = [ "-X main.version=v${version}" ];
 
   vendorSha256 = "TrCIUeY0B+BsWNaUkDTEgrEaWfJKnID2mafj3ink+i8=";
   doCheck = true;

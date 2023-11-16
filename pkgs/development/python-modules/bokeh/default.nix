@@ -1,33 +1,34 @@
-{ buildPythonPackage
-, fetchPypi
-, futures ? null
-, isPy27
-, isPyPy
-, jinja2
-, lib
-, mock
-, numpy
-, nodejs
-, packaging
-, pillow
-#, pytestCheckHook#
-, pytest
-, python-dateutil
-, pyyaml
-, selenium
-, six
-, substituteAll
-, tornado
-, typing-extensions
-, pytz
-, flaky
-, networkx
-, beautifulsoup4
-, requests
-, nbconvert
-, icalendar
-, pandas
-, pythonImportsCheckHook
+{
+  buildPythonPackage,
+  fetchPypi,
+  futures ? null,
+  isPy27,
+  isPyPy,
+  jinja2,
+  lib,
+  mock,
+  numpy,
+  nodejs,
+  packaging,
+  pillow,
+  #, pytestCheckHook#
+  pytest,
+  python-dateutil,
+  pyyaml,
+  selenium,
+  six,
+  substituteAll,
+  tornado,
+  typing-extensions,
+  pytz,
+  flaky,
+  networkx,
+  beautifulsoup4,
+  requests,
+  nbconvert,
+  icalendar,
+  pandas,
+  pythonImportsCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -50,13 +51,9 @@ buildPythonPackage rec {
 
   disabled = isPyPy || isPy27;
 
-  nativeBuildInputs = [
-    pythonImportsCheckHook
-  ];
+  nativeBuildInputs = [ pythonImportsCheckHook ];
 
-  pythonImportsCheck = [
-    "bokeh"
-  ];
+  pythonImportsCheck = [ "bokeh" ];
 
   nativeCheckInputs = [
     mock
@@ -83,10 +80,7 @@ buildPythonPackage rec {
     numpy
     packaging
     typing-extensions
-  ]
-  ++ lib.optionals ( isPy27 ) [
-    futures
-  ];
+  ] ++ lib.optionals (isPy27) [ futures ];
 
   # This test suite is a complete pain. Somehow it can't find its fixtures.
   doCheck = false;

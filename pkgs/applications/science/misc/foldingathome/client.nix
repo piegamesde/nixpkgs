@@ -1,12 +1,14 @@
-{ lib, stdenv
-, autoPatchelfHook
-, buildFHSEnv
-, dpkg
-, fetchurl
-, gcc-unwrapped
-, ocl-icd
-, zlib
-, extraPkgs ? []
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  buildFHSEnv,
+  dpkg,
+  fetchurl,
+  gcc-unwrapped,
+  ocl-icd,
+  zlib,
+  extraPkgs ? [ ],
 }:
 let
   majMin = lib.versions.majorMinor version;
@@ -38,10 +40,13 @@ in
 buildFHSEnv {
   name = fahclient.name;
 
-  targetPkgs = pkgs': [
-    fahclient
-    ocl-icd
-  ] ++ extraPkgs;
+  targetPkgs =
+    pkgs':
+    [
+      fahclient
+      ocl-icd
+    ]
+    ++ extraPkgs;
 
   runScript = "/bin/FAHClient";
 

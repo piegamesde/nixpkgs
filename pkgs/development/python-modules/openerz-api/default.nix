@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-, testfixtures
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  testfixtures,
 }:
 
 buildPythonPackage rec {
@@ -21,23 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-6q0mKWyTTlNJ/DCeAsck1meM5dQovYBcV2EqmjlABvc=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   nativeCheckInputs = [
     pytestCheckHook
     testfixtures
   ];
 
-  pythonImportsCheck = [
-    "openerz_api"
-  ];
+  pythonImportsCheck = [ "openerz_api" ];
 
-  disabledTests = [
-    # Assertion issue
-    "test_sensor_make_api_request"
-  ];
+  disabledTests =
+    [
+      # Assertion issue
+      "test_sensor_make_api_request"
+    ];
 
   meta = with lib; {
     description = "Python module to interact with the OpenERZ API";

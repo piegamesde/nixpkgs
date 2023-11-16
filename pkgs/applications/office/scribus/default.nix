@@ -1,28 +1,29 @@
-{ boost
-, cairo
-, cmake
-, cups
-, fetchurl
-, fetchpatch
-, fontconfig
-, freetype
-, harfbuzzFull
-, hunspell
-, lcms2
-, libjpeg
-, libtiff
-, libxml2
-, mkDerivation
-, pixman
-, pkg-config
-, podofo
-, poppler
-, poppler_data
-, python3
-, qtbase
-, qtimageformats
-, qttools
-, lib
+{
+  boost,
+  cairo,
+  cmake,
+  cups,
+  fetchurl,
+  fetchpatch,
+  fontconfig,
+  freetype,
+  harfbuzzFull,
+  hunspell,
+  lcms2,
+  libjpeg,
+  libtiff,
+  libxml2,
+  mkDerivation,
+  pixman,
+  pkg-config,
+  podofo,
+  poppler,
+  poppler_data,
+  python3,
+  qtbase,
+  qtimageformats,
+  qttools,
+  lib,
 }:
 
 let
@@ -97,10 +98,11 @@ mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags = [
-    # poppler uses std::optional
-    "-DWANT_CPP17=ON"
-  ];
+  cmakeFlags =
+    [
+      # poppler uses std::optional
+      "-DWANT_CPP17=ON"
+    ];
 
   meta = with lib; {
     maintainers = with maintainers; [

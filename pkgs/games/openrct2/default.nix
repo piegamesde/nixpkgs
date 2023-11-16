@@ -1,30 +1,31 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 
-, SDL2
-, cmake
-, curl
-, discord-rpc
-, duktape
-, flac
-, fontconfig
-, freetype
-, gbenchmark
-, icu
-, jansson
-, libGLU
-, libiconv
-, libogg
-, libpng
-, libpthreadstubs
-, libvorbis
-, libzip
-, nlohmann_json
-, openssl
-, pkg-config
-, speexdsp
-, zlib
+  SDL2,
+  cmake,
+  curl,
+  discord-rpc,
+  duktape,
+  flac,
+  fontconfig,
+  freetype,
+  gbenchmark,
+  icu,
+  jansson,
+  libGLU,
+  libiconv,
+  libogg,
+  libpng,
+  libpthreadstubs,
+  libvorbis,
+  libzip,
+  nlohmann_json,
+  openssl,
+  pkg-config,
+  speexdsp,
+  zlib,
 }:
 
 let
@@ -114,10 +115,12 @@ stdenv.mkDerivation {
     "-DDOWNLOAD_TITLE_SEQUENCES=OFF"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    # Needed with GCC 12
-    "-Wno-error=maybe-uninitialized"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString
+      [
+        # Needed with GCC 12
+        "-Wno-error=maybe-uninitialized"
+      ];
 
   postUnpack = ''
     mkdir -p $sourceRoot/data/assetpack
@@ -130,21 +133,24 @@ stdenv.mkDerivation {
 
   preConfigure =
     # Verify that the correct version of each third party repository is used.
-    (let
-      versionCheck = cmakeKey: version: ''
-        grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
-          || (echo "${cmakeKey} differs from expected version!"; exit 1)
-      '';
-    in
-    (versionCheck "OBJECTS" objects-version) +
-    (versionCheck "OPENMSX" openmsx-version) +
-    (versionCheck "OPENSFX" opensfx-version) +
-    (versionCheck "TITLE_SEQUENCE" title-sequences-version)) +
+    (
+      let
+        versionCheck = cmakeKey: version: ''
+          grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
+            || (echo "${cmakeKey} differs from expected version!"; exit 1)
+        '';
+      in
+      (versionCheck "OBJECTS" objects-version)
+      + (versionCheck "OPENMSX" openmsx-version)
+      + (versionCheck "OPENSFX" opensfx-version)
+      + (versionCheck "TITLE_SEQUENCE" title-sequences-version)
+    )
+    +
 
-    # Fixup FS rights for the cmake setup-hook in the OPENMSX subsystem
-    ''
-      chmod -R +w ./data/assetpack/openrct2.music.alternative.parkap/musictools
-    '';
+      # Fixup FS rights for the cmake setup-hook in the OPENMSX subsystem
+      ''
+        chmod -R +w ./data/assetpack/openrct2.music.alternative.parkap/musictools
+      '';
 
   preFixup = "ln -s $out/share/openrct2 $out/bin/data";
 

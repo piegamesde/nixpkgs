@@ -1,34 +1,68 @@
-{ stdenv, lib, makeDesktopItem
-, unzip, libsecret, libXScrnSaver, libxshmfence, buildPackages
-, atomEnv, at-spi2-atk, autoPatchelfHook
-, systemd, fontconfig, libdbusmenu, glib, buildFHSEnv, wayland
+{
+  stdenv,
+  lib,
+  makeDesktopItem,
+  unzip,
+  libsecret,
+  libXScrnSaver,
+  libxshmfence,
+  buildPackages,
+  atomEnv,
+  at-spi2-atk,
+  autoPatchelfHook,
+  systemd,
+  fontconfig,
+  libdbusmenu,
+  glib,
+  buildFHSEnv,
+  wayland,
 
-# Populate passthru.tests
-, tests
+  # Populate passthru.tests
+  tests,
 
-# needed to fix "Save as Root"
-, nodePackages, bash
+  # needed to fix "Save as Root"
+  nodePackages,
+  bash,
 
-# Attributes inherit from specific versions
-, version, src, meta, sourceRoot, commandLineArgs
-, executableName, longName, shortName, pname, updateScript
-, dontFixup ? false
-# sourceExecutableName is the name of the binary in the source archive, over
-# which we have no control
-, sourceExecutableName ? executableName
+  # Attributes inherit from specific versions
+  version,
+  src,
+  meta,
+  sourceRoot,
+  commandLineArgs,
+  executableName,
+  longName,
+  shortName,
+  pname,
+  updateScript,
+  dontFixup ? false,
+  # sourceExecutableName is the name of the binary in the source archive, over
+  # which we have no control
+  sourceExecutableName ? executableName,
 
-, useVSCodeRipgrep ? false
-, ripgrep
+  useVSCodeRipgrep ? false,
+  ripgrep,
 }:
 
 let
   unwrapped = stdenv.mkDerivation {
 
-    inherit pname version src sourceRoot dontFixup;
+    inherit
+      pname
+      version
+      src
+      sourceRoot
+      dontFixup
+    ;
 
     passthru = {
-      inherit executableName longName tests updateScript;
-      fhs = fhs {};
+      inherit
+        executableName
+        longName
+        tests
+        updateScript
+      ;
+      fhs = fhs { };
       fhsWithPackages = f: fhs { additionalPkgs = f; };
     };
 
@@ -41,8 +75,16 @@ let
       icon = "code";
       startupNotify = true;
       startupWMClass = shortName;
-      categories = [ "Utility" "TextEditor" "Development" "IDE" ];
-      mimeTypes = [ "text/plain" "inode/directory" ];
+      categories = [
+        "Utility"
+        "TextEditor"
+        "Development"
+        "IDE"
+      ];
+      mimeTypes = [
+        "text/plain"
+        "inode/directory"
+      ];
       keywords = [ "vscode" ];
       actions.new-empty-window = {
         name = "New Empty Window";
@@ -59,18 +101,32 @@ let
       exec = executableName + " --open-url %U";
       icon = "code";
       startupNotify = true;
-      categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+      categories = [
+        "Utility"
+        "TextEditor"
+        "Development"
+        "IDE"
+      ];
       mimeTypes = [ "x-scheme-handler/vscode" ];
       keywords = [ "vscode" ];
       noDisplay = true;
     };
 
-    buildInputs = [ libsecret libXScrnSaver libxshmfence ]
-      ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
+    buildInputs = [
+      libsecret
+      libXScrnSaver
+      libxshmfence
+    ] ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
 
-    runtimeDependencies = lib.optionals stdenv.isLinux [ (lib.getLib systemd) fontconfig.lib libdbusmenu wayland ];
+    runtimeDependencies = lib.optionals stdenv.isLinux [
+      (lib.getLib systemd)
+      fontconfig.lib
+      libdbusmenu
+      wayland
+    ];
 
-    nativeBuildInputs = [ unzip ]
+    nativeBuildInputs =
+      [ unzip ]
       ++ lib.optionals stdenv.isLinux [
         autoPatchelfHook
         nodePackages.asar
@@ -82,36 +138,44 @@ let
     dontConfigure = true;
     noDumpEnvVars = true;
 
-    installPhase = ''
-      runHook preInstall
-    '' + (if stdenv.isDarwin then ''
-      mkdir -p "$out/Applications/${longName}.app" "$out/bin"
-      cp -r ./* "$out/Applications/${longName}.app"
-      ln -s "$out/Applications/${longName}.app/Contents/Resources/app/bin/${sourceExecutableName}" "$out/bin/${executableName}"
-    '' else ''
-      mkdir -p "$out/lib/vscode" "$out/bin"
-      cp -r ./* "$out/lib/vscode"
+    installPhase =
+      ''
+        runHook preInstall
+      ''
+      + (
+        if stdenv.isDarwin then
+          ''
+            mkdir -p "$out/Applications/${longName}.app" "$out/bin"
+            cp -r ./* "$out/Applications/${longName}.app"
+            ln -s "$out/Applications/${longName}.app/Contents/Resources/app/bin/${sourceExecutableName}" "$out/bin/${executableName}"
+          ''
+        else
+          ''
+            mkdir -p "$out/lib/vscode" "$out/bin"
+            cp -r ./* "$out/lib/vscode"
 
-      ln -s "$out/lib/vscode/bin/${sourceExecutableName}" "$out/bin/${executableName}"
+            ln -s "$out/lib/vscode/bin/${sourceExecutableName}" "$out/bin/${executableName}"
 
-      mkdir -p "$out/share/applications"
-      ln -s "$desktopItem/share/applications/${executableName}.desktop" "$out/share/applications/${executableName}.desktop"
-      ln -s "$urlHandlerDesktopItem/share/applications/${executableName}-url-handler.desktop" "$out/share/applications/${executableName}-url-handler.desktop"
+            mkdir -p "$out/share/applications"
+            ln -s "$desktopItem/share/applications/${executableName}.desktop" "$out/share/applications/${executableName}.desktop"
+            ln -s "$urlHandlerDesktopItem/share/applications/${executableName}-url-handler.desktop" "$out/share/applications/${executableName}-url-handler.desktop"
 
-      mkdir -p "$out/share/pixmaps"
-      cp "$out/lib/vscode/resources/app/resources/linux/code.png" "$out/share/pixmaps/code.png"
+            mkdir -p "$out/share/pixmaps"
+            cp "$out/lib/vscode/resources/app/resources/linux/code.png" "$out/share/pixmaps/code.png"
 
-      # Override the previously determined VSCODE_PATH with the one we know to be correct
-      sed -i "/ELECTRON=/iVSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}"
-      grep -q "VSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}" # check if sed succeeded
+            # Override the previously determined VSCODE_PATH with the one we know to be correct
+            sed -i "/ELECTRON=/iVSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}"
+            grep -q "VSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}" # check if sed succeeded
 
-      # Remove native encryption code, as it derives the key from the executable path which does not work for us.
-      # The credentials should be stored in a secure keychain already, so the benefit of this is questionable
-      # in the first place.
-      rm -rf $out/lib/vscode/resources/app/node_modules/vscode-encrypt
-    '') + ''
-      runHook postInstall
-    '';
+            # Remove native encryption code, as it derives the key from the executable path which does not work for us.
+            # The credentials should be stored in a secure keychain already, so the benefit of this is questionable
+            # in the first place.
+            rm -rf $out/lib/vscode/resources/app/node_modules/vscode-encrypt
+          ''
+      )
+      + ''
+        runHook postInstall
+      '';
 
     preFixup = ''
       gappsWrapperArgs+=(
@@ -124,32 +188,41 @@ let
 
     # See https://github.com/NixOS/nixpkgs/issues/49643#issuecomment-873853897
     # linux only because of https://github.com/NixOS/nixpkgs/issues/138729
-    postPatch = lib.optionalString stdenv.isLinux ''
-      # this is a fix for "save as root" functionality
-      packed="resources/app/node_modules.asar"
-      unpacked="resources/app/node_modules"
-      asar extract "$packed" "$unpacked"
-      substituteInPlace $unpacked/@vscode/sudo-prompt/index.js \
-        --replace "/usr/bin/pkexec" "/run/wrappers/bin/pkexec" \
-        --replace "/bin/bash" "${bash}/bin/bash"
-      rm -rf "$packed"
+    postPatch =
+      lib.optionalString stdenv.isLinux ''
+        # this is a fix for "save as root" functionality
+        packed="resources/app/node_modules.asar"
+        unpacked="resources/app/node_modules"
+        asar extract "$packed" "$unpacked"
+        substituteInPlace $unpacked/@vscode/sudo-prompt/index.js \
+          --replace "/usr/bin/pkexec" "/run/wrappers/bin/pkexec" \
+          --replace "/bin/bash" "${bash}/bin/bash"
+        rm -rf "$packed"
 
-      # without this symlink loading JsChardet, the library that is used for auto encoding detection when files.autoGuessEncoding is true,
-      # fails to load with: electron/js2c/renderer_init: Error: Cannot find module 'jschardet'
-      # and the window immediately closes which renders VSCode unusable
-      # see https://github.com/NixOS/nixpkgs/issues/152939 for full log
-      ln -rs "$unpacked" "$packed"
-    '' + (let
-      vscodeRipgrep = if stdenv.isDarwin then
-        "Contents/Resources/app/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg"
-      else
-        "resources/app/node_modules/@vscode/ripgrep/bin/rg";
-    in if !useVSCodeRipgrep then ''
-      rm ${vscodeRipgrep}
-      ln -s ${ripgrep}/bin/rg ${vscodeRipgrep}
-    '' else ''
-      chmod +x ${vscodeRipgrep}
-    '');
+        # without this symlink loading JsChardet, the library that is used for auto encoding detection when files.autoGuessEncoding is true,
+        # fails to load with: electron/js2c/renderer_init: Error: Cannot find module 'jschardet'
+        # and the window immediately closes which renders VSCode unusable
+        # see https://github.com/NixOS/nixpkgs/issues/152939 for full log
+        ln -rs "$unpacked" "$packed"
+      ''
+      + (
+        let
+          vscodeRipgrep =
+            if stdenv.isDarwin then
+              "Contents/Resources/app/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg"
+            else
+              "resources/app/node_modules/@vscode/ripgrep/bin/rg";
+        in
+        if !useVSCodeRipgrep then
+          ''
+            rm ${vscodeRipgrep}
+            ln -s ${ripgrep}/bin/rg ${vscodeRipgrep}
+          ''
+        else
+          ''
+            chmod +x ${vscodeRipgrep}
+          ''
+      );
 
     inherit meta;
   };
@@ -163,54 +236,61 @@ let
   #
   # buildFHSEnv allows for users to use the existing vscode
   # extension tooling without significant pain.
-  fhs = { additionalPkgs ? pkgs: [] }: buildFHSEnv {
-    # also determines the name of the wrapped command
-    name = executableName;
+  fhs =
+    {
+      additionalPkgs ? pkgs: [ ],
+    }:
+    buildFHSEnv {
+      # also determines the name of the wrapped command
+      name = executableName;
 
-    # additional libraries which are commonly needed for extensions
-    targetPkgs = pkgs: (with pkgs; [
-      # ld-linux-x86-64-linux.so.2 and others
-      glibc
+      # additional libraries which are commonly needed for extensions
+      targetPkgs =
+        pkgs:
+        (
+          with pkgs; [
+            # ld-linux-x86-64-linux.so.2 and others
+            glibc
 
-      # dotnet
-      curl
-      icu
-      libunwind
-      libuuid
-      lttng-ust
-      openssl
-      zlib
+            # dotnet
+            curl
+            icu
+            libunwind
+            libuuid
+            lttng-ust
+            openssl
+            zlib
 
-      # mono
-      krb5
-    ]) ++ additionalPkgs pkgs;
+            # mono
+            krb5
+          ]
+        )
+        ++ additionalPkgs pkgs;
 
-    extraBwrapArgs = [
-      "--bind-try /etc/nixos/ /etc/nixos/"
-    ];
+      extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];
 
-    # symlink shared assets, including icons and desktop entries
-    extraInstallCommands = ''
-      ln -s "${unwrapped}/share" "$out/"
-    '';
-
-    runScript = "${unwrapped}/bin/${executableName}";
-
-    # vscode likes to kill the parent so that the
-    # gui application isn't attached to the terminal session
-    dieWithParent = false;
-
-    passthru = {
-      inherit executableName;
-      inherit (unwrapped) pname version; # for home-manager module
-    };
-
-    meta = meta // {
-      description = ''
-        Wrapped variant of ${pname} which launches in a FHS compatible environment.
-        Should allow for easy usage of extensions without nix-specific modifications.
+      # symlink shared assets, including icons and desktop entries
+      extraInstallCommands = ''
+        ln -s "${unwrapped}/share" "$out/"
       '';
+
+      runScript = "${unwrapped}/bin/${executableName}";
+
+      # vscode likes to kill the parent so that the
+      # gui application isn't attached to the terminal session
+      dieWithParent = false;
+
+      passthru = {
+        inherit executableName;
+        inherit (unwrapped) pname version; # for home-manager module
+      };
+
+      meta = meta // {
+        description = ''
+          Wrapped variant of ${pname} which launches in a FHS compatible environment.
+          Should allow for easy usage of extensions without nix-specific modifications.
+        '';
+      };
     };
-  };
 in
-  unwrapped
+unwrapped

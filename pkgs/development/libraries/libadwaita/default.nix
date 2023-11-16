@@ -1,28 +1,33 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gi-docgen
-, meson
-, ninja
-, pkg-config
-, sassc
-, vala
-, gobject-introspection
-, fribidi
-, glib
-, gtk4
-, gnome
-, gsettings-desktop-schemas
-, xvfb-run
-, AppKit
-, Foundation
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gi-docgen,
+  meson,
+  ninja,
+  pkg-config,
+  sassc,
+  vala,
+  gobject-introspection,
+  fribidi,
+  glib,
+  gtk4,
+  gnome,
+  gsettings-desktop-schemas,
+  xvfb-run,
+  AppKit,
+  Foundation,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libadwaita";
   version = "1.3.2";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "devdoc"; # demo app
 
   src = fetchFromGitLab {
@@ -33,9 +38,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-9Qha8xN3lC/t5dQNYPbgMX6HAKgEk80pyycrd5MGYLo=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     gi-docgen
@@ -47,28 +50,18 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ] ++ lib.optionals (!doCheck) [
-    "-Dtests=false"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" ] ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
 
-  buildInputs = [
-    fribidi
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Foundation
-  ];
+  buildInputs =
+    [ fribidi ]
+    ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Foundation
+    ];
 
-  propagatedBuildInputs = [
-    gtk4
-  ];
+  propagatedBuildInputs = [ gtk4 ];
 
-  nativeCheckInputs = [
-    gnome.adwaita-icon-theme
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ gnome.adwaita-icon-theme ] ++ lib.optionals (!stdenv.isDarwin) [ xvfb-run ];
 
   # Tests had to be disabled on Darwin because test-button-content fails
   #
@@ -103,9 +96,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

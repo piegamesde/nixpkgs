@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, git
-, openssl
-, pkg-config
-, stdenv
-, SystemConfiguration
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  git,
+  openssl,
+  pkg-config,
+  stdenv,
+  SystemConfiguration,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -37,8 +38,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     git
     openssl
-  ]
-  ++ lib.optional stdenv.isDarwin SystemConfiguration;
+  ] ++ lib.optional stdenv.isDarwin SystemConfiguration;
 
   nativeCheckInputs = [ git ];
 

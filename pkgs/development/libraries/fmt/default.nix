@@ -1,14 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake
-, enableShared ? !stdenv.hostPlatform.isStatic
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 let
-  generic = { version, sha256, patches ? [ ] }:
+  generic =
+    {
+      version,
+      sha256,
+      patches ? [ ],
+    }:
     stdenv.mkDerivation {
       pname = "fmt";
       inherit version;
 
-      outputs = [ "out" "dev" ];
+      outputs = [
+        "out"
+        "dev"
+      ];
 
       src = fetchFromGitHub {
         owner = "fmtlib";
@@ -21,9 +34,7 @@ let
 
       nativeBuildInputs = [ cmake ];
 
-      cmakeFlags = [
-        "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
-      ];
+      cmakeFlags = [ "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}" ];
 
       doCheck = true;
 

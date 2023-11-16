@@ -1,8 +1,9 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, jupyter-server
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-server,
 }:
 
 buildPythonPackage rec {
@@ -14,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-jrvLUzrbQeXWNeuP6ClWsKr78P1EO2xL+pBu3uuGNaE=";
   };
 
-  propagatedBuildInputs = [
-    jupyter-server
-  ];
+  propagatedBuildInputs = [ jupyter-server ];
   # tests require network
   doCheck = false;
   pythonImportsCheck = [ "jupyter_lsp" ];
@@ -29,4 +28,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ ];
   };
 }
-

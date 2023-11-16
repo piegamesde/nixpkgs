@@ -1,13 +1,14 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, nodejs
-, pkg-config
-, openssl
-, stdenv
-, curl
-, Security
-, runCommand
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  nodejs,
+  pkg-config,
+  openssl,
+  stdenv,
+  curl,
+  Security,
+  runCommand,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,7 +24,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ curl Security ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      curl
+      Security
+    ];
 
   nativeCheckInputs = [ nodejs ];
 
@@ -32,9 +38,15 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://rustwasm.github.io/docs/wasm-bindgen/";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     description = "Facilitating high-level interactions between wasm modules and JavaScript";
-    maintainers = with maintainers; [ nitsky rizary ];
+    maintainers = with maintainers; [
+      nitsky
+      rizary
+    ];
     mainProgram = "wasm-bindgen";
   };
 }

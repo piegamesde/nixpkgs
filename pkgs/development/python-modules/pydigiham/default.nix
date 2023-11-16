@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, digiham, csdr, pycsdr, codecserver }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  digiham,
+  csdr,
+  pycsdr,
+  codecserver,
+}:
 
 buildPythonPackage rec {
   pname = "pydigiham";
@@ -12,7 +21,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ digiham ];
-  buildInputs = [ codecserver pycsdr ];
+  buildInputs = [
+    codecserver
+    pycsdr
+  ];
   # make pycsdr header files available
   preBuild = ''
     ln -s ${pycsdr}/include/${python.libPrefix}/pycsdr src/pycsdr

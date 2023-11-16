@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, makeWrapper
-, wget
-, Accelerate
-, CoreGraphics
-, CoreVideo
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  makeWrapper,
+  wget,
+  Accelerate,
+  CoreGraphics,
+  CoreVideo,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ggerganov";
     repo = "whisper.cpp";
-    rev = "refs/tags/v${version}" ;
+    rev = "refs/tags/v${version}";
     hash = "sha256-176MpooVQrq1dXC62h8Yyyhw6IjCA50tp1J4DQPSePQ=";
   };
 
@@ -28,9 +29,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ SDL2 ] ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
+  buildInputs =
+    [ SDL2 ]
+    ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreGraphics
+      CoreVideo
+    ];
 
-  makeFlags = [ "main" "stream" ];
+  makeFlags = [
+    "main"
+    "stream"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -42,7 +52,7 @@ stdenv.mkDerivation rec {
     cp models/download-ggml-model.sh $out/bin/whisper-cpp-download-ggml-model
 
     wrapProgram $out/bin/whisper-cpp-download-ggml-model \
-      --prefix PATH : ${lib.makeBinPath [wget]}
+      --prefix PATH : ${lib.makeBinPath [ wget ]}
 
     runHook postInstall
   '';
@@ -56,6 +66,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ggerganov/whisper.cpp";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dit7ya hughobrien ];
+    maintainers = with maintainers; [
+      dit7ya
+      hughobrien
+    ];
   };
 }

@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, substituteAll
-, bcrypt
-, pyopenssl
-, python-gnupg
-, pytestCheckHook
-, requests
-, openssl
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  substituteAll,
+  bcrypt,
+  pyopenssl,
+  python-gnupg,
+  pytestCheckHook,
+  requests,
+  openssl,
 }:
 
 buildPythonPackage rec {
@@ -33,21 +34,23 @@ buildPythonPackage rec {
 
   buildInputs = [ openssl ];
 
-  patches = [
-    # Patches library by fixing the openssl path
-    (substituteAll {
-      src = ./0001-OpenSSL-path-fix.patch;
-      openssl = openssl.out;
-      ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    })
-  ];
+  patches =
+    [
+      # Patches library by fixing the openssl path
+      (substituteAll {
+        src = ./0001-OpenSSL-path-fix.patch;
+        openssl = openssl.out;
+        ext = stdenv.hostPlatform.extensions.sharedLibrary;
+      })
+    ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    #ValueError: Invalid modulus
-    "test_modulus_verification"
-  ];
+  disabledTests =
+    [
+      #ValueError: Invalid modulus
+      "test_modulus_verification"
+    ];
 
   pythonImportsCheck = [ "proton" ];
 

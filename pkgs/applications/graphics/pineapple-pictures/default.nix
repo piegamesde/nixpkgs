@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qtsvg
-, qttools
-, exiv2
-, wrapQtAppsHook
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtsvg,
+  qttools,
+  exiv2,
+  wrapQtAppsHook,
+  cmake,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,9 +31,7 @@ stdenv.mkDerivation rec {
     exiv2
   ];
 
-  cmakeFlags = [
-    "-DPREFER_QT_5=OFF"
-  ];
+  cmakeFlags = [ "-DPREFER_QT_5=OFF" ];
 
   meta = with lib; {
     description = "Homebrew lightweight image viewer";

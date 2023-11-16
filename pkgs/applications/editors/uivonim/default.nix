@@ -1,4 +1,10 @@
-{ lib, mkYarnPackage, fetchFromGitHub, electron, makeWrapper }:
+{
+  lib,
+  mkYarnPackage,
+  fetchFromGitHub,
+  electron,
+  makeWrapper,
+}:
 
 mkYarnPackage rec {
   pname = "uivonim";
@@ -33,7 +39,15 @@ mkYarnPackage rec {
   # wish to bundle (because they add 250M to the closure size).
   build = mkYarnPackage {
     name = "uivonim-build-${version}";
-    inherit version src packageJSON yarnLock yarnNix yarnPreBuild distPhase;
+    inherit
+      version
+      src
+      packageJSON
+      yarnLock
+      yarnNix
+      yarnPreBuild
+      distPhase
+    ;
 
     buildPhase = ''
       yarn build:prod

@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, alsa-lib
-, coreutils
-, db
-, dpkg
-, glib
-, gtk3
-, wrapGAppsHook
-, libkrb5
-, libsecret
-, nss
-, openssl
-, udev
-, xorg
-, mesa
-, libdrm
-, libappindicator
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  alsa-lib,
+  coreutils,
+  db,
+  dpkg,
+  glib,
+  gtk3,
+  wrapGAppsHook,
+  libkrb5,
+  libsecret,
+  nss,
+  openssl,
+  udev,
+  xorg,
+  mesa,
+  libdrm,
+  libappindicator,
 }:
 
 stdenv.mkDerivation rec {
@@ -82,10 +83,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postFixup = /* sh */ ''
-    substituteInPlace $out/share/applications/Mailspring.desktop \
-      --replace Exec=mailspring Exec=$out/bin/mailspring
-  '';
+  postFixup = # sh
+    ''
+      substituteInPlace $out/share/applications/Mailspring.desktop \
+        --replace Exec=mailspring Exec=$out/bin/mailspring
+    '';
 
   meta = with lib; {
     description = "A beautiful, fast and maintained fork of Nylas Mail by one of the original authors";

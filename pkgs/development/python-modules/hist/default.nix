@@ -1,13 +1,14 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, boost-histogram
-, histoprint
-, hatchling
-, hatch-vcs
-, numpy
-, pytestCheckHook
-, pytest-mpl
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  boost-histogram,
+  histoprint,
+  hatchling,
+  hatch-vcs,
+  numpy,
+  pytestCheckHook,
+  pytest-mpl,
 }:
 
 buildPythonPackage rec {

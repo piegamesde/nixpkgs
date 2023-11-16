@@ -1,8 +1,9 @@
-{ buildPythonPackage
-, flit
-, flit-core
-, pytestCheckHook
-, testpath
+{
+  buildPythonPackage,
+  flit,
+  flit-core,
+  pytestCheckHook,
+  testpath,
 }:
 
 buildPythonPackage rec {

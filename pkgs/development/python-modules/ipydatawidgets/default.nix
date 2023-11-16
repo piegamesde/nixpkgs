@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, pytest
-, pytest-cov
-, nbval
-, jupyter-packaging
-, ipywidgets
-, numpy
-, six
-, traittypes
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytest,
+  pytest-cov,
+  nbval,
+  jupyter-packaging,
+  ipywidgets,
+  numpy,
+  six,
+  traittypes,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-T7LOaT+yaM2ukAN0z6GpFkHiLZUU0eweYtp0cFCST3Y=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-  ];
+  nativeBuildInputs = [ jupyter-packaging ];
 
   setupPyBuildFlags = [ "--skip-npm" ];
 
@@ -36,7 +35,11 @@ buildPythonPackage rec {
     traittypes
   ];
 
-  nativeCheckInputs = [ pytest pytest-cov nbval ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+    nbval
+  ];
 
   checkPhase = "pytest ipydatawidgets/tests";
 

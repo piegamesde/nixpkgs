@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, curl
-, duktape
-, html-tidy
-, openssl
-, pcre
-, perl
-, pkg-config
-, quickjs
-, readline
-, which
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  duktape,
+  html-tidy,
+  openssl,
+  pcre,
+  perl,
+  pkg-config,
+  quickjs,
+  readline,
+  which,
 }:
 
 stdenv.mkDerivation rec {
@@ -39,10 +40,11 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  patches = [
-    # Fixes some small annoyances on src/makefile
-    ./0001-small-fixes.patch
-  ];
+  patches =
+    [
+      # Fixes some small annoyances on src/makefile
+      ./0001-small-fixes.patch
+    ];
 
   postPatch = ''
     substituteInPlace src/makefile --replace\
@@ -53,7 +55,8 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [
-    "-C" "src"
+    "-C"
+    "src"
     "PREFIX=${placeholder "out"}"
   ];
 
@@ -72,7 +75,11 @@ stdenv.mkDerivation rec {
       into databases through odbc. It was primarily written by Karl Dahlke.
     '';
     license = licenses.gpl1Plus;
-    maintainers = with maintainers; [ schmitthenner vrthra equirosa ];
+    maintainers = with maintainers; [
+      schmitthenner
+      vrthra
+      equirosa
+    ];
     platforms = platforms.linux;
   };
 }

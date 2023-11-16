@@ -1,8 +1,10 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +26,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   cmakeFlags = [
     (if (stdenv.hostPlatform.isAarch64) then "-DARM64=ON" else "-DARM64=OFF")
     "-DVMCS_INSTALL_PREFIX=${placeholder "out"}"
@@ -34,7 +39,15 @@ stdenv.mkDerivation rec {
     description = "Userland tools & libraries for interfacing with Raspberry Pi hardware";
     homepage = "https://github.com/raspberrypi/userland";
     license = licenses.bsd3;
-    platforms = [ "armv6l-linux" "armv7l-linux" "aarch64-linux" "x86_64-linux" ];
-    maintainers = with maintainers; [ dezgeg tkerber ];
+    platforms = [
+      "armv6l-linux"
+      "armv7l-linux"
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
+    maintainers = with maintainers; [
+      dezgeg
+      tkerber
+    ];
   };
 }

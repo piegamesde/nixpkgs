@@ -1,11 +1,22 @@
-{ fetchurl, lib, stdenv, openjdk, unzip, makeWrapper }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  openjdk,
+  unzip,
+  makeWrapper,
+}:
 
 let
   version = "1.4.9";
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "gogui";
   inherit version;
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
   src = fetchurl {
     url = "mirror://sourceforge/project/gogui/gogui/${version}/gogui-${version}.zip";
     sha256 = "0qk6p1bhi1816n638bg11ljyj6zxvm75jdf02aabzdmmd9slns1j";

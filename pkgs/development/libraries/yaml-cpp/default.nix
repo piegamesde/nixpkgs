@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gitUpdater
-, cmake
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  cmake,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
@@ -35,9 +36,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
     "-DYAML_CPP_BUILD_TOOLS=false"
@@ -47,9 +46,7 @@ stdenv.mkDerivation rec {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "yaml-cpp-";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "yaml-cpp-"; };
 
   meta = with lib; {
     description = "A YAML parser and emitter for C++";

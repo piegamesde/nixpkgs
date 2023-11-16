@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, patchelf
-, cmake
-, pkg-config
-, intel-gmmlib
-, intel-graphics-compiler
-, level-zero
-, libva
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  patchelf,
+  cmake,
+  pkg-config,
+  intel-gmmlib,
+  intel-graphics-compiler,
+  level-zero,
+  libva,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-A0gtSM6e+VcfcGG/6zReV2LIXq6tGbWIwDQFlQ2TW28=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ intel-gmmlib intel-graphics-compiler libva level-zero ];
+  buildInputs = [
+    intel-gmmlib
+    intel-graphics-compiler
+    libva
+    level-zero
+  ];
 
   cmakeFlags = [
     "-DSKIP_UNIT_TESTS=1"
@@ -33,7 +42,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
-  outputs = [ "out" "drivers" ];
+  outputs = [
+    "out"
+    "drivers"
+  ];
 
   postInstall = ''
     # Avoid clash with intel-ocl
@@ -44,7 +56,14 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    patchelf --set-rpath ${lib.makeLibraryPath [ intel-gmmlib intel-graphics-compiler libva stdenv.cc.cc.lib ]} \
+    patchelf --set-rpath ${
+      lib.makeLibraryPath [
+        intel-gmmlib
+        intel-graphics-compiler
+        libva
+        stdenv.cc.cc.lib
+      ]
+    } \
       $out/lib/intel-opencl/libigdrcl.so
   '';
 
@@ -52,7 +71,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/compute-runtime";
     description = "Intel Graphics Compute Runtime for OpenCL. Replaces Beignet for Gen8 (Broadwell) and beyond";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

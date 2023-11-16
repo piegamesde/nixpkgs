@@ -1,39 +1,40 @@
-{ lib
-, alembic
-, buildPythonPackage
-, click
-, cloudpickle
-, databricks-cli
-, docker
-, entrypoints
-, fetchpatch
-, fetchPypi
-, flask
-, gitpython
-, gorilla
-, gunicorn
-, importlib-metadata
-, markdown
-, matplotlib
-, numpy
-, packaging
-, pandas
-, prometheus-flask-exporter
-, protobuf
-, python-dateutil
-, pythonOlder
-, pythonRelaxDepsHook
-, pyarrow
-, pytz
-, pyyaml
-, querystring_parser
-, requests
-, scikit-learn
-, scipy
-, shap
-, simplejson
-, sqlalchemy
-, sqlparse
+{
+  lib,
+  alembic,
+  buildPythonPackage,
+  click,
+  cloudpickle,
+  databricks-cli,
+  docker,
+  entrypoints,
+  fetchpatch,
+  fetchPypi,
+  flask,
+  gitpython,
+  gorilla,
+  gunicorn,
+  importlib-metadata,
+  markdown,
+  matplotlib,
+  numpy,
+  packaging,
+  pandas,
+  prometheus-flask-exporter,
+  protobuf,
+  python-dateutil,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyarrow,
+  pytz,
+  pyyaml,
+  querystring_parser,
+  requests,
+  scikit-learn,
+  scipy,
+  shap,
+  simplejson,
+  sqlalchemy,
+  sqlparse,
 }:
 
 buildPythonPackage rec {
@@ -53,7 +54,10 @@ buildPythonPackage rec {
   # but not mlflow has a 'skinny' install option which does not require `shap`.
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   pythonRemoveDeps = [ "shap" ];
-  pythonRelaxDeps = [ "pytz" "pyarrow" ];
+  pythonRelaxDeps = [
+    "pytz"
+    "pyarrow"
+  ];
 
   propagatedBuildInputs = [
     alembic
@@ -88,9 +92,7 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  pythonImportsCheck = [
-    "mlflow"
-  ];
+  pythonImportsCheck = [ "mlflow" ];
 
   # no tests in PyPI dist
   # run into https://stackoverflow.com/questions/51203641/attributeerror-module-alembic-context-has-no-attribute-config

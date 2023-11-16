@@ -1,7 +1,13 @@
-{ buildGoModule, lib, installShellFiles, fetchFromGitHub }:
+{
+  buildGoModule,
+  lib,
+  installShellFiles,
+  fetchFromGitHub,
+}:
 let
   short_hash = "7447a09";
-in buildGoModule rec {
+in
+buildGoModule rec {
   pname = "deck";
   version = "1.22.0";
 

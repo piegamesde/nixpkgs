@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pythonRelaxDepsHook
-, writeText
-, asttokens
-, pycryptodome
-, importlib-metadata
-, recommonmark
-, semantic-version
-, sphinx
-, sphinx-rtd-theme
-, pytest-runner
-, setuptools-scm
-, git
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  writeText,
+  asttokens,
+  pycryptodome,
+  importlib-metadata,
+  recommonmark,
+  semantic-version,
+  sphinx,
+  sphinx-rtd-theme,
+  pytest-runner,
+  setuptools-scm,
+  git,
 }:
 
 let
@@ -24,7 +25,6 @@ let
     def __init__(foo: address):
         self.count = 1
   '';
-
 in
 buildPythonPackage rec {
   pname = "vyper";
@@ -48,7 +48,10 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonRelaxDeps = [ "asttokens" "semantic-version" ];
+  pythonRelaxDeps = [
+    "asttokens"
+    "semantic-version"
+  ];
 
   propagatedBuildInputs = [
     asttokens

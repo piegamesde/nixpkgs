@@ -1,10 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27
-, numpy
-, scipy
-, tables
-, pandas
-, nose
-, configparser
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  numpy,
+  scipy,
+  tables,
+  pandas,
+  nose,
+  configparser,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-KtMGQftoYVNNMtfYeYiaQyMLAySpf9YXLMxj+e/CV5I=";
   };
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   propagatedBuildInputs = [
     numpy

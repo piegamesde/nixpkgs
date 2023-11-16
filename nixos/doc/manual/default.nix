@@ -1,13 +1,14 @@
-{ pkgs
-, options
-, config
-, version
-, revision
-, extraSources ? []
-, baseOptionsJSON ? null
-, warningsAreErrors ? true
-, allowDocBook ? true
-, prefix ? ../../..
+{
+  pkgs,
+  options,
+  config,
+  version,
+  revision,
+  extraSources ? [ ],
+  baseOptionsJSON ? null,
+  warningsAreErrors ? true,
+  allowDocBook ? true,
+  prefix ? ../../..,
 }:
 
 with pkgs;
@@ -17,9 +18,7 @@ let
 
   lib = pkgs.lib;
 
-  docbook_xsl_ns = pkgs.docbook-xsl-ns.override {
-    withManOptDedupPatch = true;
-  };
+  docbook_xsl_ns = pkgs.docbook-xsl-ns.override { withManOptDedupPatch = true; };
 
   manpageUrls = pkgs.path + "/doc/manpage-urls.json";
 
@@ -33,50 +32,70 @@ let
   stripAnyPrefixes = lib.flip (lib.foldr lib.removePrefix) prefixesToStrip;
 
   optionsDoc = buildPackages.nixosOptionsDoc {
-    inherit options revision baseOptionsJSON warningsAreErrors allowDocBook;
-    transformOptions = opt: opt // {
-      # Clean up declaration sites to not refer to the NixOS source tree.
-      declarations = map stripAnyPrefixes opt.declarations;
-    };
+    inherit
+      options
+      revision
+      baseOptionsJSON
+      warningsAreErrors
+      allowDocBook
+    ;
+    transformOptions =
+      opt:
+      opt
+      // {
+        # Clean up declaration sites to not refer to the NixOS source tree.
+        declarations = map stripAnyPrefixes opt.declarations;
+      };
   };
 
   nixos-lib = import ../../lib { };
 
-  testOptionsDoc = let
+  testOptionsDoc =
+    let
       eval = nixos-lib.evalTest {
         # Avoid evaluating a NixOS config prototype.
         config.node.type = lib.types.deferredModule;
         options._module.args = lib.mkOption { internal = true; };
       };
-    in buildPackages.nixosOptionsDoc {
+    in
+    buildPackages.nixosOptionsDoc {
       inherit (eval) options;
       inherit revision;
-      transformOptions = opt: opt // {
-        # Clean up declaration sites to not refer to the NixOS source tree.
-        declarations =
-          map
-            (decl:
-              if hasPrefix (toString ../../..) (toString decl)
-              then
-                let subpath = removePrefix "/" (removePrefix (toString ../../..) (toString decl));
-                in { url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}"; name = subpath; }
-              else decl)
-            opt.declarations;
-      };
+      transformOptions =
+        opt:
+        opt
+        // {
+          # Clean up declaration sites to not refer to the NixOS source tree.
+          declarations =
+            map
+              (
+                decl:
+                if hasPrefix (toString ../../..) (toString decl) then
+                  let
+                    subpath = removePrefix "/" (removePrefix (toString ../../..) (toString decl));
+                  in
+                  {
+                    url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
+                    name = subpath;
+                  }
+                else
+                  decl
+              )
+              opt.declarations;
+        };
       documentType = "none";
       variablelistId = "test-options-list";
       optionIdPrefix = "test-opt-";
     };
 
-  toc = builtins.toFile "toc.xml"
-    ''
-      <toc role="chunk-toc">
-        <d:tocentry xmlns:d="http://docbook.org/ns/docbook" linkend="book-nixos-manual"><?dbhtml filename="index.html"?>
-          <d:tocentry linkend="ch-options"><?dbhtml filename="options.html"?></d:tocentry>
-          <d:tocentry linkend="ch-release-notes"><?dbhtml filename="release-notes.html"?></d:tocentry>
-        </d:tocentry>
-      </toc>
-    '';
+  toc = builtins.toFile "toc.xml" ''
+    <toc role="chunk-toc">
+      <d:tocentry xmlns:d="http://docbook.org/ns/docbook" linkend="book-nixos-manual"><?dbhtml filename="index.html"?>
+        <d:tocentry linkend="ch-options"><?dbhtml filename="options.html"?></d:tocentry>
+        <d:tocentry linkend="ch-release-notes"><?dbhtml filename="release-notes.html"?></d:tocentry>
+      </d:tocentry>
+    </toc>
+  '';
 
   manualXsltprocOptions = toString [
     "--param chapter.autolabel 0"
@@ -154,110 +173,135 @@ let
         ${testOptionsDoc.optionsJSON}/share/doc/nixos/options.json
   '';
 
-  manual-combined = runCommand "nixos-manual-combined"
-    { inputs = lib.sourceFilesBySuffices ./. [ ".xml" ".md" ];
-      nativeBuildInputs = [ pkgs.nixos-render-docs pkgs.libxml2.bin pkgs.libxslt.bin ];
-      meta.description = "The NixOS manual as plain docbook XML";
-    }
-    ''
-      ${prepareManualFromMD}
+  manual-combined =
+    runCommand "nixos-manual-combined"
+      {
+        inputs = lib.sourceFilesBySuffices ./. [
+          ".xml"
+          ".md"
+        ];
+        nativeBuildInputs = [
+          pkgs.nixos-render-docs
+          pkgs.libxml2.bin
+          pkgs.libxslt.bin
+        ];
+        meta.description = "The NixOS manual as plain docbook XML";
+      }
+      ''
+        ${prepareManualFromMD}
 
-      nixos-render-docs -j $NIX_BUILD_CORES manual docbook \
-        --manpage-urls ${manpageUrls} \
-        --revision ${lib.escapeShellArg revision} \
-        ./manual.md \
-        ./manual-combined-pre.xml
+        nixos-render-docs -j $NIX_BUILD_CORES manual docbook \
+          --manpage-urls ${manpageUrls} \
+          --revision ${lib.escapeShellArg revision} \
+          ./manual.md \
+          ./manual-combined-pre.xml
 
-      xsltproc \
-        -o manual-combined.xml ${./../../lib/make-options-doc/postprocess-option-descriptions.xsl} \
-        manual-combined-pre.xml
+        xsltproc \
+          -o manual-combined.xml ${./../../lib/make-options-doc/postprocess-option-descriptions.xsl} \
+          manual-combined-pre.xml
 
-      ${linterFunctions}
+        ${linterFunctions}
 
-      mkdir $out
-      cp manual-combined.xml $out/
+        mkdir $out
+        cp manual-combined.xml $out/
 
-      lintrng $out/manual-combined.xml
-    '';
+        lintrng $out/manual-combined.xml
+      '';
 
-  manpages-combined = runCommand "nixos-manpages-combined.xml"
-    { nativeBuildInputs = [ buildPackages.libxml2.bin buildPackages.libxslt.bin ];
-      meta.description = "The NixOS manpages as plain docbook XML";
-    }
-    ''
-      mkdir generated
-      cp -prd ${./man-pages.xml} man-pages.xml
-      ln -s ${optionsDoc.optionsDocBook} generated/options-db.xml
-
-      xmllint --xinclude --noxincludenode --output $out ./man-pages.xml
-
-      ${linterFunctions}
-
-      lintrng $out
-    '';
-
-in rec {
-  inherit (optionsDoc) optionsJSON optionsNix optionsDocBook optionsUsedDocbook;
-
-  # Generate the NixOS manual.
-  manualHTML = runCommand "nixos-manual-html"
-    { nativeBuildInputs =
-        if allowDocBook then [
+  manpages-combined =
+    runCommand "nixos-manpages-combined.xml"
+      {
+        nativeBuildInputs = [
           buildPackages.libxml2.bin
           buildPackages.libxslt.bin
-        ] else [
-          buildPackages.nixos-render-docs
         ];
-      inputs = lib.optionals (! allowDocBook) (lib.sourceFilesBySuffices ./. [ ".md" ]);
-      meta.description = "The NixOS manual in HTML format";
-      allowedReferences = ["out"];
-    }
-    ''
-      # Generate the HTML manual.
-      dst=$out/share/doc/nixos
-      mkdir -p $dst
+        meta.description = "The NixOS manpages as plain docbook XML";
+      }
+      ''
+        mkdir generated
+        cp -prd ${./man-pages.xml} man-pages.xml
+        ln -s ${optionsDoc.optionsDocBook} generated/options-db.xml
 
-      cp ${../../../doc/style.css} $dst/style.css
-      cp ${../../../doc/overrides.css} $dst/overrides.css
-      cp -r ${pkgs.documentation-highlighter} $dst/highlightjs
+        xmllint --xinclude --noxincludenode --output $out ./man-pages.xml
 
-      ${if allowDocBook then ''
-          xsltproc \
-            ${manualXsltprocOptions} \
-            --stringparam id.warnings "1" \
-            --nonet --output $dst/ \
-            ${docbook_xsl_ns}/xml/xsl/docbook/xhtml/chunktoc.xsl \
-            ${manual-combined}/manual-combined.xml \
-            |& tee xsltproc.out
-          grep "^ID recommended on" xsltproc.out &>/dev/null && echo "error: some IDs are missing" && false
-          rm xsltproc.out
+        ${linterFunctions}
 
-          mkdir -p $dst/images/callouts
-          cp ${docbook_xsl_ns}/xml/xsl/docbook/images/callouts/*.svg $dst/images/callouts/
-        '' else ''
-          ${prepareManualFromMD}
+        lintrng $out
+      '';
+in
+rec {
+  inherit (optionsDoc)
+    optionsJSON
+    optionsNix
+    optionsDocBook
+    optionsUsedDocbook
+  ;
 
-          # TODO generator is set like this because the docbook/md manual compare workflow will
-          # trigger if it's different
-          nixos-render-docs -j $NIX_BUILD_CORES manual html \
-            --manpage-urls ${manpageUrls} \
-            --revision ${lib.escapeShellArg revision} \
-            --generator "DocBook XSL Stylesheets V${docbook_xsl_ns.version}" \
-            --stylesheet style.css \
-            --stylesheet overrides.css \
-            --stylesheet highlightjs/mono-blue.css \
-            --script ./highlightjs/highlight.pack.js \
-            --script ./highlightjs/loader.js \
-            --toc-depth 1 \
-            --chunk-toc-depth 1 \
-            ./manual.md \
-            $dst/index.html
-        ''}
+  # Generate the NixOS manual.
+  manualHTML =
+    runCommand "nixos-manual-html"
+      {
+        nativeBuildInputs =
+          if allowDocBook then
+            [
+              buildPackages.libxml2.bin
+              buildPackages.libxslt.bin
+            ]
+          else
+            [ buildPackages.nixos-render-docs ];
+        inputs = lib.optionals (!allowDocBook) (lib.sourceFilesBySuffices ./. [ ".md" ]);
+        meta.description = "The NixOS manual in HTML format";
+        allowedReferences = [ "out" ];
+      }
+      ''
+        # Generate the HTML manual.
+        dst=$out/share/doc/nixos
+        mkdir -p $dst
 
-      mkdir -p $out/nix-support
-      echo "nix-build out $out" >> $out/nix-support/hydra-build-products
-      echo "doc manual $dst" >> $out/nix-support/hydra-build-products
-    ''; # */
+        cp ${../../../doc/style.css} $dst/style.css
+        cp ${../../../doc/overrides.css} $dst/overrides.css
+        cp -r ${pkgs.documentation-highlighter} $dst/highlightjs
+
+        ${if allowDocBook then
+          ''
+            xsltproc \
+              ${manualXsltprocOptions} \
+              --stringparam id.warnings "1" \
+              --nonet --output $dst/ \
+              ${docbook_xsl_ns}/xml/xsl/docbook/xhtml/chunktoc.xsl \
+              ${manual-combined}/manual-combined.xml \
+              |& tee xsltproc.out
+            grep "^ID recommended on" xsltproc.out &>/dev/null && echo "error: some IDs are missing" && false
+            rm xsltproc.out
+
+            mkdir -p $dst/images/callouts
+            cp ${docbook_xsl_ns}/xml/xsl/docbook/images/callouts/*.svg $dst/images/callouts/
+          ''
+        else
+          ''
+            ${prepareManualFromMD}
+
+            # TODO generator is set like this because the docbook/md manual compare workflow will
+            # trigger if it's different
+            nixos-render-docs -j $NIX_BUILD_CORES manual html \
+              --manpage-urls ${manpageUrls} \
+              --revision ${lib.escapeShellArg revision} \
+              --generator "DocBook XSL Stylesheets V${docbook_xsl_ns.version}" \
+              --stylesheet style.css \
+              --stylesheet overrides.css \
+              --stylesheet highlightjs/mono-blue.css \
+              --script ./highlightjs/highlight.pack.js \
+              --script ./highlightjs/loader.js \
+              --toc-depth 1 \
+              --chunk-toc-depth 1 \
+              ./manual.md \
+              $dst/index.html
+          ''}
+
+        mkdir -p $out/nix-support
+        echo "nix-build out $out" >> $out/nix-support/hydra-build-products
+        echo "doc manual $dst" >> $out/nix-support/hydra-build-products
+      ''; # */
 
   # Alias for backward compatibility. TODO(@oxij): remove eventually.
   manual = manualHTML;
@@ -265,89 +309,95 @@ in rec {
   # Index page of the NixOS manual.
   manualHTMLIndex = "${manualHTML}/share/doc/nixos/index.html";
 
-  manualEpub = runCommand "nixos-manual-epub"
-    { nativeBuildInputs = [ buildPackages.libxml2.bin buildPackages.libxslt.bin buildPackages.zip ];
-      doc = ''
-        <book xmlns="http://docbook.org/ns/docbook"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              version="5.0"
-              xml:id="book-nixos-manual">
-          <info>
-            <title>NixOS Manual</title>
-            <subtitle>Version ${lib.version}</subtitle>
-          </info>
-          <chapter>
-            <title>Temporarily unavailable</title>
-            <para>
-              The NixOS manual is currently not available in EPUB format,
-              please use the <link xlink:href="https://nixos.org/nixos/manual">HTML manual</link>
-              instead.
-            </para>
-            <para>
-              If you've used the EPUB manual in the past and it has been useful to you, please
-              <link xlink:href="https://github.com/NixOS/nixpkgs/issues/237234">let us know</link>.
-            </para>
-          </chapter>
-        </book>
+  manualEpub =
+    runCommand "nixos-manual-epub"
+      {
+        nativeBuildInputs = [
+          buildPackages.libxml2.bin
+          buildPackages.libxslt.bin
+          buildPackages.zip
+        ];
+        doc = ''
+          <book xmlns="http://docbook.org/ns/docbook"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="5.0"
+                xml:id="book-nixos-manual">
+            <info>
+              <title>NixOS Manual</title>
+              <subtitle>Version ${lib.version}</subtitle>
+            </info>
+            <chapter>
+              <title>Temporarily unavailable</title>
+              <para>
+                The NixOS manual is currently not available in EPUB format,
+                please use the <link xlink:href="https://nixos.org/nixos/manual">HTML manual</link>
+                instead.
+              </para>
+              <para>
+                If you've used the EPUB manual in the past and it has been useful to you, please
+                <link xlink:href="https://github.com/NixOS/nixpkgs/issues/237234">let us know</link>.
+              </para>
+            </chapter>
+          </book>
+        '';
+        passAsFile = [ "doc" ];
+      }
+      ''
+        # Generate the epub manual.
+        dst=$out/share/doc/nixos
+
+        xsltproc \
+          --param chapter.autolabel 0 \
+          --nonet --xinclude --output $dst/epub/ \
+          ${docbook_xsl_ns}/xml/xsl/docbook/epub/docbook.xsl \
+          $docPath
+
+        echo "application/epub+zip" > mimetype
+        manual="$dst/nixos-manual.epub"
+        zip -0Xq "$manual" mimetype
+        cd $dst/epub && zip -Xr9D "$manual" *
+
+        rm -rf $dst/epub
+
+        mkdir -p $out/nix-support
+        echo "doc-epub manual $manual" >> $out/nix-support/hydra-build-products
       '';
-      passAsFile = [ "doc" ];
-    }
-    ''
-      # Generate the epub manual.
-      dst=$out/share/doc/nixos
-
-      xsltproc \
-        --param chapter.autolabel 0 \
-        --nonet --xinclude --output $dst/epub/ \
-        ${docbook_xsl_ns}/xml/xsl/docbook/epub/docbook.xsl \
-        $docPath
-
-      echo "application/epub+zip" > mimetype
-      manual="$dst/nixos-manual.epub"
-      zip -0Xq "$manual" mimetype
-      cd $dst/epub && zip -Xr9D "$manual" *
-
-      rm -rf $dst/epub
-
-      mkdir -p $out/nix-support
-      echo "doc-epub manual $manual" >> $out/nix-support/hydra-build-products
-    '';
-
 
   # Generate the NixOS manpages.
-  manpages = runCommand "nixos-manpages"
-    { nativeBuildInputs = [
-        buildPackages.installShellFiles
-      ] ++ lib.optionals allowDocBook [
-        buildPackages.libxml2.bin
-        buildPackages.libxslt.bin
-      ] ++ lib.optionals (! allowDocBook) [
-        buildPackages.nixos-render-docs
-      ];
-      allowedReferences = ["out"];
-    }
-    ''
-      # Generate manpages.
-      mkdir -p $out/share/man/man8
-      installManPage ${./manpages}/*
-      ${if allowDocBook
-        then ''
-          xsltproc --nonet \
-            --maxdepth 6000 \
-            --param man.output.in.separate.dir 1 \
-            --param man.output.base.dir "'$out/share/man/'" \
-            --param man.endnotes.are.numbered 0 \
-            --param man.break.after.slash 1 \
-            ${docbook_xsl_ns}/xml/xsl/docbook/manpages/docbook.xsl \
-            ${manpages-combined}
-        ''
-        else ''
-          mkdir -p $out/share/man/man5
-          nixos-render-docs -j $NIX_BUILD_CORES options manpage \
-            --revision ${lib.escapeShellArg revision} \
-            ${optionsJSON}/share/doc/nixos/options.json \
-            $out/share/man/man5/configuration.nix.5
-        ''}
-    '';
-
+  manpages =
+    runCommand "nixos-manpages"
+      {
+        nativeBuildInputs =
+          [ buildPackages.installShellFiles ]
+          ++ lib.optionals allowDocBook [
+            buildPackages.libxml2.bin
+            buildPackages.libxslt.bin
+          ]
+          ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ];
+        allowedReferences = [ "out" ];
+      }
+      ''
+        # Generate manpages.
+        mkdir -p $out/share/man/man8
+        installManPage ${./manpages}/*
+        ${if allowDocBook then
+          ''
+            xsltproc --nonet \
+              --maxdepth 6000 \
+              --param man.output.in.separate.dir 1 \
+              --param man.output.base.dir "'$out/share/man/'" \
+              --param man.endnotes.are.numbered 0 \
+              --param man.break.after.slash 1 \
+              ${docbook_xsl_ns}/xml/xsl/docbook/manpages/docbook.xsl \
+              ${manpages-combined}
+          ''
+        else
+          ''
+            mkdir -p $out/share/man/man5
+            nixos-render-docs -j $NIX_BUILD_CORES options manpage \
+              --revision ${lib.escapeShellArg revision} \
+              ${optionsJSON}/share/doc/nixos/options.json \
+              $out/share/man/man5/configuration.nix.5
+          ''}
+      '';
 }

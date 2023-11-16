@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, llvmPackages, ncurses, cmake, libxml2
-, symlinkJoin, breakpointHook, cudaPackages, enableCUDA ? false
-, libobjc, Cocoa, Foundation
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  llvmPackages,
+  ncurses,
+  cmake,
+  libxml2,
+  symlinkJoin,
+  breakpointHook,
+  cudaPackages,
+  enableCUDA ? false,
+  libobjc,
+  Cocoa,
+  Foundation,
 }:
 
 let
@@ -29,8 +41,8 @@ let
   cuda = cudaPackages.cudatoolkit_11;
 
   clangVersion = llvmPackages.clang-unwrapped.version;
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "terra";
   version = "1.1.0";
 
@@ -42,9 +54,18 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ llvmMerged ncurses libxml2 ]
+  buildInputs =
+    [
+      llvmMerged
+      ncurses
+      libxml2
+    ]
     ++ lib.optionals enableCUDA [ cuda ]
-    ++ lib.optionals stdenv.isDarwin [ libobjc Cocoa Foundation ];
+    ++ lib.optionals stdenv.isDarwin [
+      libobjc
+      Cocoa
+      Foundation
+    ];
 
   cmakeFlags = [
     "-DHAS_TERRA_VERSION=0"
@@ -56,7 +77,12 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
   hardeningDisable = [ "fortify" ];
-  outputs = [ "bin" "dev" "out" "static" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "static"
+  ];
 
   patches = [ ./nix-cflags.patch ];
 
@@ -85,7 +111,12 @@ in stdenv.mkDerivation rec {
     description = "A low-level counterpart to Lua";
     homepage = "https://terralang.org/";
     platforms = platforms.all;
-    maintainers = with maintainers; [ jb55 seylerius thoughtpolice elliottslaughter ];
+    maintainers = with maintainers; [
+      jb55
+      seylerius
+      thoughtpolice
+      elliottslaughter
+    ];
     license = licenses.mit;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;

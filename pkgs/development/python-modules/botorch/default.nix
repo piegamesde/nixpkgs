@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gpytorch
-, linear_operator
-, multipledispatch
-, pyro-ppl
-, setuptools-scm
-, torch
-, scipy
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gpytorch,
+  linear_operator,
+  multipledispatch,
+  pyro-ppl,
+  setuptools-scm,
+  torch,
+  scipy,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-VcNHgfk8OfLJseQxHksycWuCPCudCtOdcRV0XnxHSfU=";
   };
 
-  buildInputs = [
-    setuptools-scm
-  ];
+  buildInputs = [ setuptools-scm ];
   propagatedBuildInputs = [
     gpytorch
     linear_operator
@@ -37,9 +36,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "botorch" ];
 
   meta = with lib; {

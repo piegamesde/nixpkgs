@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -7,7 +12,16 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [ "services" "plexpy" ] [ "services" "tautulli" ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "plexpy"
+      ]
+      [
+        "services"
+        "tautulli"
+      ]
+    )
   ];
 
   options = {
@@ -62,9 +76,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.tautulli = {
       description = "Tautulli Plex Monitor";
@@ -75,7 +87,9 @@ in
         User = cfg.user;
         Group = cfg.group;
         GuessMainPID = "false";
-        ExecStart = "${cfg.package}/bin/tautulli --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${toString cfg.port} --pidfile ${cfg.dataDir}/tautulli.pid --nolaunch";
+        ExecStart = "${cfg.package}/bin/tautulli --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${
+            toString cfg.port
+          } --pidfile ${cfg.dataDir}/tautulli.pid --nolaunch";
         Restart = "on-failure";
       };
     };
@@ -83,7 +97,10 @@ in
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
     users.users = mkIf (cfg.user == "plexpy") {
-      plexpy = { group = cfg.group; uid = config.ids.uids.plexpy; };
+      plexpy = {
+        group = cfg.group;
+        uid = config.ids.uids.plexpy;
+      };
     };
   };
 }

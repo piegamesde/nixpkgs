@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, cython
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  cython,
 }:
 
 buildPythonPackage rec {
@@ -14,13 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-o6gXVZg9+iKZqeKUd1JYLdzISlwnewT0WVzkQGNy0eU=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   pythonImportsCheck = [ "pyworld" ];
 

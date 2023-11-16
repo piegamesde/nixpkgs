@@ -1,8 +1,9 @@
-{ lib
-, python3
-, fetchPypi
-, ffmpeg
-, nix-update-script
+{
+  lib,
+  python3,
+  fetchPypi,
+  ffmpeg,
+  nix-update-script,
 }:
 
 with python3.pkgs;
@@ -19,9 +20,7 @@ buildPythonApplication rec {
     hash = "sha256-ZnRDGgJu78KoSHvznYhBNEDJihUm9rUdlb5tXmcpuTc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp

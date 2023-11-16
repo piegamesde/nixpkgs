@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, SDL2
-, aalib
-, alsa-lib
-, libXext
-, libXxf86vm
-, libcaca
-, libpulseaudio
-, libsndfile
-, ncurses
-, openssl
-, which
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  SDL2,
+  aalib,
+  alsa-lib,
+  libXext,
+  libXxf86vm,
+  libcaca,
+  libpulseaudio,
+  libsndfile,
+  ncurses,
+  openssl,
+  which,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,9 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-cxV2dAzGnIzJiCRdq8vN/Cl4AQeJqjmiCAahijIJQ9k=";
   };
 
-  nativeBuildInputs = [
-    which
-  ];
+  nativeBuildInputs = [ which ];
 
   buildInputs = [
     SDL2

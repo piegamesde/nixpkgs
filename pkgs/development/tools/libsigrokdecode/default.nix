@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, glib, python3, check, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  python3,
+  check,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsigrokdecode";
@@ -14,8 +24,15 @@ stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace '[python-3.8-embed]' '[python3-embed]'
   '';
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ glib python3 libxcrypt ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    glib
+    python3
+    libxcrypt
+  ];
   nativeCheckInputs = [ check ];
   doCheck = true;
 

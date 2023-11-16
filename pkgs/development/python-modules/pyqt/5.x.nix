@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, setuptools
-, isPy27
-, fetchPypi
-, pkg-config
-, dbus
-, lndir
-, dbus-python
-, sip
-, pyqt5_sip
-, pyqt-builder
-, libsForQt5
-, withConnectivity ? false
-, withMultimedia ? false
-, withWebKit ? false
-, withWebSockets ? false
-, withLocation ? false
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  setuptools,
+  isPy27,
+  fetchPypi,
+  pkg-config,
+  dbus,
+  lndir,
+  dbus-python,
+  sip,
+  pyqt5_sip,
+  pyqt-builder,
+  libsForQt5,
+  withConnectivity ? false,
+  withMultimedia ? false,
+  withWebKit ? false,
+  withWebSockets ? false,
+  withLocation ? false,
 }:
 
 buildPythonPackage rec {
@@ -40,20 +41,21 @@ buildPythonPackage rec {
   ];
 
   postPatch =
-  # be more verbose
-  ''
-    cat >> pyproject.toml <<EOF
-    [tool.sip.project]
-    verbose = true
-  ''
-  # Due to bug in SIP .whl name generation we have to bump minimal macos sdk upto 11.0 for
-  # aarch64-darwin. This patch can be removed once SIP will fix it in upstream,
-  # see https://github.com/NixOS/nixpkgs/pull/186612#issuecomment-1214635456.
-  + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-    minimum-macos-version = "11.0"
-  '' + ''
-    EOF
-  '';
+    # be more verbose
+    ''
+      cat >> pyproject.toml <<EOF
+      [tool.sip.project]
+      verbose = true
+    ''
+    # Due to bug in SIP .whl name generation we have to bump minimal macos sdk upto 11.0 for
+    # aarch64-darwin. This patch can be removed once SIP will fix it in upstream,
+    # see https://github.com/NixOS/nixpkgs/pull/186612#issuecomment-1214635456.
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+      minimum-macos-version = "11.0"
+    ''
+    + ''
+      EOF
+    '';
 
   enableParallelBuilding = true;
   # HACK: paralellize compilation of make calls within pyqt's setup.py
@@ -66,40 +68,45 @@ buildPythonPackage rec {
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs = with libsForQt5; [
-    pkg-config
-    qmake
-    setuptools
-    lndir
-    sip
-    qtbase
-    qtsvg
-    qtdeclarative
-    qtwebchannel
-  ]
+  nativeBuildInputs =
+    with libsForQt5;
+    [
+      pkg-config
+      qmake
+      setuptools
+      lndir
+      sip
+      qtbase
+      qtsvg
+      qtdeclarative
+      qtwebchannel
+    ]
     ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withMultimedia qtmultimedia
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
-    ++ lib.optional withLocation qtlocation
-  ;
+    ++ lib.optional withLocation qtlocation;
 
-  buildInputs = with libsForQt5; [
-    dbus
-    qtbase
-    qtsvg
-    qtdeclarative
-    pyqt-builder
-  ]
+  buildInputs =
+    with libsForQt5;
+    [
+      dbus
+      qtbase
+      qtsvg
+      qtdeclarative
+      pyqt-builder
+    ]
     ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
-    ++ lib.optional withLocation qtlocation
-  ;
+    ++ lib.optional withLocation qtlocation;
 
   propagatedBuildInputs = [
     dbus-python
@@ -118,25 +125,25 @@ buildPythonPackage rec {
   # Checked using pythonImportsCheck
   doCheck = false;
 
-  pythonImportsCheck = [
-    "PyQt5"
-    "PyQt5.QtCore"
-    "PyQt5.QtQml"
-    "PyQt5.QtWidgets"
-    "PyQt5.QtGui"
-  ]
+  pythonImportsCheck =
+    [
+      "PyQt5"
+      "PyQt5.QtCore"
+      "PyQt5.QtQml"
+      "PyQt5.QtWidgets"
+      "PyQt5.QtGui"
+    ]
     ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
     ++ lib.optional withWebKit "PyQt5.QtWebKit"
     ++ lib.optional withMultimedia "PyQt5.QtMultimedia"
     ++ lib.optional withConnectivity "PyQt5.QtBluetooth"
-    ++ lib.optional withLocation "PyQt5.QtPositioning"
-  ;
+    ++ lib.optional withLocation "PyQt5.QtPositioning";
 
   meta = with lib; {
     description = "Python bindings for Qt5";
-    homepage    = "https://riverbankcomputing.com/";
-    license     = licenses.gpl3Only;
-    platforms   = platforms.mesaPlatforms;
+    homepage = "https://riverbankcomputing.com/";
+    license = licenses.gpl3Only;
+    platforms = platforms.mesaPlatforms;
     maintainers = with maintainers; [ sander ];
   };
 }

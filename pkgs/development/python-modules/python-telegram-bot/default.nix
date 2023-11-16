@@ -1,20 +1,21 @@
-{ lib
-, aiolimiter
-, apscheduler
-, beautifulsoup4
-, buildPythonPackage
-, cachetools
-, cryptography
-, fetchFromGitHub
-, flaky
-, httpx
-, pytest-asyncio
-, pytest-timeout
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, pytz
-, tornado
+{
+  lib,
+  aiolimiter,
+  apscheduler,
+  beautifulsoup4,
+  buildPythonPackage,
+  cachetools,
+  cryptography,
+  fetchFromGitHub,
+  flaky,
+  httpx,
+  pytest-asyncio,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  tornado,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     cryptography
     httpx
     pytz
-  ]
-  ++ httpx.optional-dependencies.socks
-  ++ httpx.optional-dependencies.http2;
+  ] ++ httpx.optional-dependencies.socks ++ httpx.optional-dependencies.http2;
 
   nativeCheckInputs = [
     beautifulsoup4
@@ -52,9 +51,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pythonImportsCheck = [
-    "telegram"
-  ];
+  pythonImportsCheck = [ "telegram" ];
 
   disabledTests = [
     # Tests require network access
@@ -122,6 +119,9 @@ buildPythonPackage rec {
     homepage = "https://python-telegram-bot.org";
     changelog = "https://github.com/python-telegram-bot/python-telegram-bot/blob/v${version}/CHANGES.rst";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ veprbl pingiun ];
+    maintainers = with maintainers; [
+      veprbl
+      pingiun
+    ];
   };
 }

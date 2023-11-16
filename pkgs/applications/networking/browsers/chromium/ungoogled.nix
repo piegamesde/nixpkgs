@@ -1,13 +1,12 @@
-{ stdenv
-, fetchFromGitHub
-, python3Packages
-, makeWrapper
-, patch
+{
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  makeWrapper,
+  patch,
 }:
 
-{ rev
-, sha256
-}:
+{ rev, sha256 }:
 
 stdenv.mkDerivation rec {
   pname = "ungoogled-chromium";
@@ -27,9 +26,7 @@ stdenv.mkDerivation rec {
     patch
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   patchPhase = ''
     sed -i '/chromium-widevine/d' patches/series

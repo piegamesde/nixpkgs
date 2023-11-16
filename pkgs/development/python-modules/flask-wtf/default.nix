@@ -1,12 +1,13 @@
-{ lib
-, fetchPypi
-, fetchpatch
-, buildPythonPackage
-, flask
-, itsdangerous
-, wtforms
-, email-validator
-, pytestCheckHook
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+  flask,
+  itsdangerous,
+  wtforms,
+  email-validator,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -29,14 +30,15 @@ buildPythonPackage rec {
     email = [ email-validator ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Simple integration of Flask and WTForms.";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mic92 anthonyroussel ];
+    maintainers = with maintainers; [
+      mic92
+      anthonyroussel
+    ];
     homepage = "https://github.com/lepture/flask-wtf/";
   };
 }

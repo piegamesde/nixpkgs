@@ -1,15 +1,16 @@
-{ lib
-, aiofile
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pbr
-, httpx
-, pycryptodome
-, pyjwt
-, pytestCheckHook
-, respx
-, time-machine
+{
+  lib,
+  aiofile,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pbr,
+  httpx,
+  pycryptodome,
+  pyjwt,
+  pytestCheckHook,
+  respx,
+  time-machine,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-MQYS7EEBGgvIBjSQ80a49SQv1GNVgeriBtQn+O7hMtg=";
   };
 
-  nativeBuildInputs = [
-    pbr
-  ];
+  nativeBuildInputs = [ pbr ];
 
   PBR_VERSION = version;
 
@@ -45,9 +44,7 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  pythonImportsCheck = [
-    "bimmer_connected"
-  ];
+  pythonImportsCheck = [ "bimmer_connected" ];
 
   meta = with lib; {
     changelog = "https://github.com/bimmerconnected/bimmer_connected/releases/tag/${version}";

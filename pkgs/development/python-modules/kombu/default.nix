@@ -1,16 +1,17 @@
-{ lib
-, amqp
-, azure-servicebus
-, buildPythonPackage
-, cached-property
-, case
-, fetchPypi
-, importlib-metadata
-, pyro4
-, pytestCheckHook
-, pythonOlder
-, pytz
-, vine
+{
+  lib,
+  amqp,
+  azure-servicebus,
+  buildPythonPackage,
+  cached-property,
+  case,
+  fetchPypi,
+  importlib-metadata,
+  pyro4,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  vine,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,15 @@ buildPythonPackage rec {
       --replace "pytz>dev" "pytz"
   '';
 
-  propagatedBuildInputs = [
-    amqp
-    vine
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    cached-property
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    [
+      amqp
+      vine
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
+      cached-property
+      importlib-metadata
+    ];
 
   nativeCheckInputs = [
     azure-servicebus
@@ -46,9 +49,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [
-    "kombu"
-  ];
+  pythonImportsCheck = [ "kombu" ];
 
   meta = with lib; {
     description = "Messaging library for Python";

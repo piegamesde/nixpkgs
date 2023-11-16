@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, unstableGitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -11,8 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "emil-e";
-    repo  = "rapidcheck";
-    rev   = "a5724ea5b0b00147109b0605c377f1e54c353ba2";
+    repo = "rapidcheck";
+    rev = "a5724ea5b0b00147109b0605c377f1e54c353ba2";
     hash = "sha256-nq2VBDREkAOnvtdYr3m0TYNXx7mv9hbV5HZFVL2uTTg=";
   };
 

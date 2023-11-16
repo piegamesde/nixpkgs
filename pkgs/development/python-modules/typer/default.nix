@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, click
-, colorama
-, coverage
-, fetchpatch
-, fetchPypi
-, flit-core
-, pytest-sugar
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, rich
-, shellingham
-, typing-extensions
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  click,
+  colorama,
+  coverage,
+  fetchpatch,
+  fetchPypi,
+  flit-core,
+  pytest-sugar,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  rich,
+  shellingham,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-UJIv15rqL0dRqOBAj/ENJmK9DIu/qEdVppnzutopeLI=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     click
@@ -56,19 +55,16 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests = [
-    "test_scripts"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # likely related to https://github.com/sarugaku/shellingham/issues/35
-    "test_show_completion"
-    "test_install_completion"
-  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
-    "test_install_completion"
-  ];
+  disabledTests =
+    [ "test_scripts" ]
+    ++ lib.optionals stdenv.isDarwin [
+      # likely related to https://github.com/sarugaku/shellingham/issues/35
+      "test_show_completion"
+      "test_install_completion"
+    ]
+    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "test_install_completion" ];
 
-  pythonImportsCheck = [
-    "typer"
-  ];
+  pythonImportsCheck = [ "typer" ];
 
   meta = with lib; {
     description = "Library for building CLI applications";

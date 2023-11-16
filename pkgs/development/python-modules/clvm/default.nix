@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, blspy
-, setuptools-scm
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  blspy,
+  setuptools-scm,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,29 +20,22 @@ buildPythonPackage rec {
     hash = "sha256-kTmuiy0IbTGjDokZjxp3p8lr/0uVxG/0pRN2hETLBtA=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # give a hint to setuptools-scm on package version
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
-  propagatedBuildInputs = [
-    blspy
-  ];
+  propagatedBuildInputs = [ blspy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # all tests in this file have a circular dependency on clvm-tools
-    "tests/cmds_test.py"
-  ];
+  disabledTestPaths =
+    [
+      # all tests in this file have a circular dependency on clvm-tools
+      "tests/cmds_test.py"
+    ];
 
-  pythonImportsCheck = [
-    "clvm"
-  ];
+  pythonImportsCheck = [ "clvm" ];
 
   meta = with lib; {
     description = "Chia Lisp virtual machine";

@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-geometry";
   version = "20160531-git";
 
   description = "Library for two dimensional geometry.";
 
-  deps = [ args."iterate" args."trees" ];
+  deps = [
+    args."iterate"
+    args."trees"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-geometry/2016-05-31/cl-geometry-20160531-git.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "cl-geometry";
 
-  asdFilesToKeep = ["cl-geometry.asd"];
+  asdFilesToKeep = [ "cl-geometry.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-geometry DESCRIPTION Library for two dimensional geometry. SHA256
@@ -24,4 +27,5 @@ rec {
     MD5 c0aaccbb4e2df6c504e6c1cd15155353 NAME cl-geometry FILENAME cl-geometry
     DEPS ((NAME iterate FILENAME iterate) (NAME trees FILENAME trees))
     DEPENDENCIES (iterate trees) VERSION 20160531-git SIBLINGS
-    (cl-geometry-tests) PARASITES NIL) */
+    (cl-geometry-tests) PARASITES NIL)
+*/

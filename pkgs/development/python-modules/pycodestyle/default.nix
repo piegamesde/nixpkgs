@@ -1,8 +1,9 @@
-{ buildPythonPackage
-, pythonOlder
-, fetchPypi
-, lib
-, python
+{
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  lib,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -33,8 +34,6 @@ buildPythonPackage rec {
     description = "Python style guide checker";
     homepage = "https://pycodestyle.pycqa.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      kamadorueda
-    ];
+    maintainers = with maintainers; [ kamadorueda ];
   };
 }

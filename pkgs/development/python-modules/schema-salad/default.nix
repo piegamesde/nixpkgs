@@ -1,15 +1,16 @@
-{ lib
-, black
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, cachecontrol
-, lockfile
-, mistune
-, rdflib
-, ruamel-yaml
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  black,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  cachecontrol,
+  lockfile,
+  mistune,
+  rdflib,
+  ruamel-yaml,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-x2co8WjL+e4nBZd0pGUwv39nzNkO5G3dYrYJZeqP31o=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     cachecontrol
@@ -36,9 +35,7 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.pycodegen;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.pycodegen;
 
   preCheck = ''
     rm tox.ini
@@ -53,14 +50,10 @@ buildPythonPackage rec {
     "test_bad_schemas"
   ];
 
-  pythonImportsCheck = [
-    "schema_salad"
-  ];
+  pythonImportsCheck = [ "schema_salad" ];
 
   passthru.optional-dependencies = {
-    pycodegen = [
-      black
-    ];
+    pycodegen = [ black ];
   };
 
   meta = with lib; {

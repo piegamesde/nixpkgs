@@ -1,18 +1,19 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, poetry-core
-, docopt-ng
-, easywatch
-, jinja2
-, pytestCheckHook
-, pytest-check
-, pythonOlder
-, markdown
-, testers
-, tomlkit
-, staticjinja
-, callPackage
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  poetry-core,
+  docopt-ng,
+  easywatch,
+  jinja2,
+  pytestCheckHook,
+  pytest-check,
+  pythonOlder,
+  markdown,
+  testers,
+  tomlkit,
+  staticjinja,
+  callPackage,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-w6ge5MQXNRHCM43jKnagTlbquJJys7mprgBOS2uuwHQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     jinja2
@@ -54,7 +53,7 @@ buildPythonPackage rec {
 
   passthru.tests = {
     version = testers.testVersion { package = staticjinja; };
-    minimal-template = callPackage ./test-minimal-template {};
+    minimal-template = callPackage ./test-minimal-template { };
   };
 
   meta = with lib; {

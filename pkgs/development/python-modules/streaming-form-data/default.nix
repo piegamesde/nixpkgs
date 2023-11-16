@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder,
-cython, numpy, pytest, requests-toolbelt }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  cython,
+  numpy,
+  pytest,
+  requests-toolbelt,
+}:
 
 buildPythonPackage rec {
   pname = "streaming-form-data";
@@ -17,7 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests-toolbelt ];
 
-  nativeCheckInputs = [ numpy pytest ];
+  nativeCheckInputs = [
+    numpy
+    pytest
+  ];
 
   checkPhase = ''
     make test

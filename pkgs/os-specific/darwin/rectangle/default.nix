@@ -1,8 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, undmg
-, gitUpdater
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  undmg,
+  gitUpdater,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -41,4 +42,3 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.mit;
   };
 }
-

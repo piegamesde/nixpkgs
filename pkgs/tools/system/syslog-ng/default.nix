@@ -1,8 +1,27 @@
-{ lib, stdenv, fetchurl, openssl, libcap, curl, which
-, eventlog, pkg-config, glib, python3, systemd, perl
-, riemann_c_client, protobufc, pcre, libnet
-, json_c, libuuid, libivykis, mongoc, rabbitmq-c
-, libesmtp
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  libcap,
+  curl,
+  which,
+  eventlog,
+  pkg-config,
+  glib,
+  python3,
+  systemd,
+  perl,
+  riemann_c_client,
+  protobufc,
+  pcre,
+  libnet,
+  json_c,
+  libuuid,
+  libivykis,
+  mongoc,
+  rabbitmq-c,
+  libesmtp,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +33,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VJH2htC4KbabLg/A1mpi9RmRqvruAFR1v6OPqzmUQfc=";
   };
 
-  nativeBuildInputs = [ pkg-config which ];
+  nativeBuildInputs = [
+    pkg-config
+    which
+  ];
 
   buildInputs = [
     libcap
@@ -51,14 +73,20 @@ stdenv.mkDerivation rec {
     "--without-compile-date"
   ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     homepage = "https://www.syslog-ng.com";
     description = "Next-generation syslogd with advanced networking and filtering capabilities";
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;
   };

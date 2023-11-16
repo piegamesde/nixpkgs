@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchFromGitHub
-, mock
-, psutil
-, six
-, future
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  mock,
+  psutil,
+  six,
+  future,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -22,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-pICSU33n/oH+LRbWNYOdnTaa5qAGRRXWsO1NjO4ylzw=";
   };
 
-  propagatedBuildInputs = [ psutil six future ];
+  propagatedBuildInputs = [
+    psutil
+    six
+    future
+  ];
 
   nativeCheckInputs = [
     mock

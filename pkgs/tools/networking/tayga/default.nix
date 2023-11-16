@@ -1,11 +1,16 @@
-{ lib, stdenv, fetchurl, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.2";
   pname = "tayga";
 
   src = fetchurl {
-    url= "http://www.litech.org/${pname}/${pname}-${version}.tar.bz2";
+    url = "http://www.litech.org/${pname}/${pname}-${version}.tar.bz2";
     sha256 = "1700y121lhvpna49bjpssb7jq1abj9qw5wxgjn8gzp6jm4kpj7rb";
   };
 

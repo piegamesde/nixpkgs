@@ -1,10 +1,11 @@
-{ lib
-, fetchurl
-, buildDunePackage
-, camlp-streams
-, ppx_cstruct
-, cstruct
-, decompress
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  camlp-streams,
+  ppx_cstruct,
+  cstruct,
+  decompress,
 }:
 
 buildDunePackage rec {
@@ -24,9 +25,7 @@ buildDunePackage rec {
     decompress
   ];
 
-  buildInputs = [
-    ppx_cstruct
-  ];
+  buildInputs = [ ppx_cstruct ];
 
   doCheck = true;
 

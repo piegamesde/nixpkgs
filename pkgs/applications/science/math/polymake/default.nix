@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
-, perl
-, gmp
-, mpfr
-, flint
-, boost
-, bliss
-, ppl
-, singular
-, cddlib
-, lrs
-, nauty
-, ninja
-, ant
-, openjdk
-, perlPackages
-, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  gmp,
+  mpfr,
+  flint,
+  boost,
+  bliss,
+  ppl,
+  singular,
+  cddlib,
+  lrs,
+  nauty,
+  ninja,
+  ant,
+  openjdk,
+  perlPackages,
+  makeWrapper,
 }:
 
 # polymake compiles its own version of sympol and atint because we
@@ -41,27 +42,34 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  buildInputs = [
-    perl
-    gmp
-    mpfr
-    flint
-    boost
-    bliss
-    ppl
-    singular
-    cddlib
-    lrs
-    nauty
-    openjdk
-  ] ++ (with perlPackages; [
-    JSON
-    TermReadLineGnu
-    TermReadKey
-    XMLSAX
-  ]);
+  buildInputs =
+    [
+      perl
+      gmp
+      mpfr
+      flint
+      boost
+      bliss
+      ppl
+      singular
+      cddlib
+      lrs
+      nauty
+      openjdk
+    ]
+    ++ (
+      with perlPackages; [
+        JSON
+        TermReadLineGnu
+        TermReadKey
+        XMLSAX
+      ]
+    );
 
-  ninjaFlags = [ "-C" "build/Opt" ];
+  ninjaFlags = [
+    "-C"
+    "build/Opt"
+  ];
 
   postInstall = ''
     for i in "$out"/bin/*; do

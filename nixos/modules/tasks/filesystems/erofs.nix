@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
   inInitrd = lib.any (fs: fs == "erofs") config.boot.initrd.supportedFilesystems;
   inSystem = lib.any (fs: fs == "erofs") config.boot.supportedFilesystems;
-
 in
 
 {
@@ -16,6 +20,5 @@ in
 
     # fsck.erofs is currently experimental and should not be run as a
     # privileged user. Thus, it is not included in the initrd.
-
   };
 }

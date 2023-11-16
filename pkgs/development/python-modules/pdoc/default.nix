@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools
-, jinja2
-, pygments
-, markupsafe
-, astunparse
-, pytestCheckHook
-, hypothesis
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  jinja2,
+  pygments,
+  markupsafe,
+  astunparse,
+  pytestCheckHook,
+  hypothesis,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-UzUAprvBimk2POi0QZdFuRWEeGDp+MLmdUYR0UiIubs=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     jinja2
@@ -41,11 +40,12 @@ buildPythonPackage rec {
     pytestCheckHook
     hypothesis
   ];
-  disabledTestPaths = [
-    # "test_snapshots" tries to match generated output against stored snapshots.
-    # They are highly sensitive dep versions, which we unlike upstream do not pin.
-    "test/test_snapshot.py"
-  ];
+  disabledTestPaths =
+    [
+      # "test_snapshots" tries to match generated output against stored snapshots.
+      # They are highly sensitive dep versions, which we unlike upstream do not pin.
+      "test/test_snapshot.py"
+    ];
 
   pytestFlagsArray = [
     ''-m "not slow"'' # skip tests marked slow

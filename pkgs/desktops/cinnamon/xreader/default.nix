@@ -1,27 +1,37 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, glib
-, gobject-introspection
-, intltool
-, shared-mime-info
-, gtk3
-, wrapGAppsHook
-, libxml2
-, xapp
-, meson
-, pkg-config
-, cairo
-, libsecret
-, poppler
-, libspectre
-, libgxps
-, webkitgtk
-, nodePackages
-, ninja
-, gsettings-desktop-schemas
-, djvulibre
-, backends ? [ "pdf" "ps" /* "dvi" "t1lib" */ "djvu" "tiff" "pixbuf" "comics" "xps" "epub" ]
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  glib,
+  gobject-introspection,
+  intltool,
+  shared-mime-info,
+  gtk3,
+  wrapGAppsHook,
+  libxml2,
+  xapp,
+  meson,
+  pkg-config,
+  cairo,
+  libsecret,
+  poppler,
+  libspectre,
+  libgxps,
+  webkitgtk,
+  nodePackages,
+  ninja,
+  gsettings-desktop-schemas,
+  djvulibre,
+  backends ? [
+    "pdf"
+    "ps" # "dvi" "t1lib"
+    "djvu"
+    "tiff"
+    "pixbuf"
+    "comics"
+    "xps"
+    "epub"
+  ],
 }:
 
 stdenv.mkDerivation rec {
@@ -45,9 +55,7 @@ stdenv.mkDerivation rec {
     intltool
   ];
 
-  mesonFlags = [
-    "-Dmathjax-directory=${nodePackages.mathjax}"
-  ] ++ (map (x: "-D${x}=true") backends);
+  mesonFlags = [ "-Dmathjax-directory=${nodePackages.mathjax}" ] ++ (map (x: "-D${x}=true") backends);
 
   buildInputs = [
     glib
@@ -65,8 +73,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "A document viewer capable of displaying multiple and single page
-document formats like PDF and Postscript";
+    description = ''
+      A document viewer capable of displaying multiple and single page
+      document formats like PDF and Postscript'';
     homepage = "https://github.com/linuxmint/xreader";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

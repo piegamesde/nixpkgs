@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,18 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-If59UQZC8rYamZ1Fw9l0X5UOEf5rokl1Vbj2N4K3jkU=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dockerfile_parse"
-  ];
+  pythonImportsCheck = [ "dockerfile_parse" ];
 
-  disabledTests = [
-    # python-dockerfile-parse.spec is not present
-    "test_all_versions_match"
-  ];
+  disabledTests =
+    [
+      # python-dockerfile-parse.spec is not present
+      "test_all_versions_match"
+    ];
 
   meta = with lib; {
     description = "Library for parsing Dockerfile files";

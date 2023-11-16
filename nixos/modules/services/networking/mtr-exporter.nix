@@ -1,11 +1,24 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    maintainers types mkEnableOption mkOption mkIf
-    literalExpression escapeShellArg escapeShellArgs;
+    maintainers
+    types
+    mkEnableOption
+    mkOption
+    mkIf
+    literalExpression
+    escapeShellArg
+    escapeShellArgs
+  ;
   cfg = config.services.mtr-exporter;
-in {
+in
+{
   options = {
     services = {
       mtr-exporter = {
@@ -37,8 +50,8 @@ in {
 
         mtrFlags = mkOption {
           type = with types; listOf str;
-          default = [];
-          example = ["-G1"];
+          default = [ ];
+          example = [ "-G1" ];
           description = lib.mdDoc "Additional flags to pass to MTR.";
         };
       };

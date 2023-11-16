@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems, electron }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  electron,
+}:
 
 let
   version = "0.13.0";
@@ -6,8 +14,8 @@ let
     url = "https://raw.githubusercontent.com/Splode/pomotroid/v${version}/static/icon.png";
     sha256 = "sha256-BEPoOBErw5ZCeK4rtdxdwZZLimbpglu1Cu++4xzuVUs=";
   };
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "pomotroid";
   inherit version;
 

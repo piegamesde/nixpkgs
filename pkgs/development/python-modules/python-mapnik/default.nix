@@ -1,29 +1,30 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, substituteAll
-, isPyPy
-, python
-, pillow
-, pycairo
-, pkg-config
-, boost182
-, cairo
-, harfbuzz
-, icu
-, libjpeg
-, libpng
-, libtiff
-, libwebp
-, mapnik
-, proj
-, zlib
-, libxml2
-, sqlite
-, nose
-, pytestCheckHook
-, stdenv
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  isPyPy,
+  python,
+  pillow,
+  pycairo,
+  pkg-config,
+  boost182,
+  cairo,
+  harfbuzz,
+  icu,
+  libjpeg,
+  libpng,
+  libtiff,
+  libwebp,
+  mapnik,
+  proj,
+  zlib,
+  libxml2,
+  sqlite,
+  nose,
+  pytestCheckHook,
+  stdenv,
 }:
 
 buildPythonPackage rec {
@@ -75,16 +76,19 @@ buildPythonPackage rec {
     sqlite
   ];
 
-  propagatedBuildInputs = [ pillow pycairo ];
-
-  configureFlags = [
-    "XMLPARSER=libxml2"
+  propagatedBuildInputs = [
+    pillow
+    pycairo
   ];
+
+  configureFlags = [ "XMLPARSER=libxml2" ];
 
   disabled = isPyPy;
 
   preBuild = ''
-    export BOOST_PYTHON_LIB="boost_python${"${lib.versions.major python.version}${lib.versions.minor python.version}"}"
+    export BOOST_PYTHON_LIB="boost_python${
+      "${lib.versions.major python.version}${lib.versions.minor python.version}"
+    }"
     export BOOST_THREAD_LIB="boost_thread"
     export BOOST_SYSTEM_LIB="boost_system"
     export PYCAIRO=true
@@ -96,13 +100,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  preCheck = ''
-    # import from $out
-    rm -r mapnik
-  '' + lib.optionalString stdenv.isDarwin ''
-    # Replace the hardcoded /tmp references with $TMPDIR
-    sed -i "s,/tmp,$TMPDIR,g" test/python_tests/*.py
-  '';
+  preCheck =
+    ''
+      # import from $out
+      rm -r mapnik
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      # Replace the hardcoded /tmp references with $TMPDIR
+      sed -i "s,/tmp,$TMPDIR,g" test/python_tests/*.py
+    '';
 
   # https://github.com/mapnik/python-mapnik/issues/255
   disabledTests = [
@@ -133,9 +139,7 @@ buildPythonPackage rec {
     "test_visual_zoom_all_rendering1"
     "test_visual_zoom_all_rendering2"
     "test_wgs84_inverse_forward"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_passing_pycairo_context_pdf"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "test_passing_pycairo_context_pdf" ];
 
   pythonImportsCheck = [ "mapnik" ];
 

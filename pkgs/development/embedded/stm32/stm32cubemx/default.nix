@@ -1,4 +1,14 @@
-{ lib, stdenv, makeDesktopItem, copyDesktopItems, icoutils, fdupes, imagemagick, jdk11, fetchzip }:
+{
+  lib,
+  stdenv,
+  makeDesktopItem,
+  copyDesktopItems,
+  icoutils,
+  fdupes,
+  imagemagick,
+  jdk11,
+  fetchzip,
+}:
 # TODO: JDK16 causes STM32CubeMX to crash right now, so we fixed the version to JDK11
 # This may be fixed in a future version of STM32CubeMX. This issue has been reported to ST:
 # https://community.st.com/s/question/0D53W00000jnOzPSAU/stm32cubemx-crashes-on-launch-with-openjdk16
@@ -12,12 +22,19 @@ stdenv.mkDerivation rec {
   version = "6.8.1";
 
   src = fetchzip {
-    url = "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${builtins.replaceStrings ["."] [""] version}-lin.zip";
+    url = "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }-lin.zip";
     sha256 = "sha256-0WzdyRP09rRZzVZhwMOxA/SwHrQOYGBnv8UwvjMT22Q=";
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ icoutils fdupes imagemagick copyDesktopItems];
+  nativeBuildInputs = [
+    icoutils
+    fdupes
+    imagemagick
+    copyDesktopItems
+  ];
   desktopItems = [
     (makeDesktopItem {
       name = "stm32CubeMX";

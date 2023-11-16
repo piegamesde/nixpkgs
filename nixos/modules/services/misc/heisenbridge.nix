@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -12,14 +17,16 @@ let
 
   registrationFile = "/var/lib/heisenbridge/registration.yml";
   # JSON is a proper subset of YAML
-  bridgeConfig = builtins.toFile "heisenbridge-registration.yml" (builtins.toJSON {
-    id = "heisenbridge";
-    url = cfg.registrationUrl;
-    # Don't specify as_token and hs_token
-    rate_limited = false;
-    sender_localpart = "heisenbridge";
-    namespaces = cfg.namespaces;
-  });
+  bridgeConfig = builtins.toFile "heisenbridge-registration.yml" (
+    builtins.toJSON {
+      id = "heisenbridge";
+      url = cfg.registrationUrl;
+      # Don't specify as_token and hs_token
+      rate_limited = false;
+      sender_localpart = "heisenbridge";
+      namespaces = cfg.namespaces;
+    }
+  );
 in
 {
   options.services.heisenbridge = {
@@ -48,7 +55,7 @@ in
       '';
       example = "https://matrix.example.org";
       default = "http://${cfg.address}:${toString cfg.port}";
-      defaultText = "http://$${cfg.address}:$${toString cfg.port}";
+      defaultText = "http://$\${cfg.address}:$\${toString cfg.port}";
     };
 
     address = mkOption {
@@ -80,11 +87,11 @@ in
     };
 
     namespaces = mkOption {
-      description = lib.mdDoc "Configure the 'namespaces' section of the registration.yml for the bridge and the server";
+      description =
+        lib.mdDoc
+          "Configure the 'namespaces' section of the registration.yml for the bridge and the server";
       # TODO link to Matrix documentation of the format
-      type = types.submodule {
-        freeformType = jsonType;
-      };
+      type = types.submodule { freeformType = jsonType; };
 
       default = {
         users = [
@@ -107,7 +114,9 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      description = lib.mdDoc "Heisenbridge is configured over the command line. Append extra arguments here";
+      description =
+        lib.mdDoc
+          "Heisenbridge is configured over the command line. Append extra arguments here";
       default = [ ];
     };
   };
@@ -165,9 +174,7 @@ in
             "--identd-port"
             (toString cfg.identd.port)
           ])
-          ++ [
-            (lib.escapeShellArg cfg.homeserver)
-          ]
+          ++ [ (lib.escapeShellArg cfg.homeserver) ]
           ++ (map (lib.escapeShellArg) cfg.extraArgs)
         );
 
@@ -198,18 +205,25 @@ in
         RemoveIPC = true;
         UMask = "0077";
 
-        CapabilityBoundingSet = [ "CAP_CHOWN" ] ++ optional (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024)) "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet =
+          [ "CAP_CHOWN" ]
+          ++ optional (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
+            "CAP_NET_BIND_SERVICE";
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
         LockPersonality = true;
         RestrictRealtime = true;
-        SystemCallFilter = ["@system-service" "~@privileged" "@chown"];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "@chown"
+        ];
         SystemCallArchitectures = "native";
         RestrictAddressFamilies = "AF_INET AF_INET6";
       };
     };
 
-    users.groups.heisenbridge = {};
+    users.groups.heisenbridge = { };
     users.users.heisenbridge = {
       description = "Service user for the Heisenbridge";
       group = "heisenbridge";

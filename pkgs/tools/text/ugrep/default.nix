@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, boost
-, bzip2
-, lz4
-, pcre2
-, xz
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  bzip2,
+  lz4,
+  pcre2,
+  xz,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,21 +1,22 @@
-{ lib
-, mkDerivation
-, fetchurl
-, cmake
-, extra-cmake-modules
-, pkg-config
-, baloo
-, kfilemetadata
-, kirigami2
-, kirigami-addons
-, kitemmodels
-, kquickcharts
-, plasma-framework
-, qqc2-desktop-style
-, qtbase
-, qtquickcontrols2
-, qtwebsockets
-, qtwebengine
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  baloo,
+  kfilemetadata,
+  kirigami2,
+  kirigami-addons,
+  kitemmodels,
+  kquickcharts,
+  plasma-framework,
+  qqc2-desktop-style,
+  qtbase,
+  qtquickcontrols2,
+  qtwebsockets,
+  qtwebengine,
 }:
 
 mkDerivation rec {

@@ -1,17 +1,39 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libxml2, xorg, glib, pango
-, intltool, libgnome, libgnomecanvas, libbonoboui, GConf, libtool
-, gnome_vfs, libgnome-keyring, libglade }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  libxml2,
+  xorg,
+  glib,
+  pango,
+  intltool,
+  libgnome,
+  libgnomecanvas,
+  libbonoboui,
+  GConf,
+  libtool,
+  gnome_vfs,
+  libgnome-keyring,
+  libglade,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgnomeui";
   version = "2.24.5";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libgnomeui/${lib.versions.majorMinor version}/libgnomeui-${version}.tar.bz2";
+    url = "mirror://gnome/sources/libgnomeui/${
+        lib.versions.majorMinor version
+      }/libgnomeui-${version}.tar.bz2";
     sha256 = "03rwbli76crkjl6gp422wrc9lqpl174k56cp9i96b7l8jlj2yddf";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     (fetchpatch {
@@ -21,9 +43,27 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config intltool ];
-  buildInputs =
-    [ xorg.libX11 xorg.libSM xorg.libICE libxml2 GConf pango glib libgnome-keyring libglade libtool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
+  buildInputs = [
+    xorg.libX11
+    xorg.libSM
+    xorg.libICE
+    libxml2
+    GConf
+    pango
+    glib
+    libgnome-keyring
+    libglade
+    libtool
+  ];
 
-  propagatedBuildInputs = [ libgnome libbonoboui libgnomecanvas gnome_vfs ];
+  propagatedBuildInputs = [
+    libgnome
+    libbonoboui
+    libgnomecanvas
+    gnome_vfs
+  ];
 }

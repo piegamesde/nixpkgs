@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, qtbase
-, qttools
-, lxqt-build-tools
-, gitUpdater
+{
+  stdenv,
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qttools,
+  lxqt-build-tools,
+  gitUpdater,
 }:
 
 mkDerivation rec {

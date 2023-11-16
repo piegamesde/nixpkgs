@@ -1,6 +1,17 @@
-{ lib, stdenv, fetchurl, makeWrapper
-, ncurses, python3, perl, textual-window-manager
-, gettext, vim, bc, screen }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  ncurses,
+  python3,
+  perl,
+  textual-window-manager,
+  gettext,
+  vim,
+  bc,
+  screen,
+}:
 
 let
   pythonEnv = python3.withPackages (ps: with ps; [ snack ]);
@@ -17,8 +28,14 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl gettext ];
-  propagatedBuildInputs = [ textual-window-manager screen ];
+  buildInputs = [
+    perl
+    gettext
+  ];
+  propagatedBuildInputs = [
+    textual-window-manager
+    screen
+  ];
 
   postPatch = ''
     substituteInPlace usr/bin/byobu-export.in \
@@ -48,7 +65,14 @@ stdenv.mkDerivation rec {
       file=".$(basename $i)"
       mv $i $out/bin/$file
       makeWrapper "$out/bin/$file" "$out/bin/$(basename $i)" --argv0 $(basename $i) \
-        --set BYOBU_PATH ${lib.escapeShellArg (lib.makeBinPath [ vim bc ])} \
+        --set BYOBU_PATH ${
+          lib.escapeShellArg (
+            lib.makeBinPath [
+              vim
+              bc
+            ]
+          )
+        } \
         --set BYOBU_PYTHON "${pythonEnv}/bin/python"
     done
   '';
@@ -57,19 +81,22 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/byobu/";
     description = "Text-based window manager and terminal multiplexer";
 
-    longDescription =
-      ''Byobu is a GPLv3 open source text-based window manager and terminal multiplexer.
-        It was originally designed to provide elegant enhancements to the otherwise functional,
-        plain, practical GNU Screen, for the Ubuntu server distribution.
-        Byobu now includes an enhanced profiles, convenient keybindings,
-        configuration utilities, and toggle-able system status notifications for both
-        the GNU Screen window manager and the more modern Tmux terminal multiplexer,
-        and works on most Linux, BSD, and Mac distributions.
-      '';
+    longDescription = ''
+      Byobu is a GPLv3 open source text-based window manager and terminal multiplexer.
+              It was originally designed to provide elegant enhancements to the otherwise functional,
+              plain, practical GNU Screen, for the Ubuntu server distribution.
+              Byobu now includes an enhanced profiles, convenient keybindings,
+              configuration utilities, and toggle-able system status notifications for both
+              the GNU Screen window manager and the more modern Tmux terminal multiplexer,
+              and works on most Linux, BSD, and Mac distributions.
+    '';
 
     license = licenses.gpl3;
 
     platforms = platforms.unix;
-    maintainers = with maintainers; [ qknight berbiche ];
+    maintainers = with maintainers; [
+      qknight
+      berbiche
+    ];
   };
 }

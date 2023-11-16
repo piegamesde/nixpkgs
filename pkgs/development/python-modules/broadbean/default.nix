@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, versioningit
-, numpy
-, matplotlib
-, schema
-, hypothesis
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  versioningit,
+  numpy,
+  matplotlib,
+  schema,
+  hypothesis,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -23,7 +24,10 @@ buildPythonPackage rec {
     sha256 = "sha256-e+LAcmWxT+SkaWtToPgg+x3QRu5fCSm+w4dLCcyZrw8=";
   };
 
-  nativeBuildInputs = [ setuptools versioningit ];
+  nativeBuildInputs = [
+    setuptools
+    versioningit
+  ];
 
   propagatedBuildInputs = [
     numpy

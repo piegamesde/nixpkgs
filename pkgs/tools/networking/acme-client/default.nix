@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, libbsd
-, libressl
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libbsd,
+  libressl,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,18 +16,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-nVB0VIT6mwKwSTY+wDcuxMtpEjtZ9Z0ke0lJ7SzdsJ0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     libbsd
     libressl
   ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     description = "Secure ACME/Let's Encrypt client";
@@ -36,4 +33,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ pmahoney ];
   };
 }
-

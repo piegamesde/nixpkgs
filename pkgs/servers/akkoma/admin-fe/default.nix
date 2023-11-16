@@ -1,8 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitea, fetchYarnDeps
-, fixup_yarn_lock, yarn, nodejs
-, python3, pkg-config, libsass
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  yarn,
+  nodejs,
+  python3,
+  pkg-config,
+  libsass,
 }:
 
 stdenv.mkDerivation rec {

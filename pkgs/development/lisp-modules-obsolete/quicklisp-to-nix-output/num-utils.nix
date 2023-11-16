@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "num-utils";
   version = "numerical-utilities-20210411-git";
@@ -8,7 +8,14 @@ rec {
 
   description = "Numerical utilities for Common Lisp";
 
-  deps = [ args."alexandria" args."anaphora" args."array-operations" args."fiveam" args."let-plus" args."select" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."array-operations"
+    args."fiveam"
+    args."let-plus"
+    args."select"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/numerical-utilities/2021-04-11/numerical-utilities-20210411-git.tgz";
@@ -17,7 +24,7 @@ rec {
 
   packageName = "num-utils";
 
-  asdFilesToKeep = ["num-utils.asd"];
+  asdFilesToKeep = [ "num-utils.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM num-utils DESCRIPTION Numerical utilities for Common Lisp SHA256
@@ -30,4 +37,5 @@ rec {
      (NAME select FILENAME select))
     DEPENDENCIES (alexandria anaphora array-operations fiveam let-plus select)
     VERSION numerical-utilities-20210411-git SIBLINGS NIL PARASITES
-    (num-utils/tests)) */
+    (num-utils/tests))
+*/

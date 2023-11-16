@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, cmake }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libobjc2";
@@ -21,7 +26,10 @@ stdenv.mkDerivation rec {
     description = "Objective-C runtime for use with GNUstep";
     homepage = "http://gnustep.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ashalkhakov matthewbauer ];
+    maintainers = with maintainers; [
+      ashalkhakov
+      matthewbauer
+    ];
     platforms = platforms.unix;
   };
 }

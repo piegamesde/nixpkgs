@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qmake
-, qtscript
-, wrapQtAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtscript,
+  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,15 +23,11 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtscript
-  ];
+  buildInputs = [ qtscript ];
 
   dontUseQmakeConfigure = true;
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     homepage = "https://www.smplayer.info";

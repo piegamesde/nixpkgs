@@ -1,6 +1,11 @@
 # AccountsService daemon.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -24,11 +29,8 @@ with lib;
           the list of user accounts and information attached to those accounts.
         '';
       };
-
     };
-
   };
-
 
   ###### implementation
 
@@ -43,16 +45,15 @@ with lib;
 
     systemd.packages = [ pkgs.accountsservice ];
 
-    systemd.services.accounts-daemon = recursiveUpdate {
+    systemd.services.accounts-daemon =
+      recursiveUpdate
+        {
 
-      wantedBy = [ "graphical.target" ];
+          wantedBy = [ "graphical.target" ];
 
-      # Accounts daemon looks for dbus interfaces in $XDG_DATA_DIRS/accountsservice
-      environment.XDG_DATA_DIRS = "${config.system.path}/share";
-
-    } (optionalAttrs (!config.users.mutableUsers) {
-      environment.NIXOS_USERS_PURE = "true";
-    });
+          # Accounts daemon looks for dbus interfaces in $XDG_DATA_DIRS/accountsservice
+          environment.XDG_DATA_DIRS = "${config.system.path}/share";
+        }
+        (optionalAttrs (!config.users.mutableUsers) { environment.NIXOS_USERS_PURE = "true"; });
   };
-
 }

@@ -1,4 +1,8 @@
-{ wxGTK, stdenv, newScope }:
+{
+  wxGTK,
+  stdenv,
+  newScope,
+}:
 let
   callPackage = newScope self;
 
@@ -9,6 +13,5 @@ let
 
     zeroad = callPackage ./wrapper.nix { };
   };
-
 in
 self

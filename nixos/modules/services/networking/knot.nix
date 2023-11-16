@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -7,9 +12,8 @@ let
 
   configFile = pkgs.writeTextFile {
     name = "knot.conf";
-    text = (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles) + "\n" +
-           cfg.extraConfig;
-    checkPhase = lib.optionalString (cfg.keyFiles == []) ''
+    text = (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles) + "\n" + cfg.extraConfig;
+    checkPhase = lib.optionalString (cfg.keyFiles == [ ]) ''
       ${cfg.package}/bin/knotc --config=$out conf-check
     '';
   };
@@ -34,14 +38,15 @@ let
       ln -s '${cfg.package}/share/man' "$out/share/"
     '';
   };
-in {
+in
+{
   options = {
     services.knot = {
       enable = mkEnableOption (lib.mdDoc "Knot authoritative-only DNS server");
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           List of additional command line parameters for knotd
         '';
@@ -49,7 +54,7 @@ in {
 
       keyFiles = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           A list of files containing additional configuration
           to be included using the include directive. This option
@@ -80,7 +85,7 @@ in {
   };
 
   config = mkIf config.services.knot.enable {
-    users.groups.knot = {};
+    users.groups.knot = { };
     users.users.knot = {
       isSystemUser = true;
       group = "knot";
@@ -92,21 +97,19 @@ in {
       description = cfg.package.meta.description;
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
-      after = ["network.target" ];
+      after = [ "network.target" ];
 
       serviceConfig = {
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${concatStringsSep " " cfg.extraArgs}";
+        ExecStart = "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${
+            concatStringsSep " " cfg.extraArgs
+          }";
         ExecReload = "${knot-cli-wrappers}/bin/knotc reload";
         User = "knot";
         Group = "knot";
 
-        AmbientCapabilities = [
-          "CAP_NET_BIND_SERVICE"
-        ];
-        CapabilityBoundingSet = [
-          "CAP_NET_BIND_SERVICE"
-        ];
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         DeviceAllow = "";
         DevicePolicy = "closed";
         LockPersonality = true;
@@ -133,7 +136,7 @@ in {
           "AF_UNIX"
         ];
         RestrictNamespaces = true;
-        RestrictRealtime =true;
+        RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RuntimeDirectory = "knot";
         StateDirectory = "knot";

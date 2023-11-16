@@ -1,12 +1,27 @@
-{ lib, stdenv
-, buildPythonPackage, fetchFromGitHub, fetchpatch
-, pkg-config, cython, docutils
-, kivy-garden
-, mesa, mtdev, SDL2, SDL2_image, SDL2_ttf, SDL2_mixer
-, ApplicationServices, AVFoundation, libcxx
-, withGstreamer ? true
-, gst_all_1
-, pillow, requests, pygments
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cython,
+  docutils,
+  kivy-garden,
+  mesa,
+  mtdev,
+  SDL2,
+  SDL2_image,
+  SDL2_ttf,
+  SDL2_mixer,
+  ApplicationServices,
+  AVFoundation,
+  libcxx,
+  withGstreamer ? true,
+  gst_all_1,
+  pillow,
+  requests,
+  pygments,
 }:
 
 buildPythonPackage rec {
@@ -26,25 +41,31 @@ buildPythonPackage rec {
     docutils
   ];
 
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_ttf
-    SDL2_mixer
-  ] ++ lib.optionals stdenv.isLinux [
-    mesa
-    mtdev
-  ] ++ lib.optionals stdenv.isDarwin [
-    ApplicationServices
-    AVFoundation
-    libcxx
-  ] ++ lib.optionals withGstreamer (with gst_all_1; [
-    # NOTE: The degree to which gstreamer actually works is unclear
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-  ]);
+  buildInputs =
+    [
+      SDL2
+      SDL2_image
+      SDL2_ttf
+      SDL2_mixer
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      mesa
+      mtdev
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      ApplicationServices
+      AVFoundation
+      libcxx
+    ]
+    ++ lib.optionals withGstreamer (
+      with gst_all_1; [
+        # NOTE: The degree to which gstreamer actually works is unclear
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+      ]
+    );
 
   propagatedBuildInputs = [
     kivy-garden
@@ -66,9 +87,8 @@ buildPythonPackage rec {
       --replace "LoadLibrary('libmtdev.so.1')" "LoadLibrary('${mtdev}/lib/libmtdev.so.1')"
   '';
 
-  /*
-    We cannot run tests as Kivy tries to import itself before being fully
-    installed.
+  /* We cannot run tests as Kivy tries to import itself before being fully
+     installed.
   */
   doCheck = false;
   pythonImportsCheck = [ "kivy" ];

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, markupsafe
-, babel
-, pytestCheckHook
-, email-validator
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  markupsafe,
+  babel,
+  pytestCheckHook,
+  email-validator,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -27,18 +28,14 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    email = [
-      email-validator
-    ];
+    email = [ email-validator ];
   };
 
   nativeCheckInputs = [
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "wtforms"
-  ];
+  pythonImportsCheck = [ "wtforms" ];
 
   meta = with lib; {
     description = "A flexible forms validation and rendering library for Python";
@@ -47,5 +44,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ bhipple ];
   };
-
 }

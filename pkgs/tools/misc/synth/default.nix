@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, AppKit
-, Security
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  AppKit,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,10 +25,11 @@ rustPlatform.buildRustPackage rec {
     Security
   ];
 
-  checkFlags = [
-    # https://github.com/shuttle-hq/synth/issues/309
-    "--skip=docs_blog_2021_08_31_seeding_databases_tutorial_dot_md"
-  ];
+  checkFlags =
+    [
+      # https://github.com/shuttle-hq/synth/issues/309
+      "--skip=docs_blog_2021_08_31_seeding_databases_tutorial_dot_md"
+    ];
 
   # requires unstable rust features
   RUSTC_BOOTSTRAP = 1;

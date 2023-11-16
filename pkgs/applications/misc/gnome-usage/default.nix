@@ -1,20 +1,22 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, vala
-, gettext
-, libxml2
-, desktop-file-utils
-, wrapGAppsHook
-, glib
-, gtk3
-, libgtop
-, libdazzle
-, gnome
-, tracker
-, libhandy
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gettext,
+  libxml2,
+  desktop-file-utils,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  libgtop,
+  libdazzle,
+  gnome,
+  tracker,
+  libhandy,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +24,9 @@ stdenv.mkDerivation rec {
   version = "3.38.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "mMdm4X4VZXEfx0uaJP0u0NX618y0VRlhLdTiFHaO05M=";
   };
 
@@ -53,9 +57,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {

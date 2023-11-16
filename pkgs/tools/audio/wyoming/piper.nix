@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -14,17 +15,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-vl7LjW/2HBx6o/+vpap+wSG3XXzDwFacNmcbeU/8bOs=";
   };
 
-  patches = [
-    ./piper-entrypoint.patch
-  ];
+  patches = [ ./piper-entrypoint.patch ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    wyoming
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ wyoming ];
 
-  pythonImportsCheck = [
-    "wyoming_piper"
-  ];
+  pythonImportsCheck = [ "wyoming_piper" ];
 
   doCheck = false;
 

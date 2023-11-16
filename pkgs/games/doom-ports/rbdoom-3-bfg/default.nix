@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, directx-shader-compiler
-, libGLU
-, libpng
-, libjpeg_turbo
-, openal
-, rapidjson
-, SDL2
-, vulkan-headers
-, vulkan-loader
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  directx-shader-compiler,
+  libGLU,
+  libpng,
+  libjpeg_turbo,
+  openal,
+  rapidjson,
+  SDL2,
+  vulkan-headers,
+  vulkan-loader,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {

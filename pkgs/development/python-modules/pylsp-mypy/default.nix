@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, mypy
-, pytestCheckHook
-, python-lsp-server
-, pythonOlder
-, toml
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  mypy,
+  pytestCheckHook,
+  python-lsp-server,
+  pythonOlder,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -29,18 +30,15 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pylsp_mypy"
-  ];
+  pythonImportsCheck = [ "pylsp_mypy" ];
 
-  disabledTests = [
-    # Tests wants to call dmypy
-    "test_option_overrides_dmypy"
-  ];
+  disabledTests =
+    [
+      # Tests wants to call dmypy
+      "test_option_overrides_dmypy"
+    ];
 
   meta = with lib; {
     description = "Mypy plugin for the Python LSP Server";

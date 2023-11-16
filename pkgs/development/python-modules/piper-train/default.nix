@@ -1,17 +1,18 @@
-{ buildPythonPackage
-, piper-tts
+{
+  buildPythonPackage,
+  piper-tts,
 
-# build
-, cython
-, python
+  # build
+  cython,
+  python,
 
-# propagates
-, espeak-phonemizer
-, librosa
-, numpy
-, onnxruntime
-, pytorch-lightning
-, torch
+  # propagates
+  espeak-phonemizer,
+  librosa,
+  numpy,
+  onnxruntime,
+  pytorch-lightning,
+  torch,
 }:
 
 buildPythonPackage {
@@ -22,9 +23,7 @@ buildPythonPackage {
 
   sourceRoot = "source/src/python";
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -52,9 +51,7 @@ buildPythonPackage {
     torch
   ];
 
-  pythonImportsCheck = [
-    "piper_train"
-  ];
+  pythonImportsCheck = [ "piper_train" ];
 
   doCheck = false; # no tests
 }

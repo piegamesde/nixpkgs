@@ -1,8 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, freetype, ftgl, libjack2, libX11, lv2
-, libGLU, libGL, pkg-config, ttf_bitstream_vera
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  freetype,
+  ftgl,
+  libjack2,
+  libX11,
+  lv2,
+  libGLU,
+  libGL,
+  pkg-config,
+  ttf_bitstream_vera,
 }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   pname = "setbfree";
   version = "0.8.12";
 
@@ -21,16 +33,24 @@ stdenv.mkDerivation  rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    alsa-lib freetype ftgl libjack2 libX11 lv2 libGLU libGL
+    alsa-lib
+    freetype
+    ftgl
+    libjack2
+    libX11
+    lv2
+    libGLU
+    libGL
     ttf_bitstream_vera
   ];
 
   doInstallCheck = true;
 
-  installCheckPhase = ''(
-    set -x
-    test -e $out/bin/setBfreeUI
-  )'';
+  installCheckPhase = ''
+    (
+        set -x
+        test -e $out/bin/setBfreeUI
+      )'';
 
   enableParallelBuilding = true;
 
@@ -38,7 +58,10 @@ stdenv.mkDerivation  rec {
     description = "A DSP tonewheel organ emulator";
     homepage = "https://setbfree.org";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" ]; # fails on ARM and Darwin
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ]; # fails on ARM and Darwin
     maintainers = [ maintainers.goibhniu ];
   };
 }

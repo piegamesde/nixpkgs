@@ -1,8 +1,9 @@
-{ lib
-, python3Packages
-, fetchPypi
-, wrapQtAppsHook
-, qtbase
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+  wrapQtAppsHook,
+  qtbase,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -39,11 +40,12 @@ python3Packages.buildPythonApplication rec {
 
   # you can find these options at
   # https://github.com/veusz/veusz/blob/53b99dffa999f2bc41fdc5335d7797ae857c761f/pyqtdistutils.py#L71
-  setupPyBuildFlags = [
-    # veusz tries to find a libinfix and fails without one
-    # but we simply don't need a libinfix, so set it to empty here
-    "--qt-libinfix="
-  ];
+  setupPyBuildFlags =
+    [
+      # veusz tries to find a libinfix and fails without one
+      # but we simply don't need a libinfix, so set it to empty here
+      "--qt-libinfix="
+    ];
 
   propagatedBuildInputs = with python3Packages; [
     numpy

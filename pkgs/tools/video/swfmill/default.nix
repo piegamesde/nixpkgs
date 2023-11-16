@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchurl
-, pkg-config, libxslt, freetype, libpng, libxml2
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libxslt,
+  freetype,
+  libpng,
+  libxml2,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libxslt freetype libpng libxml2 ];
+  buildInputs = [
+    libxslt
+    freetype
+    libpng
+    libxml2
+  ];
 
   meta = {
     description = "An xml2swf and swf2xml processor with import functionalities";

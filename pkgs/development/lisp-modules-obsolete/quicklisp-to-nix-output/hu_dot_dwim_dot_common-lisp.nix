@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "hu_dot_dwim_dot_common-lisp";
   version = "stable-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "hu.dwim.common-lisp";
 
-  asdFilesToKeep = ["hu.dwim.common-lisp.asd"];
+  asdFilesToKeep = [ "hu.dwim.common-lisp.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.common-lisp DESCRIPTION
@@ -26,4 +26,5 @@ rec {
     hu_dot_dwim_dot_common-lisp DEPS
     ((NAME hu.dwim.asdf FILENAME hu_dot_dwim_dot_asdf)) DEPENDENCIES
     (hu.dwim.asdf) VERSION stable-git SIBLINGS
-    (hu.dwim.common-lisp.documentation) PARASITES NIL) */
+    (hu.dwim.common-lisp.documentation) PARASITES NIL)
+*/

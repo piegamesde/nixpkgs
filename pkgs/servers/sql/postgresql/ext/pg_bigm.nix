@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_bigm";

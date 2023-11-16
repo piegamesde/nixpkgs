@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python,
+  cmake,
 }:
 
 let
@@ -19,17 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wZgv4AFc7DrMCyxMLKQxO1mUTDAU4klK8aZAySqGJoY=";
   };
 
-  outputs = [ "out" "py" ];
-
-  nativeBuildInputs = [
-    cmake
+  outputs = [
+    "out"
+    "py"
   ];
+
+  nativeBuildInputs = [ cmake ];
 
   # Not a propagatedBuildInput because only the $py output needs it; $out is
   # just the library itself (e.g. C/C++ headers).
-  buildInputs = [
-    python
-  ];
+  buildInputs = [ python ];
 
   dontUseCmakeConfigure = true;
 

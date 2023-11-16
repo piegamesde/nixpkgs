@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, cryptography
-, futures ? null
-, pyopenssl
-, service-identity
-, pytestCheckHook
-, idna
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  cryptography,
+  futures ? null,
+  pyopenssl,
+  service-identity,
+  pytestCheckHook,
+  idna,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     cryptography
     idna
-  ] ++ lib.optionals (!isPy3k) [
-    futures
-  ];
+  ] ++ lib.optionals (!isPy3k) [ futures ];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
@@ -40,7 +39,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "High quality TLS certs while you wait, for the discerning tester";
     homepage = "https://github.com/python-trio/trustme";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ catern ];
   };
 }

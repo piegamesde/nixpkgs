@@ -1,5 +1,14 @@
-{ buildPerlPackage, stdenv, lib, fetchFromGitHub, which, bzip2, PodMarkdown, JSONXS
-, TextCSV }:
+{
+  buildPerlPackage,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  which,
+  bzip2,
+  PodMarkdown,
+  JSONXS,
+  TextCSV,
+}:
 buildPerlPackage rec {
   pname = "pgbadger";
   version = "11.5";
@@ -18,9 +27,16 @@ buildPerlPackage rec {
 
   PERL_MM_OPT = "INSTALL_BASE=${placeholder "out"}";
 
-  buildInputs = [ PodMarkdown JSONXS TextCSV ];
+  buildInputs = [
+    PodMarkdown
+    JSONXS
+    TextCSV
+  ];
 
-  nativeCheckInputs = [ which bzip2 ];
+  nativeCheckInputs = [
+    which
+    bzip2
+  ];
 
   meta = {
     homepage = "https://github.com/darold/pgbadger";

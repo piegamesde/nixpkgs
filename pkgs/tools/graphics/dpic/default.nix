@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dpic";
@@ -20,4 +24,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 }
-

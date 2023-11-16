@@ -1,18 +1,19 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, vala
-, gi-docgen
-, glib
-, gtk3
-, gtk4
-, libsForQt5
-, variant ? null
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gi-docgen,
+  glib,
+  gtk3,
+  gtk4,
+  libsForQt5,
+  variant ? null,
 }:
 
 assert variant == null || variant == "gtk3" || variant == "gtk4" || variant == "qt5";
@@ -21,8 +22,10 @@ stdenv.mkDerivation rec {
   pname = "libportal" + lib.optionalString (variant != null) "-${variant}";
   version = "0.6";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optional (variant != "qt5") "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional (variant != "qt5") "devdoc";
 
   src = fetchFromGitHub {
     owner = "flatpak";
@@ -32,39 +35,38 @@ stdenv.mkDerivation rec {
   };
 
   # TODO: remove on 0.7
-  patches = [
-    # https://github.com/flatpak/libportal/pull/107
-    (fetchpatch {
-      name = "check-presence-of-sys-vfs-h.patch";
-      url = "https://github.com/flatpak/libportal/commit/e91a5d2ceb494ca0dd67295736e671b0142c7540.patch";
-      sha256 = "sha256-uFyhlU2fJgW4z0I31fABdc+pimLFYkqM4lggSIFs1tw=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/flatpak/libportal/pull/107
+      (fetchpatch {
+        name = "check-presence-of-sys-vfs-h.patch";
+        url = "https://github.com/flatpak/libportal/commit/e91a5d2ceb494ca0dd67295736e671b0142c7540.patch";
+        sha256 = "sha256-uFyhlU2fJgW4z0I31fABdc+pimLFYkqM4lggSIFs1tw=";
+      })
+    ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gi-docgen
-  ] ++ lib.optionals (variant != "qt5") [
-    gobject-introspection
-    vala
-  ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gi-docgen
+    ]
+    ++ lib.optionals (variant != "qt5") [
+      gobject-introspection
+      vala
+    ];
 
-  propagatedBuildInputs = [
-    glib
-  ] ++ lib.optionals (variant == "gtk3") [
-    gtk3
-  ] ++ lib.optionals (variant == "gtk4") [
-    gtk4
-  ] ++ lib.optionals (variant == "qt5") [
-    libsForQt5.qtbase
-    libsForQt5.qtx11extras
-  ];
+  propagatedBuildInputs =
+    [ glib ]
+    ++ lib.optionals (variant == "gtk3") [ gtk3 ]
+    ++ lib.optionals (variant == "gtk4") [ gtk4 ]
+    ++ lib.optionals (variant == "qt5") [
+      libsForQt5.qtbase
+      libsForQt5.qtx11extras
+    ];
 
   mesonFlags = [
     "-Dbackends=${lib.optionalString (variant != null) variant}"

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, ocamlPackages, mpfr, ppl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocamlPackages,
+  mpfr,
+  ppl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jasmin-compiler";
@@ -11,18 +18,28 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "jasmin-compiler-v${version}/compiler";
 
-  nativeBuildInputs = with ocamlPackages; [ ocaml findlib ocamlbuild menhir camlidl ];
+  nativeBuildInputs = with ocamlPackages; [
+    ocaml
+    findlib
+    ocamlbuild
+    menhir
+    camlidl
+  ];
 
-  buildInputs = [
-    mpfr
-    ppl
-  ] ++ (with ocamlPackages; [
-    apron
-    batteries
-    menhirLib
-    yojson
-    zarith
-  ]);
+  buildInputs =
+    [
+      mpfr
+      ppl
+    ]
+    ++ (
+      with ocamlPackages; [
+        apron
+        batteries
+        menhirLib
+        yojson
+        zarith
+      ]
+    );
 
   installPhase = ''
     runHook preInstall

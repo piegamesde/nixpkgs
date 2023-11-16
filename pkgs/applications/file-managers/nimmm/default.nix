@@ -1,4 +1,11 @@
-{ lib, nimPackages, fetchFromGitHub, nim, termbox, pcre }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+  nim,
+  termbox,
+  pcre,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "nimmm";
@@ -12,8 +19,18 @@ nimPackages.buildNimPackage rec {
     sha256 = "168n61avphbxsxfq8qzcnlqx6wgvz5yrjvs14g25cg3k46hj4xqg";
   };
 
-  buildInputs = [ termbox pcre ]
-    ++ (with nimPackages; [ noise nimbox lscolors ]);
+  buildInputs =
+    [
+      termbox
+      pcre
+    ]
+    ++ (
+      with nimPackages; [
+        noise
+        nimbox
+        lscolors
+      ]
+    );
 
   meta = with lib; {
     description = "Terminal file manager written in nim";

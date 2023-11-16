@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,7 +12,10 @@ let
   cfg = config.services.privacyidea;
   opt = options.services.privacyidea;
 
-  uwsgi = pkgs.uwsgi.override { plugins = [ "python3" ]; python3 = pkgs.python310; };
+  uwsgi = pkgs.uwsgi.override {
+    plugins = [ "python3" ];
+    python3 = pkgs.python310;
+  };
   python = uwsgi.python3;
   penv = python.withPackages (const [ pkgs.privacyidea ]);
   logCfg = pkgs.writeText "privacyidea-log.cfg" ''
@@ -51,15 +60,18 @@ let
     ${cfg.extraConfig}
   '';
 
-  renderValue = x:
-    if isList x then concatMapStringsSep "," (x: ''"${x}"'') x
-    else if isString x && hasInfix "," x then ''"${x}"''
-    else x;
+  renderValue =
+    x:
+    if isList x then
+      concatMapStringsSep "," (x: ''"${x}"'') x
+    else if isString x && hasInfix "," x then
+      ''"${x}"''
+    else
+      x;
 
-  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini"
-    (generators.toINI {}
-      (flip mapAttrs cfg.ldap-proxy.settings
-        (const (mapAttrs (const renderValue)))));
+  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (
+    generators.toINI { } (flip mapAttrs cfg.ldap-proxy.settings (const (mapAttrs (const renderValue))))
+  );
 
   privacyidea-token-janitor = pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
     exec -a privacyidea-token-janitor \
@@ -104,7 +116,10 @@ in
 
       superuserRealm = mkOption {
         type = types.listOf types.str;
-        default = [ "super" "administrators" ];
+        default = [
+          "super"
+          "administrators"
+        ];
         description = lib.mdDoc ''
           The realm where users are allowed to login as administrators.
         '';
@@ -195,7 +210,12 @@ in
           '';
         };
         action = mkOption {
-          type = types.enum [ "delete" "mark" "disable" "unassign" ];
+          type = types.enum [
+            "delete"
+            "mark"
+            "disable"
+            "unassign"
+          ];
           description = lib.mdDoc ''
             Which action to take for matching tokens.
           '';
@@ -244,8 +264,19 @@ in
         };
 
         settings = mkOption {
-          type = with types; attrsOf (attrsOf (oneOf [ str bool int (listOf str) ]));
-          default = {};
+          type =
+            with types;
+            attrsOf (
+              attrsOf (
+                oneOf [
+                  str
+                  bool
+                  int
+                  (listOf str)
+                ]
+              )
+            );
+          default = { };
           description = lib.mdDoc ''
             Attribute-set containing the settings for `privacyidea-ldap-proxy`.
             It's possible to pass secrets using env-vars as substitutes and
@@ -280,7 +311,10 @@ in
         }
       ];
 
-      environment.systemPackages = [ pkgs.privacyidea (hiPrio privacyidea-token-janitor) ];
+      environment.systemPackages = [
+        pkgs.privacyidea
+        (hiPrio privacyidea-token-janitor)
+      ];
 
       services.postgresql.enable = mkDefault true;
 
@@ -324,85 +358,94 @@ in
         timerConfig.Persistent = true;
       };
 
-      systemd.services.privacyidea = let
-        piuwsgi = pkgs.writeText "uwsgi.json" (builtins.toJSON {
-          uwsgi = {
-            buffer-size = 8192;
-            plugins = [ "python3" ];
-            pythonpath = "${penv}/${uwsgi.python3.sitePackages}";
-            socket = "/run/privacyidea/socket";
-            uid = cfg.user;
-            gid = cfg.group;
-            chmod-socket = 770;
-            chown-socket = "${cfg.user}:nginx";
-            chdir = cfg.stateDir;
-            wsgi-file = "${penv}/etc/privacyidea/privacyideaapp.wsgi";
-            processes = 4;
-            harakiri = 60;
-            reload-mercy = 8;
-            stats = "/run/privacyidea/stats.socket";
-            max-requests = 2000;
-            limit-as = 1024;
-            reload-on-as = 512;
-            reload-on-rss = 256;
-            no-orphans = true;
-            vacuum = true;
+      systemd.services.privacyidea =
+        let
+          piuwsgi = pkgs.writeText "uwsgi.json" (
+            builtins.toJSON {
+              uwsgi = {
+                buffer-size = 8192;
+                plugins = [ "python3" ];
+                pythonpath = "${penv}/${uwsgi.python3.sitePackages}";
+                socket = "/run/privacyidea/socket";
+                uid = cfg.user;
+                gid = cfg.group;
+                chmod-socket = 770;
+                chown-socket = "${cfg.user}:nginx";
+                chdir = cfg.stateDir;
+                wsgi-file = "${penv}/etc/privacyidea/privacyideaapp.wsgi";
+                processes = 4;
+                harakiri = 60;
+                reload-mercy = 8;
+                stats = "/run/privacyidea/stats.socket";
+                max-requests = 2000;
+                limit-as = 1024;
+                reload-on-as = 512;
+                reload-on-rss = 256;
+                no-orphans = true;
+                vacuum = true;
+              };
+            }
+          );
+        in
+        {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "postgresql.service" ];
+          path = with pkgs; [ openssl ];
+          environment.PRIVACYIDEA_CONFIGFILE = "${cfg.stateDir}/privacyidea.cfg";
+          preStart =
+            let
+              pi-manage = "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
+              pgsu = config.services.postgresql.superUser;
+              psql = config.services.postgresql.package;
+            in
+            ''
+              mkdir -p ${cfg.stateDir} /run/privacyidea
+              chown ${cfg.user}:${cfg.group} -R ${cfg.stateDir} /run/privacyidea
+              umask 077
+              ${lib.getBin pkgs.envsubst}/bin/envsubst -o ${cfg.stateDir}/privacyidea.cfg \
+                                                       -i "${piCfgFile}"
+              chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/privacyidea.cfg
+              if ! test -e "${cfg.stateDir}/db-created"; then
+                ${config.security.sudo.package}/bin/sudo -u ${pgsu} ${psql}/bin/createuser --no-superuser --no-createdb --no-createrole ${cfg.user}
+                ${config.security.sudo.package}/bin/sudo -u ${pgsu} ${psql}/bin/createdb --owner ${cfg.user} privacyidea
+                ${pi-manage} create_enckey
+                ${pi-manage} create_audit_keys
+                ${pi-manage} createdb
+                ${pi-manage} admin add admin -e ${cfg.adminEmail} -p "$(cat ${cfg.adminPasswordFile})"
+                ${pi-manage} db stamp head -d ${penv}/lib/privacyidea/migrations
+                touch "${cfg.stateDir}/db-created"
+                chmod g+r "${cfg.stateDir}/enckey" "${cfg.stateDir}/private.pem"
+              fi
+              ${pi-manage} db upgrade -d ${penv}/lib/privacyidea/migrations
+            '';
+          serviceConfig = {
+            Type = "notify";
+            ExecStart = "${uwsgi}/bin/uwsgi --json ${piuwsgi}";
+            ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+            EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+            ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
+            NotifyAccess = "main";
+            KillSignal = "SIGQUIT";
           };
-        });
-      in {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "postgresql.service" ];
-        path = with pkgs; [ openssl ];
-        environment.PRIVACYIDEA_CONFIGFILE = "${cfg.stateDir}/privacyidea.cfg";
-        preStart = let
-          pi-manage = "${config.security.sudo.package}/bin/sudo -u privacyidea -HE ${penv}/bin/pi-manage";
-          pgsu = config.services.postgresql.superUser;
-          psql = config.services.postgresql.package;
-        in ''
-          mkdir -p ${cfg.stateDir} /run/privacyidea
-          chown ${cfg.user}:${cfg.group} -R ${cfg.stateDir} /run/privacyidea
-          umask 077
-          ${lib.getBin pkgs.envsubst}/bin/envsubst -o ${cfg.stateDir}/privacyidea.cfg \
-                                                   -i "${piCfgFile}"
-          chown ${cfg.user}:${cfg.group} ${cfg.stateDir}/privacyidea.cfg
-          if ! test -e "${cfg.stateDir}/db-created"; then
-            ${config.security.sudo.package}/bin/sudo -u ${pgsu} ${psql}/bin/createuser --no-superuser --no-createdb --no-createrole ${cfg.user}
-            ${config.security.sudo.package}/bin/sudo -u ${pgsu} ${psql}/bin/createdb --owner ${cfg.user} privacyidea
-            ${pi-manage} create_enckey
-            ${pi-manage} create_audit_keys
-            ${pi-manage} createdb
-            ${pi-manage} admin add admin -e ${cfg.adminEmail} -p "$(cat ${cfg.adminPasswordFile})"
-            ${pi-manage} db stamp head -d ${penv}/lib/privacyidea/migrations
-            touch "${cfg.stateDir}/db-created"
-            chmod g+r "${cfg.stateDir}/enckey" "${cfg.stateDir}/private.pem"
-          fi
-          ${pi-manage} db upgrade -d ${penv}/lib/privacyidea/migrations
-        '';
-        serviceConfig = {
-          Type = "notify";
-          ExecStart = "${uwsgi}/bin/uwsgi --json ${piuwsgi}";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
-          ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
-          NotifyAccess = "main";
-          KillSignal = "SIGQUIT";
         };
-      };
 
       users.users.privacyidea = mkIf (cfg.user == "privacyidea") {
         group = cfg.group;
         isSystemUser = true;
       };
 
-      users.groups.privacyidea = mkIf (cfg.group == "privacyidea") {};
+      users.groups.privacyidea = mkIf (cfg.group == "privacyidea") { };
     })
 
     (mkIf cfg.ldap-proxy.enable {
 
       assertions = [
-        { assertion = let
-            xor = a: b: a && !b || !a && b;
-          in xor (cfg.ldap-proxy.settings == {}) (cfg.ldap-proxy.configFile == null);
+        {
+          assertion =
+            let
+              xor = a: b: a && !b || !a && b;
+            in
+            xor (cfg.ldap-proxy.settings == { }) (cfg.ldap-proxy.configFile == null);
           message = "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
         }
       ];
@@ -411,48 +454,51 @@ in
         "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"
       ];
 
-      systemd.services.privacyidea-ldap-proxy = let
-        ldap-proxy-env = pkgs.python3.withPackages (ps: [ ps.privacyidea-ldap-proxy ]);
-      in {
-        description = "privacyIDEA LDAP proxy";
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          User = cfg.ldap-proxy.user;
-          Group = cfg.ldap-proxy.group;
-          StateDirectory = "privacyidea-ldap-proxy";
-          EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null)
-            [ cfg.ldap-proxy.environmentFile ];
-          ExecStartPre =
-            "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
+      systemd.services.privacyidea-ldap-proxy =
+        let
+          ldap-proxy-env = pkgs.python3.withPackages (ps: [ ps.privacyidea-ldap-proxy ]);
+        in
+        {
+          description = "privacyIDEA LDAP proxy";
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            User = cfg.ldap-proxy.user;
+            Group = cfg.ldap-proxy.group;
+            StateDirectory = "privacyidea-ldap-proxy";
+            EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [ cfg.ldap-proxy.environmentFile ];
+            ExecStartPre = "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
               umask 0077
               ${pkgs.envsubst}/bin/envsubst \
                 -i ${ldapProxyConfig} \
                 -o $STATE_DIRECTORY/ldap-proxy.ini
             ''}";
-          ExecStart = let
-            configPath = if cfg.ldap-proxy.settings != {}
-              then "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
-              else cfg.ldap-proxy.configFile;
-          in ''
-            ${ldap-proxy-env}/bin/twistd \
-              --nodaemon \
-              --pidfile= \
-              -u ${cfg.ldap-proxy.user} \
-              -g ${cfg.ldap-proxy.group} \
-              ldap-proxy \
-              -c ${configPath}
-          '';
-          Restart = "always";
+            ExecStart =
+              let
+                configPath =
+                  if cfg.ldap-proxy.settings != { } then
+                    "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
+                  else
+                    cfg.ldap-proxy.configFile;
+              in
+              ''
+                ${ldap-proxy-env}/bin/twistd \
+                  --nodaemon \
+                  --pidfile= \
+                  -u ${cfg.ldap-proxy.user} \
+                  -g ${cfg.ldap-proxy.group} \
+                  ldap-proxy \
+                  -c ${configPath}
+              '';
+            Restart = "always";
+          };
         };
-      };
 
       users.users.pi-ldap-proxy = mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy") {
         group = cfg.ldap-proxy.group;
         isSystemUser = true;
       };
 
-      users.groups.pi-ldap-proxy = mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") {};
+      users.groups.pi-ldap-proxy = mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") { };
     })
   ];
-
 }

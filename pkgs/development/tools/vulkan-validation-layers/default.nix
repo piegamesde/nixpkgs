@@ -1,42 +1,45 @@
-{ lib
-, callPackage
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, jq
-, glslang
-, libffi
-, libX11
-, libXau
-, libxcb
-, libXdmcp
-, libXrandr
-, spirv-headers
-, vulkan-headers
-, wayland
+{
+  lib,
+  callPackage,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  jq,
+  glslang,
+  libffi,
+  libX11,
+  libXau,
+  libxcb,
+  libXdmcp,
+  libXrandr,
+  spirv-headers,
+  vulkan-headers,
+  wayland,
 }:
 
 let
-  robin-hood-hashing = callPackage ./robin-hood-hashing.nix {};
+  robin-hood-hashing = callPackage ./robin-hood-hashing.nix { };
 
   # Current VVL version requires a newer spirv-headers than the latest release tag.
   # This should hopefully not be too common and the override should be removed after
   # the next SPIRV headers release.
   # FIXME: if this ever becomes common, figure out a way to pull revisions directly
   # from upstream known-good.json
-  spirv-headers' = spirv-headers.overrideAttrs(_: {
-    version = "unstable-2023-04-27";
+  spirv-headers' = spirv-headers.overrideAttrs (
+    _: {
+      version = "unstable-2023-04-27";
 
-    src = fetchFromGitHub {
-      owner = "KhronosGroup";
-      repo = "SPIRV-Headers";
-      rev = "7f1d2f4158704337aff1f739c8e494afc5716e7e";
-      hash = "sha256-DHOYIZQqP5uWDYdb+vePpMBaQDOCB5Pcg8wPBMF8itk=";
-    };
+      src = fetchFromGitHub {
+        owner = "KhronosGroup";
+        repo = "SPIRV-Headers";
+        rev = "7f1d2f4158704337aff1f739c8e494afc5716e7e";
+        hash = "sha256-DHOYIZQqP5uWDYdb+vePpMBaQDOCB5Pcg8wPBMF8itk=";
+      };
 
-    postPatch = "";
-  });
+      postPatch = "";
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "vulkan-validation-layers";
@@ -44,7 +47,10 @@ stdenv.mkDerivation rec {
 
   # If we were to use "dev" here instead of headers, the setupHook would be
   # placed in that output instead of "out".
-  outputs = ["out" "headers"];
+  outputs = [
+    "out"
+    "headers"
+  ];
   outputInclude = "headers";
 
   src = fetchFromGitHub {
@@ -96,9 +102,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The official Khronos Vulkan validation layers";
-    homepage    = "https://github.com/KhronosGroup/Vulkan-ValidationLayers";
-    platforms   = platforms.linux;
-    license     = licenses.asl20;
+    homepage = "https://github.com/KhronosGroup/Vulkan-ValidationLayers";
+    platforms = platforms.linux;
+    license = licenses.asl20;
     maintainers = [ maintainers.ralith ];
   };
 }

@@ -1,25 +1,32 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, docbook_xml_dtd_43
-, docbook-xsl-nons
-, glib
-, gobject-introspection
-, gtk-doc
-, meson
-, ninja
-, pkg-config
-, python3
-, shared-mime-info
-, nixosTests
-, xz
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  docbook_xml_dtd_43,
+  docbook-xsl-nons,
+  glib,
+  gobject-introspection,
+  gtk-doc,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  shared-mime-info,
+  nixosTests,
+  xz,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libxmlb";
   version = "0.3.10";
 
-  outputs = [ "out" "lib" "dev" "devdoc" "installedTests" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "devdoc"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "hughsie";
@@ -28,9 +35,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uitnVqR2VVNAf8H1Q/u6LezhvfQJ/G2bE0Dv9dyP8+A=";
   };
 
-  patches = [
-    ./installed-tests-path.patch
-  ];
+  patches = [ ./installed-tests-path.patch ];
 
   nativeBuildInputs = [
     docbook_xml_dtd_43

@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, snappy }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  snappy,
+}:
 
 buildNimPackage rec {
   pname = "snappy";
@@ -15,8 +20,10 @@ buildNimPackage rec {
     mkdir $NIX_BUILD_TOP/nimcache/
     mv -v tests/data $NIX_BUILD_TOP/nimcache/data
   ''; # test standards, please
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "Nim implementation of snappy compression algorithm";
       license = [ lib.licenses.mit ];
       maintainers = [ maintainers.ehmry ];

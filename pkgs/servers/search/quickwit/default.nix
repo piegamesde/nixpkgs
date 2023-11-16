@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, nix-update-script
-, protobuf
-, Security
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  nix-update-script,
+  protobuf,
+  Security,
 }:
 
 let

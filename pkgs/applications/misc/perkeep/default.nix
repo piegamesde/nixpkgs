@@ -1,4 +1,9 @@
-{ buildGoModule, fetchurl, fetchFromGitHub, lib }:
+{
+  buildGoModule,
+  fetchurl,
+  fetchFromGitHub,
+  lib,
+}:
 
 let
   gouiJS = fetchurl {
@@ -18,8 +23,8 @@ let
     "perkeep.org/cmd/pk-put"
     "perkeep.org/cmd/pk-mount"
   ];
-
-in buildGoModule rec {
+in
+buildGoModule rec {
   pname = "perkeep";
   version = "0.11";
 
@@ -54,6 +59,10 @@ in buildGoModule rec {
     description = "A way of storing, syncing, sharing, modelling and backing up content (née Camlistore)";
     homepage = "https://perkeep.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cstrahan danderson kalbasit ];
+    maintainers = with maintainers; [
+      cstrahan
+      danderson
+      kalbasit
+    ];
   };
 }

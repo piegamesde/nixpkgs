@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, autoPatchelfHook
-, dpkg
-, alsa-lib
-, curl
-, avahi
-, jack2
-, libxcb
-, libX11
-, libXcursor
-, libXext
-, libXi
-, libXinerama
-, libXrandr
-, libXrender
-, libXxf86vm
-, libglvnd
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  dpkg,
+  alsa-lib,
+  curl,
+  avahi,
+  jack2,
+  libxcb,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libXxf86vm,
+  libglvnd,
+  gnome,
 }:
 
 let
@@ -38,28 +39,30 @@ let
     libglvnd
   ];
 
-  runBinDeps = [
-    gnome.zenity
-  ];
+  runBinDeps = [ gnome.zenity ];
 in
 
 stdenv.mkDerivation rec {
   pname = "touchosc";
   version = "1.2.0.166";
 
-  suffix = {
-    aarch64-linux = "linux-arm64";
-    armv7l-linux  = "linux-armhf";
-    x86_64-linux  = "linux-x64";
-  }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  suffix =
+    {
+      aarch64-linux = "linux-arm64";
+      armv7l-linux = "linux-armhf";
+      x86_64-linux = "linux-x64";
+    }
+    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://hexler.net/pub/${pname}/${pname}-${version}-${suffix}.deb";
-    hash = {
-      aarch64-linux = "sha256-EhAjGbAFRL0Jz7yVmrvSdkpb5ZoLq+q7t0S6jfatcWU=";
-      armv7l-linux  = "sha256-CM18dhFLrWS+7FCwGZWeDxa7AmyQOGjuJcP3V/xA9D0=";
-      x86_64-linux  = "sha256-v3kjrOyIKz+G+6UGHxZrkl/AuTsGP2R5GDyliLoydBU=";
-    }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    hash =
+      {
+        aarch64-linux = "sha256-EhAjGbAFRL0Jz7yVmrvSdkpb5ZoLq+q7t0S6jfatcWU=";
+        armv7l-linux = "sha256-CM18dhFLrWS+7FCwGZWeDxa7AmyQOGjuJcP3V/xA9D0=";
+        x86_64-linux = "sha256-v3kjrOyIKz+G+6UGHxZrkl/AuTsGP2R5GDyliLoydBU=";
+      }
+      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   strictDeps = true;
@@ -102,7 +105,11 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = with maintainers; [ lilyinstarlight ];
-    platforms = [ "aarch64-linux" "armv7l-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "armv7l-linux"
+      "x86_64-linux"
+    ];
     mainProgram = "TouchOSC";
   };
 }

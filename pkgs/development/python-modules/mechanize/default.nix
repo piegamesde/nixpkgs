@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, html5lib
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  html5lib,
 }:
 
 buildPythonPackage rec {
@@ -22,5 +23,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-mechanize/mechanize";
     license = "BSD-style";
   };
-
 }

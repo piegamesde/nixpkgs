@@ -1,54 +1,92 @@
-{ lib, stdenv, alsa-lib, atk, at-spi2-core, cairo, cups, dbus, dpkg, expat, fetchurl
-, fontconfig, freetype, gdk-pixbuf, glib, gtk3,  libdrm, libX11
-, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes
-, libXi, libXrandr, libXrender, libXtst, libappindicator-gtk3, libcxx
-, libnotify, libpulseaudio, libxcb, makeDesktopItem, makeWrapper, mesa, nspr, nss
-, pango, systemd }:
+{
+  lib,
+  stdenv,
+  alsa-lib,
+  atk,
+  at-spi2-core,
+  cairo,
+  cups,
+  dbus,
+  dpkg,
+  expat,
+  fetchurl,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libdrm,
+  libX11,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libappindicator-gtk3,
+  libcxx,
+  libnotify,
+  libpulseaudio,
+  libxcb,
+  makeDesktopItem,
+  makeWrapper,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  systemd,
+}:
 
-let gitterDirectorySuffix = "opt/gitter";
-   libPath = lib.makeLibraryPath [
-     alsa-lib
-     atk
-     at-spi2-core
-     cairo
-     cups
-     dbus
-     expat
-     fontconfig
-     freetype
-     gdk-pixbuf
-     glib
-     gtk3
-     libX11
-     libXScrnSaver
-     libXcomposite
-     libXcursor
-     libXdamage
-     libXext
-     libXfixes
-     libXi
-     libXrandr
-     libXrender
-     libXtst
-     libappindicator-gtk3
-     libcxx
-     libdrm
-     libnotify
-     libpulseaudio
-     libxcb
-     mesa
-     nspr
-     nss
-     pango
-     stdenv.cc.cc
-     systemd
+let
+  gitterDirectorySuffix = "opt/gitter";
+  libPath = lib.makeLibraryPath [
+    alsa-lib
+    atk
+    at-spi2-core
+    cairo
+    cups
+    dbus
+    expat
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk3
+    libX11
+    libXScrnSaver
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrandr
+    libXrender
+    libXtst
+    libappindicator-gtk3
+    libcxx
+    libdrm
+    libnotify
+    libpulseaudio
+    libxcb
+    mesa
+    nspr
+    nss
+    pango
+    stdenv.cc.cc
+    systemd
   ];
-    doELFPatch = target: ''
-      patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
-         --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
-         $out/${gitterDirectorySuffix}/${target}
-       '';
-in stdenv.mkDerivation rec {
+  doELFPatch = target: ''
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
+       --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
+       $out/${gitterDirectorySuffix}/${target}
+  '';
+in
+stdenv.mkDerivation rec {
   pname = "gitter";
   version = "5.0.1";
 
@@ -57,7 +95,10 @@ in stdenv.mkDerivation rec {
     sha256 = "1ps9akylqrril4902r8mi0mprm0hb5wra51ry6c1rb5xz5nrzgh1";
   };
 
-  nativeBuildInputs = [ makeWrapper dpkg ];
+  nativeBuildInputs = [
+    makeWrapper
+    dpkg
+  ];
 
   unpackPhase = "dpkg -x $src .";
 
@@ -88,7 +129,10 @@ in stdenv.mkDerivation rec {
     icon = pname;
     desktopName = "Gitter";
     genericName = meta.description;
-    categories = [ "Network" "InstantMessaging" ];
+    categories = [
+      "Network"
+      "InstantMessaging"
+    ];
   };
 
   meta = with lib; {

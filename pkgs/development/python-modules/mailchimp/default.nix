@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docopt
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docopt,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -25,5 +26,4 @@ buildPythonPackage rec {
     homepage = "http://apidocs.mailchimp.com/api/2.0/";
     license = licenses.mit;
   };
-
 }

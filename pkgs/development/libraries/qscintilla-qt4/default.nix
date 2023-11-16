@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, fetchurl
-, unzip
-, qt4
-, qmake4Hook
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  qt4,
+  qmake4Hook,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,11 +20,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qt4 ];
 
-  nativeBuildInputs = [ unzip qmake4Hook ];
-
-  patches = [
-    ./fix-qt4-build.patch
+  nativeBuildInputs = [
+    unzip
+    qmake4Hook
   ];
+
+  patches = [ ./fix-qt4-build.patch ];
 
   # Make sure that libqscintilla2.so is available in $out/lib since it is expected
   # by some packages such as sqlitebrowser

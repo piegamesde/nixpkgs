@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, swig
-, xcbuild
-, mupdf
-, freetype
-, harfbuzz
-, openjpeg
-, jbig2dec
-, libjpeg_turbo
-, gumbo
-, memstreamHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  swig,
+  xcbuild,
+  mupdf,
+  freetype,
+  harfbuzz,
+  openjpeg,
+  jbig2dec,
+  libjpeg_turbo,
+  gumbo,
+  memstreamHook,
 }:
 
 buildPythonPackage rec {
@@ -32,11 +33,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py \
         --replace '/usr/include/mupdf' ${mupdf.dev}/include/mupdf
   '';
-  nativeBuildInputs = [
-    swig
-  ] ++ lib.optionals stdenv.isDarwin [
-    xcbuild
-  ];
+  nativeBuildInputs = [ swig ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   buildInputs = [
     mupdf
@@ -46,15 +43,11 @@ buildPythonPackage rec {
     jbig2dec
     libjpeg_turbo
     gumbo
-  ] ++ lib.optionals (stdenv.system == "x86_64-darwin") [
-    memstreamHook
-  ];
+  ] ++ lib.optionals (stdenv.system == "x86_64-darwin") [ memstreamHook ];
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "fitz"
-  ];
+  pythonImportsCheck = [ "fitz" ];
 
   meta = with lib; {
     description = "Python bindings for MuPDF's rendering library";

@@ -1,12 +1,17 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "gettext";
   version = "20171130-git";
 
   description = "An pure Common Lisp implementation of gettext runtime. gettext is an internationalization and localization (i18n) system commonly used for writing multilingual programs on Unix-like computer operating systems.";
 
-  deps = [ args."flexi-streams" args."split-sequence" args."trivial-gray-streams" args."yacc" ];
+  deps = [
+    args."flexi-streams"
+    args."split-sequence"
+    args."trivial-gray-streams"
+    args."yacc"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/gettext/2017-11-30/gettext-20171130-git.tgz";
@@ -15,7 +20,7 @@ rec {
 
   packageName = "gettext";
 
-  asdFilesToKeep = ["gettext.asd"];
+  asdFilesToKeep = [ "gettext.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM gettext DESCRIPTION
@@ -28,4 +33,5 @@ rec {
      (NAME trivial-gray-streams FILENAME trivial-gray-streams)
      (NAME yacc FILENAME yacc))
     DEPENDENCIES (flexi-streams split-sequence trivial-gray-streams yacc)
-    VERSION 20171130-git SIBLINGS (gettext-example gettext-tests) PARASITES NIL) */
+    VERSION 20171130-git SIBLINGS (gettext-example gettext-tests) PARASITES NIL)
+*/

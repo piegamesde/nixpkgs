@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, unittestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  unittestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -41,16 +42,12 @@ buildPythonPackage rec {
     done
   '';
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   # Tests fail on Darwin with `OSError: AF_UNIX path too long`
   doCheck = !stdenv.isDarwin;
 
-  pythonImportsCheck = [
-    "websockets"
-  ];
+  pythonImportsCheck = [ "websockets" ];
 
   meta = with lib; {
     description = "WebSocket implementation in Python";

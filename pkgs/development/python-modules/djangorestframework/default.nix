@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, coreapi
-, django
-, django-guardian
-, pythonOlder
-, pytest-django
-, pytestCheckHook
-, pytz
-, pyyaml
-, uritemplate
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  coreapi,
+  django,
+  django-guardian,
+  pythonOlder,
+  pytest-django,
+  pytestCheckHook,
+  pytz,
+  pyyaml,
+  uritemplate,
 }:
 
 buildPythonPackage rec {
@@ -45,7 +46,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Web APIs for Django, made easy";
     homepage = "https://www.django-rest-framework.org/";
-    maintainers = with maintainers; [ desiderius SuperSandro2000 ];
+    maintainers = with maintainers; [
+      desiderius
+      SuperSandro2000
+    ];
     license = licenses.bsd2;
   };
 }

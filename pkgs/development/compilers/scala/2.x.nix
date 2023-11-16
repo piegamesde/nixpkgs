@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, makeWrapper, jre, gnugrep, coreutils, writeScript
-, common-updater-scripts, git, gnused, nix, nixfmt, majorVersion }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  jre,
+  gnugrep,
+  coreutils,
+  writeScript,
+  common-updater-scripts,
+  git,
+  gnused,
+  nix,
+  nixfmt,
+  majorVersion,
+}:
 
 let
   repo = "git@github.com:scala/scala.git";
@@ -29,8 +43,8 @@ let
       pname = "scala_2_13";
     };
   };
-
-in with versionMap.${majorVersion};
+in
+with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   inherit version;

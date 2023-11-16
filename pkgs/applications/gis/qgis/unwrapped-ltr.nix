@@ -1,55 +1,52 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, ninja
-, flex
-, bison
-, proj
-, geos
-, sqlite
-, gsl
-, qwt
-, fcgi
-, python3
-, libspatialindex
-, libspatialite
-, postgresql
-, txt2tags
-, openssl
-, libzip
-, hdf5
-, netcdf
-, exiv2
-, protobuf
-, qtbase
-, qtsensors
-, qca-qt5
-, qtkeychain
-, qt3d
-, qscintilla
-, qtlocation
-, qtserialport
-, qtxmlpatterns
-, withGrass ? true
-, grass
-, withWebKit ? false
-, qtwebkit
-, pdal
-, zstd
-, makeWrapper
-, wrapGAppsHook
-, substituteAll
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  flex,
+  bison,
+  proj,
+  geos,
+  sqlite,
+  gsl,
+  qwt,
+  fcgi,
+  python3,
+  libspatialindex,
+  libspatialite,
+  postgresql,
+  txt2tags,
+  openssl,
+  libzip,
+  hdf5,
+  netcdf,
+  exiv2,
+  protobuf,
+  qtbase,
+  qtsensors,
+  qca-qt5,
+  qtkeychain,
+  qt3d,
+  qscintilla,
+  qtlocation,
+  qtserialport,
+  qtxmlpatterns,
+  withGrass ? true,
+  grass,
+  withWebKit ? false,
+  qtwebkit,
+  pdal,
+  zstd,
+  makeWrapper,
+  wrapGAppsHook,
+  substituteAll,
 }:
 
 let
 
   py = python3.override {
-    packageOverrides = self: super: {
-      pyqt5 = super.pyqt5.override {
-        withLocation = true;
-      };
-    };
+    packageOverrides = self: super: { pyqt5 = super.pyqt5.override { withLocation = true; }; };
   };
 
   pythonBuildInputs = with py.pkgs; [
@@ -72,7 +69,8 @@ let
     owslib
     six
   ];
-in mkDerivation rec {
+in
+mkDerivation rec {
   version = "3.28.7";
   pname = "qgis-ltr-unwrapped";
 
@@ -116,11 +114,16 @@ in mkDerivation rec {
     qt3d
     pdal
     zstd
-  ] ++ lib.optional withGrass grass
-    ++ lib.optional withWebKit qtwebkit
-    ++ pythonBuildInputs;
+  ] ++ lib.optional withGrass grass ++ lib.optional withWebKit qtwebkit ++ pythonBuildInputs;
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook cmake flex bison ninja ];
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+    cmake
+    flex
+    bison
+    ninja
+  ];
 
   patches = [
     (substituteAll {
@@ -130,14 +133,18 @@ in mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [
-    "-DWITH_3D=True"
-    "-DWITH_PDAL=TRUE"
-  ] ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
-    ++ lib.optional withGrass (let
+  cmakeFlags =
+    [
+      "-DWITH_3D=True"
+      "-DWITH_PDAL=TRUE"
+    ]
+    ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
+    ++ lib.optional withGrass (
+      let
         gmajor = lib.versions.major grass.version;
         gminor = lib.versions.minor grass.version;
-      in "-DGRASS_PREFIX${gmajor}=${grass}/grass${gmajor}${gminor}"
+      in
+      "-DGRASS_PREFIX${gmajor}=${grass}/grass${gmajor}${gminor}"
     );
 
   dontWrapGApps = true; # wrapper params passed below
@@ -157,6 +164,10 @@ in mkDerivation rec {
     homepage = "https://www.qgis.org";
     license = lib.licenses.gpl2Plus;
     platforms = with lib.platforms; linux;
-    maintainers = with lib.maintainers; [ lsix sikmir willcohen ];
+    maintainers = with lib.maintainers; [
+      lsix
+      sikmir
+      willcohen
+    ];
   };
 }

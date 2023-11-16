@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, flit-core
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  flit-core,
+  unittestCheckHook,
 
-# for passthru.tests
-, awsebcli
-, black
-, hatchling
-, yamllint
+  # for passthru.tests
+  awsebcli,
+  black,
+  hatchling,
+  yamllint,
 }:
 
 buildPythonPackage rec {
@@ -22,20 +23,19 @@ buildPythonPackage rec {
     hash = "sha256-ZNM41OCRTpHBeSMh5pB7Wlk/GrGFHef8JpVXohsw67w=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  pythonImportsCheck = [
-    "pathspec"
-  ];
+  pythonImportsCheck = [ "pathspec" ];
 
-  checkInputs = [
-    unittestCheckHook
-  ];
+  checkInputs = [ unittestCheckHook ];
 
   passthru.tests = {
-    inherit awsebcli black hatchling yamllint;
+    inherit
+      awsebcli
+      black
+      hatchling
+      yamllint
+    ;
   };
 
   meta = {

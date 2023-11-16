@@ -1,12 +1,21 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "lfarm-server";
   version = "lfarm-20150608-git";
 
   description = "Server component of lfarm, a library for distributing work across machines.";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."cl-store" args."flexi-streams" args."lfarm-common" args."split-sequence" args."trivial-gray-streams" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."cl-store"
+    args."flexi-streams"
+    args."lfarm-common"
+    args."split-sequence"
+    args."trivial-gray-streams"
+    args."usocket"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lfarm/2015-06-08/lfarm-20150608-git.tgz";
@@ -15,7 +24,7 @@ rec {
 
   packageName = "lfarm-server";
 
-  asdFilesToKeep = ["lfarm-server.asd"];
+  asdFilesToKeep = [ "lfarm-server.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lfarm-server DESCRIPTION
@@ -38,4 +47,5 @@ rec {
     VERSION lfarm-20150608-git SIBLINGS
     (lfarm-admin lfarm-client lfarm-common lfarm-gss lfarm-launcher lfarm-ssl
      lfarm-test)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

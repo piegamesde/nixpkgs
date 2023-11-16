@@ -1,12 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, gtk2, glib, pkg-config, unzip, ncurses, zip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  gtk2,
+  glib,
+  pkg-config,
+  unzip,
+  ncurses,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   version = "11.4";
   pname = "textadept";
 
-  nativeBuildInputs = [ pkg-config unzip zip ];
+  nativeBuildInputs = [
+    pkg-config
+    unzip
+    zip
+  ];
   buildInputs = [
-    gtk2 ncurses glib
+    gtk2
+    ncurses
+    glib
   ];
 
   enableParallelBuilding = true;
@@ -20,13 +37,14 @@ stdenv.mkDerivation rec {
   };
 
   preConfigure =
-    lib.concatStringsSep "\n" (lib.mapAttrsToList (name: params:
-      "ln -s ${fetchurl params} $PWD/src/${name}"
-    ) (import ./deps.nix)) + ''
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: params: "ln -s ${fetchurl params} $PWD/src/${name}") (import ./deps.nix)
+    )
+    + ''
 
-    cd src
-    make deps
-  '';
+      cd src
+      make deps
+    '';
 
   postBuild = ''
     make curses
@@ -52,7 +70,11 @@ stdenv.mkDerivation rec {
     description = "An extensible text editor based on Scintilla with Lua scripting.";
     homepage = "http://foicica.com/textadept";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin mirrexagon patricksjackson ];
+    maintainers = with maintainers; [
+      raskin
+      mirrexagon
+      patricksjackson
+    ];
     platforms = platforms.linux;
   };
 }

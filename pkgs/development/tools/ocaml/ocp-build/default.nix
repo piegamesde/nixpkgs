@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, ocaml, findlib, ncurses, cmdliner_1_0, re }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  ocaml,
+  findlib,
+  ncurses,
+  cmdliner_1_0,
+  re,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocp-build";
@@ -11,18 +21,25 @@ stdenv.mkDerivation rec {
     sha256 = "1641xzik98c7xnjwxpacijd6d9jzx340fmdn6i372z8h554jjlg9";
   };
 
-  patches = [
-    # Fix compilation with OCaml 4.12
-    (fetchpatch {
-      url = "https://github.com/OCamlPro/ocp-build/commit/104e4656ca6dba9edb03b62539c9f1e10abcaae8.patch";
-      sha256 = "0sbyi4acig9q8x1ky4hckfg5pm2nad6zasi51ravaf1spgl148c2";
-    })
-  ];
+  patches =
+    [
+      # Fix compilation with OCaml 4.12
+      (fetchpatch {
+        url = "https://github.com/OCamlPro/ocp-build/commit/104e4656ca6dba9edb03b62539c9f1e10abcaae8.patch";
+        sha256 = "0sbyi4acig9q8x1ky4hckfg5pm2nad6zasi51ravaf1spgl148c2";
+      })
+    ];
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml findlib ];
-  buildInputs =  [ cmdliner_1_0 re ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
+  buildInputs = [
+    cmdliner_1_0
+    re
+  ];
   propagatedBuildInputs = [ ncurses ];
   preInstall = "mkdir -p $out/bin";
 

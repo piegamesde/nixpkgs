@@ -1,33 +1,34 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 
-# build time
-, autoreconfHook
-, flex
-, bison
-, perl
-, pkg-config
-, texinfo
+  # build time
+  autoreconfHook,
+  flex,
+  bison,
+  perl,
+  pkg-config,
+  texinfo,
 
-# runtime
-, c-ares
-, json_c
-, libcap
-, libelf
-, libunwind
-, libyang
-, net-snmp
-, openssl
-, pam
-, pcre2
-, python3
-, readline
-, rtrlib
+  # runtime
+  c-ares,
+  json_c,
+  libcap,
+  libelf,
+  libunwind,
+  libyang,
+  net-snmp,
+  openssl,
+  pam,
+  pcre2,
+  python3,
+  readline,
+  rtrlib,
 
-# tests
-, nettools
-, nixosTests
+  # tests
+  nettools,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -64,9 +65,7 @@ stdenv.mkDerivation rec {
     python3
     readline
     rtrlib
-  ] ++ lib.optionals stdenv.isLinux [
-    libcap
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ libcap ];
 
   configureFlags = [
     "--disable-exampledir"
@@ -122,10 +121,15 @@ stdenv.mkDerivation rec {
       infrastructure, web 2.0 businesses, hyperscale services, and Fortune 500
       private clouds.
     '';
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     maintainers = with maintainers; [ woffs ];
     platforms = platforms.unix;
   };
 
-  passthru.tests = { inherit (nixosTests) frr; };
+  passthru.tests = {
+    inherit (nixosTests) frr;
+  };
 }

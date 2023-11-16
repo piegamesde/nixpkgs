@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, nbformat
-, nbclient
-, ipykernel
-, pandas
-, pytestCheckHook
-, traitlets
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  nbformat,
+  nbclient,
+  ipykernel,
+  pandas,
+  pytestCheckHook,
+  traitlets,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [
-    "testbook"
-  ];
+  pythonImportsCheck = [ "testbook" ];
 
   meta = with lib; {
     description = "A unit testing framework extension for testing code in Jupyter Notebooks";

@@ -1,23 +1,33 @@
-{ lib, stdenv, runtimeShell, fetchFromGitHub, fetchpatch, ocaml, num, camlp5 }:
+{
+  lib,
+  stdenv,
+  runtimeShell,
+  fetchFromGitHub,
+  fetchpatch,
+  ocaml,
+  num,
+  camlp5,
+}:
 
 let
   load_num =
-    if num == null then "" else
-    ''
-      -I ${num}/lib/ocaml/${ocaml.version}/site-lib/num \
-      -I ${num}/lib/ocaml/${ocaml.version}/site-lib/top-num \
-      -I ${num}/lib/ocaml/${ocaml.version}/site-lib/stublibs \
-    '';
+    if num == null then
+      ""
+    else
+      ''
+        -I ${num}/lib/ocaml/${ocaml.version}/site-lib/num \
+        -I ${num}/lib/ocaml/${ocaml.version}/site-lib/top-num \
+        -I ${num}/lib/ocaml/${ocaml.version}/site-lib/stublibs \
+      '';
 
-  start_script =
-    ''
-      #!${runtimeShell}
-      cd $out/lib/hol_light
-      exec ${ocaml}/bin/ocaml \
-        -I \`${camlp5}/bin/camlp5 -where\` \
-        ${load_num} \
-        -init make.ml
-    '';
+  start_script = ''
+    #!${runtimeShell}
+    cd $out/lib/hol_light
+    exec ${ocaml}/bin/ocaml \
+      -I \`${camlp5}/bin/camlp5 -where\` \
+      ${load_num} \
+      -init make.ml
+  '';
 in
 
 stdenv.mkDerivation {
@@ -40,7 +50,10 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml camlp5 ];
+  nativeBuildInputs = [
+    ocaml
+    camlp5
+  ];
   propagatedBuildInputs = [ num ];
 
   installPhase = ''
@@ -55,6 +68,10 @@ stdenv.mkDerivation {
     homepage = "http://www.cl.cam.ac.uk/~jrh13/hol-light/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice maggesi vbgl ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      maggesi
+      vbgl
+    ];
   };
 }

@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, gfortran
-, fftw
-, blas
-, lapack
-, useMpi ? false
-, mpi
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gfortran,
+  fftw,
+  blas,
+  lapack,
+  useMpi ? false,
+  mpi,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,8 +31,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  buildInputs = [ fftw blas lapack ]
-    ++ (lib.optionals useMpi [ mpi ]);
+  buildInputs = [
+    fftw
+    blas
+    lapack
+  ] ++ (lib.optionals useMpi [ mpi ]);
 
   configureFlags = if useMpi then [ "LD=${mpi}/bin/mpif90" ] else [ "LD=${gfortran}/bin/gfortran" ];
 
@@ -47,7 +51,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.quantum-espresso.org/";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     maintainers = [ maintainers.costrouc ];
   };
 }

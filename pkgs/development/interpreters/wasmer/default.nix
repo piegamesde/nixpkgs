@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, llvmPackages
-, libffi
-, libxml2
-, CoreFoundation
-, SystemConfiguration
-, Security
-, withLLVM ? !stdenv.isDarwin
-, withSinglepass ? !(stdenv.isDarwin && stdenv.isx86_64)
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  llvmPackages,
+  libffi,
+  libxml2,
+  CoreFoundation,
+  SystemConfiguration,
+  Security,
+  withLLVM ? !stdenv.isDarwin,
+  withSinglepass ? !(stdenv.isDarwin && stdenv.isx86_64),
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -27,22 +28,22 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
 
-  buildInputs = lib.optionals withLLVM [
-    llvmPackages.llvm
-    libffi
-    libxml2
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    SystemConfiguration
-    Security
-  ];
+  buildInputs =
+    lib.optionals withLLVM [
+      llvmPackages.llvm
+      libffi
+      libxml2
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      SystemConfiguration
+      Security
+    ];
 
   LLVM_SYS_120_PREFIX = lib.optionalString withLLVM llvmPackages.llvm.dev;
 
   # check references to `compiler_features` in Makefile on update
-  buildFeatures = checkFeatures ++ [
-    "webc_runner"
-  ];
+  buildFeatures = checkFeatures ++ [ "webc_runner" ];
 
   checkFeatures = [
     "cranelift"
@@ -50,11 +51,14 @@ rustPlatform.buildRustPackage rec {
     "static-artifact-create"
     "wasmer-artifact-load"
     "static-artifact-load"
-  ]
-  ++ lib.optional withLLVM "llvm"
-  ++ lib.optional withSinglepass "singlepass";
+  ] ++ lib.optional withLLVM "llvm" ++ lib.optional withSinglepass "singlepass";
 
-  cargoBuildFlags = [ "--manifest-path" "lib/cli/Cargo.toml" "--bin" "wasmer" ];
+  cargoBuildFlags = [
+    "--manifest-path"
+    "lib/cli/Cargo.toml"
+    "--bin"
+    "wasmer"
+  ];
 
   meta = with lib; {
     description = "The Universal WebAssembly Runtime";
@@ -66,6 +70,9 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://wasmer.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne shamilton ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      shamilton
+    ];
   };
 }

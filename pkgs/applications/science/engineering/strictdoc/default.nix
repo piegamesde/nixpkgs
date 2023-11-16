@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -29,48 +30,44 @@ python3.pkgs.buildPythonApplication rec {
       --replace '"pybtex >= 0.23.0, == 0.*"' '"pybtex"'
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    hatchling
-  ];
+  nativeBuildInputs = with python3.pkgs; [ hatchling ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    beautifulsoup4
-    datauri
-    docutils
-    fastapi
-    html5lib
-    jinja2
-    lxml
-    markupsafe
-    pybtex
-    pygments
-    python-multipart
-    reqif
-    setuptools
-    textx
-    toml
-    uvicorn
-    websockets
-    xlrd
-    xlsxwriter
-  ] ++ uvicorn.optional-dependencies.standard;
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      beautifulsoup4
+      datauri
+      docutils
+      fastapi
+      html5lib
+      jinja2
+      lxml
+      markupsafe
+      pybtex
+      pygments
+      python-multipart
+      reqif
+      setuptools
+      textx
+      toml
+      uvicorn
+      websockets
+      xlrd
+      xlsxwriter
+    ]
+    ++ uvicorn.optional-dependencies.standard;
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "strictdoc"
-  ];
+  pythonImportsCheck = [ "strictdoc" ];
 
-  disabledTests = [
-    # fixture 'fs' not found
-    "test_001_load_from_files"
-  ];
+  disabledTests =
+    [
+      # fixture 'fs' not found
+      "test_001_load_from_files"
+    ];
 
-  disabledTestPaths = [
-    "tests/end2end/"
-  ];
+  disabledTestPaths = [ "tests/end2end/" ];
 
   meta = with lib; {
     description = "Software requirements specification tool";

@@ -1,4 +1,8 @@
-{ lib, stdenv, requireFile }:
+{
+  lib,
+  stdenv,
+  requireFile,
+}:
 
 let
   message = ''
@@ -11,17 +15,18 @@ stdenv.mkDerivation rec {
   version = "7.0.2";
 
   src =
-    if stdenv.hostPlatform.system == "i686-linux"
-    then requireFile {
-      name = "cov-analysis-linux32-${version}.tar.gz";
-      sha256 = "0i06wbd7blgx9adh9w09by4i18vwmldfp9ix97a5dph2cjymsviy";
-      inherit message;
-    }
-    else requireFile {
-      name = "cov-analysis-linux64-${version}.tar.gz";
-      sha256 = "0iby75p0g8gv7b501xav47milr8m9781h0hcgm1ch6x3qj6irqd8";
-      inherit message;
-    };
+    if stdenv.hostPlatform.system == "i686-linux" then
+      requireFile {
+        name = "cov-analysis-linux32-${version}.tar.gz";
+        sha256 = "0i06wbd7blgx9adh9w09by4i18vwmldfp9ix97a5dph2cjymsviy";
+        inherit message;
+      }
+    else
+      requireFile {
+        name = "cov-analysis-linux64-${version}.tar.gz";
+        sha256 = "0iby75p0g8gv7b501xav47milr8m9781h0hcgm1ch6x3qj6irqd8";
+        inherit message;
+      };
 
   dontStrip = true;
   buildPhase = false;
@@ -40,9 +45,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Coverity Scan build tools";
-    homepage    = "https://scan.coverity.com";
-    license     = lib.licenses.unfreeRedistributable;
-    platforms   = lib.platforms.linux;
+    homepage = "https://scan.coverity.com";
+    license = lib.licenses.unfreeRedistributable;
+    platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.thoughtpolice ];
   };
 }

@@ -1,7 +1,11 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+with lib; {
   meta = {
     maintainers = teams.freedesktop.members;
   };
@@ -23,11 +27,12 @@ with lib;
       "/share/pixmaps"
     ];
 
-    environment.systemPackages = [
-      # Empty icon theme that contains index.theme file describing directories
-      # where toolkits should look for icons installed by apps.
-      pkgs.hicolor-icon-theme
-    ];
+    environment.systemPackages =
+      [
+        # Empty icon theme that contains index.theme file describing directories
+        # where toolkits should look for icons installed by apps.
+        pkgs.hicolor-icon-theme
+      ];
 
     # libXcursor looks for cursors in XCURSOR_PATH
     # it mostly follows the spec for icons
@@ -44,5 +49,4 @@ with lib;
       "/share/pixmaps"
     ];
   };
-
 }

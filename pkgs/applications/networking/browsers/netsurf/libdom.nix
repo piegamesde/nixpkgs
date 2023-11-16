@@ -1,8 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, expat
-, buildsystem
-, libparserutils
-, libwapcaplet
-, libhubbub
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  expat,
+  buildsystem,
+  libparserutils,
+  libwapcaplet,
+  libhubbub,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +26,8 @@ stdenv.mkDerivation rec {
     libhubbub
     libparserutils
     libwapcaplet
-    buildsystem ];
+    buildsystem
+  ];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -37,7 +43,10 @@ stdenv.mkDerivation rec {
       in other projects under a more permissive license.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

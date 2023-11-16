@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, prompt-toolkit
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  prompt-toolkit,
 }:
 
 buildPythonPackage rec {
@@ -19,16 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-HPeO9K91a0MacSUN0SR0lPEWRTQgP/cF1FZaNvZLxAg=";
   };
 
-  propagatedBuildInputs = [
-    prompt-toolkit
-  ];
+  propagatedBuildInputs = [ prompt-toolkit ];
 
   # repo contains no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "clintermission"
-  ];
+  pythonImportsCheck = [ "clintermission" ];
 
   meta = with lib; {
     description = "Non-fullscreen command-line selection menu";

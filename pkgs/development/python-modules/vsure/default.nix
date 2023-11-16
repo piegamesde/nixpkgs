@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, click
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "verisure"
-  ];
+  pythonImportsCheck = [ "verisure" ];
 
   meta = with lib; {
     description = "Python library for working with verisure devices";

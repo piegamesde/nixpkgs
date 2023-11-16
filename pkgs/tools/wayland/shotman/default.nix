@@ -1,10 +1,11 @@
-{ lib
-, fetchFromSourcehut
-, rustPlatform
-, pkg-config
-, libxkbcommon
-, makeWrapper
-, slurp
+{
+  lib,
+  fetchFromSourcehut,
+  rustPlatform,
+  pkg-config,
+  libxkbcommon,
+  makeWrapper,
+  slurp,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -25,7 +26,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [ libxkbcommon ];
 

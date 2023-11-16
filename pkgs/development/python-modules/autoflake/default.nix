@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, pyflakes
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  pyflakes,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -16,26 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-HOUgExt/OWkVJC/pHlciH01CQIUpu+Ouk62v7ShlkeA=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    pyflakes
-  ];
+  propagatedBuildInputs = [ pyflakes ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "autoflake"
-  ];
+  pythonImportsCheck = [ "autoflake" ];
 
-  disabledTests = [
-    # AssertionError: True is not false
-    "test_is_literal_or_name"
-  ];
+  disabledTests =
+    [
+      # AssertionError: True is not false
+      "test_is_literal_or_name"
+    ];
 
   meta = with lib; {
     description = "Tool to remove unused imports and unused variables";

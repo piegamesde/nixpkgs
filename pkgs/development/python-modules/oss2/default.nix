@@ -1,17 +1,18 @@
-{ lib
-, aliyun-python-sdk-core
-, aliyun-python-sdk-kms
-, aliyun-python-sdk-sts
-, buildPythonPackage
-, crcmod
-, fetchFromGitHub
-, mock
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, requests
-, six
+{
+  lib,
+  aliyun-python-sdk-core,
+  aliyun-python-sdk-kms,
+  aliyun-python-sdk-sts,
+  buildPythonPackage,
+  crcmod,
+  fetchFromGitHub,
+  mock,
+  pycryptodome,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  requests,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-EL6qbtVyOJ2RGw3sZiRJouqVNLBMUKGycAZl31M1+oQ=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     requests
@@ -49,9 +48,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  pythonImportsCheck = [
-    "oss2"
-  ];
+  pythonImportsCheck = [ "oss2" ];
 
   disabledTestPaths = [
     # Tests require network access
@@ -101,9 +98,7 @@ buildPythonPackage rec {
     "tests/test_website.py"
   ];
 
-  disabledTests = [
-    "test_crypto_get_compact_deprecated_kms"
-  ];
+  disabledTests = [ "test_crypto_get_compact_deprecated_kms" ];
 
   meta = with lib; {
     description = "Alibaba Cloud OSS SDK for Python";

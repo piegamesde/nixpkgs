@@ -1,19 +1,20 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchurl
-, cmake
-, makeWrapper
-, copyDesktopItems
-, makeDesktopItem
-, physfs
-, SDL2
-, SDL2_mixer
-, tinyxml-2
-, utf8cpp
-, Foundation
-, IOKit
-, makeAndPlay ? false
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  physfs,
+  SDL2,
+  SDL2_mixer,
+  tinyxml-2,
+  utf8cpp,
+  Foundation,
+  IOKit,
+  makeAndPlay ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -40,13 +41,18 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [
-    physfs
-    SDL2
-    SDL2_mixer
-    tinyxml-2
-    utf8cpp
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation IOKit ];
+  buildInputs =
+    [
+      physfs
+      SDL2
+      SDL2_mixer
+      tinyxml-2
+      utf8cpp
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      IOKit
+    ];
 
   # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
@@ -78,13 +84,17 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A retro-styled platform game" + lib.optionalString makeAndPlay " (redistributable, without original levels)";
-    longDescription = ''
-      VVVVVV is a platform game all about exploring one simple mechanical
-      idea - what if you reversed gravity instead of jumping?
-    '' + lib.optionalString makeAndPlay ''
-      (Redistributable version, doesn't include the original levels.)
-    '';
+    description =
+      "A retro-styled platform game"
+      + lib.optionalString makeAndPlay " (redistributable, without original levels)";
+    longDescription =
+      ''
+        VVVVVV is a platform game all about exploring one simple mechanical
+        idea - what if you reversed gravity instead of jumping?
+      ''
+      + lib.optionalString makeAndPlay ''
+        (Redistributable version, doesn't include the original levels.)
+      '';
     homepage = "https://thelettervsixtim.es";
     license = licenses.unfree;
     maintainers = with maintainers; [ martfont ];

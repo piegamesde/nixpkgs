@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, john
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  john,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -17,13 +18,14 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-8s4Kmt4ZjYbQGGVDWKfuRZ6kthcL8FiQytoq9Koy7Kc=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    impacket
-    pwntools
-    python-ldap
-  ] ++ [
-    john
-  ];
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      impacket
+      pwntools
+      python-ldap
+    ]
+    ++ [ john ];
 
   installPhase = ''
     runHook preInstall

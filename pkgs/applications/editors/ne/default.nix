@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, ncurses, texinfo6, texlive, perl, ghostscript }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  texinfo6,
+  texlive,
+  perl,
+  ghostscript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ne";
@@ -16,7 +25,12 @@ stdenv.mkDerivation rec {
     substituteInPlace src/makefile --replace "-lcurses" "-lncurses"
   '';
 
-  nativeBuildInputs = [ texlive.combined.scheme-medium texinfo6 perl ghostscript ];
+  nativeBuildInputs = [
+    texlive.combined.scheme-medium
+    texinfo6
+    perl
+    ghostscript
+  ];
   buildInputs = [ ncurses ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];

@@ -1,26 +1,27 @@
-{ lib
-, rustPlatform
-, clangStdenv
-, fetchFromGitHub
-, linkFarm
-, fetchgit
-, runCommand
-, gn
-, ninja
-, makeWrapper
-, pkg-config
-, python3
-, removeReferencesTo
-, xcbuild
-, SDL2
-, fontconfig
-, xorg
-, stdenv
-, darwin
-, libglvnd
-, libxkbcommon
-, enableWayland ? stdenv.isLinux
-, wayland
+{
+  lib,
+  rustPlatform,
+  clangStdenv,
+  fetchFromGitHub,
+  linkFarm,
+  fetchgit,
+  runCommand,
+  gn,
+  ninja,
+  makeWrapper,
+  pkg-config,
+  python3,
+  removeReferencesTo,
+  xcbuild,
+  SDL2,
+  fontconfig,
+  xorg,
+  stdenv,
+  darwin,
+  libglvnd,
+  libxkbcommon,
+  enableWayland ? stdenv.isLinux,
+  wayland,
 }:
 
 rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
@@ -53,16 +54,20 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
         sha256 = "sha256-w5dw/lGm40gKkHPR1ji/L82Oa808Kuh8qaCeiqBLkLw=";
       };
       # The externals for skia are taken from skia/DEPS
-      externals = linkFarm "skia-externals" (lib.mapAttrsToList
-        (name: value: { inherit name; path = fetchgit value; })
-        (lib.importJSON ./skia-externals.json));
+      externals = linkFarm "skia-externals" (
+        lib.mapAttrsToList
+          (name: value: {
+            inherit name;
+            path = fetchgit value;
+          })
+          (lib.importJSON ./skia-externals.json)
+      );
     in
     runCommand "source" { } ''
       cp -R ${repo} $out
       chmod -R +w $out
       ln -s ${externals} $out/third_party/externals
-    ''
-  ;
+    '';
 
   SKIA_GN_COMMAND = "${gn}/bin/gn";
   SKIA_NINJA_COMMAND = "${ninja}/bin/ninja";
@@ -84,20 +89,23 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     SDL2
     fontconfig
     rustPlatform.bindgenHook
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.AppKit
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
 
-  postFixup = let
-    libPath = lib.makeLibraryPath ([
-      libglvnd
-      libxkbcommon
-      xorg.libXcursor
-      xorg.libXext
-      xorg.libXrandr
-      xorg.libXi
-    ] ++ lib.optionals enableWayland [ wayland ]);
-  in ''
+  postFixup =
+    let
+      libPath = lib.makeLibraryPath (
+        [
+          libglvnd
+          libxkbcommon
+          xorg.libXcursor
+          xorg.libXext
+          xorg.libXrandr
+          xorg.libXi
+        ]
+        ++ lib.optionals enableWayland [ wayland ]
+      );
+    in
+    ''
       # library skia embeds the path to its sources
       remove-references-to -t "$SKIA_SOURCE_DIR" \
         $out/bin/neovide

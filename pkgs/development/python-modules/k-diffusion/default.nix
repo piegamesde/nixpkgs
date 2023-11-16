@@ -1,24 +1,25 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# dependencies
-, accelerate
-, clean-fid
-, clip-anytorch
-, einops
-, jsonmerge
-, kornia
-, pillow
-, resize-right
-, scikit-image
-, scipy
-, torch
-, torchdiffeq
-, torchsde
-, torchvision
-, tqdm
-, wandb
+  # dependencies
+  accelerate,
+  clean-fid,
+  clip-anytorch,
+  einops,
+  jsonmerge,
+  kornia,
+  pillow,
+  resize-right,
+  scikit-image,
+  scipy,
+  torch,
+  torchdiffeq,
+  torchsde,
+  torchvision,
+  tqdm,
+  wandb,
 
 }:
 
@@ -35,7 +36,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-   accelerate
+    accelerate
     clean-fid
     clip-anytorch
     einops
@@ -53,9 +54,7 @@ buildPythonPackage rec {
     wandb
   ];
 
-  pythonImportsCheck = [
-    "k_diffusion"
-  ];
+  pythonImportsCheck = [ "k_diffusion" ];
 
   # no tests
   doCheck = false;

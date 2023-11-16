@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitLab, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitLab,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "obfs4";
@@ -15,7 +20,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-7NF3yMouhjSM9SBNKHkeWV7qy0XTGnepEX28kBpbgdk=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -40,6 +48,10 @@ buildGoModule rec {
     maintainers = with maintainers; [ thoughtpolice ];
     mainProgram = "obfs4proxy";
     changelog = "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/obfs4/-/raw/${src.rev}/ChangeLog";
-    license = with lib.licenses; [ bsd2 bsd3 gpl3 ];
+    license = with lib.licenses; [
+      bsd2
+      bsd3
+      gpl3
+    ];
   };
 }

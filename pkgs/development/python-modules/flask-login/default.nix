@@ -1,14 +1,15 @@
-{ lib
-, asgiref
-, blinker
-, buildPythonPackage
-, fetchPypi
-, flask
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, semantic-version
-, werkzeug
+{
+  lib,
+  asgiref,
+  blinker,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  semantic-version,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -36,13 +37,9 @@ buildPythonPackage rec {
     semantic-version
   ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [
-    "test_hashable"
-  ];
+  disabledTests = lib.optionals (pythonAtLeast "3.10") [ "test_hashable" ];
 
-  pythonImportsCheck = [
-    "flask_login"
-  ];
+  pythonImportsCheck = [ "flask_login" ];
 
   meta = with lib; {
     description = "User session management for Flask";

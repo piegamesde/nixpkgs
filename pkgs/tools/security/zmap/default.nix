@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libjson, json_c, gengetopt, flex, byacc, gmp
-, libpcap
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libjson,
+  json_c,
+  gengetopt,
+  flex,
+  byacc,
+  gmp,
+  libpcap,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,18 +24,33 @@ stdenv.mkDerivation rec {
     sha256 = "0yaahaiawkjk020hvsb8pndbrk8k10wxkfba1irp12a4sj6rywcs";
   };
 
-  patches = [
-    # fix build with json-c 0.14 https://github.com/zmap/zmap/pull/609
-    ./cmake-json-0.14-fix.patch
-  ];
+  patches =
+    [
+      # fix build with json-c 0.14 https://github.com/zmap/zmap/pull/609
+      ./cmake-json-0.14-fix.patch
+    ];
 
   cmakeFlags = [ "-DRESPECT_INSTALL_PREFIX_CONFIG=ON" ];
   dontUseCmakeBuildDir = true;
 
-  nativeBuildInputs = [ cmake pkg-config gengetopt flex byacc ];
-  buildInputs = [ libjson json_c gmp libpcap ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    gengetopt
+    flex
+    byacc
+  ];
+  buildInputs = [
+    libjson
+    json_c
+    gmp
+    libpcap
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = with lib; {
     homepage = "https://zmap.io/";

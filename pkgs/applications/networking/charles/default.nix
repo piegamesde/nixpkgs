@@ -1,40 +1,56 @@
-{ lib
-, stdenv
-, makeWrapper
-, makeDesktopItem
-, fetchurl
-, jdk11
-, jdk8
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  makeDesktopItem,
+  fetchurl,
+  jdk11,
+  jdk8,
 }:
 
 let
-  generic = { version, sha256, platform ? "", jdk, ... }@attrs:
-  let
-    desktopItem = makeDesktopItem {
-      categories = [ "Network" "Development" "WebDevelopment" "Java" ];
-      desktopName = "Charles";
-      exec = "charles %F";
-      genericName  = "Web Debugging Proxy";
-      icon = "charles-proxy";
-      mimeTypes = [
-        "application/x-charles-savedsession"
-        "application/x-charles-savedsession+xml"
-        "application/x-charles-savedsession+json"
-        "application/har+json"
-        "application/vnd.tcpdump.pcap"
-        "application/x-charles-trace"
-      ];
-      name = "Charles";
-      startupNotify = true;
-    };
-
-  in stdenv.mkDerivation {
+  generic =
+    {
+      version,
+      sha256,
+      platform ? "",
+      jdk,
+      ...
+    }@attrs:
+    let
+      desktopItem = makeDesktopItem {
+        categories = [
+          "Network"
+          "Development"
+          "WebDevelopment"
+          "Java"
+        ];
+        desktopName = "Charles";
+        exec = "charles %F";
+        genericName = "Web Debugging Proxy";
+        icon = "charles-proxy";
+        mimeTypes = [
+          "application/x-charles-savedsession"
+          "application/x-charles-savedsession+xml"
+          "application/x-charles-savedsession+json"
+          "application/har+json"
+          "application/vnd.tcpdump.pcap"
+          "application/x-charles-trace"
+        ];
+        name = "Charles";
+        startupNotify = true;
+      };
+    in
+    stdenv.mkDerivation {
       pname = "charles";
       inherit version;
 
       src = fetchurl {
         url = "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}${platform}.tar.gz";
-        curlOptsList = [ "--user-agent" "Mozilla/5.0" ]; # HTTP 104 otherwise
+        curlOptsList = [
+          "--user-agent"
+          "Mozilla/5.0"
+        ]; # HTTP 104 otherwise
         inherit sha256;
       };
       nativeBuildInputs = [ makeWrapper ];
@@ -63,17 +79,19 @@ let
         platforms = platforms.unix;
       };
     };
-
-in {
-  charles4 = (generic {
-    version = "4.6.2";
-    sha256 = "0r5rann7cq665ih0pa66k52081gylk85ashrwq1khbv2jf80yy52";
-    platform = "_amd64";
-    jdk = jdk11;
-  });
-  charles3 = (generic {
-    version = "3.12.3";
-    sha256 = "13zk82ny1w5zd9qcs9qkq0kdb22ni5byzajyshpxdfm4zv6p32ss";
-    jdk = jdk8.jre;
-  });
+in
+{
+  charles4 =
+    (generic {
+      version = "4.6.2";
+      sha256 = "0r5rann7cq665ih0pa66k52081gylk85ashrwq1khbv2jf80yy52";
+      platform = "_amd64";
+      jdk = jdk11;
+    });
+  charles3 =
+    (generic {
+      version = "3.12.3";
+      sha256 = "13zk82ny1w5zd9qcs9qkq0kdb22ni5byzajyshpxdfm4zv6p32ss";
+      jdk = jdk8.jre;
+    });
 }

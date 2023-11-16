@@ -1,11 +1,12 @@
-{ lib
-, mkXfceDerivation
-, exo
-, gtk3
-, libxfce4ui
-, xfconf
-, libwnck
-, libXmu
+{
+  lib,
+  mkXfceDerivation,
+  exo,
+  gtk3,
+  libxfce4ui,
+  xfconf,
+  libwnck,
+  libXmu,
 }:
 
 mkXfceDerivation {
@@ -16,9 +17,7 @@ mkXfceDerivation {
 
   sha256 = "sha256-worHYB9qibRxMaCYQ0+nHA9CSTColewgahyrXiPOnQA=";
 
-  nativeBuildInputs = [
-    exo
-  ];
+  nativeBuildInputs = [ exo ];
 
   buildInputs = [
     gtk3

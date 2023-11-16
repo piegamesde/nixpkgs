@@ -1,23 +1,27 @@
-{ fetchFromGitHub
-, json_c
-, keyutils
-, lib
-, meson
-, ninja
-, openssl
-, perl
-, pkg-config
-, python3
-, stdenv
-, swig
-, systemd
+{
+  fetchFromGitHub,
+  json_c,
+  keyutils,
+  lib,
+  meson,
+  ninja,
+  openssl,
+  perl,
+  pkg-config,
+  python3,
+  stdenv,
+  swig,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libnvme";
   version = "1.4";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "linux-nvme";

@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, python
-, pythonAtLeast
-, scripttest
-, pytz
-, pbr
-, tempita
-, decorator
-, sqlalchemy
-, six
-, sqlparse
-, testrepository
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  python,
+  pythonAtLeast,
+  scripttest,
+  pytz,
+  pbr,
+  tempita,
+  decorator,
+  sqlalchemy,
+  six,
+  sqlparse,
+  testrepository,
 }:
 
 buildPythonPackage rec {
@@ -46,8 +47,19 @@ buildPythonPackage rec {
       --replace "pylint" ""
   '';
 
-  nativeCheckInputs = [ scripttest pytz testrepository ];
-  propagatedBuildInputs = [ pbr tempita decorator sqlalchemy six sqlparse ];
+  nativeCheckInputs = [
+    scripttest
+    pytz
+    testrepository
+  ];
+  propagatedBuildInputs = [
+    pbr
+    tempita
+    decorator
+    sqlalchemy
+    six
+    sqlparse
+  ];
 
   doCheck = !stdenv.isDarwin;
 

@@ -1,11 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-, mock
-, nose
-, plotly
-, pytest
-, requests
-, retrying
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  nose,
+  plotly,
+  pytest,
+  requests,
+  retrying,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -29,7 +32,11 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ mock nose pytest ];
+  nativeCheckInputs = [
+    mock
+    nose
+    pytest
+  ];
   # most tests talk to a service
   checkPhase = ''
     HOME=$TMPDIR pytest chart_studio/tests/test_core chart_studio/tests/test_plot_ly/test_api

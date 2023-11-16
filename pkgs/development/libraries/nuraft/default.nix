@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, asio, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  asio,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nuraft";
@@ -12,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost asio openssl zlib ];
+  buildInputs = [
+    boost
+    asio
+    openssl
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/eBay/NuRaft";

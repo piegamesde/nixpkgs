@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools-scm
-, pillow
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  pillow,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,14 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-JBs0qlxctqmImIL5QJsBgpA6LF0ZtCGL42Cc271f/fk=";
   };
 
-  propagatedBuildInputs = [
-    setuptools-scm
-  ];
+  propagatedBuildInputs = [ setuptools-scm ];
 
   passthru.optional-dependencies = {
-    images = [
-      pillow
-    ];
+    images = [ pillow ];
   };
 
   postPatch = ''
@@ -36,9 +33,7 @@ buildPythonPackage rec {
       --replace "--no-cov-on-fail" ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.images;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.images;
 
   pythonImportsCheck = [ "barcode" ];
 

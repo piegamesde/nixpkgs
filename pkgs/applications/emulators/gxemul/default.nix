@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, libX11
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,14 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ecRDfG+MqQT0bTOsNgYqZf3PSpKiSEeOQIqxEpXPjoM=";
   };
 
-  buildInputs = [
-    libX11
-  ];
+  buildInputs = [ libX11 ];
 
-  patches = [
-    # Fix compilation; remove when next release arrives
-    ./0001-fix-attributes.patch
-  ];
+  patches =
+    [
+      # Fix compilation; remove when next release arrives
+      ./0001-fix-attributes.patch
+    ];
 
   dontAddPrefix = true;
 

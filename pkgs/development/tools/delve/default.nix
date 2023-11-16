@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "delve";
@@ -44,7 +50,10 @@ buildGoModule rec {
   meta = with lib; {
     description = "debugger for the Go programming language";
     homepage = "https://github.com/go-delve/delve";
-    maintainers = with maintainers; [ SuperSandro2000 vdemeester ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      vdemeester
+    ];
     license = licenses.mit;
     mainProgram = "dlv";
   };

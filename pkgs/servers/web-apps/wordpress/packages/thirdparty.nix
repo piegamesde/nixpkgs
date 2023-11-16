@@ -1,4 +1,5 @@
-{fetchzip}: {
+{ fetchzip }:
+{
   plugins.civicrm = fetchzip rec {
     name = "civicrm";
     version = "5.56.0";

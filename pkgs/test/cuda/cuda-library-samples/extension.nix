@@ -1,3 +1,1 @@
-final: prev: {
-  cuda-library-samples = final.callPackage ./generic.nix { };
-}
+final: prev: { cuda-library-samples = final.callPackage ./generic.nix { }; }

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, zlib, apngSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  apngSupport ? true,
+}:
 
 assert zlib != null;
 
@@ -9,8 +15,8 @@ let
     hash = "sha256-SsS26roAzeISxI22XLlCkQc/68oixcef2ocJFQLoDP0=";
   };
   whenPatched = lib.optionalString apngSupport;
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "libpng" + whenPatched "-apng";
   version = "1.6.39";
 
@@ -20,17 +26,25 @@ in stdenv.mkDerivation rec {
   };
   postPatch = whenPatched "gunzip < ${patch_src} | patch -Np1";
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
   outputBin = "dev";
 
   propagatedBuildInputs = [ zlib ];
 
   doCheck = true;
 
-  passthru = { inherit zlib; };
+  passthru = {
+    inherit zlib;
+  };
 
   meta = with lib; {
-    description = "The official reference implementation for the PNG file format" + whenPatched " with animation patch";
+    description =
+      "The official reference implementation for the PNG file format"
+      + whenPatched " with animation patch";
     homepage = "http://www.libpng.org/pub/png/libpng.html";
     changelog = "https://github.com/glennrp/libpng/blob/v1.6.39/CHANGES";
     license = licenses.libpng2;

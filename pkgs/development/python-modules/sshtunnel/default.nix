@@ -1,7 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi
-, paramiko
-, pytestCheckHook
-, mock
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  paramiko,
+  pytestCheckHook,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -15,7 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ paramiko ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ];
 
   # disable impure tests
   disabledTests = [

@@ -1,15 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, openssl, zlib, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  openssl,
+  zlib,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_repack";
   version = "1.4.8";
 
-  buildInputs = [ postgresql openssl zlib readline ];
+  buildInputs = [
+    postgresql
+    openssl
+    zlib
+    readline
+  ];
 
   src = fetchFromGitHub {
-    owner  = "reorg";
-    repo   = "pg_repack";
-    rev    = "ver_${version}";
+    owner = "reorg";
+    repo = "pg_repack";
+    rev = "ver_${version}";
     sha256 = "sha256-Et8aMRzG7ez0uy9wG6qsg57/kPPZdUhb+/gFxW86D08=";
   };
 

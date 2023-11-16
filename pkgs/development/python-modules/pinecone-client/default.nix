@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pyyaml
-, python-dateutil
-, urllib3
-, tqdm
-, dnspython
-, requests
-, typing-extensions
-, loguru
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pyyaml,
+  python-dateutil,
+  urllib3,
+  tqdm,
+  dnspython,
+  requests,
+  typing-extensions,
+  loguru,
 }:
 buildPythonPackage rec {
   pname = "pinecone-client";
@@ -38,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://www.pinecone.io/";
     description = "The Pinecone python client";
     license = licenses.mit;
-    maintainers = with maintainers; [happysalada];
+    maintainers = with maintainers; [ happysalada ];
   };
 }

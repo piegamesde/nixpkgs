@@ -1,9 +1,21 @@
-{ stdenv, lib, sbclPackages
-, makeWrapper, wrapGAppsHook, gst_all_1
-, glib, gdk-pixbuf, cairo
-, mailcap, pango, gtk3
-, glib-networking, gsettings-desktop-schemas
-, xclip, notify-osd, enchant
+{
+  stdenv,
+  lib,
+  sbclPackages,
+  makeWrapper,
+  wrapGAppsHook,
+  gst_all_1,
+  glib,
+  gdk-pixbuf,
+  cairo,
+  mailcap,
+  pango,
+  gtk3,
+  glib-networking,
+  gsettings-desktop-schemas,
+  xclip,
+  notify-osd,
+  enchant,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,19 +24,29 @@ stdenv.mkDerivation rec {
 
   src = sbclPackages.nyxt;
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+  ];
   gstBuildInputs = with gst_all_1; [
-    gstreamer gst-libav
+    gstreamer
+    gst-libav
     gst-plugins-base
     gst-plugins-good
     gst-plugins-bad
     gst-plugins-ugly
   ];
   buildInputs = [
-    glib gdk-pixbuf cairo
-    mailcap pango gtk3
-    glib-networking gsettings-desktop-schemas
-    notify-osd enchant
+    glib
+    gdk-pixbuf
+    cairo
+    mailcap
+    pango
+    gtk3
+    glib-networking
+    gsettings-desktop-schemas
+    notify-osd
+    enchant
   ] ++ gstBuildInputs;
 
   GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gstBuildInputs;
@@ -56,7 +78,10 @@ stdenv.mkDerivation rec {
     description = "Infinitely extensible web-browser (with Lisp development files using WebKitGTK platform port)";
     homepage = "https://nyxt.atlas.engineer";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lewo dariof4 ];
+    maintainers = with maintainers; [
+      lewo
+      dariof4
+    ];
     platforms = platforms.all;
   };
 }

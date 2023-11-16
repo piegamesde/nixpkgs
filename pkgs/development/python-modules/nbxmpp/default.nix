@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitLab
-, gobject-introspection
-, idna
-, libsoup_3
-, precis-i18n
-, pygobject3
-, pyopenssl
-, setuptools
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitLab,
+  gobject-introspection,
+  idna,
+  libsoup_3,
+  precis-i18n,
+  pygobject3,
+  pyopenssl,
+  setuptools,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -28,14 +29,13 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    # required for pythonImportsCheck otherwise libsoup cannot be found
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [
+      # required for pythonImportsCheck otherwise libsoup cannot be found
+      gobject-introspection
+    ];
 
-  buildInputs = [
-    precis-i18n
-  ];
+  buildInputs = [ precis-i18n ];
 
   propagatedBuildInputs = [
     gobject-introspection
@@ -46,9 +46,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "nbxmpp" ];
 

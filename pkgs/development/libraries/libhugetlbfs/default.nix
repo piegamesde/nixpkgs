@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libhugetlbfs";
@@ -16,7 +20,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "bin" "dev" "man" "doc" "lib" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "man"
+    "doc"
+    "lib"
+    "out"
+  ];
 
   postConfigure = ''
     patchShebangs ld.hugetlbfs
@@ -36,8 +47,14 @@ stdenv.mkDerivation rec {
 
   # Default target builds tests as well, and the tests want a static
   # libc.
-  buildFlags = [ "libs" "tools" ];
-  installTargets = [ "install" "install-docs" ];
+  buildFlags = [
+    "libs"
+    "tools"
+  ];
+  installTargets = [
+    "install"
+    "install-docs"
+  ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

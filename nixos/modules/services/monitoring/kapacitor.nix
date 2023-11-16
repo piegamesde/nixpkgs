@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -104,7 +109,9 @@ in
 
     loadDirectory = mkOption {
       type = types.nullOr types.path;
-      description = lib.mdDoc "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
+      description =
+        lib.mdDoc
+          "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
       default = null;
     };
 
@@ -160,9 +167,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.kapacitor ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.kapacitor = {
       description = "Kapacitor Real-Time Stream Processing Engine";

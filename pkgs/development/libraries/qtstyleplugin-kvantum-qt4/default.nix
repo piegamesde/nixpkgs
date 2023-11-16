@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, qmake4Hook , qt4, libX11, libXext }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake4Hook,
+  qt4,
+  libX11,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qtstyleplugin-kvantum-qt4";
@@ -12,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake4Hook ];
-  buildInputs = [ qt4 libX11 libXext ];
+  buildInputs = [
+    qt4
+    libX11
+    libXext
+  ];
 
   sourceRoot = "source/Kvantum";
 

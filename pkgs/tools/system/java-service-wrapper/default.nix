@@ -1,6 +1,11 @@
-{ lib, stdenv, fetchurl
-, jdk
-, ant, cunit, ncurses
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  ant,
+  cunit,
+  ncurses,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ jdk ];
-  nativeBuildInputs = [ ant cunit ncurses ];
+  nativeBuildInputs = [
+    ant
+    cunit
+    ncurses
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -44,7 +53,10 @@ stdenv.mkDerivation rec {
     homepage = "https://wrapper.tanukisoftware.com/";
     changelog = "https://wrapper.tanukisoftware.com/doc/english/release-notes.html#${version}";
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = [ maintainers.suhr ];
   };
 }

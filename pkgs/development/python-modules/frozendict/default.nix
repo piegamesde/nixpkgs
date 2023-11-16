@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -26,22 +27,20 @@ buildPythonPackage rec {
       --replace 'if impl == "PyPy":' 'if impl == "PyPy" or not src_path.exists():'
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "frozendict"
-  ];
+  pythonImportsCheck = [ "frozendict" ];
 
   preCheck = ''
     pushd test
   '';
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    # https://github.com/Marco-Sulla/python-frozendict/issues/68
-    "test_c_extension"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.11")
+      [
+        # https://github.com/Marco-Sulla/python-frozendict/issues/68
+        "test_c_extension"
+      ];
 
   meta = with lib; {
     description = "Module for immutable dictionary";

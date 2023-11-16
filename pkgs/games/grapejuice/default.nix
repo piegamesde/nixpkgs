@@ -1,23 +1,24 @@
-{ lib
-, fetchFromGitLab
-, gobject-introspection
-, pciutils
-, python3Packages
-, gtk3
-, wrapGAppsHook
-, glib
-, cairo
-, desktop-file-utils
-, xdg-utils
-, xdg-user-dirs
-, gettext
-, winetricks
-, wine
-, glxinfo
-, xrandr
+{
+  lib,
+  fetchFromGitLab,
+  gobject-introspection,
+  pciutils,
+  python3Packages,
+  gtk3,
+  wrapGAppsHook,
+  glib,
+  cairo,
+  desktop-file-utils,
+  xdg-utils,
+  xdg-user-dirs,
+  gettext,
+  winetricks,
+  wine,
+  glxinfo,
+  xrandr,
 }:
 
-python3Packages.buildPythonApplication rec  {
+python3Packages.buildPythonApplication rec {
   pname = "grapejuice";
   version = "7.8.3";
 
@@ -58,7 +59,16 @@ python3Packages.buildPythonApplication rec  {
 
   makeWrapperArgs = [
     "\${gappsWrapperArgs[@]}"
-    "--prefix PATH : ${lib.makeBinPath [ xdg-user-dirs wine winetricks pciutils glxinfo xrandr ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        xdg-user-dirs
+        wine
+        winetricks
+        pciutils
+        glxinfo
+        xrandr
+      ]
+    }"
     # make xdg-open overrideable at runtime
     "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
   ];
@@ -122,6 +132,9 @@ python3Packages.buildPythonApplication rec  {
     description = "Simple Wine+Roblox management tool";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin helium ];
+    maintainers = with maintainers; [
+      artturin
+      helium
+    ];
   };
 }

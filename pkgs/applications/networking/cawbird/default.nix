@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, glib
-, gtk3
-, json-glib
-, sqlite
-, libsoup
-, liboauth
-, gettext
-, gspell
-, vala
-, meson
-, ninja
-, pkg-config
-, dconf
-, gst_all_1
-, wrapGAppsHook
-, gobject-introspection
-, glib-networking
-, librest
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  gtk3,
+  json-glib,
+  sqlite,
+  libsoup,
+  liboauth,
+  gettext,
+  gspell,
+  vala,
+  meson,
+  ninja,
+  pkg-config,
+  dconf,
+  gst_all_1,
+  wrapGAppsHook,
+  gobject-introspection,
+  glib-networking,
+  librest,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
@@ -43,27 +44,29 @@ stdenv.mkDerivation rec {
     gobject-introspection # for setup hook
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    json-glib
-    sqlite
-    libsoup
-    liboauth
-    gettext
-    dconf
-    gspell
-    glib-networking
-    librest
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-bad
-    (gst-plugins-good.override {
-      gtkSupport = true;
-    })
-    gst-libav
-  ]);
+  buildInputs =
+    [
+      glib
+      gtk3
+      json-glib
+      sqlite
+      libsoup
+      liboauth
+      gettext
+      dconf
+      gspell
+      glib-networking
+      librest
+    ]
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-bad
+        (gst-plugins-good.override { gtkSupport = true; })
+        gst-libav
+      ]
+    );
 
   postPatch = ''
     chmod +x data/meson_post_install.py # patchShebangs requires executable file
@@ -83,6 +86,10 @@ stdenv.mkDerivation rec {
     homepage = "https://ibboard.co.uk/cawbird/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ jonafato schmittlauch SuperSandro2000 ];
+    maintainers = with lib.maintainers; [
+      jonafato
+      schmittlauch
+      SuperSandro2000
+    ];
   };
 }

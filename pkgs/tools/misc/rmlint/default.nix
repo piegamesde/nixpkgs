@@ -1,22 +1,25 @@
-{ lib, stdenv
-, cairo
-, fetchFromGitHub
-, gettext
-, glib
-, gobject-introspection
-, gtksourceview3
-, json-glib
-, libelf
-, makeWrapper
-, pango
-, pkg-config
-, polkit
-, python3
-, scons
-, sphinx
-, util-linux
-, wrapGAppsHook
-, withGui ? false }:
+{
+  lib,
+  stdenv,
+  cairo,
+  fetchFromGitHub,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtksourceview3,
+  json-glib,
+  libelf,
+  makeWrapper,
+  pango,
+  pkg-config,
+  polkit,
+  python3,
+  scons,
+  sphinx,
+  util-linux,
+  wrapGAppsHook,
+  withGui ? false,
+}:
 
 assert withGui -> !stdenv.isDarwin;
 
@@ -31,34 +34,39 @@ stdenv.mkDerivation rec {
     sha256 = "15xfkcw1bkfyf3z8kl23k3rlv702m0h7ghqxvhniynvlwbgh6j2x";
   };
 
-  patches = [
-    # pass through NIX_* environment variables to scons.
-    ./scons-nix-env.patch
-  ];
+  patches =
+    [
+      # pass through NIX_* environment variables to scons.
+      ./scons-nix-env.patch
+    ];
 
-  nativeBuildInputs = [
-    pkg-config
-    sphinx
-    scons
-  ] ++ lib.optionals withGui [
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      sphinx
+      scons
+    ]
+    ++ lib.optionals withGui [
+      makeWrapper
+      wrapGAppsHook
+    ];
 
-  buildInputs = [
-    glib
-    json-glib
-    libelf
-    util-linux
-  ] ++ lib.optionals withGui [
-    cairo
-    gobject-introspection
-    gtksourceview3
-    pango
-    polkit
-    python3
-    python3.pkgs.pygobject3
-  ];
+  buildInputs =
+    [
+      glib
+      json-glib
+      libelf
+      util-linux
+    ]
+    ++ lib.optionals withGui [
+      cairo
+      gobject-introspection
+      gtksourceview3
+      pango
+      polkit
+      python3
+      python3.pkgs.pygobject3
+    ];
 
   prePatch = ''
     # remove sources of nondeterminism
@@ -85,6 +93,9 @@ stdenv.mkDerivation rec {
     homepage = "https://rmlint.readthedocs.org";
     platforms = platforms.unix;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ aaschmid koral ];
+    maintainers = with maintainers; [
+      aaschmid
+      koral
+    ];
   };
 }

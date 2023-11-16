@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, zlib, libpng, gd, geoip, db }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  libpng,
+  gd,
+  geoip,
+  db,
+}:
 
 stdenv.mkDerivation rec {
   pname = "webalizer";
@@ -13,13 +22,18 @@ stdenv.mkDerivation rec {
   #   ld: dns_resolv.o:(.bss+0x20): multiple definition of `system_info'; webalizer.o:(.bss+0x76e0): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  preConfigure =
-    ''
-      substituteInPlace ./configure \
-        --replace "--static" ""
-    '';
+  preConfigure = ''
+    substituteInPlace ./configure \
+      --replace "--static" ""
+  '';
 
-  buildInputs = [zlib libpng gd geoip db];
+  buildInputs = [
+    zlib
+    libpng
+    gd
+    geoip
+    db
+  ];
 
   configureFlags = [
     "--enable-dns"

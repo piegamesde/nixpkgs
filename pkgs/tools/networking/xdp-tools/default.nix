@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, libbpf
-, elfutils
-, zlib
-, libpcap
-, bpftools
-, llvmPackages
-, pkg-config
-, m4
-, emacs-nox
-, wireshark-cli
-, nukeReferences
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libbpf,
+  elfutils,
+  zlib,
+  libpcap,
+  bpftools,
+  llvmPackages,
+  pkg-config,
+  m4,
+  emacs-nox,
+  wireshark-cli,
+  nukeReferences,
 }:
 stdenv.mkDerivation rec {
   pname = "xdp-tools";
@@ -25,15 +26,19 @@ stdenv.mkDerivation rec {
     sha256 = "ctggXzc3qA+m2/nJ9lmR/pERj0YyPko3MTttm8e85cU=";
   };
 
-  patches = [
-    # Fix function detection for btf__type_cnt()
-    (fetchpatch {
-      url = "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch";
-      sha256 = "n6qG/bojSGUowrAaJWxecYpWdv9OceHkoaGlhbl81hA=";
-    })
-  ];
+  patches =
+    [
+      # Fix function detection for btf__type_cnt()
+      (fetchpatch {
+        url = "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch";
+        sha256 = "n6qG/bojSGUowrAaJWxecYpWdv9OceHkoaGlhbl81hA=";
+      })
+    ];
 
-  outputs = [ "out" "lib" ];
+  outputs = [
+    "out"
+    "lib"
+  ];
 
   buildInputs = [
     libbpf
@@ -65,7 +70,10 @@ stdenv.mkDerivation rec {
   FORCE_SYSTEM_LIBBPF = 1;
   FORCE_EMACS = 1;
 
-  makeFlags = [ "PREFIX=$(out)" "LIBDIR=$(lib)/lib" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "LIBDIR=$(lib)/lib"
+  ];
 
   postInstall = ''
     # Note that even the static libxdp would refer to BPF_OBJECT_DIR ?=$(LIBDIR)/bpf
@@ -77,8 +85,16 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/xdp-project/xdp-tools";
     description = "Library and utilities for use with XDP";
-    license = with licenses; [ gpl2 lgpl21 bsd2 ];
-    maintainers = with maintainers; [ tirex vcunat vifino ];
+    license = with licenses; [
+      gpl2
+      lgpl21
+      bsd2
+    ];
+    maintainers = with maintainers; [
+      tirex
+      vcunat
+      vifino
+    ];
     platforms = platforms.linux;
   };
 }

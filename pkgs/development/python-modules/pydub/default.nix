@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# tests
-, ffmpeg-full
-, python
+  # tests
+  ffmpeg-full,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     "pydub.playback"
   ];
 
-  nativeCheckInputs = [
-    ffmpeg-full
-  ];
+  nativeCheckInputs = [ ffmpeg-full ];
 
   checkPhase = ''
     ${python.interpreter} test/test.py

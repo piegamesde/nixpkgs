@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, onigurumaSupport ? true
-, oniguruma
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  onigurumaSupport ? true,
+  oniguruma,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,11 +17,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XejI4pqqP7nMa0e7JymfJxNU67clFOOsytx9OLW7qnI=";
   };
 
-  patches = [
-    ./fix-tests-when-building-without-regex-supports.patch
-  ];
+  patches = [ ./fix-tests-when-building-without-regex-supports.patch ];
 
-  outputs = [ "bin" "doc" "man" "dev" "lib" "out" ];
+  outputs = [
+    "bin"
+    "doc"
+    "man"
+    "dev"
+    "lib"
+    "out"
+  ];
 
   # Upstream script that writes the version that's eventually compiled
   # and printed in `jq --help` relies on a .git directory which our src
@@ -40,14 +46,16 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optionals onigurumaSupport [ oniguruma ];
   nativeBuildInputs = [ autoreconfHook ];
 
-  configureFlags = [
-    "--bindir=\${bin}/bin"
-    "--sbindir=\${bin}/bin"
-    "--datadir=\${doc}/share"
-    "--mandir=\${man}/share/man"
-  ] ++ lib.optional (!onigurumaSupport) "--with-oniguruma=no"
-  # jq is linked to libjq:
-  ++ lib.optional (!stdenv.isDarwin) "LDFLAGS=-Wl,-rpath,\\\${libdir}";
+  configureFlags =
+    [
+      "--bindir=\${bin}/bin"
+      "--sbindir=\${bin}/bin"
+      "--datadir=\${doc}/share"
+      "--mandir=\${man}/share/man"
+    ]
+    ++ lib.optional (!onigurumaSupport) "--with-oniguruma=no"
+    # jq is linked to libjq:
+    ++ lib.optional (!stdenv.isDarwin) "LDFLAGS=-Wl,-rpath,\\\${libdir}";
 
   doInstallCheck = true;
   installCheckTarget = "check";
@@ -57,13 +65,19 @@ stdenv.mkDerivation rec {
     $bin/bin/jq -r '.values[1]' <<< '{"values":["hello","world"]}' | grep '^world$' > /dev/null
   '';
 
-  passthru = { inherit onigurumaSupport; };
+  passthru = {
+    inherit onigurumaSupport;
+  };
 
   meta = with lib; {
     description = "A lightweight and flexible command-line JSON processor";
     homepage = "https://stedolan.github.io/jq/";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin globin artturin ];
+    maintainers = with maintainers; [
+      raskin
+      globin
+      artturin
+    ];
     platforms = platforms.unix;
     downloadPage = "https://stedolan.github.io/jq/download/";
   };

@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-colors2";
   version = "20211020-git";
@@ -8,7 +8,11 @@ rec {
 
   description = "Simple color library for Common Lisp";
 
-  deps = [ args."alexandria" args."cl-ppcre" args."clunit2" ];
+  deps = [
+    args."alexandria"
+    args."cl-ppcre"
+    args."clunit2"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-colors2/2021-10-20/cl-colors2-20211020-git.tgz";
@@ -17,7 +21,7 @@ rec {
 
   packageName = "cl-colors2";
 
-  asdFilesToKeep = ["cl-colors2.asd"];
+  asdFilesToKeep = [ "cl-colors2.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-colors2 DESCRIPTION Simple color library for Common Lisp SHA256
@@ -28,4 +32,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME cl-ppcre FILENAME cl-ppcre)
      (NAME clunit2 FILENAME clunit2))
     DEPENDENCIES (alexandria cl-ppcre clunit2) VERSION 20211020-git SIBLINGS
-    NIL PARASITES (cl-colors2/tests)) */
+    NIL PARASITES (cl-colors2/tests))
+*/

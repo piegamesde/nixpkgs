@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, python3
-, perl
-, yasm
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  python3,
+  perl,
+  yasm,
+  nixosTests,
 
-# currently for BLAKE3 hash function
-, rustSupport ? true
+  # currently for BLAKE3 hash function
+  rustSupport ? true,
 
-, corrosion
-, rustc
-, cargo
-, rustPlatform
+  corrosion,
+  rustc,
+  cargo,
+  rustPlatform,
 }:
 
 stdenv.mkDerivation rec {
@@ -44,32 +45,41 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python3
-    perl
-  ] ++ lib.optionals stdenv.isx86_64 [
-    yasm
-  ] ++ lib.optionals rustSupport [
-    rustc
-    cargo
-    rustPlatform.cargoSetupHook
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      python3
+      perl
+    ]
+    ++ lib.optionals stdenv.isx86_64 [ yasm ]
+    ++ lib.optionals rustSupport [
+      rustc
+      cargo
+      rustPlatform.cargoSetupHook
+    ];
 
   corrosionDeps = if rustSupport then corrosion.cargoDeps else null;
-  blake3Deps = if rustSupport then rustPlatform.fetchCargoTarball {
-    inherit src;
-    name = "blake3-deps";
-    preBuild = "cd rust/BLAKE3";
-    hash = "sha256-lDMmmsyjEbTfI5NgTgT4+8QQrcUE/oUWfFgj1i19W0Q=";
-  } else null;
-  skimDeps = if rustSupport then rustPlatform.fetchCargoTarball {
-    inherit src;
-    name = "skim-deps";
-    preBuild = "cd rust/skim";
-    hash = "sha256-gEWB+U8QrM0yYyMXpwocszJZgOemdTlbSzKNkS0NbPk=";
-  } else null;
+  blake3Deps =
+    if rustSupport then
+      rustPlatform.fetchCargoTarball {
+        inherit src;
+        name = "blake3-deps";
+        preBuild = "cd rust/BLAKE3";
+        hash = "sha256-lDMmmsyjEbTfI5NgTgT4+8QQrcUE/oUWfFgj1i19W0Q=";
+      }
+    else
+      null;
+  skimDeps =
+    if rustSupport then
+      rustPlatform.fetchCargoTarball {
+        inherit src;
+        name = "skim-deps";
+        preBuild = "cd rust/skim";
+        hash = "sha256-gEWB+U8QrM0yYyMXpwocszJZgOemdTlbSzKNkS0NbPk=";
+      }
+    else
+      null;
 
   dontCargoSetupPostUnpack = true;
   postUnpack = lib.optionalString rustSupport ''
@@ -97,35 +107,37 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  postPatch = ''
-    patchShebangs src/
+  postPatch =
+    ''
+      patchShebangs src/
 
-    substituteInPlace src/Storages/System/StorageSystemLicenses.sh \
-      --replace 'git rev-parse --show-toplevel' '$src'
-    substituteInPlace utils/check-style/check-duplicate-includes.sh \
-      --replace 'git rev-parse --show-toplevel' '$src'
-    substituteInPlace utils/check-style/check-ungrouped-includes.sh \
-      --replace 'git rev-parse --show-toplevel' '$src'
-    substituteInPlace utils/list-licenses/list-licenses.sh \
-      --replace 'git rev-parse --show-toplevel' '$src'
-    substituteInPlace utils/check-style/check-style \
-      --replace 'git rev-parse --show-toplevel' '$src'
-  '' + lib.optionalString rustSupport ''
+      substituteInPlace src/Storages/System/StorageSystemLicenses.sh \
+        --replace 'git rev-parse --show-toplevel' '$src'
+      substituteInPlace utils/check-style/check-duplicate-includes.sh \
+        --replace 'git rev-parse --show-toplevel' '$src'
+      substituteInPlace utils/check-style/check-ungrouped-includes.sh \
+        --replace 'git rev-parse --show-toplevel' '$src'
+      substituteInPlace utils/list-licenses/list-licenses.sh \
+        --replace 'git rev-parse --show-toplevel' '$src'
+      substituteInPlace utils/check-style/check-style \
+        --replace 'git rev-parse --show-toplevel' '$src'
+    ''
+    + lib.optionalString rustSupport ''
 
-    pushd contrib/corrosion/generator
-    cargoDepsCopy="$corrosionDepsCopy" cargoSetupPostPatchHook
-    popd
+      pushd contrib/corrosion/generator
+      cargoDepsCopy="$corrosionDepsCopy" cargoSetupPostPatchHook
+      popd
 
-    pushd rust/BLAKE3
-    cargoDepsCopy="$blake3DepsCopy" cargoSetupPostPatchHook
-    popd
+      pushd rust/BLAKE3
+      cargoDepsCopy="$blake3DepsCopy" cargoSetupPostPatchHook
+      popd
 
-    pushd rust/skim
-    cargoDepsCopy="$skimDepsCopy" cargoSetupPostPatchHook
-    popd
+      pushd rust/skim
+      cargoDepsCopy="$skimDepsCopy" cargoSetupPostPatchHook
+      popd
 
-    cargoSetupPostPatchHook() { true; }
-  '';
+      cargoSetupPostPatchHook() { true; }
+    '';
 
   cmakeFlags = [
     "-DENABLE_TESTS=OFF"

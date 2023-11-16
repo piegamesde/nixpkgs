@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "prove-asdf";
   version = "prove-20200218-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "prove-asdf";
 
-  asdFilesToKeep = ["prove-asdf.asd"];
+  asdFilesToKeep = [ "prove-asdf.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM prove-asdf DESCRIPTION System lacks description SHA256
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/prove/2020-02-18/prove-20200218-git.tgz
     MD5 85780b65e84c17a78d658364b8c4d11b NAME prove-asdf FILENAME prove-asdf
     DEPS NIL DEPENDENCIES NIL VERSION prove-20200218-git SIBLINGS
-    (cl-test-more prove-test prove) PARASITES NIL) */
+    (cl-test-more prove-test prove) PARASITES NIL)
+*/

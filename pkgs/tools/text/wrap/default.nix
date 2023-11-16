@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, makeWrapper, courier-prime }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  courier-prime,
+}:
 
 buildGoModule rec {
   pname = "wrap";
@@ -13,7 +20,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  vendorSha256 = null; #vendorSha256 = "";
+  vendorSha256 = null; # vendorSha256 = "";
 
   patches = [
     (fetchpatch {

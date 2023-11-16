@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchpatch, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "bitcoin-prometheus-exporter";
@@ -13,16 +18,21 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0l0j6dyb0vflh386z3g8srysay5sf47g5rg2f5xrkckv86rjr115";
   };
 
-  patches = [
-    # remove after update to new release
-    (fetchpatch {
-      name = "configurable-listening-address.patch";
-      url = "https://patch-diff.githubusercontent.com/raw/jvstein/bitcoin-prometheus-exporter/pull/11.patch";
-      sha256 = "0a2l8aqgprc1d5k8yg1gisn6imh9hzg6j0irid3pjvp5i5dcnhyq";
-    })
-  ];
+  patches =
+    [
+      # remove after update to new release
+      (fetchpatch {
+        name = "configurable-listening-address.patch";
+        url = "https://patch-diff.githubusercontent.com/raw/jvstein/bitcoin-prometheus-exporter/pull/11.patch";
+        sha256 = "0a2l8aqgprc1d5k8yg1gisn6imh9hzg6j0irid3pjvp5i5dcnhyq";
+      })
+    ];
 
-  propagatedBuildInputs = with python3Packages; [ prometheus-client bitcoinlib riprova ];
+  propagatedBuildInputs = with python3Packages; [
+    prometheus-client
+    bitcoinlib
+    riprova
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

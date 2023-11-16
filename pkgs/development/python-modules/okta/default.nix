@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-# install requirements
-, pycryptodome
-, yarl
-, flatdict
-, python-jose
-, aenum
-, aiohttp
-, pydash
-, xmltodict
-, pyyaml
-# test requirements
-, pytestCheckHook
-, pytest-recording
-, pytest-asyncio
-, pytest-mock
-, pyfakefs
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  # install requirements
+  pycryptodome,
+  yarl,
+  flatdict,
+  python-jose,
+  aenum,
+  aiohttp,
+  pydash,
+  xmltodict,
+  pyyaml,
+  # test requirements
+  pytestCheckHook,
+  pytest-recording,
+  pytest-asyncio,
+  pytest-mock,
+  pyfakefs,
 }:
 
 buildPythonPackage rec {
@@ -51,9 +52,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/" ];
 
-  disabledTests = [
-    "test_client_raise_exception"
-  ];
+  disabledTests = [ "test_client_raise_exception" ];
 
   pythonImportsCheck = [
     "okta"

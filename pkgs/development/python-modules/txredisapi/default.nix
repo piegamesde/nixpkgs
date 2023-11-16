@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nixosTests, six, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nixosTests,
+  six,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "txredisapi";
@@ -11,7 +18,10 @@ buildPythonPackage rec {
     sha256 = "1f7j3c5l7jcfphvsk7nqmgyb4jaydbzq081m555kw0f9xxak0pgq";
   };
 
-  propagatedBuildInputs = [ six twisted ];
+  propagatedBuildInputs = [
+    six
+    twisted
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ "txredisapi" ];
@@ -25,4 +35,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ dandellion ];
   };
 }
-

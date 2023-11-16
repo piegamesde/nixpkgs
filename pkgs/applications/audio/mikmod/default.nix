@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libmikmod, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libmikmod,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mikmod";
@@ -9,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1k54p8pn3jinha0f2i23ad15pf1pamibzcxjrbzjbklpcz1ipc6v";
   };
 
-  buildInputs = [ libmikmod ncurses ];
+  buildInputs = [
+    libmikmod
+    ncurses
+  ];
 
   meta = {
     description = "Tracker music player for the terminal";

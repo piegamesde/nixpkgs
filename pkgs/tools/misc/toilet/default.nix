@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, libcaca }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libcaca,
+}:
 
 stdenv.mkDerivation rec {
   pname = "toilet";

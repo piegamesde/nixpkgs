@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.1.4";

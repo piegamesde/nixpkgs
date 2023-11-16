@@ -1,16 +1,31 @@
-{ stdenv, lib, fetchFromGitHub, buildPythonPackage, python,
-  cudaSupport ? false, cudaPackages, magma,
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  cudaSupport ? false,
+  cudaPackages,
+  magma,
   useSystemNccl ? true,
-  MPISupport ? false, mpi,
+  MPISupport ? false,
+  mpi,
   buildDocs ? false,
 
   # Native build inputs
-  cmake, linkFarm, symlinkJoin, which, pybind11, removeReferencesTo,
+  cmake,
+  linkFarm,
+  symlinkJoin,
+  which,
+  pybind11,
+  removeReferencesTo,
   pythonRelaxDepsHook,
 
   # Build inputs
   numactl,
-  Accelerate, CoreServices, libobjc,
+  Accelerate,
+  CoreServices,
+  libobjc,
 
   # Propagated build inputs
   filelock,
@@ -18,10 +33,15 @@
   networkx,
   openai-triton,
   sympy,
-  numpy, pyyaml, cffi, click, typing-extensions,
+  numpy,
+  pyyaml,
+  cffi,
+  click,
+  typing-extensions,
 
   # Unit tests
-  hypothesis, psutil,
+  hypothesis,
+  psutil,
 
   # Disable MKLDNN on aarch64-darwin, it negatively impacts performance,
   # this is also what official pytorch build does
@@ -37,22 +57,53 @@
   linuxHeaders_5_19,
 
   # dependencies for torch.utils.tensorboard
-  pillow, six, future, tensorboard, protobuf,
+  pillow,
+  six,
+  future,
+  tensorboard,
+  protobuf,
 
   pythonOlder,
 
   # ROCm dependencies
   rocmSupport ? false,
   gpuTargets ? [ ],
-  openmp, rocm-core, hip, rccl, miopen, miopengemm, rocrand, rocblas,
-  rocfft, rocsparse, hipsparse, rocthrust, rocprim, hipcub, roctracer,
-  rocsolver, hipfft, hipsolver, hipblas, rocminfo, rocm-thunk, rocm-comgr,
-  rocm-device-libs, rocm-runtime, rocm-opencl-runtime, hipify
+  openmp,
+  rocm-core,
+  hip,
+  rccl,
+  miopen,
+  miopengemm,
+  rocrand,
+  rocblas,
+  rocfft,
+  rocsparse,
+  hipsparse,
+  rocthrust,
+  rocprim,
+  hipcub,
+  roctracer,
+  rocsolver,
+  hipfft,
+  hipsolver,
+  hipblas,
+  rocminfo,
+  rocm-thunk,
+  rocm-comgr,
+  rocm-device-libs,
+  rocm-runtime,
+  rocm-opencl-runtime,
+  hipify,
 }:
 
 let
   inherit (lib) lists strings trivial;
-  inherit (cudaPackages) cudatoolkit cudaFlags cudnn nccl;
+  inherit (cudaPackages)
+    cudatoolkit
+    cudaFlags
+    cudnn
+    nccl
+  ;
 in
 
 assert cudaSupport -> stdenv.isLinux;
@@ -68,7 +119,23 @@ let
   # https://github.com/pytorch/pytorch/blob/v2.0.1/torch/utils/cpp_extension.py#L1744
   supportedTorchCudaCapabilities =
     let
-      real = ["3.5" "3.7" "5.0" "5.2" "5.3" "6.0" "6.1" "6.2" "7.0" "7.2" "7.5" "8.0" "8.6" "8.9" "9.0"];
+      real = [
+        "3.5"
+        "3.7"
+        "5.0"
+        "5.2"
+        "5.3"
+        "6.0"
+        "6.1"
+        "6.2"
+        "7.0"
+        "7.2"
+        "7.5"
+        "8.0"
+        "8.6"
+        "8.9"
+        "9.0"
+      ];
       ptx = lists.map (x: "${x}+PTX") real;
     in
     real ++ ptx;
@@ -78,11 +145,16 @@ let
   #   lists.subtractLists a b = b - a
 
   # For CUDA
-  supportedCudaCapabilities = lists.intersectLists cudaFlags.cudaCapabilities supportedTorchCudaCapabilities;
-  unsupportedCudaCapabilities = lists.subtractLists supportedCudaCapabilities cudaFlags.cudaCapabilities;
+  supportedCudaCapabilities =
+    lists.intersectLists cudaFlags.cudaCapabilities
+      supportedTorchCudaCapabilities;
+  unsupportedCudaCapabilities =
+    lists.subtractLists supportedCudaCapabilities
+      cudaFlags.cudaCapabilities;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
-  gpuArchWarner = supported: unsupported:
+  gpuArchWarner =
+    supported: unsupported:
     trivial.throwIf (supported == [ ])
       (
         "No supported GPU targets specified. Requested GPU targets: "
@@ -93,7 +165,7 @@ let
   # Create the gpuTargetString.
   gpuTargetString = strings.concatStringsSep ";" (
     if gpuTargets != [ ] then
-    # If gpuTargets is specified, it always takes priority.
+      # If gpuTargets is specified, it always takes priority.
       gpuTargets
     else if cudaSupport then
       gpuArchWarner supportedCudaCapabilities unsupportedCudaCapabilities
@@ -106,32 +178,62 @@ let
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
     # nccl is here purely for semantic grouping it could be moved to nativeBuildInputs
-    paths = [ cudatoolkit.out cudatoolkit.lib nccl.dev nccl.out ];
+    paths = [
+      cudatoolkit.out
+      cudatoolkit.lib
+      nccl.dev
+      nccl.out
+    ];
   };
 
   # Normally libcuda.so.1 is provided at runtime by nvidia-x11 via
   # LD_LIBRARY_PATH=/run/opengl-driver/lib.  We only use the stub
   # libcuda.so from cudatoolkit for running tests, so that we don’t have
   # to recompile pytorch on every update to nvidia-x11 or the kernel.
-  cudaStub = linkFarm "cuda-stub" [{
-    name = "libcuda.so.1";
-    path = "${cudatoolkit}/lib/stubs/libcuda.so";
-  }];
-  cudaStubEnv = lib.optionalString cudaSupport
-    "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
+  cudaStub = linkFarm "cuda-stub" [
+    {
+      name = "libcuda.so.1";
+      path = "${cudatoolkit}/lib/stubs/libcuda.so";
+    }
+  ];
+  cudaStubEnv =
+    lib.optionalString cudaSupport
+      "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
 
   rocmtoolkit_joined = symlinkJoin {
     name = "rocm-merged";
 
     paths = [
-      rocm-core hip rccl miopen miopengemm rocrand rocblas
-      rocfft rocsparse hipsparse rocthrust rocprim hipcub
-      roctracer rocfft rocsolver hipfft hipsolver hipblas
-      rocminfo rocm-thunk rocm-comgr rocm-device-libs
-      rocm-runtime rocm-opencl-runtime hipify
+      rocm-core
+      hip
+      rccl
+      miopen
+      miopengemm
+      rocrand
+      rocblas
+      rocfft
+      rocsparse
+      hipsparse
+      rocthrust
+      rocprim
+      hipcub
+      roctracer
+      rocfft
+      rocsolver
+      hipfft
+      hipsolver
+      hipblas
+      rocminfo
+      rocm-thunk
+      rocm-comgr
+      rocm-device-libs
+      rocm-runtime
+      rocm-opencl-runtime
+      hipify
     ];
   };
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "torch";
   # Don't forget to update torch-bin to the same version.
   version = "2.0.1";
@@ -153,57 +255,67 @@ in buildPythonPackage rec {
     hash = "sha256-xUj77yKz3IQ3gd/G32pI4OhL3LoN1zS7eFg0/0nZp5I=";
   };
 
-  patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    # pthreadpool added support for Grand Central Dispatch in April
-    # 2020. However, this relies on functionality (DISPATCH_APPLY_AUTO)
-    # that is available starting with macOS 10.13. However, our current
-    # base is 10.12. Until we upgrade, we can fall back on the older
-    # pthread support.
-    ./pthreadpool-disable-gcd.diff
-  ];
+  patches =
+    lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
+      [
+        # pthreadpool added support for Grand Central Dispatch in April
+        # 2020. However, this relies on functionality (DISPATCH_APPLY_AUTO)
+        # that is available starting with macOS 10.13. However, our current
+        # base is 10.12. Until we upgrade, we can fall back on the older
+        # pthread support.
+        ./pthreadpool-disable-gcd.diff
+      ];
 
-  postPatch = lib.optionalString rocmSupport ''
-    # https://github.com/facebookincubator/gloo/pull/297
-    substituteInPlace third_party/gloo/cmake/Hipify.cmake \
-      --replace "\''${HIPIFY_COMMAND}" "python \''${HIPIFY_COMMAND}"
+  postPatch =
+    lib.optionalString rocmSupport ''
+      # https://github.com/facebookincubator/gloo/pull/297
+      substituteInPlace third_party/gloo/cmake/Hipify.cmake \
+        --replace "\''${HIPIFY_COMMAND}" "python \''${HIPIFY_COMMAND}"
 
-    # Replace hard-coded rocm paths
-    substituteInPlace caffe2/CMakeLists.txt \
-      --replace "/opt/rocm" "${rocmtoolkit_joined}" \
-      --replace "hcc/include" "hip/include" \
-      --replace "rocblas/include" "include/rocblas" \
-      --replace "hipsparse/include" "include/hipsparse"
+      # Replace hard-coded rocm paths
+      substituteInPlace caffe2/CMakeLists.txt \
+        --replace "/opt/rocm" "${rocmtoolkit_joined}" \
+        --replace "hcc/include" "hip/include" \
+        --replace "rocblas/include" "include/rocblas" \
+        --replace "hipsparse/include" "include/hipsparse"
 
-    # Doesn't pick up the environment variable?
-    substituteInPlace third_party/kineto/libkineto/CMakeLists.txt \
-      --replace "\''$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}" \
-      --replace "/opt/rocm" "${rocmtoolkit_joined}"
+      # Doesn't pick up the environment variable?
+      substituteInPlace third_party/kineto/libkineto/CMakeLists.txt \
+        --replace "\$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}" \
+        --replace "/opt/rocm" "${rocmtoolkit_joined}"
 
-    # Strangely, this is never set in cmake
-    substituteInPlace cmake/public/LoadHIP.cmake \
-      --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
-        "set(ROCM_PATH \$ENV{ROCM_PATH})''\nset(ROCM_VERSION ${lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))})"
-  ''
-  # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
-  # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
-  + lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0") ''
-    substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
-    inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
-    inline void *aligned_alloc(size_t align, size_t size)'
-  '';
+      # Strangely, this is never set in cmake
+      substituteInPlace cmake/public/LoadHIP.cmake \
+        --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
+          "set(ROCM_PATH \$ENV{ROCM_PATH})
+      set(ROCM_VERSION ${lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))})"
+    ''
+    # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
+    # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
+    +
+      lib.optionalString
+        (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0")
+        ''
+          substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
+          inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
+          inline void *aligned_alloc(size_t align, size_t size)'
+        '';
 
-  preConfigure = lib.optionalString cudaSupport ''
-    export TORCH_CUDA_ARCH_LIST="${gpuTargetString}"
-    export CC=${cudatoolkit.cc}/bin/gcc CXX=${cudatoolkit.cc}/bin/g++
-  '' + lib.optionalString (cudaSupport && cudnn != null) ''
-    export CUDNN_INCLUDE_DIR=${cudnn}/include
-  '' + lib.optionalString rocmSupport ''
-    export ROCM_PATH=${rocmtoolkit_joined}
-    export ROCM_SOURCE_DIR=${rocmtoolkit_joined}
-    export PYTORCH_ROCM_ARCH="${gpuTargetString}"
-    export CMAKE_CXX_FLAGS="-I${rocmtoolkit_joined}/include -I${rocmtoolkit_joined}/include/rocblas"
-    python tools/amd_build/build_amd.py
-  '';
+  preConfigure =
+    lib.optionalString cudaSupport ''
+      export TORCH_CUDA_ARCH_LIST="${gpuTargetString}"
+      export CC=${cudatoolkit.cc}/bin/gcc CXX=${cudatoolkit.cc}/bin/g++
+    ''
+    + lib.optionalString (cudaSupport && cudnn != null) ''
+      export CUDNN_INCLUDE_DIR=${cudnn}/include
+    ''
+    + lib.optionalString rocmSupport ''
+      export ROCM_PATH=${rocmtoolkit_joined}
+      export ROCM_SOURCE_DIR=${rocmtoolkit_joined}
+      export PYTORCH_ROCM_ARCH="${gpuTargetString}"
+      export CMAKE_CXX_FLAGS="-I${rocmtoolkit_joined}/include -I${rocmtoolkit_joined}/include/rocblas"
+      python tools/amd_build/build_amd.py
+    '';
 
   # Use pytorch's custom configurations
   dontUseCmakeConfigure = true;
@@ -251,7 +363,7 @@ in buildPythonPackage rec {
   PYTORCH_BUILD_VERSION = version;
   PYTORCH_BUILD_NUMBER = 0;
 
-  USE_SYSTEM_NCCL = setBool useSystemNccl;                  # don't build pytorch's third_party NCCL
+  USE_SYSTEM_NCCL = setBool useSystemNccl; # don't build pytorch's third_party NCCL
 
   # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
   # (upstream seems to have fixed this in the wrong place?)
@@ -260,123 +372,152 @@ in buildPythonPackage rec {
   #
   # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
   # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
-  env.NIX_CFLAGS_COMPILE = toString ((lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
-  # Suppress gcc regression: avx512 math function raises uninitialized variable warning
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
-  # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
-  ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
-    "-Wno-error=maybe-uninitialized"
-    "-Wno-error=uninitialized"
-  ]
-  # Since pytorch 2.0:
-  # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
-  # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-  ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12" ) [
-    "-Wno-error=free-nonheap-object"
-  ]));
+  env.NIX_CFLAGS_COMPILE = toString (
+    (
+      lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
+      # Suppress gcc regression: avx512 math function raises uninitialized variable warning
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
+      # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
+      ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
+        "-Wno-error=maybe-uninitialized"
+        "-Wno-error=uninitialized"
+      ]
+      # Since pytorch 2.0:
+      # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
+      # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
+      ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
+        "-Wno-error=free-nonheap-object"
+      ]
+    )
+  );
 
-  nativeBuildInputs = [
-    cmake
-    which
-    ninja
-    pybind11
-    pythonRelaxDepsHook
-    removeReferencesTo
-  ] ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
+  nativeBuildInputs =
+    [
+      cmake
+      which
+      ninja
+      pybind11
+      pythonRelaxDepsHook
+      removeReferencesTo
+    ]
+    ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
     ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
 
-  buildInputs = [ blas blas.provider pybind11 ]
+  buildInputs =
+    [
+      blas
+      blas.provider
+      pybind11
+    ]
     ++ lib.optionals stdenv.isLinux [ linuxHeaders_5_19 ] # TMP: avoid "flexible array member" errors for now
-    ++ lib.optionals cudaSupport [ cudnn nccl ]
+    ++ lib.optionals cudaSupport [
+      cudnn
+      nccl
+    ]
     ++ lib.optionals rocmSupport [ openmp ]
     ++ lib.optionals (cudaSupport || rocmSupport) [ magma ]
     ++ lib.optionals stdenv.isLinux [ numactl ]
-    ++ lib.optionals stdenv.isDarwin [ Accelerate CoreServices libobjc ];
+    ++ lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreServices
+      libobjc
+    ];
 
-  propagatedBuildInputs = [
-    cffi
-    click
-    numpy
-    pyyaml
+  propagatedBuildInputs =
+    [
+      cffi
+      click
+      numpy
+      pyyaml
 
-    # From install_requires:
-    filelock
-    typing-extensions
-    sympy
-    networkx
-    jinja2
+      # From install_requires:
+      filelock
+      typing-extensions
+      sympy
+      networkx
+      jinja2
 
-    # the following are required for tensorboard support
-    pillow six future tensorboard protobuf
-  ]
-  ++ lib.optionals MPISupport [ mpi ]
-  ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
-  # rocm build requires openai-triton;
-  # openai-triton currently requires cuda_nvcc,
-  # so not including it in the cpu-only build;
-  # torch.compile relies on openai-triton,
-  # so we include it for the cuda build as well
-  ++ lib.optionals (rocmSupport || cudaSupport) [
-    openai-triton
-  ];
+      # the following are required for tensorboard support
+      pillow
+      six
+      future
+      tensorboard
+      protobuf
+    ]
+    ++ lib.optionals MPISupport [ mpi ]
+    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
+    # rocm build requires openai-triton;
+    # openai-triton currently requires cuda_nvcc,
+    # so not including it in the cpu-only build;
+    # torch.compile relies on openai-triton,
+    # so we include it for the cuda build as well
+    ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ];
 
   # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
 
-  pythonImportsCheck = [
-    "torch"
+  pythonImportsCheck = [ "torch" ];
+
+  nativeCheckInputs = [
+    hypothesis
+    ninja
+    psutil
   ];
 
-  nativeCheckInputs = [ hypothesis ninja psutil ];
+  checkPhase =
+    with lib.versions;
+    with lib.strings;
+    concatStringsSep " " [
+      "runHook preCheck"
+      cudaStubEnv
+      "${python.interpreter} test/run_test.py"
+      "--exclude"
+      (concatStringsSep " " [
+        "utils" # utils requires git, which is not allowed in the check phase
 
-  checkPhase = with lib.versions; with lib.strings; concatStringsSep " " [
-    "runHook preCheck"
-    cudaStubEnv
-    "${python.interpreter} test/run_test.py"
-    "--exclude"
-    (concatStringsSep " " [
-      "utils" # utils requires git, which is not allowed in the check phase
+        # "dataloader" # psutils correctly finds and triggers multiprocessing, but is too sandboxed to run -- resulting in numerous errors
+        # ^^^^^^^^^^^^ NOTE: while test_dataloader does return errors, these are acceptable errors and do not interfere with the build
 
-      # "dataloader" # psutils correctly finds and triggers multiprocessing, but is too sandboxed to run -- resulting in numerous errors
-      # ^^^^^^^^^^^^ NOTE: while test_dataloader does return errors, these are acceptable errors and do not interfere with the build
+        # tensorboard has acceptable failures for pytorch 1.3.x due to dependencies on tensorboard-plugins
+        (optionalString (majorMinor version == "1.3") "tensorboard")
+      ])
+      "runHook postCheck"
+    ];
 
-      # tensorboard has acceptable failures for pytorch 1.3.x due to dependencies on tensorboard-plugins
-      (optionalString (majorMinor version == "1.3" ) "tensorboard")
-    ])
-    "runHook postCheck"
-  ];
+  pythonRemoveDeps =
+    [
+      # In our dist-info the name is just "triton"
+      "pytorch-triton-rocm"
+    ];
 
-  pythonRemoveDeps = [
-    # In our dist-info the name is just "triton"
-    "pytorch-triton-rocm"
-  ];
+  postInstall =
+    ''
+      find "$out/${python.sitePackages}/torch/include" "$out/${python.sitePackages}/torch/lib" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +
 
-  postInstall = ''
-    find "$out/${python.sitePackages}/torch/include" "$out/${python.sitePackages}/torch/lib" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +
+      mkdir $dev
+      cp -r $out/${python.sitePackages}/torch/include $dev/include
+      cp -r $out/${python.sitePackages}/torch/share $dev/share
 
-    mkdir $dev
-    cp -r $out/${python.sitePackages}/torch/include $dev/include
-    cp -r $out/${python.sitePackages}/torch/share $dev/share
+      # Fix up library paths for split outputs
+      substituteInPlace \
+        $dev/share/cmake/Torch/TorchConfig.cmake \
+        --replace \''${TORCH_INSTALL_PREFIX}/lib "$lib/lib"
 
-    # Fix up library paths for split outputs
-    substituteInPlace \
-      $dev/share/cmake/Torch/TorchConfig.cmake \
-      --replace \''${TORCH_INSTALL_PREFIX}/lib "$lib/lib"
+      substituteInPlace \
+        $dev/share/cmake/Caffe2/Caffe2Targets-release.cmake \
+        --replace \''${_IMPORT_PREFIX}/lib "$lib/lib"
 
-    substituteInPlace \
-      $dev/share/cmake/Caffe2/Caffe2Targets-release.cmake \
-      --replace \''${_IMPORT_PREFIX}/lib "$lib/lib"
+      mkdir $lib
+      mv $out/${python.sitePackages}/torch/lib $lib/lib
+      ln -s $lib/lib $out/${python.sitePackages}/torch/lib
+    ''
+    + lib.optionalString rocmSupport ''
+      substituteInPlace $dev/share/cmake/Tensorpipe/TensorpipeTargets-release.cmake \
+        --replace "\''${_IMPORT_PREFIX}/lib64" "$lib/lib"
 
-    mkdir $lib
-    mv $out/${python.sitePackages}/torch/lib $lib/lib
-    ln -s $lib/lib $out/${python.sitePackages}/torch/lib
-  '' + lib.optionalString rocmSupport ''
-    substituteInPlace $dev/share/cmake/Tensorpipe/TensorpipeTargets-release.cmake \
-      --replace "\''${_IMPORT_PREFIX}/lib64" "$lib/lib"
-
-    substituteInPlace $dev/share/cmake/ATen/ATenConfig.cmake \
-      --replace "/build/source/torch/include" "$dev/include"
-  '';
+      substituteInPlace $dev/share/cmake/ATen/ATenConfig.cmake \
+        --replace "/build/source/torch/include" "$dev/include"
+    '';
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     for f in $(ls $lib/lib/*.dylib); do
@@ -396,16 +537,18 @@ in buildPythonPackage rec {
   # Builds in 2+h with 2 cores, and ~15m with a big-parallel builder.
   requiredSystemFeatures = [ "big-parallel" ];
 
-  passthru = {
-    inherit cudaSupport cudaPackages;
-    # At least for 1.10.2 `torch.fft` is unavailable unless BLAS provider is MKL. This attribute allows for easy detection of its availability.
-    blasProvider = blas.provider;
-  } // lib.optionalAttrs cudaSupport {
-    # NOTE: supportedCudaCapabilities isn't computed unless cudaSupport is true, so we can't use
-    #   it in the passthru set above because a downstream package might try to access it even
-    #   when cudaSupport is false. Better to have it missing than null or an empty list by default.
-    cudaCapabilities = supportedCudaCapabilities;
-  };
+  passthru =
+    {
+      inherit cudaSupport cudaPackages;
+      # At least for 1.10.2 `torch.fft` is unavailable unless BLAS provider is MKL. This attribute allows for easy detection of its availability.
+      blasProvider = blas.provider;
+    }
+    // lib.optionalAttrs cudaSupport {
+      # NOTE: supportedCudaCapabilities isn't computed unless cudaSupport is true, so we can't use
+      #   it in the passthru set above because a downstream package might try to access it even
+      #   when cudaSupport is false. Better to have it missing than null or an empty list by default.
+      cudaCapabilities = supportedCudaCapabilities;
+    };
 
   meta = with lib; {
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
@@ -413,7 +556,11 @@ in buildPythonPackage rec {
     description = "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
     homepage = "https://pytorch.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh thoughtpolice tscholak ]; # tscholak esp. for darwin-related builds
+    maintainers = with maintainers; [
+      teh
+      thoughtpolice
+      tscholak
+    ]; # tscholak esp. for darwin-related builds
     platforms = with platforms; linux ++ lib.optionals (!cudaSupport && !rocmSupport) darwin;
     broken = rocmSupport && cudaSupport; # CUDA and ROCm are mutually exclusive
   };

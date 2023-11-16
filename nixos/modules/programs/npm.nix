@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -50,5 +55,4 @@ in
 
     environment.systemPackages = [ cfg.package ];
   };
-
 }

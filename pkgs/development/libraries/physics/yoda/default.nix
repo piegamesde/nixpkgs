@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, python
-, root
-, makeWrapper
-, zlib
-, withRootSupport ? false
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python,
+  root,
+  makeWrapper,
+  zlib,
+  withRootSupport ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,32 +19,32 @@ stdenv.mkDerivation rec {
     hash = "sha256-e8MGJGirulCv8+y4sizmdxlgNgCYkGiO9FM6qn+S5uQ=";
   };
 
-  patches = [
-    # A bugfix https://gitlab.com/hepcedar/yoda/-/merge_requests/116
-    (fetchpatch {
-      url = "https://gitlab.com/hepcedar/yoda/-/commit/ba1275033522c66bc473dfeffae1a7971e985611.diff";
-      hash = "sha256-/8UJuypiQzywarE+o3BEMtqM+f+YzkHylugi+xTJf+w=";
-      excludes = [ "ChangeLog" ];
-    })
-  ];
+  patches =
+    [
+      # A bugfix https://gitlab.com/hepcedar/yoda/-/merge_requests/116
+      (fetchpatch {
+        url = "https://gitlab.com/hepcedar/yoda/-/commit/ba1275033522c66bc473dfeffae1a7971e985611.diff";
+        hash = "sha256-/8UJuypiQzywarE+o3BEMtqM+f+YzkHylugi+xTJf+w=";
+        excludes = [ "ChangeLog" ];
+      })
+    ];
 
   nativeBuildInputs = with python.pkgs; [
     cython
     makeWrapper
   ];
 
-  buildInputs = [
-    python
-  ] ++ (with python.pkgs; [
-    numpy
-    matplotlib
-  ]) ++ lib.optionals withRootSupport [
-    root
-  ];
+  buildInputs =
+    [ python ]
+    ++ (
+      with python.pkgs; [
+        numpy
+        matplotlib
+      ]
+    )
+    ++ lib.optionals withRootSupport [ root ];
 
-  propagatedBuildInputs = [
-    zlib
-  ];
+  propagatedBuildInputs = [ zlib ];
 
   enableParallelBuilding = true;
 

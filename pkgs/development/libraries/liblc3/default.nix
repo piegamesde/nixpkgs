@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
 }:
 
 let
@@ -20,7 +21,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-PEnK12FWAtxOMR3WyuxOQTgF+lD9S5YX+oKuWRbFfXM=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     meson
@@ -35,4 +39,3 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ jansol ];
   };
 }
-

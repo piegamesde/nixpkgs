@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, rustPlatform
-, libiconv
-, fetchFromGitHub
-, typing-extensions
-, darwin
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  rustPlatform,
+  libiconv,
+  fetchFromGitHub,
+  typing-extensions,
+  darwin,
 }:
 let
   pname = "polars";
@@ -45,7 +46,10 @@ buildPythonPackage {
 
   propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
-  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv

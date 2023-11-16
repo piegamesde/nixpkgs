@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+}:
 
 assert lib.versionAtLeast (lib.getVersion ocaml) "4.03.0";
 
@@ -13,10 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "1kqpc55ppzv9n555qgqpda49n7nvkqimzisyjx2a7338r7q4r5bw";
   };
 
-  nativeBuildInputs = [ ocaml findlib ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
   strictDeps = true;
 
-  buildFlags = [ "all" "opt" ];
+  buildFlags = [
+    "all"
+    "opt"
+  ];
 
   createFindlibDestdir = true;
 

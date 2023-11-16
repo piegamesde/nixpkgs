@@ -1,24 +1,31 @@
-{ lib, stdenv
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, udev
-, glib
-, gnome
-, vala
-, gobject-introspection
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  udev,
+  glib,
+  gnome,
+  vala,
+  gobject-introspection,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libgudev";
   version = "237";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1al6nr492nzbm8ql02xhzwci2kwb1advnkaky3j9636jf08v41hd";
   };
 
@@ -59,10 +66,11 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  mesonFlags = [
-    # There's a dependency cycle with umockdev and the tests fail to LD_PRELOAD anyway
-    "-Dtests=disabled"
-  ];
+  mesonFlags =
+    [
+      # There's a dependency cycle with umockdev and the tests fail to LD_PRELOAD anyway
+      "-Dtests=disabled"
+    ];
 
   passthru = {
     updateScript = gnome.updateScript {

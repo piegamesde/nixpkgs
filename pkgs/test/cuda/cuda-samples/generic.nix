@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, addOpenGLRunpath
-, cudatoolkit
-, pkg-config
-, sha256
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  addOpenGLRunpath,
+  cudatoolkit,
+  pkg-config,
+  sha256,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,10 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ pkg-config addOpenGLRunpath ];
+  nativeBuildInputs = [
+    pkg-config
+    addOpenGLRunpath
+  ];
 
   buildInputs = [ cudatoolkit ];
 

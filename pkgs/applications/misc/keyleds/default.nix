@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, libuv
-, libX11
-, libXi
-, libyaml
-, luajit
-, udev
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  libuv,
+  libX11,
+  libXi,
+  libyaml,
+  luajit,
+  udev,
 }:
 
 stdenv.mkDerivation rec {
@@ -52,9 +53,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=MinSizeRel"
-  ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=MinSizeRel" ];
 
   meta = {
     homepage = "https://github.com/keyleds/keyleds";

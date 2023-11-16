@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, rcssmin
-, rjsmin
-, django-appconf
-, beautifulsoup4
-, brotli
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  rcssmin,
+  rjsmin,
+  django-appconf,
+  beautifulsoup4,
+  brotli,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     django-appconf
   ];
 
-  pythonImportsCheck = [
-    "compressor"
-  ];
+  pythonImportsCheck = [ "compressor" ];
 
   doCheck = false; # missing package django-sekizai
 

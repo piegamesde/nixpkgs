@@ -1,9 +1,23 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, perl, docbook2x
-, docbook_xml_dtd_45, python3Packages, pam, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  perl,
+  docbook2x,
+  docbook_xml_dtd_45,
+  python3Packages,
+  pam,
+  fetchpatch,
 
-# Optional Dependencies
-, libapparmor ? null, gnutls ? null, libselinux ? null, libseccomp ? null
-, libcap ? null, systemd ? null
+  # Optional Dependencies
+  libapparmor ? null,
+  gnutls ? null,
+  libselinux ? null,
+  libseccomp ? null,
+  libcap ? null,
+  systemd ? null,
 }:
 
 with lib;
@@ -17,11 +31,22 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    autoreconfHook pkg-config perl docbook2x python3Packages.wrapPython
+    autoreconfHook
+    pkg-config
+    perl
+    docbook2x
+    python3Packages.wrapPython
   ];
   buildInputs = [
-    pam libapparmor gnutls libselinux libseccomp libcap
-    python3Packages.python python3Packages.setuptools systemd
+    pam
+    libapparmor
+    gnutls
+    libselinux
+    libseccomp
+    libcap
+    python3Packages.python
+    python3Packages.setuptools
+    systemd
   ];
 
   patches = [
@@ -41,25 +66,27 @@ stdenv.mkDerivation rec {
 
   XML_CATALOG_FILES = "${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml";
 
-  configureFlags = [
-    "--enable-pam"
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    "--disable-api-docs"
-    "--with-init-script=none"
-    "--with-distro=nixos" # just to be sure it is "unknown"
-  ] ++ optional (libapparmor != null) "--enable-apparmor"
+  configureFlags =
+    [
+      "--enable-pam"
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      "--disable-api-docs"
+      "--with-init-script=none"
+      "--with-distro=nixos" # just to be sure it is "unknown"
+    ]
+    ++ optional (libapparmor != null) "--enable-apparmor"
     ++ optional (libselinux != null) "--enable-selinux"
     ++ optional (libseccomp != null) "--enable-seccomp"
     ++ optional (libcap != null) "--enable-capabilities"
     ++ [
-    "--disable-examples"
-    "--enable-python"
-    "--disable-lua"
-    "--enable-bash"
-    (if doCheck then "--enable-tests" else "--disable-tests")
-    "--with-rootfs-path=/var/lib/lxc/rootfs"
-  ];
+      "--disable-examples"
+      "--enable-python"
+      "--disable-lua"
+      "--enable-bash"
+      (if doCheck then "--enable-tests" else "--disable-tests")
+      "--with-rootfs-path=/var/lib/lxc/rootfs"
+    ];
 
   doCheck = false;
 

@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-5soxa3sCeBeYeNsxr4Y96ztTVdeSHgSH/6z8WWUvGQI=";
   };
 
-  pythonImportsCheck = [
-    "striprtf"
-  ];
+  pythonImportsCheck = [ "striprtf" ];
 
   meta = with lib; {
     changelog = "https://github.com/joshy/striprtf/blob/v${version}/CHANGELOG.md";

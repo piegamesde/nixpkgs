@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,9 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-iav7k4HLyXO94qofcHxVxhV8BV2k5oiTtX8kVyxnpoI=";
 
-  buildFlagArrays = [
-    "-trimpath"
-  ];
+  buildFlagArrays = [ "-trimpath" ];
 
   CGO_ENABLED = 0;
 

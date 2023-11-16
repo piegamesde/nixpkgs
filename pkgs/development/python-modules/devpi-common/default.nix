@@ -1,8 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi
-, requests
-, py
-, pytestCheckHook
-, lazy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  py,
+  pytestCheckHook,
+  lazy,
 }:
 
 buildPythonPackage rec {
@@ -34,6 +37,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/devpi/devpi";
     description = "Utilities jointly used by devpi-server and devpi-client";
     license = licenses.mit;
-    maintainers = with maintainers; [ lewo makefu ];
+    maintainers = with maintainers; [
+      lewo
+      makefu
+    ];
   };
 }

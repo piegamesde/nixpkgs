@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchurl, fetchzip, cmake, SDL2, libpng, zlib, xz, freetype, fontconfig
-, withOpenGFX ? true, withOpenSFX ? true, withOpenMSX ? true
-, withFluidSynth ? true, audioDriver ? "alsa", fluidsynth, soundfont-fluid, procps
-, writeScriptBin, makeWrapper, runtimeShell
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  cmake,
+  SDL2,
+  libpng,
+  zlib,
+  xz,
+  freetype,
+  fontconfig,
+  withOpenGFX ? true,
+  withOpenSFX ? true,
+  withOpenMSX ? true,
+  withFluidSynth ? true,
+  audioDriver ? "alsa",
+  fluidsynth,
+  soundfont-fluid,
+  procps,
+  writeScriptBin,
+  makeWrapper,
+  runtimeShell,
 }:
 
 let
@@ -25,7 +44,6 @@ let
     trap "${procps}/bin/pkill fluidsynth" EXIT
     ${fluidsynth}/bin/fluidsynth -a ${audioDriver} -i ${soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2 $*
   '';
-
 in
 stdenv.mkDerivation rec {
   pname = "openttd";
@@ -36,15 +54,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-qvoW0vtnFlE0xzqIj3n3pe19oXoEz26ez2csnLiecZI=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ SDL2 libpng xz zlib freetype fontconfig ]
-    ++ lib.optionals withFluidSynth [ fluidsynth soundfont-fluid ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs =
+    [
+      SDL2
+      libpng
+      xz
+      zlib
+      freetype
+      fontconfig
+    ]
+    ++ lib.optionals withFluidSynth [
+      fluidsynth
+      soundfont-fluid
+    ];
 
   prefixKey = "--prefix-dir=";
 
-  configureFlags = [
-    "--without-liblzo2"
-  ];
+  configureFlags = [ "--without-liblzo2" ];
 
   postInstall = ''
     ${lib.optionalString withOpenGFX ''
@@ -86,6 +116,9 @@ stdenv.mkDerivation rec {
     changelog = "https://cdn.openttd.org/openttd-releases/${version}/changelog.txt";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jcumming fpletz ];
+    maintainers = with maintainers; [
+      jcumming
+      fpletz
+    ];
   };
 }

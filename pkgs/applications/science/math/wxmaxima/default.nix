@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapGAppsHook
-, cmake
-, gettext
-, maxima
-, wxGTK
-, gnome
-, glib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  cmake,
+  gettext,
+  maxima,
+  wxGTK,
+  gnome,
+  glib,
 }:
 
 stdenv.mkDerivation rec {
@@ -36,9 +37,7 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  cmakeFlags = [
-    "-DwxWidgets_LIBRARIES=${wxGTK}/lib"
-  ];
+  cmakeFlags = [ "-DwxWidgets_LIBRARIES=${wxGTK}/lib" ];
 
   preConfigure = ''
     gappsWrapperArgs+=(--prefix PATH ":" ${maxima}/bin)

@@ -1,11 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.skydns;
-
-in {
+in
+{
   options.services.skydns = {
     enable = mkEnableOption (lib.mdDoc "skydns service");
 
@@ -51,8 +56,13 @@ in {
       default = map (n: n + ":53") config.networking.nameservers;
       defaultText = literalExpression ''map (n: n + ":53") config.networking.nameservers'';
       type = types.listOf types.str;
-      description = lib.mdDoc "Skydns list of nameservers to forward DNS requests to when not authoritative for a domain.";
-      example = ["8.8.8.8:53" "8.8.4.4:53"];
+      description =
+        lib.mdDoc
+          "Skydns list of nameservers to forward DNS requests to when not authoritative for a domain.";
+      example = [
+        "8.8.8.8:53"
+        "8.8.4.4:53"
+      ];
     };
 
     package = mkOption {
@@ -63,16 +73,21 @@ in {
     };
 
     extraConfig = mkOption {
-      default = {};
+      default = { };
       type = types.attrsOf types.str;
-      description = lib.mdDoc "Skydns attribute set of extra config options passed as environment variables.";
+      description =
+        lib.mdDoc
+          "Skydns attribute set of extra config options passed as environment variables.";
     };
   };
 
   config = mkIf (cfg.enable) {
     systemd.services.skydns = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "etcd.service" ];
+      after = [
+        "network.target"
+        "etcd.service"
+      ];
       description = "Skydns Service";
       environment = {
         ETCD_MACHINES = concatStringsSep "," cfg.etcd.machines;

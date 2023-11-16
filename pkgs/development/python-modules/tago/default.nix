@@ -1,12 +1,13 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, promise
-, python-socketio
-, pythonOlder
-, requests
-, websockets
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  promise,
+  python-socketio,
+  pythonOlder,
+  requests,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "tago"
-  ];
+  pythonImportsCheck = [ "tago" ];
 
   meta = with lib; {
     description = "Python module for interacting with Tago.io";

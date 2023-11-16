@@ -1,16 +1,17 @@
-{ lib
-, stdenvNoCC
-, buildDotnetModule
-, fetchFromGitHub
-, dotnetCorePackages
-, gtk4
-, libadwaita
-, pkg-config
-, wrapGAppsHook4
-, glib
-, shared-mime-info
-, gdk-pixbuf
-, blueprint-compiler
+{
+  lib,
+  stdenvNoCC,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  gtk4,
+  libadwaita,
+  pkg-config,
+  wrapGAppsHook4,
+  glib,
+  shared-mime-info,
+  gdk-pixbuf,
+  blueprint-compiler,
 }:
 
 buildDotnetModule rec {
@@ -32,8 +33,14 @@ buildDotnetModule rec {
   executables = "NickvisionMoney.GNOME";
 
   # Prevent installing native libraries for all platforms
-  dotnetBuildFlags = [ "--runtime" (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system) ];
-  dotnetInstallFlags = [ "--runtime" (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system) ];
+  dotnetBuildFlags = [
+    "--runtime"
+    (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system)
+  ];
+  dotnetInstallFlags = [
+    "--runtime"
+    (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system)
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -44,7 +51,10 @@ buildDotnetModule rec {
     blueprint-compiler
   ];
 
-  buildInputs = [ gtk4 libadwaita ]; # Used by blueprint-compiler
+  buildInputs = [
+    gtk4
+    libadwaita
+  ]; # Used by blueprint-compiler
 
   # Denaro switches installation tool frequently (bash -> just -> cake)
   # For maintainability, let's do it ourselves

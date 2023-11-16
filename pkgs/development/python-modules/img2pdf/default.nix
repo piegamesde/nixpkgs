@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, isPy27
-, fetchPypi
-, fetchpatch
-, pikepdf
-, pillow
-, stdenv
-, exiftool
-, ghostscript
-, imagemagick
-, mupdf
-, netpbm
-, numpy
-, poppler_utils
-, pytestCheckHook
-, scipy
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  fetchpatch,
+  pikepdf,
+  pillow,
+  stdenv,
+  exiftool,
+  ghostscript,
+  imagemagick,
+  mupdf,
+  netpbm,
+  numpy,
+  poppler_utils,
+  pytestCheckHook,
+  scipy,
 }:
 
 buildPythonPackage rec {
@@ -61,7 +62,7 @@ buildPythonPackage rec {
 
   disabledTests = [
     "test_tiff_rgb"
-    "test_png_gray1"  # https://gitlab.mister-muffin.de/josch/img2pdf/issues/154
+    "test_png_gray1" # https://gitlab.mister-muffin.de/josch/img2pdf/issues/154
   ];
 
   pythonImportsCheck = [ "img2pdf" ];
@@ -70,6 +71,9 @@ buildPythonPackage rec {
     description = "Convert images to PDF via direct JPEG inclusion";
     homepage = "https://gitlab.mister-muffin.de/josch/img2pdf";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ veprbl dotlambda ];
+    maintainers = with maintainers; [
+      veprbl
+      dotlambda
+    ];
   };
 }

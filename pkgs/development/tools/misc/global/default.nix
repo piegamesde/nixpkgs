@@ -1,10 +1,21 @@
-{ fetchurl, lib, stdenv, libtool, makeWrapper
-, coreutils, ctags, ncurses, python3Packages, sqlite, universal-ctags
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libtool,
+  makeWrapper,
+  coreutils,
+  ctags,
+  ncurses,
+  python3Packages,
+  sqlite,
+  universal-ctags,
 }:
 
 let
   pygments = python3Packages.pygments;
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "global";
   version = "6.6.7";
 
@@ -13,7 +24,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-aaD3f1OCfFVoF2wdOCFm3zYedCY6BH8LMFiqLyrVijw=";
   };
 
-  nativeBuildInputs = [ libtool makeWrapper ];
+  nativeBuildInputs = [
+    libtool
+    makeWrapper
+  ];
 
   buildInputs = [ ncurses ];
 
@@ -55,7 +69,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gnu.org/software/global/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub peterhoeg ];
+    maintainers = with maintainers; [
+      pSub
+      peterhoeg
+    ];
     platforms = platforms.unix;
   };
 }

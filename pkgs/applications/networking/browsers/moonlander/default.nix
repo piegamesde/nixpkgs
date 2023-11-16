@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, rustPlatform
-, atk
-, cairo
-, gdk-pixbuf
-, glib
-, gtk3
-, pango
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  rustPlatform,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  pango,
+  pkg-config,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -36,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description = "Just another \"fancy\" Gemini client";
+    description = ''Just another "fancy" Gemini client'';
     homepage = "https://sr.ht/~admicos/moonlander/";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];

@@ -1,17 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, zlib
-, ilmbase
-, fetchpatch
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  ilmbase,
+  fetchpatch,
+  cmake,
 }:
 
 stdenv.mkDerivation rec {
   pname = "openexr";
   version = "2.5.8";
 
-  outputs = [ "bin" "dev" "out" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "AcademySoftwareFoundation";
@@ -33,7 +39,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
 
   nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ ilmbase zlib ];
+  propagatedBuildInputs = [
+    ilmbase
+    zlib
+  ];
 
   meta = with lib; {
     description = "A high dynamic-range (HDR) image file format";

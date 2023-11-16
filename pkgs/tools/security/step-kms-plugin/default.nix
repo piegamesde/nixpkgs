@@ -1,13 +1,15 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, pkg-config
-, pcsclite
-, softhsm
-, opensc
-, yubihsm-shell
-, writeScriptBin }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  pcsclite,
+  softhsm,
+  opensc,
+  yubihsm-shell,
+  writeScriptBin,
+}:
 
 buildGoModule rec {
   pname = "step-kms-plugin";
@@ -24,9 +26,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     opensc

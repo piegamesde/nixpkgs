@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, aiohttp
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  aiohttp,
 }:
 
 buildPythonPackage rec {
@@ -17,19 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-RFfS0xzRXoM6ETXmviiMPxffPzspjTqpkvHOlTJXN9g=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [
-    "esphome_dashboard_api"
-  ];
+  pythonImportsCheck = [ "esphome_dashboard_api" ];
 
   meta = with lib; {
     description = "API to interact with ESPHome Dashboard";

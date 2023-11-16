@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, django-taggit
-, pytz
-, pythonOlder
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  django-taggit,
+  pytz,
+  pythonOlder,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  passthru.optional-dependencies.taggit = [
-    django-taggit
-  ];
+  passthru.optional-dependencies.taggit = [ django-taggit ];
 
   nativeCheckInputs = passthru.optional-dependencies.taggit;
 
@@ -45,5 +44,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ desiderius ];
   };
-
 }

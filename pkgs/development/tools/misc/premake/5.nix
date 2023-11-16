@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libuuid, cacert, Foundation, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libuuid,
+  cacert,
+  Foundation,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "premake5";
@@ -11,23 +19,33 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2R5gq4jaQsp8Ny1oGuIYkef0kn2UG9jMf20vq0714oY=";
   };
 
-  buildInputs = [ libuuid ] ++ lib.optionals stdenv.isDarwin [ Foundation readline ];
+  buildInputs =
+    [ libuuid ]
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      readline
+    ];
 
   patches = [ ./no-curl-ca.patch ];
-  patchPhase = ''
-    substituteInPlace contrib/curl/premake5.lua \
-      --replace "ca = nil" "ca = '${cacert}/etc/ssl/certs/ca-bundle.crt'"
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace premake5.lua \
-      --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
-  '';
+  patchPhase =
+    ''
+      substituteInPlace contrib/curl/premake5.lua \
+        --replace "ca = nil" "ca = '${cacert}/etc/ssl/certs/ca-bundle.crt'"
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace premake5.lua \
+        --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
+    '';
 
   buildPhase =
-    if stdenv.isDarwin then ''
-       make -f Bootstrap.mak osx
-    '' else ''
-       make -f Bootstrap.mak linux
-    '';
+    if stdenv.isDarwin then
+      ''
+        make -f Bootstrap.mak osx
+      ''
+    else
+      ''
+        make -f Bootstrap.mak linux
+      '';
 
   installPhase = ''
     install -Dm755 bin/release/premake5 $out/bin/premake5

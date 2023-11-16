@@ -1,21 +1,22 @@
-{ stdenv
-, fetchFromGitLab
-, fetchpatch
-, lib
-, darwin
-, git
-, nettle
-, nix-update-script
-, cargo
-, rustc
-, rustPlatform
-, pkg-config
-, openssl
-, sqlite
-, capnproto
-, ensureNewerSourcesForZipFilesHook
-, pythonSupport ? true
-, pythonPackages ? null
+{
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  lib,
+  darwin,
+  git,
+  nettle,
+  nix-update-script,
+  cargo,
+  rustc,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  sqlite,
+  capnproto,
+  ensureNewerSourcesForZipFilesHook,
+  pythonSupport ? true,
+  pythonPackages ? null,
 }:
 
 assert pythonSupport -> pythonPackages != null;
@@ -50,22 +51,24 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
     ensureNewerSourcesForZipFilesHook
     capnproto
-  ] ++
-    lib.optionals pythonSupport [ pythonPackages.setuptools ]
-  ;
+  ] ++ lib.optionals pythonSupport [ pythonPackages.setuptools ];
 
   nativeCheckInputs = lib.optionals pythonSupport [
     pythonPackages.pytest
     pythonPackages.pytest-runner
   ];
 
-  buildInputs = [
-    openssl
-    sqlite
-    nettle
-  ] ++ lib.optionals pythonSupport [ pythonPackages.python pythonPackages.cffi ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-  ;
+  buildInputs =
+    [
+      openssl
+      sqlite
+      nettle
+    ]
+    ++ lib.optionals pythonSupport [
+      pythonPackages.python
+      pythonPackages.cffi
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -73,9 +76,7 @@ rustPlatform.buildRustPackage rec {
     "INSTALL=install"
   ];
 
-  buildFlags = [
-    "build-release"
-  ];
+  buildFlags = [ "build-release" ];
 
   # Sometimes, tests fail on CI (ofborg) & hydra without this
   checkFlags = [
@@ -84,11 +85,13 @@ rustPlatform.buildRustPackage rec {
     "--skip=macros::time_it"
   ];
 
-  preInstall = lib.optionalString pythonSupport ''
-    export installFlags="PYTHONPATH=$PYTHONPATH:$out/${pythonPackages.python.sitePackages}"
-  '' + lib.optionalString (!pythonSupport) ''
-    export makeFlags="PYTHON=disable"
-  '';
+  preInstall =
+    lib.optionalString pythonSupport ''
+      export installFlags="PYTHONPATH=$PYTHONPATH:$out/${pythonPackages.python.sitePackages}"
+    ''
+    + lib.optionalString (!pythonSupport) ''
+      export makeFlags="PYTHON=disable"
+    '';
 
   # Don't use buildRustPackage phases, only use it for rust deps setup
   configurePhase = null;
@@ -103,7 +106,10 @@ rustPlatform.buildRustPackage rec {
     description = "A cool new OpenPGP implementation";
     homepage = "https://sequoia-pgp.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ minijackson doronbehar ];
+    maintainers = with maintainers; [
+      minijackson
+      doronbehar
+    ];
     mainProgram = "sq";
   };
 }

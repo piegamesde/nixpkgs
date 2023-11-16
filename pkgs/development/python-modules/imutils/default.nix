@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, opencv3
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  opencv3,
 }:
 
 buildPythonPackage rec {

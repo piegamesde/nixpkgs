@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, python3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "itstool";
@@ -11,8 +16,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ python3 python3.pkgs.wrapPython ];
-  buildInputs = [ python3 python3.pkgs.libxml2 ];
+  nativeBuildInputs = [
+    python3
+    python3.pkgs.wrapPython
+  ];
+  buildInputs = [
+    python3
+    python3.pkgs.libxml2
+  ];
   pythonPath = [ python3.pkgs.libxml2 ];
 
   postFixup = ''

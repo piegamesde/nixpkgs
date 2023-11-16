@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchFromGitLab
-, attr
-, libevdev
-, libxkbcommon
-, meson
-, ninja
-, pkg-config
-, protobuf
-, protobufc
-, python3
-, python3Packages
-, systemd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  attr,
+  libevdev,
+  libxkbcommon,
+  meson,
+  ninja,
+  pkg-config,
+  protobuf,
+  protobufc,
+  python3,
+  python3Packages,
+  systemd,
 }:
 let
   munit = fetchFromGitHub {
@@ -41,20 +42,23 @@ stdenv.mkDerivation rec {
     protobufc
     systemd
   ];
-  nativeBuildInputs = [
-    attr
-    meson
-    ninja
-    pkg-config
-    python3
-  ] ++
-  (with python3Packages; [
-    jinja2
-    pytest
-    python-dbusmock
-    strenum
-    structlog
-  ]);
+  nativeBuildInputs =
+    [
+      attr
+      meson
+      ninja
+      pkg-config
+      python3
+    ]
+    ++ (
+      with python3Packages; [
+        jinja2
+        pytest
+        python-dbusmock
+        strenum
+        structlog
+      ]
+    );
 
   postPatch = ''
     ln -s "${munit}" ./subprojects/munit

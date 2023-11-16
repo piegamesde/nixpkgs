@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "rke2";
@@ -15,7 +19,11 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [ "-s" "-w" "-X github.com/k3s-io/k3s/pkg/version.Version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/k3s-io/k3s/pkg/version.Version=v${version}"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/rancher/rke2";

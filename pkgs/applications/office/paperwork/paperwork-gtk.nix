@@ -1,29 +1,28 @@
-{ lib
-, python3Packages
-, gtk3
-, cairo
-, gnome
-, librsvg
-, xvfb-run
-, dbus
-, libnotify
-, wrapGAppsHook
-, fetchFromGitLab
-, which
-, gettext
-, gobject-introspection
-, gdk-pixbuf
-, texlive
-, imagemagick
-, perlPackages
-, writeScript
+{
+  lib,
+  python3Packages,
+  gtk3,
+  cairo,
+  gnome,
+  librsvg,
+  xvfb-run,
+  dbus,
+  libnotify,
+  wrapGAppsHook,
+  fetchFromGitLab,
+  which,
+  gettext,
+  gobject-introspection,
+  gdk-pixbuf,
+  texlive,
+  imagemagick,
+  perlPackages,
+  writeScript,
 }:
 
 let
   documentation_deps = [
-    (texlive.combine {
-      inherit (texlive) scheme-small wrapfig gensymb;
-    })
+    (texlive.combine { inherit (texlive) scheme-small wrapfig gensymb; })
     xvfb-run
     imagemagick
     perlPackages.Po4a
@@ -156,7 +155,10 @@ python3Packages.buildPythonApplication rec {
     description = "A personal document manager for scanned documents";
     homepage = "https://openpaper.work/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aszlig symphorien ];
+    maintainers = with lib.maintainers; [
+      aszlig
+      symphorien
+    ];
     platforms = lib.platforms.linux;
   };
 }

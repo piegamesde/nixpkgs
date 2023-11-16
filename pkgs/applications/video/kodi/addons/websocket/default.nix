@@ -1,4 +1,11 @@
-{ lib, buildKodiAddon, fetchzip, addonUpdateScript, six, addonDir }:
+{
+  lib,
+  buildKodiAddon,
+  fetchzip,
+  addonUpdateScript,
+  six,
+  addonDir,
+}:
 
 buildKodiAddon rec {
   pname = "websocket";
@@ -10,15 +17,11 @@ buildKodiAddon rec {
     sha256 = "sha256-xyOlKAAvtucC/tTm027ifEgiry/9gQneAcIwOGxmTkg=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript {
-      attrPath = "kodi.packages.websocket";
-    };
+    updateScript = addonUpdateScript { attrPath = "kodi.packages.websocket"; };
   };
 
   meta = with lib; {

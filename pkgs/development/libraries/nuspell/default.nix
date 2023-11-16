@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, icu, catch2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  icu,
+  catch2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nuspell";
@@ -11,10 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nGC8Um9GutJZXlUcUCK0IiHxMaZmeoe4febw/jC2dRU=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   propagatedBuildInputs = [ icu ];
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   postPatch = ''
     rm -rf external/Catch2

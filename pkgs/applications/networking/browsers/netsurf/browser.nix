@@ -1,24 +1,53 @@
-{ lib, stdenv, fetchurl, makeWrapper, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  wrapGAppsHook,
 
-# Buildtime dependencies.
-, check, pkg-config, xxd
+  # Buildtime dependencies.
+  check,
+  pkg-config,
+  xxd,
 
-# Runtime dependencies.
-, curl, expat, libXcursor, libXrandr, libidn, libjpeg, libpng, libwebp, libxml2
-, openssl, perl, perlPackages
+  # Runtime dependencies.
+  curl,
+  expat,
+  libXcursor,
+  libXrandr,
+  libidn,
+  libjpeg,
+  libpng,
+  libwebp,
+  libxml2,
+  openssl,
+  perl,
+  perlPackages
 
-# uilib-specific dependencies
-, gtk2 # GTK 2
-, gtk3 # GTK 3
-, SDL  # Framebuffer
+  # uilib-specific dependencies
+  ,
+  gtk2, # GTK 2
+  gtk3, # GTK 3
+  SDL, # Framebuffer
 
-# Configuration
-, uilib
+  # Configuration
+  uilib,
 
-# Netsurf-specific dependencies
-, libcss, libdom, libhubbub, libnsbmp, libnsfb, libnsgif
-, libnslog, libnspsl, libnsutils, libparserutils, libsvgtiny, libutf8proc
-, libwapcaplet, nsgenbind
+  # Netsurf-specific dependencies
+  libcss,
+  libdom,
+  libhubbub,
+  libnsbmp,
+  libnsfb,
+  libnsgif,
+  libnslog,
+  libnspsl,
+  libnsutils,
+  libparserutils,
+  libsvgtiny,
+  libutf8proc,
+  libwapcaplet,
+  nsgenbind,
 }:
 
 let
@@ -39,21 +68,42 @@ stdenv.mkDerivation rec {
     perlPackages.HTMLParser
     pkg-config
     xxd
-  ]
-  ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook
-  ;
+  ] ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook;
 
-  buildInputs = [
-    check curl libXcursor libXrandr libidn libjpeg libpng libwebp libxml2 openssl
-    # Netsurf-specific libraries
-    nsgenbind libnsfb libwapcaplet libparserutils libnslog libcss
-    libhubbub libdom libnsbmp libnsgif libsvgtiny libnsutils libnspsl
-    libutf8proc
-  ]
-  ++ optionals (uilib == "framebuffer") [ expat SDL ]
-  ++ optional (uilib == "gtk2") gtk2
-  ++ optional (uilib == "gtk3") gtk3
-  ;
+  buildInputs =
+    [
+      check
+      curl
+      libXcursor
+      libXrandr
+      libidn
+      libjpeg
+      libpng
+      libwebp
+      libxml2
+      openssl
+      # Netsurf-specific libraries
+      nsgenbind
+      libnsfb
+      libwapcaplet
+      libparserutils
+      libnslog
+      libcss
+      libhubbub
+      libdom
+      libnsbmp
+      libnsgif
+      libsvgtiny
+      libnsutils
+      libnspsl
+      libutf8proc
+    ]
+    ++ optionals (uilib == "framebuffer") [
+      expat
+      SDL
+    ]
+    ++ optional (uilib == "gtk2") gtk2
+    ++ optional (uilib == "gtk3") gtk3;
 
   preConfigure = ''
     cat <<EOF > Makefile.conf
@@ -77,7 +127,10 @@ stdenv.mkDerivation rec {
       capable of handling many of the web standards in use today.
     '';
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

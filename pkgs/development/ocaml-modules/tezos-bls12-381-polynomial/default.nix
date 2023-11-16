@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitLab
-, buildDunePackage
-, bls12-381
-, data-encoding
-, bigstringaf
-, alcotest
-, alcotest-lwt
-, bisect_ppx
-, qcheck-alcotest
-, ppx_repr
+{
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  bls12-381,
+  data-encoding,
+  bigstringaf,
+  alcotest,
+  alcotest-lwt,
+  bisect_ppx,
+  qcheck-alcotest,
+  ppx_repr,
 }:
 
 buildDunePackage rec {
@@ -22,9 +23,19 @@ buildDunePackage rec {
     sha256 = "sha256-5qDa/fQoTypjaceQ0MBzt0rM+0hSJcpGlXMGAZKRboo=";
   };
 
-  propagatedBuildInputs = [ ppx_repr bls12-381 data-encoding bigstringaf ];
+  propagatedBuildInputs = [
+    ppx_repr
+    bls12-381
+    data-encoding
+    bigstringaf
+  ];
 
-  checkInputs = [ alcotest alcotest-lwt bisect_ppx qcheck-alcotest ];
+  checkInputs = [
+    alcotest
+    alcotest-lwt
+    bisect_ppx
+    qcheck-alcotest
+  ];
 
   doCheck = false; # circular dependencies
 

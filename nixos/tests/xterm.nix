@@ -1,17 +1,17 @@
-import ./make-test-python.nix ({ pkgs, ...} : {
-  name = "xterm";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ nequissimus ];
-  };
+import ./make-test-python.nix (
+  { pkgs, ... }:
+  {
+    name = "xterm";
+    meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
-  nodes.machine = { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      services.xserver.desktopManager.xterm.enable = false;
-    };
+    nodes.machine =
+      { pkgs, ... }:
+      {
+        imports = [ ./common/x11.nix ];
+        services.xserver.desktopManager.xterm.enable = false;
+      };
 
-  testScript =
-    ''
+    testScript = ''
       machine.wait_for_x()
       machine.succeed("DISPLAY=:0 xterm -title testterm -class testterm -fullscreen >&2 &")
       machine.sleep(2)
@@ -20,4 +20,5 @@ import ./make-test-python.nix ({ pkgs, ...} : {
       assert "${pkgs.xterm.version}" in machine.succeed("cat /tmp/xterm_version")
       machine.screenshot("window")
     '';
-})
+  }
+)

@@ -1,67 +1,68 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, buildPythonApplication
-, fetchPypi
-, makeWrapper
-, pythonOlder
-, python
-, twisted
-, jinja2
-, msgpack
-, zope_interface
-, sqlalchemy
-, alembic
-, python-dateutil
-, txaio
-, autobahn
-, pyjwt
-, pyyaml
-, treq
-, txrequests
-, pypugjs
-, boto3
-, moto
-, mock
-, lz4
-, setuptoolsTrial
-, buildbot-worker
-, buildbot-plugins
-, buildbot-pkg
-, parameterized
-, git
-, openssh
-, glibcLocales
-, nixosTests
-, callPackage
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  buildPythonApplication,
+  fetchPypi,
+  makeWrapper,
+  pythonOlder,
+  python,
+  twisted,
+  jinja2,
+  msgpack,
+  zope_interface,
+  sqlalchemy,
+  alembic,
+  python-dateutil,
+  txaio,
+  autobahn,
+  pyjwt,
+  pyyaml,
+  treq,
+  txrequests,
+  pypugjs,
+  boto3,
+  moto,
+  mock,
+  lz4,
+  setuptoolsTrial,
+  buildbot-worker,
+  buildbot-plugins,
+  buildbot-pkg,
+  parameterized,
+  git,
+  openssh,
+  glibcLocales,
+  nixosTests,
+  callPackage,
 }:
 
 let
-  withPlugins = plugins: buildPythonApplication {
-    pname = "${package.pname}-with-plugins";
-    inherit (package) version;
-    format = "other";
+  withPlugins =
+    plugins:
+    buildPythonApplication {
+      pname = "${package.pname}-with-plugins";
+      inherit (package) version;
+      format = "other";
 
-    dontUnpack = true;
-    dontBuild = true;
-    doCheck = false;
+      dontUnpack = true;
+      dontBuild = true;
+      doCheck = false;
 
-    nativeBuildInputs = [
-      makeWrapper
-    ];
+      nativeBuildInputs = [ makeWrapper ];
 
-    propagatedBuildInputs = plugins ++ package.propagatedBuildInputs;
+      propagatedBuildInputs = plugins ++ package.propagatedBuildInputs;
 
-    installPhase = ''
-      makeWrapper ${package}/bin/buildbot $out/bin/buildbot \
-        --prefix PYTHONPATH : "${package}/${python.sitePackages}:$PYTHONPATH"
-      ln -sfv ${package}/lib $out/lib
-    '';
+      installPhase = ''
+        makeWrapper ${package}/bin/buildbot $out/bin/buildbot \
+          --prefix PYTHONPATH : "${package}/${python.sitePackages}:$PYTHONPATH"
+        ln -sfv ${package}/lib $out/lib
+      '';
 
-    passthru = package.passthru // {
-      withPlugins = morePlugins: withPlugins (morePlugins ++ plugins);
+      passthru = package.passthru // {
+        withPlugins = morePlugins: withPlugins (morePlugins ++ plugins);
+      };
     };
-  };
 
   package = buildPythonApplication rec {
     pname = "buildbot";
@@ -75,20 +76,21 @@ let
       hash = "sha256-Z4BmC6Ed+7y4rJologiLXhkIvucXz65KEBxX3LFqExY=";
     };
 
-    propagatedBuildInputs = [
-      # core
-      twisted
-      jinja2
-      msgpack
-      zope_interface
-      sqlalchemy
-      alembic
-      python-dateutil
-      txaio
-      autobahn
-      pyjwt
-      pyyaml
-    ]
+    propagatedBuildInputs =
+      [
+        # core
+        twisted
+        jinja2
+        msgpack
+        zope_interface
+        sqlalchemy
+        alembic
+        python-dateutil
+        txaio
+        autobahn
+        pyjwt
+        pyyaml
+      ]
       # tls
       ++ twisted.optional-dependencies.tls;
 
@@ -110,11 +112,12 @@ let
       glibcLocales
     ];
 
-    patches = [
-      # This patch disables the test that tries to read /etc/os-release which
-      # is not accessible in sandboxed builds.
-      ./skip_test_linux_distro.patch
-    ];
+    patches =
+      [
+        # This patch disables the test that tries to read /etc/os-release which
+        # is not accessible in sandboxed builds.
+        ./skip_test_linux_distro.patch
+      ];
 
     postPatch = ''
       substituteInPlace buildbot/scripts/logwatcher.py --replace '/usr/bin/tail' "$(type -P tail)"
@@ -146,9 +149,13 @@ let
       description = "An open-source continuous integration framework for automating software build, test, and release processes";
       homepage = "https://buildbot.net/";
       changelog = "https://github.com/buildbot/buildbot/releases/tag/v${version}";
-      maintainers = with maintainers; [ ryansydnor lopsided98 ];
+      maintainers = with maintainers; [
+        ryansydnor
+        lopsided98
+      ];
       license = licenses.gpl2Only;
       broken = stdenv.isDarwin;
     };
   };
-in package
+in
+package

@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, aiohttp
-, async-timeout
-, buildPythonPackage
-, defusedxml
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, python-didl-lite
-, pythonOlder
-, voluptuous
+{
+  lib,
+  stdenv,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-didl-lite,
+  pythonOlder,
+  voluptuous,
 }:
 
 buildPythonPackage rec {
@@ -57,18 +58,15 @@ buildPythonPackage rec {
     "test_subscribe_manual_resubscribe"
     "test_subscribe_renew"
     "test_unsubscribe"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_deferred_callback_url"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "test_deferred_callback_url" ];
 
-  disabledTestPaths = [
-    # Tries to bind to multicast socket and fails to find proper interface
-    "tests/test_ssdp_listener.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tries to bind to multicast socket and fails to find proper interface
+      "tests/test_ssdp_listener.py"
+    ];
 
-  pythonImportsCheck = [
-    "async_upnp_client"
-  ];
+  pythonImportsCheck = [ "async_upnp_client" ];
 
   meta = with lib; {
     description = "Asyncio UPnP Client library for Python";

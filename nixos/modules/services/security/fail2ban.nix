@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -13,12 +18,17 @@ let
 
     before = paths-nixos.conf
 
-    ${concatStringsSep "\n" (attrValues (flip mapAttrs cfg.jails (name: def:
-      optionalString (def != "")
-        ''
-          [${name}]
-          ${def}
-        '')))}
+    ${concatStringsSep "\n" (
+      attrValues (
+        flip mapAttrs cfg.jails (
+          name: def:
+          optionalString (def != "") ''
+            [${name}]
+            ${def}
+          ''
+        )
+      )
+    )}
   '';
 
   pathsConf = pkgs.writeText "paths-nixos.conf" ''
@@ -32,7 +42,6 @@ let
 
     [DEFAULT]
   '';
-
 in
 
 {
@@ -65,11 +74,13 @@ in
         default = config.networking.firewall.package;
         defaultText = literalExpression "config.networking.firewall.package";
         type = types.package;
-        description = lib.mdDoc "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
+        description =
+          lib.mdDoc
+            "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
       };
 
       extraPackages = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         example = lib.literalExpression "[ pkgs.ipset ]";
         description = lib.mdDoc ''
@@ -93,7 +104,9 @@ in
 
       banaction = mkOption {
         default = if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
-        defaultText = literalExpression ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
+        defaultText =
+          literalExpression
+            ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -105,7 +118,9 @@ in
 
       banaction-allports = mkOption {
         default = if config.networking.nftables.enable then "nftables-allport" else "iptables-allport";
-        defaultText = literalExpression ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
+        defaultText =
+          literalExpression
+            ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -187,7 +202,10 @@ in
       ignoreIP = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "192.168.0.0/16" "2001:DB8::42" ];
+        example = [
+          "192.168.0.0/16"
+          "2001:DB8::42"
+        ];
         description = lib.mdDoc ''
           "ignoreIP" can be a list of IP addresses, CIDR masks or DNS hosts. Fail2ban will not ban a host which
           matches an address in this list. Several addresses can be defined using space (and/or comma) separator.
@@ -206,12 +224,20 @@ in
         description = lib.mdDoc ''
           The contents of Fail2ban's main configuration file.  It's
           generally not necessary to change it.
-       '';
+        '';
       };
 
       extraSettings = mkOption {
-        type = with types; attrsOf (oneOf [ bool ints.positive str ]);
-        default = {};
+        type =
+          with types;
+          attrsOf (
+            oneOf [
+              bool
+              ints.positive
+              str
+            ]
+          );
+        default = { };
         description = lib.mdDoc ''
           Extra default configuration for all jails (i.e. `[DEFAULT]`). See
           <https://github.com/fail2ban/fail2ban/blob/master/config/jail.conf> for an overview.
@@ -268,9 +294,7 @@ in
           more verbose.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -307,13 +331,26 @@ in
       wantedBy = [ "multi-user.target" ];
       partOf = optional config.networking.firewall.enable "firewall.service";
 
-      restartTriggers = [ fail2banConf jailConf pathsConf ];
+      restartTriggers = [
+        fail2banConf
+        jailConf
+        pathsConf
+      ];
 
-      path = [ cfg.package cfg.packageFirewall pkgs.iproute2 ] ++ cfg.extraPackages;
+      path = [
+        cfg.package
+        cfg.packageFirewall
+        pkgs.iproute2
+      ] ++ cfg.extraPackages;
 
       serviceConfig = {
         # Capabilities
-        CapabilityBoundingSet = [ "CAP_AUDIT_READ" "CAP_DAC_READ_SEARCH" "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+        CapabilityBoundingSet = [
+          "CAP_AUDIT_READ"
+          "CAP_DAC_READ_SEARCH"
+          "CAP_NET_ADMIN"
+          "CAP_NET_RAW"
+        ];
         # Security
         NoNewPrivileges = true;
         # Directory
@@ -340,14 +377,22 @@ in
     services.fail2ban.jails.DEFAULT = ''
       # Bantime increment options
       bantime.increment = ${boolToString cfg.bantime-increment.enable}
-      ${optionalString (cfg.bantime-increment.rndtime != null) "bantime.rndtime = ${cfg.bantime-increment.rndtime}"}
-      ${optionalString (cfg.bantime-increment.maxtime != null) "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
-      ${optionalString (cfg.bantime-increment.factor != null) "bantime.factor = ${cfg.bantime-increment.factor}"}
-      ${optionalString (cfg.bantime-increment.formula != null) "bantime.formula = ${cfg.bantime-increment.formula}"}
-      ${optionalString (cfg.bantime-increment.multipliers != null) "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
-      ${optionalString (cfg.bantime-increment.overalljails != null) "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
+      ${optionalString (cfg.bantime-increment.rndtime != null)
+        "bantime.rndtime = ${cfg.bantime-increment.rndtime}"}
+      ${optionalString (cfg.bantime-increment.maxtime != null)
+        "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
+      ${optionalString (cfg.bantime-increment.factor != null)
+        "bantime.factor = ${cfg.bantime-increment.factor}"}
+      ${optionalString (cfg.bantime-increment.formula != null)
+        "bantime.formula = ${cfg.bantime-increment.formula}"}
+      ${optionalString (cfg.bantime-increment.multipliers != null)
+        "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
+      ${optionalString (cfg.bantime-increment.overalljails != null)
+        "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
       # Miscellaneous options
-      ignoreip    = 127.0.0.1/8 ${optionalString config.networking.enableIPv6 "::1"} ${concatStringsSep " " cfg.ignoreIP}
+      ignoreip    = 127.0.0.1/8 ${optionalString config.networking.enableIPv6 "::1"} ${
+        concatStringsSep " " cfg.ignoreIP
+      }
       ${optionalString (cfg.bantime != null) ''
         bantime     = ${cfg.bantime}
       ''}
@@ -356,9 +401,9 @@ in
       # Actions
       banaction   = ${cfg.banaction}
       banaction_allports = ${cfg.banaction-allports}
-      ${optionalString (cfg.extraSettings != {}) ''
+      ${optionalString (cfg.extraSettings != { }) ''
         # Extra settings
-        ${generators.toKeyValue {} cfg.extraSettings}
+        ${generators.toKeyValue { } cfg.extraSettings}
       ''}
     '';
     # Block SSH if there are too many failing connection attempts.

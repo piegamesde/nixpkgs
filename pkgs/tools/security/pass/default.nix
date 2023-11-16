@@ -1,34 +1,58 @@
-{ stdenv, lib, pkgs, fetchurl, buildEnv
-, coreutils, findutils, gnugrep, gnused, getopt, git, tree, gnupg, openssl
-, which, openssh, procps, qrencode, makeWrapper, pass, symlinkJoin
+{
+  stdenv,
+  lib,
+  pkgs,
+  fetchurl,
+  buildEnv,
+  coreutils,
+  findutils,
+  gnugrep,
+  gnused,
+  getopt,
+  git,
+  tree,
+  gnupg,
+  openssl,
+  which,
+  openssh,
+  procps,
+  qrencode,
+  makeWrapper,
+  pass,
+  symlinkJoin,
 
-, xclip ? null, xdotool ? null, dmenu ? null
-, x11Support ? !stdenv.isDarwin , dmenuSupport ? (x11Support || waylandSupport)
-, waylandSupport ? false, wl-clipboard ? null
-, ydotool ? null, dmenu-wayland ? null
+  xclip ? null,
+  xdotool ? null,
+  dmenu ? null,
+  x11Support ? !stdenv.isDarwin,
+  dmenuSupport ? (x11Support || waylandSupport),
+  waylandSupport ? false,
+  wl-clipboard ? null,
+  ydotool ? null,
+  dmenu-wayland ? null,
 
-# For backwards-compatibility
-, tombPluginSupport ? false
+  # For backwards-compatibility
+  tombPluginSupport ? false,
 }:
 
 assert x11Support -> xclip != null;
 assert waylandSupport -> wl-clipboard != null;
 
 assert dmenuSupport -> x11Support || waylandSupport;
-assert dmenuSupport && x11Support
-  -> dmenu != null && xdotool != null;
-assert dmenuSupport && waylandSupport
-  -> dmenu-wayland != null && ydotool != null;
-
+assert dmenuSupport && x11Support -> dmenu != null && xdotool != null;
+assert dmenuSupport && waylandSupport -> dmenu-wayland != null && ydotool != null;
 
 let
   passExtensions = import ./extensions { inherit pkgs; };
 
-  env = extensions:
+  env =
+    extensions:
     let
-      selected = [ pass ] ++ extensions passExtensions
-        ++ lib.optional tombPluginSupport passExtensions.tomb;
-    in buildEnv {
+      selected = [
+        pass
+      ] ++ extensions passExtensions ++ lib.optional tombPluginSupport passExtensions.tomb;
+    in
+    buildEnv {
       # lib.getExe looks for name, so we keep it the same as mainProgram
       name = "pass";
       paths = selected;
@@ -59,7 +83,7 @@ stdenv.mkDerivation rec {
   pname = "password-store";
 
   src = fetchurl {
-    url    = "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz";
+    url = "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz";
     sha256 = "1h4k6w7g8pr169p5w9n6mkdhxl3pw51zphx7www6pvgjb7vgmafg";
   };
 
@@ -70,75 +94,94 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installFlags = [ "PREFIX=$(out)" "WITH_ALLCOMP=yes" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "WITH_ALLCOMP=yes"
+  ];
 
-  postInstall = ''
-    # Install Emacs Mode. NOTE: We can't install the necessary
-    # dependencies (s.el) here. The user has to do this themselves.
-    mkdir -p "$out/share/emacs/site-lisp"
-    cp "contrib/emacs/password-store.el" "$out/share/emacs/site-lisp/"
-  '' + lib.optionalString dmenuSupport ''
-    cp "contrib/dmenu/passmenu" "$out/bin/"
-  '';
+  postInstall =
+    ''
+      # Install Emacs Mode. NOTE: We can't install the necessary
+      # dependencies (s.el) here. The user has to do this themselves.
+      mkdir -p "$out/share/emacs/site-lisp"
+      cp "contrib/emacs/password-store.el" "$out/share/emacs/site-lisp/"
+    ''
+    + lib.optionalString dmenuSupport ''
+      cp "contrib/dmenu/passmenu" "$out/bin/"
+    '';
 
-  wrapperPath = with lib; makeBinPath ([
-    coreutils
-    findutils
-    getopt
-    git
-    gnugrep
-    gnupg
-    gnused
-    tree
-    which
-    openssh
-    procps
-    qrencode
-  ] ++ optional stdenv.isDarwin openssl
-    ++ optional x11Support xclip
-    ++ optional waylandSupport wl-clipboard
-    ++ optionals (waylandSupport && dmenuSupport) [ ydotool dmenu-wayland ]
-    ++ optionals (x11Support && dmenuSupport) [ xdotool dmenu ]
-  );
+  wrapperPath =
+    with lib;
+    makeBinPath (
+      [
+        coreutils
+        findutils
+        getopt
+        git
+        gnugrep
+        gnupg
+        gnused
+        tree
+        which
+        openssh
+        procps
+        qrencode
+      ]
+      ++ optional stdenv.isDarwin openssl
+      ++ optional x11Support xclip
+      ++ optional waylandSupport wl-clipboard
+      ++ optionals (waylandSupport && dmenuSupport) [
+        ydotool
+        dmenu-wayland
+      ]
+      ++ optionals (x11Support && dmenuSupport) [
+        xdotool
+        dmenu
+      ]
+    );
 
-  postFixup = ''
-    # Fix program name in --help
-    substituteInPlace $out/bin/pass \
-      --replace 'PROGRAM="''${0##*/}"' "PROGRAM=pass"
+  postFixup =
+    ''
+      # Fix program name in --help
+      substituteInPlace $out/bin/pass \
+        --replace 'PROGRAM="''${0##*/}"' "PROGRAM=pass"
 
-    # Ensure all dependencies are in PATH
-    wrapProgram $out/bin/pass \
-      --prefix PATH : "${wrapperPath}"
-  '' + lib.optionalString dmenuSupport ''
-    # We just wrap passmenu with the same PATH as pass. It doesn't
-    # need all the tools in there but it doesn't hurt either.
-    wrapProgram $out/bin/passmenu \
-      --prefix PATH : "$out/bin:${wrapperPath}"
-  '';
+      # Ensure all dependencies are in PATH
+      wrapProgram $out/bin/pass \
+        --prefix PATH : "${wrapperPath}"
+    ''
+    + lib.optionalString dmenuSupport ''
+      # We just wrap passmenu with the same PATH as pass. It doesn't
+      # need all the tools in there but it doesn't hurt either.
+      wrapProgram $out/bin/passmenu \
+        --prefix PATH : "$out/bin:${wrapperPath}"
+    '';
 
   # Turn "check" into "installcheck", since we want to test our pass,
   # not the one before the fixup.
-  postPatch = ''
-    patchShebangs tests
+  postPatch =
+    ''
+      patchShebangs tests
 
-    substituteInPlace src/password-store.sh \
-      --replace "@out@" "$out"
+      substituteInPlace src/password-store.sh \
+        --replace "@out@" "$out"
 
-    # the turning
-    sed -i -e 's@^PASS=.*''$@PASS=$out/bin/pass@' \
-           -e 's@^GPGS=.*''$@GPG=${gnupg}/bin/gpg2@' \
-           -e '/which gpg/ d' \
-      tests/setup.sh
-  '' + lib.optionalString stdenv.isDarwin ''
-    # 'pass edit' uses hdid, which is not available from the sandbox.
-    rm -f tests/t0200-edit-tests.sh
-    rm -f tests/t0010-generate-tests.sh
-    rm -f tests/t0020-show-tests.sh
-    rm -f tests/t0050-mv-tests.sh
-    rm -f tests/t0100-insert-tests.sh
-    rm -f tests/t0300-reencryption.sh
-    rm -f tests/t0400-grep.sh
-  '';
+      # the turning
+      sed -i -e 's@^PASS=.*$@PASS=$out/bin/pass@' \
+             -e 's@^GPGS=.*$@GPG=${gnupg}/bin/gpg2@' \
+             -e '/which gpg/ d' \
+        tests/setup.sh
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      # 'pass edit' uses hdid, which is not available from the sandbox.
+      rm -f tests/t0200-edit-tests.sh
+      rm -f tests/t0010-generate-tests.sh
+      rm -f tests/t0020-show-tests.sh
+      rm -f tests/t0050-mv-tests.sh
+      rm -f tests/t0100-insert-tests.sh
+      rm -f tests/t0300-reencryption.sh
+      rm -f tests/t0400-grep.sh
+    '';
 
   doCheck = false;
 
@@ -153,11 +196,17 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Stores, retrieves, generates, and synchronizes passwords securely";
-    homepage    = "https://www.passwordstore.org/";
-    license     = licenses.gpl2Plus;
+    homepage = "https://www.passwordstore.org/";
+    license = licenses.gpl2Plus;
     mainProgram = "pass";
-    maintainers = with maintainers; [ lovek323 fpletz tadfisher globin ma27 ];
-    platforms   = platforms.unix;
+    maintainers = with maintainers; [
+      lovek323
+      fpletz
+      tadfisher
+      globin
+      ma27
+    ];
+    platforms = platforms.unix;
 
     longDescription = ''
       pass is a very simple password store that keeps passwords inside gpg2

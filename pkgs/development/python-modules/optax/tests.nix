@@ -1,12 +1,13 @@
-{ stdenv
-, buildPythonPackage
-, dm-haiku
-, pytest-xdist
-, pytestCheckHook
-, tensorflow
-, tensorflow-datasets
-, flax
-, optax
+{
+  stdenv,
+  buildPythonPackage,
+  dm-haiku,
+  pytest-xdist,
+  pytestCheckHook,
+  tensorflow,
+  tensorflow-datasets,
+  flax,
+  optax,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,9 @@ buildPythonPackage rec {
     flax
   ];
 
-  disabledTestPaths = [
-    # See https://github.com/deepmind/optax/issues/323
-    "examples/lookahead_mnist_test.py"
-  ];
-
+  disabledTestPaths =
+    [
+      # See https://github.com/deepmind/optax/issues/323
+      "examples/lookahead_mnist_test.py"
+    ];
 }

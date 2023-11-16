@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-# , backports
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  # , backports
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -15,7 +16,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools-scm ];
-#   nativeCheckInputs = [ backports ];
+  #   nativeCheckInputs = [ backports ];
 
   # Requires backports package
   doCheck = false;

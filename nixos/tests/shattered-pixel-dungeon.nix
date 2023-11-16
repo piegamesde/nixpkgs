@@ -1,23 +1,22 @@
-import ./make-test-python.nix ({ pkgs, ... }: {
-  name = "shattered-pixel-dungeon";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ fgaz ];
-  };
+import ./make-test-python.nix (
+  { pkgs, ... }:
+  {
+    name = "shattered-pixel-dungeon";
+    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-  nodes.machine = { config, pkgs, ... }: {
-    imports = [
-      ./common/x11.nix
-    ];
+    nodes.machine =
+      { config, pkgs, ... }:
+      {
+        imports = [ ./common/x11.nix ];
 
-    services.xserver.enable = true;
-    sound.enable = true;
-    environment.systemPackages = [ pkgs.shattered-pixel-dungeon ];
-  };
+        services.xserver.enable = true;
+        sound.enable = true;
+        environment.systemPackages = [ pkgs.shattered-pixel-dungeon ];
+      };
 
-  enableOCR = true;
+    enableOCR = true;
 
-  testScript =
-    ''
+    testScript = ''
       machine.wait_for_x()
       machine.execute("shattered-pixel-dungeon >&2 &")
       machine.wait_for_window(r"Shattered Pixel Dungeon")
@@ -26,5 +25,5 @@ import ./make-test-python.nix ({ pkgs, ... }: {
           raise Exception("Program did not start successfully")
       machine.screenshot("screen")
     '';
-})
-
+  }
+)

@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, substituteAll
-, rust
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  substituteAll,
+  rust,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,23 +20,28 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-vxy9Ym3Twx034I1E5fWNnbP1ttfLolMbO1IgRiPfhRw=";
 
-  patches = [
-    # patch the binary path so tests can find the binary when `--target` is present
-    (substituteAll {
-      src = ./fix-test-binary-path.patch;
-      shortTarget = rust.toRustTarget stdenv.hostPlatform;
-    })
-  ];
+  patches =
+    [
+      # patch the binary path so tests can find the binary when `--target` is present
+      (substituteAll {
+        src = ./fix-test-binary-path.patch;
+        shortTarget = rust.toRustTarget stdenv.hostPlatform;
+      })
+    ];
 
-  checkFlags = [
-    # thread 'different_input_colored' panicked at 'assertion failed: `(left == right)`
-    "--skip=different_input_colored"
-  ];
+  checkFlags =
+    [
+      # thread 'different_input_colored' panicked at 'assertion failed: `(left == right)`
+      "--skip=different_input_colored"
+    ];
 
   meta = with lib; {
     description = "A small utility to compare Rust micro-benchmarks";
     homepage = "https://github.com/BurntSushi/cargo-benchcmp";
-    license = with licenses; [ mit unlicense ];
+    license = with licenses; [
+      mit
+      unlicense
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

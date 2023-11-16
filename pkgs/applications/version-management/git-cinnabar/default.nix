@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cargo, pkg-config, rustPlatform
-, bzip2, curl, zlib, zstd, libiconv, CoreServices
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cargo,
+  pkg-config,
+  rustPlatform,
+  bzip2,
+  curl,
+  zlib,
+  zstd,
+  libiconv,
+  CoreServices,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,11 +26,22 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    pkg-config rustPlatform.cargoSetupHook cargo
+    pkg-config
+    rustPlatform.cargoSetupHook
+    cargo
   ];
 
-  buildInputs = [ bzip2 curl zlib zstd ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv CoreServices ];
+  buildInputs =
+    [
+      bzip2
+      curl
+      zlib
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreServices
+    ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

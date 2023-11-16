@@ -1,4 +1,8 @@
-{ lib, fetchPypi, buildPythonPackage }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+}:
 
 buildPythonPackage rec {
   pname = "isoweek";
@@ -16,4 +20,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ mrmebelman ];
   };
 }
-

@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, ant, jdk, runtimeShell }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  ant,
+  jdk,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fop";
@@ -9,12 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b7Av17wu6Ar/npKOiwYqzlvBFSIuXTpqTacM1sxtBvc=";
   };
 
-  buildInputs = [ ant jdk ];
+  buildInputs = [
+    ant
+    jdk
+  ];
 
   # build only the "package" target, which generates the fop command.
   buildPhase = ''
-     export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
-     ant -f fop/build.xml package
+    export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
+    ant -f fop/build.xml package
   '';
 
   installPhase = ''
@@ -50,7 +60,7 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # source bundles dependencies as jars
+      binaryBytecode # source bundles dependencies as jars
     ];
     platforms = platforms.all;
     maintainers = with maintainers; [ bjornfor ];

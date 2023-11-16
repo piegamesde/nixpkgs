@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtwebkit, hunspell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtwebkit,
+  hunspell,
+}:
 
 stdenv.mkDerivation {
   pname = "qtwebkit-plugins";
@@ -13,12 +20,17 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtwebkit hunspell ];
+  buildInputs = [
+    qtwebkit
+    hunspell
+  ];
 
   dontWrapQtApps = true;
 
   postPatch = ''
-    sed -i "s,-lhunspell,-lhunspell-${lib.versions.majorMinor hunspell.version}," src/spellcheck/spellcheck.pri
+    sed -i "s,-lhunspell,-lhunspell-${
+      lib.versions.majorMinor hunspell.version
+    }," src/spellcheck/spellcheck.pri
     sed -i "s,\$\$\[QT_INSTALL_PLUGINS\],$out/$qtPluginPrefix," src/src.pro
   '';
 

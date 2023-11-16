@@ -1,6 +1,7 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
 }:
 
 buildGoModule rec {
@@ -14,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-HD5OK8HjnLDbyC/TmVI2HfBRIUCyyHTbA3JvKoeXV5E=";
   };
 
-  vendorSha256 = null; #vendorSha256 = "";
+  vendorSha256 = null; # vendorSha256 = "";
 
   meta = with lib; {
     description = "Reconnaissance tool for GitHub code search";

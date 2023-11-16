@@ -1,12 +1,18 @@
 { config, lib, ... }:
 let
   inherit (lib) stringAfter;
-in {
+in
+{
 
   imports = [ ./etc.nix ];
 
   config = {
     system.activationScripts.etc =
-      stringAfter [ "users" "groups" ] config.system.build.etcActivationCommands;
+      stringAfter
+        [
+          "users"
+          "groups"
+        ]
+        config.system.build.etcActivationCommands;
   };
 }

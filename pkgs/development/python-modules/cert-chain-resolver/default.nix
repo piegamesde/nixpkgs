@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pytestCheckHook
-, pytest-mock
-, pythonOlder
-, six
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pytest-mock,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-NLTRx6J6pjs7lyschHN5KtgrnpQpEyvZ2zz0pSd5sc4=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-  ];
+  propagatedBuildInputs = [ cryptography ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,9 +37,7 @@ buildPythonPackage rec {
     "test_display_flag_is_properly_formatted"
   ];
 
-  pythonImportsCheck = [
-    "cert_chain_resolver"
-  ];
+  pythonImportsCheck = [ "cert_chain_resolver" ];
 
   meta = with lib; {
     description = "Resolve / obtain the certificate intermediates of a x509 certificate";

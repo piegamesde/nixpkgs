@@ -1,13 +1,14 @@
-{ lib
-, fetchFromGitHub
-, callPackage
-, semgrep-core
-, buildPythonApplication
-, pythonPackages
-, pythonRelaxDepsHook
+{
+  lib,
+  fetchFromGitHub,
+  callPackage,
+  semgrep-core,
+  buildPythonApplication,
+  pythonPackages,
+  pythonRelaxDepsHook,
 
-, pytestCheckHook
-, git
+  pytestCheckHook,
+  git,
 }:
 
 let
@@ -17,19 +18,21 @@ buildPythonApplication rec {
   pname = "semgrep";
   inherit (common) src version;
 
-  postPatch = (lib.concatStringsSep "\n" (lib.mapAttrsToList
-    (
-      path: submodule: ''
-        # substitute ${path}
-        # remove git submodule placeholder
-        rm -r ${path}
-        # link submodule
-        ln -s ${submodule}/ ${path}
-      ''
-    )
-    common.submodules)) + ''
-    cd cli
-  '';
+  postPatch =
+    (lib.concatStringsSep "\n" (
+      lib.mapAttrsToList
+        (path: submodule: ''
+          # substitute ${path}
+          # remove git submodule placeholder
+          rm -r ${path}
+          # link submodule
+          ln -s ${submodule}/ ${path}
+        '')
+        common.submodules
+    ))
+    + ''
+      cd cli
+    '';
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   # tell cli/setup.py to not copy semgrep-core into the result
@@ -65,12 +68,19 @@ buildPythonApplication rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ git pytestCheckHook ] ++ (with pythonPackages; [
-    pytest-snapshot
-    pytest-mock
-    pytest-freezegun
-    types-freezegun
-  ]);
+  nativeCheckInputs =
+    [
+      git
+      pytestCheckHook
+    ]
+    ++ (
+      with pythonPackages; [
+        pytest-snapshot
+        pytest-mock
+        pytest-freezegun
+        types-freezegun
+      ]
+    );
   disabledTests = [
     # requires networking
     "test_send"

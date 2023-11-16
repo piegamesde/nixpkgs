@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchFromGitLab, jdk17_headless, coreutils, gradle, git, perl
-, makeWrapper, fetchpatch, substituteAll, jre_minimal
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitLab,
+  jdk17_headless,
+  coreutils,
+  gradle,
+  git,
+  perl,
+  makeWrapper,
+  fetchpatch,
+  substituteAll,
+  jre_minimal,
 }:
 
 # NOTE: when updating the package, please check if some of the hacks in `deps.installPhase`
@@ -39,7 +51,10 @@ let
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version;
-    nativeBuildInputs = [ gradle perl ];
+    nativeBuildInputs = [
+      gradle
+      perl
+    ];
     patches = [ ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
@@ -75,13 +90,15 @@ let
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     # Downloaded jars differ by platform
-    outputHash = {
-      x86_64-linux = "sha256-9DHykkvazVBN2kfw1Pbejizk/R18v5w8lRBHZ4aXL5Q=";
-      aarch64-linux = "sha256-RgAiRbUojBc+9RN/HpAzzpTjkjZ6q+jebDsqvah5XBw=";
-    }.${stdenv.system} or (throw "Unsupported platform");
+    outputHash =
+      {
+        x86_64-linux = "sha256-9DHykkvazVBN2kfw1Pbejizk/R18v5w8lRBHZ4aXL5Q=";
+        aarch64-linux = "sha256-RgAiRbUojBc+9RN/HpAzzpTjkjZ6q+jebDsqvah5XBw=";
+      }
+      .${stdenv.system} or (throw "Unsupported platform");
   };
-
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   inherit pname src version;
 
   patches = [
@@ -118,7 +135,11 @@ in stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ git gradle makeWrapper ];
+  nativeBuildInputs = [
+    git
+    gradle
+    makeWrapper
+  ];
 
   doCheck = true;
 
@@ -132,10 +153,16 @@ in stdenv.mkDerivation {
     homepage = "https://signald.org";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ expipiplus1 ma27 ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      expipiplus1
+      ma27
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

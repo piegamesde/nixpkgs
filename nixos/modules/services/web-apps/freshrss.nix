@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -7,7 +12,10 @@ let
   poolName = "freshrss";
 in
 {
-  meta.maintainers = with maintainers; [ etu stunkymonkey ];
+  meta.maintainers = with maintainers; [
+    etu
+    stunkymonkey
+  ];
 
   options.services.freshrss = {
     enable = mkEnableOption (mdDoc "FreshRSS feed reader");
@@ -47,7 +55,11 @@ in
 
     database = {
       type = mkOption {
-        type = types.enum [ "sqlite" "pgsql" "mysql" ];
+        type = types.enum [
+          "sqlite"
+          "pgsql"
+          "mysql"
+        ];
         default = "sqlite";
         description = mdDoc "Database type.";
         example = "pgsql";
@@ -150,7 +162,11 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@resources"
+          "~@privileged"
+        ];
         UMask = "0007";
         Type = "oneshot";
         User = cfg.user;
@@ -168,7 +184,7 @@ in
 
           # php files handling
           # this regex is mandatory because of the API
-          locations."~ ^.+?\.php(/.*)?$".extraConfig = ''
+          locations."~ ^.+?.php(/.*)?$".extraConfig = ''
             fastcgi_pass unix:${config.services.phpfpm.pools.${cfg.pool}.socket};
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             # By default, the variable PATH_INFO is not set under PHP-FPM
@@ -224,8 +240,8 @@ in
 
       systemd.services.freshrss-config =
         let
-          settingsFlags = concatStringsSep " \\\n    "
-            (mapAttrsToList (k: v: "${k} ${toString v}") {
+          settingsFlags = concatStringsSep " \\\n    " (
+            mapAttrsToList (k: v: "${k} ${toString v}") {
               "--default_user" = ''"${cfg.defaultUser}"'';
               "--auth_type" = ''"form"'';
               "--base_url" = ''"${cfg.baseUrl}"'';
@@ -235,16 +251,20 @@ in
               # database.  Those that evaluate to null on the left hand side
               # will be omitted.
               ${if cfg.database.name != null then "--db-base" else null} = ''"${cfg.database.name}"'';
-              ${if cfg.database.passFile != null then "--db-password" else null} = ''"$(cat ${cfg.database.passFile})"'';
+              ${if cfg.database.passFile != null then "--db-password" else null} = ''
+                "$(cat ${cfg.database.passFile})"'';
               ${if cfg.database.user != null then "--db-user" else null} = ''"${cfg.database.user}"'';
-              ${if cfg.database.tableprefix != null then "--db-prefix" else null} = ''"${cfg.database.tableprefix}"'';
-              ${if cfg.database.host != null && cfg.database.port != null then "--db-host" else null} = ''"${cfg.database.host}:${toString cfg.database.port}"'';
-            });
+              ${if cfg.database.tableprefix != null then "--db-prefix" else null} = ''
+                "${cfg.database.tableprefix}"'';
+              ${if cfg.database.host != null && cfg.database.port != null then "--db-host" else null} = ''
+                "${cfg.database.host}:${toString cfg.database.port}"'';
+            }
+          );
         in
         {
           description = "Set up the state directory for FreshRSS before use";
           wantedBy = [ "multi-user.target" ];
-          serviceConfig = defaultServiceConfig //{
+          serviceConfig = defaultServiceConfig // {
             Type = "oneshot";
             User = "freshrss";
             Group = "freshrss";
@@ -279,7 +299,7 @@ in
         environment = {
           FRESHRSS_DATA_PATH = cfg.dataDir;
         };
-        serviceConfig = defaultServiceConfig //{
+        serviceConfig = defaultServiceConfig // {
           ExecStart = "${cfg.package}/app/actualize_script.php";
         };
       };

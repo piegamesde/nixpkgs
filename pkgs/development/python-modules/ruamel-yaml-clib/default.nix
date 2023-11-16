@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchhg
+{
+  lib,
+  buildPythonPackage,
+  fetchhg,
 }:
 
 buildPythonPackage rec {

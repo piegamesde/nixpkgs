@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, braintree
-, cryptography
-, django
-, django-phonenumber-field
-, fetchFromGitHub
-, mercadopago
-, pythonOlder
-, requests
-, setuptools-scm
-, sphinx-rtd-theme
-, stripe
-, xmltodict
+{
+  lib,
+  buildPythonPackage,
+  braintree,
+  cryptography,
+  django,
+  django-phonenumber-field,
+  fetchFromGitHub,
+  mercadopago,
+  pythonOlder,
+  requests,
+  setuptools-scm,
+  sphinx-rtd-theme,
+  stripe,
+  xmltodict,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     django
@@ -48,14 +47,21 @@ buildPythonPackage rec {
   # require internet connection
   doCheck = false;
 
-  pythonImportsCheck = [
-    "payments"
-  ];
+  pythonImportsCheck = [ "payments" ];
 
   passthru.optional-dependencies = {
-    all = [ braintree /* suds-community */ mercadopago cryptography xmltodict stripe ];
+    all = [
+      braintree # suds-community
+      mercadopago
+      cryptography
+      xmltodict
+      stripe
+    ];
     braintree = [ braintree ];
-    cybersource = [ /* suds-community */ ];
+    cybersource =
+      [
+        # suds-community
+      ];
     docs = [ sphinx-rtd-theme ];
     mercadopago = [ mercadopago ];
     sagepay = [ cryptography ];

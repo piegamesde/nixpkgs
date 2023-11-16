@@ -1,10 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
 
-  inherit (lib) mkDefault mkEnableOption mkIf mkOption optional types;
+  inherit (lib)
+    mkDefault
+    mkEnableOption
+    mkIf
+    mkOption
+    optional
+    types
+  ;
 
   cfg = config.hardware.ipu6;
-
 in
 {
 
@@ -13,23 +24,25 @@ in
     enable = mkEnableOption (lib.mdDoc "support for Intel IPU6/MIPI cameras");
 
     platform = mkOption {
-      type = types.enum [ "ipu6" "ipu6ep" ];
+      type = types.enum [
+        "ipu6"
+        "ipu6ep"
+      ];
       description = lib.mdDoc ''
         Choose the version for your hardware platform.
 
         Use `ipu6` for Tiger Lake and `ipu6ep` for Alder Lake respectively.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
 
-    boot.extraModulePackages = with config.boot.kernelPackages; [
-      ipu6-drivers
-    ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ ipu6-drivers ];
 
-    hardware.firmware = with pkgs; [ ]
+    hardware.firmware =
+      with pkgs;
+      [ ]
       ++ optional (cfg.platform == "ipu6") ipu6-camera-bin
       ++ optional (cfg.platform == "ipu6ep") ipu6ep-camera-bin;
 
@@ -42,7 +55,9 @@ in
 
       cardLabel = mkDefault "Intel MIPI Camera";
 
-      extraPackages = with pkgs.gst_all_1; [ ]
+      extraPackages =
+        with pkgs.gst_all_1;
+        [ ]
         ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6
         ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep;
 
@@ -51,7 +66,5 @@ in
         format = mkIf (cfg.platform == "ipu6ep") (mkDefault "NV12");
       };
     };
-
   };
-
 }

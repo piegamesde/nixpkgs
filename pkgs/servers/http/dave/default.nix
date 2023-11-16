@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, mage }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  mage,
+}:
 
 buildGoModule rec {
   pname = "dave";
@@ -14,16 +19,25 @@ buildGoModule rec {
   deleteVendor = true;
   vendorHash = "sha256-iyq2DGdbdfJIRNkGAIKTk1LLDydpVX3juQFaG6H5vJQ=";
 
-  patches = [
-    # Add Go Modules support:
-    # - Based on https://github.com/micromata/dave/commit/46ae146dd2e95d57be35fa01885ea2c55fd8c279.
-    # - Bump golang.org/x/sys for Darwin.
-    ./go-modules.patch
+  patches =
+    [
+      # Add Go Modules support:
+      # - Based on https://github.com/micromata/dave/commit/46ae146dd2e95d57be35fa01885ea2c55fd8c279.
+      # - Bump golang.org/x/sys for Darwin.
+      ./go-modules.patch
+    ];
+
+  subPackages = [
+    "cmd/dave"
+    "cmd/davecli"
   ];
 
-  subPackages = [ "cmd/dave" "cmd/davecli" ];
-
-  ldflags = [ "-s" "-w" "-X main.version=${version}" "-X main.builtBy=nixpkgs" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+    "-X main.builtBy=nixpkgs"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/micromata/dave";

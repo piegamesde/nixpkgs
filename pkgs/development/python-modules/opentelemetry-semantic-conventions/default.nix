@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, hatchling
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -11,23 +12,21 @@ buildPythonPackage rec {
   version = "1.18.0";
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "open-telemetry";
-    repo = "opentelemetry-python";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-82L/tDoWgu0r+Li3CS3hjVR99DQQmA5yt3y85+37imI=";
-    sparseCheckout = [ "/${pname}" ];
-  } + "/${pname}";
+  src =
+    fetchFromGitHub {
+      owner = "open-telemetry";
+      repo = "opentelemetry-python";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-82L/tDoWgu0r+Li3CS3hjVR99DQQmA5yt3y85+37imI=";
+      sparseCheckout = [ "/${pname}" ];
+    }
+    + "/${pname}";
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "opentelemetry.semconv" ];
 

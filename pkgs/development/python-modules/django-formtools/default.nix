@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, django
-, fetchPypi
-, python
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchPypi,
+  python,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -19,26 +20,23 @@ buildPythonPackage rec {
     hash = "sha256-IfjV2sc38eY2+ooKEJacHDL1JabfonwpWSgnunDZZDo=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings=tests.settings
   '';
 
-  pythonImportsCheck = [
-    "formtools"
-  ];
+  pythonImportsCheck = [ "formtools" ];
 
   meta = with lib; {
     description = "A set of high-level abstractions for Django forms";
     homepage = "https://github.com/jazzband/django-formtools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ greizgh schmittlauch ];
+    maintainers = with maintainers; [
+      greizgh
+      schmittlauch
+    ];
   };
 }

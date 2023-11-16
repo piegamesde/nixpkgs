@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libuuid, libselinux
-, e2fsprogs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  libuuid,
+  libselinux,
+  e2fsprogs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nilfs-utils";
@@ -14,7 +22,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ libuuid libselinux ];
+  buildInputs = [
+    libuuid
+    libselinux
+  ];
 
   postPatch = ''
     # Fix up hardcoded paths.
@@ -45,7 +56,10 @@ stdenv.mkDerivation rec {
     description = "NILFS utilities";
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
-    license =  with licenses; [ gpl2 lgpl21 ];
+    license = with licenses; [
+      gpl2
+      lgpl21
+    ];
     downloadPage = "http://nilfs.sourceforge.net/en/download.html";
   };
 }

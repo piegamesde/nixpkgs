@@ -1,34 +1,35 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, makeBinaryWrapper
-, pipewire
-, libpulseaudio
-, libappindicator
-, libstartup_notification
-, openssl
-, libwnck
-, pcre
-, util-linux
-, libselinux
-, libsepol
-, libthai
-, libdatrie
-, xorg
-, libxkbcommon
-, libepoxy
-, dbus
-, at-spi2-core
-, nlohmann_json
-, fancypp
-, httplib
-, semver-cpp
-, webkitgtk
-, yt-dlp
-, ffmpeg
-, lsb-release
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeBinaryWrapper,
+  pipewire,
+  libpulseaudio,
+  libappindicator,
+  libstartup_notification,
+  openssl,
+  libwnck,
+  pcre,
+  util-linux,
+  libselinux,
+  libsepol,
+  libthai,
+  libdatrie,
+  xorg,
+  libxkbcommon,
+  libepoxy,
+  dbus,
+  at-spi2-core,
+  nlohmann_json,
+  fancypp,
+  httplib,
+  semver-cpp,
+  webkitgtk,
+  yt-dlp,
+  ffmpeg,
+  lsb-release,
 }:
 
 stdenv.mkDerivation rec {
@@ -121,18 +122,30 @@ stdenv.mkDerivation rec {
       --replace "/opt/soundux/soundux" "soundux"
   '';
 
-  postFixup = let
-    rpaths = lib.makeLibraryPath [libwnck pipewire libpulseaudio];
-  in ''
-    # Wnck, PipeWire, and PulseAudio are dlopen-ed by Soundux, so they do
-    # not end up on the RPATH during the build process.
-    patchelf --add-rpath "${rpaths}" "$out/opt/soundux-${version}"
+  postFixup =
+    let
+      rpaths = lib.makeLibraryPath [
+        libwnck
+        pipewire
+        libpulseaudio
+      ];
+    in
+    ''
+      # Wnck, PipeWire, and PulseAudio are dlopen-ed by Soundux, so they do
+      # not end up on the RPATH during the build process.
+      patchelf --add-rpath "${rpaths}" "$out/opt/soundux-${version}"
 
-    # Work around upstream bug https://github.com/Soundux/Soundux/issues/435
-    wrapProgram "$out/bin/soundux" \
-      --set WEBKIT_DISABLE_COMPOSITING_MODE 1 \
-      --prefix PATH : ${lib.makeBinPath [ yt-dlp ffmpeg lsb-release ]} \
-  '';
+      # Work around upstream bug https://github.com/Soundux/Soundux/issues/435
+      wrapProgram "$out/bin/soundux" \
+        --set WEBKIT_DISABLE_COMPOSITING_MODE 1 \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            yt-dlp
+            ffmpeg
+            lsb-release
+          ]
+        } \
+    '';
 
   meta = with lib; {
     description = "A cross-platform soundboard.";

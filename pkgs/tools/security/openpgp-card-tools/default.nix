@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-, pkg-config
-, pcsclite
-, nettle
-, PCSC
-, testers
-, openpgp-card-tools
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  pcsclite,
+  nettle,
+  PCSC,
+  testers,
+  openpgp-card-tools,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,13 +22,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Wn3fXAft+sju8FhX6YFHRvqt815NhTlfhLJarSemvm0=";
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
-  buildInputs = [ pcsclite nettle ] ++ lib.optionals stdenv.isDarwin [ PCSC ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
+  buildInputs = [
+    pcsclite
+    nettle
+  ] ++ lib.optionals stdenv.isDarwin [ PCSC ];
 
   passthru = {
-    tests.version = testers.testVersion {
-      package = openpgp-card-tools;
-    };
+    tests.version = testers.testVersion { package = openpgp-card-tools; };
   };
 
   meta = with lib; {

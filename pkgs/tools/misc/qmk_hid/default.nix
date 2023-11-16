@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, systemd
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  systemd,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,12 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-+frWup9sbxCAxl2oiHAn1ccpuGkfa3kjerUByd65oSI=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-  buildInputs = [
-    systemd
-  ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ systemd ];
 
   meta = with lib; {
     description = "Commandline tool for interactng with QMK devices over HID";

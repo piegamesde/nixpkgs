@@ -1,22 +1,23 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, cons
-, cython
-, etuples
-, fetchFromGitHub
-, filelock
-, jax
-, jaxlib
-, logical-unification
-, minikanren
-, numba
-, numba-scipy
-, numpy
-, pytestCheckHook
-, pythonOlder
-, scipy
-, typing-extensions
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  cons,
+  cython,
+  etuples,
+  fetchFromGitHub,
+  filelock,
+  jax,
+  jaxlib,
+  logical-unification,
+  minikanren,
+  numba,
+  numba-scipy,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-4GDur8S19i8pZkywKHZUelmd2e0jZmC5HzF7o2esDl4=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
   propagatedBuildInputs = [
     cons
@@ -65,9 +64,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [
-    "pytensor"
-  ];
+  pythonImportsCheck = [ "pytensor" ];
 
   disabledTests = [
     # benchmarks (require pytest-benchmark):

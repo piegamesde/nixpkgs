@@ -1,18 +1,19 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, cython
-, ecos
-, joblib
-, numexpr
-, numpy
-, osqp
-, pandas
-, setuptools-scm
-, scikit-learn
-, scipy
-, pytestCheckHook
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  ecos,
+  joblib,
+  numexpr,
+  numpy,
+  osqp,
+  pandas,
+  setuptools-scm,
+  scikit-learn,
+  scipy,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

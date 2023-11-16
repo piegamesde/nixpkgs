@@ -1,8 +1,18 @@
-{ lib, stdenv, fetchurl, makeWrapper, cups, perl, coreutils, gnused, gnugrep
-, brgenml1lpr, debugLvl ? "0"}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  cups,
+  perl,
+  coreutils,
+  gnused,
+  gnugrep,
+  brgenml1lpr,
+  debugLvl ? "0",
+}:
 
-/*
-    [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
+/* [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
 
     URI example
      ~  `lpd://BRW0080927AFBCE/binary_p1`
@@ -66,7 +76,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ cups perl coreutils gnused gnugrep brgenml1lpr ];
+  buildInputs = [
+    cups
+    perl
+    coreutils
+    gnused
+    gnugrep
+    brgenml1lpr
+  ];
 
   dontBuild = true;
 
@@ -89,7 +106,6 @@ stdenv.mkDerivation rec {
     substituteInPlace $PAPER_CFG \
       --replace "/etc/cups/ppd" "$out/share/cups/model"
   '';
-
 
   installPhase = ''
     CUPSFILTER_DIR=$out/lib/cups/filter

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, cython_3
-, fetchPypi
-, future
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, setuptools
-, setuptools-scm
-, toolz
+{
+  lib,
+  buildPythonPackage,
+  cython_3,
+  fetchPypi,
+  future,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  toolz,
 }:
 
 buildPythonPackage rec {
@@ -29,18 +30,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    future
-  ];
+  propagatedBuildInputs = [ future ];
 
   nativeCheckInputs = [
     pytestCheckHook
     toolz
   ];
 
-  pythonImportsCheck = [
-    "in_n_out"
-  ];
+  pythonImportsCheck = [ "in_n_out" ];
 
   disabledTestPaths = lib.optionals (pythonAtLeast "3.11") [
     # Fatal Python error

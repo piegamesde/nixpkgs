@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, perl, gettext, pkg-config, libidn2, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  gettext,
+  pkg-config,
+  libidn2,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   version = "5.5.17";
@@ -11,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Nqnbi2nS95nzyzFNdahSKY/Om30sZXRJhoCSrzRiD9c=";
   };
 
-  nativeBuildInputs = [ perl gettext pkg-config ];
-  buildInputs = [ libidn2 libiconv ];
+  nativeBuildInputs = [
+    perl
+    gettext
+    pkg-config
+  ];
+  buildInputs = [
+    libidn2
+    libiconv
+  ];
 
   preConfigure = ''
     for i in Makefile po/Makefile; do

@@ -1,8 +1,9 @@
-{ buildPythonApplication
-, fetchFromGitHub
-, poetry-core
-, i3ipc
-, lib
+{
+  buildPythonApplication,
+  fetchFromGitHub,
+  poetry-core,
+  i3ipc,
+  lib,
 }:
 
 buildPythonApplication rec {
@@ -17,19 +18,16 @@ buildPythonApplication rec {
     hash = "sha256-bcIzbDpIe2GKS9EcVqpjwz0IG2ixNMn06OIQpZ7PeH0=";
   };
 
-  patches = [
-    # Fixes `build-system` not being specified in `pyproject.toml`
-    # https://github.com/LandingEllipse/kitti3/pull/25
-    ./kitti3-fix-build-system.patch
-  ];
+  patches =
+    [
+      # Fixes `build-system` not being specified in `pyproject.toml`
+      # https://github.com/LandingEllipse/kitti3/pull/25
+      ./kitti3-fix-build-system.patch
+    ];
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    i3ipc
-  ];
+  propagatedBuildInputs = [ i3ipc ];
 
   meta = with lib; {
     homepage = "https://github.com/LandingEllipse/kitti3";

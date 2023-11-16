@@ -1,4 +1,8 @@
-{ lib, buildDunePackage, reason }:
+{
+  lib,
+  buildDunePackage,
+  reason,
+}:
 
 buildDunePackage rec {
   pname = "helloreason";
@@ -8,9 +12,7 @@ buildDunePackage rec {
 
   useDune2 = true;
 
-  buildInputs = [
-    reason
-  ];
+  buildInputs = [ reason ];
 
   doCheck = true;
 

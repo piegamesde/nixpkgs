@@ -1,9 +1,20 @@
-{ lib, stdenv, fetchFromGitHub
-, mpfr, gnuplot
-, readline
-, libxml2, curl
-, intltool, libiconv, icu, gettext
-, pkg-config, doxygen, autoreconfHook, buildPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mpfr,
+  gnuplot,
+  readline,
+  libxml2,
+  curl,
+  intltool,
+  libiconv,
+  icu,
+  gettext,
+  pkg-config,
+  doxygen,
+  autoreconfHook,
+  buildPackages,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,26 +28,46 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GOVSNEnEl/oef54q88s+YuLyqPMLyx1eoX7DlWrmo2c=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ intltool pkg-config autoreconfHook doxygen ];
-  buildInputs = [ curl gettext libiconv readline ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    autoreconfHook
+    doxygen
+  ];
+  buildInputs = [
+    curl
+    gettext
+    libiconv
+    readline
+  ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  propagatedBuildInputs = [ libxml2 mpfr icu ];
+  propagatedBuildInputs = [
+    libxml2
+    mpfr
+    icu
+  ];
   enableParallelBuilding = true;
 
   preConfigure = ''
     intltoolize -f
   '';
 
-  patchPhase = ''
-    substituteInPlace libqalculate/Calculator-plot.cc \
-      --replace 'commandline = "gnuplot"' 'commandline = "${gnuplot}/bin/gnuplot"' \
-      --replace '"gnuplot - ' '"${gnuplot}/bin/gnuplot - '
-  '' + lib.optionalString stdenv.cc.isClang ''
-    substituteInPlace src/qalc.cc \
-      --replace 'printf(_("aborted"))' 'printf("%s", _("aborted"))'
-  '';
+  patchPhase =
+    ''
+      substituteInPlace libqalculate/Calculator-plot.cc \
+        --replace 'commandline = "gnuplot"' 'commandline = "${gnuplot}/bin/gnuplot"' \
+        --replace '"gnuplot - ' '"${gnuplot}/bin/gnuplot - '
+    ''
+    + lib.optionalString stdenv.cc.isClang ''
+      substituteInPlace src/qalc.cc \
+        --replace 'printf(_("aborted"))' 'printf("%s", _("aborted"))'
+    '';
 
   preBuild = ''
     pushd docs/reference
@@ -48,7 +79,11 @@ stdenv.mkDerivation rec {
     description = "An advanced calculator library";
     homepage = "http://qalculate.github.io";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ gebner doronbehar alyaeanyx ];
+    maintainers = with maintainers; [
+      gebner
+      doronbehar
+      alyaeanyx
+    ];
     mainProgram = "qalc";
     platforms = platforms.all;
   };

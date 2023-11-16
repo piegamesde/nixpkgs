@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, expecttest
-, pytest-timeout
-, huggingface-hub
-, pyyaml
-, safetensors
-, torch
-, torchvision
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  expecttest,
+  pytest-timeout,
+  huggingface-hub,
+  pyyaml,
+  safetensors,
+  torch,
+  torchvision,
 }:
 
 buildPythonPackage rec {
@@ -40,19 +41,19 @@ buildPythonPackage rec {
     pytest-timeout
   ];
 
-  pytestFlagsArray = [
-    "tests"
-  ];
+  pytestFlagsArray = [ "tests" ];
 
-  disabledTestPaths = [
-    # Takes too long and also tries to download models
-    "tests/test_models.py"
-  ];
+  disabledTestPaths =
+    [
+      # Takes too long and also tries to download models
+      "tests/test_models.py"
+    ];
 
-  disabledTests = [
-    # AttributeError: 'Lookahead' object has no attribute '_optimizer_step_pre...
-    "test_lookahead"
-  ];
+  disabledTests =
+    [
+      # AttributeError: 'Lookahead' object has no attribute '_optimizer_step_pre...
+      "test_lookahead"
+    ];
 
   pythonImportsCheck = [
     "timm"

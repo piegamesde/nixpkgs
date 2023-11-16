@@ -1,12 +1,38 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "css-selectors-stp";
   version = "css-selectors-20160628-git";
 
   description = "An implementation of css selectors that interacts with cxml-stp";
 
-  deps = [ args."alexandria" args."babel" args."buildnode" args."cl-interpol" args."cl-ppcre" args."cl-unicode" args."closer-mop" args."closure-common" args."closure-html" args."collectors" args."css-selectors" args."cxml" args."cxml-stp" args."flexi-streams" args."iterate" args."named-readtables" args."parse-number" args."puri" args."split-sequence" args."swank" args."symbol-munger" args."trivial-features" args."trivial-gray-streams" args."xpath" args."yacc" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."buildnode"
+    args."cl-interpol"
+    args."cl-ppcre"
+    args."cl-unicode"
+    args."closer-mop"
+    args."closure-common"
+    args."closure-html"
+    args."collectors"
+    args."css-selectors"
+    args."cxml"
+    args."cxml-stp"
+    args."flexi-streams"
+    args."iterate"
+    args."named-readtables"
+    args."parse-number"
+    args."puri"
+    args."split-sequence"
+    args."swank"
+    args."symbol-munger"
+    args."trivial-features"
+    args."trivial-gray-streams"
+    args."xpath"
+    args."yacc"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/css-selectors/2016-06-28/css-selectors-20160628-git.tgz";
@@ -15,7 +41,7 @@ rec {
 
   packageName = "css-selectors-stp";
 
-  asdFilesToKeep = ["css-selectors-stp.asd"];
+  asdFilesToKeep = [ "css-selectors-stp.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM css-selectors-stp DESCRIPTION
@@ -49,4 +75,5 @@ rec {
      flexi-streams iterate named-readtables parse-number puri split-sequence
      swank symbol-munger trivial-features trivial-gray-streams xpath yacc)
     VERSION css-selectors-20160628-git SIBLINGS
-    (css-selectors-simple-tree css-selectors) PARASITES NIL) */
+    (css-selectors-simple-tree css-selectors) PARASITES NIL)
+*/

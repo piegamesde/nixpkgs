@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -41,9 +46,18 @@ in
     };
 
     datastore = mkOption {
-      type = types.enum [ "pinecone" "weaviate" "zilliz" "milvus" "qdrant" "redis" ];
+      type = types.enum [
+        "pinecone"
+        "weaviate"
+        "zilliz"
+        "milvus"
+        "qdrant"
+        "redis"
+      ];
       default = "qdrant";
-      description = lib.mdDoc "This specifies the vector database provider you want to use to store and query embeddings.";
+      description =
+        lib.mdDoc
+          "This specifies the vector database provider you want to use to store and query embeddings.";
     };
 
     qdrantCollection = mkOption {
@@ -98,9 +112,10 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = [
-      # create the directory for static files for fastapi
-      "C /var/lib/chatgpt-retrieval-plugin/.well-known - - - - ${pkgs.chatgpt-retrieval-plugin}/${pkgs.python3Packages.python.sitePackages}/.well-known"
-    ];
+    systemd.tmpfiles.rules =
+      [
+        # create the directory for static files for fastapi
+        "C /var/lib/chatgpt-retrieval-plugin/.well-known - - - - ${pkgs.chatgpt-retrieval-plugin}/${pkgs.python3Packages.python.sitePackages}/.well-known"
+      ];
   };
 }

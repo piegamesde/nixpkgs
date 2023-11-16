@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, cmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cmtk";
@@ -20,9 +25,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "Computational Morphometry Toolkit ";
-    longDescription = ''A software toolkit for computational morphometry of
-      biomedical images, CMTK comprises a set of command line tools and a
-      back-end general-purpose library for processing and I/O'';
+    longDescription = ''
+      A software toolkit for computational morphometry of
+            biomedical images, CMTK comprises a set of command line tools and a
+            back-end general-purpose library for processing and I/O'';
     maintainers = with maintainers; [ tbenst ];
     platforms = platforms.all;
     license = licenses.gpl3;

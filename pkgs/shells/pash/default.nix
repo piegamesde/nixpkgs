@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildDotnetPackage }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDotnetPackage,
+}:
 
 buildDotnetPackage {
   pname = "pash";
@@ -19,9 +23,15 @@ buildDotnetPackage {
   meta = with lib; {
     description = "An open source implementation of Windows PowerShell";
     homepage = "https://github.com/Pash-Project/Pash";
-    maintainers = [ maintainers.fornever maintainers.vrthra ];
+    maintainers = [
+      maintainers.fornever
+      maintainers.vrthra
+    ];
     platforms = platforms.all;
-    license = with licenses; [ bsd3 gpl3 ];
+    license = with licenses; [
+      bsd3
+      gpl3
+    ];
   };
 
   passthru = {

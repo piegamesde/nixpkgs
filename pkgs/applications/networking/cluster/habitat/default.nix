@@ -1,13 +1,14 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, protobuf
-, libsodium
-, openssl
-, xz
-, zeromq
-, cacert
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  protobuf,
+  libsodium,
+  openssl,
+  xz,
+  zeromq,
+  cacert,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -45,7 +46,10 @@ rustPlatform.buildRustPackage rec {
     zeromq
   ];
 
-  cargoBuildFlags = [ "-p" "hab" ];
+  cargoBuildFlags = [
+    "-p"
+    "hab"
+  ];
   cargoTestFlags = cargoBuildFlags;
 
   env = {

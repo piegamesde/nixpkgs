@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, makeWrapper
-, gawk
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  gawk,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,9 +25,7 @@ stdenv.mkDerivation rec {
       --replace '$(gawk' '$(${gawk}/bin/gawk'
   '';
 
-  buildInputs = [
-    gawk
-  ];
+  buildInputs = [ gawk ];
 
   nativeBuildInputs = [
     cmake

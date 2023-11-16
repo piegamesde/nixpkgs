@@ -1,6 +1,15 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder
-, coverage, flake8, mock, nose, importlib-metadata
-, cryptography }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  coverage,
+  flake8,
+  mock,
+  nose,
+  importlib-metadata,
+  cryptography,
+}:
 
 buildPythonPackage rec {
   pname = "http_ece";
@@ -11,10 +20,16 @@ buildPythonPackage rec {
     sha256 = "1y5ln09ji4dwpzhxr77cggk02kghq7lql60a6969a5n2lwpvqblk";
   };
 
-  propagatedBuildInputs = [ cryptography ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    cryptography
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [ coverage flake8 mock nose ];
+  nativeCheckInputs = [
+    coverage
+    flake8
+    mock
+    nose
+  ];
 
   meta = with lib; {
     description = "Encipher HTTP Messages";

@@ -1,9 +1,10 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, wrapQtAppsHook
-, borgbackup
-, qt5
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  borgbackup,
+  qt5,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -19,19 +20,20 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs = with python3Packages; [
-    peewee
-    pyqt5
-    python-dateutil
-    psutil
-    qdarkstyle
-    secretstorage
-    appdirs
-    setuptools
-    platformdirs
-  ] ++ lib.optionals stdenv.isLinux [
-    qt5.qtwayland
-  ];
+  propagatedBuildInputs =
+    with python3Packages;
+    [
+      peewee
+      pyqt5
+      python-dateutil
+      psutil
+      qdarkstyle
+      secretstorage
+      appdirs
+      setuptools
+      platformdirs
+    ]
+    ++ lib.optionals stdenv.isLinux [ qt5.qtwayland ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

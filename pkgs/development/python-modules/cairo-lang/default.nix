@@ -1,32 +1,33 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, cachetools
-, ecdsa
-, eth-hash
-, fastecdsa
-, fetchzip
-, frozendict
-, gmp
-, lark
-, marshmallow
-, marshmallow-dataclass
-, marshmallow-enum
-, marshmallow-oneofschema
-, mpmath
-, numpy
-, pipdeptree
-, prometheus-client
-, pytest
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
-, setuptools
-, sympy
-, typeguard
-, web3
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  cachetools,
+  ecdsa,
+  eth-hash,
+  fastecdsa,
+  fetchzip,
+  frozendict,
+  gmp,
+  lark,
+  marshmallow,
+  marshmallow-dataclass,
+  marshmallow-enum,
+  marshmallow-oneofschema,
+  mpmath,
+  numpy,
+  pipdeptree,
+  prometheus-client,
+  pytest,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  setuptools,
+  sympy,
+  typeguard,
+  web3,
 }:
 
 buildPythonPackage rec {
@@ -41,13 +42,9 @@ buildPythonPackage rec {
     hash = "sha256-MNbzDqqNhij9JizozLp9hhQjbRGzWxECOErS3TOPlAA=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  buildInputs = [
-    gmp
-  ];
+  buildInputs = [ gmp ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -77,9 +74,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonRelaxDeps = [
-    "frozendict"
-  ];
+  pythonRelaxDeps = [ "frozendict" ];
 
   pythonRemoveDeps = [
     # TODO: pytest and pytest-asyncio must be removed as they are check inputs

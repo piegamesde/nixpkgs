@@ -1,13 +1,14 @@
-{ buildPythonPackage
-, certifi
-, fetchPypi
-, lib
-, python-dateutil
-, python-slugify
-, six
-, requests
-, tqdm
-, urllib3
+{
+  buildPythonPackage,
+  certifi,
+  fetchPypi,
+  lib,
+  python-dateutil,
+  python-slugify,
+  six,
+  requests,
+  tqdm,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -25,7 +26,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py \
       --replace 'urllib3 >= 1.21.1, < 1.25' 'urllib3' \
       --replace " 'slugify'," " "
-    '';
+  '';
 
   propagatedBuildInputs = [
     certifi

@@ -1,13 +1,14 @@
-{ mkDerivation
-  , lib
-  , fetchFromGitHub
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
 
-  , cmake
-  , pkg-config
-  , qtbase
-  , qttools
-  , qtx11extras
-  , qttranslations
+  cmake,
+  pkg-config,
+  qtbase,
+  qttools,
+  qtx11extras,
+  qttranslations,
 }:
 
 mkDerivation rec {
@@ -21,14 +22,20 @@ mkDerivation rec {
     sha256 = "1469ng6zk0qx0qfsihrnlz1j9i1wk0hx4vqdaplz9mdpyxvmlryk";
   };
 
-  patches = [
-    # See https://github.com/NixOS/nixpkgs/issues/86054
-    ./fix-qttranslations-path.diff
-  ];
+  patches =
+    [
+      # See https://github.com/NixOS/nixpkgs/issues/86054
+      ./fix-qttranslations-path.diff
+    ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
-    qtbase qttools qtx11extras
+    qtbase
+    qttools
+    qtx11extras
   ];
 
   postPatch = ''
@@ -44,7 +51,10 @@ mkDerivation rec {
     description = "Mail system tray notification icon for Thunderbird";
     homepage = "https://github.com/gyunaev/birdtray";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ Flakebi oxalica ];
+    maintainers = with maintainers; [
+      Flakebi
+      oxalica
+    ];
     platforms = platforms.linux;
   };
 }

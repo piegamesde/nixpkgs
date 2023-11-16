@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, coverage
-, zope_testrunner
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  coverage,
+  zope_testrunner,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ coverage zope_testrunner ];
+  nativeCheckInputs = [
+    coverage
+    zope_testrunner
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/zope.i18nmessageid";
@@ -25,5 +29,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

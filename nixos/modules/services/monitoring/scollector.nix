@@ -1,32 +1,39 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.scollector;
 
-  collectors = pkgs.runCommand "collectors" { preferLocalBuild = true; }
-    ''
+  collectors = pkgs.runCommand "collectors" { preferLocalBuild = true; } ''
     mkdir -p $out
-    ${lib.concatStringsSep
-        "\n"
-        (lib.mapAttrsToList
-          (frequency: binaries:
-            "mkdir -p $out/${frequency}\n" +
-            (lib.concatStringsSep
-              "\n"
-              (map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})")
-                   binaries)))
-          cfg.collectors)}
-    '';
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList
+        (
+          frequency: binaries:
+          ''
+            mkdir -p $out/${frequency}
+          ''
+          + (lib.concatStringsSep "\n" (
+            map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})") binaries
+          ))
+        )
+        cfg.collectors
+    )}
+  '';
 
   conf = pkgs.writeText "scollector.toml" ''
     Host = "${cfg.bosunHost}"
     ColDir = "${collectors}"
     ${cfg.extraConfig}
   '';
-
-in {
+in
+{
 
   options = {
 
@@ -76,7 +83,7 @@ in {
 
       collectors = mkOption {
         type = with types; attrsOf (listOf path);
-        default = {};
+        default = { };
         example = literalExpression ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
         description = lib.mdDoc ''
           An attribute set mapping the frequency of collection to a list of
@@ -87,7 +94,7 @@ in {
 
       extraOpts = mkOption {
         type = with types; listOf str;
-        default = [];
+        default = [ ];
         example = [ "-d" ];
         description = lib.mdDoc ''
           Extra scollector command line options
@@ -101,9 +108,7 @@ in {
           Extra scollector configuration added to the end of scollector.toml
         '';
       };
-
     };
-
   };
 
   config = mkIf config.services.scollector.enable {
@@ -112,7 +117,10 @@ in {
       description = "scollector metrics collector (part of Bosun)";
       wantedBy = [ "multi-user.target" ];
 
-      path = [ pkgs.coreutils pkgs.iproute2 ];
+      path = [
+        pkgs.coreutils
+        pkgs.iproute2
+      ];
 
       serviceConfig = {
         User = cfg.user;
@@ -128,7 +136,5 @@ in {
     };
 
     users.groups.scollector.gid = config.ids.gids.scollector;
-
   };
-
 }

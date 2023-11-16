@@ -1,18 +1,18 @@
-{ stdenv
-, lib
-, libPath
-, cudatoolkit
-, fetchurl
-, autoPatchelfHook
-, addOpenGLRunpath
+{
+  stdenv,
+  lib,
+  libPath,
+  cudatoolkit,
+  fetchurl,
+  autoPatchelfHook,
+  addOpenGLRunpath,
 
-, version
-, hash
+  version,
+  hash,
 }:
 
 let
-  mostOfVersion = builtins.concatStringsSep "."
-    (lib.take 3 (lib.versions.splitVersion version));
+  mostOfVersion = builtins.concatStringsSep "." (lib.take 3 (lib.versions.splitVersion version));
   platform = "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
 in
 
@@ -21,26 +21,27 @@ stdenv.mkDerivation {
   inherit version;
 
   src = fetchurl {
-    url = if lib.versionOlder mostOfVersion "1.3.3"
-      then "https://developer.download.nvidia.com/compute/cutensor/${mostOfVersion}/local_installers/libcutensor-${platform}-${version}.tar.gz"
-      else "https://developer.download.nvidia.com/compute/cutensor/redist/libcutensor/${platform}/libcutensor-${platform}-${version}-archive.tar.xz";
+    url =
+      if lib.versionOlder mostOfVersion "1.3.3" then
+        "https://developer.download.nvidia.com/compute/cutensor/${mostOfVersion}/local_installers/libcutensor-${platform}-${version}.tar.gz"
+      else
+        "https://developer.download.nvidia.com/compute/cutensor/redist/libcutensor/${platform}/libcutensor-${platform}-${version}-archive.tar.xz";
     inherit hash;
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     autoPatchelfHook
     addOpenGLRunpath
   ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ stdenv.cc.cc.lib ];
 
-  propagatedBuildInputs = [
-    cudatoolkit
-  ];
+  propagatedBuildInputs = [ cudatoolkit ];
 
   # Set RUNPATH so that libcuda in /run/opengl-driver(-32)/lib can be found.
   # See the explanation in addOpenGLRunpath.

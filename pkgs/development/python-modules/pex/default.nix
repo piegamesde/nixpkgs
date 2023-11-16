@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-ywzmz2R1fdW6TzTEYHq0hfeQnmwkzUecoozlIgXw7es=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   # A few more dependencies I don't want to handle right now...
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pex"
-  ];
+  pythonImportsCheck = [ "pex" ];
 
   meta = with lib; {
     description = "Python library and tool for generating .pex (Python EXecutable) files";

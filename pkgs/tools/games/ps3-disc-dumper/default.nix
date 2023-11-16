@@ -1,9 +1,10 @@
-{ lib
-, buildDotnetModule
-, dotnetCorePackages
-, fetchFromGitHub
-, zlib
-, openssl
+{
+  lib,
+  buildDotnetModule,
+  dotnetCorePackages,
+  fetchFromGitHub,
+  zlib,
+  openssl,
 }:
 
 buildDotnetModule rec {

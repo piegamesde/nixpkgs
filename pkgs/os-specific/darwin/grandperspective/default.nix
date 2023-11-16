@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, undmg, ... }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  undmg,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   version = "3.0.1";
@@ -6,7 +12,9 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     inherit version;
-    url = "mirror://sourceforge/grandperspectiv/GrandPerspective-${builtins.replaceStrings [ "." ] [ "_" ] version}.dmg";
+    url = "mirror://sourceforge/grandperspectiv/GrandPerspective-${
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }.dmg";
     sha256 = "sha256-ZPqrlN9aw5q7656GmmxCnTRBw3lu9n952rIyun8MsiI=";
   };
 
@@ -30,5 +38,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ eliandoran ];
     platforms = [ "x86_64-darwin" ];
   };
-
 }

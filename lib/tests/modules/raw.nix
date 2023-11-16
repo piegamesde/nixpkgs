@@ -1,18 +1,11 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
 
   options = {
-    processedToplevel = lib.mkOption {
-      type = lib.types.raw;
-    };
-    unprocessedNesting = lib.mkOption {
-      type = lib.types.raw;
-    };
-    multiple = lib.mkOption {
-      type = lib.types.raw;
-    };
-    priorities = lib.mkOption {
-      type = lib.types.raw;
-    };
+    processedToplevel = lib.mkOption { type = lib.types.raw; };
+    unprocessedNesting = lib.mkOption { type = lib.types.raw; };
+    multiple = lib.mkOption { type = lib.types.raw; };
+    priorities = lib.mkOption { type = lib.types.raw; };
   };
 
   config = {

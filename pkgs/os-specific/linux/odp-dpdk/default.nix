@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, pkg-config
-, dpdk
-, libbpf
-, libconfig
-, libpcap
-, numactl
-, openssl
-, zlib
-, libbsd
-, libelf
-, jansson
-, libnl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  dpdk,
+  libbpf,
+  libconfig,
+  libpcap,
+  numactl,
+  openssl,
+  zlib,
+  libbsd,
+  libelf,
+  jansson,
+  libnl,
 }:
 
 stdenv.mkDerivation rec {

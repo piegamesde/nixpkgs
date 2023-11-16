@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "optima";
   version = "20150709-git";
 
   description = "Optimized Pattern Matching Library";
 
-  deps = [ args."alexandria" args."closer-mop" ];
+  deps = [
+    args."alexandria"
+    args."closer-mop"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/optima/2015-07-09/optima-20150709-git.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "optima";
 
-  asdFilesToKeep = ["optima.asd"];
+  asdFilesToKeep = [ "optima.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM optima DESCRIPTION Optimized Pattern Matching Library SHA256
@@ -25,4 +28,5 @@ rec {
     ((NAME alexandria FILENAME alexandria)
      (NAME closer-mop FILENAME closer-mop))
     DEPENDENCIES (alexandria closer-mop) VERSION 20150709-git SIBLINGS
-    (optima.ppcre optima.test) PARASITES NIL) */
+    (optima.ppcre optima.test) PARASITES NIL)
+*/

@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, meson
-, ninja
-, pkg-config
-, hyprland-protocols
-, hyprland-share-picker
-, inih
-, libdrm
-, libuuid
-, mesa
-, pipewire
-, systemd
-, wayland
-, wayland-protocols
-, wayland-scanner
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  hyprland-protocols,
+  hyprland-share-picker,
+  inih,
+  libdrm,
+  libuuid,
+  mesa,
+  pipewire,
+  systemd,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
 }:
 let
   source = import ./source.nix { inherit lib fetchFromGitHub wayland; };
@@ -45,11 +46,11 @@ stdenv.mkDerivation {
     wayland-protocols
   ];
 
-  mesonFlags = [
-    "-Dsd-bus-provider=libsystemd"
-  ];
+  mesonFlags = [ "-Dsd-bus-provider=libsystemd" ];
 
   postInstall = ''
-    wrapProgram $out/libexec/xdg-desktop-portal-hyprland --prefix PATH ":" ${lib.makeBinPath [hyprland-share-picker]}
+    wrapProgram $out/libexec/xdg-desktop-portal-hyprland --prefix PATH ":" ${
+      lib.makeBinPath [ hyprland-share-picker ]
+    }
   '';
 }

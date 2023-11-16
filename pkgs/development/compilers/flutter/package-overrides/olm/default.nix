@@ -1,10 +1,10 @@
-{ olm
-}:
+{ olm }:
 
 { ... }:
 
-{ runtimeDependencies ? [ ]
-, ...
+{
+  runtimeDependencies ? [ ],
+  ...
 }:
 
 {

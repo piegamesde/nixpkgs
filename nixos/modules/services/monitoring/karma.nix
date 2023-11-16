@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.services.karma;
@@ -29,13 +34,13 @@ in
 
     environment = mkOption {
       type = with types; attrsOf str;
-      default = {};
+      default = { };
       description = mdDoc ''
         Additional environment variables to provide to karma.
       '';
       example = {
         ALERTMANAGER_URI = "https://alertmanager.example.com";
-        ALERTMANAGER_NAME= "single";
+        ALERTMANAGER_NAME = "single";
       };
     };
 
@@ -49,13 +54,11 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = mdDoc ''
         Extra command line options.
       '';
-      example = [
-        "--alertmanager.timeout 10s"
-      ];
+      example = [ "--alertmanager.timeout 10s" ];
     };
 
     settings = mkOption {
@@ -120,7 +123,9 @@ in
         Type = "simple";
         DynamicUser = true;
         Restart = "on-failure";
-        ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${concatStringsSep " " cfg.extraOptions}";
+        ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${
+            concatStringsSep " " cfg.extraOptions
+          }";
       };
     };
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.listen.port ];

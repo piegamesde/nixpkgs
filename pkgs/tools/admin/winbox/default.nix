@@ -1,9 +1,10 @@
-{ lib
-, fetchurl
-, makeDesktopItem
-, symlinkJoin
-, writeShellScriptBin
-, wine
+{
+  lib,
+  fetchurl,
+  makeDesktopItem,
+  symlinkJoin,
+  writeShellScriptBin,
+  wine,
 }:
 
 let
@@ -13,13 +14,18 @@ let
   version = "3.38";
   name = "${pname}-${version}";
 
-  executable = fetchurl (if (wine.meta.mainProgram == "wine64") then {
-    url = "https://download.mikrotik.com/winbox/${version}/winbox64.exe";
-    sha256 = "RV+j8FQigpwPprR2xuMYpDRMDwugSZD+O2ZmyPZDz54=";
-  } else {
-    url = "https://download.mikrotik.com/winbox/${version}/winbox.exe";
-    sha256 = "dh3P+otukhnEpVTqTu16MgIHVnJbzp4Voj+wZ3r5Fxg=";
-  });
+  executable = fetchurl (
+    if (wine.meta.mainProgram == "wine64") then
+      {
+        url = "https://download.mikrotik.com/winbox/${version}/winbox64.exe";
+        sha256 = "RV+j8FQigpwPprR2xuMYpDRMDwugSZD+O2ZmyPZDz54=";
+      }
+    else
+      {
+        url = "https://download.mikrotik.com/winbox/${version}/winbox.exe";
+        sha256 = "dh3P+otukhnEpVTqTu16MgIHVnJbzp4Voj+wZ3r5Fxg=";
+      }
+  );
 
   # This is from the winbox AUR package:
   # https://aur.archlinux.org/cgit/aur.git/tree/winbox64?h=winbox64&id=8edd93792af84e87592e8645ca09e9795931e60e
@@ -54,7 +60,10 @@ let
 in
 symlinkJoin {
   inherit name pname version;
-  paths = [ wrapper desktopItem ];
+  paths = [
+    wrapper
+    desktopItem
+  ];
 
   postBuild = ''
     mkdir -p "$out/share/pixmaps"

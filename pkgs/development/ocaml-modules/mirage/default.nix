@@ -1,6 +1,15 @@
-{ lib, buildDunePackage, ocaml, alcotest
-, functoria, mirage-runtime, bos
-, ipaddr, astring, logs, stdlib-shims
+{
+  lib,
+  buildDunePackage,
+  ocaml,
+  alcotest,
+  functoria,
+  mirage-runtime,
+  bos,
+  ipaddr,
+  astring,
+  logs,
+  stdlib-shims,
 }:
 
 buildDunePackage rec {
@@ -10,7 +19,10 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   propagatedBuildInputs = [
     ipaddr
@@ -24,9 +36,7 @@ buildDunePackage rec {
 
   # Tests need opam-monorepo
   doCheck = false;
-  checkInputs = [
-    alcotest
-  ];
+  checkInputs = [ alcotest ];
 
   installPhase = ''
     runHook preInstall

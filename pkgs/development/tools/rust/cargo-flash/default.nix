@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-, libusb1
-, pkg-config
-, DarwinTools
-, AppKit
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  libusb1,
+  pkg-config,
+  DarwinTools,
+  AppKit,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -26,7 +27,13 @@ rustPlatform.buildRustPackage rec {
     description = "A cargo extension for working with microcontrollers";
     homepage = "https://probe.rs/";
     changelog = "https://github.com/probe-rs/probe-rs/blob/v${version}/cargo-flash/CHANGELOG.md";
-    license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ fooker newam ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
+    maintainers = with maintainers; [
+      fooker
+      newam
+    ];
   };
 }

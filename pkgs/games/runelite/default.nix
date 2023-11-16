@@ -1,4 +1,14 @@
-{ pkgs, lib, stdenv, makeDesktopItem, fetchurl, unzip, makeWrapper, xorg, jre, }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  makeDesktopItem,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  xorg,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "runelite";
@@ -36,7 +46,10 @@ stdenv.mkDerivation rec {
     categories = [ "Game" ];
   };
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
   installPhase = ''
     mkdir -p $out/share/runelite
     mkdir -p $out/share/applications

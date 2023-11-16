@@ -1,19 +1,20 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, git
-, nodejs
-, protobuf
-, protoc-gen-go
-, protoc-gen-go-grpc
-, rustPlatform
-, pkg-config
-, openssl
-, extra-cmake-modules
-, fontconfig
-, go
-, testers
-, turbo
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  git,
+  nodejs,
+  protobuf,
+  protoc-gen-go,
+  protoc-gen-go-grpc,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  extra-cmake-modules,
+  fontconfig,
+  go,
+  testers,
+  turbo,
 }:
 let
   version = "1.8.3";
@@ -54,7 +55,6 @@ let
       git init
       popd
     '';
-
   };
 in
 rustPlatform.buildRustPackage rec {

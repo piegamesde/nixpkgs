@@ -1,77 +1,78 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, numpy
-, pyyaml
-, sqlalchemy
-, requests
-, async-timeout
-, aiohttp
-, numexpr
-, openapi-schema-pydantic
-, dataclasses-json
-, tqdm
-, tenacity
-, bash
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  numpy,
+  pyyaml,
+  sqlalchemy,
+  requests,
+  async-timeout,
+  aiohttp,
+  numexpr,
+  openapi-schema-pydantic,
+  dataclasses-json,
+  tqdm,
+  tenacity,
+  bash,
   # optional dependencies
-, anthropic
-, cohere
-, openai
-, nlpcloud
-, huggingface-hub
-, manifest-ml
-, torch
-, transformers
-, qdrant-client
-, sentence-transformers
-, azure-identity
-, azure-cosmos
-, azure-core
-, elasticsearch
-, opensearch-py
-, google-search-results
-, faiss
-, spacy
-, nltk
-, beautifulsoup4
-, tiktoken
-, jinja2
-, pinecone-client
-, weaviate-client
-, redis
-, google-api-python-client
-, pypdf
-, networkx
-, psycopg2
-, boto3
-, pyowm
-, pytesseract
-, html2text
-, atlassian-python-api
-, duckduckgo-search
-, lark
-, jq
-, steamship
-, pdfminer-six
-, lxml
-, chardet
-, requests-toolbelt
-, neo4j
-, langchainplus-sdk
+  anthropic,
+  cohere,
+  openai,
+  nlpcloud,
+  huggingface-hub,
+  manifest-ml,
+  torch,
+  transformers,
+  qdrant-client,
+  sentence-transformers,
+  azure-identity,
+  azure-cosmos,
+  azure-core,
+  elasticsearch,
+  opensearch-py,
+  google-search-results,
+  faiss,
+  spacy,
+  nltk,
+  beautifulsoup4,
+  tiktoken,
+  jinja2,
+  pinecone-client,
+  weaviate-client,
+  redis,
+  google-api-python-client,
+  pypdf,
+  networkx,
+  psycopg2,
+  boto3,
+  pyowm,
+  pytesseract,
+  html2text,
+  atlassian-python-api,
+  duckduckgo-search,
+  lark,
+  jq,
+  steamship,
+  pdfminer-six,
+  lxml,
+  chardet,
+  requests-toolbelt,
+  neo4j,
+  langchainplus-sdk,
   # test dependencies
-, pytest-vcr
-, pytest-asyncio
-, pytest-mock
-, pytest-socket
-, pandas
-, toml
-, freezegun
-, responses
-, pexpect
-, pytestCheckHook
-, pythonRelaxDepsHook
+  pytest-vcr,
+  pytest-asyncio,
+  pytest-mock,
+  pytest-socket,
+  pandas,
+  toml,
+  freezegun,
+  responses,
+  pexpect,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -100,9 +101,7 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  buildInputs = [
-    bash
-  ];
+  buildInputs = [ bash ];
 
   propagatedBuildInputs = [
     numpy
@@ -115,9 +114,7 @@ buildPythonPackage rec {
     dataclasses-json
     tqdm
     tenacity
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    async-timeout
-  ] ++ passthru.optional-dependencies.all;
+  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ] ++ passthru.optional-dependencies.all;
 
   passthru.optional-dependencies = {
     llms = [
@@ -130,24 +127,15 @@ buildPythonPackage rec {
       torch
       transformers
     ];
-    qdrant = [
-      qdrant-client
-    ];
-    openai = [
-      openai
-    ];
-    text_helpers = [
-      chardet
-    ];
-    cohere = [
-      cohere
-    ];
-    docarray = [
-      # docarray
-    ];
-    embeddings = [
-      sentence-transformers
-    ];
+    qdrant = [ qdrant-client ];
+    openai = [ openai ];
+    text_helpers = [ chardet ];
+    cohere = [ cohere ];
+    docarray =
+      [
+        # docarray
+      ];
+    embeddings = [ sentence-transformers ];
     azure = [
       azure-identity
       azure-cosmos
@@ -222,9 +210,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonRelaxDeps = [
-    "langchainplus-sdk"
-  ];
+  pythonRelaxDeps = [ "langchainplus-sdk" ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -238,10 +224,11 @@ buildPythonPackage rec {
     responses
   ];
 
-  pytestFlagsArray = [
-    # integration_tests have many network, db access and require `OPENAI_API_KEY`, etc.
-    "tests/unit_tests"
-  ];
+  pytestFlagsArray =
+    [
+      # integration_tests have many network, db access and require `OPENAI_API_KEY`, etc.
+      "tests/unit_tests"
+    ];
 
   disabledTests = [
     # these tests have db access

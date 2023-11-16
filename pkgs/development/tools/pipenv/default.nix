@@ -1,28 +1,30 @@
-{ lib
-, stdenv
-, python3
-, fetchPypi
-, installShellFiles
+{
+  lib,
+  stdenv,
+  python3,
+  fetchPypi,
+  installShellFiles,
 }:
 
 with python3.pkgs;
 
 let
 
-  runtimeDeps = ps: with ps; [
-    certifi
-    setuptools
-    pip
-    virtualenv
-    virtualenv-clone
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isAndroid [
-    pyjnius
-  ];
+  runtimeDeps =
+    ps:
+    with ps;
+    [
+      certifi
+      setuptools
+      pip
+      virtualenv
+      virtualenv-clone
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isAndroid [ pyjnius ];
 
   pythonEnv = python3.withPackages runtimeDeps;
-
-in buildPythonApplication rec {
+in
+buildPythonApplication rec {
   pname = "pipenv";
   version = "2023.2.4";
 

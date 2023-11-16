@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, installShellFiles
-, pytestCheckHook
-, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  installShellFiles,
+  pytestCheckHook,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,10 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ flit-core installShellFiles ];
+  nativeBuildInputs = [
+    flit-core
+    installShellFiles
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

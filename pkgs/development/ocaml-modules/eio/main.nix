@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, buildDunePackage
-, eio
-, eio_posix
-, uring
+{
+  lib,
+  stdenv,
+  buildDunePackage,
+  eio,
+  eio_posix,
+  uring,
 }:
 
 buildDunePackage {
@@ -15,9 +16,5 @@ buildDunePackage {
 
   dontStrip = true;
 
-  propagatedBuildInputs = [
-    eio_posix
-  ] ++ lib.optionals stdenv.isLinux [
-    uring
-  ];
+  propagatedBuildInputs = [ eio_posix ] ++ lib.optionals stdenv.isLinux [ uring ];
 }

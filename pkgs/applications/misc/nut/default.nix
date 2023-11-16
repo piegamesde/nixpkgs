@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, substituteAll, pkg-config, neon, libusb-compat-0_1, openssl, udev, avahi, freeipmi
-, libtool, makeWrapper, autoreconfHook, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  neon,
+  libusb-compat-0_1,
+  openssl,
+  udev,
+  avahi,
+  freeipmi,
+  libtool,
+  makeWrapper,
+  autoreconfHook,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
@@ -7,7 +21,9 @@ stdenv.mkDerivation rec {
   version = "2.8.0";
 
   src = fetchurl {
-    url = "https://networkupstools.org/source/${lib.versions.majorMinor version}/${pname}-${version}.tar.gz";
+    url = "https://networkupstools.org/source/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.gz";
     sha256 = "19r5dm07sfz495ckcgbfy0pasx0zy3faa0q7bih69lsjij8q43lq";
   };
 
@@ -26,20 +42,32 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ neon libusb-compat-0_1 openssl udev avahi freeipmi ];
+  buildInputs = [
+    neon
+    libusb-compat-0_1
+    openssl
+    udev
+    avahi
+    freeipmi
+  ];
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+    makeWrapper
+  ];
 
-  configureFlags =
-    [ "--with-all"
-      "--with-ssl"
-      "--without-snmp" # Until we have it ...
-      "--without-powerman" # Until we have it ...
-      "--without-cgi"
-      "--without-hal"
-      "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
-      "--with-udev-dir=$(out)/etc/udev"
-    ];
+  configureFlags = [
+    "--with-all"
+    "--with-ssl"
+    "--without-snmp" # Until we have it ...
+    "--without-powerman" # Until we have it ...
+    "--without-cgi"
+    "--without-hal"
+    "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
+    "--with-udev-dir=$(out)/etc/udev"
+  ];
 
   enableParallelBuilding = true;
 
@@ -55,7 +83,11 @@ stdenv.mkDerivation rec {
     homepage = "https://networkupstools.org/";
     platforms = platforms.linux;
     maintainers = [ maintainers.pierron ];
-    license = with licenses; [ gpl1Plus gpl2Plus gpl3Plus ];
+    license = with licenses; [
+      gpl1Plus
+      gpl2Plus
+      gpl3Plus
+    ];
     priority = 10;
   };
 }

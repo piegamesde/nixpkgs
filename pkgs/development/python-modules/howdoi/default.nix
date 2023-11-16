@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, appdirs
-, buildPythonPackage
-, cachelib
-, cssselect
-, fetchFromGitHub
-, keep
-, lxml
-, pygments
-, pyquery
-, requests
-, pytestCheckHook
-, pythonOlder
+{
+  stdenv,
+  lib,
+  appdirs,
+  buildPythonPackage,
+  cachelib,
+  cssselect,
+  fetchFromGitHub,
+  keep,
+  lxml,
+  pygments,
+  pyquery,
+  requests,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -39,9 +40,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -64,9 +63,7 @@ buildPythonPackage rec {
     "test_answer_links_using_l_option"
   ];
 
-  pythonImportsCheck = [
-    "howdoi"
-  ];
+  pythonImportsCheck = [ "howdoi" ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;

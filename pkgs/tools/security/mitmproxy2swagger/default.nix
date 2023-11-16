@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -15,9 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-tvlxQrZzY2r+zipNm8XFTvYgLZAbg2xzoFL6VDt+/fk=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     json-stream
@@ -28,9 +27,7 @@ python3.pkgs.buildPythonApplication rec {
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mitmproxy2swagger"
-  ];
+  pythonImportsCheck = [ "mitmproxy2swagger" ];
 
   meta = with lib; {
     description = "Tool to automagically reverse-engineer REST APIs";

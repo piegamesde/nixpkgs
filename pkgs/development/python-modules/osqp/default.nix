@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, cmake
-, cvxopt
-, fetchPypi
-, future
-, numpy
-, pytestCheckHook
-, pythonOlder
-, qdldl
-, scipy
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  cmake,
+  cvxopt,
+  fetchPypi,
+  future,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  qdldl,
+  scipy,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -49,9 +50,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "osqp"
-  ];
+  pythonImportsCheck = [ "osqp" ];
 
   disabledTests = [
     # Test are failing due to scipy update (removal of scipy.random in 1.9.0)

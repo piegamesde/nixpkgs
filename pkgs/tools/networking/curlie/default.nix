@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, curlie, testers }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  curlie,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "curlie";
@@ -11,13 +17,15 @@ buildGoModule rec {
     hash = "sha256-EHSFr05VXJuOjUnweEJngdnfSUZUF1HsO28ZBSLGlvE=";
   };
 
-  patches = [
-    ./bump-golang-x-sys.patch
-  ];
+  patches = [ ./bump-golang-x-sys.patch ];
 
   vendorSha256 = "sha256-VsPdMUfS4UVem6uJgFISfFHQEKtIumDQktHQFPC1muc=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = curlie;

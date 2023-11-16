@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, file
-, glibmm
-, gst_all_1
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  file,
+  glibmm,
+  gst_all_1,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +15,9 @@ stdenv.mkDerivation rec {
   version = "1.10.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "0q4dx9sncqbwgpzma0zvj6zssc279yl80pn8irb95qypyyggwn5y";
   };
 
@@ -26,7 +29,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -55,5 +61,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];
   };
-
 }

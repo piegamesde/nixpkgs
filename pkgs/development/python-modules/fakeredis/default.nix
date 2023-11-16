@@ -1,17 +1,18 @@
-{ lib
-, aioredis
-, buildPythonPackage
-, fetchFromGitHub
-, hypothesis
-, lupa
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pytest-mock
-, pythonOlder
-, redis
-, six
-, sortedcontainers
+{
+  lib,
+  aioredis,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  lupa,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytest-mock,
+  pythonOlder,
+  redis,
+  six,
+  sortedcontainers,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-kLCCCUbre/Bi0DFv/+PVHvw1NXn2HhQx5kYtEaOqP58=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     redis
@@ -46,17 +45,11 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    lua = [
-      lupa
-    ];
-    aioredis = [
-      aioredis
-    ];
+    lua = [ lupa ];
+    aioredis = [ aioredis ];
   };
 
-  pythonImportsCheck = [
-    "fakeredis"
-  ];
+  pythonImportsCheck = [ "fakeredis" ];
 
   meta = with lib; {
     description = "Fake implementation of Redis API";

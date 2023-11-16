@@ -1,19 +1,20 @@
-{ lib
-, boto3
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, jsonschema
-, mock
-, parameterized
-, pydantic
-, pytest-env
-, pytest-rerunfailures
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, typing-extensions
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jsonschema,
+  mock,
+  parameterized,
+  pydantic,
+  pytest-env,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -63,9 +64,7 @@ buildPythonPackage rec {
 
   doCheck = false; # tests fail in weird ways
 
-  pythonImportsCheck = [
-    "samtranslator"
-  ];
+  pythonImportsCheck = [ "samtranslator" ];
 
   meta = with lib; {
     description = "Python library to transform SAM templates into AWS CloudFormation templates";

@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, jre, makeWrapper, coreutils }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  jre,
+  makeWrapper,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jmeter";
@@ -8,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YOicfEUjcxRn/bcX8z1hQIbBDwMWNpy6pFZQrhxALh8=";
   };
 
-  nativeBuildInputs = [ makeWrapper jre ];
+  nativeBuildInputs = [
+    makeWrapper
+    jre
+  ];
 
   installPhase = ''
     mkdir $out
@@ -32,7 +42,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/jmeter.sh --set JAVA_HOME "${jre}"
   '';
 
-  doInstallCheck = false; #NoClassDefFoundError: org/apache/logging/log4j/Level for tests
+  doInstallCheck = false; # NoClassDefFoundError: org/apache/logging/log4j/Level for tests
 
   nativeCheckInputs = [ coreutils ];
 

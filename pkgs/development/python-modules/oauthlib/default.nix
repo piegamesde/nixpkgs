@@ -1,18 +1,19 @@
-{ lib
-, blinker
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, mock
-, pyjwt
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  blinker,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  mock,
+  pyjwt,
+  pytestCheckHook,
+  pythonOlder,
 
-# for passthru.tests
-, django-allauth
-, django-oauth-toolkit
-, google-auth-oauthlib
-, requests-oauthlib
+  # for passthru.tests
+  django-allauth,
+  django-oauth-toolkit,
+  google-auth-oauthlib,
+  requests-oauthlib,
 }:
 
 buildPythonPackage rec {
@@ -40,16 +41,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "oauthlib"
-  ];
+  pythonImportsCheck = [ "oauthlib" ];
 
   passthru.tests = {
     inherit
       django-allauth
       django-oauth-toolkit
       google-auth-oauthlib
-      requests-oauthlib;
+      requests-oauthlib
+    ;
   };
 
   meta = with lib; {

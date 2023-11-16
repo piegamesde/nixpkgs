@@ -1,8 +1,9 @@
-{ faust
-, alsa-lib
-, qtbase
-, writeText
-, makeWrapper
+{
+  faust,
+  alsa-lib,
+  qtbase,
+  writeText,
+  makeWrapper,
 }:
 let
   # Wrap the binary coming out of the the compilation script, so it knows QT_PLUGIN_PATH

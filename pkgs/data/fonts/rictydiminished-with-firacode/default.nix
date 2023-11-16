@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fontforge, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fontforge,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rictydiminished-with-firacode";
@@ -31,11 +37,13 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    (python3.withPackages (ps: [
-      ps.jinja2
-      ps.fonttools
-      ps.fontforge
-    ]))
+    (python3.withPackages (
+      ps: [
+        ps.jinja2
+        ps.fonttools
+        ps.fontforge
+      ]
+    ))
   ];
 
   meta = with lib; {
@@ -46,4 +54,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ mt-caret ];
   };
 }
-

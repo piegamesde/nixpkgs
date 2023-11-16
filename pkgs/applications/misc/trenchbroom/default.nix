@@ -1,9 +1,25 @@
-{ lib, stdenv, fetchFromGitHub
-, cmake, ninja, git, pandoc, pkg-config
-, libGL, libGLU, freeimage
-, catch2, fmt, glew, miniz, tinyxml-2, xorg
-, qtbase, wrapQtAppsHook
-, copyDesktopItems, makeDesktopItem
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  git,
+  pandoc,
+  pkg-config,
+  libGL,
+  libGLU,
+  freeimage,
+  catch2,
+  fmt,
+  glew,
+  miniz,
+  tinyxml-2,
+  xorg,
+  qtbase,
+  wrapQtAppsHook,
+  copyDesktopItems,
+  makeDesktopItem,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,21 +40,36 @@ stdenv.mkDerivation rec {
       --subst-var-by GIT_DESCRIBE v${version}
   '';
 
-  nativeBuildInputs = [ cmake git pandoc wrapQtAppsHook copyDesktopItems pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    git
+    pandoc
+    wrapQtAppsHook
+    copyDesktopItems
+    pkg-config
+  ];
   buildInputs = [
-    libGL libGLU xorg.libXxf86vm freeimage qtbase catch2 fmt glew miniz tinyxml-2
+    libGL
+    libGLU
+    xorg.libXxf86vm
+    freeimage
+    qtbase
+    catch2
+    fmt
+    glew
+    miniz
+    tinyxml-2
     xorg.libSM
   ];
   QT_PLUGIN_PATH = "${qtbase}/${qtbase.qtPluginPrefix}";
   QT_QPA_PLATFORM = "offscreen";
 
-  cmakeFlags = [
-    # https://github.com/TrenchBroom/TrenchBroom/issues/4002#issuecomment-1125390780
-    "-DCMAKE_PREFIX_PATH=cmake/packages"
-  ];
-  ninjaFlags = [
-    "TrenchBroom"
-  ];
+  cmakeFlags =
+    [
+      # https://github.com/TrenchBroom/TrenchBroom/issues/4002#issuecomment-1125390780
+      "-DCMAKE_PREFIX_PATH=cmake/packages"
+    ];
+  ninjaFlags = [ "TrenchBroom" ];
   preBuild = "export HOME=$(mktemp -d)";
 
   postInstall = ''

@@ -1,12 +1,14 @@
-{ lib
-, buildPythonApplication
-, fetchPypi
-, fleep
-, libarchive-c
-, pillow
-, requests-toolbelt
-, setuptools
-, zeroconf }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  fleep,
+  libarchive-c,
+  pillow,
+  requests-toolbelt,
+  setuptools,
+  zeroconf,
+}:
 
 buildPythonApplication rec {
   pname = "opendrop";

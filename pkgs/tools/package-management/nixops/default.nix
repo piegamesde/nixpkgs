@@ -1,32 +1,45 @@
-{ lib, python2, poetry2nix, docbook_xsl_ns, openssh, cacert, nixopsAzurePackages ? []
-, fetchurl, fetchpatch
+{
+  lib,
+  python2,
+  poetry2nix,
+  docbook_xsl_ns,
+  openssh,
+  cacert,
+  nixopsAzurePackages ? [ ],
+  fetchurl,
+  fetchpatch,
 }:
 
 let
-  inherit (poetry2nix.mkPoetryPackages {
-    projectDir = ./python-env;
-    python = python2;
-    overrides = [
-      poetry2nix.defaultPoetryOverrides
-      (self: super: {
-        certifi = super.certifi.overridePythonAttrs (old: {
-          meta = old.meta // {
-            knownVulnerabilities = [ "CVE-2022-23491" ];
-          };
-        });
-        pyjwt = super.pyjwt.overridePythonAttrs (old: {
-          meta = old.meta // {
-            knownVulnerabilities = lib.optionals (lib.versionOlder old.version "2.4.0") [
-              "CVE-2022-29217"
-            ];
-          };
-        });
-      })
-    ];
-  }) python;
+  inherit
+    (poetry2nix.mkPoetryPackages {
+      projectDir = ./python-env;
+      python = python2;
+      overrides = [
+        poetry2nix.defaultPoetryOverrides
+        (self: super: {
+          certifi = super.certifi.overridePythonAttrs (
+            old: {
+              meta = old.meta // {
+                knownVulnerabilities = [ "CVE-2022-23491" ];
+              };
+            }
+          );
+          pyjwt = super.pyjwt.overridePythonAttrs (
+            old: {
+              meta = old.meta // {
+                knownVulnerabilities = lib.optionals (lib.versionOlder old.version "2.4.0") [ "CVE-2022-29217" ];
+              };
+            }
+          );
+        })
+      ];
+    })
+    python
+  ;
   pythonPackages = python.pkgs;
-
-in pythonPackages.buildPythonApplication rec {
+in
+pythonPackages.buildPythonApplication rec {
   pname = "nixops";
   version = "1.7";
 
@@ -45,28 +58,32 @@ in pythonPackages.buildPythonApplication rec {
 
   buildInputs = [ pythonPackages.libxslt ];
 
-  pythonPath = (with pythonPackages;
-    [ prettytable
-      boto
-      boto3
-      hetzner
-      apache-libcloud
-      adal
-      # Go back to sqlite once Python 2.7.13 is released
-      pysqlite
-      datadog
-      python-digitalocean
+  pythonPath =
+    (
+      with pythonPackages;
+      [
+        prettytable
+        boto
+        boto3
+        hetzner
+        apache-libcloud
+        adal
+        # Go back to sqlite once Python 2.7.13 is released
+        pysqlite
+        datadog
+        python-digitalocean
       ]
       ++ lib.optional (!libvirt.passthru.libvirt.meta.insecure or true) libvirt
-      ++ nixopsAzurePackages);
+      ++ nixopsAzurePackages
+    );
 
   checkPhase =
-  # Ensure, that there are no (python) import errors
-  ''
-    SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt \
-    HOME=$(pwd) \
-      $out/bin/nixops --version
-  '';
+    # Ensure, that there are no (python) import errors
+    ''
+      SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt \
+      HOME=$(pwd) \
+        $out/bin/nixops --version
+    '';
 
   postInstall = ''
     make -C doc/manual install nixops.1 docbookxsl=${docbook_xsl_ns}/xml/xsl/docbook \
@@ -83,7 +100,11 @@ in pythonPackages.buildPythonApplication rec {
   meta = {
     homepage = "https://github.com/NixOS/nixops";
     description = "NixOS cloud provisioning and deployment tool";
-    maintainers = with lib.maintainers; [ aminechikhaoui eelco rob ];
+    maintainers = with lib.maintainers; [
+      aminechikhaoui
+      eelco
+      rob
+    ];
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl3;
   };

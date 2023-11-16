@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-R+P4pgKbLvf0mwpSDoujCvlJe/yS+nvSJ7ewLVOOg/0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "insteon_frontend"
-  ];
+  pythonImportsCheck = [ "insteon_frontend" ];
 
   meta = with lib; {
     changelog = "https://github.com/pyinsteon/insteon-panel/releases/tag/${version}";

@@ -1,11 +1,12 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, runtimeShell
-, stdenv
-, testers
-, runme
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  runtimeShell,
+  stdenv,
+  testers,
+  runme,
 }:
 
 buildGoModule rec {
@@ -21,13 +22,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-el+gM3GRN5KU4RlSAx02rn+22xj28IZq3erZUzPbUUw=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  subPackages = [
-    "."
-  ];
+  subPackages = [ "." ];
 
   ldflags = [
     "-s"
@@ -55,9 +52,7 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion {
-      package = runme;
-    };
+    version = testers.testVersion { package = runme; };
   };
 
   meta = with lib; {

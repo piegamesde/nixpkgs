@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, ifaddr
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ifaddr,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-ShK4DP1lAtAFI6z2kf5T1ecbNTKUn2kqUjps2ABRegg=";
   };
 
-  propagatedBuildInputs = [
-    ifaddr
-  ];
+  propagatedBuildInputs = [ ifaddr ];
 
-  pythonImportsCheck = [
-    "aiosenseme"
-  ];
+  pythonImportsCheck = [ "aiosenseme" ];
 
   # Module has no tests
   doCheck = false;

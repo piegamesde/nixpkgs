@@ -1,23 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, furo
-, myst-parser
-, pfzy
-, poetry-core
-, prompt-toolkit
-, pytestCheckHook
-, pythonOlder
-, sphinx
-, sphinx-autobuild
-, sphinx-copybutton
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  furo,
+  myst-parser,
+  pfzy,
+  poetry-core,
+  prompt-toolkit,
+  pytestCheckHook,
+  pythonOlder,
+  sphinx,
+  sphinx-autobuild,
+  sphinx-copybutton,
 }:
 
 buildPythonPackage rec {
   pname = "inquirerpy";
   version = "0.3.4";
   format = "pyproject";
-
 
   src = fetchFromGitHub {
     owner = "kazhala";
@@ -26,22 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-Ap0xZHEU458tjm6oEN5EtDoSRlnpZ7jvDq1L7fTlQQc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pfzy
     prompt-toolkit
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "InquirerPy"
-  ];
+  pythonImportsCheck = [ "InquirerPy" ];
 
   disabledTestPaths = [
     # AttributeError: '_GeneratorContextManager' object has no attribute 'close'
@@ -50,7 +44,6 @@ buildPythonPackage rec {
     "tests/base/test_complex.py"
     "tests/base/test_list.py"
   ];
-
 
   meta = with lib; {
     description = "Python port of Inquirer.js";

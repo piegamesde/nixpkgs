@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, mkdocs-exclude
-, markdown-it-py
-, mdit-py-plugins
-, linkify-it-py
-, importlib-metadata
-, rich
-, typing-extensions
-, aiohttp
-, click
-, jinja2
-, msgpack
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, syrupy
-, time-machine
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  mkdocs-exclude,
+  markdown-it-py,
+  mdit-py-plugins,
+  linkify-it-py,
+  importlib-metadata,
+  rich,
+  typing-extensions,
+  aiohttp,
+  click,
+  jinja2,
+  msgpack,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  syrupy,
+  time-machine,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-ag+sJFprYW3IpH+BiMR5eSRUFMBeVuOnF6GTTuXGBHw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     rich
@@ -48,9 +47,7 @@ buildPythonPackage rec {
     click
     msgpack
     mkdocs-exclude
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
   nativeCheckInputs = [
     jinja2
@@ -60,14 +57,13 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  disabledTestPaths = [
-    # snapshot tests require syrupy<4
-    "tests/snapshot_tests/test_snapshots.py"
-  ];
+  disabledTestPaths =
+    [
+      # snapshot tests require syrupy<4
+      "tests/snapshot_tests/test_snapshots.py"
+    ];
 
-  pythonImportsCheck = [
-    "textual"
-  ];
+  pythonImportsCheck = [ "textual" ];
 
   __darwinAllowLocalNetworking = true;
 

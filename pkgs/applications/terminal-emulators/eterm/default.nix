@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, imlib2
-, libX11
-, libXaw
-, libXext
-, libast
-, pkg-config
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  imlib2,
+  libX11,
+  libXaw,
+  libXext,
+  libast,
+  pkg-config,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -43,10 +44,11 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;
     knownVulnerabilities = [
-      ''Usage of ANSI escape sequences causes unexpected newline-termination,
-        leading to unexpected command execution. More info at:
-        - https://www.cve.org/CVERecord?id=CVE-2021-33477
-        - https://www.openwall.com/lists/oss-security/2021/05/17/1''
+      ''
+        Usage of ANSI escape sequences causes unexpected newline-termination,
+                leading to unexpected command execution. More info at:
+                - https://www.cve.org/CVERecord?id=CVE-2021-33477
+                - https://www.openwall.com/lists/oss-security/2021/05/17/1''
     ];
   };
 }

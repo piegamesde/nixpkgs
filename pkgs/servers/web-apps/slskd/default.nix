@@ -1,12 +1,14 @@
-{ lib, stdenv
-, buildNpmPackage
-, fetchFromGitHub
-, fetchurl
-, unzip
-, dotnetCorePackages
-, buildDotnetModule
-, mono
-, nodejs_18
+{
+  lib,
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  fetchurl,
+  unzip,
+  dotnetCorePackages,
+  buildDotnetModule,
+  mono,
+  nodejs_18,
 }:
 let
   pname = "slskd";
@@ -41,9 +43,14 @@ let
       cp -r build $out
     '';
   };
-
-in buildDotnetModule {
-  inherit pname version src meta;
+in
+buildDotnetModule {
+  inherit
+    pname
+    version
+    src
+    meta
+  ;
 
   runtimeDeps = [ mono ];
 

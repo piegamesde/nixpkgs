@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, fetchpatch, makeDesktopItem, prusa-slicer }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  makeDesktopItem,
+  prusa-slicer,
+}:
 let
   appname = "SuperSlicer";
   pname = "super-slicer";
@@ -34,55 +40,65 @@ let
     };
   };
 
-  override = { version, sha256, patches }: super: {
-    inherit version pname patches;
+  override =
+    {
+      version,
+      sha256,
+      patches,
+    }:
+    super: {
+      inherit version pname patches;
 
-    src = fetchFromGitHub {
-      owner = "supermerill";
-      repo = "SuperSlicer";
-      inherit sha256;
-      rev = version;
-      fetchSubmodules = true;
+      src = fetchFromGitHub {
+        owner = "supermerill";
+        repo = "SuperSlicer";
+        inherit sha256;
+        rev = version;
+        fetchSubmodules = true;
+      };
+
+      # wxScintilla is not used on macOS
+      prePatch =
+        super.prePatch
+        + ''
+          substituteInPlace src/CMakeLists.txt \
+            --replace "scintilla" ""
+        '';
+
+      # We don't need PS overrides anymore, and gcode-viewer is embedded in the binary.
+      postInstall = null;
+      separateDebugInfo = true;
+
+      # See https://github.com/supermerill/SuperSlicer/issues/432
+      cmakeFlags = super.cmakeFlags ++ [ "-DSLIC3R_BUILD_TESTS=0" ];
+
+      desktopItems = [
+        (makeDesktopItem {
+          name = "superslicer";
+          exec = "superslicer";
+          icon = appname;
+          comment = description;
+          desktopName = appname;
+          genericName = "3D printer tool";
+          categories = [ "Development" ];
+        })
+      ];
+
+      meta = with lib; {
+        inherit description;
+        homepage = "https://github.com/supermerill/SuperSlicer";
+        license = licenses.agpl3;
+        maintainers = with maintainers; [
+          cab404
+          moredread
+        ];
+        mainProgram = "superslicer";
+      };
+
+      passthru = allVersions;
     };
-
-    # wxScintilla is not used on macOS
-    prePatch = super.prePatch + ''
-      substituteInPlace src/CMakeLists.txt \
-        --replace "scintilla" ""
-    '';
-
-    # We don't need PS overrides anymore, and gcode-viewer is embedded in the binary.
-    postInstall = null;
-    separateDebugInfo = true;
-
-    # See https://github.com/supermerill/SuperSlicer/issues/432
-    cmakeFlags = super.cmakeFlags ++ [
-      "-DSLIC3R_BUILD_TESTS=0"
-    ];
-
-    desktopItems = [
-      (makeDesktopItem {
-        name = "superslicer";
-        exec = "superslicer";
-        icon = appname;
-        comment = description;
-        desktopName = appname;
-        genericName = "3D printer tool";
-        categories = [ "Development" ];
-      })
-    ];
-
-    meta = with lib; {
-      inherit description;
-      homepage = "https://github.com/supermerill/SuperSlicer";
-      license = licenses.agpl3;
-      maintainers = with maintainers; [ cab404 moredread ];
-      mainProgram = "superslicer";
-    };
-
-    passthru = allVersions;
-
-  };
-  allVersions = builtins.mapAttrs (_name: version: (prusa-slicer.overrideAttrs (override version))) versions;
+  allVersions =
+    builtins.mapAttrs (_name: version: (prusa-slicer.overrideAttrs (override version)))
+      versions;
 in
 allVersions.stable

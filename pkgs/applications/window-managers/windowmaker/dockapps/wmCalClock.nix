@@ -1,5 +1,11 @@
-{ lib, stdenv, dockapps-sources
-, libX11, libXpm, libXext }:
+{
+  lib,
+  stdenv,
+  dockapps-sources,
+  libX11,
+  libXpm,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wmCalClock";
@@ -7,7 +13,11 @@ stdenv.mkDerivation rec {
 
   src = dockapps-sources;
 
-  buildInputs = [ libX11 libXpm libXext ];
+  buildInputs = [
+    libX11
+    libXpm
+    libXext
+  ];
 
   setSourceRoot = ''
     export sourceRoot=$(echo */${pname}/Src)

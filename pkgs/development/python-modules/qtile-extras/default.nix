@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, pytestCheckHook
-, xorgserver
-, pulseaudio
-, pytest-asyncio
-, qtile
-, keyring
-, requests
-, stravalib
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  pytestCheckHook,
+  xorgserver,
+  pulseaudio,
+  pytest-asyncio,
+  qtile,
+  keyring,
+  requests,
+  stravalib,
 }:
 
 buildPythonPackage rec {

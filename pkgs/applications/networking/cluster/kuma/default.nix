@@ -1,23 +1,24 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, coredns
-, installShellFiles
-, isFull ? false
-, enableGateway ? false
-, pname ? "kuma"
-, components ? lib.optionals isFull [
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  coredns,
+  installShellFiles,
+  isFull ? false,
+  enableGateway ? false,
+  pname ? "kuma",
+  components ? lib.optionals isFull [
     "kumactl"
     "kuma-cp"
     "kuma-prometheus-sd"
     "kuma-dp"
-  ]
+  ],
 }:
 
 buildGoModule rec {
-  inherit pname ;
+  inherit pname;
   version = "1.8.1";
-  tags = lib.optionals enableGateway ["gateway"];
+  tags = lib.optionals enableGateway [ "gateway" ];
   vendorSha256 = "sha256-69uXHvpQMeFwQbejMpfQPS8DDXJyVsnn59WUEJpSeng=";
 
   src = fetchFromGitHub {
@@ -29,7 +30,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [installShellFiles] ++ lib.optionals isFull [coredns];
+  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals isFull [ coredns ];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -37,24 +38,31 @@ buildGoModule rec {
 
   subPackages = map (p: "app/" + p) components;
 
-  postInstall = lib.concatMapStringsSep "\n" (p: ''
-    installShellCompletion --cmd ${p} \
-      --bash <($out/bin/${p} completion bash) \
-      --fish <($out/bin/${p} completion fish) \
-      --zsh <($out/bin/${p} completion zsh)
-  '') components + lib.optionalString isFull ''
-    ln -sLf ${coredns}/bin/coredns $out/bin
-  '';
+  postInstall =
+    lib.concatMapStringsSep "\n"
+      (p: ''
+        installShellCompletion --cmd ${p} \
+          --bash <($out/bin/${p} completion bash) \
+          --fish <($out/bin/${p} completion fish) \
+          --zsh <($out/bin/${p} completion zsh)
+      '')
+      components
+    + lib.optionalString isFull ''
+      ln -sLf ${coredns}/bin/coredns $out/bin
+    '';
 
-  ldflags = let
-    prefix = "github.com/kumahq/kuma/pkg/version";
-  in [
-    "-s" "-w"
-    "-X ${prefix}.version=${version}"
-    "-X ${prefix}.gitTag=${version}"
-    "-X ${prefix}.gitCommit=${version}"
-    "-X ${prefix}.buildDate=${version}"
-  ];
+  ldflags =
+    let
+      prefix = "github.com/kumahq/kuma/pkg/version";
+    in
+    [
+      "-s"
+      "-w"
+      "-X ${prefix}.version=${version}"
+      "-X ${prefix}.gitTag=${version}"
+      "-X ${prefix}.gitCommit=${version}"
+      "-X ${prefix}.buildDate=${version}"
+    ];
 
   meta = with lib; {
     description = "Service mesh controller";

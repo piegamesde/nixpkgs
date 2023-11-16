@@ -1,12 +1,26 @@
-{ stdenv, fetchurl, lib, vdr
-, libav, libcap, libvdpau
-, xine-lib, libjpeg, libextractor, libglvnd, libGLU
-, libX11, libXext, libXrender, libXrandr
-, makeWrapper
-}: let
+{
+  stdenv,
+  fetchurl,
+  lib,
+  vdr,
+  libav,
+  libcap,
+  libvdpau,
+  xine-lib,
+  libjpeg,
+  libextractor,
+  libglvnd,
+  libGLU,
+  libX11,
+  libXext,
+  libXrender,
+  libXrandr,
+  makeWrapper,
+}:
+let
   makeXinePluginPath = l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
-  self =  stdenv.mkDerivation rec {
+  self = stdenv.mkDerivation rec {
     pname = "vdr-xineliboutput";
     version = "2.2.0";
 
@@ -34,7 +48,12 @@
     postFixup = ''
       for f in $out/bin/*; do
         wrapProgram $f \
-          --prefix XINE_PLUGIN_PATH ":" "${makeXinePluginPath [ "$out" xine-lib ]}"
+          --prefix XINE_PLUGIN_PATH ":" "${
+            makeXinePluginPath [
+              "$out"
+              xine-lib
+            ]
+          }"
       done
     '';
 
@@ -56,9 +75,12 @@
       xine-lib
     ];
 
-    passthru.requiredXinePlugins = [ xine-lib self ];
+    passthru.requiredXinePlugins = [
+      xine-lib
+      self
+    ];
 
-    meta = with lib;{
+    meta = with lib; {
       homepage = "https://sourceforge.net/projects/xineliboutput/";
       description = "Xine-lib based software output device for VDR";
       maintainers = [ maintainers.ck3d ];
@@ -66,4 +88,5 @@
       inherit (vdr.meta) platforms;
     };
   };
-in self
+in
+self

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, lxml
-, setuptools
-, six
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  lxml,
+  setuptools,
+  six,
 }:
 
 buildPythonApplication rec {
@@ -38,6 +39,9 @@ buildPythonApplication rec {
       readable diffs in those situations.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres anpryl ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      anpryl
+    ];
   };
 }

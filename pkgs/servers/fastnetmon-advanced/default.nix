@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fastnetmon-advanced";
@@ -9,13 +15,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-lYXJ0Q0iUiWk/n/I71BsKnnoRJh3a2EJT3EWV4+pQbM=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    bzip2
-  ];
+  buildInputs = [ bzip2 ];
 
   unpackPhase = ''
     ar xf $src

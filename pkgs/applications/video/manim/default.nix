@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, fetchPypi
+{
+  lib,
+  fetchFromGitHub,
+  fetchPypi,
 
-, cairo
-, ffmpeg
-, texlive
+  cairo,
+  ffmpeg,
+  texlive,
 
-, python3
+  python3,
 }:
 
 let
@@ -24,64 +25,167 @@ let
   manim-tinytex = {
     inherit (texlive)
 
-    # tinytex
-    scheme-infraonly amsfonts amsmath atbegshi atveryend auxhook babel bibtex
-    bigintcalc bitset booktabs cm dehyph dvipdfmx dvips ec epstopdf-pkg etex
-    etexcmds etoolbox euenc everyshi fancyvrb filehook firstaid float fontspec
-    framed geometry gettitlestring glyphlist graphics graphics-cfg graphics-def
-    grffile helvetic hycolor hyperref hyph-utf8 iftex inconsolata infwarerr
-    intcalc knuth-lib kvdefinekeys kvoptions kvsetkeys l3backend l3kernel
-    l3packages latex latex-amsmath-dev latex-bin latex-fonts latex-tools-dev
-    latexconfig latexmk letltxmacro lm lm-math ltxcmds lua-alt-getopt luahbtex
-    lualatex-math lualibs luaotfload luatex mdwtools metafont mfware natbib
-    pdfescape pdftex pdftexcmds plain psnfss refcount rerunfilecheck stringenc
-    tex tex-ini-files times tipa tools unicode-data unicode-math uniquecounter
-    url xcolor xetex xetexconfig xkeyval xunicode zapfding
+      # tinytex
+      scheme-infraonly
+      amsfonts
+      amsmath
+      atbegshi
+      atveryend
+      auxhook
+      babel
+      bibtex
+      bigintcalc
+      bitset
+      booktabs
+      cm
+      dehyph
+      dvipdfmx
+      dvips
+      ec
+      epstopdf-pkg
+      etex
+      etexcmds
+      etoolbox
+      euenc
+      everyshi
+      fancyvrb
+      filehook
+      firstaid
+      float
+      fontspec
+      framed
+      geometry
+      gettitlestring
+      glyphlist
+      graphics
+      graphics-cfg
+      graphics-def
+      grffile
+      helvetic
+      hycolor
+      hyperref
+      hyph-utf8
+      iftex
+      inconsolata
+      infwarerr
+      intcalc
+      knuth-lib
+      kvdefinekeys
+      kvoptions
+      kvsetkeys
+      l3backend
+      l3kernel
+      l3packages
+      latex
+      latex-amsmath-dev
+      latex-bin
+      latex-fonts
+      latex-tools-dev
+      latexconfig
+      latexmk
+      letltxmacro
+      lm
+      lm-math
+      ltxcmds
+      lua-alt-getopt
+      luahbtex
+      lualatex-math
+      lualibs
+      luaotfload
+      luatex
+      mdwtools
+      metafont
+      mfware
+      natbib
+      pdfescape
+      pdftex
+      pdftexcmds
+      plain
+      psnfss
+      refcount
+      rerunfilecheck
+      stringenc
+      tex
+      tex-ini-files
+      times
+      tipa
+      tools
+      unicode-data
+      unicode-math
+      uniquecounter
+      url
+      xcolor
+      xetex
+      xetexconfig
+      xkeyval
+      xunicode
+      zapfding
 
-    # manim-latex
-    standalone everysel preview doublestroke ms setspace rsfs relsize ragged2e
-    fundus-calligra microtype wasysym physics dvisvgm jknapltx wasy cm-super
-    babel-english gnu-freefont mathastext cbfonts-fd;
+      # manim-latex
+      standalone
+      everysel
+      preview
+      doublestroke
+      ms
+      setspace
+      rsfs
+      relsize
+      ragged2e
+      fundus-calligra
+      microtype
+      wasysym
+      physics
+      dvisvgm
+      jknapltx
+      wasy
+      cm-super
+      babel-english
+      gnu-freefont
+      mathastext
+      cbfonts-fd
+    ;
   };
 
   python = python3.override {
     packageOverrides = self: super: {
-      networkx = super.networkx.overridePythonAttrs (oldAttrs: rec {
-        pname = "networkx";
-        version = "2.8.8";
-        src = fetchPypi {
-          inherit pname version;
-          hash = "sha256-Iw04gRevhw/OVkejxSQB/PdT6Ucg5uprQZelNVZIiF4=";
-        };
-      });
+      networkx = super.networkx.overridePythonAttrs (
+        oldAttrs: rec {
+          pname = "networkx";
+          version = "2.8.8";
+          src = fetchPypi {
+            inherit pname version;
+            hash = "sha256-Iw04gRevhw/OVkejxSQB/PdT6Ucg5uprQZelNVZIiF4=";
+          };
+        }
+      );
 
-      watchdog = super.watchdog.overridePythonAttrs (oldAttrs: rec{
-        pname = "watchdog";
-        version = "2.3.1";
-        src = fetchPypi {
-          inherit pname version;
-          hash = "sha256-2fntJu0iqdMxggqEMsNoBwfqi1QSHdzJ3H2fLO6zaQY=";
-        };
-      });
+      watchdog = super.watchdog.overridePythonAttrs (
+        oldAttrs: rec {
+          pname = "watchdog";
+          version = "2.3.1";
+          src = fetchPypi {
+            inherit pname version;
+            hash = "sha256-2fntJu0iqdMxggqEMsNoBwfqi1QSHdzJ3H2fLO6zaQY=";
+          };
+        }
+      );
     };
   };
-
-in python.pkgs.buildPythonApplication rec {
+in
+python.pkgs.buildPythonApplication rec {
   pname = "manim";
   format = "pyproject";
   version = "0.16.0.post0";
   disabled = python3.pythonOlder "3.8";
 
   src = fetchFromGitHub {
-    owner  = "ManimCommunity";
+    owner = "ManimCommunity";
     repo = pname;
     rev = "refs/tags/v${version}";
     sha256 = "sha256-iXiPnI6lTP51P1X3iLp75ArRP66o8WAANBLoStPrz4M=";
   };
 
-  nativeBuildInputs = with python.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python.pkgs; [ poetry-core ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -124,19 +228,26 @@ in python.pkgs.buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
       ffmpeg
       (texlive.combine manim-tinytex)
     ])
   ];
 
-  nativeCheckInputs = [
-    ffmpeg
-    (texlive.combine manim-tinytex)
-  ] ++ (with python.pkgs; [
-    pytest-xdist
-    pytestCheckHook
-  ]);
+  nativeCheckInputs =
+    [
+      ffmpeg
+      (texlive.combine manim-tinytex)
+    ]
+    ++ (
+      with python.pkgs; [
+        pytest-xdist
+        pytestCheckHook
+      ]
+    );
 
   # about 55 of ~600 tests failing mostly due to demand for display
   disabledTests = import ./failing_tests.nix;

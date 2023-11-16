@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, python3Packages, ffmpeg, zlib, libjpeg }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  ffmpeg,
+  zlib,
+  libjpeg,
+}:
 
 python3Packages.buildPythonApplication {
   pname = "gif-for-cli";
@@ -12,8 +19,16 @@ python3Packages.buildPythonApplication {
   };
 
   nativeCheckInputs = [ python3Packages.coverage ];
-  buildInputs = [ zlib libjpeg ];
-  propagatedBuildInputs = with python3Packages; [ ffmpeg pillow requests x256 ];
+  buildInputs = [
+    zlib
+    libjpeg
+  ];
+  propagatedBuildInputs = with python3Packages; [
+    ffmpeg
+    pillow
+    requests
+    x256
+  ];
 
   meta = with lib; {
     description = "Render gifs as ASCII art in your cli";
@@ -22,5 +37,4 @@ python3Packages.buildPythonApplication {
     license = licenses.asl20;
     maintainers = with maintainers; [ Scriptkiddi ];
   };
-
 }

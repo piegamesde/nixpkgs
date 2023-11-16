@@ -1,14 +1,15 @@
-{ lib
-, attrs
-, buildPythonPackage
-, cattrs
-, fetchFromGitHub
-, flit-core
-, jsonschema
-, nox
-, pyhamcrest
-, pytest
-, pythonOlder
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  cattrs,
+  fetchFromGitHub,
+  flit-core,
+  jsonschema,
+  nox,
+  pyhamcrest,
+  pytest,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
     cattrs
   ];
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   checkInputs = [
     jsonschema
@@ -61,14 +60,15 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "lsprotocol"
-  ];
+  pythonImportsCheck = [ "lsprotocol" ];
 
   meta = with lib; {
     description = "Python implementation of the Language Server Protocol";
     homepage = "https://github.com/microsoft/lsprotocol";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar fab ];
+    maintainers = with maintainers; [
+      doronbehar
+      fab
+    ];
   };
 }

@@ -1,13 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, godot-headless, godot-export-templates, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  godot-headless,
+  godot-export-templates,
+  nix-update-script,
+}:
 
 let
   preset =
     if stdenv.isLinux then
-      if stdenv.is64bit then "Linux/X11 64-bit"
-      else "Linux/X11 32-bit"
-    else if stdenv.isDarwin then "Mac OSX"
-    else throw "unsupported platform";
-in stdenv.mkDerivation rec {
+      if stdenv.is64bit then "Linux/X11 64-bit" else "Linux/X11 32-bit"
+    else if stdenv.isDarwin then
+      "Mac OSX"
+    else
+      throw "unsupported platform";
+in
+stdenv.mkDerivation rec {
   pname = "pixelorama";
   version = "0.10.3";
 
@@ -18,9 +27,7 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-RFE7K8NMl0COzFEhUqWhhYd5MGBsCDJf0T5daPu/4DI=";
   };
 
-  nativeBuildInputs = [
-    godot-headless
-  ];
+  nativeBuildInputs = [ godot-headless ];
 
   buildPhase = ''
     runHook preBuild
@@ -53,7 +60,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://orama-interactive.itch.io/pixelorama";
     description = "A free & open-source 2D sprite editor, made with the Godot Engine!";
     license = licenses.mit;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = with maintainers; [ felschr ];
   };
 }

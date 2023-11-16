@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "fare-quasiquote-readtable";
   version = "fare-quasiquote-20200925-git";
 
   description = "Using fare-quasiquote with named-readtable";
 
-  deps = [ args."fare-quasiquote" args."fare-utils" args."named-readtables" ];
+  deps = [
+    args."fare-quasiquote"
+    args."fare-utils"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/fare-quasiquote/2020-09-25/fare-quasiquote-20200925-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "fare-quasiquote-readtable";
 
-  asdFilesToKeep = ["fare-quasiquote-readtable.asd"];
+  asdFilesToKeep = [ "fare-quasiquote-readtable.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM fare-quasiquote-readtable DESCRIPTION
@@ -30,4 +34,5 @@ rec {
     DEPENDENCIES (fare-quasiquote fare-utils named-readtables) VERSION
     fare-quasiquote-20200925-git SIBLINGS
     (fare-quasiquote-extras fare-quasiquote-optima fare-quasiquote) PARASITES
-    NIL) */
+    NIL)
+*/

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jinja2
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, selenium
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  selenium,
 }:
 
 buildPythonPackage rec {
@@ -29,27 +30,22 @@ buildPythonPackage rec {
     rm setup.cfg
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    jinja2
-  ];
+  propagatedBuildInputs = [ jinja2 ];
 
   nativeCheckInputs = [
     pytestCheckHook
     selenium
   ];
 
-  pythonImportsCheck = [
-    "branca"
-  ];
+  pythonImportsCheck = [ "branca" ];
 
-  disabledTestPaths = [
-    # Some tests require a browser
-    "tests/test_utilities.py"
-  ];
+  disabledTestPaths =
+    [
+      # Some tests require a browser
+      "tests/test_utilities.py"
+    ];
 
   disabledTests = [
     "test_rendering_utf8_iframe"

@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, runCommand, yq-go }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  runCommand,
+  yq-go,
+}:
 
 buildGoModule rec {
   pname = "yq-go";
@@ -23,7 +30,7 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
-    simple = runCommand "${pname}-test" {} ''
+    simple = runCommand "${pname}-test" { } ''
       echo "test: 1" | ${yq-go}/bin/yq eval -j > $out
       [ "$(cat $out | tr -d $'\n ')" = '{"test":1}' ]
     '';
@@ -35,6 +42,9 @@ buildGoModule rec {
     changelog = "https://github.com/mikefarah/yq/raw/v${version}/release_notes.txt";
     mainProgram = "yq";
     license = [ licenses.mit ];
-    maintainers = with maintainers; [ lewo SuperSandro2000 ];
+    maintainers = with maintainers; [
+      lewo
+      SuperSandro2000
+    ];
   };
 }

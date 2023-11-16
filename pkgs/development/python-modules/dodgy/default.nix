@@ -1,11 +1,12 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, lib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  lib,
 
-# pythonPackages
-, mock
-, nose
+  # pythonPackages
+  mock,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -30,11 +31,10 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Looks at Python code to search for things which look \"dodgy\" such as passwords or diffs";
+    description = ''
+      Looks at Python code to search for things which look "dodgy" such as passwords or diffs'';
     homepage = "https://github.com/landscapeio/dodgy";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      kamadorueda
-    ];
+    maintainers = with maintainers; [ kamadorueda ];
   };
 }

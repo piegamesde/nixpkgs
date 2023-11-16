@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gettext, python3, python3Packages
-, meson, cmake, ninja, udev, appstream, appstream-glib, desktop-file-utils, gtk3
-, wrapGAppsHook, gobject-introspection, bash, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gettext,
+  python3,
+  python3Packages,
+  meson,
+  cmake,
+  ninja,
+  udev,
+  appstream,
+  appstream-glib,
+  desktop-file-utils,
+  gtk3,
+  wrapGAppsHook,
+  gobject-introspection,
+  bash,
+}:
 let
-  python = python3.withPackages (p:
+  python = python3.withPackages (
+    p:
     with p; [
       pygobject3
       pyudev
@@ -12,10 +30,12 @@ let
       scipy
       gtk3
       pygobject3
-    ]);
+    ]
+  );
 
   version = "0.7.2";
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   inherit version;
 
   pname = "oversteer";
@@ -27,7 +47,10 @@ in stdenv.mkDerivation {
     sha256 = "sha256-9MWRb0NXUbB8c+pH0mjUzsz849PmEjsZMhQr4wsmlKI=";
   };
 
-  buildInputs = [ bash gtk3 ];
+  buildInputs = [
+    bash
+    gtk3
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -45,7 +68,11 @@ in stdenv.mkDerivation {
 
   dontUseCmakeConfigure = true;
 
-  propagatedBuildInputs = [ python gtk3 python3Packages.pygobject3 ];
+  propagatedBuildInputs = [
+    python
+    gtk3
+    python3Packages.pygobject3
+  ];
 
   mesonFlags = [
     "--prefix"

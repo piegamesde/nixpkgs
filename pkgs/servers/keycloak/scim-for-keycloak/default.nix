@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, maven
-, javaPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  maven,
+  javaPackages,
 }:
 
 javaPackages.mavenfod rec {
@@ -18,9 +19,7 @@ javaPackages.mavenfod rec {
 
   mvnHash = "sha256-kDYhXTEOAWH/dcRJalKtbwBpoxcD1aX9eqcRKs6ewbE=";
 
-  nativeBuildInputs = [
-    maven
-  ];
+  nativeBuildInputs = [ maven ];
 
   installPhase = ''
     EAR=$(find -iname "*.ear")
@@ -32,7 +31,7 @@ javaPackages.mavenfod rec {
     description = "A third party module that extends Keycloak with SCIM functionality";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # dependencies
+      binaryBytecode # dependencies
     ];
     license = licenses.bsd3;
     maintainers = with maintainers; [ mkg20001 ];

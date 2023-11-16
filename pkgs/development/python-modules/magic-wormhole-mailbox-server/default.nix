@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, six
-, attrs
-, twisted
-, pyopenssl
-, service-identity
-, autobahn
-, treq
-, mock
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  six,
+  attrs,
+  twisted,
+  pyopenssl,
+  service-identity,
+  autobahn,
+  treq,
+  mock,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -39,8 +40,7 @@ buildPythonPackage rec {
     six
     twisted
     autobahn
-  ] ++ autobahn.optional-dependencies.twisted
-  ++ twisted.optional-dependencies.tls;
+  ] ++ autobahn.optional-dependencies.twisted ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     treq

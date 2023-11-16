@@ -1,4 +1,12 @@
-{ lib, fetchurl, buildPythonApplication, libjack2, pyqt5, qttools, which }:
+{
+  lib,
+  fetchurl,
+  buildPythonApplication,
+  libjack2,
+  pyqt5,
+  qttools,
+  which,
+}:
 
 buildPythonApplication rec {
   pname = "patchance";
@@ -12,9 +20,9 @@ buildPythonApplication rec {
   format = "other";
 
   nativeBuildInputs = [
-    pyqt5   # pyuic5 and pyrcc5 to build resources.
+    pyqt5 # pyuic5 and pyrcc5 to build resources.
     qttools # lrelease to build translations.
-    which   # which to find lrelease.
+    which # which to find lrelease.
   ];
   buildInputs = [ libjack2 ];
   propagatedBuildInputs = [ pyqt5 ];
@@ -24,7 +32,10 @@ buildPythonApplication rec {
   installFlags = [ "PREFIX=$(out)" ];
 
   makeWrapperArgs = [
-    "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ])
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    (lib.makeLibraryPath [ libjack2 ])
   ];
 
   postFixup = ''

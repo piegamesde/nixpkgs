@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cmake
-, python
-, libosmium
-, protozero
-, boost
-, expat
-, bzip2
-, zlib
-, pybind11
-, shapely
-, pythonOlder
-, isPyPy
-, lz4
-, requests
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  python,
+  libosmium,
+  protozero,
+  boost,
+  expat,
+  bzip2,
+  zlib,
+  pybind11,
+  shapely,
+  pythonOlder,
+  isPyPy,
+  lz4,
+  requests,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-+YJQGPQm2FGOPhNzlXX2GM+ad4QdipJhwViOKGHtqBk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     libosmium
@@ -47,9 +46,7 @@ buildPythonPackage rec {
     lz4
   ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   preBuild = "cd ..";
 

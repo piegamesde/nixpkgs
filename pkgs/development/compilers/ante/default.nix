@@ -1,10 +1,11 @@
-{ fetchFromGitHub
-, lib
-, libffi
-, libxml2
-, llvmPackages_13
-, ncurses
-, rustPlatform
+{
+  fetchFromGitHub,
+  lib,
+  libffi,
+  libxml2,
+  llvmPackages_13,
+  ncurses,
+  rustPlatform,
 }:
 
 rustPlatform.buildRustPackage {
@@ -23,13 +24,16 @@ rustPlatform.buildRustPackage {
     };
   };
 
-  /*
-     https://crates.io/crates/llvm-sys#llvm-compatibility
+  /* https://crates.io/crates/llvm-sys#llvm-compatibility
      llvm-sys requires a specific version of llvmPackages,
      that is not the same as the one included by default with rustPlatform.
   */
   nativeBuildInputs = [ llvmPackages_13.llvm ];
-  buildInputs = [ libffi libxml2 ncurses ];
+  buildInputs = [
+    libffi
+    libxml2
+    ncurses
+  ];
 
   postPatch = ''
     substituteInPlace tests/golden_tests.rs --replace \

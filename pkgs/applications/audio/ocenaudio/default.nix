@@ -1,13 +1,15 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, qt5
-, libjack2
-, alsa-lib
-, bzip2
-, libpulseaudio }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  qt5,
+  libjack2,
+  alsa-lib,
+  bzip2,
+  libpulseaudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocenaudio";

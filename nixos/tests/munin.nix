@@ -1,15 +1,20 @@
 # This test runs basic munin setup with node and cron job running on the same
 # machine.
 
-import ./make-test-python.nix ({ pkgs, ...} : {
-  name = "munin";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ domenkozar eelco ];
-  };
+import ./make-test-python.nix (
+  { pkgs, ... }:
+  {
+    name = "munin";
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        domenkozar
+        eelco
+      ];
+    };
 
-  nodes = {
-    one =
-      { config, ... }:
+    nodes = {
+      one =
+        { config, ... }:
         {
           services = {
             munin-node = {
@@ -18,11 +23,11 @@ import ./make-test-python.nix ({ pkgs, ...} : {
               disabledPlugins = [ "apc_nis" ];
             };
             munin-cron = {
-             enable = true;
-             hosts = ''
-               [${config.networking.hostName}]
-               address localhost
-             '';
+              enable = true;
+              hosts = ''
+                [${config.networking.hostName}]
+                address localhost
+              '';
             };
           };
 
@@ -31,14 +36,15 @@ import ./make-test-python.nix ({ pkgs, ...} : {
         };
     };
 
-  testScript = ''
-    start_all()
+    testScript = ''
+      start_all()
 
-    with subtest("ensure munin-node starts and listens on 4949"):
-        one.wait_for_unit("munin-node.service")
-        one.wait_for_open_port(4949)
-    with subtest("ensure munin-cron output is correct"):
-        one.wait_for_file("/var/lib/munin/one/one-uptime-uptime-g.rrd")
-        one.wait_for_file("/var/www/munin/one/index.html")
-  '';
-})
+      with subtest("ensure munin-node starts and listens on 4949"):
+          one.wait_for_unit("munin-node.service")
+          one.wait_for_open_port(4949)
+      with subtest("ensure munin-cron output is correct"):
+          one.wait_for_file("/var/lib/munin/one/one-uptime-uptime-g.rrd")
+          one.wait_for_file("/var/www/munin/one/index.html")
+    '';
+  }
+)

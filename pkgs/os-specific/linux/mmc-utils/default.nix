@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation {
   pname = "mmc-utils";
@@ -10,7 +15,10 @@ stdenv.mkDerivation {
     sha256 = "cYLIO83uZHDe1COKtSN0SyFOoC3qrqMP0RNsOO9cQ70=";
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "prefix=$(out)" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "prefix=$(out)"
+  ];
 
   postInstall = ''
     mkdir -p $out/share/man/man1

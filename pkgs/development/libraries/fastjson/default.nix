@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libtool, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libtool,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.2304.0";
@@ -10,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WnM6lQjHz0n5BwWWZoDBavURokcaROXJW46RZen9vj4=";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
   buildInputs = [ libtool ];
 
   preConfigure = ''

@@ -1,4 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, boost, cmake, gdal, libgeotiff, libtiff, LASzip2, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  boost,
+  cmake,
+  gdal,
+  libgeotiff,
+  libtiff,
+  LASzip2,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libLAS";
@@ -28,7 +40,13 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-  buildInputs = [ boost gdal libgeotiff libtiff LASzip2 ];
+  buildInputs = [
+    boost
+    gdal
+    libgeotiff
+    libtiff
+    LASzip2
+  ];
 
   cmakeFlags = [
     "-DGDAL_CONFIG=${gdal}/bin/gdal-config"

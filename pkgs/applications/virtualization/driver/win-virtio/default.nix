@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, libarchive }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libarchive,
+}:
 stdenv.mkDerivation rec {
   pname = "win-virtio";
   version = "0.1.229-1";
@@ -8,9 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-yIoN3jRgXq7mz4ifPioMKvPK65G130WhJcpPcBrLu+A=";
   };
 
-  nativeBuildInputs = [
-    libarchive
-  ];
+  nativeBuildInputs = [ libarchive ];
 
   unpackCmd = "mkdir source; bsdtar -xf $curSrc -C source";
 

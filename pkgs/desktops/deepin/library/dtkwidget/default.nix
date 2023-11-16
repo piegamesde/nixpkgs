@@ -1,20 +1,21 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, qttools
-, doxygen
-, wrapQtAppsHook
-, dtkgui
-, qtbase
-, qtmultimedia
-, qtsvg
-, qtx11extras
-, cups
-, gsettings-qt
-, libstartup_notification
-, xorg
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qttools,
+  doxygen,
+  wrapQtAppsHook,
+  dtkgui,
+  qtbase,
+  qtmultimedia,
+  qtsvg,
+  qtx11extras,
+  cups,
+  gsettings-qt,
+  libstartup_notification,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {

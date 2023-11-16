@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, diff-cover
-, graphviz
-, hatchling
-, hatch-vcs
-, pytest-mock
-, pytestCheckHook
-, pip
-, virtualenv
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  diff-cover,
+  graphviz,
+  hatchling,
+  hatch-vcs,
+  pytest-mock,
+  pytestCheckHook,
+  pip,
+  virtualenv,
 }:
 
 buildPythonPackage rec {
@@ -33,14 +34,10 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  propagatedBuildInput = [
-    pip
-  ];
+  propagatedBuildInput = [ pip ];
 
   passthru.optional-dependencies = {
-    graphviz = [
-      graphviz
-    ];
+    graphviz = [ graphviz ];
   };
 
   nativeCheckInputs = [
@@ -50,9 +47,7 @@ buildPythonPackage rec {
     virtualenv
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "pipdeptree"
-  ];
+  pythonImportsCheck = [ "pipdeptree" ];
 
   meta = with lib; {
     description = "Command line utility to show dependency tree of packages";

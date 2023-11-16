@@ -1,13 +1,14 @@
-{ lib
-, python3
-, fetchPypi
-, pkgsCross
-, avrdude
-, dfu-programmer
-, dfu-util
-, gcc-arm-embedded
-, gnumake
-, teensy-loader-cli
+{
+  lib,
+  python3,
+  fetchPypi,
+  pkgsCross,
+  avrdude,
+  dfu-programmer,
+  dfu-util,
+  gcc-arm-embedded,
+  gnumake,
+  teensy-loader-cli,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -20,32 +21,34 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-+HH4jxoMoxujGgCdcWQX5GvFOKT4347eaoAckHbCKZg=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    dotty-dict
-    hid
-    hjson
-    jsonschema
-    milc
-    pygments
-    pyserial
-    pyusb
-    pillow
-  ] ++ [ # Binaries need to be in the path so this is in propagatedBuildInputs
-    avrdude
-    dfu-programmer
-    dfu-util
-    teensy-loader-cli
-    gcc-arm-embedded
-    gnumake
-    pkgsCross.avr.buildPackages.binutils
-    pkgsCross.avr.buildPackages.binutils.bintools
-    pkgsCross.avr.buildPackages.gcc8
-    pkgsCross.avr.libcCross
-  ];
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      dotty-dict
+      hid
+      hjson
+      jsonschema
+      milc
+      pygments
+      pyserial
+      pyusb
+      pillow
+    ]
+    ++ [
+      # Binaries need to be in the path so this is in propagatedBuildInputs
+      avrdude
+      dfu-programmer
+      dfu-util
+      teensy-loader-cli
+      gcc-arm-embedded
+      gnumake
+      pkgsCross.avr.buildPackages.binutils
+      pkgsCross.avr.buildPackages.binutils.bintools
+      pkgsCross.avr.buildPackages.gcc8
+      pkgsCross.avr.libcCross
+    ];
 
   # no tests implemented
   doCheck = false;
@@ -68,6 +71,10 @@ python3.pkgs.buildPythonApplication rec {
       - ... and many more!
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple babariviere ekleog ];
+    maintainers = with maintainers; [
+      bhipple
+      babariviere
+      ekleog
+    ];
   };
 }

@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, file
-, findutils
-, binutils-unwrapped
-, glibc
-, coreutils
-, sysctl
-, openssl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  file,
+  findutils,
+  binutils-unwrapped,
+  glibc,
+  coreutils,
+  sysctl,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,13 +23,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-BWtchWXukIDSLJkFX8M/NZBvfi7vUE2j4yFfS0KEZDo=";
   };
 
-  patches = [
-    ./0001-attempt-to-modprobe-config-before-checking-kernel.patch
-  ];
+  patches = [ ./0001-attempt-to-modprobe-config-before-checking-kernel.patch ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase =
     let
@@ -54,6 +51,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.trapkit.de/tools/checksec/";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thoughtpolice globin ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      globin
+    ];
   };
 }

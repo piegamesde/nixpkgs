@@ -1,12 +1,13 @@
-{ lib
-, callPackage
-, buildPythonPackage
-, fetchFromGitHub
-, mkdocs
-, csscompressor
-, htmlmin
-, jsmin
-, pytestCheckHook
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mkdocs,
+  csscompressor,
+  htmlmin,
+  jsmin,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

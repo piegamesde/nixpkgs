@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, ocamlPackages
-, pkg-config
-, libdrm
+{
+  lib,
+  fetchFromGitHub,
+  ocamlPackages,
+  pkg-config,
+  libdrm,
 }:
 
 ocamlPackages.buildDunePackage rec {
@@ -24,19 +25,21 @@ ocamlPackages.buildDunePackage rec {
   minimalOCamlVersion = "4.12";
   duneVersion = "3";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libdrm ] ++ (with ocamlPackages; [
-    dune-configurator
-    ppx_cstruct
-    wayland
-    cmdliner
-    logs
-    cstruct-lwt
-    ppx_cstruct
-  ]);
+  buildInputs =
+    [ libdrm ]
+    ++ (
+      with ocamlPackages; [
+        dune-configurator
+        ppx_cstruct
+        wayland
+        cmdliner
+        logs
+        cstruct-lwt
+        ppx_cstruct
+      ]
+    );
 
   doCheck = true;
 

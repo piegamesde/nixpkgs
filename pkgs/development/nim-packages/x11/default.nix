@@ -1,4 +1,8 @@
-{ lib, buildNimPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+}:
 
 buildNimPackage rec {
   pname = "x11";
@@ -13,8 +17,10 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "X11 library for nim";
       license = [ licenses.mit ];
       maintainers = [ maintainers.marcusramberg ];

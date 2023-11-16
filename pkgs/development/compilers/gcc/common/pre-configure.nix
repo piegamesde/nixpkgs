@@ -1,26 +1,37 @@
-{ lib, version, buildPlatform, hostPlatform, targetPlatform
-, gnat-bootstrap ? null
-, langAda ? false
-, langJava ? false
-, langJit ? false
-, langGo
-, crossStageStatic
-, enableMultilib
+{
+  lib,
+  version,
+  buildPlatform,
+  hostPlatform,
+  targetPlatform,
+  gnat-bootstrap ? null,
+  langAda ? false,
+  langJava ? false,
+  langJit ? false,
+  langGo,
+  crossStageStatic,
+  enableMultilib,
 }:
 
 assert langJava -> lib.versionOlder version "7";
-assert langAda -> gnat-bootstrap != null; let
-  needsLib
-    =  (lib.versionOlder version "7" && (langJava || langGo))
-    || (lib.versions.major version == "4" && lib.versions.minor version == "9" && targetPlatform.isDarwin);
-in lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
+assert langAda -> gnat-bootstrap != null;
+let
+  needsLib =
+    (lib.versionOlder version "7" && (langJava || langGo))
+    || (
+      lib.versions.major version == "4" && lib.versions.minor version == "9" && targetPlatform.isDarwin
+    );
+in
+lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
   export NIX_LDFLAGS=`echo $NIX_LDFLAGS | sed -e s~$prefix/lib~$prefix/lib/amd64~g`
   export LDFLAGS_FOR_TARGET="-Wl,-rpath,$prefix/lib/amd64 $LDFLAGS_FOR_TARGET"
   export CXXFLAGS_FOR_TARGET="-Wl,-rpath,$prefix/lib/amd64 $CXXFLAGS_FOR_TARGET"
   export CFLAGS_FOR_TARGET="-Wl,-rpath,$prefix/lib/amd64 $CFLAGS_FOR_TARGET"
-'' + lib.optionalString needsLib ''
+''
++ lib.optionalString needsLib ''
   export lib=$out;
-'' + lib.optionalString langAda ''
+''
++ lib.optionalString langAda ''
   export PATH=${gnat-bootstrap}/bin:$PATH
 ''
 
@@ -38,16 +49,19 @@ in lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # gnat-bootstrap, the former is provided as `as`, while the latter is provided as
 # `gas`.
 #
-+ lib.optionalString (
-    langAda
-    && buildPlatform == hostPlatform
-    && hostPlatform == targetPlatform
-    && targetPlatform.isx86_64
-    && targetPlatform.isDarwin
-  ) ''
-  export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
-  export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas
-''
++
+  lib.optionalString
+    (
+      langAda
+      && buildPlatform == hostPlatform
+      && hostPlatform == targetPlatform
+      && targetPlatform.isx86_64
+      && targetPlatform.isDarwin
+    )
+    ''
+      export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
+      export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas
+    ''
 
 # NOTE 2020/3/18: This environment variable prevents configure scripts from
 # detecting the presence of aligned_alloc on Darwin.  There are many facts that
@@ -78,11 +92,13 @@ in lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 #    compilation even if the configure scripts did not check header presence.
 #
 + lib.optionalString (buildPlatform.isDarwin) ''
-    export build_configargs=ac_cv_func_aligned_alloc=no
-'' + lib.optionalString (hostPlatform.isDarwin) ''
-    export host_configargs=ac_cv_func_aligned_alloc=no
-'' + lib.optionalString (targetPlatform.isDarwin) ''
-    export target_configargs=ac_cv_func_aligned_alloc=no
+  export build_configargs=ac_cv_func_aligned_alloc=no
+''
++ lib.optionalString (hostPlatform.isDarwin) ''
+  export host_configargs=ac_cv_func_aligned_alloc=no
+''
++ lib.optionalString (targetPlatform.isDarwin) ''
+  export target_configargs=ac_cv_func_aligned_alloc=no
 ''
 
 # In order to properly install libgccjit on macOS Catalina, strip(1)
@@ -96,9 +112,11 @@ in lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # HACK: if host and target config are the same, but the platforms are
 # actually different we need to convince the configure script that it
 # is in fact building a cross compiler although it doesn't believe it.
-+ lib.optionalString (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform) ''
-  substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
-''
++
+  lib.optionalString (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform)
+    ''
+      substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
+    ''
 
 # Normally (for host != target case) --without-headers automatically
 # enables 'inhibit_libc=true' in gcc's gcc/configure.ac. But case of

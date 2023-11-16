@@ -1,16 +1,17 @@
-{ lib
-, astroid
-, buildPythonPackage
-, fetchPypi
-, jinja2
-, mock
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, sphinx
-, stdenv
-, typing-extensions
-, unidecode
+{
+  lib,
+  astroid,
+  buildPythonPackage,
+  fetchPypi,
+  jinja2,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  sphinx,
+  stdenv,
+  typing-extensions,
+  unidecode,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     pyyaml
     sphinx
     unidecode
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
   nativeCheckInputs = [
     mock
@@ -46,9 +45,7 @@ buildPythonPackage rec {
     "test_annotations"
   ];
 
-  pythonImportsCheck = [
-    "autoapi"
-  ];
+  pythonImportsCheck = [ "autoapi" ];
 
   meta = with lib; {
     homepage = "https://github.com/readthedocs/sphinx-autoapi";

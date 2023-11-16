@@ -1,15 +1,35 @@
-{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack
-, fftw, libint, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper
-, libxsmm, spglib, which, pkg-config, plumed, zlib
-, enableElpa ? false
-, elpa
-} :
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  gfortran,
+  blas,
+  lapack,
+  fftw,
+  libint,
+  libvori,
+  libxc,
+  mpi,
+  gsl,
+  scalapack,
+  openssh,
+  makeWrapper,
+  libxsmm,
+  spglib,
+  which,
+  pkg-config,
+  plumed,
+  zlib,
+  enableElpa ? false,
+  elpa,
+}:
 
 let
   cp2kVersion = "psmp";
   arch = "Linux-x86-64-gfortran";
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "cp2k";
   version = "2023.1";
 
@@ -21,7 +41,13 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ python3 which openssh makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    python3
+    which
+    openssh
+    makeWrapper
+    pkg-config
+  ];
   buildInputs = [
     gfortran
     fftw
@@ -74,14 +100,18 @@ in stdenv.mkDerivation rec {
                  -std=f2008 \
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
-                 -I${libint}/include ${lib.optionalString enableElpa "$(pkg-config --variable=fcflags elpa)"}
+                 -I${libint}/include ${
+                   lib.optionalString enableElpa "$(pkg-config --variable=fcflags elpa)"
+                 }
     LIBS       = -lfftw3 -lfftw3_threads \
                  -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
                  -lgomp -lpthread -lm \
                  -fopenmp ${lib.optionalString enableElpa "$(pkg-config --libs elpa)"} \
-                 -lz -ldl -lstdc++ ${lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"} \
+                 -lz -ldl -lstdc++ ${
+                   lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"
+                 } \
                  -lplumed
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)
     include ${plumed}/lib/plumed/src/lib/Plumed.inc
@@ -115,7 +145,9 @@ in stdenv.mkDerivation rec {
     cp -r data/* $out/share/cp2k
   '';
 
-  passthru = { inherit mpi; };
+  passthru = {
+    inherit mpi;
+  };
 
   meta = with lib; {
     description = "Quantum chemistry and solid state physics program";

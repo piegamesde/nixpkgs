@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, htslib, zlib, bzip2, xz, curl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  htslib,
+  zlib,
+  bzip2,
+  xz,
+  curl,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "angsd";
@@ -11,9 +21,19 @@ stdenv.mkDerivation rec {
     rev = "${version}";
   };
 
-  buildInputs = [ htslib zlib bzip2 xz curl openssl ];
+  buildInputs = [
+    htslib
+    zlib
+    bzip2
+    xz
+    curl
+    openssl
+  ];
 
-  makeFlags = [ "HTSSRC=systemwide" "prefix=$(out)" ];
+  makeFlags = [
+    "HTSSRC=systemwide"
+    "prefix=$(out)"
+  ];
 
   meta = with lib; {
     description = "Program for analysing NGS data";
@@ -22,4 +42,3 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
   };
 }
-

@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, postgresql
-, openssl
-, libxcrypt
-, withPam ? stdenv.isLinux
-, pam
+{
+  lib,
+  stdenv,
+  fetchurl,
+  postgresql,
+  openssl,
+  libxcrypt,
+  withPam ? stdenv.isLinux,
+  pam,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,15 +31,15 @@ stdenv.mkDerivation rec {
     "--with-openssl"
   ] ++ lib.optional withPam "--with-pam";
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" ];
 
-  patches = lib.optionals (stdenv.isDarwin) [
-    # Build checks for strlcpy being available in the system, but doesn't
-    # actually exclude its own copy from being built
-    ./darwin-strlcpy.patch
-  ];
+  patches =
+    lib.optionals (stdenv.isDarwin)
+      [
+        # Build checks for strlcpy being available in the system, but doesn't
+        # actually exclude its own copy from being built
+        ./darwin-strlcpy.patch
+      ];
 
   enableParallelBuilding = true;
 

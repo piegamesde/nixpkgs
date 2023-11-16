@@ -1,37 +1,38 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, deepin-pw-check
-, udisks2-qt5
-, cmake
-, qttools
-, qtbase
-, pkg-config
-, qtx11extras
-, qtmultimedia
-, wrapQtAppsHook
-, wrapGAppsHook
-, gsettings-qt
-, wayland
-, kwayland
-, qtwayland
-, polkit-qt
-, pcre
-, xorg
-, libselinux
-, libsepol
-, libxcrypt
-, librsvg
-, networkmanager-qt
-, glib
-, runtimeShell
-, tzdata
-, dbus
-, gtest
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  deepin-pw-check,
+  udisks2-qt5,
+  cmake,
+  qttools,
+  qtbase,
+  pkg-config,
+  qtx11extras,
+  qtmultimedia,
+  wrapQtAppsHook,
+  wrapGAppsHook,
+  gsettings-qt,
+  wayland,
+  kwayland,
+  qtwayland,
+  polkit-qt,
+  pcre,
+  xorg,
+  libselinux,
+  libsepol,
+  libxcrypt,
+  librsvg,
+  networkmanager-qt,
+  glib,
+  runtimeShell,
+  tzdata,
+  dbus,
+  gtest,
 }:
 
 stdenv.mkDerivation rec {
@@ -45,12 +46,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/gzS+IbopIDRpufsa9cEfFBOqehPUnF4IozvwW8UEbY=";
   };
 
-  patches = [
-    # UserExperienceProgramLicenseAgreement comes from a non-open source component(deepin-deepinid-client)
-    # If we don't block it, only an empty page will be displayed here
-    # Remove this patch when dde-control-center is upgraded to 6.0.0
-    ./dont-show-endUserLicenseAgreement-for-deepinos.patch
-  ];
+  patches =
+    [
+      # UserExperienceProgramLicenseAgreement comes from a non-open source component(deepin-deepinid-client)
+      # If we don't block it, only an empty page will be displayed here
+      # Remove this patch when dde-control-center is upgraded to 6.0.0
+      ./dont-show-endUserLicenseAgreement-for-deepinos.patch
+    ];
 
   postPatch = ''
     substituteInPlace src/frame/window/{mainwindow.cpp,insertplugin.cpp} com.deepin.controlcenter.develop.policy \

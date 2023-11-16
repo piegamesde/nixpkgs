@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -21,17 +26,22 @@ in
 
       settings = mkOption {
         default = { };
-        description = lib.mdDoc ''configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details.'';
+        description =
+          lib.mdDoc
+            "configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details.";
         type = format.type;
       };
     };
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
-      assertion = !(builtins.hasAttr "bolt-path" cfg.settings) && !(builtins.hasAttr "engine-path" cfg.settings);
-      message = "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
-    }];
+    assertions = [
+      {
+        assertion =
+          !(builtins.hasAttr "bolt-path" cfg.settings) && !(builtins.hasAttr "engine-path" cfg.settings);
+        message = "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
+      }
+    ];
 
     systemd.services.influxdb2 = {
       description = "InfluxDB is an open-source, distributed, time series database";
@@ -60,7 +70,7 @@ in
       group = "influxdb2";
     };
 
-    users.extraGroups.influxdb2 = {};
+    users.extraGroups.influxdb2 = { };
   };
 
   meta.maintainers = with lib.maintainers; [ nickcao ];

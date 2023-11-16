@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, cairo
-, ffmpeg
-, libexif
-, pango
-, pkg-config
-, wxGTK
-, darwin
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cairo,
+  ffmpeg,
+  libexif,
+  pango,
+  pkg-config,
+  wxGTK,
+  darwin,
 }:
 
 let
@@ -22,9 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-rkcykfjQpf6voGzScMgmxr6tS86yud1vzs8tt8JeJII=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     cairo

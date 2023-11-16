@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.services.xserver.displayManager.startx;
-
 in
 
 {
@@ -29,7 +33,6 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -46,9 +49,10 @@ in
 
     # Implement xserverArgs via xinit's system-wide xserverrc
     environment.etc."X11/xinit/xserverrc".source = pkgs.writeShellScript "xserverrc" ''
-      exec ${pkgs.xorg.xorgserver}/bin/X ${toString config.services.xserver.displayManager.xserverArgs} "$@"
+      exec ${pkgs.xorg.xorgserver}/bin/X ${
+        toString config.services.xserver.displayManager.xserverArgs
+      } "$@"
     '';
-    environment.systemPackages =  with pkgs; [ xorg.xinit ];
+    environment.systemPackages = with pkgs; [ xorg.xinit ];
   };
-
 }

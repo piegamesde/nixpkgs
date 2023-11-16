@@ -2,16 +2,21 @@
 
 let
   inherit (pkgs) fetchpatch lib;
-  checkAgainAfter = pkg: ver: msg: act:
-    if builtins.compareVersions pkg.version ver <= 0 then act
+  checkAgainAfter =
+    pkg: ver: msg: act:
+    if builtins.compareVersions pkg.version ver <= 0 then
+      act
     else
-      builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
+      builtins.throw
+        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
 in
 
 with haskellLib;
-self: super: let
+self: super:
+let
   jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
-in {
+in
+{
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
   # Disable GHC core libraries.
@@ -46,7 +51,8 @@ in {
   system-cxx-std-lib = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo =
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -60,7 +66,9 @@ in {
 
   # consequences of doctest breakage follow:
 
-  ghc-source-gen = checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build" (markBroken super.ghc-source-gen);
+  ghc-source-gen = checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build" (
+    markBroken super.ghc-source-gen
+  );
 
   haskell-src-meta = doJailbreak super.haskell-src-meta;
 
@@ -76,7 +84,10 @@ in {
   binary-instances = doJailbreak super.binary-instances;
   ChasingBottoms = doJailbreak super.ChasingBottoms;
   constraints = doJailbreak super.constraints;
-  cpphs = overrideCabal (drv: { postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";}) super.cpphs;
+  cpphs =
+    overrideCabal
+      (drv: { postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal"; })
+      super.cpphs;
   data-fix = doJailbreak super.data-fix;
   dec = doJailbreak super.dec;
   ed25519 = doJailbreak super.ed25519;
@@ -86,14 +97,20 @@ in {
   ghc-lib-parser-ex = doDistribute self.ghc-lib-parser-ex_9_4_0_0;
   hackage-security = doJailbreak super.hackage-security;
   hashable-time = doJailbreak super.hashable-time;
-  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (doJailbreak super.HTTP);
-  integer-logarithms = overrideCabal (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; }) (doJailbreak super.integer-logarithms);
+  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (
+    doJailbreak super.HTTP
+  );
+  integer-logarithms =
+    overrideCabal (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; })
+      (doJailbreak super.integer-logarithms);
   lifted-async = doJailbreak super.lifted-async;
   lukko = doJailbreak super.lukko;
   lzma-conduit = doJailbreak super.lzma-conduit;
   parallel = doJailbreak super.parallel;
   path = doJailbreak super.path;
-  polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (doJailbreak super.polyparse);
+  polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (
+    doJailbreak super.polyparse
+  );
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;
@@ -129,21 +146,27 @@ in {
   unordered-containers = doJailbreak super.unordered-containers;
   vector-binary-instances = doJailbreak super.vector-binary-instances;
 
-  hpack = overrideCabal (drv: {
-    # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
-    # 2021-10-10: 9.2.1 is not yet supported (also no issue)
-    testFlags = [
-      "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"
-    ] ++ drv.testFlags or [];
-  }) (doJailbreak super.hpack);
+  hpack =
+    overrideCabal
+      (drv: {
+        # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
+        # 2021-10-10: 9.2.1 is not yet supported (also no issue)
+        testFlags = [
+          "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"
+        ] ++ drv.testFlags or [ ];
+      })
+      (doJailbreak super.hpack);
 
   lens = doDistribute self.lens_5_2_2;
 
   # Apply patches from head.hackage.
-  language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
-    sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
-  }) (doJailbreak super.language-haskell-extract);
+  language-haskell-extract =
+    appendPatch
+      (pkgs.fetchpatch {
+        url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
+        sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
+      })
+      (doJailbreak super.language-haskell-extract);
 
   # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
@@ -162,17 +185,28 @@ in {
   hiedb = dontCheck super.hiedb;
 
   hlint = self.hlint_3_5;
-  hls-hlint-plugin = super.hls-hlint-plugin.override {
-    inherit (self) hlint;
-  };
+  hls-hlint-plugin = super.hls-hlint-plugin.override { inherit (self) hlint; };
 
   # 2022-10-06: https://gitlab.haskell.org/ghc/ghc/-/issues/22260
   ghc-check = dontHaddock super.ghc-check;
 
-  ghc-exactprint = overrideCabal (drv: {
-    libraryHaskellDepends = with self; [ HUnit data-default fail filemanip free ghc-paths ordered-containers silently syb Diff ];
-  })
-    self.ghc-exactprint_1_6_1_1;
+  ghc-exactprint =
+    overrideCabal
+      (drv: {
+        libraryHaskellDepends = with self; [
+          HUnit
+          data-default
+          fail
+          filemanip
+          free
+          ghc-paths
+          ordered-containers
+          silently
+          syb
+          Diff
+        ];
+      })
+      self.ghc-exactprint_1_6_1_1;
 
   # needed to build servant
   http-api-data = super.http-api-data_0_5_1;
@@ -192,9 +226,9 @@ in {
 
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
-  fourmolu = overrideCabal (drv: {
-    libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-  }) (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
+  fourmolu =
+    overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
+      (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455
   # by making `pkg-config --static` happy. Note: Cabal 3.9 is also affected, so

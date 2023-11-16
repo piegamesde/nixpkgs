@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, case
-, psutil
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  case,
+  psutil,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # psutil.NoSuchProcess: process no longer exists (pid=168)
-    "test_set_pdeathsig"
-  ];
+  disabledTests =
+    [
+      # psutil.NoSuchProcess: process no longer exists (pid=168)
+      "test_set_pdeathsig"
+    ];
 
-  pythonImportsCheck = [
-    "billiard"
-  ];
+  pythonImportsCheck = [ "billiard" ];
 
   meta = with lib; {
     description = "Python multiprocessing fork with improvements and bugfixes";

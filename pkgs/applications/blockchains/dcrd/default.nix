@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "dcrd";
@@ -15,7 +19,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." "cmd/dcrctl" "cmd/promptsecret" ];
+  subPackages = [
+    "."
+    "cmd/dcrctl"
+    "cmd/promptsecret"
+  ];
 
   meta = {
     homepage = "https://decred.org";

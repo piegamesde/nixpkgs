@@ -1,40 +1,45 @@
-{ lib
-, stdenv
-, pkg-config
-, cmake
-, fetchurl
-, git
-, cctools
-, developer_cmds
-, DarwinTools
-, makeWrapper
-, CoreServices
-, bison
-, openssl
-, protobuf
-, curl
-, zlib
-, libssh
-, zstd
-, lz4
-, boost
-, readline
-, libtirpc
-, rpcsvc-proto
-, libedit
-, libevent
-, icu
-, re2
-, ncurses
-, libfido2
-, python3
-, cyrus_sasl
-, openldap
-, antlr
+{
+  lib,
+  stdenv,
+  pkg-config,
+  cmake,
+  fetchurl,
+  git,
+  cctools,
+  developer_cmds,
+  DarwinTools,
+  makeWrapper,
+  CoreServices,
+  bison,
+  openssl,
+  protobuf,
+  curl,
+  zlib,
+  libssh,
+  zstd,
+  lz4,
+  boost,
+  readline,
+  libtirpc,
+  rpcsvc-proto,
+  libedit,
+  libevent,
+  icu,
+  re2,
+  ncurses,
+  libfido2,
+  python3,
+  cyrus_sasl,
+  openldap,
+  antlr,
 }:
 
 let
-  pythonDeps = with python3.pkgs; [ certifi paramiko pyyaml ];
+  pythonDeps = with python3.pkgs; [
+    certifi
+    paramiko
+    pyyaml
+  ];
 in
 stdenv.mkDerivation rec {
   pname = "mysql-shell";
@@ -46,7 +51,9 @@ stdenv.mkDerivation rec {
       hash = "sha256-ElcAOvyQjXNns35p4J+jnGu8orZR81Itz/fxYh7Usbs=";
     })
     (fetchurl {
-      url = "https://dev.mysql.com/get/Downloads/MySQL-${lib.versions.majorMinor version}/mysql-${version}.tar.gz";
+      url = "https://dev.mysql.com/get/Downloads/MySQL-${
+          lib.versions.majorMinor version
+        }/mysql-${version}.tar.gz";
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
     })
   ];
@@ -60,33 +67,46 @@ stdenv.mkDerivation rec {
     substituteInPlace cmake/libutils.cmake --replace /usr/bin/libtool libtool
   '';
 
-  nativeBuildInputs = [ pkg-config cmake git bison makeWrapper ]
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+      git
+      bison
+      makeWrapper
+    ]
     ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
-    ++ lib.optionals stdenv.isDarwin [ cctools developer_cmds DarwinTools ];
+    ++ lib.optionals stdenv.isDarwin [
+      cctools
+      developer_cmds
+      DarwinTools
+    ];
 
-  buildInputs = [
-    boost
-    curl
-    libedit
-    libssh
-    lz4
-    openssl
-    protobuf
-    readline
-    zlib
-    zstd
-    libevent
-    icu
-    re2
-    ncurses
-    libfido2
-    cyrus_sasl
-    openldap
-    python3
-    antlr.runtime.cpp
-  ] ++ pythonDeps
-  ++ lib.optionals stdenv.isLinux [ libtirpc ]
-  ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs =
+    [
+      boost
+      curl
+      libedit
+      libssh
+      lz4
+      openssl
+      protobuf
+      readline
+      zlib
+      zstd
+      libevent
+      icu
+      re2
+      ncurses
+      libfido2
+      cyrus_sasl
+      openldap
+      python3
+      antlr.runtime.cpp
+    ]
+    ++ pythonDeps
+    ++ lib.optionals stdenv.isLinux [ libtirpc ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   preConfigure = ''
     # Build MySQL
@@ -111,7 +131,9 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/mysqlsh --set PYTHONPATH "${lib.makeSearchPath python3.sitePackages pythonDeps}"
+    wrapProgram $out/bin/mysqlsh --set PYTHONPATH "${
+      lib.makeSearchPath python3.sitePackages pythonDeps
+    }"
   '';
 
   meta = with lib; {

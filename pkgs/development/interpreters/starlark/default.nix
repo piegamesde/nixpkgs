@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 buildGoModule rec {
   pname = "starlark";
   version = "unstable-2023-03-02";
@@ -12,7 +16,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-mMxRw2VucXwKGQ7f7HM0GiQUExxN38qYZDdmEyxtXDA=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/google/starlark-go";

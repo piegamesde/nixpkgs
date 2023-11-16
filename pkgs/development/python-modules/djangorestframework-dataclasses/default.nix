@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, djangorestframework
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  djangorestframework,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -17,20 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-PTX5huYdusPV6xCBW+8sFwusuPtZBH1vVApvcQU7Dlc=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   postPatch = ''
     patchShebangs manage.py
   '';
 
-  propagatedBuildInputs = [
-    djangorestframework
-  ];
+  propagatedBuildInputs = [ djangorestframework ];
 
   checkPhase = ''
-   ./manage.py test
+    ./manage.py test
   '';
 
   pythonImportsCheck = [ "rest_framework_dataclasses" ];

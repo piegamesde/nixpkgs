@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, makeDesktopItem
-, fetchurl
-, pkg-config
-, copyDesktopItems
-, cairo
-, freetype
-, ghostscript
-, gsl
-, libjpeg
-, libpng
-, libspiro
-, lua5
-, qtbase
-, texlive
-, wrapQtAppsHook
-, zlib
-, withTeXLive ? true
+{
+  lib,
+  stdenv,
+  makeDesktopItem,
+  fetchurl,
+  pkg-config,
+  copyDesktopItems,
+  cairo,
+  freetype,
+  ghostscript,
+  gsl,
+  libjpeg,
+  libpng,
+  libspiro,
+  lua5,
+  qtbase,
+  texlive,
+  wrapQtAppsHook,
+  zlib,
+  withTeXLive ? true,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,11 +28,13 @@ stdenv.mkDerivation rec {
     url = "https://github.com/otfried/ipe/releases/download/v${version}/ipe-${version}-src.tar.gz";
     sha256 = "sha256-5J0AV5E6SlFrIBfwDZrbJnkDUoVZ0fDH669s2RQ1CqU=";
   };
-  patches = [
-    ./headers-lookup.patch
-  ];
+  patches = [ ./headers-lookup.patch ];
 
-  nativeBuildInputs = [ pkg-config copyDesktopItems wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    copyDesktopItems
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     cairo
@@ -44,9 +47,7 @@ stdenv.mkDerivation rec {
     lua5
     qtbase
     zlib
-  ] ++ (lib.optionals withTeXLive [
-    texlive
-  ]);
+  ] ++ (lib.optionals withTeXLive [ texlive ]);
 
   makeFlags = [
     "-C src"
@@ -67,8 +68,14 @@ stdenv.mkDerivation rec {
       comment = "A drawing editor for creating figures in PDF format";
       exec = "ipe";
       icon = "ipe";
-      mimeTypes = [ "text/xml" "application/pdf" ];
-      categories = [ "Graphics" "Qt" ];
+      mimeTypes = [
+        "text/xml"
+        "application/pdf"
+      ];
+      categories = [
+        "Graphics"
+        "Qt"
+      ];
       startupNotify = true;
       startupWMClass = "ipe";
     })

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, pytz
-, requests
-, requests-mock
-, typing-extensions
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  requests,
+  requests-mock,
+  typing-extensions,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-W26R+L2ZJpycEQ9KwkHqVARKsd/5YkJCxMeciKnKAX8=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pytz
@@ -41,9 +40,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [
-    "meteofrance_api"
-  ];
+  pythonImportsCheck = [ "meteofrance_api" ];
 
   disabledTests = [
     # Tests require network access

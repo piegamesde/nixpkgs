@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "ieee-floats";
   version = "20170830-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "ieee-floats";
 
-  asdFilesToKeep = ["ieee-floats.asd"];
+  asdFilesToKeep = [ "ieee-floats.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM ieee-floats DESCRIPTION
@@ -26,4 +26,5 @@ rec {
     http://beta.quicklisp.org/archive/ieee-floats/2017-08-30/ieee-floats-20170830-git.tgz
     MD5 3434b4d91224ca6a817ced9d83f14bb6 NAME ieee-floats FILENAME ieee-floats
     DEPS ((NAME fiveam FILENAME fiveam)) DEPENDENCIES (fiveam) VERSION
-    20170830-git SIBLINGS NIL PARASITES (ieee-floats-tests)) */
+    20170830-git SIBLINGS NIL PARASITES (ieee-floats-tests))
+*/

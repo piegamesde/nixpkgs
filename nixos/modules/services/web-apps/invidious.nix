@@ -1,4 +1,10 @@
-{ lib, config, pkgs, options, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  options,
+  ...
+}:
 let
   cfg = config.services.invidious;
   # To allow injecting secrets with jq, json (instead of yaml) is used
@@ -16,8 +22,11 @@ let
 
       script =
         let
-          jqFilter = "."
-            + lib.optionalString (cfg.database.host != null) "[0].db.password = \"'\"'\"$(cat ${lib.escapeShellArg cfg.database.passwordFile})\"'\"'\""
+          jqFilter =
+            "."
+            +
+              lib.optionalString (cfg.database.host != null)
+                ''[0].db.password = "'"'"$(cat ${lib.escapeShellArg cfg.database.passwordFile})"'"'"''
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
           jqFiles = [ settingsFile ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
@@ -37,10 +46,18 @@ let
         ProtectHome = true;
         ProtectKernelLogs = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
       };
     };
 
@@ -60,14 +77,14 @@ let
         # Not needed because peer authentication is enabled
         password = lib.mkIf (cfg.database.host == null) "";
       };
-    } // (lib.optionalAttrs (cfg.domain != null) {
-      inherit (cfg) domain;
-    });
+    } // (lib.optionalAttrs (cfg.domain != null) { inherit (cfg) domain; });
 
-    assertions = [{
-      assertion = cfg.database.host != null -> cfg.database.passwordFile != null;
-      message = "If database host isn't null, database password needs to be set";
-    }];
+    assertions = [
+      {
+        assertion = cfg.database.host != null -> cfg.database.passwordFile != null;
+        message = "If database host isn't null, database password needs to be set";
+      }
+    ];
   };
 
   # Settings necessary for running with an automatically managed local database
@@ -138,10 +155,12 @@ let
       };
     };
 
-    assertions = [{
-      assertion = cfg.domain != null;
-      message = "To use services.invidious.nginx, you need to set services.invidious.domain";
-    }];
+    assertions = [
+      {
+        assertion = cfg.domain != null;
+        message = "To use services.invidious.nginx, you need to set services.invidious.domain";
+      }
+    ];
   };
 in
 {
@@ -256,9 +275,11 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    serviceConfig
-    localDatabaseConfig
-    nginxConfig
-  ]);
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      serviceConfig
+      localDatabaseConfig
+      nginxConfig
+    ]
+  );
 }

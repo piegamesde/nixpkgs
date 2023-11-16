@@ -1,14 +1,15 @@
-{ lib
-, blessed
-, buildPythonPackage
-, fetchPypi
-, mockito
-, nvidia-ml-py
-, psutil
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, setuptools-scm
+{
+  lib,
+  blessed,
+  buildPythonPackage,
+  fetchPypi,
+  mockito,
+  nvidia-ml-py,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-yPwQVASqwRiE9w7S+gbP0hDTzTicyuSpvDhXnHJGDO4=";
   };
 
-  pythonRelaxDeps = [
-    "nvidia-ml-py"
-  ];
+  pythonRelaxDeps = [ "nvidia-ml-py" ];
 
   nativeBuildInputs = [
     pythonRelaxDepsHook
@@ -43,9 +42,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "gpustat"
-  ];
+  pythonImportsCheck = [ "gpustat" ];
 
   meta = with lib; {
     description = "A simple command-line utility for querying and monitoring GPU status";

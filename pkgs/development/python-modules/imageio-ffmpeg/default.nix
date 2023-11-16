@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, substituteAll
-, ffmpeg_4
-, python
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  substituteAll,
+  ffmpeg_4,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -44,5 +45,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = [ maintainers.pmiddend ];
   };
-
 }

@@ -1,7 +1,16 @@
-{ stdenv, lib, unzip, autoPatchelfHook
-, fetchurl, atomEnv, makeWrapper
-, makeDesktopItem, copyDesktopItems, wrapGAppsHook, libxshmfence
-, metaCommon
+{
+  stdenv,
+  lib,
+  unzip,
+  autoPatchelfHook,
+  fetchurl,
+  atomEnv,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  wrapGAppsHook,
+  libxshmfence,
+  metaCommon,
 }:
 
 let
@@ -16,7 +25,10 @@ let
 
   meta = metaCommon // {
     mainProgram = "trilium";
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -84,6 +96,5 @@ let
       cp -r *.app $out/Applications
     '';
   };
-
 in
-  if stdenv.isDarwin then darwin else linux
+if stdenv.isDarwin then darwin else linux

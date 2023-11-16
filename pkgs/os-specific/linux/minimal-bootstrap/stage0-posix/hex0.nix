@@ -1,8 +1,9 @@
-{ lib
-, derivationWithMeta
-, hex0-seed
-, src
-, version
+{
+  lib,
+  derivationWithMeta,
+  hex0-seed,
+  src,
+  version,
 }:
 derivationWithMeta {
   inherit version;

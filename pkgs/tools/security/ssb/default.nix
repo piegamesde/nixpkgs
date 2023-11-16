@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -14,7 +15,7 @@ buildGoModule rec {
     sha256 = "0dkd02l30461cwn5hsssnjyb9s8ww179wll3l7z5hy1hv3x6h9g1";
   };
 
-  vendorSha256 = null; #vendorSha256 = "";
+  vendorSha256 = null; # vendorSha256 = "";
 
   meta = with lib; {
     description = "Tool to bruteforce SSH server";

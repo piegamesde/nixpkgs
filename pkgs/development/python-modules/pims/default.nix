@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, imageio
-, numpy
-, pytestCheckHook
-, pythonOlder
-, scikit-image
-, slicerator
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-image,
+  slicerator,
 }:
 
 buildPythonPackage rec {
@@ -34,24 +35,24 @@ buildPythonPackage rec {
     scikit-image
   ];
 
-  pythonImportsCheck = [
-    "pims"
-  ];
+  pythonImportsCheck = [ "pims" ];
 
   pytestFlagsArray = [
     "-W"
     "ignore::Warning"
   ];
 
-  disabledTests = [
-    # NotImplementedError: Do not know how to deal with infinite readers
-    "TestVideo_ImageIO"
-  ];
+  disabledTests =
+    [
+      # NotImplementedError: Do not know how to deal with infinite readers
+      "TestVideo_ImageIO"
+    ];
 
-  disabledTestPaths = [
-    # AssertionError: Tuples differ: (377, 505, 4) != (384, 512, 4)
-    "pims/tests/test_display.py"
-  ];
+  disabledTestPaths =
+    [
+      # AssertionError: Tuples differ: (377, 505, 4) != (384, 512, 4)
+      "pims/tests/test_display.py"
+    ];
 
   meta = with lib; {
     description = "Module to load video and sequential images in various formats";

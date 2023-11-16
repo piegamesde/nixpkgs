@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "array-operations";
   version = "20210411-git";
@@ -8,7 +8,12 @@ rec {
 
   description = "Simple array operations library for Common Lisp.";
 
-  deps = [ args."alexandria" args."anaphora" args."clunit2" args."let-plus" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."clunit2"
+    args."let-plus"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/array-operations/2021-04-11/array-operations-20210411-git.tgz";
@@ -17,7 +22,7 @@ rec {
 
   packageName = "array-operations";
 
-  asdFilesToKeep = ["array-operations.asd"];
+  asdFilesToKeep = [ "array-operations.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM array-operations DESCRIPTION
@@ -29,4 +34,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME anaphora FILENAME anaphora)
      (NAME clunit2 FILENAME clunit2) (NAME let-plus FILENAME let-plus))
     DEPENDENCIES (alexandria anaphora clunit2 let-plus) VERSION 20210411-git
-    SIBLINGS NIL PARASITES (array-operations/tests)) */
+    SIBLINGS NIL PARASITES (array-operations/tests))
+*/

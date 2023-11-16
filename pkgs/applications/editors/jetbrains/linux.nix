@@ -1,37 +1,69 @@
-{ stdenv, lib, makeDesktopItem, makeWrapper, patchelf, writeText
-, coreutils, gnugrep, which, git, unzip, libsecret, libnotify, e2fsprogs
-, python3, vmopts ? null
+{
+  stdenv,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  patchelf,
+  writeText,
+  coreutils,
+  gnugrep,
+  which,
+  git,
+  unzip,
+  libsecret,
+  libnotify,
+  e2fsprogs,
+  python3,
+  vmopts ? null,
 }:
 
-{ pname, product, productShort ? product, version, src, wmClass, jdk, meta, extraLdPath ? [], extraWrapperArgs ? [] }@args:
+{
+  pname,
+  product,
+  productShort ? product,
+  version,
+  src,
+  wmClass,
+  jdk,
+  meta,
+  extraLdPath ? [ ],
+  extraWrapperArgs ? [ ],
+}@args:
 
-let loName = lib.toLower productShort;
-    hiName = lib.toUpper productShort;
-    vmoptsName = loName
-               + lib.optionalString stdenv.hostPlatform.is64bit "64"
-               + ".vmoptions";
+let
+  loName = lib.toLower productShort;
+  hiName = lib.toUpper productShort;
+  vmoptsName = loName + lib.optionalString stdenv.hostPlatform.is64bit "64" + ".vmoptions";
 in
 
-with stdenv; lib.makeOverridable mkDerivation (rec {
-  inherit pname version src;
-  meta = args.meta // { mainProgram = pname; };
+with stdenv;
+lib.makeOverridable mkDerivation (
+  rec {
+    inherit pname version src;
+    meta = args.meta // {
+      mainProgram = pname;
+    };
 
-  desktopItem = makeDesktopItem {
-    name = pname;
-    exec = pname;
-    comment = lib.replaceStrings ["\n"] [" "] meta.longDescription;
-    desktopName = product;
-    genericName = meta.description;
-    categories = [ "Development" ];
-    icon = pname;
-    startupWMClass = wmClass;
-  };
+    desktopItem = makeDesktopItem {
+      name = pname;
+      exec = pname;
+      comment = lib.replaceStrings [ "\n" ] [ " " ] meta.longDescription;
+      desktopName = product;
+      genericName = meta.description;
+      categories = [ "Development" ];
+      icon = pname;
+      startupWMClass = wmClass;
+    };
 
-  vmoptsFile = lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
+    vmoptsFile = lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
 
-  nativeBuildInputs = [ makeWrapper patchelf unzip ];
+    nativeBuildInputs = [
+      makeWrapper
+      patchelf
+      unzip
+    ];
 
-  postPatch = ''
+    postPatch = ''
       get_file_size() {
         local fname="$1"
         echo $(ls -l $fname | cut -d ' ' -f5)
@@ -56,40 +88,55 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
         patchelf --set-interpreter "$interpreter" bin/fsnotifier
         munge_size_hack bin/fsnotifier $target_size
       fi
-  '';
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/{bin,$pname,share/pixmaps,libexec/${pname}}
-    cp -a . $out/$pname
-    [[ -f $out/$pname/bin/${loName}.png ]] && ln -s $out/$pname/bin/${loName}.png $out/share/pixmaps/${pname}.png
-    [[ -f $out/$pname/bin/${loName}.svg ]] && ln -s $out/$pname/bin/${loName}.svg $out/share/pixmaps/${pname}.svg
-    mv bin/fsnotifier* $out/libexec/${pname}/.
+      mkdir -p $out/{bin,$pname,share/pixmaps,libexec/${pname}}
+      cp -a . $out/$pname
+      [[ -f $out/$pname/bin/${loName}.png ]] && ln -s $out/$pname/bin/${loName}.png $out/share/pixmaps/${pname}.png
+      [[ -f $out/$pname/bin/${loName}.svg ]] && ln -s $out/$pname/bin/${loName}.svg $out/share/pixmaps/${pname}.svg
+      mv bin/fsnotifier* $out/libexec/${pname}/.
 
-    jdk=${jdk.home}
-    item=${desktopItem}
+      jdk=${jdk.home}
+      item=${desktopItem}
 
-    makeWrapper "$out/$pname/bin/${loName}.sh" "$out/bin/${pname}" \
-      --prefix PATH : "$out/libexec/${pname}:${lib.makeBinPath [ jdk coreutils gnugrep which git python3 ]}" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath ([
-        # Some internals want libstdc++.so.6
-        stdenv.cc.cc.lib libsecret e2fsprogs
-        libnotify
-      ] ++ extraLdPath)}" \
-      ${lib.concatStringsSep " " extraWrapperArgs} \
-      --set-default JDK_HOME "$jdk" \
-      --set-default ANDROID_JAVA_HOME "$jdk" \
-      --set-default JAVA_HOME "$jdk" \
-      --set-default JETBRAINSCLIENT_JDK "$jdk" \
-      --set ${hiName}_JDK "$jdk" \
-      --set ${hiName}_VM_OPTIONS ${vmoptsFile}
+      makeWrapper "$out/$pname/bin/${loName}.sh" "$out/bin/${pname}" \
+        --prefix PATH : "$out/libexec/${pname}:${
+          lib.makeBinPath [
+            jdk
+            coreutils
+            gnugrep
+            which
+            git
+            python3
+          ]
+        }" \
+        --prefix LD_LIBRARY_PATH : "${
+          lib.makeLibraryPath (
+            [
+              # Some internals want libstdc++.so.6
+              stdenv.cc.cc.lib
+              libsecret
+              e2fsprogs
+              libnotify
+            ]
+            ++ extraLdPath
+          )
+        }" \
+        ${lib.concatStringsSep " " extraWrapperArgs} \
+        --set-default JDK_HOME "$jdk" \
+        --set-default ANDROID_JAVA_HOME "$jdk" \
+        --set-default JAVA_HOME "$jdk" \
+        --set-default JETBRAINSCLIENT_JDK "$jdk" \
+        --set ${hiName}_JDK "$jdk" \
+        --set ${hiName}_VM_OPTIONS ${vmoptsFile}
 
-    ln -s "$item/share/applications" $out/share
+      ln -s "$item/share/applications" $out/share
 
-    runHook postInstall
-  '';
-
-} // lib.optionalAttrs (!(meta.license.free or true)) {
-  preferLocalBuild = true;
-})
+      runHook postInstall
+    '';
+  }
+  // lib.optionalAttrs (!(meta.license.free or true)) { preferLocalBuild = true; }
+)

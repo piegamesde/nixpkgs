@@ -1,14 +1,16 @@
-{ stable
-, branch
-, version
-, sha256Hash
-, mkOverride
+{
+  stable,
+  branch,
+  version,
+  sha256Hash,
+  mkOverride,
 }:
 
-{ lib
-, python3
-, fetchFromGitHub
-, wrapQtAppsHook
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  wrapQtAppsHook,
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -22,9 +24,7 @@ python3.pkgs.buildPythonPackage rec {
     sha256 = sha256Hash;
   };
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     distro
@@ -32,7 +32,8 @@ python3.pkgs.buildPythonPackage rec {
     psutil
     sentry-sdk
     setuptools
-    sip_4 (pyqt5.override { withWebSockets = true; })
+    sip_4
+    (pyqt5.override { withWebSockets = true; })
   ];
 
   doCheck = false; # Failing
@@ -40,7 +41,7 @@ python3.pkgs.buildPythonPackage rec {
   dontWrapQtApps = true;
 
   postFixup = ''
-      wrapQtApp "$out/bin/gns3"
+    wrapQtApp "$out/bin/gns3"
   '';
 
   postPatch = ''

@@ -1,6 +1,16 @@
-{ fetchFromGitHub, lib, buildGoModule,
-  makeWrapper, coreutils, git, openssh, bash, gnused, gnugrep,
-  nixosTests }:
+{
+  fetchFromGitHub,
+  lib,
+  buildGoModule,
+  makeWrapper,
+  coreutils,
+  git,
+  openssh,
+  bash,
+  gnused,
+  gnugrep,
+  nixosTests,
+}:
 buildGoModule rec {
   pname = "buildkite-agent";
   version = "3.47.0";
@@ -28,7 +38,15 @@ buildGoModule rec {
 
     # These are runtime dependencies
     wrapProgram $out/bin/buildkite-agent \
-      --prefix PATH : '${lib.makeBinPath [ openssh git coreutils gnused gnugrep ]}'
+      --prefix PATH : '${
+        lib.makeBinPath [
+          openssh
+          git
+          coreutils
+          gnused
+          gnugrep
+        ]
+      }'
   '';
 
   passthru.tests = {
@@ -46,7 +64,12 @@ buildGoModule rec {
     '';
     homepage = "https://buildkite.com/docs/agent";
     license = licenses.mit;
-    maintainers = with maintainers; [ pawelpacana zimbatm rvl techknowlogick ];
+    maintainers = with maintainers; [
+      pawelpacana
+      zimbatm
+      rvl
+      techknowlogick
+    ];
     platforms = with platforms; unix ++ darwin;
   };
 }

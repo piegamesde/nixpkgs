@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, rustPlatform
-, vulkan-loader
-, pkg-config
-, udev
-, v4l-utils
-, llvmPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  rustPlatform,
+  vulkan-loader,
+  pkg-config,
+  udev,
+  v4l-utils,
+  llvmPackages,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -48,7 +49,10 @@ rustPlatform.buildRustPackage rec {
     description = "Automatic brightness adjustment based on screen contents and ALS";
     homepage = "https://github.com/maximbaz/wluma";
     license = licenses.isc;
-    maintainers = with maintainers; [ yshym jmc-figueira ];
+    maintainers = with maintainers; [
+      yshym
+      jmc-figueira
+    ];
     platforms = platforms.linux;
   };
 }

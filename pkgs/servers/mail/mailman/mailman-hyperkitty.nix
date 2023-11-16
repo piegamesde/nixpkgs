@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchPypi
-, mailman
+{
+  lib,
+  python3,
+  fetchPypi,
+  mailman,
 }:
 
 with python3.pkgs;
@@ -35,14 +36,15 @@ buildPythonPackage rec {
   # There is an AssertionError
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mailman_hyperkitty"
-  ];
+  pythonImportsCheck = [ "mailman_hyperkitty" ];
 
   meta = with lib; {
     description = "Mailman archiver plugin for HyperKitty";
     homepage = "https://gitlab.com/mailman/mailman-hyperkitty";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ globin qyliss ];
+    maintainers = with maintainers; [
+      globin
+      qyliss
+    ];
   };
 }

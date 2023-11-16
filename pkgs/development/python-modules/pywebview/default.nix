@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, bottle
-, importlib-resources
-, proxy_tools
-, pygobject3
-, pyqtwebengine
-, pytest
-, pythonOlder
-, qt5
-, qtpy
-, six
-, xvfb-run
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bottle,
+  importlib-resources,
+  proxy_tools,
+  pygobject3,
+  pyqtwebengine,
+  pytest,
+  pythonOlder,
+  qt5,
+  qtpy,
+  six,
+  xvfb-run,
 }:
 
 buildPythonPackage rec {
@@ -28,18 +29,14 @@ buildPythonPackage rec {
     hash = "sha256-oqyWT0GaZ201OMVRcRpm1dma6NonTMmTx5SKnjzQl3M=";
   };
 
-  nativeBuildInputs = [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
   propagatedBuildInputs = [
     bottle
     pyqtwebengine
     proxy_tools
     six
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    importlib-resources
-  ];
+  ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
 
   nativeCheckInputs = [
     pygobject3
@@ -66,9 +63,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "webview"
-  ];
+  pythonImportsCheck = [ "webview" ];
 
   meta = with lib; {
     description = "Lightweight cross-platform wrapper around a webview";

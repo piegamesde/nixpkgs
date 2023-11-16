@@ -1,12 +1,17 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "usocket-server";
   version = "usocket-0.8.3";
 
   description = "Universal socket library for Common Lisp (server side)";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."split-sequence" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."split-sequence"
+    args."usocket"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/usocket/2019-12-27/usocket-0.8.3.tgz";
@@ -15,7 +20,7 @@ rec {
 
   packageName = "usocket-server";
 
-  asdFilesToKeep = ["usocket-server.asd"];
+  asdFilesToKeep = [ "usocket-server.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM usocket-server DESCRIPTION
@@ -29,4 +34,5 @@ rec {
      (NAME split-sequence FILENAME split-sequence)
      (NAME usocket FILENAME usocket))
     DEPENDENCIES (alexandria bordeaux-threads split-sequence usocket) VERSION
-    usocket-0.8.3 SIBLINGS (usocket-test usocket) PARASITES NIL) */
+    usocket-0.8.3 SIBLINGS (usocket-test usocket) PARASITES NIL)
+*/

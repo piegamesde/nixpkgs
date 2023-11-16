@@ -1,7 +1,9 @@
-{ lib, stdenv
-, meson
-, ninja
-, sysprof
+{
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  sysprof,
 }:
 
 stdenv.mkDerivation rec {

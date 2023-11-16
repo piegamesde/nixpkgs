@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, gettext
-, importlib-metadata
-, pytestCheckHook
-, pythonOlder
-, hatch-vcs
-, hatchling
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  gettext,
+  importlib-metadata,
+  pytestCheckHook,
+  pythonOlder,
+  hatch-vcs,
+  hatchling,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     gettext
   ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   postBuild = ''
     scripts/generate-translation-binaries.sh
@@ -49,15 +48,16 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "humanize"
-  ];
+  pythonImportsCheck = [ "humanize" ];
 
   meta = with lib; {
     description = "Python humanize utilities";
     homepage = "https://github.com/python-humanize/humanize";
     changelog = "https://github.com/python-humanize/humanize/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ rmcgibbo Luflosi ];
+    maintainers = with maintainers; [
+      rmcgibbo
+      Luflosi
+    ];
   };
 }

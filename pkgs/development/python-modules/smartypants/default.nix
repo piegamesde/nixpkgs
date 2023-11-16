@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPyPy
-, docutils
-, pygments
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPyPy,
+  docutils,
+  pygments,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

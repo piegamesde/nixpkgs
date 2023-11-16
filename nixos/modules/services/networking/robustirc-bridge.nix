@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -12,11 +17,11 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [];
-        description = lib.mdDoc ''Extra flags passed to the {command}`robustirc-bridge` command. See [RobustIRC Documentation](https://robustirc.net/docs/adminguide.html#_bridge) or robustirc-bridge(1) for details.'';
-        example = [
-          "-network robustirc.net"
-        ];
+        default = [ ];
+        description =
+          lib.mdDoc
+            "Extra flags passed to the {command}`robustirc-bridge` command. See [RobustIRC Documentation](https://robustirc.net/docs/adminguide.html#_bridge) or robustirc-bridge(1) for details.";
+        example = [ "-network robustirc.net" ];
       };
     };
   };

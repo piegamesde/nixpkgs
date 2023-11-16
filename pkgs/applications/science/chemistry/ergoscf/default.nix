@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, blas, lapack } :
+{
+  lib,
+  stdenv,
+  fetchurl,
+  blas,
+  lapack,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ergoscf";
@@ -9,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1s50k2gfs3y6r5kddifn4p0wmj0yk85wm5vf9v3swm1c0h43riix";
   };
 
-  buildInputs = [ blas lapack ];
+  buildInputs = [
+    blas
+    lapack
+  ];
 
   patches = [ ./math-constants.patch ];
 

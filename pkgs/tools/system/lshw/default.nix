@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, hwdata
-, gtk2
-, pkg-config
-, sqlite # compile GUI
-, withGUI ? false
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  hwdata,
+  gtk2,
+  pkg-config,
+  sqlite, # compile GUI
+  withGUI ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,8 +25,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ hwdata ]
-    ++ lib.optionals withGUI [ gtk2 sqlite ];
+  buildInputs =
+    [ hwdata ]
+    ++ lib.optionals withGUI [
+      gtk2
+      sqlite
+    ];
 
   makeFlags = [
     "PREFIX=$(out)"

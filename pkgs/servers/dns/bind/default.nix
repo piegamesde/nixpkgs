@@ -1,10 +1,26 @@
-{ config, stdenv, lib, fetchurl, fetchpatch
-, perl, pkg-config
-, libcap, libtool, libxml2, openssl, libuv, nghttp2, jemalloc
-, enablePython ? false, python3
-, enableGSSAPI ? true, libkrb5
-, buildPackages, nixosTests
-, cmocka, tzdata
+{
+  config,
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  perl,
+  pkg-config,
+  libcap,
+  libtool,
+  libxml2,
+  openssl,
+  libuv,
+  nghttp2,
+  jemalloc,
+  enablePython ? false,
+  python3,
+  enableGSSAPI ? true,
+  libkrb5,
+  buildPackages,
+  nixosTests,
+  cmocka,
+  tzdata,
 }:
 
 stdenv.mkDerivation rec {
@@ -16,24 +32,42 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-muEu32rDxDCzPs0afAwMYIddJVGF64eFD6ml55SmSgk=";
   };
 
-  outputs = [ "out" "lib" "dev" "man" "dnsutils" "host" ];
-
-  patches = [
-    ./dont-keep-configure-flags.patch
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+    "dnsutils"
+    "host"
   ];
 
-  nativeBuildInputs = [ perl pkg-config ];
-  buildInputs = [ libtool libxml2 openssl libuv nghttp2 jemalloc ]
+  patches = [ ./dont-keep-configure-flags.patch ];
+
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
+  buildInputs =
+    [
+      libtool
+      libxml2
+      openssl
+      libuv
+      nghttp2
+      jemalloc
+    ]
     ++ lib.optional stdenv.isLinux libcap
     ++ lib.optional enableGSSAPI libkrb5
     ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--without-lmdb"
-  ] ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--without-lmdb"
+    ]
+    ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "BUILD_CC=$(CC_FOR_BUILD)";
 
   postInstall = ''
@@ -65,11 +99,7 @@ stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/pull/192962
   doCheck = with stdenv.hostPlatform; !isStatic && !(isAarch64 && isLinux);
   checkTarget = "unit";
-  checkInputs = [
-    cmocka
-  ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [
-    tzdata
-  ];
+  checkInputs = [ cmocka ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ];
   preCheck = lib.optionalString stdenv.hostPlatform.isMusl ''
     # musl doesn't respect TZDIR, skip timezone-related tests
     sed -i '/^ISC_TEST_ENTRY(isc_time_formatISO8601L/d' tests/isc/time_test.c
@@ -90,6 +120,10 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ globin ];
     platforms = platforms.unix;
 
-    outputsToInstall = [ "out" "dnsutils" "host" ];
+    outputsToInstall = [
+      "out"
+      "dnsutils"
+      "host"
+    ];
   };
 }

@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, unzip, pkg-config, libXpm, fltk13, freeimage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  unzip,
+  pkg-config,
+  libXpm,
+  fltk13,
+  freeimage,
+}:
 
 stdenv.mkDerivation rec {
   pname = "posterazor";
@@ -11,8 +21,16 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [ cmake pkg-config unzip ];
-  buildInputs = [ libXpm fltk13 freeimage ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    unzip
+  ];
+  buildInputs = [
+    libXpm
+    fltk13
+    freeimage
+  ];
 
   unpackPhase = ''
     unzip $src -d posterazor

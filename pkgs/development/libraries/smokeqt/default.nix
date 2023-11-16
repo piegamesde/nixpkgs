@@ -1,4 +1,11 @@
-{ stdenv, lib, cmake, qt4, smokegen, fetchzip }:
+{
+  stdenv,
+  lib,
+  cmake,
+  qt4,
+  smokegen,
+  fetchzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smokeqt";
@@ -10,12 +17,13 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake smokegen ];
+  nativeBuildInputs = [
+    cmake
+    smokegen
+  ];
   buildInputs = [ qt4 ];
 
-  cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=98"
-  ];
+  cmakeFlags = [ "-DCMAKE_CXX_STANDARD=98" ];
 
   meta = with lib; {
     description = "Bindings for the Qt libraries";

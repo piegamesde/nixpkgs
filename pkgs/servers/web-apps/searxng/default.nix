@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -22,26 +23,29 @@ python3.pkgs.buildPythonApplication rec {
     export SEARX_DEBUG="true";
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    babel
-    certifi
-    python-dateutil
-    fasttext-predict
-    flask
-    flask-babel
-    brotli
-    jinja2
-    lxml
-    pygments
-    pyyaml
-    redis
-    uvloop
-    setproctitle
-    httpx
-    httpx-socks
-    markdown-it-py
-  ] ++ httpx.optional-dependencies.http2
-  ++ httpx-socks.optional-dependencies.asyncio;
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      babel
+      certifi
+      python-dateutil
+      fasttext-predict
+      flask
+      flask-babel
+      brotli
+      jinja2
+      lxml
+      pygments
+      pyyaml
+      redis
+      uvloop
+      setproctitle
+      httpx
+      httpx-socks
+      markdown-it-py
+    ]
+    ++ httpx.optional-dependencies.http2
+    ++ httpx-socks.optional-dependencies.asyncio;
 
   # tests try to connect to network
   doCheck = false;

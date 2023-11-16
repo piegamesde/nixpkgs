@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, requests
-, uritemplate
-, python-dateutil
-, pyjwt
-, pytestCheckHook
-, betamax
-, betamax-matchers
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  requests,
+  uritemplate,
+  python-dateutil,
+  pyjwt,
+  pytestCheckHook,
+  betamax,
+  betamax-matchers,
 }:
 
 buildPythonPackage rec {
@@ -28,8 +29,7 @@ buildPythonPackage rec {
     uritemplate
     python-dateutil
     pyjwt
-  ]
-  ++ pyjwt.optional-dependencies.crypto;
+  ] ++ pyjwt.optional-dependencies.crypto;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,10 +42,11 @@ buildPythonPackage rec {
     rm tox.ini
   '';
 
-  disabledTests = [
-    # FileNotFoundError: [Errno 2] No such file or directory: 'tests/id_rsa.pub'
-    "test_delete_key"
-  ];
+  disabledTests =
+    [
+      # FileNotFoundError: [Errno 2] No such file or directory: 'tests/id_rsa.pub'
+      "test_delete_key"
+    ];
 
   meta = with lib; {
     homepage = "https://github3py.readthedocs.org/en/master/";

@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jinja2
-, kubernetes
-, ruamel-yaml
-, six
-, python-string-utils
-, pytest-bdd
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  kubernetes,
+  ruamel-yaml,
+  six,
+  python-string-utils,
+  pytest-bdd,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -36,17 +37,18 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = ["openshift"];
+  pythonImportsCheck = [ "openshift" ];
 
   nativeCheckInputs = [
     pytest-bdd
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # requires kubeconfig
-    "test/integration"
-  ];
+  disabledTestPaths =
+    [
+      # requires kubeconfig
+      "test/integration"
+    ];
 
   meta = with lib; {
     description = "Python client for the OpenShift API";

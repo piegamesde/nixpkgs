@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, mkDerivation
-, pkg-config
-, cmake
-, extra-cmake-modules
-, callPackage
-, qtbase
-, qtkeychain
-, wrapQtAppsHook
-, qttools
-, sqlite
-, libsecret
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mkDerivation,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  callPackage,
+  qtbase,
+  qtkeychain,
+  wrapQtAppsHook,
+  qttools,
+  sqlite,
+  libsecret,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,8 +28,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-KZ/e8ISQ4FNgT/mtKSlOCa3WQ0lRSaqNIhQn6al6NSM=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake extra-cmake-modules wrapQtAppsHook qttools ];
-  buildInputs = [ qtbase qtkeychain sqlite libsecret libregraph ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    extra-cmake-modules
+    wrapQtAppsHook
+    qttools
+  ];
+  buildInputs = [
+    qtbase
+    qtkeychain
+    sqlite
+    libsecret
+    libregraph
+  ];
 
   cmakeFlags = [
     "-UCMAKE_INSTALL_LIBDIR"
@@ -38,7 +51,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Synchronise your ownCloud with your computer using this desktop client";
     homepage = "https://owncloud.org";
-    maintainers = with maintainers; [ qknight hellwolf ];
+    maintainers = with maintainers; [
+      qknight
+      hellwolf
+    ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
     license = licenses.gpl2Plus;

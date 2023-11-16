@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, isPyPy
-, isPy3k
-, cython
-, numpy
-, pkgs
+{
+  lib,
+  buildPythonPackage,
+  isPyPy,
+  isPy3k,
+  cython,
+  numpy,
+  pkgs,
 }:
 
 buildPythonPackage rec {
@@ -32,8 +33,14 @@ buildPythonPackage rec {
   # figure out.
   doCheck = !isPy3k;
   nativeBuildInputs = [ pkgs.cmake ];
-  buildInputs = [ pkgs.libdynd.dev cython ];
-  propagatedBuildInputs = [ numpy pkgs.libdynd ];
+  buildInputs = [
+    pkgs.libdynd.dev
+    cython
+  ];
+  propagatedBuildInputs = [
+    numpy
+    pkgs.libdynd
+  ];
 
   meta = with lib; {
     homepage = "http://libdynd.org";
@@ -41,5 +48,4 @@ buildPythonPackage rec {
     description = "Python exposure of dynd";
     maintainers = with maintainers; [ teh ];
   };
-
 }

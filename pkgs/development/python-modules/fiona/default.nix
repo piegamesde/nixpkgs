@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cython
-, gdal
-, setuptools
-, attrs
-, certifi
-, click
-, click-plugins
-, cligj
-, munch
-, shapely
-, boto3
-, pytestCheckHook
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cython,
+  gdal,
+  setuptools,
+  attrs,
+  certifi,
+  click,
+  click-plugins,
+  cligj,
+  munch,
+  shapely,
+  boto3,
+  pytestCheckHook,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [
-    gdal
-  ];
+  buildInputs = [ gdal ];
 
   propagatedBuildInputs = [
     attrs
@@ -68,7 +67,9 @@ buildPythonPackage rec {
 
   disabledTests = [
     # Some tests access network, others test packaging
-    "http" "https" "wheel"
+    "http"
+    "https"
+    "wheel"
   ];
 
   pythonImportsCheck = [ "fiona" ];

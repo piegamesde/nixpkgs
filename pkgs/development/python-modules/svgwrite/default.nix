@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,15 +22,15 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # embed_google_web_font test tried to pull font from internet
-    "test_embed_google_web_font"
-  ];
+  disabledTests =
+    [
+      # embed_google_web_font test tried to pull font from internet
+      "test_embed_google_web_font"
+    ];
 
   meta = with lib; {
     description = "A Python library to create SVG drawings";
     homepage = "https://github.com/mozman/svgwrite";
     license = licenses.mit;
   };
-
 }

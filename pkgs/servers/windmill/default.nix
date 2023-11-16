@@ -1,24 +1,25 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, buildNpmPackage
-, bash
-, cairo
-, deno
-, fetchurl
-, go
-, lld
-, makeWrapper
-, nsjail
-, openssl
-, pango
-, pixman
-, pkg-config
-, python3
-, rust
-, rustfmt
-, stdenv
-, swagger-cli
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  buildNpmPackage,
+  bash,
+  cairo,
+  deno,
+  fetchurl,
+  go,
+  lld,
+  makeWrapper,
+  nsjail,
+  openssl,
+  pango,
+  pixman,
+  pkg-config,
+  python3,
+  rust,
+  rustfmt,
+  stdenv,
+  swagger-cli,
 }:
 
 let
@@ -48,8 +49,15 @@ let
       npm run generate-backend-client
     '';
 
-    buildInputs = [ pixman cairo pango ];
-    nativeBuildInputs = [ python3 pkg-config ];
+    buildInputs = [
+      pixman
+      cairo
+      pango
+    ];
+    nativeBuildInputs = [
+      python3
+      pkg-config
+    ];
 
     installPhase = ''
       mkdir -p $out/share
@@ -65,12 +73,17 @@ rustPlatform.buildRustPackage {
   RUSTY_V8_ARCHIVE =
     let
       arch = rust.toRustTarget stdenv.hostPlatform;
-      fetch_librusty_v8 = args:
+      fetch_librusty_v8 =
+        args:
         fetchurl {
           name = "librusty_v8-${args.version}";
           url = "https://github.com/denoland/rusty_v8/releases/download/v${args.version}/librusty_v8_release_${arch}.a";
-          sha256 = args.shas.${stdenv.hostPlatform.system} or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
-          meta = { inherit (args) version; };
+          sha256 =
+            args.shas.${stdenv.hostPlatform.system}
+              or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
+          meta = {
+            inherit (args) version;
+          };
         };
     in
     fetch_librusty_v8 {
@@ -103,9 +116,17 @@ rustPlatform.buildRustPackage {
       --replace '"/bin/bash"' '"${bash}/bin/bash"'
   '';
 
-  buildInputs = [ openssl rustfmt lld ];
+  buildInputs = [
+    openssl
+    rustfmt
+    lld
+  ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper swagger-cli ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    swagger-cli
+  ];
 
   preBuild = ''
     pushd ..
@@ -122,10 +143,18 @@ rustPlatform.buildRustPackage {
   doCheck = false;
 
   postFixup = ''
-    patchelf --set-rpath ${lib.makeLibraryPath [openssl]} $out/bin/windmill
+    patchelf --set-rpath ${lib.makeLibraryPath [ openssl ]} $out/bin/windmill
 
     wrapProgram "$out/bin/windmill" \
-      --prefix PATH : ${lib.makeBinPath [go pythonEnv deno nsjail bash]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          go
+          pythonEnv
+          deno
+          nsjail
+          bash
+        ]
+      } \
       --set PYTHON_PATH "${pythonEnv}/bin/python3" \
       --set GO_PATH "${go}/bin/go" \
       --set DENO_PATH "${deno}/bin/deno" \
@@ -138,6 +167,11 @@ rustPlatform.buildRustPackage {
     license = licenses.agpl3;
     maintainers = with maintainers; [ dit7ya ];
     # limited by librusty_v8
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

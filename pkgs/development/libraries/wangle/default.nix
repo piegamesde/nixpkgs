@@ -1,19 +1,20 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, boost
-, libevent
-, double-conversion
-, glog
-, fmt_8
-, gflags
-, openssl
-, fizz
-, folly
-, gtest
-, libsodium
-, zlib
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  libevent,
+  double-conversion,
+  glog,
+  fmt_8,
+  gflags,
+  openssl,
+  fizz,
+  folly,
+  gtest,
+  libsodium,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,12 +32,12 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "../wangle";
 
-  cmakeFlags = [
-    "-Wno-dev"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DBUILD_TESTS=off" # Tests fail on Darwin due to missing utimensat
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
-  ];
+  cmakeFlags =
+    [ "-Wno-dev" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "-DBUILD_TESTS=off" # Tests fail on Darwin due to missing utimensat
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+    ];
 
   buildInputs = [
     fmt_8
@@ -63,6 +64,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/facebook/wangle";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pierreis kylesferrazza ];
+    maintainers = with maintainers; [
+      pierreis
+      kylesferrazza
+    ];
   };
 }

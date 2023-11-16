@@ -1,4 +1,15 @@
-{ lib, fetchurl, buildPythonApplication, libjack2, pydbus, pyliblo, pyqt5, qttools, which, bash }:
+{
+  lib,
+  fetchurl,
+  buildPythonApplication,
+  libjack2,
+  pydbus,
+  pyliblo,
+  pyqt5,
+  qttools,
+  which,
+  bash,
+}:
 
 buildPythonApplication rec {
   pname = "raysession";
@@ -19,19 +30,29 @@ buildPythonApplication rec {
   format = "other";
 
   nativeBuildInputs = [
-    pyqt5   # pyuic5 and pyrcc5 to build resources.
+    pyqt5 # pyuic5 and pyrcc5 to build resources.
     qttools # lrelease to build translations.
-    which   # which to find lrelease.
+    which # which to find lrelease.
   ];
-  buildInputs = [ libjack2 bash ];
-  propagatedBuildInputs = [ pydbus pyliblo pyqt5 ];
+  buildInputs = [
+    libjack2
+    bash
+  ];
+  propagatedBuildInputs = [
+    pydbus
+    pyliblo
+    pyqt5
+  ];
 
   dontWrapQtApps = true; # The program is a python script.
 
   installFlags = [ "PREFIX=$(out)" ];
 
   makeWrapperArgs = [
-    "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ])
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    (lib.makeLibraryPath [ libjack2 ])
   ];
 
   postFixup = ''

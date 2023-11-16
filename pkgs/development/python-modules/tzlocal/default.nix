@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pytz-deprecation-shim
-, pytest-mock
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pytz-deprecation-shim,
+  pytest-mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     sha256 = "ee5842fa3a795f023514ac2d801c4a81d1743bbe642e3940143326b3a00addd7";
   };
 
-  propagatedBuildInputs = [
-    pytz-deprecation-shim
-  ];
+  propagatedBuildInputs = [ pytz-deprecation-shim ];
 
   nativeCheckInputs = [
     pytest-mock

@@ -1,16 +1,17 @@
-{ lib
-, mkDerivation
-, fetchurl
-, autoPatchelfHook
-, pkg-config
-, curl
-, ffmpeg
-, openssl
-, qtbase
-, zlib
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  autoPatchelfHook,
+  pkg-config,
+  curl,
+  ffmpeg,
+  openssl,
+  qtbase,
+  zlib,
 
-, withJava ? true
-, jre_headless
+  withJava ? true,
+  jre_headless,
 }:
 
 let
@@ -30,27 +31,37 @@ let
     ];
     sha256 = "70e3599dd0a120ababa00d44c93ec8d2d001aea93e902355786ed90a7360cc99";
   };
-
-in mkDerivation {
+in
+mkDerivation {
   pname = "makemkv";
   inherit version;
 
-  srcs = [ src_bin src_oss ];
+  srcs = [
+    src_bin
+    src_oss
+  ];
 
   sourceRoot = "makemkv-oss-${version}";
 
-  nativeBuildInputs = [ autoPatchelfHook pkg-config ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    pkg-config
+  ];
 
-  buildInputs = [ ffmpeg openssl qtbase zlib ];
+  buildInputs = [
+    ffmpeg
+    openssl
+    qtbase
+    zlib
+  ];
 
   runtimeDependencies = [ (lib.getLib curl) ];
 
   qtWrapperArgs =
     let
       binPath = lib.makeBinPath [ jre_headless ];
-    in lib.optionals withJava [
-      "--prefix PATH : ${binPath}"
-    ];
+    in
+    lib.optionals withJava [ "--prefix PATH : ${binPath}" ];
 
   installPhase = ''
     runHook preInstall

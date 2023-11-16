@@ -1,13 +1,14 @@
-{ stdenv
-, bash
-, abseil-cpp
-, fetchFromGitHub
-, fetchFromGitLab
-, fetchpatch
-, fetchurl
-, flatbuffers
-, lib
-, zlib
+{
+  stdenv,
+  bash,
+  abseil-cpp,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchpatch,
+  fetchurl,
+  flatbuffers,
+  lib,
+  zlib,
 }:
 let
   tflite-eigen = fetchFromGitLab {
@@ -90,7 +91,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ zlib flatbuffers ];
+  buildInputs = [
+    zlib
+    flatbuffers
+  ];
 
   dontConfigure = true;
 
@@ -105,9 +109,7 @@ stdenv.mkDerivation rec {
   preBuild =
     let
       includes =
-        lib.concatMapStringsSep
-          " "
-          (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}")
+        lib.concatMapStringsSep " " (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}")
           [
             "neon_2_sse"
             "gemmlowp"
@@ -175,7 +177,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.tensorflow.org/lite";
     license = licenses.asl20;
     maintainers = with maintainers; [ cpcloud ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     knownVulnerabilities = [
       # at least some of
       "CVE-2023-27579"

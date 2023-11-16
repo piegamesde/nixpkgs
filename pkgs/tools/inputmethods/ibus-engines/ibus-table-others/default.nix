@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ibus, ibus-table, pkg-config, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ibus,
+  ibus-table,
+  pkg-config,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-table-others";
@@ -10,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ibus ibus-table python3 ];
+  buildInputs = [
+    ibus
+    ibus-table
+    python3
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -18,10 +30,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     isIbusEngine = true;
-    description  = "Various table-based input methods for IBus";
-    homepage     = "https://github.com/moebiuscurve/ibus-table-others";
-    license      = licenses.gpl3;
-    platforms    = platforms.linux;
-    maintainers  = with maintainers; [ mudri ];
+    description = "Various table-based input methods for IBus";
+    homepage = "https://github.com/moebiuscurve/ibus-table-others";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ mudri ];
   };
 }

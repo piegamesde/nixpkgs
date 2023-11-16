@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, graalvmCEPackages
-, javaVersion
-, src
-, version
+{
+  lib,
+  stdenv,
+  graalvmCEPackages,
+  javaVersion,
+  src,
+  version,
 }:
 
 graalvmCEPackages.buildGraalvmProduct rec {

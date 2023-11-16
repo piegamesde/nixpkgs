@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, pkg-config
-, meson
-, ninja
-, wayland
-, wayland-protocols
-, wayland-scanner
-, cairo
-, dbus
-, pango
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  pkg-config,
+  meson,
+  ninja,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  cairo,
+  dbus,
+  pango,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,13 +25,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-8b6qCqOSDDbhYwAeAaUyI71tSopTkGtCJaxZaJw1vQQ=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   strictDeps = true;
 
-  mesonFlags = [
-    (lib.mesonBool "demo" false)
-  ];
+  mesonFlags = [ (lib.mesonBool "demo" false) ];
 
   nativeBuildInputs = [
     meson

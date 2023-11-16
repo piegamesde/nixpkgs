@@ -1,9 +1,13 @@
-{ qtModule
-, qtbase
-, qtdeclarative
+{
+  qtModule,
+  qtbase,
+  qtdeclarative,
 }:
 
 qtModule {
   pname = "qtremoteobjects";
-  qtInputs = [ qtbase qtdeclarative ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
 }

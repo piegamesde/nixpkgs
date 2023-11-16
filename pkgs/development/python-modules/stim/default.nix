@@ -1,17 +1,18 @@
-{ lib
-, pkgs
-, buildPythonPackage
-, pythonOlder
-, pytestCheckHook
-, pytest-xdist
-, fetchFromGitHub
-, numpy
-, pybind11
-, cirq-core
-, matplotlib
-, networkx
-, scipy
-, pandas
+{
+  lib,
+  pkgs,
+  buildPythonPackage,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-xdist,
+  fetchFromGitHub,
+  numpy,
+  pybind11,
+  cirq-core,
+  matplotlib,
+  networkx,
+  scipy,
+  pandas,
 }:
 
 buildPythonPackage rec {

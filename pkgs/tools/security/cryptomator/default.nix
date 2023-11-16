@@ -1,7 +1,14 @@
-{ lib, stdenv, fetchFromGitHub
-, autoPatchelfHook
-, fuse3
-, maven, jdk, makeShellWrapper, glib, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  fuse3,
+  maven,
+  jdk,
+  makeShellWrapper,
+  glib,
+  wrapGAppsHook,
 }:
 
 let
@@ -20,7 +27,10 @@ let
     name = "cryptomator-${version}-deps";
     inherit src;
 
-    nativeBuildInputs = [ jdk maven ];
+    nativeBuildInputs = [
+      jdk
+      maven
+    ];
     buildInputs = [ jdk ];
 
     buildPhase = ''
@@ -40,8 +50,8 @@ let
 
     doCheck = false;
   };
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit pname version src;
 
   buildPhase = ''
@@ -50,7 +60,6 @@ in stdenv.mkDerivation rec {
 
     mvn -Plinux package --offline -Dmaven.test.skip=true -Dmaven.repo.local=$(cp -dpR ${deps}/.m2 ./ && chmod +w -R .m2 && pwd)/.m2
   '';
-
 
   # This is based on the instructins in https://github.com/cryptomator/cryptomator/blob/develop/dist/linux/appimage/build.sh
   installPhase = ''
@@ -77,7 +86,12 @@ in stdenv.mkDerivation rec {
       --add-flags "-Djavafx.embed.singleThread=true " \
       --add-flags "-Dawt.useSystemAAFontSettings=on" \
       --add-flags "--module org.cryptomator.desktop/org.cryptomator.launcher.Cryptomator" \
-      --prefix PATH : "$out/share/cryptomator/libs/:${lib.makeBinPath [ jdk glib ]}" \
+      --prefix PATH : "$out/share/cryptomator/libs/:${
+        lib.makeBinPath [
+          jdk
+          glib
+        ]
+      }" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fuse3 ]}" \
       --set JAVA_HOME "${jdk.home}"
 
@@ -100,14 +114,18 @@ in stdenv.mkDerivation rec {
     wrapGAppsHook
     jdk
   ];
-  buildInputs = [ fuse3 jdk glib ];
+  buildInputs = [
+    fuse3
+    jdk
+    glib
+  ];
 
   meta = with lib; {
     description = "Free client-side encryption for your cloud files";
     homepage = "https://cryptomator.org";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ bachp ];

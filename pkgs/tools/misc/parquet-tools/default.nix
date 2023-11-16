@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
 }:
 
 with python3Packages;
@@ -58,9 +59,7 @@ buildPythonApplication rec {
     "test_local_and_s3_wildcard_files"
   ];
 
-  pythonImportsCheck = [
-    "parquet_tools"
-  ];
+  pythonImportsCheck = [ "parquet_tools" ];
 
   meta = with lib; {
     description = "A CLI tool for parquet files";

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, chevron
-, decorator
-, fetchFromGitHub
-, mypy
-, pytest
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, regex
+{
+  lib,
+  buildPythonPackage,
+  chevron,
+  decorator,
+  fetchFromGitHub,
+  mypy,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  regex,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-7Qow315zuZB6BNIIm6QR9ZMFH6E/VSp2vRBpONlqYhM=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   propagatedBuildInputs = [
     chevron
@@ -46,9 +45,7 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [
-    "pytest_mypy_plugins"
-  ];
+  pythonImportsCheck = [ "pytest_mypy_plugins" ];
 
   disabledTests = [
     # ...TypecheckAssertionError: Invalid output:

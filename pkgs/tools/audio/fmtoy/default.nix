@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, unstableGitUpdater
-, dos2unix
-, pkg-config
-, zlib
-, alsa-lib
-, libjack2
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  dos2unix,
+  pkg-config,
+  zlib,
+  alsa-lib,
+  libjack2,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,29 +21,27 @@ stdenv.mkDerivation rec {
     sha256 = "r5zbr6TCxzDiQvDsLQu/QwNfem1K4Ahaji0yIz/2yl0=";
   };
 
-  postPatch = ''
-    dos2unix Makefile
-    # Don't hardcode compilers
-    sed -i -e '/CC=/d' -e '/CXX=/d' Makefile
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # Remove Linux-only program & its dependencies
-    sed -i -e '/PROGS/ s/fmtoy_jack//' Makefile
-    substituteInPlace Makefile \
-      --replace '$(shell pkg-config alsa jack --cflags)' ""
-  '';
+  postPatch =
+    ''
+      dos2unix Makefile
+      # Don't hardcode compilers
+      sed -i -e '/CC=/d' -e '/CXX=/d' Makefile
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      # Remove Linux-only program & its dependencies
+      sed -i -e '/PROGS/ s/fmtoy_jack//' Makefile
+      substituteInPlace Makefile \
+        --replace '$(shell pkg-config alsa jack --cflags)' ""
+    '';
 
-  nativeBuildInputs = [
-    dos2unix
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    pkg-config
-  ];
+  nativeBuildInputs = [ dos2unix ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
 
-  buildInputs = [
-    zlib
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    alsa-lib
-    libjack2
-  ];
+  buildInputs =
+    [ zlib ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      alsa-lib
+      libjack2
+    ];
 
   enableParallelBuilding = true;
 
@@ -56,9 +55,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/vampirefrog/fmtoy.git";
-  };
+  passthru.updateScript = unstableGitUpdater { url = "https://github.com/vampirefrog/fmtoy.git"; };
 
   meta = with lib; {
     homepage = "https://github.com/vampirefrog/fmtoy";

@@ -1,4 +1,19 @@
-{ coreutils, lib, stdenv, fetchgit, ant, jdk8, jdk11, git, xorg, udev, libGL, libGLU, mesa, xmlstarlet }:
+{
+  coreutils,
+  lib,
+  stdenv,
+  fetchgit,
+  ant,
+  jdk8,
+  jdk11,
+  git,
+  xorg,
+  udev,
+  libGL,
+  libGLU,
+  mesa,
+  xmlstarlet,
+}:
 
 {
   jogl_2_4_0 =
@@ -22,13 +37,31 @@
       pname = "jogl";
       inherit version;
 
-      srcs = [ gluegen-src jogl-src ];
+      srcs = [
+        gluegen-src
+        jogl-src
+      ];
       sourceRoot = ".";
 
       unpackCmd = "cp -r $curSrc \${curSrc##*-}";
 
-      nativeBuildInputs = [ ant jdk11 git xmlstarlet ];
-      buildInputs = [ udev xorg.libX11 xorg.libXrandr xorg.libXcursor xorg.libXi xorg.libXt xorg.libXxf86vm xorg.libXrender mesa ];
+      nativeBuildInputs = [
+        ant
+        jdk11
+        git
+        xmlstarlet
+      ];
+      buildInputs = [
+        udev
+        xorg.libX11
+        xorg.libXrandr
+        xorg.libXcursor
+        xorg.libXi
+        xorg.libXt
+        xorg.libXxf86vm
+        xorg.libXrender
+        mesa
+      ];
 
       # Workaround build failure on -fno-common toolchains:
       #   ld: ../obj/Bindingtest1p1Impl_JNI.o:(.bss+0x8): multiple definition of
@@ -86,7 +119,8 @@
         sha256 = "00hybisjwqs88p24dds652bzrwbbmhn2dpx56kp4j6xpadkp33d0";
         fetchSubmodules = true;
       };
-    in stdenv.mkDerivation {
+    in
+    stdenv.mkDerivation {
       pname = "jogl";
       inherit version;
 
@@ -104,8 +138,20 @@
       '';
 
       # TODO: upgrade to jdk https://github.com/NixOS/nixpkgs/pull/89731
-      nativeBuildInputs = [ jdk8 ant git ];
-      buildInputs = [ udev xorg.libX11 xorg.libXrandr xorg.libXcursor xorg.libXt xorg.libXxf86vm xorg.libXrender ];
+      nativeBuildInputs = [
+        jdk8
+        ant
+        git
+      ];
+      buildInputs = [
+        udev
+        xorg.libX11
+        xorg.libXrandr
+        xorg.libXcursor
+        xorg.libXt
+        xorg.libXxf86vm
+        xorg.libXrender
+      ];
 
       # Workaround build failure on -fno-common toolchains:
       #   ld: ../obj/Bindingtest1p1Impl_JNI.o:(.bss+0x8): multiple definition of

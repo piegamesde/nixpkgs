@@ -1,11 +1,12 @@
-{ lib
-, fetchpatch
-, python3
-, fetchPypi
-, docutils
-, sphinx
-, postfix
-, lynx
+{
+  lib,
+  fetchpatch,
+  python3,
+  fetchPypi,
+  docutils,
+  sphinx,
+  postfix,
+  lynx,
 }:
 
 with python3.pkgs;
@@ -80,6 +81,9 @@ buildPythonPackage rec {
     homepage = "https://www.gnu.org/software/mailman/";
     description = "Free software for managing electronic mail discussion and newsletter lists";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ qyliss ma27 ];
+    maintainers = with lib.maintainers; [
+      qyliss
+      ma27
+    ];
   };
 }

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pytestCheckHook
-, pexpect
-, pytest-cov
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytestCheckHook,
+  pexpect,
+  pytest-cov,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-wHygdATGEvirviIpSyPDaOLlEEtSHBeQGVVh834aw9k=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -33,19 +32,18 @@ buildPythonPackage rec {
     "test_suppresses_timeout_when_debugger_is_entered"
   ];
 
-  pytestFlagsArray = [
-    "-ra"
-  ];
+  pytestFlagsArray = [ "-ra" ];
 
-  pythonImportsCheck = [
-    "pytest_timeout"
-  ];
+  pythonImportsCheck = [ "pytest_timeout" ];
 
   meta = with lib; {
     description = "Pytest plugin to abort hanging tests";
     homepage = "https://github.com/pytest-dev/pytest-timeout/";
     changelog = "https://github.com/pytest-dev/pytest-timeout/#changelog";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu costrouc ];
+    maintainers = with maintainers; [
+      makefu
+      costrouc
+    ];
   };
 }

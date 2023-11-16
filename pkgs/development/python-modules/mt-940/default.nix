@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k
-, enum34, pyyaml, pytest
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  enum34,
+  pyyaml,
+  pytest,
 }:
 
 buildPythonPackage rec {
@@ -13,7 +19,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optional (!isPy3k) enum34;
 
-  nativeCheckInputs = [ pyyaml pytest ];
+  nativeCheckInputs = [
+    pyyaml
+    pytest
+  ];
 
   # requires tests files that are not present
   doCheck = false;

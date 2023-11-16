@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cmake
-, pkg-config
-, spdlog
-, nlohmann_json
-, systemd
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  pkg-config,
+  spdlog,
+  nlohmann_json,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {

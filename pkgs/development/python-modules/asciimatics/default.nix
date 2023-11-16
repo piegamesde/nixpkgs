@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, pyfiglet
-, pillow
-, wcwidth
-, future
-, mock
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pyfiglet,
+  pillow,
+  wcwidth,
+  future,
+  mock,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-FtIM5CIQtDTrBbpGns24KTrH7TwM4N1PcOMNctdgIic=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     pyfiglet
@@ -39,7 +38,7 @@ buildPythonPackage rec {
   # which is too complicated to setup here
   doCheck = false;
 
-  pythonImportsCheck =  [
+  pythonImportsCheck = [
     "asciimatics.effects"
     "asciimatics.renderers"
     "asciimatics.scene"

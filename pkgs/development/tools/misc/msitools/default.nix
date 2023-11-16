@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, meson
-, ninja
-, vala
-, gobject-introspection
-, perl
-, bison
-, gettext
-, glib
-, pkg-config
-, libgsf
-, gcab
-, bzip2
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  vala,
+  gobject-introspection,
+  perl,
+  bison,
+  gettext,
+  glib,
+  pkg-config,
+  libgsf,
+  gcab,
+  bzip2,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +23,9 @@ stdenv.mkDerivation rec {
   version = "0.101";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "DMTS4NEI+m8rQIW5qX3VvG2fyt7N2TPyCU+Guv2+hf4=";
   };
 

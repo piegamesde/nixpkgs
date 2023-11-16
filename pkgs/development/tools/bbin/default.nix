@@ -1,9 +1,10 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, makeWrapper
-, babashka
-, graalvm17-ce
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  makeWrapper,
+  babashka,
+  graalvm17-ce,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -29,7 +30,12 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $out/share
     cp -r docs $out/share/docs
     wrapProgram $out/bin/bbin \
-      --prefix PATH : "${lib.makeBinPath [ babashka babashka.graalvmDrv ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          babashka
+          babashka.graalvmDrv
+        ]
+      }"
 
     runHook postInstall
   '';

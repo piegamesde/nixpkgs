@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, fetchpatch
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  fetchpatch,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -17,21 +18,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-RQnyVRHWrqnKcI3Jy593jDTydG1nGyrScsqSNyJTDJk=";
 
-  patches = [
-    # see https://github.com/higherorderco/hvm/pull/220
-    # this commit removes the feature to fix build with rust nightly
-    # but this feature is required with rust stable
-    (fetchpatch {
-      name = "revert-fix-remove-feature-automic-mut-ptr.patch";
-      url = "https://github.com/higherorderco/hvm/commit/c0e35c79b4e31c266ad33beadc397c428e4090ee.patch";
-      hash = "sha256-9xxu7NOtz3Tuzf5F0Mi4rw45Xnyh7h9hbTrzq4yfslg=";
-      revert = true;
-    })
-  ];
+  patches =
+    [
+      # see https://github.com/higherorderco/hvm/pull/220
+      # this commit removes the feature to fix build with rust nightly
+      # but this feature is required with rust stable
+      (fetchpatch {
+        name = "revert-fix-remove-feature-automic-mut-ptr.patch";
+        url = "https://github.com/higherorderco/hvm/commit/c0e35c79b4e31c266ad33beadc397c428e4090ee.patch";
+        hash = "sha256-9xxu7NOtz3Tuzf5F0Mi4rw45Xnyh7h9hbTrzq4yfslg=";
+        revert = true;
+      })
+    ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.IOKit
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.IOKit ];
 
   # tests are broken
   doCheck = false;

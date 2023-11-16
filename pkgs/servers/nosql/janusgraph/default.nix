@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, jdk11, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  jdk11,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "janusgraph";
@@ -41,4 +47,3 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.ners ];
   };
 }
-

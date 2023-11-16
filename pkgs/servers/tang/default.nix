@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, asciidoc
-, jansson
-, jose
-, http-parser
-, systemd
-, meson
-, ninja
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  asciidoc,
+  jansson,
+  jose,
+  http-parser,
+  systemd,
+  meson,
+  ninja,
 }:
 
 stdenv.mkDerivation rec {

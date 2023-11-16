@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, beautifulsoup4
-, requests
-, future
-, pyyaml
-, jsonlines
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  beautifulsoup4,
+  requests,
+  future,
+  pyyaml,
+  jsonlines,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
   # no tests associated with package
   doCheck = false;
 
-  pythonImportsCheck = [
-    "CloudFlare"
-  ];
+  pythonImportsCheck = [ "CloudFlare" ];
 
   meta = with lib; {
     description = "Python wrapper for the Cloudflare v4 API";

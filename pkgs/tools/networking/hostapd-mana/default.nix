@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, libnl
-, openssl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  libnl,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,16 +19,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-co5LMJAUYSdcvhLv1gfjDvdVqdSXgjtFoiQ7+KxR07M=";
   };
 
-  patches = [
-    # Fix compile errors with GCC 10 on newer Kali
-    (fetchpatch {
-      url = "https://github.com/sensepost/hostapd-mana/commit/8581994d8d19646da63e1e37cde27dd4c966e526.patch";
-      hash = "sha256-UBkhuqvX1nFiceECAIC9B13ReKbrAAUtPKjqD17mQgg=";
-    })
-  ];
+  patches =
+    [
+      # Fix compile errors with GCC 10 on newer Kali
+      (fetchpatch {
+        url = "https://github.com/sensepost/hostapd-mana/commit/8581994d8d19646da63e1e37cde27dd4c966e526.patch";
+        hash = "sha256-UBkhuqvX1nFiceECAIC9B13ReKbrAAUtPKjqD17mQgg=";
+      })
+    ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libnl openssl ];
+  buildInputs = [
+    libnl
+    openssl
+  ];
 
   extraConfig = ''
     CONFIG_DRIVER_WIRED=y
@@ -69,7 +74,9 @@ stdenv.mkDerivation rec {
     cd hostapd
     cp -v defconfig .config
     echo "$extraConfig" >> .config
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags libnl-${lib.versions.major libnl.version}.0)"
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags libnl-${
+      lib.versions.major libnl.version
+    }.0)"
     runHook postConfigure
   '';
 

@@ -1,18 +1,22 @@
-{ lib
-, openvpn
-, fetchpatch
-, fetchurl
-, iproute2
-, autoconf
-, automake
+{
+  lib,
+  openvpn,
+  fetchpatch,
+  fetchurl,
+  iproute2,
+  autoconf,
+  automake,
 }:
 
-openvpn.overrideAttrs (oldAttrs:
+openvpn.overrideAttrs (
+  oldAttrs:
   let
-    fetchMullvadPatch = { commit, sha256 }: fetchpatch {
-      url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
-      inherit sha256;
-    };
+    fetchMullvadPatch =
+      { commit, sha256 }:
+      fetchpatch {
+        url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
+        inherit sha256;
+      };
   in
   rec {
     pname = "openvpn-mullvad";
@@ -23,11 +27,9 @@ openvpn.overrideAttrs (oldAttrs:
       sha256 = "sha256-dfAETfRJQwVVynuZWit3qyTylG/cNmgwG47cI5hqX34=";
     };
 
-    buildInputs = oldAttrs.buildInputs or [ ] ++ [
-      iproute2
-    ];
+    buildInputs = oldAttrs.buildInputs or [ ] ++ [ iproute2 ];
 
-    configureFlags = oldAttrs.configureFlags  or [ ] ++ [
+    configureFlags = oldAttrs.configureFlags or [ ] ++ [
       "--enable-iproute2"
       "IPROUTE=${iproute2}/sbin/ip"
     ];
@@ -84,4 +86,5 @@ openvpn.overrideAttrs (oldAttrs:
       homepage = "https://github.com/mullvad/openvpn";
       maintainers = with lib; [ maintainers.cole-h ];
     };
-  })
+  }
+)

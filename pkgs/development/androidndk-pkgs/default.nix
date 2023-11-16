@@ -1,4 +1,9 @@
-{ lib, androidenv, buildPackages, pkgs, targetPackages
+{
+  lib,
+  androidenv,
+  buildPackages,
+  pkgs,
+  targetPackages,
 }:
 
 {
@@ -18,11 +23,13 @@
     in
     import ./androidndk-pkgs.nix {
       inherit lib;
-      inherit (buildPackages)
-        makeWrapper autoPatchelfHook;
+      inherit (buildPackages) makeWrapper autoPatchelfHook;
       inherit (pkgs)
         stdenv
-        runCommand wrapBintoolsWith wrapCCWith;
+        runCommand
+        wrapBintoolsWith
+        wrapCCWith
+      ;
       # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
       # but for splicing messing up on infinite recursion for the variants we
       # *dont't* use. Using this workaround, but also making a test to ensure
@@ -48,11 +55,13 @@
     in
     import ./androidndk-pkgs.nix {
       inherit lib;
-      inherit (buildPackages)
-        makeWrapper autoPatchelfHook;
+      inherit (buildPackages) makeWrapper autoPatchelfHook;
       inherit (pkgs)
         stdenv
-        runCommand wrapBintoolsWith wrapCCWith;
+        runCommand
+        wrapBintoolsWith
+        wrapCCWith
+      ;
       # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
       # but for splicing messing up on infinite recursion for the variants we
       # *dont't* use. Using this workaround, but also making a test to ensure
@@ -78,11 +87,13 @@
     in
     import ./androidndk-pkgs.nix {
       inherit lib;
-      inherit (buildPackages)
-        makeWrapper autoPatchelfHook;
+      inherit (buildPackages) makeWrapper autoPatchelfHook;
       inherit (pkgs)
         stdenv
-        runCommand wrapBintoolsWith wrapCCWith;
+        runCommand
+        wrapBintoolsWith
+        wrapCCWith
+      ;
       # buildPackages.foo rather than buildPackages.buildPackages.foo would work,
       # but for splicing messing up on infinite recursion for the variants we
       # *dont't* use. Using this workaround, but also making a test to ensure
@@ -91,5 +102,4 @@
       androidndk = androidComposition.ndk-bundle;
       targetAndroidndkPkgs = targetPackages.androidndkPkgs_24;
     };
-
 }

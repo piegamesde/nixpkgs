@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -30,6 +31,9 @@ buildGoModule rec {
     homepage = "https://github.com/achannarasappa/ticker";
     changelog = "https://github.com/achannarasappa/ticker/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ siraben sarcasticadmin ];
+    maintainers = with maintainers; [
+      siraben
+      sarcasticadmin
+    ];
   };
 }

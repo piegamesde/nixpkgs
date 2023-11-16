@@ -1,27 +1,34 @@
-{ lib
-, stdenv
-, fetchpatch
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gi-docgen
-, glib
-, json-glib
-, libsoup_3
-, libxml2
-, gobject-introspection
-, gnome
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gi-docgen,
+  glib,
+  json-glib,
+  libsoup_3,
+  libxml2,
+  gobject-introspection,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
   pname = "rest";
   version = "0.9.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "kmalwQ7OOD4ZPft/+we1CcwfUVIauNrXavlu0UISwuM=";
   };
 

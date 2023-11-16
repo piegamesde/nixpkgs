@@ -1,4 +1,5 @@
-{ lib,
+{
+  lib,
   stdenv,
   multiStdenv,
   fetchFromGitHub,
@@ -10,7 +11,7 @@
   wrapQtAppsHook,
   file,
   libX11,
-  qt5
+  qt5,
 }:
 
 let
@@ -40,11 +41,12 @@ let
     wineBuild = "wineWow";
   };
 
-  wine-xembed = wine-wow64.overrideDerivation (oldAttrs: {
-    patchFlags = [ "-p2" ];
-    patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
-  });
-
+  wine-xembed = wine-wow64.overrideDerivation (
+    oldAttrs: {
+      patchFlags = [ "-p2" ];
+      patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
+    }
+  );
 in
 
 multiStdenv.mkDerivation {
@@ -107,6 +109,6 @@ multiStdenv.mkDerivation {
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ michalrus ];
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

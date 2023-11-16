@@ -1,12 +1,13 @@
-{ lib
-, mkDerivationWith
-, python3Packages
-, fetchFromGitHub
-, wrapQtAppsHook
-, ffmpeg
-, qtbase
-, testers
-, corrscope
+{
+  lib,
+  mkDerivationWith,
+  python3Packages,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  ffmpeg,
+  qtbase,
+  testers,
+  corrscope,
 }:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
@@ -23,12 +24,14 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   pythonRelaxDeps = [ "attrs" ];
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-  ] ++ (with python3Packages; [
-    poetry-core
-    pythonRelaxDepsHook
-  ]);
+  nativeBuildInputs =
+    [ wrapQtAppsHook ]
+    ++ (
+      with python3Packages; [
+        poetry-core
+        pythonRelaxDepsHook
+      ]
+    );
 
   buildInputs = [
     ffmpeg

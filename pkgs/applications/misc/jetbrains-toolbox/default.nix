@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchzip
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, runCommand
-, appimageTools
-, patchelf
+{
+  stdenv,
+  lib,
+  fetchzip,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  runCommand,
+  appimageTools,
+  patchelf,
 }:
 let
   pname = "jetbrains-toolbox";
@@ -18,13 +19,11 @@ let
     stripRoot = false;
   };
 
-  appimageContents = runCommand "${pname}-extracted"
-    {
-      nativeBuildInputs = [ appimageTools.appimage-exec ];
-    }
-    ''
-      appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
-    '';
+  appimageContents =
+    runCommand "${pname}-extracted" { nativeBuildInputs = [ appimageTools.appimage-exec ]; }
+      ''
+        appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
+      '';
 
   appimage = appimageTools.wrapAppImage {
     inherit pname version;
@@ -46,9 +45,17 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit pname version src appimage;
+  inherit
+    pname
+    version
+    src
+    appimage
+  ;
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   installPhase = ''
     runHook preInstall

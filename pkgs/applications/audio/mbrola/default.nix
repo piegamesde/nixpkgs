@@ -1,4 +1,10 @@
-{ stdenv, stdenvNoCC, lib, symlinkJoin, fetchFromGitHub }:
+{
+  stdenv,
+  stdenvNoCC,
+  lib,
+  symlinkJoin,
+  fetchFromGitHub,
+}:
 
 let
   pname = "mbrola";
@@ -19,7 +25,7 @@ let
     src = fetchFromGitHub {
       owner = "numediart";
       repo = "MBROLA-voices";
-      rev = "fe05a0ccef6a941207fd6aaad0b31294a1f93a51";  # using latest commit
+      rev = "fe05a0ccef6a941207fd6aaad0b31294a1f93a51"; # using latest commit
       sha256 = "1w0y2xjp9rndwdjagp2wxh656mdm3d6w9cs411g27rjyfy1205a0";
     };
 
@@ -63,10 +69,12 @@ let
       description = "Speech synthesizer based on the concatenation of diphones (binary only)";
     };
   };
-
 in
 symlinkJoin {
   inherit pname version meta;
   name = "${pname}-${version}";
-  paths = [ bin voices ];
+  paths = [
+    bin
+    voices
+  ];
 }

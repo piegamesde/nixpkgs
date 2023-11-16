@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-python-client
-, oauth2client
-, pyopenssl
-, pyyaml
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-python-client,
+  oauth2client,
+  pyopenssl,
+  pyyaml,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pydrive2"
-  ];
+  pythonImportsCheck = [ "pydrive2" ];
 
   meta = with lib; {
     description = "Google Drive API Python wrapper library";

@@ -1,20 +1,21 @@
-{ lib
-, callPackage
-, buildPythonPackage
-, fetchFromGitHub
-, colorama
-, hatch-requirements-txt
-, hatch-nodejs-version
-, hatchling
-, jinja2
-, markdown
-, mkdocs
-, mkdocs-material-extensions
-, pygments
-, pymdown-extensions
-, pythonOlder
-, regex
-, requests
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  fetchFromGitHub,
+  colorama,
+  hatch-requirements-txt,
+  hatch-nodejs-version,
+  hatchling,
+  jinja2,
+  markdown,
+  mkdocs,
+  mkdocs-material-extensions,
+  pygments,
+  pymdown-extensions,
+  pythonOlder,
+  regex,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -52,9 +53,7 @@ buildPythonPackage rec {
   # No tests for python
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mkdocs"
-  ];
+  pythonImportsCheck = [ "mkdocs" ];
 
   meta = with lib; {
     description = "Material for mkdocs";

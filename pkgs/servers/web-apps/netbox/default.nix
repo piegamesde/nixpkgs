@@ -1,4 +1,9 @@
-{ lib, nixosTests, callPackage, fetchpatch }:
+{
+  lib,
+  nixosTests,
+  callPackage,
+  fetchpatch,
+}:
 let
   generic = import ./generic.nix;
 in
@@ -18,21 +23,29 @@ in
     ];
 
     tests.netbox = nixosTests.netbox_3_3;
-    maintainers = with lib.maintainers; [ n0emis raitobezarius ];
+    maintainers = with lib.maintainers; [
+      n0emis
+      raitobezarius
+    ];
     eol = true;
   };
 
   netbox = callPackage generic {
     version = "3.5.0";
     hash = "sha256-LsUitX/e+ec/9mRBw+cbGOG2Idl9ZQwf/vxIC3YS5LU=";
-    extraPatches = [
-      # Allow setting the STATIC_ROOT from within the configuration and setting a custom redis URL
-      ./config.patch
-    ];
+    extraPatches =
+      [
+        # Allow setting the STATIC_ROOT from within the configuration and setting a custom redis URL
+        ./config.patch
+      ];
     tests = {
       inherit (nixosTests) netbox;
     };
 
-    maintainers = with lib.maintainers; [ minijackson n0emis raitobezarius ];
+    maintainers = with lib.maintainers; [
+      minijackson
+      n0emis
+      raitobezarius
+    ];
   };
 }

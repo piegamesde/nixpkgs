@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, freetype
-, cmake
-, static ? stdenv.hostPlatform.isStatic
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  freetype,
+  cmake,
+  static ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,21 +13,25 @@ stdenv.mkDerivation rec {
   pname = "graphite2";
 
   src = fetchurl {
-    url = "https://github.com/silnrsi/graphite/releases/download/"
-      + "${version}/graphite2-${version}.tgz";
+    url =
+      "https://github.com/silnrsi/graphite/releases/download/" + "${version}/graphite2-${version}.tgz";
     sha256 = "1790ajyhk0ax8xxamnrk176gc9gvhadzy78qia4rd8jzm89ir7gr";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [ freetype ];
 
   patches = lib.optionals stdenv.isDarwin [ ./macosx.patch ];
 
-  cmakeFlags = lib.optionals static [
-    "-DBUILD_SHARED_LIBS=OFF"
-  ];
+  cmakeFlags = lib.optionals static [ "-DBUILD_SHARED_LIBS=OFF" ];
 
   # Remove a test that fails to statically link (undefined reference to png and
   # freetype symbols)

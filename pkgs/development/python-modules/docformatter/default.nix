@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, charset-normalizer
-, tomli
-, untokenize
-, mock
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  charset-normalizer,
+  tomli,
+  untokenize,
+  mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-OQNE6Is1Pl0uoAkFYh4M+c8oNWL/uIh4X0hv8X0Qt/g=";
   };
 
-  patches = [
-    ./test-path.patch
-  ];
+  patches = [ ./test-path.patch ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -36,9 +35,7 @@ buildPythonPackage rec {
       --subst-var-by docformatter $out/bin/docformatter
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     charset-normalizer

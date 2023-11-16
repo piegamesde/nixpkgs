@@ -1,35 +1,37 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, substituteAll
-, meson
-, ninja
-, rsync
-, pkg-config
-, glib
-, itstool
-, libxml2
-, xorg
-, accountsservice
-, libX11
-, gnome
-, systemd
-, dconf
-, gtk3
-, libcanberra-gtk3
-, pam
-, libgudev
-, libselinux
-, keyutils
-, audit
-, gobject-introspection
-, plymouth
-, librsvg
-, coreutils
-, xorgserver
-, xwayland
-, dbus
-, nixos-icons
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  substituteAll,
+  meson,
+  ninja,
+  rsync,
+  pkg-config,
+  glib,
+  itstool,
+  libxml2,
+  xorg,
+  accountsservice,
+  libX11,
+  gnome,
+  systemd,
+  dconf,
+  gtk3,
+  libcanberra-gtk3,
+  pam,
+  libgudev,
+  libselinux,
+  keyutils,
+  audit,
+  gobject-introspection,
+  plymouth,
+  librsvg,
+  coreutils,
+  xorgserver,
+  xwayland,
+  dbus,
+  nixos-icons,
 }:
 
 let
@@ -38,14 +40,16 @@ let
     src = ./org.gnome.login-screen.gschema.override;
     icon = "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
   };
-
 in
 
 stdenv.mkDerivation rec {
   pname = "gdm";
   version = "44.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gdm/${lib.versions.major version}/${pname}-${version}.tar.xz";
@@ -103,7 +107,13 @@ stdenv.mkDerivation rec {
     # Change hardcoded paths to nix store paths.
     (substituteAll {
       src = ./fix-paths.patch;
-      inherit coreutils plymouth xorgserver xwayland dbus;
+      inherit
+        coreutils
+        plymouth
+        xorgserver
+        xwayland
+        dbus
+      ;
     })
 
     # The following patches implement certain environment variables in GDM which are set by

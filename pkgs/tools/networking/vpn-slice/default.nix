@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, nix-update-script, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  buildPythonApplication,
+  nix-update-script,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 buildPythonApplication rec {
   pname = "vpn-slice";
@@ -11,7 +17,10 @@ buildPythonApplication rec {
     sha256 = "sha256-T6VULLNRLWO4OcAsuTmhty6H4EhinyxQSg0dfv2DUJs=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ setproctitle dnspython ];
+  propagatedBuildInputs = with python3Packages; [
+    setproctitle
+    dnspython
+  ];
 
   doCheck = false;
 
@@ -21,8 +30,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/dlenski/vpn-slice";
-    description =
-      "vpnc-script replacement for easy and secure split-tunnel VPN setup";
+    description = "vpnc-script replacement for easy and secure split-tunnel VPN setup";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jdbaldry ];
   };

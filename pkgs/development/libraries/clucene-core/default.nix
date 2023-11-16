@@ -1,4 +1,8 @@
-{lib, stdenv, fetchurl}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clucene-core";
@@ -11,9 +15,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gcc6.patch ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-std=c++11"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -30,6 +32,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://clucene.sourceforge.net";
     platforms = platforms.unix;
-    license = with licenses; [ asl20 lgpl2 ];
+    license = with licenses; [
+      asl20
+      lgpl2
+    ];
   };
 }

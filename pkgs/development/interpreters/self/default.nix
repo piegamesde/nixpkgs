@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXext, makeWrapper, ncurses, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  libXext,
+  makeWrapper,
+  ncurses,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   # The Self wrapper stores source in $XDG_DATA_HOME/self or ~/.local/share/self
@@ -21,8 +30,15 @@ stdenv.mkDerivation rec {
     sha256 = "C/1Q6yFmoXx2F97xuvkm8DxFmmvuBS7uYZOxq/CRNog=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ ncurses libX11 libXext ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    ncurses
+    libX11
+    libXext
+  ];
 
   selfWrapper = ./self;
 

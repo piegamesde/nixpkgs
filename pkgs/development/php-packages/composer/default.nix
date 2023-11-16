@@ -1,4 +1,11 @@
-{ mkDerivation, fetchurl, makeBinaryWrapper, unzip, lib, php }:
+{
+  mkDerivation,
+  fetchurl,
+  makeBinaryWrapper,
+  unzip,
+  lib,
+  php,
+}:
 
 mkDerivation rec {
   pname = "composer";

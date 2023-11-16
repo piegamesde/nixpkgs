@@ -1,4 +1,9 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "prosody-filer";
@@ -21,5 +26,5 @@ buildGoModule rec {
     license = licenses.mit;
     platforms = platforms.linux;
     description = "A simple file server for handling XMPP http_upload requests";
- };
+  };
 }

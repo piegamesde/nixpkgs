@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, poetry-core
-, pythonOlder
-, requests
-, aiohttp
-, backoff
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  pythonOlder,
+  requests,
+  aiohttp,
+  backoff,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-4d89x+Pg5HZSUyxryH6OuMMGiMfeHXQX5Wy0XS++obY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     requests
@@ -33,14 +32,14 @@ buildPythonPackage rec {
   # tests require CO_API_KEY
   doCheck = false;
 
-  pythonImportsCheck = [
-    "cohere"
-  ];
+  pythonImportsCheck = [ "cohere" ];
 
   meta = with lib; {
     description = "Simplify interfacing with the Cohere API";
     homepage = "https://docs.cohere.com/docs";
-    changelog = "https://github.com/cohere-ai/cohere-python/blob/main/CHANGELOG.md#${builtins.replaceStrings ["."] [""] version}";
+    changelog = "https://github.com/cohere-ai/cohere-python/blob/main/CHANGELOG.md#${
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }";
     license = licenses.mit;
     maintainers = with maintainers; [ natsukium ];
   };

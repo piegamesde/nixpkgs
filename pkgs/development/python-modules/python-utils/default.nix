@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, loguru
-, pytest-asyncio
-, pytest-mypy
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  loguru,
+  pytest-asyncio,
+  pytest-mypy,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
   '';
 
   passthru.optional-dependencies = {
-    loguru = [
-      loguru
-    ];
+    loguru = [ loguru ];
   };
 
   nativeCheckInputs = [
@@ -40,18 +39,16 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.loguru;
 
-  pythonImportsCheck = [
-    "python_utils"
-  ];
+  pythonImportsCheck = [ "python_utils" ];
 
-  pytestFlagsArray = [
-    "_python_utils_tests"
-  ];
+  pytestFlagsArray = [ "_python_utils_tests" ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    # Flaky tests on darwin
-    "test_timeout_generator"
-  ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin
+      [
+        # Flaky tests on darwin
+        "test_timeout_generator"
+      ];
 
   meta = with lib; {
     description = "Module with some convenient utilities";

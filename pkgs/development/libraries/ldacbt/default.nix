@@ -1,6 +1,8 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,22 +17,24 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  outputs = [ "out" "dev" ];
-
-  nativeBuildInputs = [
-    cmake
+  outputs = [
+    "out"
+    "dev"
   ];
 
-  cmakeFlags = [
-    # CMakeLists.txt by default points to $out
-    "-DINSTALL_INCLUDEDIR=${placeholder "dev"}/include"
-  ];
+  nativeBuildInputs = [ cmake ];
+
+  cmakeFlags =
+    [
+      # CMakeLists.txt by default points to $out
+      "-DINSTALL_INCLUDEDIR=${placeholder "dev"}/include"
+    ];
 
   meta = with lib; {
     description = "AOSP libldac dispatcher";
-    homepage    = "https://github.com/EHfive/ldacBT";
-    license     = licenses.asl20;
-    platforms   = platforms.all;
+    homepage = "https://github.com/EHfive/ldacBT";
+    license = licenses.asl20;
+    platforms = platforms.all;
     maintainers = with maintainers; [ adisbladis ];
   };
 }

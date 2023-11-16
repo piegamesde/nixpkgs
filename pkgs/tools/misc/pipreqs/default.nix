@@ -1,4 +1,8 @@
-{ lib, python3, fetchPypi }:
+{
+  lib,
+  python3,
+  fetchPypi,
+}:
 
 with python3.pkgs;
 
@@ -11,7 +15,10 @@ buildPythonApplication rec {
     sha256 = "c793b4e147ac437871b3a962c5ce467e129c859ece5ba79aca83c20f4d9c3aef";
   };
 
-  propagatedBuildInputs = [ yarg docopt ];
+  propagatedBuildInputs = [
+    yarg
+    docopt
+  ];
 
   # Tests requires network access. Works fine without sandboxing
   doCheck = false;

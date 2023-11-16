@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "utilities_dot_print-tree";
   version = "20200325-git";
@@ -8,7 +8,11 @@ rec {
 
   description = "This system provides simple facilities for printing tree structures.";
 
-  deps = [ args."alexandria" args."fiveam" args."uiop" ];
+  deps = [
+    args."alexandria"
+    args."fiveam"
+    args."uiop"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/utilities.print-tree/2020-03-25/utilities.print-tree-20200325-git.tgz";
@@ -17,7 +21,7 @@ rec {
 
   packageName = "utilities.print-tree";
 
-  asdFilesToKeep = ["utilities.print-tree.asd"];
+  asdFilesToKeep = [ "utilities.print-tree.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM utilities.print-tree DESCRIPTION
@@ -29,4 +33,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME fiveam FILENAME fiveam)
      (NAME uiop FILENAME uiop))
     DEPENDENCIES (alexandria fiveam uiop) VERSION 20200325-git SIBLINGS NIL
-    PARASITES (utilities.print-tree/test)) */
+    PARASITES (utilities.print-tree/test))
+*/

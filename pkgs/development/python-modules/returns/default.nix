@@ -1,21 +1,22 @@
-{ lib
-, anyio
-, curio
-, buildPythonPackage
-, fetchFromGitHub
-, httpx
-, hypothesis
-, mypy
-, poetry-core
-, pytestCheckHook
-, pytest-aio
-, pytest-cov
-, pytest-mypy
-, pytest-mypy-plugins
-, pytest-subtests
-, setuptools
-, trio
-, typing-extensions
+{
+  lib,
+  anyio,
+  curio,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  hypothesis,
+  mypy,
+  poetry-core,
+  pytestCheckHook,
+  pytest-aio,
+  pytest-cov,
+  pytest-mypy,
+  pytest-mypy-plugins,
+  pytest-subtests,
+  setuptools,
+  trio,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-28WYjrjmu3hQ8+Snuvl3ykTd86eWYI97AE60p6SVwDQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   nativeCheckInputs = [
     anyio

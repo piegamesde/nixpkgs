@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, qtbase
-, qttools
-, qtwayland
-, wrapQtAppsHook
-, gitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qttools,
+  qtwayland,
+  wrapQtAppsHook,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,17 +28,24 @@ stdenv.mkDerivation rec {
     patchShebangs Source/Core/Resources/
   '';
 
-  installPhase = lib.optionalString (!stdenv.isDarwin) ''
-    install -D Source/Forms/PokeFinder $out/bin/PokeFinder
-  '' + lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications
-    cp -R Source/Forms/PokeFinder.app $out/Applications
-  '';
+  installPhase =
+    lib.optionalString (!stdenv.isDarwin) ''
+      install -D Source/Forms/PokeFinder $out/bin/PokeFinder
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      mkdir -p $out/Applications
+      cp -R Source/Forms/PokeFinder.app $out/Applications
+    '';
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qttools ]
-    ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  buildInputs = [
+    qtbase
+    qttools
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   passthru.updateScript = gitUpdater { };
 

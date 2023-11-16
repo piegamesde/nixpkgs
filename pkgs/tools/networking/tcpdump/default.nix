@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libpcap, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libpcap,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tcpdump";

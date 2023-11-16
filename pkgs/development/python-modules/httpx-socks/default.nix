@@ -1,21 +1,22 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, curio
-, fetchFromGitHub
-, flask
-, httpcore
-, httpx
-, hypercorn
-, pytest-asyncio
-, pytest-trio
-, pytestCheckHook
-, python-socks
-, pythonOlder
-, sniffio
-, starlette
-, trio
-, yarl
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  curio,
+  fetchFromGitHub,
+  flask,
+  httpcore,
+  httpx,
+  hypercorn,
+  pytest-asyncio,
+  pytest-trio,
+  pytestCheckHook,
+  python-socks,
+  pythonOlder,
+  sniffio,
+  starlette,
+  trio,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -39,12 +40,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    asyncio = [
-      async-timeout
-    ];
-    trio = [
-      trio
-    ];
+    asyncio = [ async-timeout ];
+    trio = [ trio ];
   };
 
   nativeCheckInputs = [
@@ -57,9 +54,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [
-    "httpx_socks"
-  ];
+  pythonImportsCheck = [ "httpx_socks" ];
 
   disabledTests = [
     # Tests don't work in the sandbox

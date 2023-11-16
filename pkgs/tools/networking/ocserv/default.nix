@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config, nettle, gnutls
-, libev, protobufc, guile, geoip, libseccomp, gperf, readline
-, lz4, libgssglue, ronn, pam, libxcrypt
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  pkg-config,
+  nettle,
+  gnutls,
+  libev,
+  protobufc,
+  guile,
+  geoip,
+  libseccomp,
+  gperf,
+  readline,
+  lz4,
+  libgssglue,
+  ronn,
+  pam,
+  libxcrypt,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,8 +31,26 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-30S2puoL+5cBZ5nCKW2zvGPcnFvaKjRZVGKDC3E5XRk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook gperf pkg-config ronn ];
-  buildInputs = [ nettle gnutls libev protobufc guile geoip libseccomp readline lz4 libgssglue pam libxcrypt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gperf
+    pkg-config
+    ronn
+  ];
+  buildInputs = [
+    nettle
+    gnutls
+    libev
+    protobufc
+    guile
+    geoip
+    libseccomp
+    readline
+    lz4
+    libgssglue
+    pam
+    libxcrypt
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/openconnect/ocserv";

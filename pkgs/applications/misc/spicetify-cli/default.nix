@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, spicetify-cli }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  spicetify-cli,
+}:
 
 buildGoModule rec {
   pname = "spicetify-cli";

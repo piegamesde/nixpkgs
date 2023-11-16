@@ -1,23 +1,25 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, openscenegraph
-, curl
-, gdal
-, hdf5-cpp
-, LASzip
-, enableE57 ? lib.meta.availableOn stdenv.hostPlatform libe57format
-, libe57format
-, libgeotiff
-, libtiff
-, libxml2
-, postgresql
-, tiledb
-, xercesc
-, zlib
-, zstd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  openscenegraph,
+  curl,
+  gdal,
+  hdf5-cpp,
+  LASzip,
+  enableE57 ? lib.meta.availableOn stdenv.hostPlatform libe57format,
+  libe57format,
+  libgeotiff,
+  libtiff,
+  libxml2,
+  postgresql,
+  tiledb,
+  xercesc,
+  zlib,
+  zstd,
 }:
 
 stdenv.mkDerivation rec {
@@ -50,9 +52,7 @@ stdenv.mkDerivation rec {
     xercesc
     zlib
     zstd
-  ] ++ lib.optionals enableE57 [
-    libe57format
-  ];
+  ] ++ lib.optionals enableE57 [ libe57format ];
 
   cmakeFlags = [
     "-DBUILD_PLUGIN_E57=${if enableE57 then "ON" else "OFF"}"

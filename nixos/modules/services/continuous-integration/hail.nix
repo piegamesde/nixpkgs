@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.hail;
-in {
-
+in
+{
 
   ###### interface
 
@@ -40,7 +45,6 @@ in {
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -53,7 +57,8 @@ in {
         HOME = "/var/lib/empty";
       };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/hail --profile ${cfg.profile} --job-uri ${cfg.hydraJobUri}"
+        ExecStart =
+          "${cfg.package}/bin/hail --profile ${cfg.profile} --job-uri ${cfg.hydraJobUri}"
           + lib.optionalString (cfg.netrc != null) " --netrc-file ${cfg.netrc}";
       };
     };

@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, zig
-, wayland
-, pkg-config
-, scdoc
-, xwayland
-, wayland-protocols
-, wlroots_0_16
-, libxkbcommon
-, pixman
-, udev
-, libevdev
-, libinput
-, libGL
-, libX11
-, xwaylandSupport ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zig,
+  wayland,
+  pkg-config,
+  scdoc,
+  xwayland,
+  wayland-protocols,
+  wlroots_0_16,
+  libxkbcommon,
+  pixman,
+  udev,
+  libevdev,
+  libinput,
+  libGL,
+  libX11,
+  xwaylandSupport ? true,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +31,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ zig wayland xwayland scdoc pkg-config ];
+  nativeBuildInputs = [
+    zig
+    wayland
+    xwayland
+    scdoc
+    pkg-config
+  ];
 
   buildInputs = [
     wayland-protocols
@@ -51,18 +58,20 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    zig build -Drelease-safe -Dcpu=baseline ${lib.optionalString xwaylandSupport "-Dxwayland"} -Dman-pages --prefix $out install
+    zig build -Drelease-safe -Dcpu=baseline ${
+      lib.optionalString xwaylandSupport "-Dxwayland"
+    } -Dman-pages --prefix $out install
     install contrib/river.desktop -Dt $out/share/wayland-sessions
     runHook postInstall
   '';
 
   /* Builder patch install dir into river to get default config
-    When installFlags is removed, river becomes half broken.
-    See https://github.com/riverwm/river/blob/7ffa2f4b9e7abf7d152134f555373c2b63ccfc1d/river/main.zig#L56
+     When installFlags is removed, river becomes half broken.
+     See https://github.com/riverwm/river/blob/7ffa2f4b9e7abf7d152134f555373c2b63ccfc1d/river/main.zig#L56
   */
   installFlags = [ "DESTDIR=$(out)" ];
 
-  passthru.providedSessions = ["river"];
+  passthru.providedSessions = [ "river" ];
 
   meta = with lib; {
     changelog = "https://github.com/ifreund/river/releases/tag/v${version}";
@@ -70,6 +79,10 @@ stdenv.mkDerivation rec {
     description = "A dynamic tiling wayland compositor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fortuneteller2k adamcstephens rodrgz ];
+    maintainers = with maintainers; [
+      fortuneteller2k
+      adamcstephens
+      rodrgz
+    ];
   };
 }

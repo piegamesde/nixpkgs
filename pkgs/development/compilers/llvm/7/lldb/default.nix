@@ -1,18 +1,21 @@
-{ lib, stdenv, llvm_meta
-, fetch
-, cmake
-, zlib
-, ncurses
-, swig
-, which
-, libedit
-, libxml2
-, libllvm
-, libclang
-, perl
-, python3
-, version
-, darwin
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  fetch,
+  cmake,
+  zlib,
+  ncurses,
+  swig,
+  which,
+  libedit,
+  libxml2,
+  libllvm,
+  libclang,
+  perl,
+  python3,
+  version,
+  darwin,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetch "lldb" "0klsscg1sczc4nw2l53xggi969k361cng2sjjrfp3bv4g5x14s4v";
 
-  patches = [
-    ./gnu-install-dirs.patch
-  ];
+  patches = [ ./gnu-install-dirs.patch ];
 
   postPatch = ''
     # Fix up various paths that assume llvm and clang are installed in the same place
@@ -41,33 +42,52 @@ stdenv.mkDerivation rec {
     patchShebangs scripts
   '';
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   nativeBuildInputs = [
-    cmake perl python3 which swig
+    cmake
+    perl
+    python3
+    which
+    swig
   ];
 
-  buildInputs = [
-    ncurses zlib libedit libxml2 libllvm
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.libobjc
-    darwin.apple_sdk.libs.xpc
-    darwin.apple_sdk.frameworks.Foundation darwin.bootstrap_cmds darwin.apple_sdk.frameworks.Carbon darwin.apple_sdk.frameworks.Cocoa
-  ];
+  buildInputs =
+    [
+      ncurses
+      zlib
+      libedit
+      libxml2
+      libllvm
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.libobjc
+      darwin.apple_sdk.libs.xpc
+      darwin.apple_sdk.frameworks.Foundation
+      darwin.bootstrap_cmds
+      darwin.apple_sdk.frameworks.Carbon
+      darwin.apple_sdk.frameworks.Cocoa
+    ];
 
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-I${libxml2.dev}/include/libxml2";
 
-  cmakeFlags = [
-    "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
-    "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-    "-DSKIP_DEBUGSERVER=ON"
-  ] ++ lib.optionals doCheck [
-    "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-    "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-  ];
+  cmakeFlags =
+    [
+      "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
+      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+      "-DSKIP_DEBUGSERVER=ON"
+    ]
+    ++ lib.optionals doCheck [
+      "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+      "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
+    ];
 
   doCheck = false;
 

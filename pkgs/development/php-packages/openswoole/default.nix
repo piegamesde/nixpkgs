@@ -1,9 +1,18 @@
-{ lib, stdenv, buildPecl, php, valgrind, pcre2, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  buildPecl,
+  php,
+  valgrind,
+  pcre2,
+  fetchFromGitHub,
+}:
 
 let
   pname = "openswoole";
   version = "22.0.0";
-in buildPecl {
+in
+buildPecl {
   inherit version;
   pname = "openswoole";
 

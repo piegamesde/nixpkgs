@@ -1,13 +1,14 @@
-{ lib
-, amqtt
-, buildPythonPackage
-, fetchFromGitHub
-, orjson
-, paho-mqtt
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  amqtt,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  paho-mqtt,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
       --replace 'orjson = ">=3.8.7"' 'orjson = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     orjson
@@ -48,19 +47,19 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Requires network access
-    "tests/test_discovery.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requires network access
+      "tests/test_discovery.py"
+    ];
 
-  disabledTests = [
-    # Test want to connect to a local MQTT broker
-    "test_roomba_connect"
-  ];
+  disabledTests =
+    [
+      # Test want to connect to a local MQTT broker
+      "test_roomba_connect"
+    ];
 
-  pythonImportsCheck = [
-    "roombapy"
-  ];
+  pythonImportsCheck = [ "roombapy" ];
 
   meta = with lib; {
     description = "Python program and library to control Wi-Fi enabled iRobot Roombas";

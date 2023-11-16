@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, decorator
-, fetchFromGitHub
-, ply
-, pytestCheckHook
-, six
+{
+  lib,
+  buildPythonPackage,
+  decorator,
+  fetchFromGitHub,
+  ply,
+  pytestCheckHook,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -27,10 +28,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # Exclude tests that require oslotest
-    "tests/test_jsonpath_rw_ext.py"
-  ];
+  disabledTestPaths =
+    [
+      # Exclude tests that require oslotest
+      "tests/test_jsonpath_rw_ext.py"
+    ];
 
   pythonImportsCheck = [ "jsonpath_ng" ];
 

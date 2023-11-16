@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, jdk, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  makeWrapper,
+}:
 
 assert jdk != null;
 

@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, readline, openssl, libffi, valgrind, withThread ? true, withSSL ? true, xxd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  readline,
+  openssl,
+  libffi,
+  valgrind,
+  withThread ? true,
+  withSSL ? true,
+  xxd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "trealla";
@@ -19,14 +30,18 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [
-    "GIT_VERSION=\"v${version}\""
+    ''GIT_VERSION="v${version}"''
     (lib.optionalString withThread "THREADS=1")
     (lib.optionalString (!withSSL) "NOSSL=1")
     (lib.optionalString stdenv.isDarwin "NOLDLIBS=1")
   ];
 
   nativeBuildInputs = [ xxd ];
-  buildInputs = [ readline openssl libffi ];
+  buildInputs = [
+    readline
+    openssl
+    libffi
+  ];
   checkInputs = lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [ valgrind ];
   enableParallelBuilding = true;
 

@@ -1,19 +1,20 @@
-{ lib
-, buildDunePackage
-, bigstringaf
-, cstruct
-, domain-local-await
-, dune-configurator
-, fetchurl
-, fmt
-, hmap
-, lwt-dllist
-, mtime
-, optint
-, psq
-, alcotest
-, crowbar
-, mdx
+{
+  lib,
+  buildDunePackage,
+  bigstringaf,
+  cstruct,
+  domain-local-await,
+  dune-configurator,
+  fetchurl,
+  fmt,
+  hmap,
+  lwt-dllist,
+  mtime,
+  optint,
+  psq,
+  alcotest,
+  crowbar,
+  mdx,
 }:
 
 buildDunePackage rec {
@@ -46,9 +47,7 @@ buildDunePackage rec {
     mdx
   ];
 
-  nativeCheckInputs = [
-    mdx.bin
-  ];
+  nativeCheckInputs = [ mdx.bin ];
 
   meta = {
     homepage = "https://github.com/ocaml-multicore/ocaml-${pname}";

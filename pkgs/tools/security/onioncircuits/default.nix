@@ -1,13 +1,14 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, fetchpatch
-, gnome
-, gobject-introspection
-, gtk3
-, intltool
-, python3
-, wrapGAppsHook
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  gnome,
+  gobject-introspection,
+  gtk3,
+  intltool,
+  python3,
+  wrapGAppsHook,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -34,14 +35,15 @@ python3.pkgs.buildPythonApplication rec {
     stem
   ];
 
-  patches = [
-    # Fix https://gitlab.tails.boum.org/tails/onioncircuits/-/merge_requests/4
-    (fetchpatch {
-      name = "fix-setuptool-package-discovery.patch";
-      url = "https://gitlab.tails.boum.org/tails/onioncircuits/-/commit/4c620c77f36f540fa27041fcbdeaf05c9f57826c.patch";
-      sha256 = "sha256-WXqyDa2meRMMHkHLO5Xl7x43KUGtlsai+eOVzUGUPpo=";
-    })
-  ];
+  patches =
+    [
+      # Fix https://gitlab.tails.boum.org/tails/onioncircuits/-/merge_requests/4
+      (fetchpatch {
+        name = "fix-setuptool-package-discovery.patch";
+        url = "https://gitlab.tails.boum.org/tails/onioncircuits/-/commit/4c620c77f36f540fa27041fcbdeaf05c9f57826c.patch";
+        sha256 = "sha256-WXqyDa2meRMMHkHLO5Xl7x43KUGtlsai+eOVzUGUPpo=";
+      })
+    ];
 
   postInstall = ''
     mkdir -p $out/etc/apparmor.d
@@ -57,4 +59,3 @@ python3.pkgs.buildPythonApplication rec {
     maintainers = with maintainers; [ milran ];
   };
 }
-

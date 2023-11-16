@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cflow
-, graphviz
-, pydot
-, networkx
-, which
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cflow,
+  graphviz,
+  pydot,
+  networkx,
+  which,
 }:
 
 buildPythonPackage rec {
@@ -34,8 +35,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Layout C call graphs from cflow using GraphViz dot";
-    homepage    = "https://github.com/johnyf/pycflow2dot";
-    license     = licenses.gpl3Plus;
+    homepage = "https://github.com/johnyf/pycflow2dot";
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ evils ];
   };
 }

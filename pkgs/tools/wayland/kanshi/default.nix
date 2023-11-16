@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, meson
-, ninja
-, pkg-config
-, scdoc
-, wayland
-, wayland-scanner
-, libvarlink
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  wayland,
+  wayland-scanner,
+  libvarlink,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,11 +23,18 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [
+  depsBuildBuild = [ pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
     pkg-config
+    scdoc
+    wayland-scanner
   ];
-  nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner ];
-  buildInputs = [ wayland libvarlink ];
+  buildInputs = [
+    wayland
+    libvarlink
+  ];
 
   meta = with lib; {
     homepage = "https://sr.ht/~emersion/kanshi";
@@ -40,7 +48,10 @@ stdenv.mkDerivation rec {
       wlr-output-management protocol.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ balsoft danielbarter ];
+    maintainers = with maintainers; [
+      balsoft
+      danielbarter
+    ];
     platforms = platforms.linux;
   };
 }

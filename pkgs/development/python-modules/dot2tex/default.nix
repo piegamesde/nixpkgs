@@ -1,11 +1,12 @@
-{ lib
-, python
-, buildPythonPackage
-, fetchPypi
-, substituteAll
-, pyparsing
-, graphviz
-, texlive
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  pyparsing,
+  graphviz,
+  texlive,
 }:
 
 buildPythonPackage rec {
@@ -27,11 +28,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyparsing ];
 
-  nativeCheckInputs = [
-    (texlive.combine {
-      inherit (texlive) scheme-small preview pstricks;
-    })
-  ];
+  nativeCheckInputs = [ (texlive.combine { inherit (texlive) scheme-small preview pstricks; }) ];
 
   checkPhase = ''
     ${python.interpreter} tests/test_dot2tex.py
@@ -42,5 +39,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/kjellmf/dot2tex";
     license = licenses.mit;
   };
-
 }

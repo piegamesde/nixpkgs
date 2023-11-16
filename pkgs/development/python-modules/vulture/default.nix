@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pint
-, pythonOlder
-, pytestCheckHook
-, toml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pint,
+  pythonOlder,
+  pytestCheckHook,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -24,18 +25,14 @@ buildPythonPackage rec {
       --replace " --cov vulture --cov-report=html --cov-report=term --cov-report=xml --cov-append" ""
   '';
 
-  propagatedBuildInputs = [
-    toml
-  ];
+  propagatedBuildInputs = [ toml ];
 
   nativeCheckInputs = [
     pint
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "vulture"
-  ];
+  pythonImportsCheck = [ "vulture" ];
 
   meta = with lib; {
     description = "Finds unused code in Python programs";

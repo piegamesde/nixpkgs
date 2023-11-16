@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# optionals
-, genshi
+  # optionals
+  genshi,
 
-# tests
-, pytestCheckHook
-, webtest
+  # tests
+  pytestCheckHook,
+  webtest,
 }:
 
 buildPythonPackage rec {
@@ -28,19 +29,16 @@ buildPythonPackage rec {
   '';
 
   passthru.optional-dependencies = {
-    KidMagic = [
-      # TODO: kid
-    ];
-    Genshimagic = [
-      genshi
-    ];
+    KidMagic =
+      [
+        # TODO: kid
+      ];
+    Genshimagic = [ genshi ];
   };
 
-  pythonImportsCheck = [
-    "static"
-  ];
+  pythonImportsCheck = [ "static" ];
 
-  nativeCheckInputs  = [
+  nativeCheckInputs = [
     pytestCheckHook
     webtest
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);

@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "alertmanager-bot";
@@ -11,14 +15,17 @@ buildGoModule rec {
     sha256 = "1hjfkksqb675gabzjc221b33h2m4s6qsanmkm382d3fyzqj71dh9";
   };
 
-  vendorSha256 = null; #vendorSha256 = "";
+  vendorSha256 = null; # vendorSha256 = "";
 
   postPatch = ''
     sed "s;/templates/default.tmpl;$out/share&;" -i cmd/alertmanager-bot/main.go
   '';
 
   ldflags = [
-    "-s" "-w" "-X main.Version=v${version}" "-X main.Revision=${src.rev}"
+    "-s"
+    "-w"
+    "-X main.Version=v${version}"
+    "-X main.Revision=${src.rev}"
   ];
 
   postInstall = ''

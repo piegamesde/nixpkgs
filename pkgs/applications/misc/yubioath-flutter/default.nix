@@ -1,11 +1,12 @@
-{ lib
-, flutter37
-, python3
-, fetchFromGitHub
-, pcre2
-, gnome
-, makeWrapper
-, removeReferencesTo
+{
+  lib,
+  flutter37,
+  python3,
+  fetchFromGitHub,
+  pcre2,
+  gnome,
+  makeWrapper,
+  removeReferencesTo,
 }:
 
 flutter37.buildFlutterApplication rec {
@@ -70,9 +71,7 @@ flutter37.buildFlutterApplication rec {
     removeReferencesTo
   ];
 
-  buildInputs = [
-    pcre2
-  ];
+  buildInputs = [ pcre2 ];
 
   disallowedReferences = [
     flutter37
@@ -84,6 +83,9 @@ flutter37.buildFlutterApplication rec {
     homepage = "https://github.com/Yubico/yubioath-flutter";
     license = licenses.asl20;
     maintainers = with maintainers; [ lukegb ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

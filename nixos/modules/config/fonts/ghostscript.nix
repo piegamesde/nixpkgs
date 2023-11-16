@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -18,16 +23,11 @@ with lib;
           applications.
         '';
       };
-
     };
-
   };
-
 
   config = mkIf config.fonts.enableGhostscriptFonts {
 
     fonts.fonts = [ "${pkgs.ghostscript}/share/ghostscript/fonts" ];
-
   };
-
 }

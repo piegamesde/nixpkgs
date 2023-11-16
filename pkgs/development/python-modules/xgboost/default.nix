@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, cmake
-, numpy
-, scipy
-, stdenv
-, xgboost
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  cmake,
+  numpy,
+  scipy,
+  stdenv,
+  xgboost,
 }:
 
 buildPythonPackage {
@@ -16,14 +17,19 @@ buildPythonPackage {
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ xgboost ];
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   # Override existing logic for locating libxgboost.so which is not appropriate for Nix
-  prePatch = let
-    libPath = "${xgboost}/lib/libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
-  in ''
-    echo 'find_lib_path = lambda: ["${libPath}"]' > python-package/xgboost/libpath.py
-  '';
+  prePatch =
+    let
+      libPath = "${xgboost}/lib/libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
+    in
+    ''
+      echo 'find_lib_path = lambda: ["${libPath}"]' > python-package/xgboost/libpath.py
+    '';
 
   dontUseCmakeConfigure = true;
 
@@ -36,9 +42,7 @@ buildPythonPackage {
   # and are extremely cpu intensive anyway
   doCheck = false;
 
-  pythonImportsCheck = [
-    "xgboost"
-  ];
+  pythonImportsCheck = [ "xgboost" ];
 
   __darwinAllowLocalNetworking = true;
 }

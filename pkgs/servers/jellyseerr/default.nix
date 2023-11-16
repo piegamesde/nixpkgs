@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, mkYarnPackage
-, nodejs
-, sqlite
-, fetchYarnDeps
-, python3
-, pkg-config
-, glib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  mkYarnPackage,
+  nodejs,
+  sqlite,
+  fetchYarnDeps,
+  python3,
+  pkg-config,
+  glib,
 }:
 
 let
@@ -42,7 +43,10 @@ mkYarnPackage rec {
 
   # Fixes "SQLite package has not been found installed" at launch
   pkgConfig.sqlite3 = {
-    nativeBuildInputs = [ nodejs.pkgs.node-pre-gyp python3 ];
+    nativeBuildInputs = [
+      nodejs.pkgs.node-pre-gyp
+      python3
+    ];
     postInstall = ''
       export CPPFLAGS="-I${nodejs}/include/node"
       node-pre-gyp install --prefer-offline --build-from-source --nodedir=${nodejs}/include/node
@@ -51,7 +55,10 @@ mkYarnPackage rec {
   };
 
   pkgConfig.bcrypt = {
-    nativeBuildInputs = [ nodejs.pkgs.node-pre-gyp python3 ];
+    nativeBuildInputs = [
+      nodejs.pkgs.node-pre-gyp
+      python3
+    ];
     postInstall = ''
       export CPPFLAGS="-I${nodejs}/include/node"
       node-pre-gyp install --prefer-offline --build-from-source --nodedir=${nodejs}/include/node

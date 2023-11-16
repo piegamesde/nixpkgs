@@ -1,22 +1,23 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
-, pkg-config
-, openssl
-, fontconfig
-, nasm
-, libX11
-, libXcursor
-, libXrandr
-, libXi
-, libGL
-, libxkbcommon
-, wayland
-, stdenv
-, gtk3
-, darwin
-, perl
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  openssl,
+  fontconfig,
+  nasm,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXi,
+  libGL,
+  libxkbcommon,
+  wayland,
+  stdenv,
+  gtk3,
+  darwin,
+  perl,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -43,25 +44,31 @@ rustPlatform.buildRustPackage rec {
 
   checkFlagsArray = [ "--skip=tests::net" ]; # requires network access
 
-  buildInputs = [
-    openssl
-    fontconfig
-  ] ++ lib.optionals stdenv.isLinux [
-    libGL
-    libX11
-    libXcursor
-    libXi
-    libXrandr
-    gtk3
+  buildInputs =
+    [
+      openssl
+      fontconfig
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      libGL
+      libX11
+      libXcursor
+      libXi
+      libXrandr
+      gtk3
 
-    libxkbcommon
-    wayland
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.libobjc
-  ];
+      libxkbcommon
+      wayland
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
-    patchelf $out/bin/oculante --add-rpath ${lib.makeLibraryPath [ libxkbcommon libX11 ]}
+    patchelf $out/bin/oculante --add-rpath ${
+      lib.makeLibraryPath [
+        libxkbcommon
+        libX11
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -70,6 +77,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/woelper/oculante";
     changelog = "https://github.com/woelper/oculante/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya figsoda ];
+    maintainers = with maintainers; [
+      dit7ya
+      figsoda
+    ];
   };
 }

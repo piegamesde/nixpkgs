@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, ansible-core
-, coreutils
-, coverage
-, pytest
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ansible-core,
+  coreutils,
+  coverage,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -28,13 +29,9 @@ buildPythonPackage rec {
       --replace '/usr/bin/env' '${coreutils}/bin/env'
   '';
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    ansible-core
-  ];
+  propagatedBuildInputs = [ ansible-core ];
 
   nativeCheckInputs = [
     coverage
@@ -45,9 +42,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pytestFlagsArray = [
-    "tests/"
-  ];
+  pytestFlagsArray = [ "tests/" ];
 
   disabledTests = [
     # Host unreachable in the inventory
@@ -57,9 +52,7 @@ buildPythonPackage rec {
     "test_connection_failure_extra_inventory_v2"
   ];
 
-  pythonImportsCheck = [
-    "pytest_ansible"
-  ];
+  pythonImportsCheck = [ "pytest_ansible" ];
 
   meta = with lib; {
     description = "Plugin for py.test to simplify calling ansible modules from tests or fixtures";

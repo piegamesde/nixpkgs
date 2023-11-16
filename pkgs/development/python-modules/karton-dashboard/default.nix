@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, flask
-, karton-core
-, mistune
-, networkx
-, prometheus-client
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  flask,
+  karton-core,
+  mistune,
+  networkx,
+  prometheus-client,
+  pythonOlder,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,15 @@ buildPythonPackage rec {
     hash = "sha256-XMyQ0mRF4y61hqlqdxC+He+697P1URfOXQUMnV0pT7o=";
   };
 
-  patches = [
-    # Allow later mistune, https://github.com/CERT-Polska/karton-dashboard/pull/68
-    (fetchpatch {
-      name = "update-mistune.patch";
-      url = "https://github.com/CERT-Polska/karton-dashboard/commit/d0a2a1ffd21e9066acca77434acaff7b20e460d0.patch";
-      hash = "sha256-LOqeLWoCXmVTthruBiQUYR03yPOPHhgYF/fJMhhT6Wo=";
-    })
-  ];
+  patches =
+    [
+      # Allow later mistune, https://github.com/CERT-Polska/karton-dashboard/pull/68
+      (fetchpatch {
+        name = "update-mistune.patch";
+        url = "https://github.com/CERT-Polska/karton-dashboard/commit/d0a2a1ffd21e9066acca77434acaff7b20e460d0.patch";
+        hash = "sha256-LOqeLWoCXmVTthruBiQUYR03yPOPHhgYF/fJMhhT6Wo=";
+      })
+    ];
 
   pythonRelaxDeps = [
     "Flask"
@@ -41,9 +43,7 @@ buildPythonPackage rec {
     "prometheus-client"
   ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     flask

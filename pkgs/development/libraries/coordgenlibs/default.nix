@@ -1,10 +1,11 @@
-{ fetchFromGitHub
-, lib
-, stdenv
-, boost
-, zlib
-, cmake
-, maeparser
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  boost,
+  zlib,
+  cmake,
+  maeparser,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost zlib maeparser ];
+  buildInputs = [
+    boost
+    zlib
+    maeparser
+  ];
 
   meta = with lib; {
     description = "Schrodinger-developed 2D Coordinate Generation";

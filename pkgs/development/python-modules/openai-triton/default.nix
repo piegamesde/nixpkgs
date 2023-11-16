@@ -1,24 +1,25 @@
-{ lib
-, buildPythonPackage
-, python
-, fetchpatch
-, fetchFromGitHub
-, addOpenGLRunpath
-, cmake
-, cudaPackages
-, llvmPackages
-, pybind11
-, gtest
-, zlib
-, ncurses
-, libxml2
-, lit
-, filelock
-, torchWithRocm
-, pytest
-, pytestCheckHook
-, pythonRelaxDepsHook
-, pkgsTargetTarget
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchpatch,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  cmake,
+  cudaPackages,
+  llvmPackages,
+  pybind11,
+  gtest,
+  zlib,
+  ncurses,
+  libxml2,
+  lit,
+  filelock,
+  torchWithRocm,
+  pytest,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pkgsTargetTarget,
 }:
 
 let
@@ -40,14 +41,16 @@ let
   # Cf. https://nixos.org/manual/nixpkgs/unstable/#sec-cross-infra
   ptxas = "${pkgsTargetTarget.cudaPackages.cuda_nvcc}/bin/ptxas";
 
-  llvm = (llvmPackages.llvm.override {
-    llvmTargetsToBuild = [ "NATIVE" "NVPTX" ];
-    # Upstream CI sets these too:
-    # targetProjects = [ "mlir" ];
-    extraCMakeFlags = [
-      "-DLLVM_INSTALL_UTILS=ON"
-    ];
-  });
+  llvm =
+    (llvmPackages.llvm.override {
+      llvmTargetsToBuild = [
+        "NATIVE"
+        "NVPTX"
+      ];
+      # Upstream CI sets these too:
+      # targetProjects = [ "mlir" ];
+      extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
+    });
 in
 buildPythonPackage {
   inherit pname version;
@@ -88,63 +91,67 @@ buildPythonPackage {
     # })
   ];
 
-  postPatch = ''
-    substituteInPlace python/setup.py \
-      --replace \
-        '= get_thirdparty_packages(triton_cache_path)' \
-        '= os.environ["cmakeFlags"].split()'
-  ''
-  # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
-  # Revisit when updating either triton or llvm
-  + ''
-    substituteInPlace CMakeLists.txt \
-      --replace "nvptx" "NVPTX" \
-      --replace "LLVM 11" "LLVM"
-    sed -i '/AddMLIR/a set(MLIR_TABLEGEN_EXE "${llvmPackages.mlir}/bin/mlir-tblgen")' CMakeLists.txt
-    sed -i '/AddMLIR/a set(MLIR_INCLUDE_DIR ''${MLIR_INCLUDE_DIRS})' CMakeLists.txt
-    find -iname '*.td' -exec \
-      sed -i \
-      -e '\|include "mlir/IR/OpBase.td"|a include "mlir/IR/AttrTypeBase.td"' \
-      -e 's|include "mlir/Dialect/StandardOps/IR/Ops.td"|include "mlir/Dialect/Func/IR/FuncOps.td"|' \
-      '{}' ';'
-    substituteInPlace unittest/CMakeLists.txt --replace "include(GoogleTest)" "find_package(GTest REQUIRED)"
-    sed -i 's/^include.*$//' unittest/CMakeLists.txt
-    sed -i '/LINK_LIBS/i NVPTXInfo' lib/Target/PTX/CMakeLists.txt
-    sed -i '/LINK_LIBS/i NVPTXCodeGen' lib/Target/PTX/CMakeLists.txt
-  ''
-  # TritonMLIRIR already links MLIRIR. Not transitive?
-  # + ''
-  #   echo "target_link_libraries(TritonPTX PUBLIC MLIRIR)" >> lib/Target/PTX/CMakeLists.txt
-  # ''
-  # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
-  + ''
-    substituteInPlace bin/CMakeLists.txt \
-      --replace "add_subdirectory(FileCheck)" ""
-
-    rm cmake/FindLLVM.cmake
-  ''
-  +
-  (
-    let
-      # Bash was getting weird without linting,
-      # but basically upstream contains [cc, ..., "-lcuda", ...]
-      # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-      old = [ "-lcuda" ];
-      new = [ "-lcuda" "-L${addOpenGLRunpath.driverLink}" "-L${cuda_cudart}/lib/stubs/" ];
-
-      quote = x: ''"${x}"'';
-      oldStr = lib.concatMapStringsSep ", " quote old;
-      newStr = lib.concatMapStringsSep ", " quote new;
-    in
+  postPatch =
     ''
-      substituteInPlace python/triton/compiler.py \
-        --replace '${oldStr}' '${newStr}'
+      substituteInPlace python/setup.py \
+        --replace \
+          '= get_thirdparty_packages(triton_cache_path)' \
+          '= os.environ["cmakeFlags"].split()'
     ''
-  )
-  # Triton seems to be looking up cuda.h
-  + ''
-    sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
-  '';
+    # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
+    # Revisit when updating either triton or llvm
+    + ''
+      substituteInPlace CMakeLists.txt \
+        --replace "nvptx" "NVPTX" \
+        --replace "LLVM 11" "LLVM"
+      sed -i '/AddMLIR/a set(MLIR_TABLEGEN_EXE "${llvmPackages.mlir}/bin/mlir-tblgen")' CMakeLists.txt
+      sed -i '/AddMLIR/a set(MLIR_INCLUDE_DIR ''${MLIR_INCLUDE_DIRS})' CMakeLists.txt
+      find -iname '*.td' -exec \
+        sed -i \
+        -e '\|include "mlir/IR/OpBase.td"|a include "mlir/IR/AttrTypeBase.td"' \
+        -e 's|include "mlir/Dialect/StandardOps/IR/Ops.td"|include "mlir/Dialect/Func/IR/FuncOps.td"|' \
+        '{}' ';'
+      substituteInPlace unittest/CMakeLists.txt --replace "include(GoogleTest)" "find_package(GTest REQUIRED)"
+      sed -i 's/^include.*$//' unittest/CMakeLists.txt
+      sed -i '/LINK_LIBS/i NVPTXInfo' lib/Target/PTX/CMakeLists.txt
+      sed -i '/LINK_LIBS/i NVPTXCodeGen' lib/Target/PTX/CMakeLists.txt
+    ''
+    # TritonMLIRIR already links MLIRIR. Not transitive?
+    # + ''
+    #   echo "target_link_libraries(TritonPTX PUBLIC MLIRIR)" >> lib/Target/PTX/CMakeLists.txt
+    # ''
+    # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
+    + ''
+      substituteInPlace bin/CMakeLists.txt \
+        --replace "add_subdirectory(FileCheck)" ""
+
+      rm cmake/FindLLVM.cmake
+    ''
+    + (
+      let
+        # Bash was getting weird without linting,
+        # but basically upstream contains [cc, ..., "-lcuda", ...]
+        # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
+        old = [ "-lcuda" ];
+        new = [
+          "-lcuda"
+          "-L${addOpenGLRunpath.driverLink}"
+          "-L${cuda_cudart}/lib/stubs/"
+        ];
+
+        quote = x: ''"${x}"'';
+        oldStr = lib.concatMapStringsSep ", " quote old;
+        newStr = lib.concatMapStringsSep ", " quote new;
+      in
+      ''
+        substituteInPlace python/triton/compiler.py \
+          --replace '${oldStr}' '${newStr}'
+      ''
+    )
+    # Triton seems to be looking up cuda.h
+    + ''
+      sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
+    '';
 
   nativeBuildInputs = [
     cmake
@@ -170,9 +177,7 @@ buildPythonPackage {
     zlib
   ];
 
-  propagatedBuildInputs = [
-    filelock
-  ];
+  propagatedBuildInputs = [ filelock ];
 
   # Avoid GLIBCXX mismatch with other cuda-enabled python packages
   preConfigure = ''
@@ -198,9 +203,7 @@ buildPythonPackage {
 
   # CMake is run by setup.py instead
   dontUseCmakeConfigure = true;
-  cmakeFlags = [
-    "-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir"
-  ];
+  cmakeFlags = [ "-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir" ];
 
   postFixup =
     let
@@ -224,11 +227,12 @@ buildPythonPackage {
     + ''
       cd test/unit
     '';
-  pythonImportsCheck = [
-    # Circular dependency on torch
-    # "triton"
-    # "triton.language"
-  ];
+  pythonImportsCheck =
+    [
+      # Circular dependency on torch
+      # "triton"
+      # "triton.language"
+    ];
 
   # Ultimately, torch is our test suite:
   passthru.tests = {

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, django-gravatar2, django-compressor
-, django-allauth, mailmanclient, django, mock
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django-gravatar2,
+  django-compressor,
+  django-allauth,
+  mailmanclient,
+  django,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -12,9 +20,15 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    django-gravatar2 django-compressor django-allauth mailmanclient
+    django-gravatar2
+    django-compressor
+    django-allauth
+    mailmanclient
   ];
-  nativeCheckInputs = [ django mock ];
+  nativeCheckInputs = [
+    django
+    mock
+  ];
 
   checkPhase = ''
     cd $NIX_BUILD_TOP/$sourceRoot
@@ -27,6 +41,9 @@ buildPythonPackage rec {
     description = "Django library for Mailman UIs";
     homepage = "https://gitlab.com/mailman/django-mailman3";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ globin qyliss ];
+    maintainers = with maintainers; [
+      globin
+      qyliss
+    ];
   };
 }

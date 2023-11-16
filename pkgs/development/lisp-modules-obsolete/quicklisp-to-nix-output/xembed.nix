@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "xembed";
   version = "clx-20191130-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "xembed";
 
-  asdFilesToKeep = ["xembed.asd"];
+  asdFilesToKeep = [ "xembed.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM xembed DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/clx-xembed/2019-11-30/clx-xembed-20191130-git.tgz
     MD5 11d35eeb734c0694005a5e5cec4cad22 NAME xembed FILENAME xembed DEPS
     ((NAME clx FILENAME clx)) DEPENDENCIES (clx) VERSION clx-20191130-git
-    SIBLINGS NIL PARASITES NIL) */
+    SIBLINGS NIL PARASITES NIL)
+*/

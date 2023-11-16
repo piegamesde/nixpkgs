@@ -1,40 +1,45 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch2
-, meson
-, ninja
-, pkg-config
-, check
-, dbus
-, xvfb-run
-, glib
-, gtk
-, gettext
-, libiconv
-, json-glib
-, libintl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch2,
+  meson,
+  ninja,
+  pkg-config,
+  check,
+  dbus,
+  xvfb-run,
+  glib,
+  gtk,
+  gettext,
+  libiconv,
+  json-glib,
+  libintl,
 }:
 
 stdenv.mkDerivation rec {
   pname = "girara";
   version = "0.3.9";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://git.pwmt.org/pwmt/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
     hash = "sha256-DoqYykR/N17BHQ90GoLvAYluQ3odWPwUGRTacN6BiWU=";
   };
 
-  patches = [
-    # Fix memory management bug revealed by GLib 2.76.
-    # https://git.pwmt.org/pwmt/girara/-/issues/17
-    (fetchpatch2 {
-      url = "https://git.pwmt.org/pwmt/girara/-/commit/6926cc1234853ccf3010a1e2625aafcf462ed60e.patch";
-      hash = "sha256-uayT6ikXtaBPxhZFyskShug3Tbvy2a9qimLRwdiAsic=";
-    })
-  ];
+  patches =
+    [
+      # Fix memory management bug revealed by GLib 2.76.
+      # https://git.pwmt.org/pwmt/girara/-/issues/17
+      (fetchpatch2 {
+        url = "https://git.pwmt.org/pwmt/girara/-/commit/6926cc1234853ccf3010a1e2625aafcf462ed60e.patch";
+        hash = "sha256-uayT6ikXtaBPxhZFyskShug3Tbvy2a9qimLRwdiAsic=";
+      })
+    ];
 
   nativeBuildInputs = [
     meson
@@ -57,9 +62,7 @@ stdenv.mkDerivation rec {
     gtk
   ];
 
-  nativeCheckInputs = [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ xvfb-run ];
 
   doCheck = !stdenv.isDarwin;
 

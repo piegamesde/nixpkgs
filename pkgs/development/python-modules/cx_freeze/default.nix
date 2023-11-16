@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, ncurses
-, importlib-metadata
-, setuptools
-, patchelf
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  ncurses,
+  importlib-metadata,
+  setuptools,
+  patchelf,
 }:
 
 buildPythonPackage rec {

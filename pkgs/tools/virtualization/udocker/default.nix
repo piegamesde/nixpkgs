@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, singularity
-, python3Packages
-, fetchpatch
+{
+  lib,
+  fetchFromGitHub,
+  singularity,
+  python3Packages,
+  fetchpatch,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -18,12 +19,14 @@ python3Packages.buildPythonApplication rec {
 
   # crun patchelf proot runc fakechroot
   # are download statistically linked during runtime
-  buildInputs = [
-    singularity
-  ] ++ (with python3Packages; [
-    pytest-runner
-    pycurl
-  ]);
+  buildInputs =
+    [ singularity ]
+    ++ (
+      with python3Packages; [
+        pytest-runner
+        pycurl
+      ]
+    );
 
   patches = [
     (fetchpatch {
@@ -32,9 +35,7 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  nativeCheckInputs = with python3Packages; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTests = [
     "test_02__load_structure"
@@ -54,5 +55,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = [ maintainers.bzizou ];
     platforms = platforms.linux;
   };
-
 }

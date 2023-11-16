@@ -1,38 +1,39 @@
-{ lib
-, stdenv
-, callPackage
-, fetchFromGitHub
-, cmake
-, clang
-, llvm
-, python3
-, zlib
-, z3
-, stp
-, cryptominisat
-, gperftools
-, sqlite
-, gtest
-, lit
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  cmake,
+  clang,
+  llvm,
+  python3,
+  zlib,
+  z3,
+  stp,
+  cryptominisat,
+  gperftools,
+  sqlite,
+  gtest,
+  lit,
 
-# Build KLEE in debug mode. Defaults to false.
-, debug ? false
+  # Build KLEE in debug mode. Defaults to false.
+  debug ? false,
 
-# Include debug info in the build. Defaults to true.
-, includeDebugInfo ? true
+  # Include debug info in the build. Defaults to true.
+  includeDebugInfo ? true,
 
-# Enable KLEE asserts. Defaults to true, since LLVM is built with them.
-, asserts ? true
+  # Enable KLEE asserts. Defaults to true, since LLVM is built with them.
+  asserts ? true,
 
-# Build the KLEE runtime in debug mode. Defaults to true, as this improves
-# stack traces of the software under test.
-, debugRuntime ? true
+  # Build the KLEE runtime in debug mode. Defaults to true, as this improves
+  # stack traces of the software under test.
+  debugRuntime ? true,
 
-# Enable runtime asserts. Default false.
-, runtimeAsserts ? false
+  # Enable runtime asserts. Default false.
+  runtimeAsserts ? false,
 
-# Extra klee-uclibc config.
-, extraKleeuClibcConfig ? {}
+  # Extra klee-uclibc config.
+  extraKleeuClibcConfig ? { },
 }:
 
 let
@@ -41,9 +42,17 @@ let
 
   # The klee-uclibc derivation.
   kleeuClibc = callPackage ./klee-uclibc.nix {
-    inherit stdenv clang llvm extraKleeuClibcConfig debugRuntime runtimeAsserts;
+    inherit
+      stdenv
+      clang
+      llvm
+      extraKleeuClibcConfig
+      debugRuntime
+      runtimeAsserts
+    ;
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "klee";
   version = "2.3";
 
@@ -78,25 +87,34 @@ in stdenv.mkDerivation rec {
     (lit.override { python = kleePython; })
   ];
 
-  cmakeFlags = let
-    onOff = val: if val then "ON" else "OFF";
-  in [
-    "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else if !debug && includeDebugInfo then "RelWithDebInfo" else "MinSizeRel"}"
-    "-DKLEE_RUNTIME_BUILD_TYPE=${if debugRuntime then "Debug" else "Release"}"
-    "-DKLEE_ENABLE_TIMESTAMP=${onOff false}"
-    "-DENABLE_KLEE_UCLIBC=${onOff true}"
-    "-DKLEE_UCLIBC_PATH=${kleeuClibc}"
-    "-DENABLE_KLEE_ASSERTS=${onOff asserts}"
-    "-DENABLE_POSIX_RUNTIME=${onOff true}"
-    "-DENABLE_UNIT_TESTS=${onOff true}"
-    "-DENABLE_SYSTEM_TESTS=${onOff true}"
-    "-DGTEST_SRC_DIR=${gtest.src}"
-    "-DGTEST_INCLUDE_DIR=${gtest.src}/googletest/include"
-    "-Wno-dev"
-  ];
+  cmakeFlags =
+    let
+      onOff = val: if val then "ON" else "OFF";
+    in
+    [
+      "-DCMAKE_BUILD_TYPE=${
+        if debug then
+          "Debug"
+        else if !debug && includeDebugInfo then
+          "RelWithDebInfo"
+        else
+          "MinSizeRel"
+      }"
+      "-DKLEE_RUNTIME_BUILD_TYPE=${if debugRuntime then "Debug" else "Release"}"
+      "-DKLEE_ENABLE_TIMESTAMP=${onOff false}"
+      "-DENABLE_KLEE_UCLIBC=${onOff true}"
+      "-DKLEE_UCLIBC_PATH=${kleeuClibc}"
+      "-DENABLE_KLEE_ASSERTS=${onOff asserts}"
+      "-DENABLE_POSIX_RUNTIME=${onOff true}"
+      "-DENABLE_UNIT_TESTS=${onOff true}"
+      "-DENABLE_SYSTEM_TESTS=${onOff true}"
+      "-DGTEST_SRC_DIR=${gtest.src}"
+      "-DGTEST_INCLUDE_DIR=${gtest.src}/googletest/include"
+      "-Wno-dev"
+    ];
 
   # Silence various warnings during the compilation of fortified bitcode.
-  env.NIX_CFLAGS_COMPILE = toString ["-Wno-macro-redefined"];
+  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-macro-redefined" ];
 
   prePatch = ''
     patchShebangs .

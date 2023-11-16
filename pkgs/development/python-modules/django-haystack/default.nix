@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
 
-# build dependencies
-, setuptools-scm
+  # build dependencies
+  setuptools-scm,
 
-# dependencies
-, django
+  # dependencies
+  django,
 
-# tests
-, geopy
-, nose
-, pysolr
-, python-dateutil
-, requests
-, whoosh
+  # tests
+  geopy,
+  nose,
+  pysolr,
+  python-dateutil,
+  requests,
+  whoosh,
 }:
 
 buildPythonPackage rec {
@@ -34,13 +35,9 @@ buildPythonPackage rec {
       --replace "geopy==" "geopy>="
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   nativeCheckInputs = [
     geopy

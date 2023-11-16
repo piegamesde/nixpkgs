@@ -1,6 +1,12 @@
-{ lib, fetchFromGitHub, ncurses, ocamlPackages }:
+{
+  lib,
+  fetchFromGitHub,
+  ncurses,
+  ocamlPackages,
+}:
 
-with ocamlPackages; buildDunePackage rec {
+with ocamlPackages;
+buildDunePackage rec {
   pname = "ocaml-top";
   version = "1.2.0";
 
@@ -14,7 +20,11 @@ with ocamlPackages; buildDunePackage rec {
   };
 
   nativeBuildInputs = [ ocp-build ];
-  buildInputs = [ ncurses lablgtk3-sourceview3 ocp-index ];
+  buildInputs = [
+    ncurses
+    lablgtk3-sourceview3
+    ocp-index
+  ];
 
   configurePhase = ''
     export TERM=xterm

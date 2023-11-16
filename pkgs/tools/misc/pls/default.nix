@@ -1,4 +1,8 @@
-{ lib, python3, fetchFromGitHub }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pls";
@@ -31,7 +35,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'rich = "^12.5.1"' 'rich = "*"' \
   '';
 
-  pytestFlagsArray = [ "tests/" "--ignore=tests/e2e" ];
+  pytestFlagsArray = [
+    "tests/"
+    "--ignore=tests/e2e"
+  ];
 
   pythonImportsCheck = [ "pls" ];
 

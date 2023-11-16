@@ -1,6 +1,7 @@
-{ system ? builtins.currentSystem
-, pkgs ? import ../../.. { inherit system; }
-, lib ? pkgs.lib
+{
+  system ? builtins.currentSystem,
+  pkgs ? import ../../.. { inherit system; },
+  lib ? pkgs.lib,
 }:
 let
   allK3s = lib.filterAttrs (n: _: lib.strings.hasPrefix "k3s_" n) pkgs;

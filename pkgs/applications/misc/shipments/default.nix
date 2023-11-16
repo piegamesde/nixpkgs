@@ -1,15 +1,16 @@
-{ desktop-file-utils
-, fetchurl
-, gobject-introspection
-, gtk3
-, lib
-, libhandy
-, meson
-, ninja
-, pkg-config
-, python3
-, stdenv
-, wrapGAppsHook
+{
+  desktop-file-utils,
+  fetchurl,
+  gobject-introspection,
+  gtk3,
+  lib,
+  libhandy,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  stdenv,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,10 +34,13 @@ stdenv.mkDerivation rec {
     gobject-introspection
     gtk3
     libhandy
-    (python3.withPackages (ps: with ps; [
-      pygobject3
-      requests
-    ]))
+    (python3.withPackages (
+      ps:
+      with ps; [
+        pygobject3
+        requests
+      ]
+    ))
   ];
 
   meta = with lib; {

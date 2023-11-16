@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, acl
-, e2fsprogs
-, libb2
-, lz4
-, openssh
-, openssl
-, python3
-, xxHash
-, zstd
-, installShellFiles
-, nixosTests
-, fetchpatch
-, fetchPypi
+{
+  lib,
+  stdenv,
+  acl,
+  e2fsprogs,
+  libb2,
+  lz4,
+  openssh,
+  openssl,
+  python3,
+  xxHash,
+  zstd,
+  installShellFiles,
+  nixosTests,
+  fetchpatch,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -53,7 +54,10 @@ python3.pkgs.buildPythonApplication rec {
     installShellFiles
   ];
 
-  sphinxBuilders = [ "singlehtml" "man" ];
+  sphinxBuilders = [
+    "singlehtml"
+    "man"
+  ];
 
   buildInputs = [
     libb2
@@ -61,9 +65,7 @@ python3.pkgs.buildPythonApplication rec {
     xxHash
     zstd
     openssl
-  ] ++ lib.optionals stdenv.isLinux [
-    acl
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ acl ];
 
   propagatedBuildInputs = with python3.pkgs; [
     msgpack
@@ -71,9 +73,7 @@ python3.pkgs.buildPythonApplication rec {
     (if stdenv.isLinux then pyfuse3 else llfuse)
   ];
 
-  makeWrapperArgs = [
-    ''--prefix PATH ':' "${openssh}/bin"''
-  ];
+  makeWrapperArgs = [ ''--prefix PATH ':' "${openssh}/bin"'' ];
 
   postInstall = ''
     installShellCompletion --cmd borg \
@@ -93,7 +93,8 @@ python3.pkgs.buildPythonApplication rec {
 
   pytestFlagsArray = [
     "--benchmark-skip"
-    "--pyargs" "borg.testsuite"
+    "--pyargs"
+    "borg.testsuite"
   ];
 
   disabledTests = [
@@ -122,7 +123,11 @@ python3.pkgs.buildPythonApplication rec {
     inherit (nixosTests) borgbackup;
   };
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   meta = with lib; {
     description = "Deduplicating archiver with compression and encryption";
@@ -130,6 +135,9 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.bsd3;
     platforms = platforms.unix; # Darwin and FreeBSD mentioned on homepage
     mainProgram = "borg";
-    maintainers = with maintainers; [ dotlambda globin ];
+    maintainers = with maintainers; [
+      dotlambda
+      globin
+    ];
   };
 }

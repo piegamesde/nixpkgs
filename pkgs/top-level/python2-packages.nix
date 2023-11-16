@@ -4,7 +4,8 @@
 
 self: super:
 
-with self; with super; {
+with self;
+with super; {
   attrs = callPackage ../development/python2-modules/attrs { };
 
   bootstrapped-pip = toPythonModule (callPackage ../development/python2-modules/bootstrapped-pip { });
@@ -19,7 +20,7 @@ with self; with super; {
 
   enum = callPackage ../development/python2-modules/enum { };
 
-  filelock =  callPackage ../development/python2-modules/filelock { };
+  filelock = callPackage ../development/python2-modules/filelock { };
 
   futures = callPackage ../development/python2-modules/futures { };
 
@@ -53,13 +54,10 @@ with self; with super; {
 
   pytest = pytest_4;
 
-  pytest_4 = callPackage
-    ../development/python2-modules/pytest {
-      # hypothesis tests require pytest that causes dependency cycle
-      hypothesis = self.hypothesis.override {
-        doCheck = false;
-      };
-    };
+  pytest_4 = callPackage ../development/python2-modules/pytest {
+    # hypothesis tests require pytest that causes dependency cycle
+    hypothesis = self.hypothesis.override { doCheck = false; };
+  };
 
   pytest-xdist = callPackage ../development/python2-modules/pytest-xdist { };
 
@@ -79,14 +77,15 @@ with self; with super; {
 
   typing = callPackage ../development/python2-modules/typing { };
 
-  six = super.six.overridePythonAttrs (_: {
-    doCheck = false;  # circular dependency with pytest
-  });
+  six = super.six.overridePythonAttrs (
+    _: {
+      doCheck = false; # circular dependency with pytest
+    }
+  );
 
   wheel = callPackage ../development/python2-modules/wheel { };
 
   zeek = disabled super.zeek;
 
   zipp = callPackage ../development/python2-modules/zipp { };
-
 }

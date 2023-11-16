@@ -1,9 +1,17 @@
-{ lib
-, nimPackages
-, fetchFromGitLab
-, enableShells ? [ "bash" "zsh" "fish" "sh" "posh" "codium" ]
+{
+  lib,
+  nimPackages,
+  fetchFromGitLab,
+  enableShells ? [
+    "bash"
+    "zsh"
+    "fish"
+    "sh"
+    "posh"
+    "codium"
+  ],
 }:
-nimPackages.buildNimPackage rec{
+nimPackages.buildNimPackage rec {
   pname = "swaycwd";
   version = "0.2.1";
 

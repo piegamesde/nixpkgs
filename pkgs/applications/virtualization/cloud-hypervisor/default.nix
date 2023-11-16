@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, dtc, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  dtc,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cloud-hypervisor";
@@ -40,8 +48,17 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/cloud-hypervisor/cloud-hypervisor";
     description = "Open source Virtual Machine Monitor (VMM) that runs on top of KVM";
     changelog = "https://github.com/cloud-hypervisor/cloud-hypervisor/releases/tag/v${version}";
-    license = with licenses; [ asl20 bsd3 ];
-    maintainers = with maintainers; [ offline qyliss ];
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    license = with licenses; [
+      asl20
+      bsd3
+    ];
+    maintainers = with maintainers; [
+      offline
+      qyliss
+    ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }

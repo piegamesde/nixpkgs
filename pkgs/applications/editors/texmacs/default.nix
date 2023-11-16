@@ -1,5 +1,13 @@
-{ lib, mkDerivation, callPackage, fetchurl,
-  guile_1_8, qtbase, xmodmap, which, freetype,
+{
+  lib,
+  mkDerivation,
+  callPackage,
+  fetchurl,
+  guile_1_8,
+  qtbase,
+  xmodmap,
+  which,
+  freetype,
   libjpeg,
   sqlite,
   tex ? null,
@@ -12,13 +20,20 @@
   extraFonts ? false,
   chineseFonts ? false,
   japaneseFonts ? false,
-  koreanFonts ? false }:
+  koreanFonts ? false,
+}:
 
 let
   pname = "TeXmacs";
   version = "2.1";
   common = callPackage ./common.nix {
-    inherit tex extraFonts chineseFonts japaneseFonts koreanFonts;
+    inherit
+      tex
+      extraFonts
+      chineseFonts
+      japaneseFonts
+      koreanFonts
+    ;
   };
 in
 mkDerivation {
@@ -29,7 +44,10 @@ mkDerivation {
     sha256 = "1gl6k1bwrk1y7hjyl4xvlqvmk5crl4jvsk8wrfp7ynbdin6n2i48";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     guile_1_8
     qtbase
@@ -43,7 +61,10 @@ mkDerivation {
   NIX_LDFLAGS = "-lz";
 
   qtWrapperArgs = [
-    "--suffix" "PATH" ":" (lib.makeBinPath [
+    "--suffix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
       xmodmap
       which
       ghostscriptX
@@ -62,6 +83,6 @@ mkDerivation {
 
   meta = common.meta // {
     maintainers = [ lib.maintainers.roconnor ];
-    platforms = lib.platforms.gnu ++ lib.platforms.linux;  # arbitrary choice
+    platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

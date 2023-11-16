@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, httplib2
-, py
-, pytestCheckHook
-, pythonOlder
-, requests
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  httplib2,
+  py,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-KvrZs+EgeK7Du7ni6icKHfcF0W0RDde0W6Aj/EPZ2Hw=";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   nativeCheckInputs = [
     httplib2
@@ -41,9 +40,7 @@ buildPythonPackage rec {
     "test_https_no_ssl_verification_not_intercepted"
   ];
 
-  pythonImportsCheck = [
-    "wsgi_intercept"
-  ];
+  pythonImportsCheck = [ "wsgi_intercept" ];
 
   meta = with lib; {
     description = "Module that acts as a WSGI application in place of a real URI for testing";

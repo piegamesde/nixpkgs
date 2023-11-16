@@ -1,5 +1,12 @@
-{ lib, stdenv, autoreconfHook, readline
-, fetchFromGitHub, glib, pkg-config }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  readline,
+  fetchFromGitHub,
+  glib,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "unstable-2020-10-24";
@@ -12,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "0xk39lz3hm8lcnb5fdbfz4ldbbq8gswg95vilzdwxzrglcr6xnqq";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ readline glib ];
+  buildInputs = [
+    readline
+    glib
+  ];
 
   meta = with lib; {
     description = "Command line bluetooth manager for Bluez5";
@@ -22,5 +35,4 @@ stdenv.mkDerivation rec {
     maintainers = [ ];
     platforms = platforms.unix;
   };
-
 }

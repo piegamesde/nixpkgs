@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, entrypoints
-, jupyter-core
-, hatchling
-, nest-asyncio
-, python-dateutil
-, pyzmq
-, tornado
-, traitlets
-, isPyPy
-, py
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  entrypoints,
+  jupyter-core,
+  hatchling,
+  nest-asyncio,
+  python-dateutil,
+  pyzmq,
+  tornado,
+  traitlets,
+  isPyPy,
+  py,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-7WVJi+pth2752No+DbPdM8XRKfWyZF9WrgOZN4KWa9A=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     entrypoints

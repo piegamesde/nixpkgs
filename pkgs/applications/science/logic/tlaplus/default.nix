@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, adoptopenjdk-bin, jre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  adoptopenjdk-bin,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tlaplus";
@@ -29,10 +36,13 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "An algorithm specification language with model checking tools";
-    homepage    = "http://lamport.azurewebsites.net/tla/tla.html";
+    homepage = "http://lamport.azurewebsites.net/tla/tla.html";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    license     = lib.licenses.mit;
-    platforms   = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ florentc thoughtpolice ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [
+      florentc
+      thoughtpolice
+    ];
   };
 }

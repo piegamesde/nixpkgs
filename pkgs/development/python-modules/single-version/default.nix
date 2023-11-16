@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "single-version";
@@ -12,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-I8ATQzPRH9FVjqPoqrNjYMBU5azpmkLjRmHcz943C10=";
   };
 
-  patches = [
-    ./0001-set-poetry-core.patch
-  ];
+  patches = [ ./0001-set-poetry-core.patch ];
 
   nativeBuildInputs = [ poetry-core ];
 

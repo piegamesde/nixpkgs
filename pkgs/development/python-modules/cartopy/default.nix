@@ -1,24 +1,25 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, fetchpatch
-, cython
-, setuptools-scm
-, geos
-, proj
-, matplotlib
-, numpy
-, pyproj
-, pyshp
-, shapely
-, owslib
-, pillow
-, gdal
-, scipy
-, fontconfig
-, pytest-mpl
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch,
+  cython,
+  setuptools-scm,
+  geos,
+  proj,
+  matplotlib,
+  numpy,
+  pyproj,
+  pyshp,
+  shapely,
+  owslib,
+  pillow,
+  gdal,
+  scipy,
+  fontconfig,
+  pytest-mpl,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -56,7 +57,8 @@ buildPythonPackage rec {
   ];
 
   buildInputs = [
-    geos proj
+    geos
+    proj
   ];
 
   propagatedBuildInputs = [
@@ -68,8 +70,15 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    ows = [ owslib pillow ];
-    plotting = [ gdal pillow scipy ];
+    ows = [
+      owslib
+      pillow
+    ];
+    plotting = [
+      gdal
+      pillow
+      scipy
+    ];
   };
 
   nativeCheckInputs = [
@@ -83,13 +92,13 @@ buildPythonPackage rec {
   '';
 
   pytestFlagsArray = [
-    "--pyargs" "cartopy"
-    "-m" "'not network and not natural_earth'"
+    "--pyargs"
+    "cartopy"
+    "-m"
+    "'not network and not natural_earth'"
   ];
 
-  disabledTests = [
-    "test_gridliner_labels_bbox_style"
-  ];
+  disabledTests = [ "test_gridliner_labels_bbox_style" ];
 
   meta = with lib; {
     description = "Process geospatial data to create maps and perform analyses";

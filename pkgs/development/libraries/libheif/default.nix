@@ -1,30 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, dav1d
-, rav1e
-, libde265
-, x265
-, libpng
-, libjpeg
-, libaom
-, gdk-pixbuf
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  dav1d,
+  rav1e,
+  libde265,
+  x265,
+  libpng,
+  libjpeg,
+  libaom,
+  gdk-pixbuf,
 
-# for passthru.tests
-, gimp
-, imagemagick
-, imlib2Full
-, imv
-, vips
+  # for passthru.tests
+  gimp,
+  imagemagick,
+  imlib2Full,
+  imv,
+  vips,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libheif";
   version = "1.15.2";
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "strukturag";
@@ -55,7 +61,13 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${placeholder "out"}/${gdk-pixbuf.moduleDir}";
 
   passthru.tests = {
-    inherit gimp imagemagick imlib2Full imv vips;
+    inherit
+      gimp
+      imagemagick
+      imlib2Full
+      imv
+      vips
+    ;
   };
 
   meta = {

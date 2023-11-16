@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, ghostscript
-, imagemagick
-, poppler_utils
-, python3
-, tesseract5
+{
+  lib,
+  fetchFromGitHub,
+  ghostscript,
+  imagemagick,
+  poppler_utils,
+  python3,
+  tesseract5,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -36,19 +37,22 @@ python3.pkgs.buildPythonApplication rec {
       --replace "pytest-runner" ""
   '';
 
-  makeWrapperArgs = ["--prefix" "PATH" ":" (lib.makeBinPath [
-    ghostscript
-    imagemagick
-    tesseract5
-    poppler_utils
-  ])];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      ghostscript
+      imagemagick
+      tesseract5
+      poppler_utils
+    ])
+  ];
 
   # Tests fails even when ran manually on my ubuntu machine !!
   doCheck = false;
 
-  pythonImportsCheck = [
-    "invoice2data"
-  ];
+  pythonImportsCheck = [ "invoice2data" ];
 
   meta = with lib; {
     description = "Data extractor for PDF invoices";

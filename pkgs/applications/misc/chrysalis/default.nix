@@ -1,9 +1,14 @@
-{ lib, appimageTools, fetchurl }:
+{
+  lib,
+  appimageTools,
+  fetchurl,
+}:
 
 let
   pname = "chrysalis";
   version = "0.12.0";
-in appimageTools.wrapAppImage rec {
+in
+appimageTools.wrapAppImage rec {
   name = "${pname}-${version}-binary";
 
   src = appimageTools.extract {
@@ -15,9 +20,7 @@ in appimageTools.wrapAppImage rec {
   };
 
   multiPkgs = null;
-  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [
-    p.glib
-  ];
+  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.glib ];
 
   # Also expose the udev rules here, so it can be used as:
   #   services.udev.packages = [ pkgs.chrysalis ];

@@ -1,8 +1,19 @@
-{ lib, stdenv, fetchurl
-, autoreconfHook, pkg-config, pruneLibtoolFiles, flex, bison
-, libmnl, libnetfilter_conntrack, libnfnetlink, libnftnl, libpcap
-, nftablesCompat ? true
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  pruneLibtoolFiles,
+  flex,
+  bison,
+  libmnl,
+  libnetfilter_conntrack,
+  libnfnetlink,
+  libnftnl,
+  libpcap,
+  nftablesCompat ? true,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,13 +38,27 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "dev" "man" ];
-
-  nativeBuildInputs = [
-    autoreconfHook pkg-config pruneLibtoolFiles flex bison
+  outputs = [
+    "out"
+    "dev"
+    "man"
   ];
 
-  buildInputs = [ libmnl libnetfilter_conntrack libnfnetlink libnftnl libpcap ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    pruneLibtoolFiles
+    flex
+    bison
+  ];
+
+  buildInputs = [
+    libmnl
+    libnetfilter_conntrack
+    libnfnetlink
+    libnftnl
+    libpcap
+  ];
 
   preConfigure = ''
     export NIX_LDFLAGS="$NIX_LDFLAGS -lmnl -lnftnl"

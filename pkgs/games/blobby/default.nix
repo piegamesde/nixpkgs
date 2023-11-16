@@ -1,4 +1,19 @@
-{ lib, stdenv, fetchurl, SDL2, SDL2_image, libGLU, libGL, cmake, physfs, boost, zip, zlib, unzip, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL2,
+  SDL2_image,
+  libGLU,
+  libGL,
+  cmake,
+  physfs,
+  boost,
+  zip,
+  zlib,
+  unzip,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blobby-volley";
@@ -9,10 +24,22 @@ stdenv.mkDerivation rec {
     sha256 = "1qpmbdlyhfbrdsq4vkb6cb3b8mh27fpizb71q4a21ala56g08yms";
   };
 
-  nativeBuildInputs = [ cmake pkg-config zip ];
-  buildInputs = [ SDL2 SDL2_image libGLU libGL physfs boost zlib ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    zip
+  ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    libGLU
+    libGL
+    physfs
+    boost
+    zlib
+  ];
 
-  preConfigure=''
+  preConfigure = ''
     sed -e '1i#include <iostream>' -i src/NetworkMessage.cpp
   '';
 

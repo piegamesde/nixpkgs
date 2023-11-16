@@ -1,37 +1,41 @@
-{ stdenv
-, lib
-, fetchurl
-, buildPythonPackage
-, isPy3k, pythonOlder, pythonAtLeast, astor
-, gast
-, google-pasta
-, wrapt
-, numpy
-, six
-, termcolor
-, packaging
-, protobuf
-, absl-py
-, grpcio
-, mock
-, scipy
-, wheel
-, jax
-, opt-einsum
-, backports_weakref
-, tensorflow-estimator-bin
-, tensorboard
-, cudaSupport ? false
-, cudaPackages ? {}
-, zlib
-, python
-, keras-applications
-, keras-preprocessing
-, addOpenGLRunpath
-, astunparse
-, flatbuffers
-, h5py
-, typing-extensions
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildPythonPackage,
+  isPy3k,
+  pythonOlder,
+  pythonAtLeast,
+  astor,
+  gast,
+  google-pasta,
+  wrapt,
+  numpy,
+  six,
+  termcolor,
+  packaging,
+  protobuf,
+  absl-py,
+  grpcio,
+  mock,
+  scipy,
+  wheel,
+  jax,
+  opt-einsum,
+  backports_weakref,
+  tensorflow-estimator-bin,
+  tensorboard,
+  cudaSupport ? false,
+  cudaPackages ? { },
+  zlib,
+  python,
+  keras-applications,
+  keras-preprocessing,
+  addOpenGLRunpath,
+  astunparse,
+  flatbuffers,
+  h5py,
+  typing-extensions,
 }:
 
 # We keep this binary build for two reasons:
@@ -39,12 +43,13 @@
 # - the source build is currently brittle and not easy to maintain
 
 # unsupported combination
-assert ! (stdenv.isDarwin && cudaSupport);
+assert !(stdenv.isDarwin && cudaSupport);
 
 let
   packages = import ./binary-hashes.nix;
   inherit (cudaPackages) cudatoolkit cudnn;
-in buildPythonPackage {
+in
+buildPythonPackage {
   pname = "tensorflow" + lib.optionalString cudaSupport "-gpu";
   inherit (packages) version;
   format = "wheel";
@@ -52,12 +57,14 @@ in buildPythonPackage {
   # Python 3.11 still unsupported
   disabled = pythonAtLeast "3.11";
 
-  src = let
-    pyVerNoDot = lib.strings.stringAsChars (x: if x == "." then "" else x) python.pythonVersion;
-    platform = if stdenv.isDarwin then "mac" else "linux";
-    unit = if cudaSupport then "gpu" else "cpu";
-    key = "${platform}_py_${pyVerNoDot}_${unit}";
-  in fetchurl (packages.${key} or {});
+  src =
+    let
+      pyVerNoDot = lib.strings.stringAsChars (x: if x == "." then "" else x) python.pythonVersion;
+      platform = if stdenv.isDarwin then "mac" else "linux";
+      unit = if cudaSupport then "gpu" else "cpu";
+      key = "${platform}_py_${pyVerNoDot}_${unit}";
+    in
+    fetchurl (packages.${key} or { });
 
   propagatedBuildInputs = [
     astunparse
@@ -82,8 +89,7 @@ in buildPythonPackage {
     keras-applications
     keras-preprocessing
     h5py
-  ] ++ lib.optional (!isPy3k) mock
-    ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ];
+  ] ++ lib.optional (!isPy3k) mock ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ];
 
   nativeBuildInputs = [ wheel ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
@@ -172,9 +178,11 @@ in buildPythonPackage {
         echo "about to patchelf $lib..."
         chmod a+rx "$lib"
         patchelf --set-rpath "$rrPath" "$lib"
-        ${lib.optionalString cudaSupport ''
-          addOpenGLRunpath "$lib"
-        ''}
+        ${
+          lib.optionalString cudaSupport ''
+            addOpenGLRunpath "$lib"
+          ''
+        }
       done
     '';
 
@@ -201,7 +209,13 @@ in buildPythonPackage {
     homepage = "http://tensorflow.org";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ jyp abbradar ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    maintainers = with maintainers; [
+      jyp
+      abbradar
+    ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

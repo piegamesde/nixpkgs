@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, pythonAtLeast
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  pythonAtLeast,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -22,5 +23,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/sunlightlabs/validictory";
     license = licenses.mit;
   };
-
 }

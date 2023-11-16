@@ -1,4 +1,13 @@
-{ lib, stdenv, jq }: { src, nodejs, sha256 }:
+{
+  lib,
+  stdenv,
+  jq,
+}:
+{
+  src,
+  nodejs,
+  sha256,
+}:
 
 # Only npm >= 5.4.2 is deterministic, see:
 # https://github.com/npm/npm/issues/17979#issuecomment-332701215
@@ -11,7 +20,10 @@ stdenv.mkDerivation {
   outputHash = sha256;
   outputHashMode = "recursive";
 
-  nativeBuildInputs = [ jq nodejs ];
+  nativeBuildInputs = [
+    jq
+    nodejs
+  ];
 
   buildCommand = ''
     cp -r ${src}/* .

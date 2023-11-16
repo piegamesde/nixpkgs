@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -12,21 +13,17 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-src = fetchPypi {
+  src = fetchPypi {
     inherit pname version;
     hash = "sha256-wSurRS0x3TwkRFbPHfODrPFLoUfPmUBMXkRBJZbeQvw=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   # Tests assume the availability of a mysql/postgresql database
   doCheck = false;
 
-  pythonImportsCheck = [
-    "reversion"
-  ];
+  pythonImportsCheck = [ "reversion" ];
 
   meta = with lib; {
     description = "An extension to the Django web framework that provides comprehensive version control facilities";

@@ -1,11 +1,18 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.gocd-server;
   opt = options.services.gocd-server;
-in {
+in
+{
   options = {
     services.gocd-server = {
       enable = mkEnableOption (lib.mdDoc "gocd-server");
@@ -29,7 +36,10 @@ in {
       extraGroups = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "wheel" "docker" ];
+        example = [
+          "wheel"
+          "docker"
+        ];
         description = lib.mdDoc ''
           List of extra groups that the "gocd-server" user should be a part of.
         '';
@@ -69,8 +79,16 @@ in {
       };
 
       packages = mkOption {
-        default = [ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ];
-        defaultText = literalExpression "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]";
+        default = [
+          pkgs.stdenv
+          pkgs.jre
+          pkgs.git
+          config.programs.ssh.package
+          pkgs.nix
+        ];
+        defaultText =
+          literalExpression
+            "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]";
         type = types.listOf types.package;
         description = lib.mdDoc ''
           Packages to add to PATH for the Go.CD server's process.
@@ -192,10 +210,7 @@ in {
             lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
               config.environment.sessionVariables;
         in
-          selectedSessionVars //
-            { NIX_REMOTE = "daemon";
-            } //
-            cfg.environment;
+        selectedSessionVars // { NIX_REMOTE = "daemon"; } // cfg.environment;
 
       path = cfg.packages;
 

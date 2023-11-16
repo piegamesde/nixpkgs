@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchurl
-, bison
-, flex
-, perl
-, libpng
-, giflib
-, libjpeg
-, alsa-lib
-, readline
-, libGLU
-, libGL
-, libXaw
-, pkg-config
-, gtk2
-, SDL
-, SDL_image
-, autoreconfHook
-, makeDesktopItem
-, dos2unix
-, xa
-, file
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+  perl,
+  libpng,
+  giflib,
+  libjpeg,
+  alsa-lib,
+  readline,
+  libGLU,
+  libGL,
+  libXaw,
+  pkg-config,
+  gtk2,
+  SDL,
+  SDL_image,
+  autoreconfHook,
+  makeDesktopItem,
+  dos2unix,
+  xa,
+  file,
 }:
 
 let
@@ -159,7 +160,11 @@ stdenv.mkDerivation rec {
     xa
   ];
   dontDisableStatic = true;
-  configureFlags = [ "--enable-fullscreen" "--enable-gnomeui" "--disable-pdf-docs" ];
+  configureFlags = [
+    "--enable-fullscreen"
+    "--enable-gnomeui"
+    "--disable-pdf-docs"
+  ];
 
   preBuild = ''
     for i in src/resid src/resid-dtv

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, zig
-, wayland
-, pkg-config
-, scdoc
-, wayland-protocols
-, libxkbcommon
-, pam
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zig,
+  wayland,
+  pkg-config,
+  scdoc,
+  wayland-protocols,
+  libxkbcommon,
+  pam,
 }:
 stdenv.mkDerivation rec {
   pname = "waylock";
@@ -21,7 +22,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ zig wayland scdoc pkg-config ];
+  nativeBuildInputs = [
+    zig
+    wayland
+    scdoc
+    pkg-config
+  ];
 
   buildInputs = [
     wayland-protocols

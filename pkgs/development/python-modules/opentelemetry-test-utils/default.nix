@@ -1,12 +1,13 @@
-{ lib
-, callPackage
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, asgiref
-, hatchling
-, opentelemetry-api
-, opentelemetry-sdk
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  asgiref,
+  hatchling,
+  opentelemetry-api,
+  opentelemetry-sdk,
 }:
 
 buildPythonPackage rec {
@@ -14,19 +15,19 @@ buildPythonPackage rec {
   version = "1.18.0";
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "open-telemetry";
-    repo = "opentelemetry-python";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-WRcKTE3eVqOSQUi5gZ3du+RGw8CrMazXHrctdrjgzHo=";
-    sparseCheckout = [ "/tests/${pname}" ];
-  } + "/tests/${pname}";
+  src =
+    fetchFromGitHub {
+      owner = "open-telemetry";
+      repo = "opentelemetry-python";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-WRcKTE3eVqOSQUi5gZ3du+RGw8CrMazXHrctdrjgzHo=";
+      sparseCheckout = [ "/tests/${pname}" ];
+    }
+    + "/tests/${pname}";
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     asgiref

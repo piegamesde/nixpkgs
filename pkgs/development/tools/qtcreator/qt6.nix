@@ -1,30 +1,31 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, cmake
-, pkg-config
-, ninja
-, python3
-, qtbase
-, qt5compat
-, qtdeclarative
-, qtdoc
-, qtquick3d
-, qtquicktimeline
-, qtserialport
-, qtsvg
-, qttools
-, qtwebengine
-, qtshadertools
-, wrapQtAppsHook
-, yaml-cpp
-, litehtml
-, gumbo
-, llvmPackages
-, rustc-demangle
-, elfutils
-, perf
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  ninja,
+  python3,
+  qtbase,
+  qt5compat,
+  qtdeclarative,
+  qtdoc,
+  qtquick3d,
+  qtquicktimeline,
+  qtserialport,
+  qtsvg,
+  qttools,
+  qtwebengine,
+  qtshadertools,
+  wrapQtAppsHook,
+  yaml-cpp,
+  litehtml,
+  gumbo,
+  llvmPackages,
+  rustc-demangle,
+  elfutils,
+  perf,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,18 +33,21 @@ stdenv.mkDerivation rec {
   version = "10.0.1";
 
   src = fetchurl {
-    url = "https://download.qt.io/official_releases/${pname}/${lib.versions.majorMinor version}/${version}/qt-creator-opensource-src-${version}.tar.xz";
+    url = "https://download.qt.io/official_releases/${pname}/${
+        lib.versions.majorMinor version
+      }/${version}/qt-creator-opensource-src-${version}.tar.xz";
     sha256 = "sha256-QWGwfc7A/I8xUpx9thC3FzFBKNoAei76haqbwzCXoWM=";
   };
 
-  patches = [
-    # fix build with Qt 6.5.1
-    # FIXME: remove for next release
-    (fetchpatch {
-      url = "https://github.com/qt-creator/qt-creator/commit/9817df63fb9eae342d5bf6f28f526aa09b17e8de.diff";
-      hash = "sha256-HIQuKroWUhJBWhVG3fyoBIFvezktCyQAuaZz/lvg7uk=";
-    })
-  ];
+  patches =
+    [
+      # fix build with Qt 6.5.1
+      # FIXME: remove for next release
+      (fetchpatch {
+        url = "https://github.com/qt-creator/qt-creator/commit/9817df63fb9eae342d5bf6f28f526aa09b17e8de.diff";
+        hash = "sha256-HIQuKroWUhJBWhVG3fyoBIFvezktCyQAuaZz/lvg7uk=";
+      })
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -88,9 +92,7 @@ stdenv.mkDerivation rec {
     "-DCLANGTOOLING_LINK_CLANG_DYLIB=ON"
   ];
 
-  qtWrapperArgs = [
-    "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
-  ];
+  qtWrapperArgs = [ "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin" ];
 
   postInstall = ''
     substituteInPlace $out/share/applications/org.qt-project.qtcreator.desktop \

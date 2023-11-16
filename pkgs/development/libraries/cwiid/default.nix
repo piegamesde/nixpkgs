@@ -1,13 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, bluez, pkg-config, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  bison,
+  flex,
+  bluez,
+  pkg-config,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cwiid";
   version = "unstable-2010-02-21";
 
   src = fetchFromGitHub {
-    owner  = "abstrakraft";
-    repo   = "cwiid";
-    rev    = "fadf11e89b579bcc0336a0692ac15c93785f3f82";
+    owner = "abstrakraft";
+    repo = "cwiid";
+    rev = "fadf11e89b579bcc0336a0692ac15c93785f3f82";
     sha256 = "0qdb0x757k76nfj32xc2nrrdqd9jlwgg63vfn02l2iznnzahxp0h";
   };
 
@@ -19,9 +29,17 @@ stdenv.mkDerivation rec {
     sed -i -e '/$(LDCONFIG)/d' common/include/lib.mak.in
   '';
 
-  buildInputs = [ bison flex bluez gtk2 ];
+  buildInputs = [
+    bison
+    flex
+    bluez
+    gtk2
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   NIX_LDFLAGS = "-lbluetooth";
 
@@ -32,9 +50,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Linux Nintendo Wiimote interface";
-    homepage    = "http://cwiid.org";
-    license     = licenses.gpl2Plus;
+    homepage = "http://cwiid.org";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ bennofs ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

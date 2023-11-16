@@ -1,7 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k
-, pkg-config
-, systemd, libyaml, openzwave, cython, pyserial
-, six, pydispatcher, urwid }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  pkg-config,
+  systemd,
+  libyaml,
+  openzwave,
+  cython,
+  pyserial,
+  six,
+  pydispatcher,
+  urwid,
+}:
 
 buildPythonPackage rec {
   pname = "python_openzwave";
@@ -16,8 +27,18 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ systemd libyaml openzwave cython ];
-  propagatedBuildInputs = [ six urwid pydispatcher pyserial ];
+  buildInputs = [
+    systemd
+    libyaml
+    openzwave
+    cython
+  ];
+  propagatedBuildInputs = [
+    six
+    urwid
+    pydispatcher
+    pyserial
+  ];
 
   # primary location for the .xml files is in /etc/openzwave so we override the
   # /usr/local/etc lookup instead as that allows us to dump new .xml files into

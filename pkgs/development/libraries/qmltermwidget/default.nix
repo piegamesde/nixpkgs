@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, qtbase, qtquick1, qmake, qtmultimedia, utmp, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtbase,
+  qtquick1,
+  qmake,
+  qtmultimedia,
+  utmp,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation {
   version = "2018-11-24";
@@ -11,8 +21,11 @@ stdenv.mkDerivation {
     sha256 = "028nb1xp84jmakif5mmzx52q3rsjwckw27jdpahyaqw7j7i5znq6";
   };
 
-  buildInputs = [ qtbase qtquick1 qtmultimedia ]
-                ++ lib.optional stdenv.isDarwin utmp;
+  buildInputs = [
+    qtbase
+    qtquick1
+    qtmultimedia
+  ] ++ lib.optional stdenv.isDarwin utmp;
   nativeBuildInputs = [ qmake ];
 
   patches = [

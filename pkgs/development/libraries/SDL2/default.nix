@@ -1,53 +1,54 @@
-{ lib
-, stdenv
-, config
-, fetchurl
-, pkg-config
-, libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
-, openglSupport ? libGLSupported
-, libGL
-, alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, alsa-lib
-, x11Support ? !stdenv.targetPlatform.isWindows && !stdenv.hostPlatform.isAndroid
-, libX11
-, xorgproto
-, libICE
-, libXi
-, libXScrnSaver
-, libXcursor
-, libXinerama
-, libXext
-, libXxf86vm
-, libXrandr
-, waylandSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, wayland
-, wayland-protocols
-, wayland-scanner
-, drmSupport ? false
-, libdrm
-, mesa
-, libxkbcommon
-, dbusSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, dbus
-, udevSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, udev
-, ibusSupport ? false
-, ibus
-, libdecorSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, libdecor
-, pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, pipewire # NOTE: must be built with SDL2 without pipewire support
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, libpulseaudio
-, AudioUnit
-, Cocoa
-, CoreAudio
-, CoreServices
-, ForceFeedback
-, OpenGL
-, audiofile
-, libiconv
-, withStatic ? false
+{
+  lib,
+  stdenv,
+  config,
+  fetchurl,
+  pkg-config,
+  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  openglSupport ? libGLSupported,
+  libGL,
+  alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  alsa-lib,
+  x11Support ? !stdenv.targetPlatform.isWindows && !stdenv.hostPlatform.isAndroid,
+  libX11,
+  xorgproto,
+  libICE,
+  libXi,
+  libXScrnSaver,
+  libXcursor,
+  libXinerama,
+  libXext,
+  libXxf86vm,
+  libXrandr,
+  waylandSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  drmSupport ? false,
+  libdrm,
+  mesa,
+  libxkbcommon,
+  dbusSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  dbus,
+  udevSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  udev,
+  ibusSupport ? false,
+  ibus,
+  libdecorSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  libdecor,
+  pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  pipewire, # NOTE: must be built with SDL2 without pipewire support
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  libpulseaudio,
+  AudioUnit,
+  Cocoa,
+  CoreAudio,
+  CoreServices,
+  ForceFeedback,
+  OpenGL,
+  audiofile,
+  libiconv,
+  withStatic ? false,
 }:
 
 # NOTE: When editing this expression see if the same change applies to
@@ -62,16 +63,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rY/qPaG+ZMg8RbHTY6a0uo/WD1veOyPsc4VXCexeq/c=";
   };
   dontDisableStatic = if withStatic then 1 else 0;
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   outputBin = "dev"; # sdl-config
 
-  patches = [
-    # `sdl2-config --cflags` from Nixpkgs returns include path to just SDL2.
-    # On a normal distro this is enough for includes from all SDL2* packages to work,
-    # but on NixOS they're spread across different paths.
-    # This patch + the setup-hook will ensure that `sdl2-config --cflags` works correctly.
-    ./find-headers.patch
-  ];
+  patches =
+    [
+      # `sdl2-config --cflags` from Nixpkgs returns include path to just SDL2.
+      # On a normal distro this is enough for includes from all SDL2* packages to work,
+      # but on NixOS they're spread across different paths.
+      # This patch + the setup-hook will ensure that `sdl2-config --cflags` works correctly.
+      ./find-headers.patch
+    ];
 
   postPatch = ''
     # Fix running wayland-scanner for the build platform when cross-compiling.
@@ -84,41 +89,73 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals waylandSupport [ wayland wayland-scanner ];
+  nativeBuildInputs =
+    [ pkg-config ]
+    ++ lib.optionals waylandSupport [
+      wayland
+      wayland-scanner
+    ];
 
-  dlopenPropagatedBuildInputs = [ ]
+  dlopenPropagatedBuildInputs =
+    [ ]
     # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
     ++ lib.optional (openglSupport && !stdenv.isDarwin) libGL
     # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
     ++ lib.optionals x11Support [ libX11 ];
 
-  propagatedBuildInputs = lib.optionals x11Support [ xorgproto ]
-    ++ dlopenPropagatedBuildInputs;
+  propagatedBuildInputs = lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
 
-  dlopenBuildInputs = lib.optionals alsaSupport [ alsa-lib audiofile ]
+  dlopenBuildInputs =
+    lib.optionals alsaSupport [
+      alsa-lib
+      audiofile
+    ]
     ++ lib.optional dbusSupport dbus
     ++ lib.optional libdecorSupport libdecor
     ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional udevSupport udev
-    ++ lib.optionals waylandSupport [ wayland libxkbcommon ]
-    ++ lib.optionals x11Support [ libICE libXi libXScrnSaver libXcursor libXinerama libXext libXrandr libXxf86vm ]
-    ++ lib.optionals drmSupport [ libdrm mesa ];
+    ++ lib.optionals waylandSupport [
+      wayland
+      libxkbcommon
+    ]
+    ++ lib.optionals x11Support [
+      libICE
+      libXi
+      libXScrnSaver
+      libXcursor
+      libXinerama
+      libXext
+      libXrandr
+      libXxf86vm
+    ]
+    ++ lib.optionals drmSupport [
+      libdrm
+      mesa
+    ];
 
-  buildInputs = [ libiconv ]
+  buildInputs =
+    [ libiconv ]
     ++ dlopenBuildInputs
     ++ lib.optional ibusSupport ibus
     ++ lib.optionals waylandSupport [ wayland-protocols ]
-    ++ lib.optionals stdenv.isDarwin [ AudioUnit Cocoa CoreAudio CoreServices ForceFeedback OpenGL ];
+    ++ lib.optionals stdenv.isDarwin [
+      AudioUnit
+      Cocoa
+      CoreAudio
+      CoreServices
+      ForceFeedback
+      OpenGL
+    ];
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--disable-oss"
-  ] ++ lib.optional (!x11Support) "--without-x"
-  ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
-  ++ lib.optional stdenv.targetPlatform.isWindows "--disable-video-opengles"
-  ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+  configureFlags =
+    [ "--disable-oss" ]
+    ++ lib.optional (!x11Support) "--without-x"
+    ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
+    ++ lib.optional stdenv.targetPlatform.isWindows "--disable-video-opengles"
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   # We remove libtool .la files when static libs are requested,
   # because they make the builds of downstream libs like `SDL_tff`
@@ -165,7 +202,9 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  passthru = { inherit openglSupport; };
+  passthru = {
+    inherit openglSupport;
+  };
 
   meta = with lib; {
     description = "A cross-platform multimedia library";

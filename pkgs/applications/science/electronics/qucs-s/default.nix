@@ -1,19 +1,20 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, flex
-, bison
-, qtbase
-, qttools
-, qtsvg
-, qtwayland
-, wrapQtAppsHook
-, libX11
-, cmake
-, gperf
-, adms
-, ngspice
-, kernels ? [ ngspice ]
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  flex,
+  bison,
+  qtbase,
+  qttools,
+  qtsvg,
+  qtwayland,
+  wrapQtAppsHook,
+  libX11,
+  cmake,
+  gperf,
+  adms,
+  ngspice,
+  kernels ? [ ngspice ],
 }:
 
 stdenv.mkDerivation rec {
@@ -27,11 +28,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2YyVeeUnLBS1Si9gwEsQLZVG98715dz/v+WCYjB3QlI=";
   };
 
-  nativeBuildInputs = [ flex bison wrapQtAppsHook cmake ];
-  buildInputs = [ qtbase qttools qtsvg qtwayland libX11 gperf adms ] ++ kernels;
+  nativeBuildInputs = [
+    flex
+    bison
+    wrapQtAppsHook
+    cmake
+  ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtsvg
+    qtwayland
+    libX11
+    gperf
+    adms
+  ] ++ kernels;
 
   # Make custom kernels avaible from qucs-s
-  qtWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath kernels) ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath kernels)
+  ];
 
   QTDIR = qtbase.dev;
 

@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, libev, buildDunePackage
-, ocaml, cppo, dune-configurator, ocplib-endian
+{
+  lib,
+  fetchFromGitHub,
+  libev,
+  buildDunePackage,
+  ocaml,
+  cppo,
+  dune-configurator,
+  ocplib-endian,
 }:
 
 buildDunePackage rec {
@@ -24,7 +31,10 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ cppo ];
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ libev ocplib-endian ];
+  propagatedBuildInputs = [
+    libev
+    ocplib-endian
+  ];
 
   meta = {
     homepage = "https://ocsigen.org/lwt/";

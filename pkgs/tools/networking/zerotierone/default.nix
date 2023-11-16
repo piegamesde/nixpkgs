@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
 
-, buildPackages
-, cargo
-, iproute2
-, lzo
-, openssl
-, pkg-config
-, ronn
-, rustc
-, zlib
+  buildPackages,
+  cargo,
+  iproute2,
+  lzo,
+  openssl,
+  pkg-config,
+  ronn,
+  rustc,
+  zlib,
 }:
 
 let
@@ -24,8 +25,8 @@ let
     rev = version;
     sha256 = "sha256-mapFKeF+8jMGkxSuHaw5oUdTdSQgAdxEwF/S6iyVLbY=";
   };
-
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   inherit pname version src;
 
   cargoDeps = rustPlatform.importCargoLock {
@@ -67,7 +68,10 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  buildFlags = [ "all" "selftest" ];
+  buildFlags = [
+    "all"
+    "selftest"
+  ];
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
   checkPhase = ''
@@ -87,7 +91,10 @@ in stdenv.mkDerivation {
     rm -rf $out/upstream
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   passthru.updateScript = ./update.sh;
 
@@ -95,7 +102,13 @@ in stdenv.mkDerivation {
     description = "Create flat virtual Ethernet networks of almost unlimited size";
     homepage = "https://www.zerotier.com";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ sjmackenzie zimbatm ehmry obadz danielfullmer ];
+    maintainers = with maintainers; [
+      sjmackenzie
+      zimbatm
+      ehmry
+      obadz
+      danielfullmer
+    ];
     platforms = platforms.all;
   };
 }

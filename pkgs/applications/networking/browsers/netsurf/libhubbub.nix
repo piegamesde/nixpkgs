@@ -1,6 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, perl
-, buildsystem
-, libparserutils
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  perl,
+  buildsystem,
+  libparserutils,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +22,8 @@ stdenv.mkDerivation rec {
   buildInputs = [
     perl
     libparserutils
-    buildsystem ];
+    buildsystem
+  ];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -38,7 +44,10 @@ stdenv.mkDerivation rec {
       content well.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

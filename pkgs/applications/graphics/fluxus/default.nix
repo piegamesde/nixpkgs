@@ -1,25 +1,27 @@
-{ lib, stdenv
-, fetchFromGitLab
-, alsa-lib
-, bzip2
-, fftw
-, freeglut
-, freetype
-, glew
-, libjack2
-, libGL
-, libGLU
-, libjpeg
-, liblo
-, libpng
-, libsndfile
-, libtiff
-, ode
-, openal
-, openssl
-, racket_7_9
-, scons
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  alsa-lib,
+  bzip2,
+  fftw,
+  freeglut,
+  freetype,
+  glew,
+  libjack2,
+  libGL,
+  libGLU,
+  libjpeg,
+  liblo,
+  libpng,
+  libsndfile,
+  libtiff,
+  ode,
+  openal,
+  openssl,
+  racket_7_9,
+  scons,
+  zlib,
 }:
 let
   racket = racket_7_9;

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, anyio
-, async_generator
-, h11
-, curio
-, overly
-, pytestCheckHook
-, trio
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  anyio,
+  async_generator,
+  h11,
+  curio,
+  overly,
+  pytestCheckHook,
+  trio,
 }:
 
 buildPythonPackage rec {

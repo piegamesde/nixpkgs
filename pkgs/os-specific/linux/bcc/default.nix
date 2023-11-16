@@ -1,8 +1,22 @@
-{ lib, stdenv, fetchFromGitHub
-, makeWrapper, cmake, llvmPackages
-, flex, bison, elfutils, python, luajit, netperf, iperf, libelf
-, bash, libbpf, nixosTests
-, audit
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  cmake,
+  llvmPackages,
+  flex,
+  bison,
+  elfutils,
+  python,
+  luajit,
+  netperf,
+  iperf,
+  libelf,
+  bash,
+  libbpf,
+  nixosTests,
+  audit,
 }:
 
 python.pkgs.buildPythonApplication rec {
@@ -20,19 +34,33 @@ python.pkgs.buildPythonApplication rec {
   format = "other";
 
   buildInputs = with llvmPackages; [
-    llvm llvm.dev libclang
-    elfutils luajit netperf iperf
-    flex bash libbpf
+    llvm
+    llvm.dev
+    libclang
+    elfutils
+    luajit
+    netperf
+    iperf
+    flex
+    bash
+    libbpf
   ];
 
-  patches = [
-    # This is needed until we fix
-    # https://github.com/NixOS/nixpkgs/issues/40427
-    ./fix-deadlock-detector-import.patch
-  ];
+  patches =
+    [
+      # This is needed until we fix
+      # https://github.com/NixOS/nixpkgs/issues/40427
+      ./fix-deadlock-detector-import.patch
+    ];
 
   propagatedBuildInputs = [ python.pkgs.netaddr ];
-  nativeBuildInputs = [ makeWrapper cmake flex bison llvmPackages.llvm.dev ];
+  nativeBuildInputs = [
+    makeWrapper
+    cmake
+    flex
+    bison
+    llvmPackages.llvm.dev
+  ];
 
   cmakeFlags = [
     "-DBCC_KERNEL_MODULES_DIR=/run/booted-system/kernel-modules/lib/modules"
@@ -66,7 +94,7 @@ python.pkgs.buildPythonApplication rec {
     mv $out/share/bcc/man $out/share/
 
     find $out/share/bcc/tools -type f -executable -print0 | \
-    while IFS= read -r -d ''$'\0' f; do
+    while IFS= read -r -d $'\0' f; do
       bin=$out/bin/$(basename $f)
       if [ ! -e $bin ]; then
         ln -s $f $bin
@@ -82,7 +110,10 @@ python.pkgs.buildPythonApplication rec {
     wrapPythonProgramsIn "$out/share/bcc/tools" "$out $pythonPath"
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   passthru.tests = {
     bpf = nixosTests.bpf;
@@ -90,8 +121,13 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Dynamic Tracing Tools for Linux";
-    homepage    = "https://iovisor.github.io/bcc/";
-    license     = licenses.asl20;
-    maintainers = with maintainers; [ ragge mic92 thoughtpolice martinetd ];
+    homepage = "https://iovisor.github.io/bcc/";
+    license = licenses.asl20;
+    maintainers = with maintainers; [
+      ragge
+      mic92
+      thoughtpolice
+      martinetd
+    ];
   };
 }

@@ -1,10 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, libtool, automake, autoconf, ucx
-, enableCuda ? false
-, cudatoolkit
-, enableAvx ? stdenv.hostPlatform.avxSupport
-, enableSse41 ? stdenv.hostPlatform.sse4_1Support
-, enableSse42 ? stdenv.hostPlatform.sse4_2Support
-} :
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libtool,
+  automake,
+  autoconf,
+  ucx,
+  enableCuda ? false,
+  cudatoolkit,
+  enableAvx ? stdenv.hostPlatform.avxSupport,
+  enableSse41 ? stdenv.hostPlatform.sse4_1Support,
+  enableSse42 ? stdenv.hostPlatform.sse4_2Support,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ucc";
@@ -31,15 +38,19 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  nativeBuildInputs = [ libtool automake autoconf ];
-  buildInputs = [ ucx ]
-    ++ lib.optional enableCuda cudatoolkit;
+  nativeBuildInputs = [
+    libtool
+    automake
+    autoconf
+  ];
+  buildInputs = [ ucx ] ++ lib.optional enableCuda cudatoolkit;
 
-  configureFlags = [ ]
-   ++ lib.optional enableSse41 "--with-sse41"
-   ++ lib.optional enableSse42 "--with-sse42"
-   ++ lib.optional enableAvx "--with-avx"
-   ++ lib.optional enableCuda "--with-cuda=${cudatoolkit}";
+  configureFlags =
+    [ ]
+    ++ lib.optional enableSse41 "--with-sse41"
+    ++ lib.optional enableSse42 "--with-sse42"
+    ++ lib.optional enableAvx "--with-avx"
+    ++ lib.optional enableCuda "--with-cuda=${cudatoolkit}";
 
   meta = with lib; {
     description = "Collective communication operations API";

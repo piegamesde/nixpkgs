@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, callPackage
-, fetchpatch
-, swift
-, swiftpm
-, swiftpm2nix
-, Foundation
-, XCTest
-, sqlite
-, ncurses
-, substituteAll
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchpatch,
+  swift,
+  swiftpm,
+  swiftpm2nix,
+  Foundation,
+  XCTest,
+  sqlite,
+  ncurses,
+  substituteAll,
 }:
 let
   sources = callPackage ../sources.nix { };
@@ -27,7 +28,10 @@ stdenv.mkDerivation {
   inherit (sources) version;
   src = sources.swift-driver;
 
-  nativeBuildInputs = [ swift swiftpm ];
+  nativeBuildInputs = [
+    swift
+    swiftpm
+  ];
   buildInputs = [
     Foundation
     XCTest
@@ -72,6 +76,12 @@ stdenv.mkDerivation {
     homepage = "https://github.com/apple/swift-driver";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dtzWill trepetti dduan trundle stephank ];
+    maintainers = with lib.maintainers; [
+      dtzWill
+      trepetti
+      dduan
+      trundle
+      stephank
+    ];
   };
 }

@@ -1,11 +1,12 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, bootstrapped-pip
-, lib
-, pipInstallHook
-, setuptoolsBuildHook
+{
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  bootstrapped-pip,
+  lib,
+  pipInstallHook,
+  setuptoolsBuildHook,
 }:
 
 let
@@ -44,7 +45,8 @@ let
       mv dist/${name} $out
     '';
   };
-in buildPythonPackage {
+in
+buildPythonPackage {
   inherit pname version;
   # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
   # Instead, we override it to remove setuptools to avoid a circular dependency.
@@ -55,8 +57,11 @@ in buildPythonPackage {
 
   nativeBuildInputs = [
     bootstrapped-pip
-    (pipInstallHook.override{pip=null;})
-    (setuptoolsBuildHook.override{setuptools=null; wheel=null;})
+    (pipInstallHook.override { pip = null; })
+    (setuptoolsBuildHook.override {
+      setuptools = null;
+      wheel = null;
+    })
   ];
 
   preBuild = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
@@ -74,7 +79,9 @@ in buildPythonPackage {
   meta = with lib; {
     description = "Utilities to facilitate the installation of Python packages";
     homepage = "https://github.com/pypa/setuptools";
-    changelog = "https://setuptools.pypa.io/en/stable/history.html#v${replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://setuptools.pypa.io/en/stable/history.html#v${
+        replaceStrings [ "." ] [ "-" ] version
+      }";
     license = with licenses; [ mit ];
     platforms = python.meta.platforms;
     priority = 10;

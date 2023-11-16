@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, antlr4
-, antlr4-python3-runtime
-, buildPythonPackage
-, fetchFromGitHub
-, importlib-resources
-, jre_headless
-, omegaconf
-, packaging
-, pytestCheckHook
-, pythonOlder
-, substituteAll
+{
+  stdenv,
+  lib,
+  antlr4,
+  antlr4-python3-runtime,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-resources,
+  jre_headless,
+  omegaconf,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+  substituteAll,
 }:
 
 buildPythonPackage rec {
@@ -42,21 +43,15 @@ buildPythonPackage rec {
     sed -i 's/antlr4-python3-runtime==.*/antlr4-python3-runtime/' requirements/requirements.txt
   '';
 
-  nativeBuildInputs = [
-    jre_headless
-  ];
+  nativeBuildInputs = [ jre_headless ];
 
   propagatedBuildInputs = [
     antlr4-python3-runtime
     omegaconf
     packaging
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Test environment setup broken under Nix for a few tests:
   disabledTests = [
@@ -65,9 +60,7 @@ buildPythonPackage rec {
     "test_config_search_path"
   ];
 
-  disabledTestPaths = [
-    "tests/test_hydra.py"
-  ];
+  disabledTestPaths = [ "tests/test_hydra.py" ];
 
   pythonImportsCheck = [
     "hydra"

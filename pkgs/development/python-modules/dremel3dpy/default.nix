@@ -1,15 +1,16 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, fetchPypi
-, imageio
-, imutils
-, pythonOlder
-, requests
-, urllib3
-, tqdm
-, validators
-, yarl
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchPypi,
+  imageio,
+  imutils,
+  pythonOlder,
+  requests,
+  urllib3,
+  tqdm,
+  validators,
+  yarl,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dremel3dpy"
-  ];
+  pythonImportsCheck = [ "dremel3dpy" ];
 
   meta = with lib; {
     description = "Module for interacting with Dremel 3D printers";

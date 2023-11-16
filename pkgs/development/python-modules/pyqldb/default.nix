@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, boto3, amazon-ion, ionhash, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  boto3,
+  amazon-ion,
+  ionhash,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyqldb";
@@ -11,7 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-TKf43+k428h8T6ye6mJrnK9D4J1xpIu0QacM7lWJF7w=";
   };
 
-  propagatedBuildInputs = [ boto3 amazon-ion ionhash ];
+  propagatedBuildInputs = [
+    boto3
+    amazon-ion
+    ionhash
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

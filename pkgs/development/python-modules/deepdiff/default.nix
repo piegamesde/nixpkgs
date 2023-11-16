@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, click
-, ordered-set
-, orjson
-, clevercsv
-, jsonpickle
-, numpy
-, pytestCheckHook
-, python-dateutil
-, pyyaml
-, toml
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  click,
+  ordered-set,
+  orjson,
+  clevercsv,
+  jsonpickle,
+  numpy,
+  pytestCheckHook,
+  python-dateutil,
+  pyyaml,
+  toml,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -54,9 +55,7 @@ buildPythonPackage rec {
     python-dateutil
   ] ++ passthru.optional-dependencies.cli;
 
-  pythonImportsCheck = [
-    "deepdiff"
-  ];
+  pythonImportsCheck = [ "deepdiff" ];
 
   meta = with lib; {
     description = "Deep Difference and Search of any Python object/data";

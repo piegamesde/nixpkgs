@@ -1,52 +1,52 @@
-{ config
-, lib
-, stdenv
-, fetchFromGitHub
-, addOpenGLRunpath
-, cmake
-, fdk_aac
-, ffmpeg_4
-, jansson
-, libjack2
-, libxkbcommon
-, libpthreadstubs
-, libXdmcp
-, qtbase
-, qtsvg
-, speex
-, libv4l
-, x264
-, curl
-, wayland
-, xorg
-, pkg-config
-, libvlc
-, mbedtls
-, wrapGAppsHook
-, scriptingSupport ? true
-, luajit
-, swig
-, python3
-, alsaSupport ? stdenv.isLinux
-, alsa-lib
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
-, libpulseaudio
-, libcef
-, pciutils
-, pipewireSupport ? stdenv.isLinux
-, pipewire
-, libdrm
-, libajantv2
-, librist
-, libva
-, srt
-, qtwayland
-, wrapQtAppsHook
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  cmake,
+  fdk_aac,
+  ffmpeg_4,
+  jansson,
+  libjack2,
+  libxkbcommon,
+  libpthreadstubs,
+  libXdmcp,
+  qtbase,
+  qtsvg,
+  speex,
+  libv4l,
+  x264,
+  curl,
+  wayland,
+  xorg,
+  pkg-config,
+  libvlc,
+  mbedtls,
+  wrapGAppsHook,
+  scriptingSupport ? true,
+  luajit,
+  swig,
+  python3,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio,
+  libcef,
+  pciutils,
+  pipewireSupport ? stdenv.isLinux,
+  pipewire,
+  libdrm,
+  libajantv2,
+  librist,
+  libva,
+  srt,
+  qtwayland,
+  wrapQtAppsHook,
 }:
 
 let
   inherit (lib) optional optionals;
-
 in
 stdenv.mkDerivation rec {
   pname = "obs-studio";
@@ -72,38 +72,44 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
     wrapQtAppsHook
-  ]
-  ++ optional scriptingSupport swig;
+  ] ++ optional scriptingSupport swig;
 
-  buildInputs = [
-    curl
-    fdk_aac
-    ffmpeg_4
-    jansson
-    libcef
-    libjack2
-    libv4l
-    libxkbcommon
-    libpthreadstubs
-    libXdmcp
-    qtbase
-    qtsvg
-    speex
-    wayland
-    x264
-    libvlc
-    mbedtls
-    pciutils
-    libajantv2
-    librist
-    libva
-    srt
-    qtwayland
-  ]
-  ++ optionals scriptingSupport [ luajit python3 ]
-  ++ optional alsaSupport alsa-lib
-  ++ optional pulseaudioSupport libpulseaudio
-  ++ optionals pipewireSupport [ pipewire libdrm ];
+  buildInputs =
+    [
+      curl
+      fdk_aac
+      ffmpeg_4
+      jansson
+      libcef
+      libjack2
+      libv4l
+      libxkbcommon
+      libpthreadstubs
+      libXdmcp
+      qtbase
+      qtsvg
+      speex
+      wayland
+      x264
+      libvlc
+      mbedtls
+      pciutils
+      libajantv2
+      librist
+      libva
+      srt
+      qtwayland
+    ]
+    ++ optionals scriptingSupport [
+      luajit
+      python3
+    ]
+    ++ optional alsaSupport alsa-lib
+    ++ optional pulseaudioSupport libpulseaudio
+    ++ optionals pipewireSupport [
+      pipewire
+      libdrm
+    ];
 
   # Copied from the obs-linuxbrowser
   postUnpack = ''
@@ -121,7 +127,7 @@ stdenv.mkDerivation rec {
   # DL_OPENGL is an explicit path. Not sure if there's a better way
   # to handle this.
   cmakeFlags = [
-    "-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\\\"$(out)/lib/libobs-opengl.so\\\""
+    ''-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\"$(out)/lib/libobs-opengl.so\"''
     "-DOBS_VERSION_OVERRIDE=${version}"
     "-Wno-dev" # kill dev warnings that are useless for packaging
     # Add support for browser source
@@ -133,7 +139,12 @@ stdenv.mkDerivation rec {
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          xorg.libX11
+          libvlc
+        ]
+      }"
       ''${gappsWrapperArgs[@]}
     )
   '';
@@ -151,9 +162,18 @@ stdenv.mkDerivation rec {
       video content, efficiently
     '';
     homepage = "https://obsproject.com";
-    maintainers = with maintainers; [ jb55 MP2E V miangraham ];
+    maintainers = with maintainers; [
+      jb55
+      MP2E
+      V
+      miangraham
+    ];
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "obs";
   };
 }

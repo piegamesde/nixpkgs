@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, obs-studio }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  obs-studio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-source-record";
@@ -12,13 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    obs-studio
-  ];
+  buildInputs = [ obs-studio ];
 
-  cmakeFlags = [
-    "-DBUILD_OUT_OF_TREE=On"
-  ];
+  cmakeFlags = [ "-DBUILD_OUT_OF_TREE=On" ];
 
   postInstall = ''
     rm -rf $out/{data,obs-plugins}

@@ -1,13 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+}:
 
 stdenv.mkDerivation {
   pname = "pgjwt";
   version = "unstable-2021-11-13";
 
   src = fetchFromGitHub {
-    owner  = "michelp";
-    repo   = "pgjwt";
-    rev    = "9742dab1b2f297ad3811120db7b21451bca2d3c9";
+    owner = "michelp";
+    repo = "pgjwt";
+    rev = "9742dab1b2f297ad3811120db7b21451bca2d3c9";
     sha256 = "sha256-Hw3R9bMGDmh+dMzjmqZSy/rT4mX8cPU969OJiARFg10=";
   };
 
@@ -24,6 +29,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.mit;
     platforms = postgresql.meta.platforms;
-    maintainers = with maintainers; [spinus];
+    maintainers = with maintainers; [ spinus ];
   };
 }

@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, fetchurl
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchurl,
 }:
 
 let
@@ -33,9 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   # TODO: Cargo.lock is out of date, so fix it. Likely not necessary anymore in
   # the next update.
-  cargoPatches = [
-    ./Cargo.lock.patch
-  ];
+  cargoPatches = [ ./Cargo.lock.patch ];
 
   meta = with lib; {
     description = "Distributed Stockfish analysis for lichess.org";

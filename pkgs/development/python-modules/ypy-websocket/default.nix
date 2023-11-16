@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, hatchling
-, aiofiles
-, aiosqlite
-, y-py
-, pytest-asyncio
-, pytestCheckHook
-, pythonRelaxDepsHook
-, websockets
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  aiofiles,
+  aiosqlite,
+  y-py,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-jl2ciIA3enJRfPgcu96MZN+BmNL+bBet54AFDBy3seY=";
   };
 
-  pythonRelaxDeps = [
-    "aiofiles"
-  ];
+  pythonRelaxDeps = [ "aiofiles" ];
 
   nativeBuildInputs = [
     hatchling
@@ -41,9 +40,7 @@ buildPythonPackage rec {
     y-py
   ];
 
-  pythonImportsCheck = [
-    "ypy_websocket"
-  ];
+  pythonImportsCheck = [ "ypy_websocket" ];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -51,10 +48,11 @@ buildPythonPackage rec {
     websockets
   ];
 
-  disabledTestPaths = [
-    # requires installing yjs Node.js module
-    "tests/test_ypy_yjs.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires installing yjs Node.js module
+      "tests/test_ypy_yjs.py"
+    ];
 
   meta = {
     changelog = "https://github.com/y-crdt/ypy-websocket/blob/${version}/CHANGELOG.md";

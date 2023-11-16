@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, jdk, jre, makeWrapper, runCommand, python3Packages, writeText }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  jre,
+  makeWrapper,
+  runCommand,
+  python3Packages,
+  writeText,
+}:
 
 let
   elasticmq-server = stdenv.mkDerivation rec {
@@ -34,8 +44,16 @@ let
       maintainers = with maintainers; [ peterromfeldhk ];
     };
   };
-in elasticmq-server.overrideAttrs (_: {
-  passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
-    inherit elasticmq-server runCommand python3Packages writeText;
-  };
-})
+in
+elasticmq-server.overrideAttrs (
+  _: {
+    passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
+      inherit
+        elasticmq-server
+        runCommand
+        python3Packages
+        writeText
+      ;
+    };
+  }
+)

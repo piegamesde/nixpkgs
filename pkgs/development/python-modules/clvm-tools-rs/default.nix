@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, rustPlatform
-, pythonOlder
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  rustPlatform,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

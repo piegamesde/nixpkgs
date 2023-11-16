@@ -1,4 +1,15 @@
-{ stdenv, coreutils, fetchFromGitHub, git, lib, makeWrapper, nettools, perl, perlPackages, nixosTests }:
+{
+  stdenv,
+  coreutils,
+  fetchFromGitHub,
+  git,
+  lib,
+  makeWrapper,
+  nettools,
+  perl,
+  perlPackages,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gitolite";
@@ -11,7 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "05xw1pmagvkrbzga5pgl3xk9qyc6b5x73f842454f3w9ijspa8zy";
   };
 
-  buildInputs = [ nettools perl ];
+  buildInputs = [
+    nettools
+    perl
+  ];
   nativeBuildInputs = [ makeWrapper ];
   propagatedBuildInputs = [ git ];
 
@@ -31,7 +45,12 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/gitolite-shell \
-      --prefix PATH : ${lib.makeBinPath [ git (perl.withPackages (p: [ p.JSON ])) ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          git
+          (perl.withPackages (p: [ p.JSON ]))
+        ]
+      }
   '';
 
   installPhase = ''
@@ -46,9 +65,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Finely-grained git repository hosting";
-    homepage    = "https://gitolite.com/gitolite/index.html";
-    license     = licenses.gpl2;
-    platforms   = platforms.unix;
-    maintainers = [ maintainers.thoughtpolice maintainers.lassulus maintainers.tomberek ];
+    homepage = "https://gitolite.com/gitolite/index.html";
+    license = licenses.gpl2;
+    platforms = platforms.unix;
+    maintainers = [
+      maintainers.thoughtpolice
+      maintainers.lassulus
+      maintainers.tomberek
+    ];
   };
 }

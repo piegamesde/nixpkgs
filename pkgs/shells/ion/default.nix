@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -29,19 +30,20 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  patches = [
-    # remove git revision from the build script to fix build
-    ./build-script.patch
-  ];
+  patches =
+    [
+      # remove git revision from the build script to fix build
+      ./build-script.patch
+    ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  checkFlags = lib.optionals stdenv.isDarwin [
-    # test assumes linux
-    "--skip=binary::completer::tests::filename_completion"
-  ];
+  checkFlags =
+    lib.optionals stdenv.isDarwin
+      [
+        # test assumes linux
+        "--skip=binary::completer::tests::filename_completion"
+      ];
 
   passthru = {
     shellPath = "/bin/ion";

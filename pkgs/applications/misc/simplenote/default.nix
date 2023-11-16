@@ -1,13 +1,14 @@
-{ atomEnv
-, autoPatchelfHook
-, dpkg
-, fetchurl
-, makeDesktopItem
-, makeWrapper
-, lib
-, stdenv
-, udev
-, wrapGAppsHook
+{
+  atomEnv,
+  autoPatchelfHook,
+  dpkg,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  lib,
+  stdenv,
+  udev,
+  wrapGAppsHook,
 }:
 
 let
@@ -19,21 +20,19 @@ let
 
   version = "2.9.0";
 
-  sha256 = {
-    x86_64-linux = "sha256-uwd9fYqZepJ/BBttprqkJhswqMepGsHDTd5Md9gjI68=";
-  }.${system} or throwSystem;
+  sha256 =
+    {
+      x86_64-linux = "sha256-uwd9fYqZepJ/BBttprqkJhswqMepGsHDTd5Md9gjI68=";
+    }
+    .${system} or throwSystem;
 
   meta = with lib; {
     description = "The simplest way to keep notes";
     homepage = "https://github.com/Automattic/simplenote-electron";
     license = licenses.gpl2;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [
-      kiwi
-    ];
-    platforms = [
-      "x86_64-linux"
-    ];
+    maintainers = with maintainers; [ kiwi ];
+    platforms = [ "x86_64-linux" ];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -82,16 +81,13 @@ let
       cp "${desktopItem}/share/applications/"* "$out/share/applications"
     '';
 
-    runtimeDependencies = [
-      (lib.getLib udev)
-    ];
+    runtimeDependencies = [ (lib.getLib udev) ];
 
     postFixup = ''
       makeWrapper $out/opt/Simplenote/simplenote $out/bin/simplenote \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ] }" \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}" \
         "''${gappsWrapperArgs[@]}"
     '';
   };
-
 in
 linux

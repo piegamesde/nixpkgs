@@ -1,33 +1,41 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, wayland-scanner
-, libGL
-, wayland
-, wayland-protocols
-, libinput
-, libxkbcommon
-, pixman
-, libcap
-, mesa
-, xorg
-, libpng
-, ffmpeg_4
-, hwdata
-, seatd
-, vulkan-loader
-, glslang
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  libGL,
+  wayland,
+  wayland-protocols,
+  libinput,
+  libxkbcommon,
+  pixman,
+  libcap,
+  mesa,
+  xorg,
+  libpng,
+  ffmpeg_4,
+  hwdata,
+  seatd,
+  vulkan-loader,
+  glslang,
+  nixosTests,
 
-, enableXWayland ? true
-, xwayland ? null
+  enableXWayland ? true,
+  xwayland ? null,
 }:
 
 let
-  generic = { version, hash, extraBuildInputs ? [ ], extraNativeBuildInputs ? [ ], extraPatch ? "" }:
+  generic =
+    {
+      version,
+      hash,
+      extraBuildInputs ? [ ],
+      extraNativeBuildInputs ? [ ],
+      extraPatch ? "",
+    }:
     stdenv.mkDerivation rec {
       pname = "wlroots";
       inherit version;
@@ -43,13 +51,20 @@ let
       postPatch = extraPatch;
 
       # $out for the library and $examples for the example programs (in examples):
-      outputs = [ "out" "examples" ];
+      outputs = [
+        "out"
+        "examples"
+      ];
 
       strictDeps = true;
       depsBuildBuild = [ pkg-config ];
 
-      nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ]
-        ++ extraNativeBuildInputs;
+      nativeBuildInputs = [
+        meson
+        ninja
+        pkg-config
+        wayland-scanner
+      ] ++ extraNativeBuildInputs;
 
       buildInputs = [
         ffmpeg_4
@@ -69,13 +84,9 @@ let
         xorg.xcbutilimage
         xorg.xcbutilrenderutil
         xorg.xcbutilwm
-      ]
-      ++ lib.optional enableXWayland xwayland
-      ++ extraBuildInputs;
+      ] ++ lib.optional enableXWayland xwayland ++ extraBuildInputs;
 
-      mesonFlags =
-        lib.optional (!enableXWayland) "-Dxwayland=disabled"
-      ;
+      mesonFlags = lib.optional (!enableXWayland) "-Dxwayland=disabled";
 
       postFixup = ''
         # Install ALL example programs to $examples:
@@ -102,10 +113,12 @@ let
         changelog = "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
         license = licenses.mit;
         platforms = platforms.linux;
-        maintainers = with maintainers; [ primeos synthetica ];
+        maintainers = with maintainers; [
+          primeos
+          synthetica
+        ];
       };
     };
-
 in
 rec {
   wlroots_0_14 = generic {

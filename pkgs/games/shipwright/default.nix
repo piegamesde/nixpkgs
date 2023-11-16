@@ -1,29 +1,30 @@
-{ stdenv
-, cmake
-, lsb-release
-, ninja
-, lib
-, fetchFromGitHub
-, fetchurl
-, makeDesktopItem
-, python3
-, libX11
-, libXrandr
-, libXinerama
-, libXcursor
-, libXi
-, libXext
-, glew
-, boost
-, SDL2
-, SDL2_net
-, pkg-config
-, libpulseaudio
-, libpng
-, imagemagick
-, requireFile
+{
+  stdenv,
+  cmake,
+  lsb-release,
+  ninja,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  makeDesktopItem,
+  python3,
+  libX11,
+  libXrandr,
+  libXinerama,
+  libXcursor,
+  libXi,
+  libXext,
+  glew,
+  boost,
+  SDL2,
+  SDL2_net,
+  pkg-config,
+  libpulseaudio,
+  libpng,
+  imagemagick,
+  requireFile,
 
-, oot ? rec {
+  oot ? rec {
     enable = true;
     variant = "debug";
 
@@ -45,14 +46,16 @@
       '';
 
       # From upstream: https://github.com/HarbourMasters/Shipwright/blob/e46c60a7a1396374e23f7a1f7122ddf9efcadff7/README.md#1-check-your-sha1
-      sha1 = {
-        debug = "cee6bc3c2a634b41728f2af8da54d9bf8cc14099";
-        pal-gc = "0227d7c0074f2d0ac935631990da8ec5914597b4";
-      }.${variant} or (throw "Unsupported romVariant ${variant}. Valid options are 'debug' and 'pal-gc'.");
+      sha1 =
+        {
+          debug = "cee6bc3c2a634b41728f2af8da54d9bf8cc14099";
+          pal-gc = "0227d7c0074f2d0ac935631990da8ec5914597b4";
+        }
+        .${variant} or (throw "Unsupported romVariant ${variant}. Valid options are 'debug' and 'pal-gc'.");
     };
-  }
+  },
 
-, ootMq ? rec {
+  ootMq ? rec {
     enable = false;
     variant = "debug-mq";
 
@@ -74,24 +77,39 @@
       '';
 
       # From upstream: https://github.com/HarbourMasters/Shipwright/blob/e46c60a7a1396374e23f7a1f7122ddf9efcadff7/README.md#1-check-your-sha1
-      sha1 = {
-        debug-mq = "079b855b943d6ad8bd1eb026c0ed169ecbdac7da";
-        debug-mq-alt = "50bebedad9e0f10746a52b07239e47fa6c284d03";
-      }.${variant} or (throw "Unsupported mqRomVariant ${variant}. Valid options are 'debug-mq' and 'debug-mq-alt'.");
+      sha1 =
+        {
+          debug-mq = "079b855b943d6ad8bd1eb026c0ed169ecbdac7da";
+          debug-mq-alt = "50bebedad9e0f10746a52b07239e47fa6c284d03";
+        }
+        .${variant} or (throw
+          "Unsupported mqRomVariant ${variant}. Valid options are 'debug-mq' and 'debug-mq-alt'."
+        );
     };
-  }
+  },
 }:
 
 let
-  checkAttrs = attrs:
+  checkAttrs =
+    attrs:
     let
-      validAttrs = [ "enable" "rom" "variant" ];
+      validAttrs = [
+        "enable"
+        "rom"
+        "variant"
+      ];
     in
     lib.all (name: lib.elem name validAttrs) (lib.attrNames attrs);
 in
-assert (lib.assertMsg (checkAttrs oot) "oot must have the attributes 'enable' and 'rom', and none other");
-assert (lib.assertMsg (checkAttrs ootMq) "ootMq must have the attributes 'enable' and 'rom', and none other");
-assert (lib.assertMsg (oot.enable || ootMq.enable) "At least one of 'oot.enable' and 'ootMq.enable' must be true");
+assert (lib.assertMsg (checkAttrs oot)
+  "oot must have the attributes 'enable' and 'rom', and none other"
+);
+assert (lib.assertMsg (checkAttrs ootMq)
+  "ootMq must have the attributes 'enable' and 'rom', and none other"
+);
+assert (lib.assertMsg (oot.enable || ootMq.enable)
+  "At least one of 'oot.enable' and 'ootMq.enable' must be true"
+);
 
 stdenv.mkDerivation rec {
   pname = "shipwright";
@@ -143,9 +161,7 @@ stdenv.mkDerivation rec {
     ./soh-misc-otr-patches.patch
   ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/lib"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/lib" ];
 
   dontAddPrefix = true;
 
@@ -157,7 +173,8 @@ stdenv.mkDerivation rec {
 
     pushd ../OTRExporter
     ${lib.optionalString oot.enable "python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out ${oot.rom}"}
-    ${lib.optionalString ootMq.enable "python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out ${ootMq.rom}"}
+    ${lib.optionalString ootMq.enable
+      "python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out ${ootMq.rom}"}
     popd
   '';
 
@@ -211,7 +228,10 @@ stdenv.mkDerivation rec {
     '';
     mainProgram = "soh";
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ ivar j0lol ];
+    maintainers = with maintainers; [
+      ivar
+      j0lol
+    ];
     license = with licenses; [
       # OTRExporter, OTRGui, ZAPDTR, libultraship
       mit

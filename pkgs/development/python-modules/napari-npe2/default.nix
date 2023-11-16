@@ -1,18 +1,19 @@
-{ lib
-, appdirs
-, build
-, buildPythonPackage
-, fetchFromGitHub
-, magicgui
-, napari # reverse dependency, for tests
-, psygnal
-, pydantic
-, pythonOlder
-, pytomlpp
-, pyyaml
-, rich
-, setuptools-scm
-, typer
+{
+  lib,
+  appdirs,
+  build,
+  buildPythonPackage,
+  fetchFromGitHub,
+  magicgui,
+  napari, # reverse dependency, for tests
+  psygnal,
+  pydantic,
+  pythonOlder,
+  pytomlpp,
+  pyyaml,
+  rich,
+  setuptools-scm,
+  typer,
 }:
 
 buildPythonPackage rec {
@@ -32,11 +33,12 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    # npe2 *can* build without it,
-    # but then setuptools refuses to acknowledge it when building napari
-    setuptools-scm
-  ];
+  nativeBuildInputs =
+    [
+      # npe2 *can* build without it,
+      # but then setuptools refuses to acknowledge it when building napari
+      setuptools-scm
+    ];
 
   propagatedBuildInputs = [
     appdirs
@@ -49,11 +51,11 @@ buildPythonPackage rec {
     typer
   ];
 
-  pythonImportsCheck = [
-    "npe2"
-  ];
+  pythonImportsCheck = [ "npe2" ];
 
-  passthru.tests = { inherit napari; };
+  passthru.tests = {
+    inherit napari;
+  };
 
   meta = with lib; {
     description = "Plugin system for napari (the image visualizer)";

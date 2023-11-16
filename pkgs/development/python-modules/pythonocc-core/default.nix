@@ -1,18 +1,22 @@
-{ lib, stdenv, python, fetchFromGitHub
-, cmake
-, Cocoa
-, fontconfig
-, freetype
-, libGL
-, libGLU
-, libX11
-, libXext
-, libXi
-, libXmu
-, opencascade-occt
-, rapidjson
-, smesh
-, swig4
+{
+  lib,
+  stdenv,
+  python,
+  fetchFromGitHub,
+  cmake,
+  Cocoa,
+  fontconfig,
+  freetype,
+  libGL,
+  libGLU,
+  libX11,
+  libXext,
+  libXi,
+  libXmu,
+  opencascade-occt,
+  rapidjson,
+  smesh,
+  swig4,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,11 +36,23 @@ stdenv.mkDerivation rec {
     --replace "/usr/X11R6/lib/libGLU.dylib" "${libGLU}/lib/libGLU.dylib"
   '';
 
-  nativeBuildInputs = [ cmake swig4 ];
+  nativeBuildInputs = [
+    cmake
+    swig4
+  ];
   buildInputs = [
-    python opencascade-occt smesh
-    freetype libGL libGLU libX11 libXext libXmu libXi
-    fontconfig rapidjson
+    python
+    opencascade-occt
+    smesh
+    freetype
+    libGL
+    libGLU
+    libX11
+    libXext
+    libXmu
+    libXi
+    fontconfig
+    rapidjson
   ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   cmakeFlags = [

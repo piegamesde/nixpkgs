@@ -1,12 +1,13 @@
-{ lib
-, callPackage
-, python3
-, fetchFromGitHub
-, fetchurl
-, fetchpatch
-, frigate
-, opencv4
-, nixosTests
+{
+  lib,
+  callPackage,
+  python3,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  frigate,
+  opencv4,
+  nixosTests,
 }:
 
 let
@@ -20,34 +21,37 @@ let
     hash = "sha256-kJ0MnmWThiFbXvrN+zL5pZHq+Ig3DhCc8wPlWX2+nP8=";
   };
 
-  frigate-web = callPackage ./web.nix {
-    inherit version src;
-  };
+  frigate-web = callPackage ./web.nix { inherit version src; };
 
   python = python3.override {
     packageOverrides = self: super: {
       # https://github.com/blakeblackshear/frigate/blob/v0.12.0/requirements-wheels.txt#L7
-      opencv = super.toPythonModule ((opencv4.override {
-        enablePython = true;
-        pythonPackages = self;
-      }).overrideAttrs (oldAttrs: rec {
-        version = "4.5.5";
-        src = fetchFromGitHub {
-          owner = "opencv";
-          repo = "opencv";
-          rev = "refs/tags/${version}";
-          hash = "sha256-TJfzEAMh4JSshZ7oEZPgB59+NBACsj6Z5TCzVOBaEP4=";
-        };
-        contribSrc = fetchFromGitHub {
-          owner = "opencv";
-          repo = "opencv_contrib";
-          rev = "refs/tags/${version}";
-          hash = "sha256-skuH9GYg0mivGaJjxbggXk4x/0bbQISrAawA3ZUGfCk=";
-        };
-        postUnpack = ''
-          cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/source/opencv_contrib"
-        '';
-      }));
+      opencv = super.toPythonModule (
+        (opencv4.override {
+          enablePython = true;
+          pythonPackages = self;
+        }).overrideAttrs
+          (
+            oldAttrs: rec {
+              version = "4.5.5";
+              src = fetchFromGitHub {
+                owner = "opencv";
+                repo = "opencv";
+                rev = "refs/tags/${version}";
+                hash = "sha256-TJfzEAMh4JSshZ7oEZPgB59+NBACsj6Z5TCzVOBaEP4=";
+              };
+              contribSrc = fetchFromGitHub {
+                owner = "opencv";
+                repo = "opencv_contrib";
+                rev = "refs/tags/${version}";
+                hash = "sha256-skuH9GYg0mivGaJjxbggXk4x/0bbQISrAawA3ZUGfCk=";
+              };
+              postUnpack = ''
+                cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/source/opencv_contrib"
+              '';
+            }
+          )
+      );
     };
   };
 
@@ -88,7 +92,9 @@ python.pkgs.buildPythonApplication rec {
     echo 'VERSION = "${version}"' > frigate/version.py
 
     substituteInPlace frigate/app.py \
-      --replace "Router(migrate_db)" 'Router(migrate_db, "${placeholder "out"}/share/frigate/migrations")'
+      --replace "Router(migrate_db)" 'Router(migrate_db, "${
+        placeholder "out"
+      }/share/frigate/migrations")'
 
     substituteInPlace frigate/const.py \
       --replace "/media/frigate" "/var/lib/frigate" \
@@ -161,14 +167,13 @@ python.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  checkInputs = with python.pkgs; [
-    pytestCheckHook
-  ];
+  checkInputs = with python.pkgs; [ pytestCheckHook ];
 
   passthru = {
     web = frigate-web;
     inherit python;
-    pythonPath =(python.pkgs.makePythonPath propagatedBuildInputs) + ":${frigate}/${python.sitePackages}";
+    pythonPath =
+      (python.pkgs.makePythonPath propagatedBuildInputs) + ":${frigate}/${python.sitePackages}";
     tests = {
       inherit (nixosTests) frigate;
     };

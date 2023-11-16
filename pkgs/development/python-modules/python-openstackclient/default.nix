@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ddt
-, installShellFiles
-, openstackdocstheme
-, osc-lib
-, pbr
-, python-cinderclient
-, python-keystoneclient
-, python-novaclient
-, requests-mock
-, sphinx
-, stestr
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ddt,
+  installShellFiles,
+  openstackdocstheme,
+  osc-lib,
+  pbr,
+  python-cinderclient,
+  python-keystoneclient,
+  python-novaclient,
+  requests-mock,
+  sphinx,
+  stestr,
 }:
 
 buildPythonPackage rec {

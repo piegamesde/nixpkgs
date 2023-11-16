@@ -1,4 +1,10 @@
-{ darwin, fetchFromGitHub, rustPlatform, lib, stdenv }:
+{
+  darwin,
+  fetchFromGitHub,
+  rustPlatform,
+  lib,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "click";
@@ -20,6 +26,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/databricks/click";
     license = [ licenses.asl20 ];
     maintainers = [ maintainers.mbode ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

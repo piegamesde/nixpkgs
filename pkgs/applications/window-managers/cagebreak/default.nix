@@ -1,25 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cairo
-, fontconfig
-, libevdev
-, libinput
-, libxkbcommon
-, makeWrapper
-, mesa
-, meson
-, ninja
-, nixosTests
-, pango
-, pixman
-, pkg-config
-, scdoc
-, systemd
-, wayland
-, wayland-protocols
-, withXwayland ? true , xwayland
-, wlroots
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cairo,
+  fontconfig,
+  libevdev,
+  libinput,
+  libxkbcommon,
+  makeWrapper,
+  mesa,
+  meson,
+  ninja,
+  nixosTests,
+  pango,
+  pixman,
+  pkg-config,
+  scdoc,
+  systemd,
+  wayland,
+  wayland-protocols,
+  withXwayland ? true,
+  xwayland,
+  wlroots,
 }:
 
 stdenv.mkDerivation rec {

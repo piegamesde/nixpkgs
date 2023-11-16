@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, certifi
-, CFNetwork
-, cmake
-, CoreFoundation
-, libcxxabi
-, openssl
-, Security
-, pytestCheckHook
-, pytest-asyncio
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  certifi,
+  CFNetwork,
+  cmake,
+  CoreFoundation,
+  libcxxabi,
+  openssl,
+  Security,
+  pytestCheckHook,
+  pytest-asyncio,
 }:
 
 buildPythonPackage rec {
@@ -50,21 +51,17 @@ buildPythonPackage rec {
     cython
   ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    CFNetwork
-    Security
-  ];
+  buildInputs =
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      CFNetwork
+      Security
+    ];
 
-  propagatedBuildInputs = [
-    certifi
-  ];
+  propagatedBuildInputs = [ certifi ];
 
-  LDFLAGS = lib.optionals stdenv.isDarwin [
-    "-L${lib.getLib libcxxabi}/lib"
-  ];
+  LDFLAGS = lib.optionals stdenv.isDarwin [ "-L${lib.getLib libcxxabi}/lib" ];
 
   dontUseCmakeConfigure = true;
 
@@ -78,9 +75,7 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [
-    "uamqp"
-  ];
+  pythonImportsCheck = [ "uamqp" ];
 
   meta = with lib; {
     description = "An AMQP 1.0 client library for Python";

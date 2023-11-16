@@ -6,8 +6,15 @@
    https://sourceware.org/git/?p=glibc.git;a=blob;f=localedata/SUPPORTED
 */
 
-{ lib, stdenv, buildPackages, callPackage, writeText, glibc
-, allLocales ? true, locales ? [ "en_US.UTF-8/UTF-8" ]
+{
+  lib,
+  stdenv,
+  buildPackages,
+  callPackage,
+  writeText,
+  glibc,
+  allLocales ? true,
+  locales ? [ "en_US.UTF-8/UTF-8" ],
 }:
 
 callPackage ./common.nix { inherit stdenv; } {
@@ -20,12 +27,11 @@ callPackage ./common.nix { inherit stdenv; } {
   extraNativeBuildInputs = [ glibc ];
 
   LOCALEDEF_FLAGS = [
-    (if stdenv.hostPlatform.isLittleEndian
-    then "--little-endian"
-    else "--big-endian")
+    (if stdenv.hostPlatform.isLittleEndian then "--little-endian" else "--big-endian")
   ];
 
-  buildPhase = ''
+  buildPhase =
+    ''
       # Awful hack: `localedef' doesn't allow the path to `locale-archive'
       # to be overriden, but you *can* specify a prefix, i.e. it will use
       # <prefix>/<path-to-glibc>/lib/locale/locale-archive.  So we use
@@ -40,7 +46,7 @@ callPackage ./common.nix { inherit stdenv; } {
       # Hack to allow building of the locales (needed since glibc-2.12)
       sed -i -e 's,^$(rtld-prefix) $(common-objpfx)locale/localedef,localedef $(LOCALEDEF_FLAGS),' ../glibc-2*/localedata/Makefile
     ''
-      + lib.optionalString (!allLocales) ''
+    + lib.optionalString (!allLocales) ''
       # Check that all locales to be built are supported
       echo -n '${lib.concatMapStrings (s: s + " \\\n") locales}' \
         | sort -u > locales-to-build.txt
@@ -57,22 +63,21 @@ callPackage ./common.nix { inherit stdenv; } {
       fi
 
       echo SUPPORTED-LOCALES='${toString locales}' > ../glibc-2*/localedata/SUPPORTED
-    '' + ''
+    ''
+    + ''
       make localedata/install-locales \
           localedir=$out/lib/locale \
     '';
 
-  installPhase =
-    ''
-      mkdir -p "$out/lib/locale" "$out/share/i18n"
-      cp -v "$TMPDIR/$NIX_STORE/"*"/lib/locale/locale-archive" "$out/lib/locale"
-      cp -v ../glibc-2*/localedata/SUPPORTED "$out/share/i18n/SUPPORTED"
-    '';
+  installPhase = ''
+    mkdir -p "$out/lib/locale" "$out/share/i18n"
+    cp -v "$TMPDIR/$NIX_STORE/"*"/lib/locale/locale-archive" "$out/lib/locale"
+    cp -v ../glibc-2*/localedata/SUPPORTED "$out/share/i18n/SUPPORTED"
+  '';
 
-  setupHook = writeText "locales-setup-hook.sh"
-    ''
-      export LOCALE_ARCHIVE=@out@/lib/locale/locale-archive
-    '';
+  setupHook = writeText "locales-setup-hook.sh" ''
+    export LOCALE_ARCHIVE=@out@/lib/locale/locale-archive
+  '';
 
   meta.description = "Locale information for the GNU C Library";
 }

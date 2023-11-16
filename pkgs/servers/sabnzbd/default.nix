@@ -1,29 +1,40 @@
-{ lib, stdenv
-, fetchFromGitHub
-, python3
-, par2cmdline
-, unzip
-, unrar
-, p7zip
-, makeWrapper
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  par2cmdline,
+  unzip,
+  unrar,
+  p7zip,
+  makeWrapper,
+  nixosTests,
 }:
 
 let
-  pythonEnv = python3.withPackages(ps: with ps; [
-    chardet
-    cheetah3
-    cherrypy
-    cryptography
-    configobj
-    feedparser
-    sabyenc3
-    puremagic
-    guessit
-    pysocks
-  ]);
-  path = lib.makeBinPath [ par2cmdline unrar unzip p7zip ];
-in stdenv.mkDerivation rec {
+  pythonEnv = python3.withPackages (
+    ps:
+    with ps; [
+      chardet
+      cheetah3
+      cherrypy
+      cryptography
+      configobj
+      feedparser
+      sabyenc3
+      puremagic
+      guessit
+      pysocks
+    ]
+  );
+  path = lib.makeBinPath [
+    par2cmdline
+    unrar
+    unzip
+    p7zip
+  ];
+in
+stdenv.mkDerivation rec {
   version = "3.7.2";
   pname = "sabnzbd";
 
@@ -59,6 +70,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://sabnzbd.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ fridh jojosch ];
+    maintainers = with lib.maintainers; [
+      fridh
+      jojosch
+    ];
   };
 }

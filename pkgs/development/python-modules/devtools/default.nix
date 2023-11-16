@@ -1,13 +1,14 @@
-{ lib
-, asttokens
-, buildPythonPackage
-, executing
-, hatchling
-, fetchFromGitHub
-, pygments
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  asttokens,
+  buildPythonPackage,
+  executing,
+  hatchling,
+  fetchFromGitHub,
+  pygments,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-x9dL/FE94OixMAmjnmfzZUcYJBqE5P2AAIFsNJF0Fxo=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     asttokens
@@ -39,10 +38,11 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pytestFlagsArray = [
-    # pytest.PytestRemovedIn8Warning: Passing None has been deprecated.
-    "-W ignore::pytest.PytestRemovedIn8Warning"
-  ];
+  pytestFlagsArray =
+    [
+      # pytest.PytestRemovedIn8Warning: Passing None has been deprecated.
+      "-W ignore::pytest.PytestRemovedIn8Warning"
+    ];
 
   disabledTests = [
     # Test for Windows32
@@ -53,9 +53,7 @@ buildPythonPackage rec {
     "test_simple_vars"
   ];
 
-  pythonImportsCheck = [
-    "devtools"
-  ];
+  pythonImportsCheck = [ "devtools" ];
 
   meta = with lib; {
     description = "Python's missing debug print command and other development tools";

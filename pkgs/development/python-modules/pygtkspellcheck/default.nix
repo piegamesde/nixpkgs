@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, gobject-introspection, gtk3, pyenchant, pygobject3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  gobject-introspection,
+  gtk3,
+  pyenchant,
+  pygobject3,
+}:
 
 buildPythonPackage rec {
   pname = "pygtkspellcheck";
@@ -10,7 +18,11 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ gobject-introspection ];
-  propagatedBuildInputs = [ pyenchant pygobject3 gtk3 ];
+  propagatedBuildInputs = [
+    pyenchant
+    pygobject3
+    gtk3
+  ];
 
   doCheck = false; # there are no tests
   pythonImportsCheck = [ "gtkspellcheck" ];

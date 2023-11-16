@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchurl
-, intltool
-, pkg-config
-, networkmanager
-, strongswanNM
-, gtk3
-, gtk4
-, gnome
-, libsecret
-, libnma
-, libnma-gtk4
+{
+  stdenv,
+  lib,
+  fetchurl,
+  intltool,
+  pkg-config,
+  networkmanager,
+  strongswanNM,
+  gtk3,
+  gtk4,
+  gnome,
+  libsecret,
+  libnma,
+  libnma-gtk4,
 }:
 
 stdenv.mkDerivation rec {

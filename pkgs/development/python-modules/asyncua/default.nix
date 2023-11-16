@@ -1,17 +1,18 @@
-{ lib
-, aiofiles
-, aiosqlite
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, sortedcontainers
-, typing-extensions
+{
+  lib,
+  aiofiles,
+  aiosqlite,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  sortedcontainers,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -56,9 +57,7 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [
-    "asyncua"
-  ];
+  pythonImportsCheck = [ "asyncua" ];
 
   meta = with lib; {
     description = "OPC UA / IEC 62541 Client and Server for Python";

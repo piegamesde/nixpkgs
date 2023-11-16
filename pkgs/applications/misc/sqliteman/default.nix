@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qt4, qscintilla-qt4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qt4,
+  qscintilla-qt4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sqliteman";
@@ -12,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ qt4 qscintilla-qt4 ];
+  buildInputs = [
+    qt4
+    qscintilla-qt4
+  ];
 
   prePatch = ''
     sed -i 's,m_file(0),m_file(QString()),' Sqliteman/sqliteman/main.cpp

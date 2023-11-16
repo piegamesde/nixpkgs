@@ -1,9 +1,10 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, gitUpdater
-, testers
-, mods
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  gitUpdater,
+  testers,
+  mods,
 }:
 
 buildGoModule rec {
@@ -19,7 +20,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-+0yGFCGd/9bIBjXYp8UPGqKum2di5O1ALMyDSxcVujg=";
 
-  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=main.version=${version}"
+  ];
 
   passthru = {
     updateScript = gitUpdater {
@@ -27,9 +32,7 @@ buildGoModule rec {
       ignoredVersions = ".(rc|beta).*";
     };
 
-    tests.version = testers.testVersion {
-      package = mods;
-    };
+    tests.version = testers.testVersion { package = mods; };
   };
 
   meta = with lib; {

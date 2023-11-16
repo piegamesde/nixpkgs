@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, gtk3
-, openssl
-, alsa-lib
-, pkg-config
-, ffmpeg
-, dbus
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  gtk3,
+  openssl,
+  alsa-lib,
+  pkg-config,
+  ffmpeg,
+  dbus,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,7 +25,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ alsa-lib dbus gtk3 openssl ffmpeg ];
+  buildInputs = [
+    alsa-lib
+    dbus
+    gtk3
+    openssl
+    ffmpeg
+  ];
 
   postInstall = ''
     mv packaging/rootfs/usr/share $out/share

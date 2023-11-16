@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, cloudpickle
-, dill
-, fetchPypi
-, msgpack
-, pytestCheckHook
-, pythonAtLeast
-, serpent
+{
+  lib,
+  buildPythonPackage,
+  cloudpickle,
+  dill,
+  fetchPypi,
+  msgpack,
+  pytestCheckHook,
+  pythonAtLeast,
+  serpent,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-UR9bCATpLdd9wzrfnJR3h+P56cWpaxIWLwVXp8TOIfs=";
   };
 
-  propagatedBuildInputs = [
-    serpent
-  ];
+  propagatedBuildInputs = [ serpent ];
 
   buildInputs = [
     dill
@@ -34,19 +33,18 @@ buildPythonPackage rec {
     msgpack
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # add testsupport.py to PATH
   preCheck = ''
     PYTHONPATH=tests/PyroTests:$PYTHONPATH
   '';
 
-  disabledTestPaths = [
-    # ignore network related tests, which fail in sandbox
-    "tests/PyroTests/test_naming.py"
-  ];
+  disabledTestPaths =
+    [
+      # ignore network related tests, which fail in sandbox
+      "tests/PyroTests/test_naming.py"
+    ];
 
   disabledTests = [
     "StartNSfunc"
@@ -57,9 +55,7 @@ buildPythonPackage rec {
   # otherwise the tests hang the build
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "Pyro4"
-  ];
+  pythonImportsCheck = [ "Pyro4" ];
 
   meta = with lib; {
     description = "Distributed object middleware for Python (RPC)";

@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, luajit
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  luajit,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,13 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-9YQxa6folwCJNoEa75InRbK1X7cD4F5QGzeGlfsr/5s=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    luajit
-  ];
+  buildInputs = [ luajit ];
 
   meta = with lib; {
     description = "Write your own river layout generator in lua";

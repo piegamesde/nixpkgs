@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -21,8 +26,8 @@ let
 
   serverConfig = pkgs.writeText "server.properties" serverProperties;
   logConfig = pkgs.writeText "log4j.properties" cfg.log4jProperties;
-
-in {
+in
+{
 
   options.services.apache-kafka = {
     enable = mkOption {
@@ -90,7 +95,7 @@ in {
 
     jvmOptions = mkOption {
       description = lib.mdDoc "Extra command line options for the JVM running Kafka.";
-      default = [];
+      default = [ ];
       type = types.listOf types.str;
       example = [
         "-Djava.net.preferIPv4Stack=true"
@@ -112,12 +117,11 @@ in {
       defaultText = literalExpression "pkgs.apacheKafka.passthru.jre";
       type = types.package;
     };
-
   };
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [cfg.package];
+    environment.systemPackages = [ cfg.package ];
 
     users.users.apache-kafka = {
       isSystemUser = true;
@@ -125,7 +129,7 @@ in {
       description = "Apache Kafka daemon user";
       home = head cfg.logDirs;
     };
-    users.groups.apache-kafka = {};
+    users.groups.apache-kafka = { };
 
     systemd.tmpfiles.rules = map (logDir: "d '${logDir}' 0700 apache-kafka - - -") cfg.logDirs;
 
@@ -146,6 +150,5 @@ in {
         SuccessExitStatus = "0 143";
       };
     };
-
   };
 }

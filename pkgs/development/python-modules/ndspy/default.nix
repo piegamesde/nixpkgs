@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, crcmod
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  crcmod,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,17 +21,11 @@ buildPythonPackage rec {
     sha256 = "0x3sp10had1mq192m7kgjivvs8kpjagxjgj9d4z95dfjhzzbjh70";
   };
 
-  propagatedBuildInputs = [
-    crcmod
-  ];
+  propagatedBuildInputs = [ crcmod ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ndspy"
-  ];
+  pythonImportsCheck = [ "ndspy" ];
 
   preCheck = ''
     cd tests

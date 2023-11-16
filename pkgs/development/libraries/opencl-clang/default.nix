@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, git
-, llvmPackages_11
-, spirv-llvm-translator
-, buildWithPatches ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  git,
+  llvmPackages_11,
+  spirv-llvm-translator,
+  buildWithPatches ? true,
 }:
 
 let
@@ -14,13 +15,19 @@ let
     inherit spirv-llvm-translator;
   };
 
-  addPatches = component: pkg: pkg.overrideAttrs (oldAttrs: {
-    postPatch = oldAttrs.postPatch or "" + ''
-      for p in ${passthru.patchesOut}/${component}/*; do
-        patch -p1 -i "$p"
-      done
-    '';
-  });
+  addPatches =
+    component: pkg:
+    pkg.overrideAttrs (
+      oldAttrs: {
+        postPatch =
+          oldAttrs.postPatch or ""
+          + ''
+            for p in ${passthru.patchesOut}/${component}/*; do
+              patch -p1 -i "$p"
+            done
+          '';
+      }
+    );
 
   passthru = rec {
     spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override { llvm = llvmPackages_11.llvm; };
@@ -28,9 +35,7 @@ let
     libclang = addPatches "clang" llvmPkgs.libclang;
 
     clang-unwrapped = libclang.out;
-    clang = llvmPkgs.clang.override {
-      cc = clang-unwrapped;
-    };
+    clang = llvmPkgs.clang.override { cc = clang-unwrapped; };
 
     patchesOut = stdenv.mkDerivation {
       pname = "opencl-clang-patches";
@@ -52,14 +57,14 @@ let
     };
   };
 
-  library = let
-    inherit (llvmPackages_11) llvm;
-    inherit (if buildWithPatches then passthru else llvmPkgs) libclang spirv-llvm-translator;
-  in
+  library =
+    let
+      inherit (llvmPackages_11) llvm;
+      inherit (if buildWithPatches then passthru else llvmPkgs) libclang spirv-llvm-translator;
+    in
     stdenv.mkDerivation {
       pname = "opencl-clang";
       version = "unstable-2022-03-16";
-
 
       src = fetchFromGitHub {
         owner = "intel";
@@ -68,11 +73,12 @@ let
         sha256 = "sha256-qEZoQ6h4XAvSnJ7/gLXBb1qrzeYa6Jp6nij9VFo8MwQ=";
       };
 
-      patches = [
-        # Build script tries to find Clang OpenCL headers under ${llvm}
-        # Work around it by specifying that directory manually.
-        ./opencl-headers-dir.patch
-      ];
+      patches =
+        [
+          # Build script tries to find Clang OpenCL headers under ${llvm}
+          # Work around it by specifying that directory manually.
+          ./opencl-headers-dir.patch
+        ];
 
       # Uses linker flags that are not supported on Darwin.
       postPatch = lib.optionalString stdenv.isDarwin ''
@@ -81,9 +87,17 @@ let
           --replace '-Wl,--no-undefined' ""
       '';
 
-      nativeBuildInputs = [ cmake git llvm.dev ];
+      nativeBuildInputs = [
+        cmake
+        git
+        llvm.dev
+      ];
 
-      buildInputs = [ libclang llvm spirv-llvm-translator ];
+      buildInputs = [
+        libclang
+        llvm
+        spirv-llvm-translator
+      ];
 
       cmakeFlags = [
         "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"
@@ -96,12 +110,12 @@ let
       inherit passthru;
 
       meta = with lib; {
-        homepage    = "https://github.com/intel/opencl-clang/";
+        homepage = "https://github.com/intel/opencl-clang/";
         description = "A clang wrapper library with an OpenCL-oriented API and the ability to compile OpenCL C kernels to SPIR-V modules";
-        license     = licenses.ncsa;
-        platforms   = platforms.all;
+        license = licenses.ncsa;
+        platforms = platforms.all;
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
     };
 in
-  library
+library

@@ -1,12 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.monetdb;
-
-in {
-  meta.maintainers = with maintainers; [ StillerHarpo primeos ];
+in
+{
+  meta.maintainers = with maintainers; [
+    StillerHarpo
+    primeos
+  ];
 
   ###### interface
   options = {
@@ -95,6 +103,5 @@ in {
         ${cfg.package}/bin/monetdbd set listenaddr=${cfg.listenAddress} ${cfg.dataDir}
       '';
     };
-
   };
 }

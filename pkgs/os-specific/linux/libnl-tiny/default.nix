@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchgit, cmake, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  cmake,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "libnl-tiny";
@@ -10,7 +16,10 @@ stdenv.mkDerivation {
     sha256 = "0c5ycsdas8rr5c33gd0mnmm515dq631fmdjn5mp2j1m0j1bk7hc0";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   preConfigure = ''
     sed -e 's|''${prefix}/@CMAKE_INSTALL_LIBDIR@|@CMAKE_INSTALL_FULL_LIBDIR@|g' \

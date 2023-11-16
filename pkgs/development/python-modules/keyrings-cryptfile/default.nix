@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, argon2-cffi
-, keyring
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  argon2-cffi,
+  keyring,
+  pycryptodome,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -37,13 +38,9 @@ buildPythonPackage rec {
     pycryptodome
   ];
 
-  pythonImportsCheck = [
-    "keyrings.cryptfile"
-  ];
+  pythonImportsCheck = [ "keyrings.cryptfile" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     "test_set_properties"

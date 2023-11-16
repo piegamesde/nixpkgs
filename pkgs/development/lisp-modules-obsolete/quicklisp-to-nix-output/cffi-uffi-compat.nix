@@ -1,12 +1,17 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cffi-uffi-compat";
   version = "cffi_0.24.1";
 
   description = "UFFI Compatibility Layer for CFFI";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
@@ -15,7 +20,7 @@ rec {
 
   packageName = "cffi-uffi-compat";
 
-  asdFilesToKeep = ["cffi-uffi-compat.asd"];
+  asdFilesToKeep = [ "cffi-uffi-compat.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cffi-uffi-compat DESCRIPTION UFFI Compatibility Layer for CFFI
@@ -29,4 +34,5 @@ rec {
     DEPENDENCIES (alexandria babel cffi trivial-features) VERSION cffi_0.24.1
     SIBLINGS
     (cffi-examples cffi-grovel cffi-libffi cffi-tests cffi-toolchain cffi)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

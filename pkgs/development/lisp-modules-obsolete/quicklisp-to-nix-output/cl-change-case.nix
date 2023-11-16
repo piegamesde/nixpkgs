@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-change-case";
   version = "20210411-git";
@@ -8,7 +8,13 @@ rec {
 
   description = "Convert strings between camelCase, param-case, PascalCase and more";
 
-  deps = [ args."cl-ppcre" args."cl-ppcre-unicode" args."cl-unicode" args."fiveam" args."flexi-streams" ];
+  deps = [
+    args."cl-ppcre"
+    args."cl-ppcre-unicode"
+    args."cl-unicode"
+    args."fiveam"
+    args."flexi-streams"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-change-case/2021-04-11/cl-change-case-20210411-git.tgz";
@@ -17,7 +23,7 @@ rec {
 
   packageName = "cl-change-case";
 
-  asdFilesToKeep = ["cl-change-case.asd"];
+  asdFilesToKeep = [ "cl-change-case.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-change-case DESCRIPTION
@@ -31,4 +37,5 @@ rec {
      (NAME cl-unicode FILENAME cl-unicode) (NAME fiveam FILENAME fiveam)
      (NAME flexi-streams FILENAME flexi-streams))
     DEPENDENCIES (cl-ppcre cl-ppcre-unicode cl-unicode fiveam flexi-streams)
-    VERSION 20210411-git SIBLINGS NIL PARASITES (cl-change-case/test)) */
+    VERSION 20210411-git SIBLINGS NIL PARASITES (cl-change-case/test))
+*/

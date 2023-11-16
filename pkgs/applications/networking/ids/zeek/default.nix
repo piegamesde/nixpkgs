@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, callPackage
-, fetchurl
-, cmake
-, flex
-, bison
-, spicy-parser-generator
-, openssl
-, libkqueue
-, libpcap
-, zlib
-, file
-, curl
-, libmaxminddb
-, gperftools
-, python3
-, swig
-, gettext
-, coreutils
-, ncurses
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  cmake,
+  flex,
+  bison,
+  spicy-parser-generator,
+  openssl,
+  libkqueue,
+  libpcap,
+  zlib,
+  file,
+  curl,
+  libmaxminddb,
+  gperftools,
+  python3,
+  swig,
+  gettext,
+  coreutils,
+  ncurses,
 }:
 
 let
@@ -60,11 +61,7 @@ stdenv.mkDerivation rec {
     openssl
     swig
     zlib
-  ] ++ lib.optionals stdenv.isLinux [
-    libkqueue
-  ] ++ lib.optionals stdenv.isDarwin [
-    gettext
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ libkqueue ] ++ lib.optionals stdenv.isDarwin [ gettext ];
 
   postPatch = ''
     patchShebangs ./auxil/spicy/spicy/scripts
@@ -82,9 +79,7 @@ stdenv.mkDerivation rec {
     "-DZEEK_LOG_DIR=/var/log/zeek"
     "-DZEEK_STATE_DIR=/var/lib/zeek"
     "-DZEEK_SPOOL_DIR=/var/spool/zeek"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-DLIBKQUEUE_ROOT_DIR=${libkqueue}"
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ "-DLIBKQUEUE_ROOT_DIR=${libkqueue}" ];
 
   postInstall = ''
     for file in $out/share/zeek/base/frameworks/notice/actions/pp-alarms.zeek $out/share/zeek/base/frameworks/notice/main.zeek; do
@@ -107,7 +102,11 @@ stdenv.mkDerivation rec {
     homepage = "https://www.zeek.org";
     changelog = "https://github.com/zeek/zeek/blob/v${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pSub marsam tobim ];
+    maintainers = with maintainers; [
+      pSub
+      marsam
+      tobim
+    ];
     platforms = platforms.unix;
   };
 }

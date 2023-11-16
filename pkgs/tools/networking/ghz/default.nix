@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "ghz";
@@ -13,9 +17,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-BTfdKH2FBfIeHOG4dhOopoPQWHjhlJstQWWOkMwEOGs=";
 
-  subPackages = [ "cmd/ghz" "cmd/ghz-web" ];
+  subPackages = [
+    "cmd/ghz"
+    "cmd/ghz-web"
+  ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Simple gRPC benchmarking and load testing tool";

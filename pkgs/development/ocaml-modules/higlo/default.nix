@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchFromGitLab, sedlex, xtmpl }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitLab,
+  sedlex,
+  xtmpl,
+}:
 
 buildDunePackage rec {
   pname = "higlo";
@@ -12,7 +18,10 @@ buildDunePackage rec {
     sha256 = "sha256:09hsbwy5asacgh4gdj0vjpy4kzfnq3qji9szbsbyswsf1nbyczir";
   };
 
-  propagatedBuildInputs = [ sedlex xtmpl ];
+  propagatedBuildInputs = [
+    sedlex
+    xtmpl
+  ];
 
   meta = with lib; {
     description = "OCaml library for syntax highlighting";
@@ -21,5 +30,3 @@ buildDunePackage rec {
     maintainers = with maintainers; [ regnat ];
   };
 }
-
-

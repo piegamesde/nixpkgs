@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, future
-, pyparsing
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  future,
+  pyparsing,
 }:
 
 buildPythonPackage {
@@ -20,9 +21,7 @@ buildPythonPackage {
   doCheck = true;
   pythonImportsCheck = [ "kinparse" ];
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   propagatedBuildInputs = [
     future

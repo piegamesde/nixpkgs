@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, pkgs
-, stdenv
-, rustPlatform
-, pkg-config
-, cmake
-, openssl
-, autoconf
-, automake
-, Security
+{
+  lib,
+  fetchFromGitHub,
+  pkgs,
+  stdenv,
+  rustPlatform,
+  pkg-config,
+  cmake,
+  openssl,
+  autoconf,
+  automake,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -29,13 +30,20 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config cmake ] ++
-    lib.optionals stdenv.isDarwin [ autoconf automake ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      cmake
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      autoconf
+      automake
+    ];
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
-    description = "A Matrix bot which can generate \"This Week in X\" like blog posts ";
+    description = ''A Matrix bot which can generate "This Week in X" like blog posts '';
     homepage = "https://github.com/haecker-felix/hebbot";
     changelog = "https://github.com/haecker-felix/hebbot/releases/tag/v${version}";
     license = with licenses; [ agpl3 ];

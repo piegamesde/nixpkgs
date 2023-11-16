@@ -1,10 +1,26 @@
-{ buildDunePackage, carton
-, lwt, decompress, optint, bigstringaf
-, alcotest, alcotest-lwt, cstruct, fmt, logs
-, mirage-flow, result, rresult
-, ke, base64, bos, checkseum, digestif, fpath
-, stdlib-shims
-, git-binary # pkgs.git
+{
+  buildDunePackage,
+  carton,
+  lwt,
+  decompress,
+  optint,
+  bigstringaf,
+  alcotest,
+  alcotest-lwt,
+  cstruct,
+  fmt,
+  logs,
+  mirage-flow,
+  result,
+  rresult,
+  ke,
+  base64,
+  bos,
+  checkseum,
+  digestif,
+  fpath,
+  stdlib-shims,
+  git-binary, # pkgs.git
 }:
 
 buildDunePackage {
@@ -22,9 +38,7 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [
-    git-binary
-  ];
+  nativeCheckInputs = [ git-binary ];
   checkInputs = [
     alcotest
     alcotest-lwt

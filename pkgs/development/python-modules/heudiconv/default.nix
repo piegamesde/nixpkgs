@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, datalad
-, git
-, dcm2niix
-, nibabel
-, pydicom
-, nipype
-, dcmstack
-, etelemetry
-, filelock
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  datalad,
+  git,
+  dcm2niix,
+  nibabel,
+  pydicom,
+  nipype,
+  dcmstack,
+  etelemetry,
+  filelock,
 }:
 
 buildPythonPackage rec {
@@ -42,7 +43,7 @@ buildPythonPackage rec {
     git
   ];
 
-  preCheck = ''export HOME=$(mktemp -d)'';
+  preCheck = "export HOME=$(mktemp -d)";
 
   meta = with lib; {
     homepage = "https://heudiconv.readthedocs.io";

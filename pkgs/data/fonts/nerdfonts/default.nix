@@ -1,12 +1,13 @@
-{ stdenv
-, fetchurl
-, lib
-# To select only certain fonts, put a list of strings to `fonts`: every key in
-# ./shas.nix is an optional font
-, fonts ? []
-# Whether to enable Windows font variants, their internal font name is limited
-# to 31 characters
-, enableWindowsFonts ? false
+{
+  stdenv,
+  fetchurl,
+  lib,
+  # To select only certain fonts, put a list of strings to `fonts`: every key in
+  # ./shas.nix is an optional font
+  fonts ? [ ],
+  # Whether to enable Windows font variants, their internal font name is limited
+  # to 31 characters
+  enableWindowsFonts ? false,
 }:
 
 let
@@ -14,27 +15,25 @@ let
   version = import ./version.nix;
   fontsShas = import ./shas.nix;
   knownFonts = builtins.attrNames fontsShas;
-  selectedFonts = if (fonts == []) then
-    knownFonts
-  else
-    let unknown = lib.subtractLists knownFonts fonts; in
-    if (unknown != []) then
-      throw "Unknown font(s): ${lib.concatStringsSep " " unknown}"
+  selectedFonts =
+    if (fonts == [ ]) then
+      knownFonts
     else
-      fonts
-  ;
-  selectedFontsShas = lib.attrsets.genAttrs selectedFonts (
-    fName:
-    fontsShas."${fName}"
-  );
-  srcs = lib.attrsets.mapAttrsToList (
-    fName:
-    fSha:
-    (fetchurl {
-      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fName}.tar.xz";
-      sha256 = fSha;
-    })
-  ) selectedFontsShas;
+      let
+        unknown = lib.subtractLists knownFonts fonts;
+      in
+      if (unknown != [ ]) then throw "Unknown font(s): ${lib.concatStringsSep " " unknown}" else fonts;
+  selectedFontsShas = lib.attrsets.genAttrs selectedFonts (fName: fontsShas."${fName}");
+  srcs =
+    lib.attrsets.mapAttrsToList
+      (
+        fName: fSha:
+        (fetchurl {
+          url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fName}.tar.xz";
+          sha256 = fSha;
+        })
+      )
+      selectedFontsShas;
 in
 
 stdenv.mkDerivation rec {
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     find -name \*.otf -exec mkdir -p $out/share/fonts/opentype/NerdFonts \; -exec mv {} $out/share/fonts/opentype/NerdFonts \;
     find -name \*.ttf -exec mkdir -p $out/share/fonts/truetype/NerdFonts \; -exec mv {} $out/share/fonts/truetype/NerdFonts \;
-    ${lib.optionalString (! enableWindowsFonts) ''
+    ${lib.optionalString (!enableWindowsFonts) ''
       rm -rfv $out/share/fonts/opentype/NerdFonts/*Windows\ Compatible.*
       rm -rfv $out/share/fonts/truetype/NerdFonts/*Windows\ Compatible.*
     ''}
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://nerdfonts.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];
-    hydraPlatforms = []; # 'Output limit exceeded' on Hydra
+    hydraPlatforms = [ ]; # 'Output limit exceeded' on Hydra
   };
 }

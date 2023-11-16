@@ -1,25 +1,32 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, gobject-introspection
-, gtk-doc
-, python3
-, cairo
-, gtk3
-, glib
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gobject-introspection,
+  gtk-doc,
+  python3,
+  cairo,
+  gtk3,
+  glib,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
   pname = "goocanvas";
   version = "3.0.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/goocanvas/${lib.versions.majorMinor version}/goocanvas-${version}.tar.xz";
+    url = "mirror://gnome/sources/goocanvas/${
+        lib.versions.majorMinor version
+      }/goocanvas-${version}.tar.xz";
     sha256 = "06j05g2lmwvklmv51xsb7gm7rszcarhm01sal41jfp0qzrbpa2k7";
   };
 

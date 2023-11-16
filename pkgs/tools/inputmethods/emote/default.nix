@@ -1,4 +1,16 @@
-{ lib, fetchFromGitHub, python3Packages, wrapGAppsHook, gobject-introspection, gtk3, keybinder3, xdotool, pango, gdk-pixbuf, atk }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk3,
+  keybinder3,
+  xdotool,
+  pango,
+  gdk-pixbuf,
+  atk,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "emote";
@@ -58,7 +70,10 @@ python3Packages.buildPythonApplication rec {
     description = "Modern emoji picker for Linux";
     homepage = "https://github.com/tom-james-watson/emote";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ emilytrau SuperSandro2000 ];
+    maintainers = with maintainers; [
+      emilytrau
+      SuperSandro2000
+    ];
     platforms = platforms.linux;
   };
 }

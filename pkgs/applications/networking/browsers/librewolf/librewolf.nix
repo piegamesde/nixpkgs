@@ -34,8 +34,9 @@ rec {
   extraPoliciesFiles = [ "${source}/submodules/settings/distribution/policies.json" ];
 
   extraPassthru = {
-    librewolf = { inherit src extraPatches; };
+    librewolf = {
+      inherit src extraPatches;
+    };
     inherit extraPrefsFiles extraPoliciesFiles;
   };
 }
-

@@ -1,16 +1,17 @@
-{ lib
-, mkDerivation
-, cmake
-, extra-cmake-modules
-, kcoreaddons
-, ki18n
-, kirigami2
-, mauikit
-, mauikit-filebrowsing
-, qtgraphicaleffects
-, qtmultimedia
-, qtquickcontrols2
-, gst_all_1
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  kcoreaddons,
+  ki18n,
+  kirigami2,
+  mauikit,
+  mauikit-filebrowsing,
+  qtgraphicaleffects,
+  qtmultimedia,
+  qtquickcontrols2,
+  gst_all_1,
 }:
 
 mkDerivation {
@@ -21,21 +22,25 @@ mkDerivation {
     extra-cmake-modules
   ];
 
-  buildInputs = [
-    kcoreaddons
-    ki18n
-    kirigami2
-    mauikit
-    mauikit-filebrowsing
-    qtgraphicaleffects
-    qtmultimedia
-    qtquickcontrols2
-  ] ++ (with gst_all_1; [
-    gst-plugins-bad
-    gst-plugins-base
-    gst-plugins-good
-    gstreamer
-  ]);
+  buildInputs =
+    [
+      kcoreaddons
+      ki18n
+      kirigami2
+      mauikit
+      mauikit-filebrowsing
+      qtgraphicaleffects
+      qtmultimedia
+      qtquickcontrols2
+    ]
+    ++ (
+      with gst_all_1; [
+        gst-plugins-bad
+        gst-plugins-base
+        gst-plugins-good
+        gstreamer
+      ]
+    );
 
   preFixup = ''
     qtWrapperArgs+=(

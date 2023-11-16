@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, click
-, flit-core
-, importlib-metadata
-, nbclient
-, nbformat
-, pyyaml
-, sqlalchemy
-, tabulate
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  click,
+  flit-core,
+  importlib-metadata,
+  nbclient,
+  nbformat,
+  pyyaml,
+  sqlalchemy,
+  tabulate,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     sha256 = "sha256-Jvg5ARQ+30ry8/9akeLSrSmORuLO4DyAcdN6I6Y8y/w=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     attrs

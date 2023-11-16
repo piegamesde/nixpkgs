@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.journald;
-in {
+in
+{
   options = {
     services.journald.console = mkOption {
       default = "";
@@ -81,20 +87,24 @@ in {
   };
 
   config = {
-    systemd.additionalUpstreamSystemUnits = [
-      "systemd-journald.socket"
-      "systemd-journald@.socket"
-      "systemd-journald-varlink@.socket"
-      "systemd-journald.service"
-      "systemd-journald@.service"
-      "systemd-journal-flush.service"
-      "systemd-journal-catalog-update.service"
-      ] ++ (optional (!config.boot.isContainer) "systemd-journald-audit.socket") ++ [
-      "systemd-journald-dev-log.socket"
-      "syslog.socket"
-      ] ++ optionals cfg.enableHttpGateway [
-      "systemd-journal-gatewayd.socket"
-      "systemd-journal-gatewayd.service"
+    systemd.additionalUpstreamSystemUnits =
+      [
+        "systemd-journald.socket"
+        "systemd-journald@.socket"
+        "systemd-journald-varlink@.socket"
+        "systemd-journald.service"
+        "systemd-journald@.service"
+        "systemd-journal-flush.service"
+        "systemd-journal-catalog-update.service"
+      ]
+      ++ (optional (!config.boot.isContainer) "systemd-journald-audit.socket")
+      ++ [
+        "systemd-journald-dev-log.socket"
+        "syslog.socket"
+      ]
+      ++ optionals cfg.enableHttpGateway [
+        "systemd-journal-gatewayd.socket"
+        "systemd-journal-gatewayd.service"
       ];
 
     environment.etc = {
@@ -119,13 +129,16 @@ in {
     users.users.systemd-journal-gateway.group = "systemd-journal-gateway";
     users.groups.systemd-journal-gateway.gid = config.ids.gids.systemd-journal-gateway;
 
-    systemd.sockets.systemd-journal-gatewayd.wantedBy =
-      optional cfg.enableHttpGateway "sockets.target";
+    systemd.sockets.systemd-journal-gatewayd.wantedBy = optional cfg.enableHttpGateway "sockets.target";
 
     systemd.services.systemd-journal-flush.restartIfChanged = false;
-    systemd.services.systemd-journald.restartTriggers = [ config.environment.etc."systemd/journald.conf".source ];
+    systemd.services.systemd-journald.restartTriggers = [
+      config.environment.etc."systemd/journald.conf".source
+    ];
     systemd.services.systemd-journald.stopIfChanged = false;
-    systemd.services."systemd-journald@".restartTriggers = [ config.environment.etc."systemd/journald.conf".source ];
+    systemd.services."systemd-journald@".restartTriggers = [
+      config.environment.etc."systemd/journald.conf".source
+    ];
     systemd.services."systemd-journald@".stopIfChanged = false;
   };
 }

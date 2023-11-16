@@ -1,9 +1,18 @@
-{ lib, makeImpureTest, coreutils, amdvlk, vulkan-tools }:
+{
+  lib,
+  makeImpureTest,
+  coreutils,
+  amdvlk,
+  vulkan-tools,
+}:
 makeImpureTest {
   name = "amdvlk";
   testedPackage = "amdvlk";
 
-  sandboxPaths = [ "/sys" "/dev/dri" ];
+  sandboxPaths = [
+    "/sys"
+    "/dev/dri"
+  ];
 
   nativeBuildInputs = [ vulkan-tools ];
 
@@ -43,7 +52,5 @@ makeImpureTest {
     vulkaninfo --summary | grep '= ${amdvlk.version}'
   '';
 
-  meta = with lib.maintainers; {
-    maintainers = [ Flakebi ];
-  };
+  meta = with lib.maintainers; { maintainers = [ Flakebi ]; };
 }

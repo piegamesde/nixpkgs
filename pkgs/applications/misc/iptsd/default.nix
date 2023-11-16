@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, meson
-, ninja
-, pkg-config
-, cli11
-, eigen
-, fmt
-, hidrd
-, inih
-, microsoft-gsl
-, spdlog
-, systemd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  cli11,
+  eigen,
+  fmt,
+  hidrd,
+  inih,
+  microsoft-gsl,
+  spdlog,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
@@ -59,7 +60,7 @@ stdenv.mkDerivation rec {
     "-Dservice_manager=systemd"
     "-Dsample_config=false"
     "-Ddebug_tools="
-    "-Db_lto=false"  # plugin needed to handle lto object -> undefined reference to ...
+    "-Db_lto=false" # plugin needed to handle lto object -> undefined reference to ...
   ];
 
   meta = with lib; {
@@ -67,7 +68,10 @@ stdenv.mkDerivation rec {
     description = "Userspace daemon for Intel Precise Touch & Stylus";
     homepage = "https://github.com/linux-surface/iptsd";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ tomberek dotlambda ];
+    maintainers = with maintainers; [
+      tomberek
+      dotlambda
+    ];
     platforms = platforms.linux;
   };
 }

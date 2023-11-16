@@ -1,8 +1,9 @@
-{ lib
-, fetchurl
-, python3Packages
-, mercurial
-, qt5
+{
+  lib,
+  fetchurl,
+  python3Packages,
+  mercurial,
+  qt5,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -54,6 +55,9 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://tortoisehg.bitbucket.io/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ danbst gbtb ];
+    maintainers = with lib.maintainers; [
+      danbst
+      gbtb
+    ];
   };
 }

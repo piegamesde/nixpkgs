@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, bashInteractive
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  bashInteractive,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   nativeCheckInputs = [
     bashInteractive
@@ -39,9 +38,7 @@ buildPythonPackage rec {
       --replace " --cov=shtab --cov-report=term-missing --cov-report=xml" ""
   '';
 
-  pythonImportsCheck = [
-    "shtab"
-  ];
+  pythonImportsCheck = [ "shtab" ];
 
   meta = with lib; {
     description = "Module for shell tab completion of Python CLI applications";

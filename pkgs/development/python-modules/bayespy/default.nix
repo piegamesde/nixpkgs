@@ -1,6 +1,18 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder
-, pytestCheckHook, nose, glibcLocales, fetchpatch
-, numpy, scipy, matplotlib, h5py }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  nose,
+  glibcLocales,
+  fetchpatch,
+  numpy,
+  scipy,
+  matplotlib,
+  h5py,
+}:
 
 buildPythonPackage rec {
   pname = "bayespy";
@@ -15,14 +27,24 @@ buildPythonPackage rec {
     sha256 = "sha256-NOvuqPKioRIqScd2jC7nakonDEovTo9qKp/uTk9z1BE=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook nose glibcLocales ];
-
-  propagatedBuildInputs = [ numpy scipy matplotlib h5py ];
-
-  disabledTests = [
-    # Assertion error
-    "test_message_to_parents"
+  nativeCheckInputs = [
+    pytestCheckHook
+    nose
+    glibcLocales
   ];
+
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    matplotlib
+    h5py
+  ];
+
+  disabledTests =
+    [
+      # Assertion error
+      "test_message_to_parents"
+    ];
 
   pythonImportsCheck = [ "bayespy" ];
 

@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, glib
-, gtk3
-, libsoup
-, keybinder3
-, gst_all_1
-, wrapGAppsHook
-, appstream-glib
-, desktop-file-utils
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gtk3,
+  libsoup,
+  keybinder3,
+  gst_all_1,
+  wrapGAppsHook,
+  appstream-glib,
+  desktop-file-utils,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,18 +35,22 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    libsoup
-    keybinder3
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-    gst-plugins-ugly
-  ]);
+  buildInputs =
+    [
+      glib
+      gtk3
+      libsoup
+      keybinder3
+    ]
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+        gst-plugins-ugly
+      ]
+    );
 
   postPatch = ''
     patchShebangs scripts

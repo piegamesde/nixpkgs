@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, coverage
-, nose
-, six
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  coverage,
+  nose,
+  six,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -16,7 +17,10 @@ buildPythonPackage rec {
     sha256 = "9c87405839a19696e837b3b818fed3f5f69f16f1eec1a1ad77e043dcea9c772f";
   };
 
-  nativeCheckInputs = [ coverage nose ];
+  nativeCheckInputs = [
+    coverage
+    nose
+  ];
   propagatedBuildInputs = [ six ];
 
   checkPhase = ''

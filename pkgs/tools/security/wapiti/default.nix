@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -15,29 +16,32 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-muAugc0BgVSER2LSRv7ATbCqpXID8/WH+hfhmtoS36o=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiocache
-    aiosqlite
-    arsenic
-    beautifulsoup4
-    brotli
-    browser-cookie3
-    cryptography
-    dnspython
-    httpcore
-    httpx
-    humanize
-    importlib-metadata
-    loguru
-    mako
-    markupsafe
-    mitmproxy
-    six
-    sqlalchemy
-    tld
-    yaswfp
-  ] ++ httpx.optional-dependencies.brotli
-  ++ httpx.optional-dependencies.socks;
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      aiocache
+      aiosqlite
+      arsenic
+      beautifulsoup4
+      brotli
+      browser-cookie3
+      cryptography
+      dnspython
+      httpcore
+      httpx
+      humanize
+      importlib-metadata
+      loguru
+      mako
+      markupsafe
+      mitmproxy
+      six
+      sqlalchemy
+      tld
+      yaswfp
+    ]
+    ++ httpx.optional-dependencies.brotli
+    ++ httpx.optional-dependencies.socks;
 
   nativeCheckInputs = with python3.pkgs; [
     respx
@@ -123,14 +127,13 @@ python3.pkgs.buildPythonApplication rec {
     "test_persister_upload"
   ];
 
-  disabledTestPaths = [
-    # Requires sslyze which is obsolete and was removed
-    "tests/attack/test_mod_ssl.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requires sslyze which is obsolete and was removed
+      "tests/attack/test_mod_ssl.py"
+    ];
 
-  pythonImportsCheck = [
-    "wapitiCore"
-  ];
+  pythonImportsCheck = [ "wapitiCore" ];
 
   meta = with lib; {
     description = "Web application vulnerability scanner";

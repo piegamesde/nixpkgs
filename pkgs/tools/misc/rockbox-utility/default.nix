@@ -1,15 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, cryptopp
-, libusb1
-, makeWrapper
-, pkg-config
-, qt5
-, withEspeak ? false, espeak ? null
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cryptopp,
+  libusb1,
+  makeWrapper,
+  pkg-config,
+  qt5,
+  withEspeak ? false,
+  espeak ? null,
 }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   pname = "rockbox-utility";
   version = "1.4.1";
 
@@ -30,12 +32,13 @@ stdenv.mkDerivation  rec {
     libusb1
     qt5.qtbase
     qt5.qttools
-  ]
-  ++ lib.optional withEspeak espeak;
+  ] ++ lib.optional withEspeak espeak;
 
   postPatch = ''
     sed -i rbutil/rbutilqt/rbutilqt.pro \
-        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${lib.getDev qt5.qttools}/bin/lrelease|'
+        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${
+          lib.getDev qt5.qttools
+        }/bin/lrelease|'
   '';
 
   preConfigure = ''
@@ -73,7 +76,10 @@ stdenv.mkDerivation  rec {
     homepage = "https://www.rockbox.org";
     description = "Open source firmware for digital music players";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres goibhniu ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      goibhniu
+    ];
     platforms = platforms.linux;
   };
 }

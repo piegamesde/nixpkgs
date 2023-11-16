@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, gtk3
-, gdk-pixbuf
-, withWayland ? false
-, gtk-layer-shell
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  gtk3,
+  gdk-pixbuf,
+  withWayland ? false,
+  gtk-layer-shell,
+  stdenv,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -26,12 +27,18 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gtk3 gdk-pixbuf ] ++ lib.optional withWayland gtk-layer-shell;
+  buildInputs = [
+    gtk3
+    gdk-pixbuf
+  ] ++ lib.optional withWayland gtk-layer-shell;
 
   buildNoDefaultFeatures = withWayland;
   buildFeatures = lib.optional withWayland "wayland";
 
-  cargoBuildFlags = [ "--bin" "eww" ];
+  cargoBuildFlags = [
+    "--bin"
+    "eww"
+  ];
 
   cargoTestFlags = cargoBuildFlags;
 
@@ -42,7 +49,10 @@ rustPlatform.buildRustPackage rec {
     description = "ElKowars wacky widgets";
     homepage = "https://github.com/elkowar/eww";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda lom ];
+    maintainers = with maintainers; [
+      figsoda
+      lom
+    ];
     broken = stdenv.isDarwin;
   };
 }

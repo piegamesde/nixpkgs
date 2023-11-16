@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, unzip, gtk-engine-murrine }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  gtk-engine-murrine,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sweet";

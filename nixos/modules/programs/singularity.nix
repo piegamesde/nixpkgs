@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -64,15 +69,17 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.singularity.packageOverriden = (cfg.package.override (
-      optionalAttrs cfg.enableFakeroot {
-        newuidmapPath = "/run/wrappers/bin/newuidmap";
-        newgidmapPath = "/run/wrappers/bin/newgidmap";
-      } // optionalAttrs cfg.enableSuid {
-        enableSuid = true;
-        starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
-      }
-    ));
+    programs.singularity.packageOverriden =
+      (cfg.package.override (
+        optionalAttrs cfg.enableFakeroot {
+          newuidmapPath = "/run/wrappers/bin/newuidmap";
+          newgidmapPath = "/run/wrappers/bin/newgidmap";
+        }
+        // optionalAttrs cfg.enableSuid {
+          enableSuid = true;
+          starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
+        }
+      ));
     environment.systemPackages = [ cfg.packageOverriden ];
     security.wrappers."${cfg.packageOverriden.projectName}-suid" = mkIf cfg.enableSuid {
       setuid = true;
@@ -88,5 +95,4 @@ in
       "d /var/lib/${cfg.packageOverriden.projectName}/mnt/source 0770 root root -"
     ];
   };
-
 }

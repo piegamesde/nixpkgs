@@ -1,12 +1,13 @@
-{ beautifulsoup4
-, buildPythonPackage
-, django
-, fetchFromGitHub
-, lib
-, markdown
-, poetry-core
-, python
-, pyyaml
+{
+  beautifulsoup4,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  lib,
+  markdown,
+  poetry-core,
+  python,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  checkInputs = [
-    beautifulsoup4
-  ];
+  checkInputs = [ beautifulsoup4 ];
 
   checkPhase = ''
     export DJANGO_SETTINGS_MODULE=tests.settings.dev

@@ -1,12 +1,13 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, click-plugins
-, colorama
-, requests
-, setuptools
-, pythonOlder
-, xlsxwriter
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  click-plugins,
+  colorama,
+  requests,
+  setuptools,
+  pythonOlder,
+  xlsxwriter,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
   # The tests require a shodan api key, so skip them.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "shodan"
-  ];
+  pythonImportsCheck = [ "shodan" ];
 
   meta = with lib; {
     description = "Python library and command-line utility for Shodan";

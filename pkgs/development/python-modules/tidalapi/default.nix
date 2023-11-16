@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, python-dateutil
-, requests
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
 
   doCheck = false; # tests require internet access
 
-  pythonImportsCheck = [
-    "tidalapi"
-  ];
+  pythonImportsCheck = [ "tidalapi" ];
 
   meta = with lib; {
     changelog = "https://github.com/tamland/python-tidal/releases/tag/v${version}";

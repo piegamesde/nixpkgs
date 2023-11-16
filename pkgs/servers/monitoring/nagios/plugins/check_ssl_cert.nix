@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, bc
-, bind # host and dig binary
-, coreutils # date and timeout binary
-, curl
-, fetchFromGitHub
-, file
-, iproute2
-, makeWrapper
-, netcat-gnu
-, nmap
-, openssl
-, python3
-, which
+{
+  lib,
+  stdenv,
+  bc,
+  bind, # host and dig binary
+  coreutils, # date and timeout binary
+  curl,
+  fetchFromGitHub,
+  file,
+  iproute2,
+  makeWrapper,
+  netcat-gnu,
+  nmap,
+  openssl,
+  python3,
+  which,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,9 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-mr6tCZfnAM0e8cEtyen3oiV0Vt3cR/Z80RJ4NeMUaMs=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   makeFlags = [
     "DESTDIR=$(out)/bin"
@@ -37,7 +36,21 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/check_ssl_cert \
-      --prefix PATH : "${lib.makeBinPath [ openssl file which curl bc coreutils bind nmap iproute2 netcat-gnu python3 ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          openssl
+          file
+          which
+          curl
+          bc
+          coreutils
+          bind
+          nmap
+          iproute2
+          netcat-gnu
+          python3
+        ]
+      }"
   '';
 
   meta = with lib; {

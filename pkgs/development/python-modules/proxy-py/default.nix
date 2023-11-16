@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, bash
-, buildPythonPackage
-, fetchFromGitHub
-, gnumake
-, httpx
-, openssl
-, paramiko
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, typing-extensions
+{
+  lib,
+  stdenv,
+  bash,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gnumake,
+  httpx,
+  openssl,
+  paramiko,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pytest.ini
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     paramiko
@@ -67,9 +66,7 @@ buildPythonPackage rec {
     "integration"
   ];
 
-  pythonImportsCheck = [
-    "proxy"
-  ];
+  pythonImportsCheck = [ "proxy" ];
 
   meta = with lib; {
     description = "Python proxy framework";

@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, cmake
-, fontconfig
-, obs-studio
-, pkg-config
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  fontconfig,
+  obs-studio,
+  pkg-config,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,8 +21,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-mQ0TR4DL4bA5u4IL3RY9aLxU5G6qQ5W5xuNadiXGeB0=";
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ fontconfig obs-studio ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    fontconfig
+    obs-studio
+  ];
 
   postInstall = ''
     mkdir $out/lib/obs-plugins/
@@ -31,7 +38,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "OBS Studio plugin for adding LiveSplit One as a source";
     homepage = "https://github.com/CryZe/obs-livesplit-one";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = [ maintainers.Bauke ];
     platforms = obs-studio.meta.platforms;
   };

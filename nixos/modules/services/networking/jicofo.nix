@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,11 +11,18 @@ let
   cfg = config.services.jicofo;
 
   # HOCON is a JSON superset that some jitsi-meet components use for configuration
-  toHOCON = x: if isAttrs x && x ? __hocon_envvar then ("\${" + x.__hocon_envvar + "}")
-    else if isAttrs x && x ? __hocon_unquoted_string then x.__hocon_unquoted_string
-    else if isAttrs x then "{${ concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x) }}"
-    else if isList x then "[${ concatMapStringsSep "," toHOCON x }]"
-    else builtins.toJSON x;
+  toHOCON =
+    x:
+    if isAttrs x && x ? __hocon_envvar then
+      ("\${" + x.__hocon_envvar + "}")
+    else if isAttrs x && x ? __hocon_unquoted_string then
+      x.__hocon_unquoted_string
+    else if isAttrs x then
+      "{${concatStringsSep "," (mapAttrsToList (k: v: ''"${k}":${toHOCON v}'') x)}}"
+    else if isList x then
+      "[${concatMapStringsSep "," toHOCON x}]"
+    else
+      builtins.toJSON x;
 
   configFile = pkgs.writeText "jicofo.conf" (toHOCON cfg.config);
 in
@@ -77,7 +89,7 @@ in
     };
 
     config = mkOption {
-      type = (pkgs.formats.json {}).type;
+      type = (pkgs.formats.json { }).type;
       default = { };
       example = literalExpression ''
         {
@@ -99,7 +111,9 @@ in
             hostname = cfg.xmppHost;
             username = cfg.userName;
             domain = cfg.userDomain;
-            password = { __hocon_envvar = "JICOFO_AUTH_PASS"; };
+            password = {
+              __hocon_envvar = "JICOFO_AUTH_PASS";
+            };
             xmpp-domain = if cfg.xmppDomain == null then cfg.xmppHost else cfg.xmppDomain;
           };
           service = client;
@@ -107,59 +121,65 @@ in
       };
     };
 
-    users.groups.jitsi-meet = {};
+    users.groups.jitsi-meet = { };
 
-    systemd.services.jicofo = let
-      jicofoProps = {
-        "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
-        "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "jicofo";
-        "-Djava.util.logging.config.file" = "/etc/jitsi/jicofo/logging.properties";
-        "-Dconfig.file" = configFile;
+    systemd.services.jicofo =
+      let
+        jicofoProps = {
+          "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
+          "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "jicofo";
+          "-Djava.util.logging.config.file" = "/etc/jitsi/jicofo/logging.properties";
+          "-Dconfig.file" = configFile;
+        };
+      in
+      {
+        description = "JItsi COnference FOcus";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
+
+        restartTriggers = [ configFile ];
+        environment.JAVA_SYS_PROPS = concatStringsSep " " (
+          mapAttrsToList (k: v: "${k}=${toString v}") jicofoProps
+        );
+
+        script = ''
+          export JICOFO_AUTH_PASS="$(<${cfg.userPasswordFile})"
+          exec "${pkgs.jicofo}/bin/jicofo"
+        '';
+
+        serviceConfig = {
+          Type = "exec";
+
+          DynamicUser = true;
+          User = "jicofo";
+          Group = "jitsi-meet";
+
+          CapabilityBoundingSet = "";
+          NoNewPrivileges = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectHostname = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectControlGroups = true;
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
+          ];
+          RestrictNamespaces = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+        };
       };
-    in
-    {
-      description = "JItsi COnference FOcus";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-
-      restartTriggers = [
-        configFile
-      ];
-      environment.JAVA_SYS_PROPS = concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") jicofoProps);
-
-      script = ''
-        export JICOFO_AUTH_PASS="$(<${cfg.userPasswordFile})"
-        exec "${pkgs.jicofo}/bin/jicofo"
-      '';
-
-      serviceConfig = {
-        Type = "exec";
-
-        DynamicUser = true;
-        User = "jicofo";
-        Group = "jitsi-meet";
-
-        CapabilityBoundingSet = "";
-        NoNewPrivileges = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectHostname = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
-        RestrictNamespaces = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-      };
-    };
 
     environment.etc."jitsi/jicofo/sip-communicator.properties".text = "";
     environment.etc."jitsi/jicofo/logging.properties".source =
-      mkDefault "${pkgs.jicofo}/etc/jitsi/jicofo/logging.properties-journal";
+      mkDefault
+        "${pkgs.jicofo}/etc/jitsi/jicofo/logging.properties-journal";
   };
 
   meta.maintainers = lib.teams.jitsi.members;

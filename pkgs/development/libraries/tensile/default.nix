@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, buildPythonPackage
-, pyyaml
-, msgpack
-, pandas
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  buildPythonPackage,
+  pyyaml,
+  msgpack,
+  pandas,
 }:
 
 buildPythonPackage rec {

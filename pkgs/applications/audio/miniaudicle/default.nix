@@ -1,16 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, bison
-, flex
-, which
-, alsa-lib
-, libsndfile
-, qt4
-, qscintilla-qt4
-, libpulseaudio
-, libjack2
-, audioBackend ? "pulse" # "pulse", "alsa", or "jack"
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+  which,
+  alsa-lib,
+  libsndfile,
+  qt4,
+  qscintilla-qt4,
+  libpulseaudio,
+  libjack2,
+  audioBackend ? "pulse" # "pulse", "alsa", or "jack"
+  ,
 }:
 
 stdenv.mkDerivation rec {
@@ -35,13 +37,15 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs = [
-    alsa-lib
-    libsndfile
-    qt4
-    qscintilla-qt4
-  ] ++ lib.optional (audioBackend == "pulse") libpulseaudio
-    ++ lib.optional (audioBackend == "jack")  libjack2;
+  buildInputs =
+    [
+      alsa-lib
+      libsndfile
+      qt4
+      qscintilla-qt4
+    ]
+    ++ lib.optional (audioBackend == "pulse") libpulseaudio
+    ++ lib.optional (audioBackend == "jack") libjack2;
 
   buildFlags = [ "linux-${audioBackend}" ];
 

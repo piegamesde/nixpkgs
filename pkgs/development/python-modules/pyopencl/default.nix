@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, fetchPypi
-, buildPythonPackage
-, appdirs
-, cffi
-, decorator
-, mako
-, mesa_drivers
-, numpy
-, ocl-icd
-, opencl-headers
-, platformdirs
-, pybind11
-, pytest
-, pytestCheckHook
-, pytools
-, setuptools
-, six
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  buildPythonPackage,
+  appdirs,
+  cffi,
+  decorator,
+  mako,
+  mesa_drivers,
+  numpy,
+  ocl-icd,
+  opencl-headers,
+  platformdirs,
+  pybind11,
+  pytest,
+  pytestCheckHook,
+  pytools,
+  setuptools,
+  six,
 }:
 
 let
-  os-specific-buildInputs =
-    if stdenv.isDarwin then [ mesa_drivers.dev ] else [ ocl-icd ];
-in buildPythonPackage rec {
+  os-specific-buildInputs = if stdenv.isDarwin then [ mesa_drivers.dev ] else [ ocl-icd ];
+in
+buildPythonPackage rec {
   pname = "pyopencl";
   version = "2023.1";
 
@@ -35,7 +36,10 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  buildInputs = [ opencl-headers pybind11 ] ++ os-specific-buildInputs;
+  buildInputs = [
+    opencl-headers
+    pybind11
+  ] ++ os-specific-buildInputs;
 
   propagatedBuildInputs = [
     appdirs

@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, cmake
-, pkg-config
-, openssl
-, oniguruma
-, CoreServices
-, installShellFiles
-, libsass
-, zola
-, testers
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  pkg-config,
+  openssl,
+  oniguruma,
+  CoreServices,
+  installShellFiles,
+  libsass,
+  zola,
+  testers,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -35,9 +36,7 @@ rustPlatform.buildRustPackage rec {
     openssl
     oniguruma
     libsass
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 
@@ -55,6 +54,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://www.getzola.org/";
     changelog = "https://github.com/getzola/zola/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dandellion dywedir _0x4A6F ];
+    maintainers = with maintainers; [
+      dandellion
+      dywedir
+      _0x4A6F
+    ];
   };
 }

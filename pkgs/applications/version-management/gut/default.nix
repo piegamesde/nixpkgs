@@ -1,7 +1,8 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, nix-update-script
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -17,7 +18,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-E4jr+dskBdVXj/B5RW1AKyxxr+f/+ZW42OTO9XbCLuw=";
 
-  ldflags = [ "-s" "-w" "-X github.com/julien040/gut/src/telemetry.gutVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/julien040/gut/src/telemetry.gutVersion=${version}"
+  ];
 
   # Checks if `/home` exists
   doCheck = false;

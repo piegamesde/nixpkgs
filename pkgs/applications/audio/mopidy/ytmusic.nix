@@ -1,23 +1,27 @@
-{ lib
-, python3
-, fetchPypi
-, mopidy
+{
+  lib,
+  python3,
+  fetchPypi,
+  mopidy,
 }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      ytmusicapi = super.ytmusicapi.overridePythonAttrs (old: rec {
-        version = "0.25.1";
-        src = fetchPypi {
-          inherit (old) pname;
-          inherit version;
-          hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
-        };
-      });
+      ytmusicapi = super.ytmusicapi.overridePythonAttrs (
+        old: rec {
+          version = "0.25.1";
+          src = fetchPypi {
+            inherit (old) pname;
+            inherit version;
+            hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
+          };
+        }
+      );
     };
   };
-in python.pkgs.buildPythonApplication rec {
+in
+python.pkgs.buildPythonApplication rec {
   pname = "mopidy-ytmusic";
   version = "0.3.8";
 

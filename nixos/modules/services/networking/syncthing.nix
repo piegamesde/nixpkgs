@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,24 +14,37 @@ let
   defaultUser = "syncthing";
   defaultGroup = defaultUser;
 
-  devices = mapAttrsToList (name: device: {
-    deviceID = device.id;
-    inherit (device) name addresses introducer autoAcceptFolders;
-  }) cfg.devices;
+  devices =
+    mapAttrsToList
+      (name: device: {
+        deviceID = device.id;
+        inherit (device)
+          name
+          addresses
+          introducer
+          autoAcceptFolders
+        ;
+      })
+      cfg.devices;
 
-  folders = mapAttrsToList ( _: folder: {
-    inherit (folder) path id label type;
-    devices = map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
-    rescanIntervalS = folder.rescanInterval;
-    fsWatcherEnabled = folder.watch;
-    fsWatcherDelayS = folder.watchDelay;
-    ignorePerms = folder.ignorePerms;
-    ignoreDelete = folder.ignoreDelete;
-    versioning = folder.versioning;
-  }) (filterAttrs (
-    _: folder:
-    folder.enable
-  ) cfg.folders);
+  folders =
+    mapAttrsToList
+      (_: folder: {
+        inherit (folder)
+          path
+          id
+          label
+          type
+        ;
+        devices = map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
+        rescanIntervalS = folder.rescanInterval;
+        fsWatcherEnabled = folder.watch;
+        fsWatcherDelayS = folder.watchDelay;
+        ignorePerms = folder.ignorePerms;
+        ignoreDelete = folder.ignoreDelete;
+        versioning = folder.versioning;
+      })
+      (filterAttrs (_: folder: folder.enable) cfg.folders);
 
   updateConfig = pkgs.writers.writeDash "merge-syncthing-config" ''
     set -efu
@@ -55,8 +74,12 @@ let
 
     # generate the new config by merging with the NixOS config options
     new_cfg=$(printf '%s\n' "$old_cfg" | ${pkgs.jq}/bin/jq -c '. * {
-        "devices": (${builtins.toJSON devices}${optionalString (cfg.devices == {} || ! cfg.overrideDevices) " + .devices"}),
-        "folders": (${builtins.toJSON folders}${optionalString (cfg.folders == {} || ! cfg.overrideFolders) " + .folders"})
+        "devices": (${builtins.toJSON devices}${
+          optionalString (cfg.devices == { } || !cfg.overrideDevices) " + .devices"
+        }),
+        "folders": (${builtins.toJSON folders}${
+          optionalString (cfg.folders == { } || !cfg.overrideFolders) " + .folders"
+        })
     } * ${builtins.toJSON cfg.extraOptions}')
 
     # send the new config
@@ -68,13 +91,15 @@ let
         curl -X POST ${cfg.guiAddress}/rest/system/restart
     fi
   '';
-in {
+in
+{
   ###### interface
   options = {
     services.syncthing = {
 
-      enable = mkEnableOption
-        (lib.mdDoc "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync");
+      enable = mkEnableOption (
+        lib.mdDoc "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
+      );
 
       cert = mkOption {
         type = types.nullOr types.str;
@@ -106,7 +131,7 @@ in {
       };
 
       devices = mkOption {
-        default = {};
+        default = { };
         description = mdDoc ''
           Peers/devices which Syncthing should communicate with.
 
@@ -120,54 +145,58 @@ in {
             addresses = [ "tcp://192.168.0.10:51820" ];
           };
         };
-        type = types.attrsOf (types.submodule ({ name, ... }: {
-          options = {
+        type = types.attrsOf (
+          types.submodule (
+            { name, ... }:
+            {
+              options = {
 
-            name = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The name of the device.
-              '';
-            };
+                name = mkOption {
+                  type = types.str;
+                  default = name;
+                  description = lib.mdDoc ''
+                    The name of the device.
+                  '';
+                };
 
-            addresses = mkOption {
-              type = types.listOf types.str;
-              default = [];
-              description = lib.mdDoc ''
-                The addresses used to connect to the device.
-                If this is left empty, dynamic configuration is attempted.
-              '';
-            };
+                addresses = mkOption {
+                  type = types.listOf types.str;
+                  default = [ ];
+                  description = lib.mdDoc ''
+                    The addresses used to connect to the device.
+                    If this is left empty, dynamic configuration is attempted.
+                  '';
+                };
 
-            id = mkOption {
-              type = types.str;
-              description = mdDoc ''
-                The device ID. See <https://docs.syncthing.net/dev/device-ids.html>.
-              '';
-            };
+                id = mkOption {
+                  type = types.str;
+                  description = mdDoc ''
+                    The device ID. See <https://docs.syncthing.net/dev/device-ids.html>.
+                  '';
+                };
 
-            introducer = mkOption {
-              type = types.bool;
-              default = false;
-              description = mdDoc ''
-                Whether the device should act as an introducer and be allowed
-                to add folders on this computer.
-                See <https://docs.syncthing.net/users/introducer.html>.
-              '';
-            };
+                introducer = mkOption {
+                  type = types.bool;
+                  default = false;
+                  description = mdDoc ''
+                    Whether the device should act as an introducer and be allowed
+                    to add folders on this computer.
+                    See <https://docs.syncthing.net/users/introducer.html>.
+                  '';
+                };
 
-            autoAcceptFolders = mkOption {
-              type = types.bool;
-              default = false;
-              description = mdDoc ''
-                Automatically create or share folders that this device advertises at the default path.
-                See <https://docs.syncthing.net/users/config.html?highlight=autoaccept#config-file-format>.
-              '';
-            };
-
-          };
-        }));
+                autoAcceptFolders = mkOption {
+                  type = types.bool;
+                  default = false;
+                  description = mdDoc ''
+                    Automatically create or share folders that this device advertises at the default path.
+                    See <https://docs.syncthing.net/users/config.html?highlight=autoaccept#config-file-format>.
+                  '';
+                };
+              };
+            }
+          )
+        );
       };
 
       overrideFolders = mkOption {
@@ -182,7 +211,7 @@ in {
       };
 
       folders = mkOption {
-        default = {};
+        default = { };
         description = mdDoc ''
           Folders which should be shared by Syncthing.
 
@@ -198,189 +227,208 @@ in {
             };
           }
         '';
-        type = types.attrsOf (types.submodule ({ name, ... }: {
-          options = {
+        type = types.attrsOf (
+          types.submodule (
+            { name, ... }:
+            {
+              options = {
 
-            enable = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether to share this folder.
-                This option is useful when you want to define all folders
-                in one place, but not every machine should share all folders.
-              '';
-            };
-
-            path = mkOption {
-              # TODO for release 23.05: allow relative paths again and set
-              # working directory to cfg.dataDir
-              type = types.str // {
-                check = x: types.str.check x && (substring 0 1 x == "/" || substring 0 2 x == "~/");
-                description = types.str.description + " starting with / or ~/";
-              };
-              default = name;
-              description = lib.mdDoc ''
-                The path to the folder which should be shared.
-                Only absolute paths (starting with `/`) and paths relative to
-                the [user](#opt-services.syncthing.user)'s home directory
-                (starting with `~/`) are allowed.
-              '';
-            };
-
-            id = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The ID of the folder. Must be the same on all devices.
-              '';
-            };
-
-            label = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The label of the folder.
-              '';
-            };
-
-            devices = mkOption {
-              type = types.listOf types.str;
-              default = [];
-              description = mdDoc ''
-                The devices this folder should be shared with. Each device must
-                be defined in the [devices](#opt-services.syncthing.devices) option.
-              '';
-            };
-
-            versioning = mkOption {
-              default = null;
-              description = mdDoc ''
-                How to keep changed/deleted files with Syncthing.
-                There are 4 different types of versioning with different parameters.
-                See <https://docs.syncthing.net/users/versioning.html>.
-              '';
-              example = literalExpression ''
-                [
-                  {
-                    versioning = {
-                      type = "simple";
-                      params.keep = "10";
-                    };
-                  }
-                  {
-                    versioning = {
-                      type = "trashcan";
-                      params.cleanoutDays = "1000";
-                    };
-                  }
-                  {
-                    versioning = {
-                      type = "staggered";
-                      fsPath = "/syncthing/backup";
-                      params = {
-                        cleanInterval = "3600";
-                        maxAge = "31536000";
-                      };
-                    };
-                  }
-                  {
-                    versioning = {
-                      type = "external";
-                      params.versionsPath = pkgs.writers.writeBash "backup" '''
-                        folderpath="$1"
-                        filepath="$2"
-                        rm -rf "$folderpath/$filepath"
-                      ''';
-                    };
-                  }
-                ]
-              '';
-              type = with types; nullOr (submodule {
-                options = {
-                  type = mkOption {
-                    type = enum [ "external" "simple" "staggered" "trashcan" ];
-                    description = mdDoc ''
-                      The type of versioning.
-                      See <https://docs.syncthing.net/users/versioning.html>.
-                    '';
-                  };
-                  fsPath = mkOption {
-                    default = "";
-                    type = either str path;
-                    description = mdDoc ''
-                      Path to the versioning folder.
-                      See <https://docs.syncthing.net/users/versioning.html>.
-                    '';
-                  };
-                  params = mkOption {
-                    type = attrsOf (either str path);
-                    description = mdDoc ''
-                      The parameters for versioning. Structure depends on
-                      [versioning.type](#opt-services.syncthing.folders._name_.versioning.type).
-                      See <https://docs.syncthing.net/users/versioning.html>.
-                    '';
-                  };
+                enable = mkOption {
+                  type = types.bool;
+                  default = true;
+                  description = lib.mdDoc ''
+                    Whether to share this folder.
+                    This option is useful when you want to define all folders
+                    in one place, but not every machine should share all folders.
+                  '';
                 };
-              });
-            };
 
-            rescanInterval = mkOption {
-              type = types.int;
-              default = 3600;
-              description = lib.mdDoc ''
-                How often the folder should be rescanned for changes.
-              '';
-            };
+                path = mkOption {
+                  # TODO for release 23.05: allow relative paths again and set
+                  # working directory to cfg.dataDir
+                  type = types.str // {
+                    check = x: types.str.check x && (substring 0 1 x == "/" || substring 0 2 x == "~/");
+                    description = types.str.description + " starting with / or ~/";
+                  };
+                  default = name;
+                  description = lib.mdDoc ''
+                    The path to the folder which should be shared.
+                    Only absolute paths (starting with `/`) and paths relative to
+                    the [user](#opt-services.syncthing.user)'s home directory
+                    (starting with `~/`) are allowed.
+                  '';
+                };
 
-            type = mkOption {
-              type = types.enum [ "sendreceive" "sendonly" "receiveonly" "receiveencrypted" ];
-              default = "sendreceive";
-              description = lib.mdDoc ''
-                Whether to only send changes for this folder, only receive them
-                or both. `receiveencrypted` can be used for untrusted devices. See
-                <https://docs.syncthing.net/users/untrusted.html> for reference.
-              '';
-            };
+                id = mkOption {
+                  type = types.str;
+                  default = name;
+                  description = lib.mdDoc ''
+                    The ID of the folder. Must be the same on all devices.
+                  '';
+                };
 
-            watch = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether the folder should be watched for changes by inotify.
-              '';
-            };
+                label = mkOption {
+                  type = types.str;
+                  default = name;
+                  description = lib.mdDoc ''
+                    The label of the folder.
+                  '';
+                };
 
-            watchDelay = mkOption {
-              type = types.int;
-              default = 10;
-              description = lib.mdDoc ''
-                The delay after an inotify event is triggered.
-              '';
-            };
+                devices = mkOption {
+                  type = types.listOf types.str;
+                  default = [ ];
+                  description = mdDoc ''
+                    The devices this folder should be shared with. Each device must
+                    be defined in the [devices](#opt-services.syncthing.devices) option.
+                  '';
+                };
 
-            ignorePerms = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether to ignore permission changes.
-              '';
-            };
+                versioning = mkOption {
+                  default = null;
+                  description = mdDoc ''
+                    How to keep changed/deleted files with Syncthing.
+                    There are 4 different types of versioning with different parameters.
+                    See <https://docs.syncthing.net/users/versioning.html>.
+                  '';
+                  example = literalExpression ''
+                    [
+                      {
+                        versioning = {
+                          type = "simple";
+                          params.keep = "10";
+                        };
+                      }
+                      {
+                        versioning = {
+                          type = "trashcan";
+                          params.cleanoutDays = "1000";
+                        };
+                      }
+                      {
+                        versioning = {
+                          type = "staggered";
+                          fsPath = "/syncthing/backup";
+                          params = {
+                            cleanInterval = "3600";
+                            maxAge = "31536000";
+                          };
+                        };
+                      }
+                      {
+                        versioning = {
+                          type = "external";
+                          params.versionsPath = pkgs.writers.writeBash "backup" '''
+                            folderpath="$1"
+                            filepath="$2"
+                            rm -rf "$folderpath/$filepath"
+                          ''';
+                        };
+                      }
+                    ]
+                  '';
+                  type =
+                    with types;
+                    nullOr (
+                      submodule {
+                        options = {
+                          type = mkOption {
+                            type = enum [
+                              "external"
+                              "simple"
+                              "staggered"
+                              "trashcan"
+                            ];
+                            description = mdDoc ''
+                              The type of versioning.
+                              See <https://docs.syncthing.net/users/versioning.html>.
+                            '';
+                          };
+                          fsPath = mkOption {
+                            default = "";
+                            type = either str path;
+                            description = mdDoc ''
+                              Path to the versioning folder.
+                              See <https://docs.syncthing.net/users/versioning.html>.
+                            '';
+                          };
+                          params = mkOption {
+                            type = attrsOf (either str path);
+                            description = mdDoc ''
+                              The parameters for versioning. Structure depends on
+                              [versioning.type](#opt-services.syncthing.folders._name_.versioning.type).
+                              See <https://docs.syncthing.net/users/versioning.html>.
+                            '';
+                          };
+                        };
+                      }
+                    );
+                };
 
-            ignoreDelete = mkOption {
-              type = types.bool;
-              default = false;
-              description = mdDoc ''
-                Whether to skip deleting files that are deleted by peers.
-                See <https://docs.syncthing.net/advanced/folder-ignoredelete.html>.
-              '';
-            };
-          };
-        }));
+                rescanInterval = mkOption {
+                  type = types.int;
+                  default = 3600;
+                  description = lib.mdDoc ''
+                    How often the folder should be rescanned for changes.
+                  '';
+                };
+
+                type = mkOption {
+                  type = types.enum [
+                    "sendreceive"
+                    "sendonly"
+                    "receiveonly"
+                    "receiveencrypted"
+                  ];
+                  default = "sendreceive";
+                  description = lib.mdDoc ''
+                    Whether to only send changes for this folder, only receive them
+                    or both. `receiveencrypted` can be used for untrusted devices. See
+                    <https://docs.syncthing.net/users/untrusted.html> for reference.
+                  '';
+                };
+
+                watch = mkOption {
+                  type = types.bool;
+                  default = true;
+                  description = lib.mdDoc ''
+                    Whether the folder should be watched for changes by inotify.
+                  '';
+                };
+
+                watchDelay = mkOption {
+                  type = types.int;
+                  default = 10;
+                  description = lib.mdDoc ''
+                    The delay after an inotify event is triggered.
+                  '';
+                };
+
+                ignorePerms = mkOption {
+                  type = types.bool;
+                  default = true;
+                  description = lib.mdDoc ''
+                    Whether to ignore permission changes.
+                  '';
+                };
+
+                ignoreDelete = mkOption {
+                  type = types.bool;
+                  default = false;
+                  description = mdDoc ''
+                    Whether to skip deleting files that are deleted by peers.
+                    See <https://docs.syncthing.net/advanced/folder-ignoredelete.html>.
+                  '';
+                };
+              };
+            }
+          )
+        );
       };
 
       extraOptions = mkOption {
-        type = types.addCheck (pkgs.formats.json {}).type isAttrs;
-        default = {};
+        type = types.addCheck (pkgs.formats.json { }).type isAttrs;
+        default = { };
         description = mdDoc ''
           Extra configuration options for Syncthing.
           See <https://docs.syncthing.net/users/config.html>.
@@ -472,27 +520,29 @@ in {
         '';
       };
 
-      configDir = let
-        cond = versionAtLeast config.system.stateVersion "19.03";
-      in mkOption {
-        type = types.path;
-        description = lib.mdDoc ''
-          The path where the settings and keys will exist.
-        '';
-        default = cfg.dataDir + optionalString cond "/.config/syncthing";
-        defaultText = literalMD ''
-          * if `stateVersion >= 19.03`:
+      configDir =
+        let
+          cond = versionAtLeast config.system.stateVersion "19.03";
+        in
+        mkOption {
+          type = types.path;
+          description = lib.mdDoc ''
+            The path where the settings and keys will exist.
+          '';
+          default = cfg.dataDir + optionalString cond "/.config/syncthing";
+          defaultText = literalMD ''
+            * if `stateVersion >= 19.03`:
 
-                config.${opt.dataDir} + "/.config/syncthing"
-          * otherwise:
+                  config.${opt.dataDir} + "/.config/syncthing"
+            * otherwise:
 
-                config.${opt.dataDir}
-        '';
-      };
+                  config.${opt.dataDir}
+          '';
+        };
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "--reset-deltas" ];
         description = lib.mdDoc ''
           Extra flags passed to the syncthing command in the service definition.
@@ -525,14 +575,45 @@ in {
     };
   };
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "syncthing" "useInotify" ] ''
-      This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
-      It can be enabled on a per-folder basis through the web interface.
-    '')
-  ] ++ map (o:
-    mkRenamedOptionModule [ "services" "syncthing" "declarative" o ] [ "services" "syncthing" o ]
-  ) [ "cert" "key" "devices" "folders" "overrideDevices" "overrideFolders" "extraOptions"];
+  imports =
+    [
+      (mkRemovedOptionModule
+        [
+          "services"
+          "syncthing"
+          "useInotify"
+        ]
+        ''
+          This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
+          It can be enabled on a per-folder basis through the web interface.
+        ''
+      )
+    ]
+    ++ map
+      (
+        o:
+        mkRenamedOptionModule
+          [
+            "services"
+            "syncthing"
+            "declarative"
+            o
+          ]
+          [
+            "services"
+            "syncthing"
+            o
+          ]
+      )
+      [
+        "cert"
+        "key"
+        "devices"
+        "folders"
+        "overrideDevices"
+        "overrideFolders"
+        "extraOptions"
+      ];
 
   ###### implementation
 
@@ -540,24 +621,26 @@ in {
 
     networking.firewall = mkIf cfg.openDefaultPorts {
       allowedTCPPorts = [ 22000 ];
-      allowedUDPPorts = [ 21027 22000 ];
+      allowedUDPPorts = [
+        21027
+        22000
+      ];
     };
 
     systemd.packages = [ pkgs.syncthing ];
 
     users.users = mkIf (cfg.systemService && cfg.user == defaultUser) {
-      ${defaultUser} =
-        { group = cfg.group;
-          home  = cfg.dataDir;
-          createHome = true;
-          uid = config.ids.uids.syncthing;
-          description = "Syncthing daemon user";
-        };
+      ${defaultUser} = {
+        group = cfg.group;
+        home = cfg.dataDir;
+        createHome = true;
+        uid = config.ids.uids.syncthing;
+        description = "Syncthing daemon user";
+      };
     };
 
     users.groups = mkIf (cfg.systemService && cfg.group == defaultGroup) {
-      ${defaultGroup}.gid =
-        config.ids.gids.syncthing;
+      ${defaultGroup}.gid = config.ids.gids.syncthing;
     };
 
     systemd.services = {
@@ -575,20 +658,22 @@ in {
         serviceConfig = {
           Restart = "on-failure";
           SuccessExitStatus = "3 4";
-          RestartForceExitStatus="3 4";
+          RestartForceExitStatus = "3 4";
           User = cfg.user;
           Group = cfg.group;
-          ExecStartPre = mkIf (cfg.cert != null || cfg.key != null)
-            "+${pkgs.writers.writeBash "syncthing-copy-keys" ''
-              install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
-              ${optionalString (cfg.cert != null) ''
-                install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.cert} ${cfg.configDir}/cert.pem
-              ''}
-              ${optionalString (cfg.key != null) ''
-                install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.key} ${cfg.configDir}/key.pem
-              ''}
-            ''}"
-          ;
+          ExecStartPre =
+            mkIf (cfg.cert != null || cfg.key != null)
+              "+${
+                pkgs.writers.writeBash "syncthing-copy-keys" ''
+                  install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
+                  ${optionalString (cfg.cert != null) ''
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.cert} ${cfg.configDir}/cert.pem
+                  ''}
+                  ${optionalString (cfg.key != null) ''
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.key} ${cfg.configDir}/key.pem
+                  ''}
+                ''
+              }";
           ExecStart = ''
             ${cfg.package}/bin/syncthing \
               -no-browser \
@@ -609,15 +694,17 @@ in {
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           CapabilityBoundingSet = [
-            "~CAP_SYS_PTRACE" "~CAP_SYS_ADMIN"
-            "~CAP_SETGID" "~CAP_SETUID" "~CAP_SETPCAP"
-            "~CAP_SYS_TIME" "~CAP_KILL"
+            "~CAP_SYS_PTRACE"
+            "~CAP_SYS_ADMIN"
+            "~CAP_SETGID"
+            "~CAP_SETUID"
+            "~CAP_SETPCAP"
+            "~CAP_SYS_TIME"
+            "~CAP_KILL"
           ];
         };
       };
-      syncthing-init = mkIf (
-        cfg.devices != {} || cfg.folders != {} || cfg.extraOptions != {}
-      ) {
+      syncthing-init = mkIf (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { }) {
         description = "Syncthing configuration updater";
         requisite = [ "syncthing.service" ];
         after = [ "syncthing.service" ];

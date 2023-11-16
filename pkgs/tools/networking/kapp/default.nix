@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, kapp }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  kapp,
+}:
 
 buildGoModule rec {
   pname = "kapp";
@@ -15,9 +22,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/kapp" ];
 
-  ldflags = [
-    "-X github.com/vmware-tanzu/carvel-kapp/pkg/kapp/version.Version=${version}"
-  ];
+  ldflags = [ "-X github.com/vmware-tanzu/carvel-kapp/pkg/kapp/version.Version=${version}" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -28,9 +33,7 @@ buildGoModule rec {
     done
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = kapp;
-  };
+  passthru.tests.version = testers.testVersion { package = kapp; };
 
   meta = with lib; {
     description = "CLI tool that encourages Kubernetes users to manage bulk resources with an application abstraction for grouping";

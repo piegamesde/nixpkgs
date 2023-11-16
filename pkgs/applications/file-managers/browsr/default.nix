@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchFromGitHub
-, extras ? [ "all" ]
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  extras ? [ "all" ],
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -22,19 +23,22 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    art
-    click
-    fsspec
-    pandas
-    pillow
-    pymupdf
-    rich
-    rich-click
-    rich-pixels
-    textual
-    universal-pathlib
-  ] ++ lib.attrVals extras passthru.optional-dependencies;
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      art
+      click
+      fsspec
+      pandas
+      pillow
+      pymupdf
+      rich
+      rich-click
+      rich-pixels
+      textual
+      universal-pathlib
+    ]
+    ++ lib.attrVals extras passthru.optional-dependencies;
 
   passthru.optional-dependencies = with python3.pkgs; {
     all = [
@@ -46,9 +50,7 @@ python3.pkgs.buildPythonApplication rec {
       requests
       s3fs
     ];
-    parquet = [
-      pyarrow
-    ];
+    parquet = [ pyarrow ];
     remote = [
       adlfs
       aiohttp

@@ -1,13 +1,14 @@
-{ lib
-, isPy3k
-, fetchFromGitHub
-, buildPythonPackage
-, flake8-import-order
-, pyflakes
-, tomli
-, setuptools
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  isPy3k,
+  fetchFromGitHub,
+  buildPythonPackage,
+  flake8-import-order,
+  pyflakes,
+  tomli,
+  setuptools,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -31,13 +32,9 @@ buildPythonPackage rec {
     tomli
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "zimports"
-  ];
+  pythonImportsCheck = [ "zimports" ];
 
   meta = with lib; {
     description = "Python import rewriter";

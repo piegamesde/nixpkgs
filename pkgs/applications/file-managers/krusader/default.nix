@@ -1,16 +1,17 @@
-{ mkDerivation
-, lib
-, fetchurl
-, extra-cmake-modules
-, kdoctools
-, wrapGAppsHook
-, karchive
-, kconfig
-, kcrash
-, kguiaddons
-, kinit
-, kparts
-, kwindowsystem
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  extra-cmake-modules,
+  kdoctools,
+  wrapGAppsHook,
+  karchive,
+  kconfig,
+  kcrash,
+  kguiaddons,
+  kinit,
+  kparts,
+  kwindowsystem,
 }:
 
 mkDerivation rec {
@@ -42,6 +43,9 @@ mkDerivation rec {
     homepage = "http://www.krusader.org";
     description = "Norton/Total Commander clone for KDE";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ sander turion ];
+    maintainers = with maintainers; [
+      sander
+      turion
+    ];
   };
 }

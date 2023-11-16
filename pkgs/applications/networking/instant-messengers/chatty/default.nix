@@ -1,30 +1,31 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, appstream-glib
-, desktop-file-utils
-, itstool
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook
-, evolution-data-server
-, feedbackd
-, glibmm
-, gnome-desktop
-, gspell
-, gtk3
-, json-glib
-, libgcrypt
-, libhandy
-, libphonenumber
-, modemmanager
-, olm
-, pidgin
-, protobuf
-, sqlite
-, plugins ? [ ]
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  appstream-glib,
+  desktop-file-utils,
+  itstool,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wrapGAppsHook,
+  evolution-data-server,
+  feedbackd,
+  glibmm,
+  gnome-desktop,
+  gspell,
+  gtk3,
+  json-glib,
+  libgcrypt,
+  libhandy,
+  libphonenumber,
+  modemmanager,
+  olm,
+  pidgin,
+  protobuf,
+  sqlite,
+  plugins ? [ ],
 }:
 
 stdenv.mkDerivation rec {
@@ -85,7 +86,10 @@ stdenv.mkDerivation rec {
     homepage = "https://source.puri.sm/Librem5/chatty";
     changelog = "https://source.puri.sm/Librem5/chatty/-/blob/${src.rev}/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda tomfitzhenry ];
+    maintainers = with maintainers; [
+      dotlambda
+      tomfitzhenry
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, lynx }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  lynx,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ifmetric";
@@ -11,14 +16,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ lynx ];
 
-  patches = [
-    # Fixes an issue related to the netlink API.
-    # Upstream is largely inactive; this is a Debian patch.
-    (fetchurl {
-      url = "https://launchpadlibrarian.net/85974387/10_netlink_fix.patch";
-      sha256 = "1pnlcr0qvk0bd5243wpg14i387zp978f4xhwwkcqn1cir91x7fbc";
-    })
-  ];
+  patches =
+    [
+      # Fixes an issue related to the netlink API.
+      # Upstream is largely inactive; this is a Debian patch.
+      (fetchurl {
+        url = "https://launchpadlibrarian.net/85974387/10_netlink_fix.patch";
+        sha256 = "1pnlcr0qvk0bd5243wpg14i387zp978f4xhwwkcqn1cir91x7fbc";
+      })
+    ];
 
   meta = with lib; {
     description = "Tool for setting IP interface metrics";

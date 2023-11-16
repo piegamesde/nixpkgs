@@ -1,14 +1,15 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, installShellFiles
-, pkg-config
-, openssl
-, python3
-, libxcb
-, AppKit
-, Security
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  installShellFiles,
+  pkg-config,
+  openssl,
+  python3,
+  libxcb,
+  AppKit,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -26,10 +27,22 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
   };
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ pkg-config python3 ];
-  buildInputs = [ ]
-    ++ lib.optionals stdenv.isLinux [ openssl libxcb ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit Security ];
+  nativeBuildInputs =
+    [ installShellFiles ]
+    ++ lib.optionals stdenv.isLinux [
+      pkg-config
+      python3
+    ];
+  buildInputs =
+    [ ]
+    ++ lib.optionals stdenv.isLinux [
+      openssl
+      libxcb
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Security
+    ];
 
   postPatch = ''
     # update Cargo.lock to fix build
@@ -52,7 +65,10 @@ rustPlatform.buildRustPackage rec {
     description = "Spotify for the terminal written in Rust";
     homepage = "https://github.com/Rigellute/spotify-tui";
     changelog = "https://github.com/Rigellute/spotify-tui/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit /* or */ asl20 ];
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     maintainers = with maintainers; [ jwijenbergh ];
     mainProgram = "spt";
   };

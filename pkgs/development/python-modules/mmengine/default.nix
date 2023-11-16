@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, torch
-, opencv4
-, yapf
-, coverage
-, mlflow
-, lmdb
-, matplotlib
-, numpy
-, pyyaml
-, rich
-, termcolor
-, addict
-, parameterized
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  torch,
+  opencv4,
+  yapf,
+  coverage,
+  mlflow,
+  lmdb,
+  matplotlib,
+  numpy,
+  pyyaml,
+  rich,
+  termcolor,
+  addict,
+  parameterized,
 }:
 
 buildPythonPackage rec {
@@ -64,9 +65,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [
-    "mmengine"
-  ];
+  pythonImportsCheck = [ "mmengine" ];
 
   meta = with lib; {
     description = "a foundational library for training deep learning models based on PyTorch";

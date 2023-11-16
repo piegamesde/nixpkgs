@@ -1,5 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi,
-  matplotlib, shapely
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  matplotlib,
+  shapely,
 }:
 
 buildPythonPackage rec {

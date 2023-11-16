@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, django-allauth
-, djangorestframework
-, djangorestframework-simplejwt
-, responses
-, unittest-xml-reporting
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  django-allauth,
+  djangorestframework,
+  djangorestframework-simplejwt,
+  responses,
+  unittest-xml-reporting,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -27,17 +28,11 @@ buildPythonPackage rec {
       --replace "==" ">="
   '';
 
-  buildInputs = [
-    django
-  ];
+  buildInputs = [ django ];
 
-  propagatedBuildInputs = [
-    djangorestframework
-  ];
+  propagatedBuildInputs = [ djangorestframework ];
 
-  passthru.optional-dependencies.with_social = [
-    django-allauth
-  ];
+  passthru.optional-dependencies.with_social = [ django-allauth ];
 
   nativeCheckInputs = [
     djangorestframework-simplejwt

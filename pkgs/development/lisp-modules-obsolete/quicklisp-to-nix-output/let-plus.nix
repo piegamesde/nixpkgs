@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "let-plus";
   version = "20191130-git";
@@ -8,7 +8,11 @@ rec {
 
   description = "Destructuring extension of LET*.";
 
-  deps = [ args."alexandria" args."anaphora" args."lift" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."lift"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/let-plus/2019-11-30/let-plus-20191130-git.tgz";
@@ -17,7 +21,7 @@ rec {
 
   packageName = "let-plus";
 
-  asdFilesToKeep = ["let-plus.asd"];
+  asdFilesToKeep = [ "let-plus.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM let-plus DESCRIPTION Destructuring extension of LET*. SHA256
@@ -27,4 +31,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME anaphora FILENAME anaphora)
      (NAME lift FILENAME lift))
     DEPENDENCIES (alexandria anaphora lift) VERSION 20191130-git SIBLINGS NIL
-    PARASITES (let-plus/tests)) */
+    PARASITES (let-plus/tests))
+*/

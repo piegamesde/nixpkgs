@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, psutil
-, py-cpuinfo
-, pydantic
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, qcelemental
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  psutil,
+  py-cpuinfo,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  qcelemental,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     qcelemental
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "qcengine"
-  ];
+  pythonImportsCheck = [ "qcengine" ];
 
   meta = with lib; {
     description = "Quantum chemistry program executor and IO standardizer (QCSchema) for quantum chemistry";

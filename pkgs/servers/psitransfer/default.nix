@@ -4,11 +4,12 @@
 #   3. Build this package `nix-build -A psitransfer`
 #   4. Profit
 
-{ stdenv
-, pkgs
-, lib
-, nodejs_18
-, fetchzip
+{
+  stdenv,
+  pkgs,
+  lib,
+  nodejs_18,
+  fetchzip,
 }:
 
 let
@@ -41,4 +42,4 @@ let
     };
   };
 in
-  combined
+combined

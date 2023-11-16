@@ -1,16 +1,17 @@
-{ lib
-, aniso8601
-, blinker
-, buildPythonPackage
-, fetchPypi
-, flask
-, mock
-, nose
-, pytestCheckHook
-, pythonOlder
-, pytz
-, six
-, werkzeug
+{
+  lib,
+  aniso8601,
+  blinker,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  mock,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  six,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -45,14 +46,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Broke in flask 2.2 upgrade
-    "test_exception_header_forwarded"
-  ];
+  disabledTests =
+    [
+      # Broke in flask 2.2 upgrade
+      "test_exception_header_forwarded"
+    ];
 
-  pythonImportsCheck = [
-    "flask_restful"
-  ];
+  pythonImportsCheck = [ "flask_restful" ];
 
   meta = with lib; {
     description = "Framework for creating REST APIs";

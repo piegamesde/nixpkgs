@@ -1,6 +1,11 @@
 # This module adds Memtest86+/Memtest86 to the GRUB boot menu.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -28,7 +33,7 @@ in
       };
 
       params = mkOption {
-        default = [];
+        default = [ ];
         example = [ "console=ttyS0,115200" ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
@@ -59,7 +64,6 @@ in
           Memtest86+ source code.
         '';
       };
-
     };
   };
 
@@ -67,7 +71,7 @@ in
     (mkIf (cfg.enable && efiSupport) {
       assertions = [
         {
-          assertion = cfg.params == [];
+          assertion = cfg.params == [ ];
           message = "Parameters are not available for MemTest86";
         }
       ];

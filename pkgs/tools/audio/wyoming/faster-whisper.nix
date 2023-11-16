@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -14,9 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-uqepa70lprzV3DJK2wrNAAyZkMMJ5S86RKK716zxYU4=";
   };
 
-  patches = [
-    ./faster-whisper-entrypoint.patch
-  ];
+  patches = [ ./faster-whisper-entrypoint.patch ];
 
   propagatedBuildInputs = with python3.pkgs; [
     ctranslate2
@@ -24,9 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     wyoming
   ];
 
-  pythonImportsCheck = [
-    "wyoming_faster_whisper"
-  ];
+  pythonImportsCheck = [ "wyoming_faster_whisper" ];
 
   # no tests
   doCheck = false;

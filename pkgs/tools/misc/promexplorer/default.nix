@@ -1,4 +1,8 @@
-{ lib, nimPackages, fetchFromGitHub }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+}:
 nimPackages.buildNimPackage rec {
   pname = "promexplorer";
   version = "0.0.5";
@@ -10,7 +14,10 @@ nimPackages.buildNimPackage rec {
     hash = "sha256-a+9afqdgLgGf2hOWf/QsElq+CurDfE1qDmYCzodZIDU=";
   };
 
-  buildInputs = with nimPackages; [ illwill illwillwidgets ];
+  buildInputs = with nimPackages; [
+    illwill
+    illwillwidgets
+  ];
 
   meta = with lib; {
     description = "A simple tool to explore prometheus exporter metrics";

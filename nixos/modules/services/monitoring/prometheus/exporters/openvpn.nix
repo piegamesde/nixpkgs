@@ -1,10 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.prometheus.exporters.openvpn;
-in {
+in
+{
   port = 9176;
   extraOpts = {
     statusPaths = mkOption {

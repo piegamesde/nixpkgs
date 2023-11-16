@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "nexttrace";
@@ -27,4 +31,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ sharzy ];
   };
 }
-

@@ -1,7 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, perl
-, buildsystem
-, libparserutils
-, libwapcaplet
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  perl,
+  buildsystem,
+  libparserutils,
+  libwapcaplet,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,14 +24,18 @@ stdenv.mkDerivation rec {
     perl
     libparserutils
     libwapcaplet
-    buildsystem ];
+    buildsystem
+  ];
 
   makeFlags = [
     "PREFIX=$(out)"
     "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" "-Wno-error=maybe-uninitialized" ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-Wno-error=implicit-fallthrough"
+    "-Wno-error=maybe-uninitialized"
+  ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/projects/${libname}/";
@@ -38,7 +47,10 @@ stdenv.mkDerivation rec {
       license.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

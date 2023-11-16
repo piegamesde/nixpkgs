@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, argparse-addons, humanfriendly, pyelftools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  argparse-addons,
+  humanfriendly,
+  pyelftools,
+}:
 
 buildPythonPackage rec {
   pname = "bincopy";
@@ -21,6 +28,9 @@ buildPythonPackage rec {
     description = "Mangling of various file formats that conveys binary information (Motorola S-Record, Intel HEX, TI-TXT, ELF and binary files)";
     homepage = "https://github.com/eerimoq/bincopy";
     license = licenses.mit;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

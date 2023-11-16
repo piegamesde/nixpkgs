@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, ipython
-, matplotlib
-, numpy
-, pillow
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  ipython,
+  matplotlib,
+  numpy,
+  pillow,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-n0S3YEAJZNi+pRIaIT+U3JoiXQJtaoGZASg6aV5YVjQ=";
   };
 
-  propagatedBuildInputs = [ ipython matplotlib numpy pillow ];
+  propagatedBuildInputs = [
+    ipython
+    matplotlib
+    numpy
+    pillow
+  ];
 
   format = "flit";
 

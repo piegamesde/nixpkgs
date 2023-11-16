@@ -1,6 +1,11 @@
 # Tracker daemon.
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -13,13 +18,24 @@ in
     maintainers = teams.gnome.members;
   };
 
-  imports = [
-    # Added 2021-05-07
-    (mkRenamedOptionModule
-      [ "services" "gnome3" "tracker" "enable" ]
-      [ "services" "gnome" "tracker" "enable" ]
-    )
-  ];
+  imports =
+    [
+      # Added 2021-05-07
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "tracker"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "tracker"
+          "enable"
+        ]
+      )
+    ];
 
   ###### interface
 
@@ -44,11 +60,8 @@ in
           List of packages containing tracker3 subcommands.
         '';
       };
-
     };
-
   };
-
 
   ###### implementation
 
@@ -70,7 +83,5 @@ in
         in
         "${subcommandPackagesTree}/libexec/tracker3";
     };
-
   };
-
 }

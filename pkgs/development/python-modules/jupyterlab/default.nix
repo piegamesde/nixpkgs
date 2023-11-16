@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ipython
-, packaging
-, tornado
-, jupyter-core
-, jupyterlab_server
-, jupyter-server
-, jupyter-server-ydoc
-, notebook
-, jinja2
-, tomli
-, pythonOlder
-, jupyter-packaging
-, pythonRelaxDepsHook
-, nbclassic
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ipython,
+  packaging,
+  tornado,
+  jupyter-core,
+  jupyterlab_server,
+  jupyter-server,
+  jupyter-server-ydoc,
+  notebook,
+  jinja2,
+  tomli,
+  pythonOlder,
+  jupyter-packaging,
+  pythonRelaxDepsHook,
+  nbclassic,
 }:
 
 buildPythonPackage rec {
@@ -50,9 +51,7 @@ buildPythonPackage rec {
     nbclassic
     notebook
     jinja2
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   makeWrapperArgs = [
     "--set"
@@ -63,15 +62,16 @@ buildPythonPackage rec {
   # Depends on npm
   doCheck = false;
 
-  pythonImportsCheck = [
-    "jupyterlab"
-  ];
+  pythonImportsCheck = [ "jupyterlab" ];
 
   meta = with lib; {
     changelog = "https://github.com/jupyterlab/jupyterlab/releases/tag/v${version}";
     description = "Jupyter lab environment notebook server extension";
     license = with licenses; [ bsd3 ];
     homepage = "https://jupyter.org/";
-    maintainers = with maintainers; [ zimbatm costrouc ];
+    maintainers = with maintainers; [
+      zimbatm
+      costrouc
+    ];
   };
 }

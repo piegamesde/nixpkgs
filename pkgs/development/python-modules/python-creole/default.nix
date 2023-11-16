@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, runtimeShell
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  runtimeShell,
 
-# build
-, poetry-core
+  # build
+  poetry-core,
 
-# propagates
-, docutils
+  # propagates
+  docutils,
 
-# tests
-, pytestCheckHook
-, readme_renderer
-, textile
+  # tests
+  pytestCheckHook,
+  readme_renderer,
+  textile,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-8pXOnLNjhIv0d+BqjW8wlb6BT6CmFHSsxn5wLOv3LBQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -41,13 +40,9 @@ buildPythonPackage rec {
     sed -i "/-cov/d" pytest.ini
   '';
 
-  propagatedBuildInputs = [
-    docutils
-  ];
+  propagatedBuildInputs = [ docutils ];
 
-  pythonImportsCheck = [
-    "creole"
-  ];
+  pythonImportsCheck = [ "creole" ];
 
   nativeCheckInputs = [
     pytestCheckHook

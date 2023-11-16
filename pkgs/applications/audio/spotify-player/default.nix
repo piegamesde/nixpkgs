@@ -1,13 +1,14 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, cmake
-, alsa-lib
-, dbus
-, fontconfig
-, libsixel
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  cmake,
+  alsa-lib,
+  dbus,
+  fontconfig,
+  libsixel,
 }:
 
 rustPlatform.buildRustPackage rec {

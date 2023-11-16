@@ -1,13 +1,14 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, pkg-config
-, wrapGAppsHook4
-, gdk-pixbuf
-, gtk4
-, libadwaita
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  wrapGAppsHook4,
+  gdk-pixbuf,
+  gtk4,
+  libadwaita,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -30,9 +31,7 @@ rustPlatform.buildRustPackage rec {
     gdk-pixbuf
     gtk4
     libadwaita
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.IOKit
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.IOKit ];
 
   meta = with lib; {
     description = "Interactive duplicate file remover";

@@ -1,15 +1,16 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, pkg-config
-, cppunit
-, swig
-, boost
-, logLib
-, python
-, libosmocore
-, osmosdr
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  cppunit,
+  swig,
+  boost,
+  logLib,
+  python,
+  libosmocore,
+  osmosdr,
 }:
 
 mkDerivation {

@@ -1,29 +1,42 @@
-{ lib, stdenv, fetchurl, makeFontsConf
-, cacert
-, cairo, coreutils, fontconfig, freefont_ttf
-, glib, gmp
-, gtk3
-, glibcLocales
-, libedit, libffi
-, libiconv
-, libGL
-, libGLU
-, libjpeg
-, xorg
-, ncurses
-, libpng, libtool, mpfr, openssl, pango, poppler
-, readline, sqlite
-, disableDocs ? false
-, CoreFoundation
-, gsettings-desktop-schemas
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeFontsConf,
+  cacert,
+  cairo,
+  coreutils,
+  fontconfig,
+  freefont_ttf,
+  glib,
+  gmp,
+  gtk3,
+  glibcLocales,
+  libedit,
+  libffi,
+  libiconv,
+  libGL,
+  libGLU,
+  libjpeg,
+  xorg,
+  ncurses,
+  libpng,
+  libtool,
+  mpfr,
+  openssl,
+  pango,
+  poppler,
+  readline,
+  sqlite,
+  disableDocs ? false,
+  CoreFoundation,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
 }:
 
 let
 
-  fontsConf = makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
-  };
+  fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   libPath = lib.makeLibraryPath [
     cairo
@@ -45,33 +58,50 @@ let
     readline
     sqlite
   ];
-
 in
 
 stdenv.mkDerivation rec {
   pname = "racket";
   version = "8.9"; # always change at once with ./minimal.nix
 
-  src = (lib.makeOverridable ({ name, sha256 }:
-    fetchurl {
-      url = "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
-      inherit sha256;
-    }
-  )) {
-    name = "${pname}-${version}";
-    sha256 = "sha256-OuIl6E4Rn0zRpH8bFhM1aPx9NcKQxQVJVWbZ3M78UiQ=";
-  };
+  src =
+    (lib.makeOverridable (
+      { name, sha256 }:
+      fetchurl {
+        url = "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
+        inherit sha256;
+      }
+    ))
+      {
+        name = "${pname}-${version}";
+        sha256 = "sha256-OuIl6E4Rn0zRpH8bFhM1aPx9NcKQxQVJVWbZ3M78UiQ=";
+      };
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
   NIX_LDFLAGS = lib.concatStringsSep " " [
-    (lib.optionalString (stdenv.cc.isGNU && ! stdenv.isDarwin) "-lgcc_s")
+    (lib.optionalString (stdenv.cc.isGNU && !stdenv.isDarwin) "-lgcc_s")
   ];
 
-  nativeBuildInputs = [ cacert wrapGAppsHook ];
+  nativeBuildInputs = [
+    cacert
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ fontconfig libffi libtool sqlite gsettings-desktop-schemas gtk3 ncurses ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv CoreFoundation ];
+  buildInputs =
+    [
+      fontconfig
+      libffi
+      libtool
+      sqlite
+      gsettings-desktop-schemas
+      gtk3
+      ncurses
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreFoundation
+    ];
 
   patches = [
     # Hardcode variant detection because we wrap the Racket binary making it
@@ -87,32 +117,34 @@ stdenv.mkDerivation rec {
     ./force-remove-codesign-then-add.patch
   ];
 
-  preConfigure = ''
-    unset AR
-    for f in src/lt/configure src/cs/c/configure src/bc/src/string.c; do
-      substituteInPlace "$f" \
-        --replace /usr/bin/uname ${coreutils}/bin/uname \
-        --replace /bin/cp ${coreutils}/bin/cp \
-        --replace /bin/ln ${coreutils}/bin/ln \
-        --replace /bin/rm ${coreutils}/bin/rm \
-        --replace /bin/true ${coreutils}/bin/true
-    done
+  preConfigure =
+    ''
+      unset AR
+      for f in src/lt/configure src/cs/c/configure src/bc/src/string.c; do
+        substituteInPlace "$f" \
+          --replace /usr/bin/uname ${coreutils}/bin/uname \
+          --replace /bin/cp ${coreutils}/bin/cp \
+          --replace /bin/ln ${coreutils}/bin/ln \
+          --replace /bin/rm ${coreutils}/bin/rm \
+          --replace /bin/true ${coreutils}/bin/true
+      done
 
-    # The configure script forces using `libtool -o` as AR on Darwin. But, the
-    # `-o` option is only available from Apple libtool. GNU ar works here.
-    substituteInPlace src/ChezScheme/zlib/configure \
-        --replace 'ARFLAGS="-o"' 'AR=ar; ARFLAGS="rc"'
+      # The configure script forces using `libtool -o` as AR on Darwin. But, the
+      # `-o` option is only available from Apple libtool. GNU ar works here.
+      substituteInPlace src/ChezScheme/zlib/configure \
+          --replace 'ARFLAGS="-o"' 'AR=ar; ARFLAGS="rc"'
 
-    mkdir src/build
-    cd src/build
+      mkdir src/build
+      cd src/build
 
-  '' + lib.optionalString stdenv.isLinux ''
-    gappsWrapperArgs+=("--prefix"   "LD_LIBRARY_PATH" ":" ${libPath})
-    gappsWrapperArgs+=("--set"      "LOCALE_ARCHIVE" "${glibcLocales}/lib/locale/locale-archive")
-  '' + lib.optionalString stdenv.isDarwin ''
-    gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
-  ''
-  ;
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      gappsWrapperArgs+=("--prefix"   "LD_LIBRARY_PATH" ":" ${libPath})
+      gappsWrapperArgs+=("--set"      "LOCALE_ARCHIVE" "${glibcLocales}/lib/locale/locale-archive")
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
+    '';
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # Cannot set DYLD_LIBRARY_PATH as an attr of this drv, becasue dynamic
@@ -129,9 +161,13 @@ stdenv.mkDerivation rec {
   '';
 
   shared = if stdenv.isDarwin then "dylib" else "shared";
-  configureFlags = [ "--enable-${shared}"  "--enable-lt=${libtool}/bin/libtool" ]
-                   ++ lib.optionals disableDocs [ "--disable-docs" ]
-                   ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
+  configureFlags =
+    [
+      "--enable-${shared}"
+      "--enable-lt=${libtool}/bin/libtool"
+    ]
+    ++ lib.optionals disableDocs [ "--disable-docs" ]
+    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
 
   configureScript = "../configure";
 
@@ -149,8 +185,19 @@ stdenv.mkDerivation rec {
       GUIs and charts.
     '';
     homepage = "https://racket-lang.org/";
-    license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ henrytill vrthra ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
+    maintainers = with maintainers; [
+      henrytill
+      vrthra
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
   };
 }

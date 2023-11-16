@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, cacert
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  cacert,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -50,9 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [
-    "gallia"
-  ];
+  pythonImportsCheck = [ "gallia" ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -63,7 +62,10 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Fraunhofer-AISEC/gallia";
     changelog = "https://github.com/Fraunhofer-AISEC/gallia/releases/tag/v${version}";
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab rumpelsepp ];
+    maintainers = with maintainers; [
+      fab
+      rumpelsepp
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, less
-, Security
-, libiconv
-, installShellFiles
-, makeWrapper
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  less,
+  Security,
+  libiconv,
+  installShellFiles,
+  makeWrapper,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -22,9 +23,16 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-wZNdYGCLKD80gV1QUTgKsFSNYkbDubknPB3e6dsyEgs=";
 
-  nativeBuildInputs = [ pkg-config installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+    makeWrapper
+  ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+  ];
 
   postInstall = ''
     installManPage $releaseDir/build/bat-*/out/assets/manual/bat.1
@@ -38,7 +46,10 @@ rustPlatform.buildRustPackage rec {
       --prefix PATH : "${lib.makeBinPath [ less ]}"
   '';
 
-  checkFlags = [ "--skip=pager_more" "--skip=pager_most" ];
+  checkFlags = [
+    "--skip=pager_more"
+    "--skip=pager_most"
+  ];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -57,7 +68,15 @@ rustPlatform.buildRustPackage rec {
     description = "A cat(1) clone with syntax highlighting and Git integration";
     homepage = "https://github.com/sharkdp/bat";
     changelog = "https://github.com/sharkdp/bat/raw/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 /* or */ mit ];
-    maintainers = with maintainers; [ dywedir lilyball zowoq SuperSandro2000 ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
+    maintainers = with maintainers; [
+      dywedir
+      lilyball
+      zowoq
+      SuperSandro2000
+    ];
   };
 }

@@ -1,30 +1,60 @@
-{ lib, stdenv, vdr, fetchFromGitHub
-, graphicsmagick, pcre, xorgserver, ffmpeg
-, libiconv, boost, libgcrypt, perl, util-linux, groff, libva, xorg, ncurses
-, callPackage
-}: let
-  mkPlugin = name: stdenv.mkDerivation {
-    name = "vdr-${name}-${vdr.version}";
-    inherit (vdr) src;
-    buildInputs = [ vdr ];
-    preConfigure = "cd PLUGINS/src/${name}";
-    installFlags = [ "DESTDIR=$(out)" ];
-  };
-in {
+{
+  lib,
+  stdenv,
+  vdr,
+  fetchFromGitHub,
+  graphicsmagick,
+  pcre,
+  xorgserver,
+  ffmpeg,
+  libiconv,
+  boost,
+  libgcrypt,
+  perl,
+  util-linux,
+  groff,
+  libva,
+  xorg,
+  ncurses,
+  callPackage,
+}:
+let
+  mkPlugin =
+    name:
+    stdenv.mkDerivation {
+      name = "vdr-${name}-${vdr.version}";
+      inherit (vdr) src;
+      buildInputs = [ vdr ];
+      preConfigure = "cd PLUGINS/src/${name}";
+      installFlags = [ "DESTDIR=$(out)" ];
+    };
+in
+{
 
-  softhddevice = callPackage ./softhddevice {};
+  softhddevice = callPackage ./softhddevice { };
 
-  streamdev = callPackage ./streamdev {};
+  streamdev = callPackage ./streamdev { };
 
-  xineliboutput = callPackage ./xineliboutput {};
+  xineliboutput = callPackage ./xineliboutput { };
 
-  skincurses = (mkPlugin "skincurses").overrideAttrs(oldAttr: {
-    buildInputs = oldAttr.buildInputs ++ [ ncurses ];
-  });
+  skincurses = (mkPlugin "skincurses").overrideAttrs (
+    oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; }
+  );
 
-  inherit (lib.genAttrs [
-    "epgtableid0" "hello" "osddemo" "pictures" "servicedemo" "status" "svdrpdemo"
-  ] mkPlugin);
+  inherit
+    (lib.genAttrs
+      [
+        "epgtableid0"
+        "hello"
+        "osddemo"
+        "pictures"
+        "servicedemo"
+        "status"
+        "svdrpdemo"
+      ]
+      mkPlugin
+    )
+  ;
 
   femon = stdenv.mkDerivation rec {
     pname = "vdr-femon";
@@ -50,7 +80,6 @@ in {
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
-
   };
 
   markad = stdenv.mkDerivation rec {
@@ -64,7 +93,10 @@ in {
       rev = "V${version}";
     };
 
-    buildInputs = [ vdr ffmpeg ];
+    buildInputs = [
+      vdr
+      ffmpeg
+    ];
 
     postPatch = ''
       substituteInPlace command/Makefile --replace '/usr' ""
@@ -96,7 +128,6 @@ in {
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
-
   };
 
   epgsearch = stdenv.mkDerivation rec {
@@ -132,11 +163,12 @@ in {
       "REGEXLIB=pcre"
     ];
 
-    installFlags = [
-      "DESTDIR=$(out)"
-    ];
+    installFlags = [ "DESTDIR=$(out)" ];
 
-    outputs = [ "out" "man" ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
     meta = with lib; {
       inherit (src.meta) homepage;
@@ -145,7 +177,6 @@ in {
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
-
   };
 
   vnsiserver = stdenv.mkDerivation rec {
@@ -170,7 +201,6 @@ in {
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
-
   };
 
   text2skin = stdenv.mkDerivation rec {
@@ -184,7 +214,10 @@ in {
       sha256 = "19hkwmaw6nwak38bv6cm2vcjjkf4w5yjyxb98qq6zfjjh5wq54aa";
     };
 
-    buildInputs = [ vdr graphicsmagick ];
+    buildInputs = [
+      vdr
+      graphicsmagick
+    ];
 
     buildFlags = [
       "DESTDIR=$(out)"
@@ -221,7 +254,11 @@ in {
       fetchSubmodules = true;
     };
 
-    buildInputs = [ vdr boost libgcrypt ];
+    buildInputs = [
+      vdr
+      boost
+      libgcrypt
+    ];
 
     installFlags = [ "DESTDIR=$(out)" ];
 

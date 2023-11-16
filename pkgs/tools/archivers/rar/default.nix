@@ -1,28 +1,36 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  installShellFiles,
+}:
 
 let
   version = "6.21";
   downloadVersion = lib.replaceStrings [ "." ] [ "" ] version;
   # Use `nix store prefetch-file <url>` to generate the hashes for the other systems
   # TODO: create update script
-  srcUrl = {
-    i686-linux = {
-      url = "https://www.rarlab.com/rar/rarlinux-x32-${downloadVersion}.tar.gz";
-      hash = "sha256-mDeRmLTjF0ZLv4JoLrgI8YBFFulBSKfOPb6hrxDZIkU=";
-    };
-    x86_64-linux = {
-      url = "https://www.rarlab.com/rar/rarlinux-x64-${downloadVersion}.tar.gz";
-      hash = "sha256-3fr5aVkh/r6OfBEcZULJSZp5ydakJOLRPlgzMdlwGTM=";
-    };
-    aarch64-darwin = {
-      url = "https://www.rarlab.com/rar/rarmacos-arm-${downloadVersion}.tar.gz";
-      hash = "sha256-OR9HBlRteTzuyQ06tyXTSrFTBHFwmZ41kUfvgflogT4=";
-    };
-    x86_64-darwin = {
-      url = "https://www.rarlab.com/rar/rarmacos-x64-${downloadVersion}.tar.gz";
-      hash = "sha256-UN3gmEuIpCXwmw3/l+KdarAYLy1DxGoPAOB2bfJTGbw=";
-    };
-  }.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
+  srcUrl =
+    {
+      i686-linux = {
+        url = "https://www.rarlab.com/rar/rarlinux-x32-${downloadVersion}.tar.gz";
+        hash = "sha256-mDeRmLTjF0ZLv4JoLrgI8YBFFulBSKfOPb6hrxDZIkU=";
+      };
+      x86_64-linux = {
+        url = "https://www.rarlab.com/rar/rarlinux-x64-${downloadVersion}.tar.gz";
+        hash = "sha256-3fr5aVkh/r6OfBEcZULJSZp5ydakJOLRPlgzMdlwGTM=";
+      };
+      aarch64-darwin = {
+        url = "https://www.rarlab.com/rar/rarmacos-arm-${downloadVersion}.tar.gz";
+        hash = "sha256-OR9HBlRteTzuyQ06tyXTSrFTBHFwmZ41kUfvgflogT4=";
+      };
+      x86_64-darwin = {
+        url = "https://www.rarlab.com/rar/rarmacos-x64-${downloadVersion}.tar.gz";
+        hash = "sha256-UN3gmEuIpCXwmw3/l+KdarAYLy1DxGoPAOB2bfJTGbw=";
+      };
+    }
+    .${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
   manSrc = fetchurl {
     url = "https://aur.archlinux.org/cgit/aur.git/plain/rar.1?h=rar&id=8e39a12e88d8a3b168c496c44c18d443c876dd10";
     name = "rar.1";
@@ -39,8 +47,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   installPhase = ''
     runHook preInstall

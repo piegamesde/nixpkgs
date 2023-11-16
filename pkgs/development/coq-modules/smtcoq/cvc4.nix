@@ -1,6 +1,16 @@
-{ lib, stdenv, cln, fetchurl, gmp, gnumake42, swig, pkg-config
-, libantlr3c, boost, autoreconfHook
-, python3
+{
+  lib,
+  stdenv,
+  cln,
+  fetchurl,
+  gmp,
+  gnumake42,
+  swig,
+  pkg-config,
+  libantlr3c,
+  boost,
+  autoreconfHook,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,9 +23,18 @@ stdenv.mkDerivation rec {
   };
 
   # Build fails with GNUmake 4.4
-  nativeBuildInputs = [ autoreconfHook gnumake42 pkg-config ];
-  buildInputs = [ gmp swig libantlr3c boost python3 ]
-    ++ lib.optionals stdenv.isLinux [ cln ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gnumake42
+    pkg-config
+  ];
+  buildInputs = [
+    gmp
+    swig
+    libantlr3c
+    boost
+    python3
+  ] ++ lib.optionals stdenv.isLinux [ cln ];
 
   configureFlags = [
     "--enable-language-bindings=c"
@@ -28,9 +47,7 @@ stdenv.mkDerivation rec {
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/bvminisat
   '';
 
-  patches = [
-    ../../../applications/science/logic/cvc4/cvc4-bash-patsub-replacement.patch
-  ];
+  patches = [ ../../../applications/science/logic/cvc4/cvc4-bash-patsub-replacement.patch ];
 
   preConfigure = ''
     patchShebangs ./src/
@@ -40,9 +57,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A high-performance theorem prover and SMT solver";
-    homepage    = "http://cvc4.cs.stanford.edu/web/";
-    license     = licenses.gpl3;
-    platforms   = platforms.unix;
-    maintainers = with maintainers; [ vbgl thoughtpolice gebner ];
+    homepage = "http://cvc4.cs.stanford.edu/web/";
+    license = licenses.gpl3;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [
+      vbgl
+      thoughtpolice
+      gebner
+    ];
   };
 }

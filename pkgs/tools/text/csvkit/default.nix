@@ -1,26 +1,27 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
-        version = "1.4.46";
-        src = fetchPypi {
-          pname = "SQLAlchemy";
-          inherit version;
-          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-        };
-        nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [
-          pytest-xdist
-        ]);
-        disabledTestPaths = (oldAttrs.disabledTestPaths or []) ++ [
-          "test/aaa_profiling"
-          "test/ext/mypy"
-        ];
-      });
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "1.4.46";
+          src = fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+          };
+          nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
+          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
+            "test/aaa_profiling"
+            "test/ext/mypy"
+          ];
+        }
+      );
     };
   };
 in
@@ -41,18 +42,15 @@ python.pkgs.buildPythonApplication rec {
     agate-sql
   ];
 
-  nativeCheckInputs = with python.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "csvkit"
-  ];
+  pythonImportsCheck = [ "csvkit" ];
 
-  disabledTests = [
-    # Test is comparing CLI output
-    "test_decimal_format"
-  ];
+  disabledTests =
+    [
+      # Test is comparing CLI output
+      "test_decimal_format"
+    ];
 
   meta = with lib; {
     changelog = "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";

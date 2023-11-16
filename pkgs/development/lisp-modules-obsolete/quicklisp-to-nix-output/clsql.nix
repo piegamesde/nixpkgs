@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "clsql";
   version = "20210228-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clsql";
 
-  asdFilesToKeep = ["clsql.asd"];
+  asdFilesToKeep = [ "clsql.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clsql DESCRIPTION Common Lisp SQL Interface library SHA256
@@ -27,4 +27,5 @@ rec {
     (clsql-aodbc clsql-cffi clsql-mysql clsql-odbc clsql-postgresql-socket
      clsql-postgresql-socket3 clsql-postgresql clsql-sqlite clsql-sqlite3
      clsql-tests clsql-uffi)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

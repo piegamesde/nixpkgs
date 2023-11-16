@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-MzlSU5x2lb6PJZ/iNAi2aebfuClBprlfHMIG/4OPmuc=";
   };
 
-  nativeBuildInputs = [ zig installShellFiles ];
+  nativeBuildInputs = [
+    zig
+    installShellFiles
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -49,13 +52,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion {package = zf;};
+  passthru.tests.version = testers.testVersion { package = zf; };
 
   meta = with lib; {
     homepage = "https://github.com/natecraddock/zf";
     description = "A commandline fuzzy finder that prioritizes matches on filenames";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dit7ya mmlb ];
+    maintainers = with maintainers; [
+      dit7ya
+      mmlb
+    ];
   };
 }

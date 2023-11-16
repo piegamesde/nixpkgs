@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, justbases
-, unittestCheckHook
-, hypothesis
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  justbases,
+  unittestCheckHook,
+  hypothesis,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +19,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ justbases ];
-  nativeCheckInputs = [ unittestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    hypothesis
+  ];
 
   meta = with lib; {
     description = "computing with and displaying bytes";

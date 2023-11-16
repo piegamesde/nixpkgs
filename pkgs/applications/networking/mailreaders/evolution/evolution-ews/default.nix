@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchurl
-, gnome
-, cmake
-, gettext
-, intltool
-, pkg-config
-, evolution-data-server
-, evolution
-, gtk3
-, libsoup_3
-, libical
-, json-glib
-, libmspack
-, webkitgtk_4_1
-, substituteAll
-, _experimental-update-script-combinators
-, glib
-, makeHardcodeGsettingsPatch
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gnome,
+  cmake,
+  gettext,
+  intltool,
+  pkg-config,
+  evolution-data-server,
+  evolution,
+  gtk3,
+  libsoup_3,
+  libical,
+  json-glib,
+  libmspack,
+  webkitgtk_4_1,
+  substituteAll,
+  _experimental-update-script-combinators,
+  glib,
+  makeHardcodeGsettingsPatch,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,20 +26,23 @@ stdenv.mkDerivation rec {
   version = "3.48.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "UE2YAPW6vMXBcO9QxUZOTrwSAOQZAs2mn+j6v/L7cMA=";
   };
 
-  patches = [
-    # evolution-ews contains .so files loaded by evolution-data-server refering
-    # schemas from evolution. evolution-data-server is not wrapped with
-    # evolution's schemas because it would be a circular dependency with
-    # evolution.
-    (substituteAll {
-      src = ./hardcode-gsettings.patch;
-      evo = glib.makeSchemaPath evolution evolution.name;
-    })
-  ];
+  patches =
+    [
+      # evolution-ews contains .so files loaded by evolution-data-server refering
+      # schemas from evolution. evolution-data-server is not wrapped with
+      # evolution's schemas because it would be a circular dependency with
+      # evolution.
+      (substituteAll {
+        src = ./hardcode-gsettings.patch;
+        evo = glib.makeSchemaPath evolution evolution.name;
+      })
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -59,10 +63,11 @@ stdenv.mkDerivation rec {
     webkitgtk_4_1
   ];
 
-  cmakeFlags = [
-    # don't try to install into ${evolution}
-    "-DFORCE_INSTALL_PREFIX=ON"
-  ];
+  cmakeFlags =
+    [
+      # don't try to install into ${evolution}
+      "-DFORCE_INSTALL_PREFIX=ON"
+    ];
 
   passthru = {
     hardcodeGsettingsPatch = makeHardcodeGsettingsPatch {
@@ -79,7 +84,9 @@ stdenv.mkDerivation rec {
           packageName = "evolution-ews";
           versionPolicy = "odd-unstable";
         };
-        updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "evolution-ews.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+        updatePatch =
+          _experimental-update-script-combinators.copyAttrOutputToFile "evolution-ews.hardcodeGsettingsPatch"
+            ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [
         updateSource

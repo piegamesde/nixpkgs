@@ -1,15 +1,16 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, imageio
-, imagecorruptions
-, numpy
-, opencv3
-, pytestCheckHook
-, scikit-image
-, scipy
-, shapely
-, six
-, lib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  imagecorruptions,
+  numpy,
+  opencv3,
+  pytestCheckHook,
+  scikit-image,
+  scipy,
+  shapely,
+  six,
+  lib,
 }:
 
 buildPythonPackage rec {
@@ -64,10 +65,11 @@ buildPythonPackage rec {
     "test_imap_batches_unordered_output_buffer_size"
   ];
 
-  disabledTestPaths = [
-    # TypeError:  int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-    "test/augmenters/test_pooling.py"
-  ];
+  disabledTestPaths =
+    [
+      # TypeError:  int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+      "test/augmenters/test_pooling.py"
+    ];
 
   pythonImportsCheck = [ "imgaug" ];
 
@@ -75,7 +77,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/aleju/imgaug";
     description = "Image augmentation for machine learning experiments";
     license = licenses.mit;
-    maintainers = with maintainers; [ cmcdragonkai rakesh4g ];
+    maintainers = with maintainers; [
+      cmcdragonkai
+      rakesh4g
+    ];
     platforms = platforms.linux;
     # Scikit-image 0.19 update broke API, see https://github.com/scikit-image/scikit-image/releases/tag/v0.19.0
     # and https://github.com/scikit-image/scikit-image/issues/6093

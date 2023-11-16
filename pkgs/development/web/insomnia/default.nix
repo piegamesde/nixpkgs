@@ -1,9 +1,48 @@
-{ lib, stdenv, makeWrapper, fetchurl, dpkg, alsa-lib, atk, cairo, cups, dbus, expat
-, fontconfig, freetype, gdk-pixbuf, glib, pango, mesa, nspr, nss, gtk3
-, at-spi2-atk, gsettings-desktop-schemas, gobject-introspection, wrapGAppsHook
-, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext
-, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, libxshmfence, nghttp2
-, libudev0-shim, glibc, curl, openssl, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  dpkg,
+  alsa-lib,
+  atk,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  pango,
+  mesa,
+  nspr,
+  nss,
+  gtk3,
+  at-spi2-atk,
+  gsettings-desktop-schemas,
+  gobject-introspection,
+  wrapGAppsHook,
+  libX11,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libxcb,
+  libxshmfence,
+  nghttp2,
+  libudev0-shim,
+  glibc,
+  curl,
+  openssl,
+  autoPatchelfHook,
+}:
 
 let
   runtimeLibs = lib.makeLibraryPath [
@@ -14,13 +53,13 @@ let
     openssl
     stdenv.cc.cc.lib
   ];
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "insomnia";
   version = "2023.2.2";
 
   src = fetchurl {
-    url =
-      "https://github.com/Kong/insomnia/releases/download/core%40${version}/Insomnia.Core-${version}.deb";
+    url = "https://github.com/Kong/insomnia/releases/download/core%40${version}/Insomnia.Core-${version}.deb";
     sha256 = "sha256-XM7OLr5ety95jjlVqNuQp3rD9laoe1uC1HNP66HJe5M=";
   };
 
@@ -91,7 +130,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ markus1189 babariviere ];
+    maintainers = with maintainers; [
+      markus1189
+      babariviere
+    ];
   };
-
 }

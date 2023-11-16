@@ -1,11 +1,12 @@
-{ lib
-, aiohttp
-, asyncio-throttle
-, awesomeversion
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  asyncio-throttle,
+  awesomeversion,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -28,19 +29,18 @@ buildPythonPackage rec {
     asyncio-throttle
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [
     "aiohue"
     "aiohue.discovery"
   ];
 
-  disabledTestPaths = [
-    # File are prefixed with test_
-    "examples/"
-  ];
+  disabledTestPaths =
+    [
+      # File are prefixed with test_
+      "examples/"
+    ];
 
   meta = with lib; {
     description = "Python package to talk to Philips Hue";

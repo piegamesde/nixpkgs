@@ -1,8 +1,9 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,13 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-sfia+weaGxpULp7ywI3UUKB6K9k1wDyrIsMorXyk2Og=";
   };
 
-  pythonImportsCheck = [
-    "mistletoe"
-  ];
+  pythonImportsCheck = [ "mistletoe" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Fast and extensible Markdown parser";

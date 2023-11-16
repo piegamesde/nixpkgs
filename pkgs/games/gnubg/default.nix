@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, python2, gtk2, readline }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  python2,
+  gtk2,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnubg";
@@ -9,19 +18,29 @@ stdenv.mkDerivation rec {
     sha256 = "11xwhcli1h12k6rnhhyq4jphzrhfik7i8ah3k32pqw803460n6yf";
   };
 
-  nativeBuildInputs = [ pkg-config python2 glib ];
+  nativeBuildInputs = [
+    pkg-config
+    python2
+    glib
+  ];
 
-  buildInputs = [ gtk2 readline ];
+  buildInputs = [
+    gtk2
+    readline
+  ];
 
   strictDeps = true;
 
-  configureFlags = [ "--with-gtk" "--with--board3d" ];
+  configureFlags = [
+    "--with-gtk"
+    "--with--board3d"
+  ];
 
-  meta = with lib;
-    { description = "World class backgammon application";
-      homepage = "http://www.gnubg.org/";
-      license = licenses.gpl3;
-      maintainers = [ maintainers.ehmry ];
-      platforms = platforms.linux;
-    };
+  meta = with lib; {
+    description = "World class backgammon application";
+    homepage = "http://www.gnubg.org/";
+    license = licenses.gpl3;
+    maintainers = [ maintainers.ehmry ];
+    platforms = platforms.linux;
+  };
 }

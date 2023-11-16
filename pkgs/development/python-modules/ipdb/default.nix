@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, decorator
-, ipython
-, isPyPy
-, tomli
-, setuptools
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  decorator,
+  ipython,
+  isPyPy,
+  tomli,
+  setuptools,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -15,27 +16,21 @@ buildPythonPackage rec {
   version = "0.13.13";
   format = "pyproject";
 
-  disabled = isPyPy;  # setupterm: could not find terminfo database
+  disabled = isPyPy; # setupterm: could not find terminfo database
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-46xgGO8FEm1EKvaAqthjAG7BnQIpBWGsiLixwLDPxyY=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     ipython
     decorator
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -47,5 +42,4 @@ buildPythonPackage rec {
     license = licenses.bsd0;
     maintainers = [ maintainers.costrouc ];
   };
-
 }

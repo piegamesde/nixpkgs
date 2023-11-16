@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  CoreServices,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdzk";
@@ -11,10 +17,11 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-V//tVcIzhCh03VjwMC+R2ynaOFm+dp6qxa0oqBfvGUs=";
   };
 
-  cargoPatches = [
-    # Remove when new version of mdzk is released.
-    ./update-mdbook-for-rust-1.64.patch
-  ];
+  cargoPatches =
+    [
+      # Remove when new version of mdzk is released.
+      ./update-mdbook-for-rust-1.64.patch
+    ];
 
   cargoHash = "sha256-5zGUBvmf68tCk5jGrNn+ukgYbiKzrlmZvWrYgoJf2zk=";
 
@@ -25,6 +32,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mdzk-rs/mdzk/";
     changelog = "https://github.com/mdzk-rs/mdzk/blob/main/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ bryanasdev000 ratsclub ];
+    maintainers = with maintainers; [
+      bryanasdev000
+      ratsclub
+    ];
   };
 }

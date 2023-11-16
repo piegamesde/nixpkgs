@@ -1,6 +1,7 @@
-{ stdenvNoCC
-, mpv-unwrapped
-, lib
+{
+  stdenvNoCC,
+  mpv-unwrapped,
+  lib,
 }:
 
 stdenvNoCC.mkDerivation rec {

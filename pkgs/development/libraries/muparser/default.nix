@@ -1,9 +1,15 @@
-{lib, stdenv, fetchurl, unzip, setfile}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  setfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "muparser";
   version = "2.2.3";
-  url-version = lib.replaceStrings ["."] ["_"] version;
+  url-version = lib.replaceStrings [ "." ] [ "_" ] version;
 
   src = fetchurl {
     url = "mirror://sourceforge/muparser/muparser_v${url-version}.zip";
@@ -11,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = lib.optionals stdenv.isDarwin [setfile];
+  buildInputs = lib.optionals stdenv.isDarwin [ setfile ];
 
   meta = {
     homepage = "http://muparser.sourceforge.net";

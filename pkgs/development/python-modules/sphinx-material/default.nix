@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, sphinx
-, beautifulsoup4
-, python-slugify
-, unidecode
-, css-html-js-minify
-, lxml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sphinx,
+  beautifulsoup4,
+  python-slugify,
+  unidecode,
+  css-html-js-minify,
+  lxml,
 }:
 
 buildPythonPackage rec {

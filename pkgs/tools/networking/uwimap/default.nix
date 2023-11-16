@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, pam, openssl, libkrb5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pam,
+  openssl,
+  libkrb5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uw-imap";
@@ -12,23 +20,22 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
-    (if stdenv.isDarwin
-    then "osx"
-    else "lnp") # Linux with PAM modules;
+    (if stdenv.isDarwin then "osx" else "lnp") # Linux with PAM modules;
   ] ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
-
 
   hardeningDisable = [ "format" ];
 
   buildInputs = [
     openssl
-    (if stdenv.isDarwin then libkrb5 else pam)  # Matches the make target.
+    (if stdenv.isDarwin then libkrb5 else pam) # Matches the make target.
   ];
 
-  patches = [ (fetchpatch {
-    url = "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
-    sha256 = "09xb58awvkhzmmjhrkqgijzgv7ia381ablf0y7i1rvhcqkb5wga7";
-  }) ];
+  patches = [
+    (fetchpatch {
+      url = "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
+      sha256 = "09xb58awvkhzmmjhrkqgijzgv7ia381ablf0y7i1rvhcqkb5wga7";
+    })
+  ];
 
   postPatch = ''
     sed -i src/osdep/unix/Makefile -e 's,/usr/local/ssl,${openssl.dev},'
@@ -40,8 +47,7 @@ stdenv.mkDerivation rec {
     makeFlagsArray+=("ARRC=${stdenv.cc.targetPrefix}ar rc")
   '';
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin
-    "-I${openssl.dev}/include/openssl";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${openssl.dev}/include/openssl";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/include/c-client

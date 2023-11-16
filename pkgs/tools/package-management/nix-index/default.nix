@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, curl, sqlite
-, Security
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  curl,
+  sqlite,
+  Security,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -16,8 +24,11 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-uIGxCaFj4x1Ck/D2xxOlosJaGSVbOKxbXAEAkkBxyaQ=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl curl sqlite ]
-    ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [
+    openssl
+    curl
+    sqlite
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     mkdir -p $out/etc/profile.d
@@ -30,6 +41,9 @@ rustPlatform.buildRustPackage rec {
     description = "A files database for nixpkgs";
     homepage = "https://github.com/bennofs/nix-index";
     license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ bennofs ncfavier ];
+    maintainers = with maintainers; [
+      bennofs
+      ncfavier
+    ];
   };
 }

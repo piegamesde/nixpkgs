@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "gron";
@@ -23,6 +27,9 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/tomnomnom/gron";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz SuperSandro2000 ];
+    maintainers = with maintainers; [
+      fgaz
+      SuperSandro2000
+    ];
   };
 }

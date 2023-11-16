@@ -1,16 +1,17 @@
-{ config
-, lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, glib
-, alsaSupport ? stdenv.isLinux
-, alsa-lib
-, pulseaudioSupport ? config.pulseaudio or true
-, libpulseaudio
-, ossSupport ? false
-, mateUpdateScript
+{
+  config,
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  glib,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  pulseaudioSupport ? config.pulseaudio or true,
+  libpulseaudio,
+  ossSupport ? false,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,9 @@ stdenv.mkDerivation rec {
   version = "1.26.0";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1wcz4ppg696m31f5x7rkyvxxdriik2vprsr83b4wbs97bdhcr6ws";
   };
 
@@ -29,9 +32,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     glib
-  ]
-  ++ lib.optional alsaSupport alsa-lib
-  ++ lib.optional pulseaudioSupport libpulseaudio;
+  ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional pulseaudioSupport libpulseaudio;
 
   configureFlags = lib.optional ossSupport "--enable-oss";
 

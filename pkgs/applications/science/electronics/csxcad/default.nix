@@ -1,14 +1,16 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, fparser
-, tinyxml
-, hdf5
-, cgal_5
-, vtk
-, boost
-, gmp
-, mpfr
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fparser,
+  tinyxml,
+  hdf5,
+  cgal_5,
+  vtk,
+  boost,
+  gmp,
+  mpfr,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "1604amhvp7dm8ych7gwzxwawqvb9hpjglk5ffd4qm0y3k6r89arn";
   };
 
-  patches = [./searchPath.patch ];
+  patches = [ ./searchPath.patch ];
 
   buildInputs = [
     cgal_5

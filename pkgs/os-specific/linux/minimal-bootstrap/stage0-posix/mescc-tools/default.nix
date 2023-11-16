@@ -1,13 +1,14 @@
-{ lib
-, derivationWithMeta
-, kaem-unwrapped
-, M1
-, M2
-, blood-elf-0
-, hex2
-, m2libc
-, src
-, version
+{
+  lib,
+  derivationWithMeta,
+  kaem-unwrapped,
+  M1,
+  M2,
+  blood-elf-0,
+  hex2,
+  m2libc,
+  src,
+  version,
 }:
 
 let
@@ -17,7 +18,8 @@ let
   ENDIAN_FLAG = "--little-endian";
 
   # We need a few tools from mescc-tools-extra to assemble the output folder
-  buildMesccToolsExtraUtil = name:
+  buildMesccToolsExtraUtil =
+    name:
     derivationWithMeta {
       pname = "mescc-tools-extra-${name}";
       builder = kaem-unwrapped;
@@ -60,7 +62,19 @@ let
             -o ''${out}
         '')
       ];
-      inherit version M1 M2 blood-elf-0 hex2 m2libc src ARCH BLOOD_FLAG BASE_ADDRESS ENDIAN_FLAG;
+      inherit
+        version
+        M1
+        M2
+        blood-elf-0
+        hex2
+        m2libc
+        src
+        ARCH
+        BLOOD_FLAG
+        BASE_ADDRESS
+        ENDIAN_FLAG
+      ;
     };
   mkdir = buildMesccToolsExtraUtil "mkdir";
   cp = buildMesccToolsExtraUtil "cp";
@@ -76,7 +90,23 @@ derivationWithMeta {
     "--file"
     ./build.kaem
   ];
-  inherit version M1 M2 blood-elf-0 hex2 mkdir cp chmod replace m2libc src ARCH BLOOD_FLAG BASE_ADDRESS ENDIAN_FLAG;
+  inherit
+    version
+    M1
+    M2
+    blood-elf-0
+    hex2
+    mkdir
+    cp
+    chmod
+    replace
+    m2libc
+    src
+    ARCH
+    BLOOD_FLAG
+    BASE_ADDRESS
+    ENDIAN_FLAG
+  ;
 
   meta = with lib; {
     description = "Collection of tools written for use in bootstrapping";

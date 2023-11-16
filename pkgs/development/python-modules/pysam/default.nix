@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, bzip2
-, bcftools
-, curl
-, cython
-, htslib
-, libdeflate
-, xz
-, pytestCheckHook
-, samtools
-, zlib
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bzip2,
+  bcftools,
+  curl,
+  cython,
+  htslib,
+  libdeflate,
+  xz,
+  pytestCheckHook,
+  samtools,
+  zlib,
 }:
 
 buildPythonPackage rec {
-  pname   = "pysam";
+  pname = "pysam";
   version = "0.21.0";
 
   # Fetching from GitHub instead of PyPi cause the 0.13 src release on PyPi is

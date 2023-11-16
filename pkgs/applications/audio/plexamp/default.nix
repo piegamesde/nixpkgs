@@ -1,4 +1,9 @@
-{ lib, fetchurl, appimageTools, pkgs }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+  pkgs,
+}:
 
 let
   pname = "plexamp";
@@ -6,14 +11,13 @@ let
 
   src = fetchurl {
     url = "https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-${version}.AppImage";
-    name="${pname}-${version}.AppImage";
+    name = "${pname}-${version}.AppImage";
     sha512 = "TZ7JNSrUtsqnH+fWIcd1v4fY0jPnMV7nqV/QsbD7ZpqIBCkN3R9WQvc/E9gah163Ab40g9CmdghTGo3v8VW2Rw==";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit pname version src;
-  };
-in appimageTools.wrapType2 {
+  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+in
+appimageTools.wrapType2 {
   inherit pname version src;
 
   multiPkgs = null; # no 32bit needed
@@ -35,7 +39,10 @@ in appimageTools.wrapType2 {
     homepage = "https://plexamp.com/";
     changelog = "https://forums.plex.tv/t/plexamp-release-notes/221280/50";
     license = licenses.unfree;
-    maintainers = with maintainers; [ killercup synthetica ];
+    maintainers = with maintainers; [
+      killercup
+      synthetica
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -1,18 +1,19 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, gio-qt
-, cmake
-, qttools
-, kwayland
-, pkg-config
-, wrapQtAppsHook
-, glibmm
-, gtest
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  gio-qt,
+  cmake,
+  qttools,
+  kwayland,
+  pkg-config,
+  wrapQtAppsHook,
+  glibmm,
+  gtest,
 }:
 
 stdenv.mkDerivation rec {
@@ -59,9 +60,7 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  cmakeFlags = [
-    "-DUSE_DEEPIN_WAYLAND=OFF"
-  ];
+  cmakeFlags = [ "-DUSE_DEEPIN_WAYLAND=OFF" ];
 
   meta = with lib; {
     description = "DDE optional clipboard manager componment";

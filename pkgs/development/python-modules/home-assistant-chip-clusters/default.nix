@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, aenum
-, dacite
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aenum,
+  dacite,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     dacite
   ];
 
-  pythonImportsCheck = [
-    "chip.clusters"
-  ];
+  pythonImportsCheck = [ "chip.clusters" ];
 
   doCheck = false; # no tests
 

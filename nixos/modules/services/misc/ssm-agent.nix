@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -15,7 +20,8 @@ let
       -r) echo "${config.system.nixos.version}";;
     esac
   '';
-in {
+in
+{
   options.services.ssm-agent = {
     enable = mkEnableOption (lib.mdDoc "AWS SSM agent");
 
@@ -30,10 +36,13 @@ in {
   config = mkIf cfg.enable {
     systemd.services.ssm-agent = {
       inherit (cfg.package.meta) description;
-      after    = [ "network.target" ];
+      after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = [ fake-lsb-release pkgs.coreutils ];
+      path = [
+        fake-lsb-release
+        pkgs.coreutils
+      ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/amazon-ssm-agent";
         KillMode = "process";
@@ -59,7 +68,7 @@ in {
     ];
     # On Amazon Linux 2 images, the ssm-user user is pretty much a
     # normal user with its own group. We do the same.
-    users.groups.ssm-user = {};
+    users.groups.ssm-user = { };
     users.users.ssm-user = {
       isNormalUser = true;
       group = "ssm-user";
@@ -67,7 +76,6 @@ in {
 
     environment.etc."amazon/ssm/seelog.xml".source = "${cfg.package}/seelog.xml.template";
 
-    environment.etc."amazon/ssm/amazon-ssm-agent.json".source =  "${cfg.package}/etc/amazon/ssm/amazon-ssm-agent.json.template";
-
+    environment.etc."amazon/ssm/amazon-ssm-agent.json".source = "${cfg.package}/etc/amazon/ssm/amazon-ssm-agent.json.template";
   };
 }

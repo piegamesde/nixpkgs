@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchurl
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
 }:
 
 buildPythonPackage {
@@ -17,5 +18,4 @@ buildPythonPackage {
     description = "A Python wrapper around the Dynac charged particle simulator";
     license = licenses.gpl3;
   };
-
 }

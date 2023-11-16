@@ -1,12 +1,18 @@
-{ lib
-, stdenv
-, unzip
-, fetchurl
+{
+  lib,
+  stdenv,
+  unzip,
+  fetchurl,
 }:
 
 let
-  maple-font = { pname, sha256, desc }: stdenv.mkDerivation
-    rec{
+  maple-font =
+    {
+      pname,
+      sha256,
+      desc,
+    }:
+    stdenv.mkDerivation rec {
 
       inherit pname desc;
       version = "6.3";
@@ -35,7 +41,6 @@ let
         maintainers = with maintainers; [ oluceps ];
       };
     };
-
 in
 {
   Mono = maple-font {
@@ -68,5 +73,3 @@ in
     desc = "WOFF2.0";
   };
 }
-
-

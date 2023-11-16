@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, pylint }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pylint,
+}:
 
 buildPythonPackage rec {
   pname = "setuptools-lint";
@@ -18,4 +23,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ nickhu ];
   };
 }
-

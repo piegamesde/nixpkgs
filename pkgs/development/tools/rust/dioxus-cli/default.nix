@@ -1,4 +1,12 @@
-{ lib, fetchCrate, rustPlatform, openssl, pkg-config, stdenv, CoreServices }:
+{
+  lib,
+  fetchCrate,
+  rustPlatform,
+  openssl,
+  pkg-config,
+  stdenv,
+  CoreServices,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "dioxus-cli";
   version = "0.1.4";
@@ -16,7 +24,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "CLI tool for developing, testing, and publishing Dioxus apps";
     homepage = "https://dioxuslabs.com";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ xanderio ];
   };
 }

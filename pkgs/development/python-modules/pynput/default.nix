@@ -1,4 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, sphinx, setuptools-lint, xlib, evdev }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  sphinx,
+  setuptools-lint,
+  xlib,
+  evdev,
+}:
 
 buildPythonPackage rec {
   pname = "pynput";
@@ -11,10 +20,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ sphinx ];
 
-  propagatedBuildInputs = [ setuptools-lint xlib ]
-  ++ lib.optionals stdenv.isLinux [
-    evdev
-  ];
+  propagatedBuildInputs = [
+    setuptools-lint
+    xlib
+  ] ++ lib.optionals stdenv.isLinux [ evdev ];
 
   doCheck = false;
 
@@ -26,4 +35,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ nickhu ];
   };
 }
-

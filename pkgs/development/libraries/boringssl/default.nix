@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchgit
-, cmake
-, ninja
-, perl
-, buildGoModule
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  ninja,
+  perl,
+  buildGoModule,
 }:
 
 # reference: https://boringssl.googlesource.com/boringssl/+/2661/BUILDING.md
@@ -13,27 +14,36 @@ buildGoModule {
   version = "2021-07-09";
 
   src = fetchgit {
-    url    = "https://boringssl.googlesource.com/boringssl";
-    rev    = "268a4a6ff3bd656ae65fe41ef1185daa85cfae21";
+    url = "https://boringssl.googlesource.com/boringssl";
+    rev = "268a4a6ff3bd656ae65fe41ef1185daa85cfae21";
     sha256 = "04fja4fdwhc69clmvg8i12zm6ks3sfl3r8i5bxn4x63b9dj5znlx";
   };
 
-  nativeBuildInputs = [ cmake ninja perl ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    perl
+  ];
 
   vendorSha256 = null;
 
   # hack to get both go and cmake configure phase
   # (if we use postConfigure then cmake will loop runHook postConfigure)
-  preBuild = ''
-    cmakeConfigurePhase
-  '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    export GOARCH=$(go env GOHOSTARCH)
-  '';
+  preBuild =
+    ''
+      cmakeConfigurePhase
+    ''
+    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      export GOARCH=$(go env GOHOSTARCH)
+    '';
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    # Needed with GCC 12 but breaks on darwin (with clang)
-    "-Wno-error=stringop-overflow"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.cc.isGNU
+      [
+        # Needed with GCC 12 but breaks on darwin (with clang)
+        "-Wno-error=stringop-overflow"
+      ]
+  );
 
   buildPhase = ''
     ninjaBuildPhase
@@ -54,12 +64,21 @@ buildGoModule {
     mv ../include $dev
   '';
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "Free TLS/SSL implementation";
-    homepage    = "https://boringssl.googlesource.com";
+    homepage = "https://boringssl.googlesource.com";
     maintainers = [ maintainers.thoughtpolice ];
-    license = with licenses; [ openssl isc mit bsd3 ];
+    license = with licenses; [
+      openssl
+      isc
+      mit
+      bsd3
+    ];
   };
 }

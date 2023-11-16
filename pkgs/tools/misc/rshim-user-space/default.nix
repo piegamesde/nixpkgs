@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoconf
-, automake
-, pkg-config
-, pciutils
-, libusb1
-, fuse
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  pkg-config,
+  pciutils,
+  libusb1,
+  fuse,
 }:
 
 stdenv.mkDerivation rec {

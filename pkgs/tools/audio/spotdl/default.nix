@@ -1,24 +1,28 @@
-{ lib
-, python3
-, fetchPypi
-, fetchFromGitHub
-, ffmpeg
+{
+  lib,
+  python3,
+  fetchPypi,
+  fetchFromGitHub,
+  ffmpeg,
 }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      ytmusicapi = super.ytmusicapi.overridePythonAttrs (old: rec {
-        version = "0.25.1";
-        src = fetchPypi {
-          inherit (old) pname;
-          inherit version;
-          hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
-        };
-      });
+      ytmusicapi = super.ytmusicapi.overridePythonAttrs (
+        old: rec {
+          version = "0.25.1";
+          src = fetchPypi {
+            inherit (old) pname;
+            inherit version;
+            hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
+          };
+        }
+      );
     };
   };
-in python.pkgs.buildPythonApplication rec {
+in
+python.pkgs.buildPythonApplication rec {
   pname = "spotdl";
   version = "4.1.10";
 
@@ -38,26 +42,29 @@ in python.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  propagatedBuildInputs = with python.pkgs; [
-    spotipy
-    ytmusicapi
-    pytube
-    yt-dlp
-    mutagen
-    rich
-    beautifulsoup4
-    requests
-    rapidfuzz
-    python-slugify
-    uvicorn
-    pydantic
-    fastapi
-    platformdirs
-    pykakasi
-    syncedlyrics
-    typing-extensions
-    setuptools # for pkg_resources
-  ] ++ python-slugify.optional-dependencies.unidecode;
+  propagatedBuildInputs =
+    with python.pkgs;
+    [
+      spotipy
+      ytmusicapi
+      pytube
+      yt-dlp
+      mutagen
+      rich
+      beautifulsoup4
+      requests
+      rapidfuzz
+      python-slugify
+      uvicorn
+      pydantic
+      fastapi
+      platformdirs
+      pykakasi
+      syncedlyrics
+      typing-extensions
+      setuptools # for pkg_resources
+    ]
+    ++ python-slugify.optional-dependencies.unidecode;
 
   nativeCheckInputs = with python.pkgs; [
     pytestCheckHook
@@ -99,7 +106,10 @@ in python.pkgs.buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ])
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ ffmpeg ])
   ];
 
   meta = with lib; {

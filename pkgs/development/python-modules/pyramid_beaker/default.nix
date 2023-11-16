@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, beaker, pyramid }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  beaker,
+  pyramid,
+}:
 
 buildPythonPackage rec {
   pname = "pyramid_beaker";
@@ -16,7 +23,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  propagatedBuildInputs = [ beaker pyramid ];
+  propagatedBuildInputs = [
+    beaker
+    pyramid
+  ];
 
   meta = with lib; {
     description = "Beaker session factory backend for Pyramid";

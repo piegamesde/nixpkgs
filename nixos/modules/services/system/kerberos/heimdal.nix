@@ -1,23 +1,56 @@
-{ pkgs, config, lib, ... } :
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkIf concatStringsSep concatMapStrings toList mapAttrs
-    mapAttrsToList;
+  inherit (lib)
+    mkIf
+    concatStringsSep
+    concatMapStrings
+    toList
+    mapAttrs
+    mapAttrsToList
+  ;
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
   stateDir = "/var/heimdal";
-  aclFiles = mapAttrs
-    (name: {acl, ...}: pkgs.writeText "${name}.acl" (concatMapStrings ((
-      {principal, access, target, ...} :
-      "${principal}\t${concatStringsSep "," (toList access)}\t${target}\n"
-    )) acl)) cfg.realms;
+  aclFiles =
+    mapAttrs
+      (
+        name:
+        { acl, ... }:
+        pkgs.writeText "${name}.acl" (
+          concatMapStrings
+            (
+              (
+                {
+                  principal,
+                  access,
+                  target,
+                  ...
+                }:
+                ''
+                  ${principal}	${concatStringsSep "," (toList access)}	${target}
+                ''
+              )
+            )
+            acl
+        )
+      )
+      cfg.realms;
 
-  kdcConfigs = mapAttrsToList (name: value: ''
-    database = {
-      dbname = ${stateDir}/heimdal
-      acl_file = ${value}
-    }
-  '') aclFiles;
+  kdcConfigs =
+    mapAttrsToList
+      (name: value: ''
+        database = {
+          dbname = ${stateDir}/heimdal
+          acl_file = ${value}
+        }
+      '')
+      aclFiles;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [kdc]
     ${concatStringsSep "\n" kdcConfigs}
@@ -34,8 +67,7 @@ in
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
-      serviceConfig.ExecStart =
-        "${kerberos}/libexec/heimdal/kadmind --config-file=/etc/heimdal-kdc/kdc.conf";
+      serviceConfig.ExecStart = "${kerberos}/libexec/heimdal/kadmind --config-file=/etc/heimdal-kdc/kdc.conf";
       restartTriggers = [ kdcConfFile ];
     };
 
@@ -45,8 +77,7 @@ in
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
-      serviceConfig.ExecStart =
-        "${kerberos}/libexec/heimdal/kdc --config-file=/etc/heimdal-kdc/kdc.conf";
+      serviceConfig.ExecStart = "${kerberos}/libexec/heimdal/kdc --config-file=/etc/heimdal-kdc/kdc.conf";
       restartTriggers = [ kdcConfFile ];
     };
 

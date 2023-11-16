@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jsonconversion
-, six
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jsonconversion,
+  six,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -33,18 +34,15 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # ValueError: Exceeds the limit (4300) for integer string conversion
-    "test_roundtrips"
-  ];
+  disabledTests =
+    [
+      # ValueError: Exceeds the limit (4300) for integer string conversion
+      "test_roundtrips"
+    ];
 
-  pythonImportsCheck = [
-    "amazon.ion"
-  ];
+  pythonImportsCheck = [ "amazon.ion" ];
 
   meta = with lib; {
     description = "Python implementation of Amazon Ion";

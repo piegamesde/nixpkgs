@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, guile
-, guile-commonmark
-, guile-reader
-, makeWrapper
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchurl,
+  guile,
+  guile-commonmark,
+  guile-reader,
+  makeWrapper,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -67,7 +68,10 @@ stdenv.mkDerivation rec {
       to do things that aren't provided out-of-the-box.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres AluisioASG ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      AluisioASG
+    ];
     platforms = guile.meta.platforms;
   };
 }

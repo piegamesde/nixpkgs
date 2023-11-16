@@ -1,30 +1,31 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cairocffi
-, dbus-next
-, dbus-python
-, glib
-, libinput
-, libxkbcommon
-, mpd2
-, mypy
-, pango
-, pkg-config
-, psutil
-, pulseaudio
-, pygobject3
-, python-dateutil
-, pywayland
-, pywlroots
-, pyxdg
-, setuptools
-, setuptools-scm
-, wayland
-, wlroots
-, xcbutilcursor
-, xcffib
-, xkbcommon
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cairocffi,
+  dbus-next,
+  dbus-python,
+  glib,
+  libinput,
+  libxkbcommon,
+  mpd2,
+  mypy,
+  pango,
+  pkg-config,
+  psutil,
+  pulseaudio,
+  pygobject3,
+  python-dateutil,
+  pywayland,
+  pywlroots,
+  pyxdg,
+  setuptools,
+  setuptools-scm,
+  wayland,
+  wlroots,
+  xcbutilcursor,
+  xcffib,
+  xkbcommon,
 }:
 
 buildPythonPackage rec {
@@ -83,9 +84,7 @@ buildPythonPackage rec {
   ];
 
   # for `qtile check`, needs `stubtest` and `mypy` commands
-  makeWrapperArgs = [
-    "--suffix PATH : ${lib.makeBinPath [ mypy ]}"
-  ];
+  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
 
   doCheck = false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
 
@@ -94,6 +93,9 @@ buildPythonPackage rec {
     license = licenses.mit;
     description = "A small, flexible, scriptable tiling window manager written in Python";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kamilchm arjan-s ];
+    maintainers = with maintainers; [
+      kamilchm
+      arjan-s
+    ];
   };
 }

@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, docutils
-, libuuid
-, libscrypt
-, libsodium
-, keyutils
-, liburcu
-, zlib
-, libaio
-, zstd
-, lz4
-, python3Packages
-, util-linux
-, udev
-, valgrind
-, nixosTests
-, makeWrapper
-, getopt
-, fuse3
-, fuseSupport ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  docutils,
+  libuuid,
+  libscrypt,
+  libsodium,
+  keyutils,
+  liburcu,
+  zlib,
+  libaio,
+  zstd,
+  lz4,
+  python3Packages,
+  util-linux,
+  udev,
+  valgrind,
+  nixosTests,
+  makeWrapper,
+  getopt,
+  fuse3,
+  fuseSupport ? false,
 }:
 
 stdenv.mkDerivation {
@@ -43,12 +44,25 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [
-    pkg-config docutils python3Packages.python makeWrapper
+    pkg-config
+    docutils
+    python3Packages.python
+    makeWrapper
   ];
 
   buildInputs = [
-    libuuid libscrypt libsodium keyutils liburcu zlib libaio
-    zstd lz4 python3Packages.pytest udev valgrind
+    libuuid
+    libscrypt
+    libsodium
+    keyutils
+    liburcu
+    zlib
+    libaio
+    zstd
+    lz4
+    python3Packages.pytest
+    udev
+    valgrind
   ] ++ lib.optional fuseSupport fuse3;
 
   doCheck = false; # needs bcachefs module loaded on builder
@@ -63,7 +77,12 @@ stdenv.mkDerivation {
   postFixup = ''
     ln -s $out/bin/mount.bcachefs.sh $out/bin/mount.bcachefs
     wrapProgram $out/bin/mount.bcachefs.sh \
-      --prefix PATH : ${lib.makeBinPath [ getopt util-linux ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          getopt
+          util-linux
+        ]
+      }
   '';
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
@@ -79,7 +98,10 @@ stdenv.mkDerivation {
     description = "Tool for managing bcachefs filesystems";
     homepage = "https://bcachefs.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ davidak Madouura ];
+    maintainers = with maintainers; [
+      davidak
+      Madouura
+    ];
     platforms = platforms.linux;
   };
 }

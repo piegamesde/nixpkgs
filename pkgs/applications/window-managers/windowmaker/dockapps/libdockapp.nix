@@ -1,5 +1,15 @@
-{ lib, stdenv, dockapps-sources, autoreconfHook, pkg-config
-, libX11, libXext, libXpm, mkfontdir, fontutil }:
+{
+  lib,
+  stdenv,
+  dockapps-sources,
+  autoreconfHook,
+  pkg-config,
+  libX11,
+  libXext,
+  libXpm,
+  mkfontdir,
+  fontutil,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdockapp";
@@ -7,9 +17,18 @@ stdenv.mkDerivation rec {
 
   src = dockapps-sources;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ libX11 libXext libXpm fontutil mkfontdir ];
+  buildInputs = [
+    libX11
+    libXext
+    libXpm
+    fontutil
+    mkfontdir
+  ];
 
   setSourceRoot = ''
     export sourceRoot=$(echo */${pname})

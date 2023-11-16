@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, matplotlib
-, niapy
-, numpy
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, scikit-learn
-, toml-adapt
-, torch
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  niapy,
+  numpy,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+  toml-adapt,
+  torch,
 }:
 
 buildPythonPackage rec {
@@ -44,13 +45,9 @@ buildPythonPackage rec {
     toml-adapt -path pyproject.toml -a change -dep torch -ver X
   '';
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "nianet"
-  ];
+  pythonImportsCheck = [ "nianet" ];
 
   meta = with lib; {
     description = "Designing and constructing neural network topologies using nature-inspired algorithms";

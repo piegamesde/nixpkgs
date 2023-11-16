@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, invoke
-, mock
-, pytestCheckHook
-, pythonOlder
-, sphinx-rtd-theme
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  invoke,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  sphinx-rtd-theme,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
     sed -i "/--no-cov/d" setup.cfg
   '';
 
-  pythonImportsCheck = [
-    "pydash"
-  ];
+  pythonImportsCheck = [ "pydash" ];
 
   meta = with lib; {
     description = "Python utility libraries for doing stuff in a functional way";

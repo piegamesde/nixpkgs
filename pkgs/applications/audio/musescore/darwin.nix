@@ -1,7 +1,16 @@
-{ stdenv, lib, fetchurl, undmg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  undmg,
+}:
 
 let
-  versionComponents = [ "4" "0" "1" ];
+  versionComponents = [
+    "4"
+    "0"
+    "1"
+  ];
   appName = "MuseScore ${builtins.head versionComponents}";
   ref = "230121751";
 in
@@ -14,7 +23,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "${appName}.app";
 
   src = fetchurl {
-    url =  "https://github.com/musescore/MuseScore/releases/download/v${version}/MuseScore-${version}.${ref}.dmg";
+    url = "https://github.com/musescore/MuseScore/releases/download/v${version}/MuseScore-${version}.${ref}.dmg";
     hash = "sha256-tkIEV+tCS0SYh2TlC70/zEBUEOSg//EaSKDGA7kH/vo=";
   };
 
@@ -30,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://musescore.org/";
     license = licenses.gpl3Only;
     platforms = platforms.darwin;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

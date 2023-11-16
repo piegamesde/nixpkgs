@@ -1,4 +1,5 @@
-final: prev: let
+final: prev:
+let
   ### Cuda Toolkit
 
   # Function to build the class cudatoolkit package
@@ -32,16 +33,14 @@ final: prev: let
   cudatoolkit =
     let
       attrs = builtins.removeAttrs finalVersion [ "gcc" ];
-      attrs' = attrs // { inherit backendStdenv; };
+      attrs' = attrs // {
+        inherit backendStdenv;
+      };
     in
     buildCudaToolkitPackage attrs';
 
-  cudaFlags = final.callPackage ./flags.nix {};
-
+  cudaFlags = final.callPackage ./flags.nix { };
 in
 {
-  inherit
-    backendStdenv
-    cudatoolkit
-    cudaFlags;
+  inherit backendStdenv cudatoolkit cudaFlags;
 }

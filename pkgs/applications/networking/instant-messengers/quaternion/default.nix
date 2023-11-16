@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, wrapQtAppsHook
-, qtbase
-, qtquickcontrols2
-, qtkeychain
-, qtmultimedia
-, qttools
-, libquotient
-, libsecret
-, olm
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  wrapQtAppsHook,
+  qtbase,
+  qtquickcontrols2,
+  qtkeychain,
+  qtmultimedia,
+  qttools,
+  libquotient,
+  libsecret,
+  olm,
 }:
 
 stdenv.mkDerivation {
@@ -34,17 +35,24 @@ stdenv.mkDerivation {
     qtquickcontrols2
   ];
 
-  nativeBuildInputs = [ cmake qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    wrapQtAppsHook
+  ];
 
   postInstall =
-    if stdenv.isDarwin then ''
-      mkdir -p $out/Applications
-      mv $out/bin/quaternion.app $out/Applications
-      rmdir $out/bin || :
-    '' else ''
-      substituteInPlace $out/share/applications/com.github.quaternion.desktop \
-        --replace 'Exec=quaternion' "Exec=$out/bin/quaternion"
-    '';
+    if stdenv.isDarwin then
+      ''
+        mkdir -p $out/Applications
+        mv $out/bin/quaternion.app $out/Applications
+        rmdir $out/bin || :
+      ''
+    else
+      ''
+        substituteInPlace $out/share/applications/com.github.quaternion.desktop \
+          --replace 'Exec=quaternion' "Exec=$out/bin/quaternion"
+      '';
 
   meta = with lib; {
     description = "Cross-platform desktop IM client for the Matrix protocol";

@@ -1,10 +1,11 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, substituteAll
-, installShellFiles
-, testers
-, org-stats
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  substituteAll,
+  installShellFiles,
+  testers,
+  org-stats,
 }:
 
 buildGoModule rec {
@@ -20,20 +21,22 @@ buildGoModule rec {
 
   vendorHash = "sha256-LKpnEXVfxBR3cebv46QontDVeA64MJe0vNiKSnTjLtQ=";
 
-  patches = [
-    # patch in version information
-    # since `debug.ReadBuildInfo` does not work with `go build
-    (substituteAll {
-      src = ./version.patch;
-      inherit version;
-    })
-  ];
+  patches =
+    [
+      # patch in version information
+      # since `debug.ReadBuildInfo` does not work with `go build
+      (substituteAll {
+        src = ./version.patch;
+        inherit version;
+      })
+    ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     $out/bin/org-stats man > org-stats.1

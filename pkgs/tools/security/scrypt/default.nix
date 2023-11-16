@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, openssl
-, getconf
-, util-linux
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  getconf,
+  util-linux,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "1hnl0r6pmyxiy4dmafmqk1db7wpc0x9rqpzqcwr9d2cmghcj6byz";
   };
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   configureFlags = [ "--enable-libscrypt-kdf" ];
 
@@ -37,9 +42,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Encryption utility";
-    homepage    = "https://www.tarsnap.com/scrypt.html";
-    license     = licenses.bsd2;
-    platforms   = platforms.all;
+    homepage = "https://www.tarsnap.com/scrypt.html";
+    license = licenses.bsd2;
+    platforms = platforms.all;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }

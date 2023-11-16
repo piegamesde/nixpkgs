@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencore-amr";
@@ -10,8 +14,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://opencore-amr.sourceforge.io/";
-    description = "Library of OpenCORE Framework implementation of Adaptive Multi Rate Narrowband and Wideband (AMR-NB and AMR-WB) speech codec.
-    Library of VisualOn implementation of Adaptive Multi Rate Wideband (AMR-WB)";
+    description = ''
+      Library of OpenCORE Framework implementation of Adaptive Multi Rate Narrowband and Wideband (AMR-NB and AMR-WB) speech codec.
+          Library of VisualOn implementation of Adaptive Multi Rate Wideband (AMR-WB)'';
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.kiloreux ];
   };

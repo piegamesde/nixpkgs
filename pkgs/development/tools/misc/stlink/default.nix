@@ -1,23 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, libusb1
-, gtk3
-, pkg-config
-, wrapGAppsHook
-, withGUI ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  libusb1,
+  gtk3,
+  pkg-config,
+  wrapGAppsHook,
+  withGUI ? false,
 }:
 
 let
   # The Darwin build of stlink explicitly refers to static libusb.
   libusb1' = if stdenv.isDarwin then libusb1.override { withStatic = true; } else libusb1;
-
+in
 # IMPORTANT: You need permissions to access the stlink usb devices.
 # Add services.udev.packages = [ pkgs.stlink ] to your configuration.nix
-
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "stlink";
   version = "1.7.0";
 
@@ -35,17 +35,13 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [
-    libusb1'
-  ] ++ lib.optionals withGUI [
-    gtk3
-  ];
-  nativeBuildInputs = [
-    cmake
-  ] ++ lib.optionals withGUI [
-    pkg-config
-    wrapGAppsHook
-  ];
+  buildInputs = [ libusb1' ] ++ lib.optionals withGUI [ gtk3 ];
+  nativeBuildInputs =
+    [ cmake ]
+    ++ lib.optionals withGUI [
+      pkg-config
+      wrapGAppsHook
+    ];
 
   cmakeFlags = [
     "-DSTLINK_MODPROBED_DIR=${placeholder "out"}/etc/modprobe.d"
@@ -56,6 +52,9 @@ in stdenv.mkDerivation rec {
     description = "In-circuit debug and programming for ST-Link devices";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor maintainers.rongcuid ];
+    maintainers = [
+      maintainers.bjornfor
+      maintainers.rongcuid
+    ];
   };
 }

@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 
 buildGoModule rec {
   pname = "ejson2env";
@@ -19,9 +24,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  passthru.updateScript = nix-update-script {
-    attrPath = pname;
-  };
+  passthru.updateScript = nix-update-script { attrPath = pname; };
 
   meta = with lib; {
     description = "A tool to simplify storing secrets that should be accessible in the shell environment in your git repo.";

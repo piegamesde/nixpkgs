@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-iso8601";
@@ -11,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sXnYAJcU88797orzzfbA2XG91Lk8mDV677J1Am5o7Xo=";
   };
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+  ];
 
   strictDeps = true;
 

@@ -1,24 +1,32 @@
-{ lua
-, hello
-, wrapLua
-, lib, fetchFromGitHub
-, fetchFromGitLab
-, pkgs
+{
+  lua,
+  hello,
+  wrapLua,
+  lib,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  pkgs,
 }:
 let
 
-  runTest = lua: { name, command }:
-    pkgs.runCommandLocal "test-${lua.name}" ({
-      nativeBuildInputs = [lua];
-      meta.platforms = lua.meta.platforms;
-    }) (''
-      source ${./assert.sh}
-    ''
-    + command
-    + "touch $out"
-    );
+  runTest =
+    lua:
+    { name, command }:
+    pkgs.runCommandLocal "test-${lua.name}"
+      ({
+        nativeBuildInputs = [ lua ];
+        meta.platforms = lua.meta.platforms;
+      })
+      (
+        ''
+          source ${./assert.sh}
+        ''
+        + command
+        + "touch $out"
+      );
 
-    wrappedHello = hello.overrideAttrs(oa: {
+  wrappedHello = hello.overrideAttrs (
+    oa: {
       propagatedBuildInputs = [
         wrapLua
         lua.pkgs.cjson
@@ -26,9 +34,10 @@ let
       postFixup = ''
         wrapLuaPrograms
       '';
-    });
+    }
+  );
 in
-  pkgs.recurseIntoAttrs ({
+pkgs.recurseIntoAttrs ({
 
   checkAliases = runTest lua {
     name = "check-aliases";
@@ -37,14 +46,11 @@ in
       golden_LUA_PATH='./share/lua/${lua.luaversion}/?.lua;./?.lua;./?/init.lua'
 
       assertStringEqual "$generated" "$golden_LUA_PATH"
-      '';
+    '';
   };
 
-  checkWrapping = pkgs.runCommandLocal "test-${lua.name}" ({
-    }) (''
-      grep -- 'LUA_PATH=' ${wrappedHello}/bin/hello
-      touch $out
-    '');
-
+  checkWrapping = pkgs.runCommandLocal "test-${lua.name}" ({ }) (''
+    grep -- 'LUA_PATH=' ${wrappedHello}/bin/hello
+    touch $out
+  '');
 })
-

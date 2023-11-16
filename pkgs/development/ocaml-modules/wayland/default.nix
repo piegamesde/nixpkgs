@@ -1,13 +1,14 @@
-{ lib
-, buildDunePackage
-, fetchurl
-, xmlm
-, lwt
-, logs
-, fmt
-, cstruct
-, cmdliner
-, alcotest-lwt
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  xmlm,
+  lwt,
+  logs,
+  fmt,
+  cstruct,
+  cmdliner,
+  alcotest-lwt,
 }:
 
 buildDunePackage rec {
@@ -34,9 +35,7 @@ buildDunePackage rec {
     xmlm
   ];
 
-  checkInputs = [
-    alcotest-lwt
-  ];
+  checkInputs = [ alcotest-lwt ];
   doCheck = true;
 
   meta = {

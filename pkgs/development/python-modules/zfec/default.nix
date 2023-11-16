@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyutil
-, twisted
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyutil,
+  twisted,
 }:
 
 buildPythonPackage rec {
@@ -36,5 +37,4 @@ buildPythonPackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ prusnak ];
   };
-
 }

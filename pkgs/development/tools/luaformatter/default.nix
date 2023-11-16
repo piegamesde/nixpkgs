@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, antlr4_9, libargs, catch2, cmake, yaml-cpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  antlr4_9,
+  libargs,
+  catch2,
+  cmake,
+  yaml-cpp,
+}:
 
 let
   antlr4 = antlr4_9;
@@ -25,14 +35,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ antlr4.runtime.cpp yaml-cpp ];
+  buildInputs = [
+    antlr4.runtime.cpp
+    yaml-cpp
+  ];
 
   meta = with lib; {
     description = "Code formatter for Lua";
     homepage = "https://github.com/Koihik/LuaFormatter";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ figsoda SuperSandro2000 ];
+    maintainers = with maintainers; [
+      figsoda
+      SuperSandro2000
+    ];
     mainProgram = "lua-format";
   };
 }

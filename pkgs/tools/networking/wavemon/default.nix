@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, libnl
-, ncurses
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libnl,
+  ncurses,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0s3yz15vzx90fxyb8bgryksn0cr2gpz9inbcx4qjrgs7zfbm4pgh";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     libnl
@@ -30,7 +29,10 @@ stdenv.mkDerivation rec {
     description = "Ncurses-based monitoring application for wireless network devices";
     homepage = "https://github.com/uoaerg/wavemon";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ raskin fpletz ];
+    maintainers = with maintainers; [
+      raskin
+      fpletz
+    ];
     platforms = platforms.linux;
   };
 }

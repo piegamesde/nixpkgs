@@ -1,9 +1,10 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, primecount
-, cython
-, cysignals
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  primecount,
+  cython,
+  cysignals,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,10 @@ buildPythonPackage rec {
 
   buildInputs = [ primecount ];
 
-  propagatedBuildInputs = [ cython cysignals ];
+  propagatedBuildInputs = [
+    cython
+    cysignals
+  ];
 
   # depends on pytest-cython for "pytest --doctest-cython"
   doCheck = false;

@@ -1,11 +1,12 @@
-{ cmake
-, fetchFromGitHub
-, fetchFromGitLab
-, git
-, lib
-, libGL
-, stdenv
-, xorg
+{
+  cmake,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  git,
+  lib,
+  libGL,
+  stdenv,
+  xorg,
 }:
 
 let
@@ -86,7 +87,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./dependencies.patch ];
 
-  nativeBuildInputs = [ cmake git ];
+  nativeBuildInputs = [
+    cmake
+    git
+  ];
 
   buildInputs = [
     libGL

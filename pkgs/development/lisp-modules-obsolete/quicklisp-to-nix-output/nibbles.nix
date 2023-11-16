@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "nibbles";
   version = "20211209-git";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "nibbles";
 
-  asdFilesToKeep = ["nibbles.asd"];
+  asdFilesToKeep = [ "nibbles.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM nibbles DESCRIPTION
@@ -26,4 +26,5 @@ rec {
     http://beta.quicklisp.org/archive/nibbles/2021-12-09/nibbles-20211209-git.tgz
     MD5 c6e7348a8a979da7cd4852b5df8a4384 NAME nibbles FILENAME nibbles DEPS
     ((NAME rt FILENAME rt)) DEPENDENCIES (rt) VERSION 20211209-git SIBLINGS NIL
-    PARASITES (nibbles/tests)) */
+    PARASITES (nibbles/tests))
+*/

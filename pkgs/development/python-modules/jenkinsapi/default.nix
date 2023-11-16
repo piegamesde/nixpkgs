@@ -1,14 +1,16 @@
-{ lib, stdenv
-, buildPythonPackage
-, pythonAtLeast
-, fetchPypi
-, mock
-, pytest
-, pytest-mock
-, pytz
-, requests
-, requests-kerberos
-, toml
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonAtLeast,
+  fetchPypi,
+  mock,
+  pytest,
+  pytest-mock,
+  pytz,
+  requests,
+  requests-kerberos,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -23,8 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-JGqYpj5h9UoV0WEFyxVIjFZwc030HobHrw1dnAryQLk=";
   };
 
-  propagatedBuildInputs = [ pytz requests ];
-  nativeCheckInputs = [ mock pytest pytest-mock requests-kerberos toml ];
+  propagatedBuildInputs = [
+    pytz
+    requests
+  ];
+  nativeCheckInputs = [
+    mock
+    pytest
+    pytest-mock
+    requests-kerberos
+    toml
+  ];
   # TODO requests-kerberos is broken on darwin, weeding out the broken tests without
   # access to macOS is not an adventure I am ready to embark on - @rski
   doCheck = !stdenv.isDarwin;
@@ -40,5 +51,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ drets ];
     license = licenses.mit;
   };
-
 }

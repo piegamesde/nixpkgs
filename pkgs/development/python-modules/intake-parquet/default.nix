@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pandas
-, dask
-, fastparquet
-, pyarrow
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pandas,
+  dask,
+  fastparquet,
+  pyarrow,
 }:
 
 buildPythonPackage rec {

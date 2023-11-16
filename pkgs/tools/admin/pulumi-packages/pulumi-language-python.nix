@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, pulumi
-, python3
+{
+  lib,
+  buildGoModule,
+  pulumi,
+  python3,
 }:
 buildGoModule rec {
   inherit (pulumi) version src sdkVendorHash;
@@ -23,9 +24,7 @@ buildGoModule rec {
                 "SkipTestDeterminePulumiPackages"
   '';
 
-  subPackages = [
-    "python/cmd/pulumi-language-python"
-  ];
+  subPackages = [ "python/cmd/pulumi-language-python" ];
 
   ldflags = [
     "-s"
@@ -33,9 +32,7 @@ buildGoModule rec {
     "-X github.com/pulumi/pulumi/sdk/v3/go/common/version.Version=${version}"
   ];
 
-  nativeCheckInputs = [
-    python3
-  ];
+  nativeCheckInputs = [ python3 ];
 
   postInstall = ''
     cp python/cmd/pulumi-language-python-exec    $out/bin

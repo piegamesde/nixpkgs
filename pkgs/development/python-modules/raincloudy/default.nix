@@ -1,19 +1,20 @@
-{ lib
-, aiohttp
-, aioresponses
-, beautifulsoup4
-, buildPythonPackage
-, fetchFromGitHub
-, html5lib
-, pytest-asyncio
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-, setuptools
-, setuptools-scm
-, urllib3
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  html5lib,
+  pytest-asyncio,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+  setuptools,
+  setuptools-scm,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -68,10 +69,11 @@ buildPythonPackage rec {
     "raincloudy.aio"
   ];
 
-  disabledTests = [
-    # Test requires network access
-    "test_attributes"
-  ];
+  disabledTests =
+    [
+      # Test requires network access
+      "test_attributes"
+    ];
 
   meta = with lib; {
     description = "Module to interact with Melnor RainCloud Smart Garden Watering Irrigation Timer";

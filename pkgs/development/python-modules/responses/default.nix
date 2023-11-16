@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytest-httpserver
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, requests
-, tomli
-, tomli-w
-, types-pyyaml
-, types-toml
-, typing-extensions
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-httpserver,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  tomli,
+  tomli-w,
+  types-pyyaml,
+  types-toml,
+  typing-extensions,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -37,23 +38,16 @@ buildPythonPackage rec {
     types-pyyaml
     types-toml
     urllib3
-  ]  ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
-
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytest-httpserver
     pytestCheckHook
     tomli-w
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  pythonImportsCheck = [
-    "responses"
-  ];
+  pythonImportsCheck = [ "responses" ];
 
   meta = with lib; {
     description = "Python module for mocking out the requests Python library";

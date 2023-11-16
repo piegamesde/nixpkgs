@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-VYiXFdUD4q6d7KraA26SFV29k53AoluCj7ACMgNQcLU=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
-  pythonImportsCheck = [
-    "pynetgear"
-  ];
+  pythonImportsCheck = [ "pynetgear" ];
 
   # Tests don't pass
   # https://github.com/MatMaul/pynetgear/issues/109

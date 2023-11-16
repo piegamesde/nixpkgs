@@ -1,7 +1,23 @@
-{ lib, mkDerivation, cmake, fetchFromGitHub, pkg-config
-, boost, exiv2, fftwFloat, gsl
-, ilmbase, lcms2, libraw, libtiff, openexr
-, qtbase, qtdeclarative, qttools, qtwebengine, eigen
+{
+  lib,
+  mkDerivation,
+  cmake,
+  fetchFromGitHub,
+  pkg-config,
+  boost,
+  exiv2,
+  fftwFloat,
+  gsl,
+  ilmbase,
+  lcms2,
+  libraw,
+  libtiff,
+  openexr,
+  qtbase,
+  qtdeclarative,
+  qttools,
+  qtwebengine,
+  eigen,
 }:
 
 mkDerivation rec {
@@ -18,11 +34,26 @@ mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-I${ilmbase.dev}/include/OpenEXR";
 
   buildInputs = [
-    qtbase qtdeclarative qttools qtwebengine eigen
-    boost exiv2 fftwFloat gsl ilmbase lcms2 libraw libtiff openexr
+    qtbase
+    qtdeclarative
+    qttools
+    qtwebengine
+    eigen
+    boost
+    exiv2
+    fftwFloat
+    gsl
+    ilmbase
+    lcms2
+    libraw
+    libtiff
+    openexr
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://qtpfsgui.sourceforge.net/";

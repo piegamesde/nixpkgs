@@ -1,10 +1,11 @@
-{ lib
-, babel
-, buildPythonPackage
-, fetchFromGitHub
-, pygments
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pygments,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -23,18 +24,14 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     babel
     pygments
   ];
 
-  pythonImportsCheck = [
-    "colout"
-  ];
+  pythonImportsCheck = [ "colout" ];
 
   # This project does not have a unit test
   doCheck = false;

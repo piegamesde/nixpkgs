@@ -1,4 +1,9 @@
-{ pkgs, stdenv, lib, nixosTests }:
+{
+  pkgs,
+  stdenv,
+  lib,
+  nixosTests,
+}:
 
 let
   nodePackages = import ./node-composition.nix {
@@ -7,9 +12,7 @@ let
   };
 in
 nodePackages.n8n.override {
-  nativeBuildInputs = [
-    pkgs.nodePackages.node-pre-gyp
-  ];
+  nativeBuildInputs = [ pkgs.nodePackages.node-pre-gyp ];
 
   buildInputs = [
     pkgs.postgresql
@@ -37,7 +40,10 @@ nodePackages.n8n.override {
 
   meta = with lib; {
     description = "Free and source-available fair-code licensed workflow automation tool. Easily automate tasks across different services.";
-    maintainers = with maintainers; [ freezeboy k900 ];
+    maintainers = with maintainers; [
+      freezeboy
+      k900
+    ];
     license = {
       fullName = "Sustainable Use License";
       url = "https://github.com/n8n-io/n8n/blob/master/LICENSE.md";

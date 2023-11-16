@@ -1,4 +1,5 @@
-{ mkDerivation,
+{
+  mkDerivation,
   stdenv,
   lib,
   fetchFromGitHub,
@@ -11,7 +12,7 @@
   qtsvg,
   qttools,
   qtquickcontrols2,
-  qtgraphicaleffects
+  qtgraphicaleffects,
 }:
 
 mkDerivation rec {
@@ -25,7 +26,10 @@ mkDerivation rec {
     sha256 = "sha256-ahETmUhlPZ3jpxmzDK5pS6yLc6UxCJFOtWolAtSrDVQ=";
   };
 
-  nativeBuildInputs = [ cmake util-linux ];
+  nativeBuildInputs = [
+    cmake
+    util-linux
+  ];
 
   buildInputs = [
     curl
@@ -41,8 +45,9 @@ mkDerivation rec {
   sourceRoot = "${src.name}/src";
 
   /* By default, the builder checks for JSON support in lsblk by running "lsblk --json",
-    but that throws an error, as /sys/dev doesn't exist in the sandbox.
-    This patch removes the check. */
+     but that throws an error, as /sys/dev doesn't exist in the sandbox.
+     This patch removes the check.
+  */
   patches = [ ./lsblkCheckFix.patch ];
 
   meta = with lib; {

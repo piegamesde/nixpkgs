@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, zig, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zig,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ncdu";
@@ -9,11 +15,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-kNkgAk51Ixi0aXds5X4Ds8cC1JMprZglruqzbDur+ZM=";
   };
 
-  XDG_CACHE_HOME="Cache"; # FIXME This should be set in stdenv
+  XDG_CACHE_HOME = "Cache"; # FIXME This should be set in stdenv
 
-  nativeBuildInputs = [
-    zig
-  ];
+  nativeBuildInputs = [ zig ];
 
   buildInputs = [ ncurses ];
 
@@ -27,6 +31,10 @@ stdenv.mkDerivation rec {
     homepage = "https://dev.yorhel.nl/ncdu";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub SuperSandro2000 rodrgz ];
+    maintainers = with maintainers; [
+      pSub
+      SuperSandro2000
+      rodrgz
+    ];
   };
 }

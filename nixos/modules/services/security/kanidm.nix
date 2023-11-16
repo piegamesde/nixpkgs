@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.kanidm;
   settingsFormat = pkgs.formats.toml { };
@@ -7,18 +13,32 @@ let
   serverConfigFile = settingsFormat.generate "server.toml" (filterConfig cfg.serverSettings);
   clientConfigFile = settingsFormat.generate "kanidm-config.toml" (filterConfig cfg.clientSettings);
   unixConfigFile = settingsFormat.generate "kanidm-unixd.toml" (filterConfig cfg.unixSettings);
-  certPaths = builtins.map builtins.dirOf [ cfg.serverSettings.tls_chain cfg.serverSettings.tls_key ];
+  certPaths = builtins.map builtins.dirOf [
+    cfg.serverSettings.tls_chain
+    cfg.serverSettings.tls_key
+  ];
 
   # Merge bind mount paths and remove paths where a prefix is already mounted.
   # This makes sure that if e.g. the tls_chain is in the nix store and /nix/store is already in the mount
   # paths, no new bind mount is added. Adding subpaths caused problems on ofborg.
-  hasPrefixInList = list: newPath: lib.any (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath)) list;
-  mergePaths = lib.foldl' (merged: newPath: let
-      # If the new path is a prefix to some existing path, we need to filter it out
-      filteredPaths = lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p)) merged;
-      # If a prefix of the new path is already in the list, do not add it
-      filteredNew = if hasPrefixInList filteredPaths newPath then [] else [ newPath ];
-    in filteredPaths ++ filteredNew) [];
+  hasPrefixInList =
+    list: newPath:
+    lib.any (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath)) list;
+  mergePaths =
+    lib.foldl'
+      (
+        merged: newPath:
+        let
+          # If the new path is a prefix to some existing path, we need to filter it out
+          filteredPaths =
+            lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
+              merged;
+          # If a prefix of the new path is already in the list, do not add it
+          filteredNew = if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
+        in
+        filteredPaths ++ filteredNew
+      )
+      [ ];
 
   defaultServiceConfig = {
     BindReadOnlyPaths = [
@@ -28,7 +48,7 @@ let
       "-/etc/hosts"
       "-/etc/localtime"
     ];
-    CapabilityBoundingSet = [];
+    CapabilityBoundingSet = [ ];
     # ProtectClock= adds DeviceAllow=char-rtc r
     DeviceAllow = "";
     # Implies ProtectSystem=strict, which re-mounts all paths
@@ -57,11 +77,13 @@ let
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
     SystemCallArchitectures = "native";
-    SystemCallFilter = [ "@system-service" "~@privileged @resources @setuid @keyring" ];
+    SystemCallFilter = [
+      "@system-service"
+      "~@privileged @resources @setuid @keyring"
+    ];
     # Does not work well with the temporary root
     #UMask = "0066";
   };
-
 in
 {
   options.services.kanidm = {
@@ -123,12 +145,23 @@ in
           log_level = lib.mkOption {
             description = lib.mdDoc "Log level of the server.";
             default = "default";
-            type = lib.types.enum [ "default" "verbose" "perfbasic" "perffull" ];
+            type = lib.types.enum [
+              "default"
+              "verbose"
+              "perfbasic"
+              "perffull"
+            ];
           };
           role = lib.mkOption {
-            description = lib.mdDoc "The role of this server. This affects the replication relationship and thereby available features.";
+            description =
+              lib.mdDoc
+                "The role of this server. This affects the replication relationship and thereby available features.";
             default = "WriteReplica";
-            type = lib.types.enum [ "WriteReplica" "WriteReplicaNoUI" "ReadOnlyReplica" ];
+            type = lib.types.enum [
+              "WriteReplica"
+              "WriteReplicaNoUI"
+              "ReadOnlyReplica"
+            ];
           };
         };
       };
@@ -179,48 +212,57 @@ in
   };
 
   config = lib.mkIf (cfg.enableClient || cfg.enableServer || cfg.enablePam) {
-    assertions =
-      [
-        {
-          assertion = !cfg.enableServer || ((cfg.serverSettings.tls_chain or null) == null) || (!lib.isStorePath cfg.serverSettings.tls_chain);
-          message = ''
-            <option>services.kanidm.serverSettings.tls_chain</option> points to
-            a file in the Nix store. You should use a quoted absolute path to
-            prevent this.
-          '';
-        }
-        {
-          assertion = !cfg.enableServer || ((cfg.serverSettings.tls_key or null) == null) || (!lib.isStorePath cfg.serverSettings.tls_key);
-          message = ''
-            <option>services.kanidm.serverSettings.tls_key</option> points to
-            a file in the Nix store. You should use a quoted absolute path to
-            prevent this.
-          '';
-        }
-        {
-          assertion = !cfg.enableClient || options.services.kanidm.clientSettings.isDefined;
-          message = ''
-            <option>services.kanidm.clientSettings</option> needs to be configured
-            if the client is enabled.
-          '';
-        }
-        {
-          assertion = !cfg.enablePam || options.services.kanidm.clientSettings.isDefined;
-          message = ''
-            <option>services.kanidm.clientSettings</option> needs to be configured
-            for the PAM daemon to connect to the Kanidm server.
-          '';
-        }
-        {
-          assertion = !cfg.enableServer || (cfg.serverSettings.domain == null
-            -> cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI");
-          message = ''
-            <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
-            is not a ReadOnlyReplica. Otherwise the db would inherit it from
-            the instance it follows.
-          '';
-        }
-      ];
+    assertions = [
+      {
+        assertion =
+          !cfg.enableServer
+          || ((cfg.serverSettings.tls_chain or null) == null)
+          || (!lib.isStorePath cfg.serverSettings.tls_chain);
+        message = ''
+          <option>services.kanidm.serverSettings.tls_chain</option> points to
+          a file in the Nix store. You should use a quoted absolute path to
+          prevent this.
+        '';
+      }
+      {
+        assertion =
+          !cfg.enableServer
+          || ((cfg.serverSettings.tls_key or null) == null)
+          || (!lib.isStorePath cfg.serverSettings.tls_key);
+        message = ''
+          <option>services.kanidm.serverSettings.tls_key</option> points to
+          a file in the Nix store. You should use a quoted absolute path to
+          prevent this.
+        '';
+      }
+      {
+        assertion = !cfg.enableClient || options.services.kanidm.clientSettings.isDefined;
+        message = ''
+          <option>services.kanidm.clientSettings</option> needs to be configured
+          if the client is enabled.
+        '';
+      }
+      {
+        assertion = !cfg.enablePam || options.services.kanidm.clientSettings.isDefined;
+        message = ''
+          <option>services.kanidm.clientSettings</option> needs to be configured
+          for the PAM daemon to connect to the Kanidm server.
+        '';
+      }
+      {
+        assertion =
+          !cfg.enableServer
+          || (
+            cfg.serverSettings.domain == null
+            -> cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI"
+          );
+        message = ''
+          <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
+          is not a ReadOnlyReplica. Otherwise the db would inherit it from
+          the instance it follows.
+        '';
+      }
+    ];
 
     environment.systemPackages = lib.mkIf cfg.enableClient [ pkgs.kanidm ];
 
@@ -230,9 +272,12 @@ in
       after = [ "network.target" ];
       serviceConfig = lib.mkMerge [
         # Merge paths and ignore existing prefixes needs to sidestep mkMerge
-        (defaultServiceConfig // {
-          BindReadOnlyPaths = mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
-        })
+        (
+          defaultServiceConfig
+          // {
+            BindReadOnlyPaths = mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
+          }
+        )
         {
           StateDirectory = "kanidm";
           StateDirectoryMode = "0700";
@@ -246,7 +291,10 @@ in
           PrivateUsers = lib.mkForce false;
           # Port needs to be exposed to the host network
           PrivateNetwork = lib.mkForce false;
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
           TemporaryFileSystem = "/:ro";
         }
       ];
@@ -257,7 +305,10 @@ in
       description = "Kanidm PAM daemon";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      restartTriggers = [ unixConfigFile clientConfigFile ];
+      restartTriggers = [
+        unixConfigFile
+        clientConfigFile
+      ];
       serviceConfig = lib.mkMerge [
         defaultServiceConfig
         {
@@ -274,13 +325,18 @@ in
             "-/etc/ssl"
             "-/etc/static/ssl"
           ];
-          BindPaths = [
-            # To create the socket
-            "/run/kanidm-unixd:/var/run/kanidm-unixd"
-          ];
+          BindPaths =
+            [
+              # To create the socket
+              "/run/kanidm-unixd:/var/run/kanidm-unixd"
+            ];
           # Needs to connect to kanidmd
           PrivateNetwork = lib.mkForce false;
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
+          ];
           TemporaryFileSystem = "/:ro";
         }
       ];
@@ -290,9 +346,15 @@ in
     systemd.services.kanidm-unixd-tasks = lib.mkIf cfg.enablePam {
       description = "Kanidm PAM home management daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "kanidm-unixd.service" ];
+      after = [
+        "network.target"
+        "kanidm-unixd.service"
+      ];
       partOf = [ "kanidm-unixd.service" ];
-      restartTriggers = [ unixConfigFile clientConfigFile ];
+      restartTriggers = [
+        unixConfigFile
+        clientConfigFile
+      ];
       serviceConfig = {
         ExecStart = "${pkgs.kanidm}/bin/kanidm_unixd_tasks";
 
@@ -312,7 +374,12 @@ in
           "/run/kanidm-unixd:/var/run/kanidm-unixd"
         ];
         # CAP_DAC_OVERRIDE is needed to ignore ownership of unixd socket
-        CapabilityBoundingSet = [ "CAP_CHOWN" "CAP_FOWNER" "CAP_DAC_OVERRIDE" "CAP_DAC_READ_SEARCH" ];
+        CapabilityBoundingSet = [
+          "CAP_CHOWN"
+          "CAP_FOWNER"
+          "CAP_DAC_OVERRIDE"
+          "CAP_DAC_READ_SEARCH"
+        ];
         IPAddressDeny = "any";
         # Need access to users
         PrivateUsers = false;
@@ -330,9 +397,7 @@ in
       (lib.mkIf options.services.kanidm.clientSettings.isDefined {
         "kanidm/config".source = clientConfigFile;
       })
-      (lib.mkIf cfg.enablePam {
-        "kanidm/unixd".source = unixConfigFile;
-      })
+      (lib.mkIf cfg.enablePam { "kanidm/unixd".source = unixConfigFile; })
     ];
 
     system.nssModules = lib.mkIf cfg.enablePam [ pkgs.kanidm ];
@@ -341,12 +406,8 @@ in
     system.nssDatabases.passwd = lib.optional cfg.enablePam "kanidm";
 
     users.groups = lib.mkMerge [
-      (lib.mkIf cfg.enableServer {
-        kanidm = { };
-      })
-      (lib.mkIf cfg.enablePam {
-        kanidm-unixd = { };
-      })
+      (lib.mkIf cfg.enableServer { kanidm = { }; })
+      (lib.mkIf cfg.enablePam { kanidm-unixd = { }; })
     ];
     users.users = lib.mkMerge [
       (lib.mkIf cfg.enableServer {
@@ -367,6 +428,9 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ erictapen Flakebi ];
+  meta.maintainers = with lib.maintainers; [
+    erictapen
+    Flakebi
+  ];
   meta.buildDocsInSandbox = false;
 }

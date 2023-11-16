@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, hatchling
-, protobuf
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  protobuf,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -12,27 +13,23 @@ buildPythonPackage rec {
   version = "1.18.0";
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "open-telemetry";
-    repo = "opentelemetry-python";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-6iB+QlBUqRvIJ9p38NYgP4icW2rYs1P3bNCxI95cOvs=";
-    sparseCheckout = [ "/${pname}" ];
-  } + "/${pname}";
+  src =
+    fetchFromGitHub {
+      owner = "open-telemetry";
+      repo = "opentelemetry-python";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-6iB+QlBUqRvIJ9p38NYgP4icW2rYs1P3bNCxI95cOvs=";
+      sparseCheckout = [ "/${pname}" ];
+    }
+    + "/${pname}";
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    protobuf
-  ];
+  propagatedBuildInputs = [ protobuf ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "opentelemetry.proto" ];
 

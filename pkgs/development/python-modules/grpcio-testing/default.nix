@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, grpcio
-, protobuf
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  grpcio,
+  protobuf,
+  pythonOlder,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonImportsCheck = [
-    "grpc_testing"
-  ];
+  pythonImportsCheck = [ "grpc_testing" ];
 
   # Module has no tests
   doCheck = false;

@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-fuzz";
   version = "20181018-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-fuzz";
 
-  asdFilesToKeep = ["cl-fuzz.asd"];
+  asdFilesToKeep = [ "cl-fuzz.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-fuzz DESCRIPTION A Fuzz Testing Framework SHA256
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-fuzz/2018-10-18/cl-fuzz-20181018-git.tgz
     MD5 22e715b370ea886bbff1e09db20c4e32 NAME cl-fuzz FILENAME cl-fuzz DEPS
     ((NAME alexandria FILENAME alexandria)) DEPENDENCIES (alexandria) VERSION
-    20181018-git SIBLINGS NIL PARASITES NIL) */
+    20181018-git SIBLINGS NIL PARASITES NIL)
+*/

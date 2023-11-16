@@ -1,7 +1,8 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, nasm
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  nasm,
 }:
 stdenv.mkDerivation {
   pname = "libcbs";
@@ -42,7 +43,5 @@ stdenv.mkDerivation {
     "ffmpeg_patches/cbs/04-size-specifier.patch"
   ];
 
-  CFLAGS = [
-    "-Wno-format-security"
-  ];
+  CFLAGS = [ "-Wno-format-security" ];
 }

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, icalendar
-, pytz
-, pytestCheckHook
-, restructuredtext_lint
-, pygments
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  icalendar,
+  pytz,
+  pytestCheckHook,
+  restructuredtext_lint,
+  pygments,
 }:
 
 buildPythonPackage rec {

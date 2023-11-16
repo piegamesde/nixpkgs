@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromSourcehut
-, zig, glfw, libGLU, libGL, openal, libsndfile }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  zig,
+  glfw,
+  libGLU,
+  libGL,
+  openal,
+  libsndfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blackshades";
@@ -14,7 +23,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ zig ];
-  buildInputs = [ glfw libGLU libGL openal libsndfile ];
+  buildInputs = [
+    glfw
+    libGLU
+    libGL
+    openal
+    libsndfile
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -28,7 +43,10 @@ stdenv.mkDerivation rec {
     homepage = "https://sr.ht/~cnx/blackshades";
     description = "A psychic bodyguard FPS";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ McSinyx viric ];
+    maintainers = with lib.maintainers; [
+      McSinyx
+      viric
+    ];
     platforms = with lib.platforms; linux;
   };
 }

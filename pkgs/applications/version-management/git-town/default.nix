@@ -1,4 +1,14 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles, git, testers, git-town, makeWrapper }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  git,
+  testers,
+  git-town,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "git-town";
@@ -11,24 +21,29 @@ buildGoModule rec {
     sha256 = "sha256-g9ooMIMN8DN2FcWYkDC1hICCleQYdHf30PYMCit/NMI=";
   };
 
-  patches = [
-    # Fix "go vet" when building using Go 1.18.
-    (fetchpatch {
-      name = "fix-go-vet-in-go-1.18.patch";
-      url = "https://github.com/git-town/git-town/commit/23eb0aca7b28c6a0afc21db553aa0e35d35891aa.patch";
-      sha256 = "sha256-EyfhKVrQxRJNrYqaZI04dJogaXs1J+bbOIu7p8g2Clc=";
-    })
-  ];
+  patches =
+    [
+      # Fix "go vet" when building using Go 1.18.
+      (fetchpatch {
+        name = "fix-go-vet-in-go-1.18.patch";
+        url = "https://github.com/git-town/git-town/commit/23eb0aca7b28c6a0afc21db553aa0e35d35891aa.patch";
+        sha256 = "sha256-EyfhKVrQxRJNrYqaZI04dJogaXs1J+bbOIu7p8g2Clc=";
+      })
+    ];
 
   vendorSha256 = null;
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   buildInputs = [ git ];
 
   ldflags =
     let
-      modulePath = "github.com/git-town/git-town/v${lib.versions.major version}"; in
+      modulePath = "github.com/git-town/git-town/v${lib.versions.major version}";
+    in
     [
       "-s"
       "-w"
@@ -72,6 +87,9 @@ buildGoModule rec {
     description = "Generic, high-level git support for git-flow workflows";
     homepage = "https://www.git-town.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ allonsy blaggacao ];
+    maintainers = with maintainers; [
+      allonsy
+      blaggacao
+    ];
   };
 }

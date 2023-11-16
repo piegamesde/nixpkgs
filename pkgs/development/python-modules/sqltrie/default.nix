@@ -1,12 +1,13 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pygtrie
-, orjson
-, python
-, setuptools-scm
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pygtrie,
+  orjson,
+  python,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     attrs
@@ -38,9 +37,7 @@ buildPythonPackage rec {
   # nox is not available at the moment
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sqltrie"
-  ];
+  pythonImportsCheck = [ "sqltrie" ];
 
   meta = with lib; {
     description = "DVC's data management subsystem";

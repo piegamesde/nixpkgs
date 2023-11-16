@@ -1,14 +1,15 @@
-{ lib
-, rustPlatform
-, fetchgit
-, makeWrapper
-, pkg-config
-, glib
-, libopus
-, vips
-, ffmpeg
-, callPackage
-, unstableGitUpdater
+{
+  lib,
+  rustPlatform,
+  fetchgit,
+  makeWrapper,
+  pkg-config,
+  glib,
+  libopus,
+  vips,
+  ffmpeg,
+  callPackage,
+  unstableGitUpdater,
 }:
 
 rustPlatform.buildRustPackage {

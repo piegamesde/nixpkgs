@@ -9,7 +9,10 @@ in
   imports = [
     ../../modules/virtualisation/qemu-vm.nix
     ../../modules/testing/test-instrumentation.nix # !!! should only get added for automated test runs
-    { key = "no-manual"; documentation.nixos.enable = false; }
+    {
+      key = "no-manual";
+      documentation.nixos.enable = false;
+    }
     {
       key = "no-revision";
       # Make the revision metadata constant, in order to avoid needless retesting.
@@ -18,6 +21,5 @@ in
       # version number.
       config.system.nixos.revision = mkForce "constant-nixos-revision";
     }
-
   ];
 }

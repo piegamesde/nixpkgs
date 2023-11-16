@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchzip }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "octant";
@@ -7,16 +11,20 @@ stdenv.mkDerivation rec {
   src =
     let
       inherit (stdenv.hostPlatform) system;
-      suffix = {
-        x86_64-linux = "Linux-64bit";
-        aarch64-linux = "Linux-arm64";
-        x86_64-darwin = "macOS-64bit";
-        aarch64-darwin = "macOS-arm64";
-      }.${system} or (throw "Unsupported system: ${system}");
-      fetchsrc = version: sha256: fetchzip {
-        url = "https://github.com/vmware-tanzu/octant/releases/download/v${version}/octant_${version}_${suffix}.tar.gz";
-        sha256 = sha256.${system};
-      };
+      suffix =
+        {
+          x86_64-linux = "Linux-64bit";
+          aarch64-linux = "Linux-arm64";
+          x86_64-darwin = "macOS-64bit";
+          aarch64-darwin = "macOS-arm64";
+        }
+        .${system} or (throw "Unsupported system: ${system}");
+      fetchsrc =
+        version: sha256:
+        fetchzip {
+          url = "https://github.com/vmware-tanzu/octant/releases/download/v${version}/octant_${version}_${suffix}.tar.gz";
+          sha256 = sha256.${system};
+        };
     in
     fetchsrc version {
       x86_64-linux = "sha256-bYqycTB036J8trojySPNkC+jrw76F7+N4I4puGCyalU=";
@@ -62,6 +70,11 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

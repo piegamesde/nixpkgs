@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, nixosTests
-, file, libmnl, libnftnl, libnl
-, net-snmp, openssl, pkg-config
-, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nixosTests,
+  file,
+  libmnl,
+  libnftnl,
+  libnl,
+  net-snmp,
+  openssl,
+  pkg-config,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "keepalived";
@@ -27,12 +37,15 @@ stdenv.mkDerivation rec {
 
   passthru.tests.keepalived = nixosTests.keepalived;
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   configureFlags = [
     "--enable-sha1"
     "--enable-snmp"
- ];
+  ];
 
   meta = with lib; {
     homepage = "https://keepalived.org";

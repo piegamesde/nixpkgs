@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, perl
-, wrapGAppsHook
-, wrapQtAppsHook
-, qtbase
-, qtcharts
-, qtpositioning
-, qtmultimedia
-, qtserialport
-, qttranslations
-, qtwayland
-, qtwebengine
-, calcmysky
-, qxlsx
-, indilib
-, libnova
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  perl,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  qtbase,
+  qtcharts,
+  qtpositioning,
+  qtmultimedia,
+  qtserialport,
+  qttranslations,
+  qtwayland,
+  qtwebengine,
+  calcmysky,
+  qxlsx,
+  indilib,
+  libnova,
 }:
 
 stdenv.mkDerivation rec {
@@ -57,9 +58,7 @@ stdenv.mkDerivation rec {
     qxlsx
     indilib
     libnova
-  ] ++ lib.optionals stdenv.isLinux [
-    qtwayland
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     export LC_ALL=en_US.UTF-8

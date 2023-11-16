@@ -1,17 +1,25 @@
-{ lib, stdenv, fetchurl
-, ncurses
-, libX11, xorgproto, buildEnv
-, fetchpatch
-, useX11 ? stdenv.hostPlatform.isx86
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  libX11,
+  xorgproto,
+  buildEnv,
+  fetchpatch,
+  useX11 ? stdenv.hostPlatform.isx86,
 }:
 
 let
-   x11deps = [ libX11 xorgproto ];
-   inherit (lib) optionals;
+  x11deps = [
+    libX11
+    xorgproto
+  ];
+  inherit (lib) optionals;
 
-   baseOcamlBranch  = "4.11";
-   baseOcamlVersion = "${baseOcamlBranch}.1";
-   metaocamlPatch   = "111";
+  baseOcamlBranch = "4.11";
+  baseOcamlVersion = "${baseOcamlBranch}.1";
+  metaocamlPatch = "111";
 in
 
 stdenv.mkDerivation rec {
@@ -28,7 +36,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hDb0w0ZCm0hCz8jktZKmr/7gPSfBoKPT/cc7sPjt0yE=";
   };
 
-  x11env = buildEnv { name = "x11env"; paths = x11deps; };
+  x11env = buildEnv {
+    name = "x11env";
+    paths = x11deps;
+  };
   x11lib = "${x11env}/lib";
   x11inc = "${x11env}/include";
 
@@ -38,16 +49,17 @@ stdenv.mkDerivation rec {
   dontStrip = true;
   buildInputs = [ ncurses ] ++ optionals useX11 x11deps;
 
-  patches = [
-    # glibc 2.34 changed SIGSTKSZ from a #define'd integer to an
-    # expression involving a function call.  This broke all code that
-    # used SIGSTKSZ as the size of a statically-allocated array.  This
-    # patch is also applied by the ocaml/4.07.nix expression.
-    (fetchpatch {
-      url = "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
-      sha256 = "sha256-OmyovAu+8sgg3n5YD29Cytx3u/9PO2ofMsmrwiKUxks=";
-    })
-  ];
+  patches =
+    [
+      # glibc 2.34 changed SIGSTKSZ from a #define'd integer to an
+      # expression involving a function call.  This broke all code that
+      # used SIGSTKSZ as the size of a statically-allocated array.  This
+      # patch is also applied by the ocaml/4.07.nix expression.
+      (fetchpatch {
+        url = "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
+        sha256 = "sha256-OmyovAu+8sgg3n5YD29Cytx3u/9PO2ofMsmrwiKUxks=";
+      })
+    ];
 
   postConfigure = ''
     tar -xvzf $metaocaml
@@ -87,14 +99,18 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description     = "Multi-Stage Programming extension for OCaml";
-    homepage        = "https://okmij.org/ftp/ML/MetaOCaml.html";
-    license         = with licenses; [ /* compiler */ qpl /* library */ lgpl2 ];
-    maintainers     = with maintainers; [ thoughtpolice ];
+    description = "Multi-Stage Programming extension for OCaml";
+    homepage = "https://okmij.org/ftp/ML/MetaOCaml.html";
+    license = with licenses; [
+      # compiler
+      qpl # library
+      lgpl2
+    ];
+    maintainers = with maintainers; [ thoughtpolice ];
 
-    branch          = baseOcamlBranch;
-    platforms       = with platforms; linux ++ darwin;
-    broken          = stdenv.isAarch64 || stdenv.isMips;
+    branch = baseOcamlBranch;
+    platforms = with platforms; linux ++ darwin;
+    broken = stdenv.isAarch64 || stdenv.isMips;
 
     longDescription = ''
       A simple extension of OCaml with the primitive type of code values, and

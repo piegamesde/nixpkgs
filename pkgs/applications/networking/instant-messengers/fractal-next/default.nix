@@ -1,27 +1,28 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, cargo
-, meson
-, ninja
-, rustPlatform
-, rustc
-, pkg-config
-, glib
-, gtk4
-, gtksourceview5
-, libadwaita
-, gstreamer
-, gst-plugins-base
-, gst-plugins-bad
-, desktop-file-utils
-, appstream-glib
-, openssl
-, pipewire
-, libshumate
-, wrapGAppsHook4
-, sqlite
-, xdg-desktop-portal
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  cargo,
+  meson,
+  ninja,
+  rustPlatform,
+  rustc,
+  pkg-config,
+  glib,
+  gtk4,
+  gtksourceview5,
+  libadwaita,
+  gstreamer,
+  gst-plugins-base,
+  gst-plugins-bad,
+  desktop-file-utils,
+  appstream-glib,
+  openssl,
+  pipewire,
+  libshumate,
+  wrapGAppsHook4,
+  sqlite,
+  xdg-desktop-portal,
 }:
 
 stdenv.mkDerivation rec {

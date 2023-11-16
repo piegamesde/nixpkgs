@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, poetry-core
-, cssselect
-, lxml
-, numpy
-, packaging
-, pillow
-, pygobject3
-, pyserial
-, scour
-, gobject-introspection
-, pytestCheckHook
-, gtk3
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  poetry-core,
+  cssselect,
+  lxml,
+  numpy,
+  packaging,
+  pillow,
+  pygobject3,
+  pyserial,
+  scour,
+  gobject-introspection,
+  pytestCheckHook,
+  gtk3,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
       --replace 'scour = "^0.37"' 'scour = ">=0.37"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     cssselect
@@ -56,9 +55,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  checkInputs = [
-    gtk3
-  ];
+  checkInputs = [ gtk3 ];
 
   disabledTests = [
     "test_extract_multiple"

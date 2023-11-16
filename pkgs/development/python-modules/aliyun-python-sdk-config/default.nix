@@ -1,8 +1,9 @@
-{ lib
-, aliyun-python-sdk-core
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  aliyun-python-sdk-core,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-5uRiOJAxq1zcJX+CyDnTG5BG1eFcJ43HdfpWUoZ5FSM=";
   };
 
-  propagatedBuildInputs = [
-    aliyun-python-sdk-core
-  ];
+  propagatedBuildInputs = [ aliyun-python-sdk-core ];
 
   # All components are stored in a mono repo
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aliyunsdkconfig"
-  ];
+  pythonImportsCheck = [ "aliyunsdkconfig" ];
 
   meta = with lib; {
     description = "Configuration module of Aliyun Python SDK";

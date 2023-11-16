@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitLab, fetchurl, bash }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitLab,
+  fetchurl,
+  bash,
+}:
 
 let
   version = "16.0.2";
@@ -63,6 +69,11 @@ buildGoModule rec {
     license = licenses.mit;
     homepage = "https://about.gitlab.com/gitlab-ci/";
     platforms = platforms.unix ++ platforms.darwin;
-    maintainers = with maintainers; [ bachp zimbatm globin yayayayaka ];
+    maintainers = with maintainers; [
+      bachp
+      zimbatm
+      globin
+      yayayayaka
+    ];
   };
 }

@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, IOKit
-, cctools
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  IOKit,
+  cctools,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,18 +22,16 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [
-    cctools
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ cctools ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    IOKit
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 
-  cmakeFlags = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    # Some x86 tests are interrupted by signal 10
-    "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_x86"
-  ];
+  cmakeFlags =
+    lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+      [
+        # Some x86 tests are interrupted by signal 10
+        "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_x86"
+      ];
 
   doCheck = true;
 
@@ -41,6 +40,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.unicorn-engine.org";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice luc65r ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      luc65r
+    ];
   };
 }

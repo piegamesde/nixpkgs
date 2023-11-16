@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, cython
-, numpy
-, srsly
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  cython,
+  numpy,
+  srsly,
 }:
 
 buildPythonPackage rec {
@@ -25,7 +26,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ numpy srsly ];
+  propagatedBuildInputs = [
+    numpy
+    srsly
+  ];
 
   pythonImportsCheck = [ "spacy_pkuseg" ];
 

@@ -1,29 +1,45 @@
-{ wrapPython, python, lib, stdenv, cmake, qt5,
-  shiboken2, pyside2 }:
+{
+  wrapPython,
+  python,
+  lib,
+  stdenv,
+  cmake,
+  qt5,
+  shiboken2,
+  pyside2,
+}:
 
 stdenv.mkDerivation {
   pname = "pyside2-tools";
 
   inherit (pyside2) version src;
 
-  patches = [
-    # Upstream has a crazy build system only geared towards producing binary
-    # wheels distributed via pypi.  For this, they copy the `uic` and `rcc`
-    # binaries to the wheel.
-    ./remove_hacky_binary_copying.patch
-  ];
+  patches =
+    [
+      # Upstream has a crazy build system only geared towards producing binary
+      # wheels distributed via pypi.  For this, they copy the `uic` and `rcc`
+      # binaries to the wheel.
+      ./remove_hacky_binary_copying.patch
+    ];
 
   postPatch = ''
     cd sources/pyside2-tools
   '';
 
-  nativeBuildInputs = [ cmake wrapPython ];
-  propagatedBuildInputs = [ shiboken2 pyside2 ];
-  buildInputs = [ python qt5.qtbase ];
-
-  cmakeFlags = [
-    "-DBUILD_TESTS=OFF"
+  nativeBuildInputs = [
+    cmake
+    wrapPython
   ];
+  propagatedBuildInputs = [
+    shiboken2
+    pyside2
+  ];
+  buildInputs = [
+    python
+    qt5.qtbase
+  ];
+
+  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 
   dontWrapQtApps = true;
 

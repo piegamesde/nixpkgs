@@ -1,4 +1,10 @@
-{lib, stdenv, fetchurl, perl, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dos2unix";
@@ -9,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ejsB0B4hTWLCs+BMOpLg3ccoo4VWbkwDVu+mb9brla8=";
   };
 
-  nativeBuildInputs = [ perl gettext ];
+  nativeBuildInputs = [
+    perl
+    gettext
+  ];
   makeFlags = [ "prefix=${placeholder "out"}" ];
 
   meta = with lib; {

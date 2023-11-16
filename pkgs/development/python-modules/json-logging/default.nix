@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fastapi
-, fetchFromGitHub
-, flask
-, httpx
-, pytestCheckHook
-, pythonOlder
-, requests
-, sanic
-, uvicorn
-, wheel
+{
+  lib,
+  buildPythonPackage,
+  fastapi,
+  fetchFromGitHub,
+  flask,
+  httpx,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  sanic,
+  uvicorn,
+  wheel,
 }:
 
 buildPythonPackage rec {
@@ -38,13 +39,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [
-    "json_logging"
-  ];
+  pythonImportsCheck = [ "json_logging" ];
 
-  disabledTests = [
-    "quart"
-  ];
+  disabledTests = [ "quart" ];
 
   __darwinAllowLocalNetworking = true;
 

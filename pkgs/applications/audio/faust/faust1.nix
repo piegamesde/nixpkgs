@@ -1,8 +1,10 @@
-{ lib, stdenv
-, coreutils
-, fetchurl
-, makeWrapper
-, pkg-config
+{
+  lib,
+  stdenv,
+  coreutils,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
 }:
 
 with lib.strings;
@@ -21,7 +23,10 @@ let
     downloadPage = "https://sourceforge.net/projects/faudiostream/files/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magnetophon pmahoney ];
+    maintainers = with maintainers; [
+      magnetophon
+      pmahoney
+    ];
   };
 
   faust = stdenv.mkDerivation {
@@ -91,18 +96,19 @@ let
         Install faust2* for specific faust2appl scripts.
       '';
     };
-
   };
 
   # Default values for faust2appl.
   faust2ApplBase =
-    { baseName
-    , dir ? "tools/faust2appls"
-    , scripts ? [ baseName ]
-    , ...
+    {
+      baseName,
+      dir ? "tools/faust2appls",
+      scripts ? [ baseName ],
+      ...
     }@args:
 
-    args // {
+    args
+    // {
       name = "${baseName}-${version}";
 
       inherit src;
@@ -152,56 +158,66 @@ let
   # The build input 'faust' is automatically added to the
   # propagatedBuildInputs.
   wrapWithBuildEnv =
-    { baseName
-    , propagatedBuildInputs ? [ ]
-    , ...
+    {
+      baseName,
+      propagatedBuildInputs ? [ ],
+      ...
     }@args:
 
-    stdenv.mkDerivation ((faust2ApplBase args) // {
+    stdenv.mkDerivation (
+      (faust2ApplBase args)
+      // {
 
-      nativeBuildInputs = [ pkg-config makeWrapper ];
+        nativeBuildInputs = [
+          pkg-config
+          makeWrapper
+        ];
 
-      propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
+        propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
 
-      postFixup = ''
+        postFixup = ''
 
-        # export parts of the build environment
-        for script in "$out"/bin/*; do
-          wrapProgram "$script" \
-            --set FAUSTLIB "${faust}/lib/faust" \
-            --set FAUSTINC "${faust}/include/faust" \
-            --prefix PATH : "$PATH" \
-            --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH" \
-            --set NIX_CFLAGS_COMPILE "$NIX_CFLAGS_COMPILE" \
-            --set NIX_LDFLAGS "$NIX_LDFLAGS"
-        done
-      '';
-    });
+          # export parts of the build environment
+          for script in "$out"/bin/*; do
+            wrapProgram "$script" \
+              --set FAUSTLIB "${faust}/lib/faust" \
+              --set FAUSTINC "${faust}/include/faust" \
+              --prefix PATH : "$PATH" \
+              --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH" \
+              --set NIX_CFLAGS_COMPILE "$NIX_CFLAGS_COMPILE" \
+              --set NIX_LDFLAGS "$NIX_LDFLAGS"
+          done
+        '';
+      }
+    );
 
   # Builder for 'faust2appl' scripts, such as faust2firefox that
   # simply need to be wrapped with some dependencies on PATH.
   #
   # The build input 'faust' is automatically added to the PATH.
   wrap =
-    { baseName
-    , runtimeInputs ? [ ]
-    , ...
+    {
+      baseName,
+      runtimeInputs ? [ ],
+      ...
     }@args:
 
     let
 
       runtimePath = concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
+    in
+    stdenv.mkDerivation (
+      (faust2ApplBase args)
+      // {
 
-    in stdenv.mkDerivation ((faust2ApplBase args) // {
+        nativeBuildInputs = [ makeWrapper ];
 
-      nativeBuildInputs = [ makeWrapper ];
-
-      postFixup = ''
-        for script in "$out"/bin/*; do
-          wrapProgram "$script" --prefix PATH : "${runtimePath}"
-        done
-      '';
-
-    });
-
-in faust
+        postFixup = ''
+          for script in "$out"/bin/*; do
+            wrapProgram "$script" --prefix PATH : "${runtimePath}"
+          done
+        '';
+      }
+    );
+in
+faust

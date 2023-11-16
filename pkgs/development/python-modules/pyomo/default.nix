@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, parameterized
-, ply
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  parameterized,
+  ply,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,18 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-1FSu5ejFjjNTuvaFU/UqAI/817HkrOA1Hczq8gcPQGA=";
   };
 
-  propagatedBuildInputs = [
-    ply
-  ];
+  propagatedBuildInputs = [ ply ];
 
   nativeCheckInputs = [
     parameterized
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "pyomo"
-  ];
+  pythonImportsCheck = [ "pyomo" ];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -46,10 +43,11 @@ buildPythonPackage rec {
     "pyomo/environ/tests/test_environ.py"
   ];
 
-  disabledTests = [
-    # Test requires lsb_release
-    "test_get_os_version"
-  ];
+  disabledTests =
+    [
+      # Test requires lsb_release
+      "test_get_os_version"
+    ];
 
   meta = with lib; {
     description = "Python Optimization Modeling Objects";

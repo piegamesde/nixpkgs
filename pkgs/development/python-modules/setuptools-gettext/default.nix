@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-pTjYdezNBFeLCh6cbC+YtHxQB4zrZAFTCjjNQffbHhc=";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
-  pythonImportsCheck = [
-    "setuptools_gettext"
-  ];
+  pythonImportsCheck = [ "setuptools_gettext" ];
 
   meta = with lib; {
     changelog = "https://github.com/breezy-team/setuptools-gettext/releases/tag/v${version}";

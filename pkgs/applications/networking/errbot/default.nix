@@ -1,12 +1,14 @@
-{ lib
-, fetchFromGitHub
-, glibcLocales
-, python39
+{
+  lib,
+  fetchFromGitHub,
+  glibcLocales,
+  python39,
 }:
 
 let
   python3 = python39;
-in python3.pkgs.buildPythonApplication rec {
+in
+python3.pkgs.buildPythonApplication rec {
   pname = "errbot";
   version = "6.1.7";
 

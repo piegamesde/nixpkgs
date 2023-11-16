@@ -10,11 +10,14 @@ import ./generic.nix {
   # Breaks build with Clang
   hardeningDisable = [ "strictoverflow" ];
 
-  patches = [
-    # Compatibility with Glibc 2.34
-    { url = "https://github.com/ocaml/ocaml/commit/17df117b4939486d3285031900587afce5262c8c.patch";
-      sha256 = "sha256:1b3jc6sj2k23yvfwrv6nc1f4x2n2biqbhbbp74aqb6iyqyjsq35n"; }
-  ];
+  patches =
+    [
+      # Compatibility with Glibc 2.34
+      {
+        url = "https://github.com/ocaml/ocaml/commit/17df117b4939486d3285031900587afce5262c8c.patch";
+        sha256 = "sha256:1b3jc6sj2k23yvfwrv6nc1f4x2n2biqbhbbp74aqb6iyqyjsq35n";
+      }
+    ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

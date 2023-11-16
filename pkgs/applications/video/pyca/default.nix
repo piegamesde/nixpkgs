@@ -1,24 +1,27 @@
-{ lib
-, python3
-, fetchPypi
-, buildNpmPackage
-, fetchFromGitHub
-, jq
-, stdenv
+{
+  lib,
+  python3,
+  fetchPypi,
+  buildNpmPackage,
+  fetchFromGitHub,
+  jq,
+  stdenv,
 }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
       # pyCA is incompatible with SQLAlchemy 2.0
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
-        version = "1.4.46";
-        src = fetchPypi {
-          pname = "SQLAlchemy";
-          inherit version;
-          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-        };
-      });
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+        old: rec {
+          version = "1.4.46";
+          src = fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+          };
+        }
+      );
     };
   };
 
@@ -35,7 +38,10 @@ let
 
     npmDepsHash = "sha256-0U+semrNWTkNu3uQQkiJKZT1hB0/IfkL84G7/oP8XYY=";
 
-    nativeBuildInputs = [ jq python ];
+    nativeBuildInputs = [
+      jq
+      python
+    ];
 
     postPatch = ''
       ${jq}/bin/jq '. += {"version": "${version}"}' < package.json > package.json.tmp
@@ -47,7 +53,6 @@ let
       cp -R pyca/ui/static/* $out/static/
     '';
   };
-
 in
 python3.pkgs.buildPythonApplication rec {
   pname = "pyca";
@@ -87,4 +92,3 @@ python3.pkgs.buildPythonApplication rec {
     maintainers = with maintainers; [ pmiddend ];
   };
 }
-

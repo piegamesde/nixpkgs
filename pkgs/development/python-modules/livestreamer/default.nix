@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPyPy
-, makeWrapper
-, rtmpdump
-, pycrypto
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPyPy,
+  makeWrapper,
+  rtmpdump,
+  pycrypto,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -22,7 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [ rtmpdump pycrypto requests ];
+  propagatedBuildInputs = [
+    rtmpdump
+    pycrypto
+    requests
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/livestreamer --prefix PATH : ${lib.makeBinPath [ rtmpdump ]}
@@ -34,5 +39,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };
-
 }

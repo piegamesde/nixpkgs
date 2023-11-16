@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchFromGitHub
-, pythonAtLeast
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchFromGitHub,
+  pythonAtLeast,
 
-, coqpit
-, fsspec
-, torch-bin
-, tensorboardx
-, protobuf
-, psutil
+  coqpit,
+  fsspec,
+  torch-bin,
+  tensorboardx,
+  protobuf,
+  psutil,
 
-, pytestCheckHook
-, soundfile
-, torchvision-bin
+  pytestCheckHook,
+  soundfile,
+  torchvision-bin,
 }:
 
 let
@@ -53,9 +54,7 @@ buildPythonPackage {
     torchvision-bin
   ];
 
-  pythonImportsCheck = [
-    "trainer"
-  ];
+  pythonImportsCheck = [ "trainer" ];
 
   meta = with lib; {
     description = "A general purpose model trainer, as flexible as it gets";

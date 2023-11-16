@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -14,16 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-XT3aadYrdYZk8EEkUTdFtTMR1LociO0jQo/QCFcJcWw=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "nlpcloud"
-  ];
+  pythonImportsCheck = [ "nlpcloud" ];
 
   meta = with lib; {
     description = "Python client for the NLP Cloud API";

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, poetry-core
-, httpx
-, pydicom
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  poetry-core,
+  httpx,
+  pydicom,
 }:
 
 buildPythonPackage rec {
@@ -24,13 +25,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ httpx pydicom ];
-
-  doCheck = false;  # requires orthanc server (not in Nixpkgs)
-
-  pythonImportsCheck = [
-    "pyorthanc"
+  propagatedBuildInputs = [
+    httpx
+    pydicom
   ];
+
+  doCheck = false; # requires orthanc server (not in Nixpkgs)
+
+  pythonImportsCheck = [ "pyorthanc" ];
 
   meta = with lib; {
     description = "Python library that wraps the Orthanc REST API";

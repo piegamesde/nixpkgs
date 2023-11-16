@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, qmake
-, qtbase
-, qtsvg
-, qtx11extras ? null
-, kwindowsystem ? null
-, qtwayland
-, libX11
-, libXext
-, qttools
-, wrapQtAppsHook
-, gitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qmake,
+  qtbase,
+  qtsvg,
+  qtx11extras ? null,
+  kwindowsystem ? null,
+  qtwayland,
+  libX11,
+  libXext,
+  qttools,
+  wrapQtAppsHook,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,12 +33,17 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    libX11
-    libXext
-  ] ++ lib.optionals (lib.versionOlder qtbase.version "6") [ qtx11extras kwindowsystem ]
+  buildInputs =
+    [
+      qtbase
+      qtsvg
+      libX11
+      libXext
+    ]
+    ++ lib.optionals (lib.versionOlder qtbase.version "6") [
+      qtx11extras
+      kwindowsystem
+    ]
     ++ lib.optional (lib.versionAtLeast qtbase.version "6") qtwayland;
 
   sourceRoot = "source/Kvantum";
@@ -57,15 +63,16 @@ stdenv.mkDerivation rec {
       --replace "\$\$[QT_INSTALL_PLUGINS]" "$out/$qtPluginPrefix"
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "V";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "V"; };
 
   meta = with lib; {
     description = "SVG-based Qt5 theme engine plus a config tool and extra themes";
     homepage = "https://github.com/tsujan/Kvantum";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo Scrumplex ];
+    maintainers = with maintainers; [
+      romildo
+      Scrumplex
+    ];
   };
 }

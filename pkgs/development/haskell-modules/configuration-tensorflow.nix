@@ -16,16 +16,18 @@ let
     fetchSubmodules = true;
   };
 
-  setTensorflowSourceRoot = dir: drv:
-    (overrideCabal (drv: { src = tensorflow-haskell; }) drv)
-      .overrideAttrs (_oldAttrs: {sourceRoot = "source/${dir}";});
+  setTensorflowSourceRoot =
+    dir: drv:
+    (overrideCabal (drv: { src = tensorflow-haskell; }) drv).overrideAttrs (
+      _oldAttrs: { sourceRoot = "source/${dir}"; }
+    );
 in
 {
   tensorflow-proto = doJailbreak (setTensorflowSourceRoot "tensorflow-proto" super.tensorflow-proto);
 
-  tensorflow = overrideCabal
-    (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [self.vector-split]; })
-    (setTensorflowSourceRoot "tensorflow" super.tensorflow);
+  tensorflow =
+    overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.vector-split ]; })
+      (setTensorflowSourceRoot "tensorflow" super.tensorflow);
 
   tensorflow-core-ops = setTensorflowSourceRoot "tensorflow-core-ops" super.tensorflow-core-ops;
 

@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchurl
-, python3
-, makeWrapper
-, libtorrent-rasterbar-1_2_x
-, qt5
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  makeWrapper,
+  libtorrent-rasterbar-1_2_x,
+  qt5,
 }:
 
 let
@@ -24,46 +25,46 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    python3.pkgs.python
-  ];
+  buildInputs = [ python3.pkgs.python ];
 
-  pythonPath = [
-    libtorrent
-  ] ++ (with python3.pkgs; [
-    aiohttp
-    aiohttp-apispec
-    asynctest
-    chardet
-    cherrypy
-    configobj
-    cryptography
-    decorator
-    faker
-    feedparser
-    libnacl
-    lz4
-    m2crypto
-    netifaces
-    networkx
-    pillow
-    pony
-    psutil
-    pyasn1
-    pycrypto
-    pyqt5
-    pyqtgraph
-    pytest-asyncio
-    pytest-timeout
-    pyyaml
-    requests
-    sentry-sdk
-    service-identity
-    twisted
-    yappi
-    pydantic
-    anyio
-  ]);
+  pythonPath =
+    [ libtorrent ]
+    ++ (
+      with python3.pkgs; [
+        aiohttp
+        aiohttp-apispec
+        asynctest
+        chardet
+        cherrypy
+        configobj
+        cryptography
+        decorator
+        faker
+        feedparser
+        libnacl
+        lz4
+        m2crypto
+        netifaces
+        networkx
+        pillow
+        pony
+        psutil
+        pyasn1
+        pycrypto
+        pyqt5
+        pyqtgraph
+        pytest-asyncio
+        pytest-timeout
+        pyyaml
+        requests
+        sentry-sdk
+        service-identity
+        twisted
+        yappi
+        pydantic
+        anyio
+      ]
+    );
 
   installPhase = ''
     mkdir -pv $out
@@ -95,7 +96,10 @@ stdenv.mkDerivation rec {
     description = "Decentralised P2P filesharing client based on the Bittorrent protocol";
     homepage = "https://www.tribler.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ xvapx viric ];
+    maintainers = with maintainers; [
+      xvapx
+      viric
+    ];
     platforms = platforms.linux;
   };
 }

@@ -1,50 +1,57 @@
 import ../make-test-python.nix (
-  { pkgs, lib, ... }: {
+  { pkgs, lib, ... }:
+  {
     name = "podman";
     meta = {
       maintainers = lib.teams.podman.members;
     };
 
     nodes = {
-      rootful = { pkgs, ... }: {
-        virtualisation.podman.enable = true;
+      rootful =
+        { pkgs, ... }:
+        {
+          virtualisation.podman.enable = true;
 
-        # hack to ensure that podman built with and without zfs in extraPackages is cached
-        boot.supportedFilesystems = [ "zfs" ];
-        networking.hostId = "00000000";
-      };
-      rootless = { pkgs, ... }: {
-        virtualisation.podman.enable = true;
-
-        users.users.alice = {
-          isNormalUser = true;
+          # hack to ensure that podman built with and without zfs in extraPackages is cached
+          boot.supportedFilesystems = [ "zfs" ];
+          networking.hostId = "00000000";
         };
-      };
-      dns = { pkgs, ... }: {
-        virtualisation.podman.enable = true;
+      rootless =
+        { pkgs, ... }:
+        {
+          virtualisation.podman.enable = true;
 
-        virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
-
-        networking.firewall.allowedUDPPorts = [ 53 ];
-      };
-      docker = { pkgs, ... }: {
-        virtualisation.podman.enable = true;
-
-        virtualisation.podman.dockerSocket.enable = true;
-
-        environment.systemPackages = [
-          pkgs.docker-client
-        ];
-
-        users.users.alice = {
-          isNormalUser = true;
-          extraGroups = [ "podman" ];
+          users.users.alice = {
+            isNormalUser = true;
+          };
         };
+      dns =
+        { pkgs, ... }:
+        {
+          virtualisation.podman.enable = true;
 
-        users.users.mallory = {
-          isNormalUser = true;
+          virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
+
+          networking.firewall.allowedUDPPorts = [ 53 ];
         };
-      };
+      docker =
+        { pkgs, ... }:
+        {
+          virtualisation.podman.enable = true;
+
+          virtualisation.podman.dockerSocket.enable = true;
+
+          environment.systemPackages = [ pkgs.docker-client ];
+
+          users.users.alice = {
+            isNormalUser = true;
+            extraGroups = [ "podman" ];
+          };
+
+          users.users.mallory = {
+            isNormalUser = true;
+          };
+        };
     };
 
     testScript = ''
@@ -131,7 +138,9 @@ import ../make-test-python.nix (
           rootless.succeed(su_cmd("tar cv --files-from /dev/null | podman import - scratchimg"))
           rootless.succeed(
               su_cmd(
-                  "podman run -d -p 9000:8888 --name=rootlessport -v /nix/store:/nix/store -v /run/current-system/sw/bin:/bin -w ${pkgs.writeTextDir "index.html" "<h1>Testing</h1>"} scratchimg ${pkgs.python3}/bin/python -m http.server 8888"
+                  "podman run -d -p 9000:8888 --name=rootlessport -v /nix/store:/nix/store -v /run/current-system/sw/bin:/bin -w ${
+                    pkgs.writeTextDir "index.html" "<h1>Testing</h1>"
+                  } scratchimg ${pkgs.python3}/bin/python -m http.server 8888"
               )
           )
           rootless.succeed(su_cmd("podman ps | grep rootlessport"))
@@ -151,7 +160,9 @@ import ../make-test-python.nix (
       with subtest("aardvark-dns"):
           dns.succeed("tar cv --files-from /dev/null | podman import - scratchimg")
           dns.succeed(
-              "podman run -d --name=webserver -v /nix/store:/nix/store -v /run/current-system/sw/bin:/bin -w ${pkgs.writeTextDir "index.html" "<h1>Testing</h1>"} scratchimg ${pkgs.python3}/bin/python -m http.server 8000"
+              "podman run -d --name=webserver -v /nix/store:/nix/store -v /run/current-system/sw/bin:/bin -w ${
+                pkgs.writeTextDir "index.html" "<h1>Testing</h1>"
+              } scratchimg ${pkgs.python3}/bin/python -m http.server 8000"
           )
           dns.succeed("podman ps | grep webserver")
           dns.wait_until_succeeds(

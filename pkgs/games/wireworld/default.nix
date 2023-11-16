@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, zip
-, love
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  zip,
+  love,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-8BshnGLuA8lmG9g7FU349DWKP/fZvlvjrQBau/LSJ4E=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems zip ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+    zip
+  ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -53,5 +58,4 @@ stdenv.mkDerivation rec {
     downloadPage = "https://ldjam.com/events/ludum-dare/53/wireworld";
     maintainers = with lib.maintainers; [ janik ];
   };
-
 }

@@ -1,9 +1,24 @@
-{ stdenv, lib, fetchzip, substituteAll, dpkg, autoPatchelfHook, cups, tcl, tk, xorg, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  substituteAll,
+  dpkg,
+  autoPatchelfHook,
+  cups,
+  tcl,
+  tk,
+  xorg,
+  makeWrapper,
+}:
 let
   debPlatform =
-    if stdenv.hostPlatform.system == "x86_64-linux" then "amd64"
-    else if stdenv.hostPlatform.system == "i686-linux" then "i386"
-         else throw "Unsupported system: ${stdenv.hostPlatform.system}";
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "amd64"
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "i386"
+    else
+      throw "Unsupported system: ${stdenv.hostPlatform.system}";
 in
 stdenv.mkDerivation rec {
   pname = "fxlinuxprintutil";
@@ -12,7 +27,7 @@ stdenv.mkDerivation rec {
   src = fetchzip {
     url = "https://onlinesupport.fujixerox.com/driver_downloads/fxlinuxpdf112119031.zip";
     sha256 = "1mv07ch6ysk9bknfmjqsgxb803sj6vfin29s9knaqv17jvgyh0n3";
-    curlOpts = "--user-agent Mozilla/5.0";  # HTTP 410 otherwise
+    curlOpts = "--user-agent Mozilla/5.0"; # HTTP 410 otherwise
   };
 
   patches = [
@@ -32,8 +47,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
-  buildInputs = [ cups tcl tk ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    makeWrapper
+  ];
+  buildInputs = [
+    cups
+    tcl
+    tk
+  ];
 
   sourceRoot = ".";
   unpackCmd = "dpkg-deb -x $curSrc/${pname}_${version}_${debPlatform}.deb .";
@@ -46,7 +69,12 @@ stdenv.mkDerivation rec {
     mv usr/bin $out
     mv usr/lib $out
 
-    wrapProgram $out/bin/fxlputil --prefix PATH : ${lib.makeBinPath [ tcl tk ]}
+    wrapProgram $out/bin/fxlputil --prefix PATH : ${
+      lib.makeBinPath [
+        tcl
+        tk
+      ]
+    }
   '';
 
   meta = with lib; {

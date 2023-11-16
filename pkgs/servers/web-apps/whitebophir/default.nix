@@ -1,8 +1,9 @@
-{ stdenv
-, pkgs
-, lib
-, nodejs_20
-, runtimeShell
+{
+  stdenv,
+  pkgs,
+  lib,
+  nodejs_20,
+  runtimeShell,
 }:
 
 let
@@ -36,4 +37,4 @@ let
     };
   };
 in
-  combined
+combined

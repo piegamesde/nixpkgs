@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, packaging
-, protobuf
-, onnx
-, unittestCheckHook
-, onnxruntime
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  packaging,
+  protobuf,
+  onnx,
+  unittestCheckHook,
+  onnxruntime,
 }:
 
 buildPythonPackage rec {
@@ -34,7 +35,10 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  unittestFlagsArray = [ "-s" "tests" ];
+  unittestFlagsArray = [
+    "-s"
+    "tests"
+  ];
 
   # Failing tests
   # https://github.com/microsoft/onnxconverter-common/issues/242

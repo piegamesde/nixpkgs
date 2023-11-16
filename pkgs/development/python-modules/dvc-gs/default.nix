@@ -1,10 +1,12 @@
-{ lib
-, buildPythonPackage
-, dvc-objects
-, fetchPypi
-, gcsfs
-, pythonRelaxDepsHook
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  dvc-objects,
+  fetchPypi,
+  gcsfs,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-gs";
@@ -19,9 +21,15 @@ buildPythonPackage rec {
   # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ gcsfs dvc-objects ];
+  propagatedBuildInputs = [
+    gcsfs
+    dvc-objects
+  ];
 
   # Network access is needed for tests
   doCheck = false;

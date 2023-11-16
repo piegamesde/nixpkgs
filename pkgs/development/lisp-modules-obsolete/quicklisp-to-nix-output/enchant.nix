@@ -1,12 +1,17 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "enchant";
   version = "cl-20211209-git";
 
   description = "Programming interface for Enchant spell-checker library";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-enchant/2021-12-09/cl-enchant-20211209-git.tgz";
@@ -15,7 +20,7 @@ rec {
 
   packageName = "enchant";
 
-  asdFilesToKeep = ["enchant.asd"];
+  asdFilesToKeep = [ "enchant.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM enchant DESCRIPTION
@@ -27,4 +32,5 @@ rec {
      (NAME cffi FILENAME cffi)
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES (alexandria babel cffi trivial-features) VERSION
-    cl-20211209-git SIBLINGS (enchant-autoload) PARASITES NIL) */
+    cl-20211209-git SIBLINGS (enchant-autoload) PARASITES NIL)
+*/

@@ -1,7 +1,16 @@
-{ lib, mkDerivation, fetchFromGitHub
-, cmake, gcc-arm-embedded, python3Packages
-, qtbase, qtmultimedia, qttranslations, SDL, gtest
-, dfu-util
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  gcc-arm-embedded,
+  python3Packages,
+  qtbase,
+  qtmultimedia,
+  qttranslations,
+  SDL,
+  gtest,
+  dfu-util,
 }:
 
 mkDerivation rec {
@@ -16,9 +25,18 @@ mkDerivation rec {
     sha256 = "sha256-bKMAyONy1Udd+2nDVEMrtIsnfqrNuBVMWU7nCqvZ+3E=";
   };
 
-  nativeBuildInputs = [ cmake gcc-arm-embedded python3Packages.pillow ];
+  nativeBuildInputs = [
+    cmake
+    gcc-arm-embedded
+    python3Packages.pillow
+  ];
 
-  buildInputs = [ qtbase qtmultimedia qttranslations SDL ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qttranslations
+    SDL
+  ];
 
   postPatch = ''
     sed -i companion/src/burnconfigdialog.cpp \
@@ -42,8 +60,15 @@ mkDerivation rec {
     '';
     homepage = "https://edgetx.org/";
     license = licenses.gpl2Only;
-    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ elitak lopsided98 wucke13 ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      elitak
+      lopsided98
+      wucke13
+    ];
   };
-
 }

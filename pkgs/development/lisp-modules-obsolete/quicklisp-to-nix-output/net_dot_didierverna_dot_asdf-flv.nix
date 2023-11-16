@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "net_dot_didierverna_dot_asdf-flv";
   version = "asdf-flv-version-2.1";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "net.didierverna.asdf-flv";
 
-  asdFilesToKeep = ["net.didierverna.asdf-flv.asd"];
+  asdFilesToKeep = [ "net.didierverna.asdf-flv.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM net.didierverna.asdf-flv DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/asdf-flv/2016-04-21/asdf-flv-version-2.1.tgz
     MD5 2b74b721b7e5335d2230d6b95fc6be56 NAME net.didierverna.asdf-flv FILENAME
     net_dot_didierverna_dot_asdf-flv DEPS NIL DEPENDENCIES NIL VERSION
-    asdf-flv-version-2.1 SIBLINGS NIL PARASITES NIL) */
+    asdf-flv-version-2.1 SIBLINGS NIL PARASITES NIL)
+*/

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, sphinx
-, requests
-, jinja2
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  sphinx,
+  requests,
+  jinja2,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   # Tests are disabled due to a circular dependency on Sphinx
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sphinxcontrib.confluencebuilder"
-  ];
+  pythonImportsCheck = [ "sphinxcontrib.confluencebuilder" ];
 
   meta = with lib; {
     description = "Confluence builder for sphinx";

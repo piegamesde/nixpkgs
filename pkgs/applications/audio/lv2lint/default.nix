@@ -1,4 +1,15 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, lv2, lilv, curl, libelf }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  lv2,
+  lilv,
+  curl,
+  libelf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lv2lint";
@@ -9,8 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sjgQVx8uGNPWcUwKzGUhChpfzXj/8D8cggVTpcHEXPQ=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = [ lv2 lilv curl libelf ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
+  buildInputs = [
+    lv2
+    lilv
+    curl
+    libelf
+  ];
 
   meta = with lib; {
     description = "Check whether a given LV2 plugin is up to the specification";

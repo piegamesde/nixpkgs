@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,15 +11,17 @@ let
 
   cfg = config.networking.firewall;
 
-  canonicalizePortList =
-    ports: lib.unique (builtins.sort builtins.lessThan ports);
+  canonicalizePortList = ports: lib.unique (builtins.sort builtins.lessThan ports);
 
   commonOptions = {
     allowedTCPPorts = mkOption {
       type = types.listOf types.port;
       default = [ ];
       apply = canonicalizePortList;
-      example = [ 22 80 ];
+      example = [
+        22
+        80
+      ];
       description = lib.mdDoc ''
         List of TCP ports on which incoming connections are
         accepted.
@@ -24,7 +31,12 @@ let
     allowedTCPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
       default = [ ];
-      example = [{ from = 8999; to = 9003; }];
+      example = [
+        {
+          from = 8999;
+          to = 9003;
+        }
+      ];
       description = lib.mdDoc ''
         A range of TCP ports on which incoming connections are
         accepted.
@@ -44,13 +56,17 @@ let
     allowedUDPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
       default = [ ];
-      example = [{ from = 60000; to = 61000; }];
+      example = [
+        {
+          from = 60000;
+          to = 61000;
+        }
+      ];
       description = lib.mdDoc ''
         Range of open UDP ports.
       '';
     };
   };
-
 in
 
 {
@@ -71,7 +87,9 @@ in
       package = mkOption {
         type = types.package;
         default = if config.networking.nftables.enable then pkgs.nftables else pkgs.iptables;
-        defaultText = literalExpression ''if config.networking.nftables.enable then "pkgs.nftables" else "pkgs.iptables"'';
+        defaultText =
+          literalExpression
+            ''if config.networking.nftables.enable then "pkgs.nftables" else "pkgs.iptables"'';
         example = literalExpression "pkgs.iptables-legacy";
         description = lib.mdDoc ''
           The package to use for running the firewall service.
@@ -161,9 +179,16 @@ in
       };
 
       checkReversePath = mkOption {
-        type = types.either types.bool (types.enum [ "strict" "loose" ]);
+        type = types.either types.bool (
+          types.enum [
+            "strict"
+            "loose"
+          ]
+        );
         default = true;
-        defaultText = literalMD "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support";
+        defaultText =
+          literalMD
+            "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support";
         example = "loose";
         description = lib.mdDoc ''
           Performs a reverse path filter test on a packet.  If a reply
@@ -202,7 +227,18 @@ in
       connectionTrackingModules = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "ftp" "irc" "sane" "sip" "tftp" "amanda" "h323" "netbios_sn" "pptp" "snmp" ];
+        example = [
+          "ftp"
+          "irc"
+          "sane"
+          "sip"
+          "tftp"
+          "amanda"
+          "h323"
+          "netbios_sn"
+          "pptp"
+          "snmp"
+        ];
         description = lib.mdDoc ''
           List of connection-tracking helpers that are auto-loaded.
           The complete list of possible values is given in the example.
@@ -242,7 +278,7 @@ in
 
       interfaces = mkOption {
         default = { };
-        type = with types; attrsOf (submodule [{ options = commonOptions; }]);
+        type = with types; attrsOf (submodule [ { options = commonOptions; } ]);
         description = lib.mdDoc ''
           Interface-specific open ports.
         '';
@@ -251,16 +287,16 @@ in
       allInterfaces = mkOption {
         internal = true;
         visible = false;
-        default = { default = mapAttrs (name: value: cfg.${name}) commonOptions; } // cfg.interfaces;
-        type = with types; attrsOf (submodule [{ options = commonOptions; }]);
+        default = {
+          default = mapAttrs (name: value: cfg.${name}) commonOptions;
+        } // cfg.interfaces;
+        type = with types; attrsOf (submodule [ { options = commonOptions; } ]);
         description = lib.mdDoc ''
           All open ports.
         '';
       };
     } // commonOptions;
-
   };
-
 
   config = mkIf cfg.enable {
 
@@ -270,7 +306,8 @@ in
         message = "filterForward only works with the nftables based firewall";
       }
       {
-        assertion = cfg.autoLoadConntrackHelpers -> lib.versionOlder config.boot.kernelPackages.kernel.version "6";
+        assertion =
+          cfg.autoLoadConntrackHelpers -> lib.versionOlder config.boot.kernelPackages.kernel.version "6";
         message = "conntrack helper autoloading has been removed from kernel 6.0 and newer";
       }
     ];
@@ -279,12 +316,11 @@ in
 
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
 
-    boot.kernelModules = (optional cfg.autoLoadConntrackHelpers "nf_conntrack")
+    boot.kernelModules =
+      (optional cfg.autoLoadConntrackHelpers "nf_conntrack")
       ++ map (x: "nf_conntrack_${x}") cfg.connectionTrackingModules;
     boot.extraModprobeConfig = optionalString cfg.autoLoadConntrackHelpers ''
       options nf_conntrack nf_conntrack_helper=1
     '';
-
   };
-
 }

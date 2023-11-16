@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "cozette";
@@ -25,6 +29,9 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/slavfox/cozette";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ brettlyons marsam ];
+    maintainers = with maintainers; [
+      brettlyons
+      marsam
+    ];
   };
 }

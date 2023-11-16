@@ -1,11 +1,35 @@
-{ stdenv, fetchurl, fetchpatch, lib, pkg-config, util-linux, libcap, libtirpc, libevent
-, sqlite, libkrb5, kmod, libuuid, keyutils, lvm2, systemd, coreutils, tcp_wrappers
-, python3, buildPackages, nixosTests, rpcsvc-proto
-, enablePython ? true
+{
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  lib,
+  pkg-config,
+  util-linux,
+  libcap,
+  libtirpc,
+  libevent,
+  sqlite,
+  libkrb5,
+  kmod,
+  libuuid,
+  keyutils,
+  lvm2,
+  systemd,
+  coreutils,
+  tcp_wrappers,
+  python3,
+  buildPackages,
+  nixosTests,
+  rpcsvc-proto,
+  enablePython ? true,
 }:
 
 let
-  statdPath = lib.makeBinPath [ systemd util-linux coreutils ];
+  statdPath = lib.makeBinPath [
+    systemd
+    util-linux
+    coreutils
+  ];
 in
 
 stdenv.mkDerivation rec {
@@ -19,63 +43,79 @@ stdenv.mkDerivation rec {
 
   # libnfsidmap is built together with nfs-utils from the same source,
   # put it in the "lib" output, and the headers in "dev"
-  outputs = [ "out" "dev" "lib" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "man"
+  ];
 
-  nativeBuildInputs = [ pkg-config buildPackages.stdenv.cc rpcsvc-proto ];
+  nativeBuildInputs = [
+    pkg-config
+    buildPackages.stdenv.cc
+    rpcsvc-proto
+  ];
 
   buildInputs = [
-    libtirpc libcap libevent sqlite lvm2
-    libuuid keyutils libkrb5 tcp_wrappers
+    libtirpc
+    libcap
+    libevent
+    sqlite
+    lvm2
+    libuuid
+    keyutils
+    libkrb5
+    tcp_wrappers
   ] ++ lib.optional enablePython python3;
 
   enableParallelBuilding = true;
 
-  preConfigure =
-    ''
-      substituteInPlace configure \
-        --replace '$dir/include/gssapi' ${lib.getDev libkrb5}/include/gssapi \
-        --replace '$dir/bin/krb5-config' ${lib.getDev libkrb5}/bin/krb5-config
-    '';
+  preConfigure = ''
+    substituteInPlace configure \
+      --replace '$dir/include/gssapi' ${lib.getDev libkrb5}/include/gssapi \
+      --replace '$dir/bin/krb5-config' ${lib.getDev libkrb5}/bin/krb5-config
+  '';
 
-  configureFlags =
-    [ "--enable-gss"
-      "--enable-svcgss"
-      "--with-statedir=/var/lib/nfs"
-      "--with-krb5=${lib.getLib libkrb5}"
-      "--with-systemd=${placeholder "out"}/etc/systemd/system"
-      "--enable-libmount-mount"
-      "--with-pluginpath=${placeholder "lib"}/lib/libnfsidmap" # this installs libnfsidmap
-      "--with-rpcgen=${buildPackages.rpcsvc-proto}/bin/rpcgen"
-      "--with-modprobedir=${placeholder "out"}/etc/modprobe.d"
-    ];
-
-  patches = lib.optionals stdenv.hostPlatform.isMusl [
-    # http://openwall.com/lists/musl/2015/08/18/10
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
-      sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
-    })
+  configureFlags = [
+    "--enable-gss"
+    "--enable-svcgss"
+    "--with-statedir=/var/lib/nfs"
+    "--with-krb5=${lib.getLib libkrb5}"
+    "--with-systemd=${placeholder "out"}/etc/systemd/system"
+    "--enable-libmount-mount"
+    "--with-pluginpath=${placeholder "lib"}/lib/libnfsidmap" # this installs libnfsidmap
+    "--with-rpcgen=${buildPackages.rpcsvc-proto}/bin/rpcgen"
+    "--with-modprobedir=${placeholder "out"}/etc/modprobe.d"
   ];
 
-  postPatch =
-    ''
-      patchShebangs tests
-      sed -i "s,/usr/sbin,$out/bin,g" utils/statd/statd.c
-      sed -i "s,^PATH=.*,PATH=$out/bin:${statdPath}," utils/statd/start-statd
+  patches =
+    lib.optionals stdenv.hostPlatform.isMusl
+      [
+        # http://openwall.com/lists/musl/2015/08/18/10
+        (fetchpatch {
+          url = "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
+          sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
+        })
+      ];
 
-      configureFlags="--with-start-statd=$out/bin/start-statd $configureFlags"
+  postPatch = ''
+    patchShebangs tests
+    sed -i "s,/usr/sbin,$out/bin,g" utils/statd/statd.c
+    sed -i "s,^PATH=.*,PATH=$out/bin:${statdPath}," utils/statd/start-statd
 
-      substituteInPlace systemd/nfs-utils.service \
-        --replace "/bin/true" "${coreutils}/bin/true"
+    configureFlags="--with-start-statd=$out/bin/start-statd $configureFlags"
 
-      substituteInPlace tools/nfsrahead/Makefile.in \
-        --replace "/usr/lib/udev/rules.d/" "$out/lib/udev/rules.d/"
+    substituteInPlace systemd/nfs-utils.service \
+      --replace "/bin/true" "${coreutils}/bin/true"
 
-      substituteInPlace utils/mount/Makefile.in \
-        --replace "chmod 4511" "chmod 0511"
+    substituteInPlace tools/nfsrahead/Makefile.in \
+      --replace "/usr/lib/udev/rules.d/" "$out/lib/udev/rules.d/"
 
-      sed '1i#include <stdint.h>' -i support/nsm/rpc.c
-    '';
+    substituteInPlace utils/mount/Makefile.in \
+      --replace "chmod 4511" "chmod 0511"
+
+    sed '1i#include <stdint.h>' -i support/nsm/rpc.c
+  '';
 
   makeFlags = [
     "sbindir=$(out)/bin"
@@ -87,7 +127,12 @@ stdenv.mkDerivation rec {
     "statdpath=$(TMPDIR)"
   ];
 
-  stripDebugList = [ "lib" "libexec" "bin" "etc/systemd/system-generators" ];
+  stripDebugList = [
+    "lib"
+    "libexec"
+    "bin"
+    "etc/systemd/system-generators"
+  ];
 
   postInstall =
     ''
@@ -96,7 +141,8 @@ stdenv.mkDerivation rec {
         -e "s,/sbin/modprobe,${kmod}/bin/modprobe,g" \
         -e "s,/usr/sbin,$out/bin,g" \
         $out/etc/systemd/system/*
-    '' + lib.optionalString (!enablePython) ''
+    ''
+    + lib.optionalString (!enablePython) ''
       # Remove all scripts that require python (currently mountstats and nfsiostat)
       grep -l /usr/bin/python $out/bin/* | xargs -I {} rm -v {}
     '';

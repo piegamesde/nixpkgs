@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchurl, perl, openldap, pam, db, cyrus_sasl, libcap
-, expat, libxml2, openssl, pkg-config, systemd
-, cppunit
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  openldap,
+  pam,
+  db,
+  cyrus_sasl,
+  libcap,
+  expat,
+  libxml2,
+  openssl,
+  pkg-config,
+  systemd,
+  cppunit,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,9 +26,21 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    perl openldap db cyrus_sasl expat libxml2 openssl
-  ] ++ lib.optionals stdenv.isLinux [ libcap pam systemd ];
+  buildInputs =
+    [
+      perl
+      openldap
+      db
+      cyrus_sasl
+      expat
+      libxml2
+      openssl
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      libcap
+      pam
+      systemd
+    ];
 
   enableParallelBuilding = true;
 
@@ -30,8 +55,7 @@ stdenv.mkDerivation rec {
     "--enable-delay-pools"
     "--enable-x-accelerator-vary"
     "--enable-htcp"
-  ] ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
-    "--enable-linux-netfilter";
+  ] ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl) "--enable-linux-netfilter";
 
   doCheck = true;
   nativeCheckInputs = [ cppunit ];

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, wayland
-, wayland-protocols
-, fetchpatch
-, wayland-scanner
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  fetchpatch,
+  wayland-scanner,
 }:
 
 stdenv.mkDerivation {
@@ -21,18 +22,27 @@ stdenv.mkDerivation {
     sha256 = "1fz0sajhdjqas3l6mpik8w1k15wbv65hgh9r9vdgfqvw5l6cx7jv";
   };
 
-  patches = [
-    # https://github.com/progandy/wdomirror/pull/7
-    (fetchpatch {
-      url = "https://github.com/progandy/wdomirror/commit/142632208e9ea2b4a4ebd784532efdb8cad7b87c.patch";
-      hash = "sha256-MG71IEwRAjjacAkRoB7Tn45+FbY7LAqTDkVJkoWuQUU=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/progandy/wdomirror/pull/7
+      (fetchpatch {
+        url = "https://github.com/progandy/wdomirror/commit/142632208e9ea2b4a4ebd784532efdb8cad7b87c.patch";
+        hash = "sha256-MG71IEwRAjjacAkRoB7Tn45+FbY7LAqTDkVJkoWuQUU=";
+      })
+    ];
 
   strictDeps = true;
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
 
-  buildInputs = [ wayland wayland-protocols ];
+  buildInputs = [
+    wayland
+    wayland-protocols
+  ];
 
   installPhase = ''
     runHook preInstall

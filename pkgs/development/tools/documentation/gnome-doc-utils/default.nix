@@ -1,5 +1,15 @@
-{ lib, fetchurl, pkg-config, libxml2, libxslt, intltool, gnome
-, python3Packages, fetchpatch, bash }:
+{
+  lib,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  libxslt,
+  intltool,
+  gnome,
+  python3Packages,
+  fetchpatch,
+  bash,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gnome-doc-utils";
@@ -8,7 +18,9 @@ python3Packages.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "19n4x25ndzngaciiyd8dd6s2mf9gv6nv3wv27ggns2smm7zkj1nb";
   };
 
@@ -25,22 +37,31 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = [ intltool pkg-config libxslt.dev ];
-  buildInputs = [ libxml2 libxslt bash ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    libxslt.dev
+  ];
+  buildInputs = [
+    libxml2
+    libxslt
+    bash
+  ];
   propagatedBuildInputs = [ python3Packages.libxml2 ];
 
   configureFlags = [ "--disable-scrollkeeper" ];
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome.updateScript { packageName = pname; };
   };
 
   meta = with lib; {
     description = "Collection of documentation utilities for the GNOME project";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-doc-utils";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     platforms = platforms.all;
   };
 }

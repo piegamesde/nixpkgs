@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, libpng
-, zlib
-, qt4
-, bison
-, flex
-, libGLU
-, python3Packages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libpng,
+  zlib,
+  qt4,
+  bison,
+  flex,
+  libGLU,
+  python3Packages,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,7 +30,16 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libGLU libpng zlib qt4 python3Packages.pyqt4 python3Packages.boost bison flex ];
+  buildInputs = [
+    libGLU
+    libpng
+    zlib
+    qt4
+    python3Packages.pyqt4
+    python3Packages.boost
+    bison
+    flex
+  ];
 
   # https://github.com/wdas/SeExpr/issues/106
   postPatch = ''

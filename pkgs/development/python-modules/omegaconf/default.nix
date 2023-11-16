@@ -1,15 +1,16 @@
-{ lib
-, antlr4
-, antlr4-python3-runtime
-, buildPythonPackage
-, fetchFromGitHub
-, jre_minimal
-, pydevd
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, substituteAll
+{
+  lib,
+  antlr4,
+  antlr4-python3-runtime,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jre_minimal,
+  pydevd,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  substituteAll,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
     sed -i 's/antlr4-python3-runtime==.*/antlr4-python3-runtime/' requirements/base.txt
   '';
 
-  nativeBuildInputs = [
-    jre_minimal
-  ];
+  nativeBuildInputs = [ jre_minimal ];
 
   propagatedBuildInputs = [
     antlr4-python3-runtime
@@ -56,9 +55,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "omegaconf"
-  ];
+  pythonImportsCheck = [ "omegaconf" ];
 
   pytestFlagsArray = [
     "-W"

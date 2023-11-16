@@ -1,5 +1,14 @@
-{ stdenv, fetchFromGitHub, buildLuarocksPackage, lua, pkg-config, lib
-, substituteAll, zenity, AppKit }:
+{
+  stdenv,
+  fetchFromGitHub,
+  buildLuarocksPackage,
+  lua,
+  pkg-config,
+  lib,
+  substituteAll,
+  zenity,
+  AppKit,
+}:
 
 buildLuarocksPackage {
   pname = "nfd";
@@ -34,8 +43,7 @@ buildLuarocksPackage {
   disabled = with lua; (luaversion != "5.1");
 
   meta = {
-    description =
-      "A tiny, neat lua library that portably invokes native file open and save dialogs.";
+    description = "A tiny, neat lua library that portably invokes native file open and save dialogs.";
     homepage = "https://github.com/Alloyed/nativefiledialog/tree/master/lua";
     license = lib.licenses.zlib;
     maintainers = [ lib.maintainers.scoder12 ];

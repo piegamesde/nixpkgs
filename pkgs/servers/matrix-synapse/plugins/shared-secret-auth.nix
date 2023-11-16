@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matrix-synapse, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matrix-synapse,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "matrix-synapse-shared-secret-auth";

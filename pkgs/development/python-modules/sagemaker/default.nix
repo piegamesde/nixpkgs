@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, attrs
-, boto3
-, google-pasta
-, importlib-metadata
-, numpy
-, protobuf
-, protobuf3-to-dict
-, smdebug-rulesconfig
-, pandas
-, pathos
-, packaging
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  attrs,
+  boto3,
+  google-pasta,
+  importlib-metadata,
+  numpy,
+  protobuf,
+  protobuf3-to-dict,
+  smdebug-rulesconfig,
+  pandas,
+  pathos,
+  packaging,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

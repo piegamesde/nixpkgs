@@ -1,21 +1,29 @@
-{ lib
-, python3
-, fetchFromGitHub
-, fetchpatch
-, installShellFiles
-, libcdio-paranoia
-, cdrdao
-, libsndfile
-, flac
-, sox
-, util-linux
-, testers
-, whipper
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  libcdio-paranoia,
+  cdrdao,
+  libsndfile,
+  flac,
+  sox,
+  util-linux,
+  testers,
+  whipper,
 }:
 
 let
-  bins = [ libcdio-paranoia cdrdao flac sox util-linux ];
-in python3.pkgs.buildPythonApplication rec {
+  bins = [
+    libcdio-paranoia
+    cdrdao
+    flac
+    sox
+    util-linux
+  ];
+in
+python3.pkgs.buildPythonApplication rec {
   pname = "whipper";
   version = "0.10.0";
 
@@ -56,19 +64,23 @@ in python3.pkgs.buildPythonApplication rec {
 
   buildInputs = [ libsndfile ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    twisted
-  ] ++ bins;
+  nativeCheckInputs = with python3.pkgs; [ twisted ] ++ bins;
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath bins)
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath bins)
   ];
 
   preBuild = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
   postBuild = ''
     make -C man
   '';

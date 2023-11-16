@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, python3
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd,
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -17,23 +18,26 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-MlT8jNUpJMgaUO9ZIYjpv8l3evdFjfEOSvdAdSlOUvg=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    commonmark
-    aiohttp
-    asyncpg
-    commonmark
-    mautrix
-    paho-mqtt
-    pillow
-    prometheus-client
-    pycryptodome
-    python-olm
-    python-magic
-    ruamel-yaml
-    unpaddedbase64
-    yarl
-    zstandard
-  ] ++ lib.optional enableSystemd systemd;
+  propagatedBuildInputs =
+    with python3.pkgs;
+    [
+      commonmark
+      aiohttp
+      asyncpg
+      commonmark
+      mautrix
+      paho-mqtt
+      pillow
+      prometheus-client
+      pycryptodome
+      python-olm
+      python-magic
+      ruamel-yaml
+      unpaddedbase64
+      yarl
+      zstandard
+    ]
+    ++ lib.optional enableSystemd systemd;
 
   postPatch = ''
     # Drop version limiting so that every dependency update doesn't break this package.

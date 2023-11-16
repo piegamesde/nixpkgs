@@ -1,4 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, unzip, cmake, freeglut, libGLU, libGL, zlib, swig, doxygen, xorg, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  cmake,
+  freeglut,
+  libGLU,
+  libGL,
+  zlib,
+  swig,
+  doxygen,
+  xorg,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "partio";
@@ -11,10 +25,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-S8U5I3dllFzDSocU1mJ8FYCCmBpsOR4n174oiX5hvAM=";
   };
 
-  outputs = [ "dev" "out" "lib" ];
+  outputs = [
+    "dev"
+    "out"
+    "lib"
+  ];
 
-  nativeBuildInputs = [ unzip cmake doxygen ];
-  buildInputs = [ freeglut libGLU libGL zlib swig xorg.libXi xorg.libXmu python3 ];
+  nativeBuildInputs = [
+    unzip
+    cmake
+    doxygen
+  ];
+  buildInputs = [
+    freeglut
+    libGLU
+    libGL
+    zlib
+    swig
+    xorg.libXi
+    xorg.libXmu
+    python3
+  ];
 
   # TODO:
   # Sexpr support

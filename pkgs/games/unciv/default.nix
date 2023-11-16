@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, fetchurl
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, jre
-, libpulseaudio
-, libXxf86vm
+{
+  stdenv,
+  lib,
+  fetchurl,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  jre,
+  libpulseaudio,
+  libXxf86vm,
 }:
 let
   desktopItem = makeDesktopItem {
@@ -21,7 +22,6 @@ let
     libpulseaudio
     libXxf86vm
   ];
-
 in
 stdenv.mkDerivation rec {
   pname = "unciv";
@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   installPhase = ''
     runHook preInstall

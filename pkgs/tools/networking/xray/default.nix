@@ -1,14 +1,18 @@
-{ lib
-, fetchFromGitHub
-, fetchurl
-, symlinkJoin
-, buildGoModule
-, runCommand
-, makeWrapper
-, nix-update-script
-, v2ray-geoip
-, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ]
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  symlinkJoin,
+  buildGoModule,
+  runCommand,
+  makeWrapper,
+  nix-update-script,
+  v2ray-geoip,
+  v2ray-domain-list-community,
+  assets ? [
+    v2ray-geoip
+    v2ray-domain-list-community
+  ],
 }:
 
 let
@@ -16,7 +20,6 @@ let
     name = "v2ray-assets";
     paths = assets;
   };
-
 in
 buildGoModule rec {
   pname = "xray";
@@ -35,10 +38,14 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-buildid=" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-buildid="
+  ];
   subPackages = [ "main" ];
 
-   installPhase = ''
+  installPhase = ''
     runHook preInstall
     install -Dm555 "$GOPATH"/bin/main $out/bin/xray
     runHook postInstall

@@ -1,20 +1,21 @@
-{ pkgs
-, buildPythonPackage
-, fetchPypi
-, astropy
-, requests
-, keyring
-, beautifulsoup4
-, html5lib
-, matplotlib
-, pillow
-, pytest
-, pytest-astropy
-, pytestCheckHook
-, pyvo
-, astropy-helpers
-, setuptools
-, isPy3k
+{
+  pkgs,
+  buildPythonPackage,
+  fetchPypi,
+  astropy,
+  requests,
+  keyring,
+  beautifulsoup4,
+  html5lib,
+  matplotlib,
+  pillow,
+  pytest,
+  pytest-astropy,
+  pytestCheckHook,
+  pyvo,
+  astropy-helpers,
+  setuptools,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -38,7 +39,10 @@ buildPythonPackage rec {
     pyvo
   ];
 
-  nativeBuildInputs = [ astropy-helpers setuptools ];
+  nativeBuildInputs = [
+    astropy-helpers
+    setuptools
+  ];
 
   # Disable automatic update of the astropy-helper module
   postPatch = ''

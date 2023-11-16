@@ -1,11 +1,12 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, dnspython
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -32,14 +33,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "kaleidescape"
-  ];
+  pythonImportsCheck = [ "kaleidescape" ];
 
-  disabledTests = [
-    # Test requires network access
-    "test_resolve_succeeds"
-  ];
+  disabledTests =
+    [
+      # Test requires network access
+      "test_resolve_succeeds"
+    ];
 
   meta = with lib; {
     description = "Module for controlling Kaleidescape devices";

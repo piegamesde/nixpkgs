@@ -1,31 +1,32 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, mock
-, bokeh
-, plotly
-, chainer
-, xgboost
-, mpi4py
-, lightgbm
-, keras
-, mxnet
-, scikit-optimize
-, tensorflow
-, cma
-, sqlalchemy
-, numpy
-, scipy
-, six
-, cliff
-, colorlog
-, pandas
-, alembic
-, tqdm
-, typing
-, pythonOlder
-, isPy27
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  mock,
+  bokeh,
+  plotly,
+  chainer,
+  xgboost,
+  mpi4py,
+  lightgbm,
+  keras,
+  mxnet,
+  scikit-optimize,
+  tensorflow,
+  cma,
+  sqlalchemy,
+  numpy,
+  scipy,
+  six,
+  cliff,
+  colorlog,
+  pandas,
+  alembic,
+  tqdm,
+  typing,
+  pythonOlder,
+  isPy27,
 }:
 
 buildPythonPackage rec {
@@ -66,11 +67,9 @@ buildPythonPackage rec {
     pandas
     alembic
     tqdm
-  ] ++ lib.optionals (pythonOlder "3.5") [
-    typing
-  ];
+  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
-  configurePhase = lib.optionalString (! pythonOlder "3.5") ''
+  configurePhase = lib.optionalString (!pythonOlder "3.5") ''
     substituteInPlace setup.py \
       --replace "'typing'," ""
   '';
@@ -84,7 +83,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    broken = true;  # Dashboard broken, other build failures.
+    broken = true; # Dashboard broken, other build failures.
     description = "A hyperparameter optimization framework";
     homepage = "https://optuna.org/";
     license = licenses.mit;

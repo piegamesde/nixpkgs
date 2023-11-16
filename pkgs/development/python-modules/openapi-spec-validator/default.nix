@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
 
-# propagates
-, importlib-resources
-, jsonschema
-, jsonschema-spec
-, lazy-object-proxy
-, openapi-schema-validator
-, pyyaml
+  # propagates
+  importlib-resources,
+  jsonschema,
+  jsonschema-spec,
+  lazy-object-proxy,
+  openapi-schema-validator,
+  pyyaml,
 
-# optional
-, requests
+  # optional
+  requests,
 
-# tests
-, mock
-, pytestCheckHook
+  # tests
+  mock,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -35,30 +36,22 @@ buildPythonPackage rec {
     hash = "sha256-BIGHaZhrEc7wcIesBIXdVRzozllCNOz67V+LmQfZ8oY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     jsonschema
     jsonschema-spec
     lazy-object-proxy
     openapi-schema-validator
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  passthru.optional-dependencies.requests = [
-    requests
-  ];
+  passthru.optional-dependencies.requests = [ requests ];
 
   preCheck = ''
     sed -i '/--cov/d' pyproject.toml
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # network access

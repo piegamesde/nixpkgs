@@ -1,33 +1,34 @@
-{ asciidoc
-, dbus
-, docbook_xml_dtd_45
-, docbook_xsl
-, fetchFromGitHub
-, lib
-, libconfig
-, libdrm
-, libev
-, libGL
-, libX11
-, libxcb
-, libxdg_basedir
-, libXext
-, libXinerama
-, libxml2
-, libxslt
-, makeWrapper
-, meson
-, ninja
-, pcre
-, pixman
-, pkg-config
-, stdenv
-, uthash
-, xcbutilimage
-, xcbutilrenderutil
-, xorgproto
-, xwininfo
-, withDebug ? false
+{
+  asciidoc,
+  dbus,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  fetchFromGitHub,
+  lib,
+  libconfig,
+  libdrm,
+  libev,
+  libGL,
+  libX11,
+  libxcb,
+  libxdg_basedir,
+  libXext,
+  libXinerama,
+  libxml2,
+  libxslt,
+  makeWrapper,
+  meson,
+  ninja,
+  pcre,
+  pixman,
+  pkg-config,
+  stdenv,
+  uthash,
+  xcbutilimage,
+  xcbutilrenderutil,
+  xorgproto,
+  xwininfo,
+  withDebug ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -78,20 +79,20 @@ stdenv.mkDerivation rec {
   mesonBuildType = if withDebug then "debugoptimized" else "release";
   dontStrip = withDebug;
 
-  mesonFlags = [
-    "-Dwith_docs=true"
-  ];
+  mesonFlags = [ "-Dwith_docs=true" ];
 
   installFlags = [ "PREFIX=$(out)" ];
 
   # In debug mode, also copy src directory to store. If you then run `gdb picom`
   # in the bin directory of picom store path, gdb finds the source files.
-  postInstall = ''
-    wrapProgram $out/bin/picom-trans \
-      --prefix PATH : ${lib.makeBinPath [ xwininfo ]}
-  '' + lib.optionalString withDebug ''
-    cp -r ../src $out/
-  '';
+  postInstall =
+    ''
+      wrapProgram $out/bin/picom-trans \
+        --prefix PATH : ${lib.makeBinPath [ xwininfo ]}
+    ''
+    + lib.optionalString withDebug ''
+      cp -r ../src $out/
+    '';
 
   meta = with lib; {
     description = "A fork of XCompMgr, a sample compositing manager for X servers";
@@ -111,7 +112,11 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     homepage = "https://github.com/yshui/picom";
-    maintainers = with maintainers; [ ertes twey thiagokokada ];
+    maintainers = with maintainers; [
+      ertes
+      twey
+      thiagokokada
+    ];
     platforms = platforms.linux;
   };
 }

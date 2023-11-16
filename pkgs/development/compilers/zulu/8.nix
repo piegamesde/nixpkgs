@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, unzip
-, makeWrapper
-, setJavaClassPath
-, zulu
-# minimum dependencies
-, alsa-lib
-, fontconfig
-, freetype
-, xorg
-# runtime dependencies
-, cups
-# runtime dependencies for GTK+ Look and Feel
-, gtkSupport ? stdenv.isLinux
-, cairo
-, glib
-, gtk3
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  unzip,
+  makeWrapper,
+  setJavaClassPath,
+  zulu,
+  # minimum dependencies
+  alsa-lib,
+  fontconfig,
+  freetype,
+  xorg,
+  # runtime dependencies
+  cups,
+  # runtime dependencies for GTK+ Look and Feel
+  gtkSupport ? stdenv.isLinux,
+  cairo,
+  glib,
+  gtk3,
 }:
 
 let
@@ -31,15 +32,23 @@ let
   hash = if stdenv.isDarwin then sha256_darwin else sha256_linux;
   extension = if stdenv.isDarwin then "zip" else "tar.gz";
 
-  runtimeDependencies = [
-    cups
-  ] ++ lib.optionals gtkSupport [
-    cairo glib gtk3
-  ];
+  runtimeDependencies =
+    [ cups ]
+    ++ lib.optionals gtkSupport [
+      cairo
+      glib
+      gtk3
+    ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
-
-in stdenv.mkDerivation {
-  inherit version openjdk platform hash extension;
+in
+stdenv.mkDerivation {
+  inherit
+    version
+    openjdk
+    platform
+    hash
+    extension
+  ;
 
   pname = "zulu";
 
@@ -62,38 +71,39 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [
-    autoPatchelfHook
-  ] ++ lib.optionals stdenv.isDarwin [
-    unzip
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals stdenv.isDarwin [ unzip ];
 
-  installPhase = ''
-    runHook preInstall
+  installPhase =
+    ''
+      runHook preInstall
 
-    mkdir -p $out
-    cp -r ./* "$out/"
-  '' + lib.optionalString stdenv.isLinux ''
-    # jni.h expects jni_md.h to be in the header search path.
-    ln -s $out/include/linux/*_md.h $out/include/
-  '' + ''
-    mkdir -p $out/nix-support
-    printWords ${setJavaClassPath} > $out/nix-support/propagated-build-inputs
+      mkdir -p $out
+      cp -r ./* "$out/"
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      # jni.h expects jni_md.h to be in the header search path.
+      ln -s $out/include/linux/*_md.h $out/include/
+    ''
+    + ''
+      mkdir -p $out/nix-support
+      printWords ${setJavaClassPath} > $out/nix-support/propagated-build-inputs
 
-    # Set JAVA_HOME automatically.
-    cat <<EOF >> $out/nix-support/setup-hook
-    if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
-    EOF
-  '' + lib.optionalString stdenv.isLinux ''
-    # We cannot use -exec since wrapProgram is a function but not a command.
-    for bin in $( find "$out" -executable -type f ); do
-      if patchelf --print-interpreter "$bin" &> /dev/null; then
-        wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
-      fi
-    done
-  '' + ''
-    runHook postInstall
-  '';
+      # Set JAVA_HOME automatically.
+      cat <<EOF >> $out/nix-support/setup-hook
+      if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
+      EOF
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      # We cannot use -exec since wrapProgram is a function but not a command.
+      for bin in $( find "$out" -executable -type f ); do
+        if patchelf --print-interpreter "$bin" &> /dev/null; then
+          wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
+        fi
+      done
+    ''
+    + ''
+      runHook postInstall
+    '';
 
   preFixup = ''
     find "$out" -name libfontmanager.so -exec \
@@ -106,7 +116,10 @@ in stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.azul.com/products/zulu/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.gpl2;
     description = "Certified builds of OpenJDK";
     longDescription = ''
@@ -114,7 +127,10 @@ in stdenv.mkDerivation {
       operating systems, containers, hypervisors and Cloud platforms.
     '';
     maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     mainProgram = "java";
   };
 }

@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, crystal
-, jq
-, libxml2
-, makeWrapper
+{
+  lib,
+  fetchFromGitHub,
+  crystal,
+  jq,
+  libxml2,
+  makeWrapper,
 }:
 
 crystal.buildCrystalPackage rec {

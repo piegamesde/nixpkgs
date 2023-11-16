@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+}:
 stdenv.mkDerivation rec {
   pname = "passh";
   version = "2020-03-18";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, buildbot }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  buildbot,
+}:
 
 buildPythonPackage rec {
   pname = "buildbot-pkg";
@@ -25,7 +31,10 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://buildbot.net/";
     description = "Buildbot Packaging Helper";
-    maintainers = with maintainers; [ ryansydnor lopsided98 ];
+    maintainers = with maintainers; [
+      ryansydnor
+      lopsided98
+    ];
     license = licenses.gpl2;
   };
 }

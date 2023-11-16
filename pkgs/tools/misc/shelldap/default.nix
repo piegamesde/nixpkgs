@@ -1,4 +1,8 @@
-{ lib, fetchurl, perlPackages }:
+{
+  lib,
+  fetchurl,
+  perlPackages,
+}:
 perlPackages.buildPerlPackage rec {
   pname = "shelldap";
   version = "1.4.0";
@@ -6,7 +10,16 @@ perlPackages.buildPerlPackage rec {
     url = "https://bitbucket.org/mahlon/shelldap/downloads/shelldap-${version}.tar.gz";
     sha256 = "07gkvvxcgw3pgkfy8p9mmidakciaq1rsq5zhmdqd8zcwgqkrr24i";
   };
-  buildInputs = with perlPackages; [ perl YAMLSyck perlldap AlgorithmDiff IOSocketSSL AuthenSASL TermReadLineGnu TermShell ];
+  buildInputs = with perlPackages; [
+    perl
+    YAMLSyck
+    perlldap
+    AlgorithmDiff
+    IOSocketSSL
+    AuthenSASL
+    TermReadLineGnu
+    TermShell
+  ];
   prePatch = ''
     touch Makefile.PL
   '';

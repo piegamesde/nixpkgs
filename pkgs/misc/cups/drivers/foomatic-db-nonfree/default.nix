@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoconf
-, automake
-, perl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  perl,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-cRZH0CXg03FEqUJdxaNnPVXjf8+ct86PjhL59WQbw60=";
   };
 
-  nativeBuildInputs = [ autoconf automake perl ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    perl
+  ];
 
   # sed-substitute indirection is more robust against
   # characters in paths that might need escaping
@@ -55,7 +60,9 @@ stdenv.mkDerivation rec {
   # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
-    find -H "${placeholder "out"}/share/cups/model/foomatic-db-nonfree" -type f -iname '*.ppd' -print0  \
+    find -H "${
+      placeholder "out"
+    }/share/cups/model/foomatic-db-nonfree" -type f -iname '*.ppd' -print0  \
       | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
   '';
 

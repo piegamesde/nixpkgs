@@ -1,4 +1,9 @@
-{ config, lib, pkgs, options }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+}:
 
 with lib;
 
@@ -9,7 +14,10 @@ in
   port = 9324;
   extraOpts = {
     birdVersion = mkOption {
-      type = types.enum [ 1 2 ];
+      type = types.enum [
+        1
+        2
+      ];
       default = 2;
       description = lib.mdDoc ''
         Specifies whether BIRD1 or BIRD2 is in use.
@@ -41,10 +49,11 @@ in
           -format.new=${if cfg.newMetricFormat then "true" else "false"} \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
-      RestrictAddressFamilies = [
-        # Need AF_UNIX to collect data
-        "AF_UNIX"
-      ];
+      RestrictAddressFamilies =
+        [
+          # Need AF_UNIX to collect data
+          "AF_UNIX"
+        ];
     };
   };
 }

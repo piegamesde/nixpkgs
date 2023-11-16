@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 
-# tests
-, git
-, mercurial
-, patch
+  # tests
+  git,
+  mercurial,
+  patch,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -42,18 +43,21 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    git
-    mercurial
-    patch
-  ]
-  ++ (with python3.pkgs; [
-    callee
-    immutabledict
-    hg-evolve
-    mock
-    pytestCheckHook
-  ]);
+  nativeCheckInputs =
+    [
+      git
+      mercurial
+      patch
+    ]
+    ++ (
+      with python3.pkgs; [
+        callee
+        immutabledict
+        hg-evolve
+        mock
+        pytestCheckHook
+      ]
+    );
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -80,7 +84,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://moz-conduit.readthedocs.io/en/latest/phabricator-user.html";
     license = licenses.mpl20;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     platforms = platforms.unix;
   };
 }

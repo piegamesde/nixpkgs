@@ -1,13 +1,14 @@
-{ lib
-, buildDunePackage
-, fetchurl
-, cstruct
-, logs
-, lwt
-, macaddr
-, mirage-net
-, mirage-profile
-, ppx_cstruct
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  cstruct,
+  logs,
+  lwt,
+  macaddr,
+  mirage-net,
+  mirage-profile,
+  ppx_cstruct,
 }:
 
 buildDunePackage rec {
@@ -23,9 +24,7 @@ buildDunePackage rec {
     hash = "sha256:0a898vp9dw42majsvzzvs8pc6x4ns01wlwhwbacixliv6vv78ng9";
   };
 
-  buildInputs = [
-    ppx_cstruct
-  ];
+  buildInputs = [ ppx_cstruct ];
 
   propagatedBuildInputs = [
     cstruct

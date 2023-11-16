@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, wrapio
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  wrapio,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-TK89quY3bpNIEz1n3Ecew4FnTH6QgeSLdDNV86gq7+I=";
   };
 
-  propagatedBuildInputs = [
-    wrapio
-  ];
+  propagatedBuildInputs = [ wrapio ];
 
   doCheck = false;
   pythonImportsCheck = [ "survey" ];

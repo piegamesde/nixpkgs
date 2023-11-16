@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, Security
-, autoreconfHook
-, openssl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Security,
+  autoreconfHook,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
@@ -44,19 +45,17 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs = [ ] ++ lib.optionals stdenv.isDarwin [ Security ];
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   doCheck = true;
   nativeCheckInputs = [ openssl ];
 
   postInstall = ''
-     # fix recursive cycle:
-     # wolfssl-config points to dev, dev propagates bin
-     moveToOutput bin/wolfssl-config "$dev"
-     # moveToOutput also removes "$out" so recreate it
-     mkdir -p "$out"
+    # fix recursive cycle:
+    # wolfssl-config points to dev, dev propagates bin
+    moveToOutput bin/wolfssl-config "$dev"
+    # moveToOutput also removes "$out" so recreate it
+    mkdir -p "$out"
   '';
 
   meta = with lib; {

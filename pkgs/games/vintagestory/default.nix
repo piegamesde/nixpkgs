@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, mono
-, xorg
-, gtk2
-, sqlite
-, openal
-, cairo
-, libGLU
-, SDL2
-, freealut
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  mono,
+  xorg,
+  gtk2,
+  sqlite,
+  openal,
+  cairo,
+  libGLU,
+  SDL2,
+  freealut,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,22 +25,30 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VW85a8Yi1s+cOSZU5E/Rhhz4IMNLMtdAfOZKJ0axApA=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
   buildInputs = [ mono ];
 
-  runtimeLibs = lib.makeLibraryPath ([
-    gtk2
-    sqlite
-    openal
-    cairo
-    libGLU
-    SDL2
-    freealut
-  ] ++ (with xorg; [
-    libX11
-    libXi
-  ]));
+  runtimeLibs = lib.makeLibraryPath (
+    [
+      gtk2
+      sqlite
+      openal
+      cairo
+      libGLU
+      SDL2
+      freealut
+    ]
+    ++ (
+      with xorg; [
+        libX11
+        libXi
+      ]
+    )
+  );
 
   desktopItems = makeDesktopItem {
     name = "vintagestory";

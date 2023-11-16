@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
 }:
 buildGoModule rec {
   pname = "clash-meta";
@@ -28,9 +29,7 @@ buildGoModule rec {
     "-X github.com/Dreamacro/clash/constant.Version=${version}"
   ];
 
-  tags = [
-    "with_gvisor"
-  ];
+  tags = [ "with_gvisor" ];
 
   # network required
   doCheck = false;

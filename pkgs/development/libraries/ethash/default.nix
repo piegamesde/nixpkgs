@@ -1,20 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gbenchmark, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gbenchmark,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ethash";
   version = "0.8.0";
 
-  src =
-    fetchFromGitHub {
-      owner = "chfast";
-      repo = "ethash";
-      rev = "v${version}";
-      sha256 = "sha256-4SJk4niSpLPjymwTCD0kHOrqpMf+vE3J/O7DiffUSJ4=";
-    };
+  src = fetchFromGitHub {
+    owner = "chfast";
+    repo = "ethash";
+    rev = "v${version}";
+    sha256 = "sha256-4SJk4niSpLPjymwTCD0kHOrqpMf+vE3J/O7DiffUSJ4=";
+  };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   nativeCheckInputs = [
     gbenchmark

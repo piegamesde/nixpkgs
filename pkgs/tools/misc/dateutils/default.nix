@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, tzdata, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  tzdata,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.4.10";

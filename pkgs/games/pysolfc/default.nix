@@ -1,5 +1,11 @@
-{ lib, fetchzip, buildPythonApplication, python3Packages
-  , desktop-file-utils, freecell-solver }:
+{
+  lib,
+  fetchzip,
+  buildPythonApplication,
+  python3Packages,
+  desktop-file-utils,
+  freecell-solver,
+}:
 
 buildPythonApplication rec {
   pname = "PySolFC";
@@ -16,19 +22,26 @@ buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages; [
-    tkinter six random2 configobj
-    pysol-cards attrs pycotap
+    tkinter
+    six
+    random2
+    configobj
+    pysol-cards
+    attrs
+    pycotap
     # optional :
-    pygame freecell-solver pillow
+    pygame
+    freecell-solver
+    pillow
   ];
 
-  patches = [
-    ./pysolfc-datadir.patch
-  ];
+  patches = [ ./pysolfc-datadir.patch ];
 
   nativeBuildInputs = [ desktop-file-utils ];
   postPatch = ''
-    desktop-file-edit --set-key Icon --set-value ${placeholder "out"}/share/icons/pysol01.png data/pysol.desktop
+    desktop-file-edit --set-key Icon --set-value ${
+      placeholder "out"
+    }/share/icons/pysol01.png data/pysol.desktop
     desktop-file-edit --set-key Comment --set-value "${meta.description}" data/pysol.desktop
   '';
 

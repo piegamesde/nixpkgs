@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, python3, bison, openssl, readline, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  python3,
+  bison,
+  openssl,
+  readline,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "monetdb";
@@ -27,8 +37,16 @@ stdenv.mkDerivation rec {
       $out/bin/Mconvert.py
   '';
 
-  nativeBuildInputs = [ cmake python3 ];
-  buildInputs = [ bison openssl readline bzip2 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
+  buildInputs = [
+    bison
+    openssl
+    readline
+    bzip2
+  ];
 
   meta = with lib; {
     description = "An open source database system";

@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-, flask
-, limits
-, ordered-set
-, rich
-, typing-extensions
+  flask,
+  limits,
+  ordered-set,
+  rich,
+  typing-extensions,
 
-, asgiref
-, hiro
-, pymemcache
-, pytest-mock
-, pytestCheckHook
-, redis
-, pymongo
+  asgiref,
+  hiro,
+  pymemcache,
+  pytest-mock,
+  pytestCheckHook,
+  redis,
+  pymongo,
 }:
 
 buildPythonPackage rec {
@@ -77,10 +78,11 @@ buildPythonPackage rec {
     "test_fallback_to_memory"
   ];
 
-  disabledTestPaths = [
-    # requires running redis/memcached/mongodb
-    "tests/test_storage.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires running redis/memcached/mongodb
+      "tests/test_storage.py"
+    ];
 
   pythonImportsCheck = [ "flask_limiter" ];
 

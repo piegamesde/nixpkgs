@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pandas
-, six
-, astropy
-, pytestCheckHook
-, pytest-doctestplus
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pandas,
+  six,
+  astropy,
+  pytestCheckHook,
+  pytest-doctestplus,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-crPVo7ALErZWvNcsaJ/BuBa0VkfCsZ+C929x4kEZHKw=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     numpy
@@ -38,13 +37,9 @@ buildPythonPackage rec {
     pytest-doctestplus
   ];
 
-  disabledTests = [
-    "test_query_hexadecimal_strings"
-  ];
+  disabledTests = [ "test_query_hexadecimal_strings" ];
 
-  disabledTestPaths = [
-    "docs/tutorial.rst"
-  ];
+  disabledTestPaths = [ "docs/tutorial.rst" ];
 
   pythonImportsCheck = [ "drms" ];
 

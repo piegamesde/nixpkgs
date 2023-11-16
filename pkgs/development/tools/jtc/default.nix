@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jtc";
@@ -11,13 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VATRlOOV4wBInLOm9J0Dp2vhtL5mb0Yxdl/ya0JiqEU=";
   };
 
-  patches = [
-    # Fix building with Clang. Removing with next release.
-    (fetchpatch {
-      url = "https://github.com/ldn-softdev/jtc/commit/92a5116e5524c0b6d2f539db7b5cc9fdd7c5b8ab.patch";
-      sha256 = "sha256-AAvDH0XsT8/CAguG611/odg0m1HR+veC0jbAw6KLHLM=";
-    })
-  ];
+  patches =
+    [
+      # Fix building with Clang. Removing with next release.
+      (fetchpatch {
+        url = "https://github.com/ldn-softdev/jtc/commit/92a5116e5524c0b6d2f539db7b5cc9fdd7c5b8ab.patch";
+        sha256 = "sha256-AAvDH0XsT8/CAguG611/odg0m1HR+veC0jbAw6KLHLM=";
+      })
+    ];
 
   buildPhase = ''
     runHook preBuild

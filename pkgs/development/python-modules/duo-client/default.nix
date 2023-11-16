@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, mock
-, nose2
-, pytz
-, setuptools
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  mock,
+  nose2,
+  pytz,
+  setuptools,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [
-    "duo_client"
-  ];
+  pythonImportsCheck = [ "duo_client" ];
 
   meta = with lib; {
     description = "Python library for interacting with the Duo Auth, Admin, and Accounts APIs";

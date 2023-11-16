@@ -1,14 +1,24 @@
-{ lib, stdenv, fetchurl, python3, bzip2, zlib, gmp, boost
-# Passed by version specific builders
-, baseVersion, revision, sha256
-, sourceExtension ? "tar.xz"
-, extraConfigureFlags ? ""
-, extraPatches ? [ ]
-, postPatch ? null
-, knownVulnerabilities ? [ ]
-, CoreServices
-, Security
-, ...
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  bzip2,
+  zlib,
+  gmp,
+  boost,
+  # Passed by version specific builders
+  baseVersion,
+  revision,
+  sha256,
+  sourceExtension ? "tar.xz",
+  extraConfigureFlags ? "",
+  extraPatches ? [ ],
+  postPatch ? null,
+  knownVulnerabilities ? [ ],
+  CoreServices,
+  Security,
+  ...
 }:
 
 stdenv.mkDerivation rec {
@@ -18,19 +28,31 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "Botan-${version}.${sourceExtension}";
     urls = [
-       "http://files.randombit.net/botan/v${baseVersion}/Botan-${version}.${sourceExtension}"
-       "http://botan.randombit.net/releases/Botan-${version}.${sourceExtension}"
+      "http://files.randombit.net/botan/v${baseVersion}/Botan-${version}.${sourceExtension}"
+      "http://botan.randombit.net/releases/Botan-${version}.${sourceExtension}"
     ];
     inherit sha256;
   };
   patches = extraPatches;
   inherit postPatch;
 
-  buildInputs = [ python3 bzip2 zlib gmp boost ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices Security ];
+  buildInputs =
+    [
+      python3
+      bzip2
+      zlib
+      gmp
+      boost
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      Security
+    ];
 
   configurePhase = ''
-    python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${lib.optionalString stdenv.cc.isClang " --cc=clang"}
+    python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${
+      lib.optionalString stdenv.cc.isClang " --cc=clang"
+    }
   '';
 
   enableParallelBuilding = true;

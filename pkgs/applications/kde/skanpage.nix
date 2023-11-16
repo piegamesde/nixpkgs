@@ -1,12 +1,13 @@
-{ lib
-, mkDerivation
-, fetchurl
-, extra-cmake-modules
-, kirigami2
-, ktextwidgets
-, libksane
-, qtquickcontrols2
-, kpurpose
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  extra-cmake-modules,
+  kirigami2,
+  ktextwidgets,
+  libksane,
+  qtquickcontrols2,
+  kpurpose,
 }:
 
 mkDerivation rec {

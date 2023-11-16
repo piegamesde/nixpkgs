@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, caqti, postgresql }:
+{
+  lib,
+  buildDunePackage,
+  caqti,
+  postgresql,
+}:
 
 buildDunePackage {
   pname = "caqti-driver-postgresql";
@@ -6,7 +11,10 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ caqti postgresql ];
+  propagatedBuildInputs = [
+    caqti
+    postgresql
+  ];
 
   meta = caqti.meta // {
     description = "PostgreSQL driver for Caqti based on C bindings";

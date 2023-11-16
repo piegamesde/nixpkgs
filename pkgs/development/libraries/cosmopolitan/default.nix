@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, unzip, bintools-unwrapped, coreutils, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  bintools-unwrapped,
+  coreutils,
+  substituteAll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cosmopolitan";
@@ -11,17 +19,33 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DTL1dXH+LhaxWpiCrsNjV74Bw5+kPbhEAA2Z1NKiPDk=";
   };
 
-  patches = [
-    # make sure tests set PATH correctly
-    (substituteAll { src = ./fix-paths.patch; inherit coreutils; })
+  patches =
+    [
+      # make sure tests set PATH correctly
+      (substituteAll {
+        src = ./fix-paths.patch;
+        inherit coreutils;
+      })
+    ];
+
+  nativeBuildInputs = [
+    bintools-unwrapped
+    unzip
   ];
 
-  nativeBuildInputs = [ bintools-unwrapped unzip ];
-
-  outputs = [ "out" "dist" ];
+  outputs = [
+    "out"
+    "dist"
+  ];
 
   # slashes are significant because upstream uses o/$(MODE)/foo.o
-  buildFlags = [ "o/cosmopolitan.h" "o//cosmopolitan.a" "o//libc/crt/crt.o" "o//ape/ape.o" "o//ape/ape.lds" ];
+  buildFlags = [
+    "o/cosmopolitan.h"
+    "o//cosmopolitan.a"
+    "o//libc/crt/crt.o"
+    "o//ape/ape.o"
+    "o//ape/ape.lds"
+  ];
   checkTarget = "o//test";
   enableParallelBuilding = true;
 

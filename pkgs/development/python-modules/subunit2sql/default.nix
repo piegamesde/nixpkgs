@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, oslo-concurrency
-, oslo-db
-, pbr
-, python-dateutil
-, stestr
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  oslo-concurrency,
+  oslo-db,
+  pbr,
+  python-dateutil,
+  stestr,
 }:
 
 buildPythonPackage rec {

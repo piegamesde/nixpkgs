@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, hatchling
-, opentelemetry-instrumentation
-, opentelemetry-sdk
-, opentelemetry-semantic-conventions
-, opentelemetry-test-utils
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  opentelemetry-instrumentation,
+  opentelemetry-sdk,
+  opentelemetry-semantic-conventions,
+  opentelemetry-test-utils,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -15,19 +16,19 @@ buildPythonPackage rec {
   version = "0.39b0";
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "open-telemetry";
-    repo = "opentelemetry-python-contrib";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-C20/M5wimQec/8tTKx7+jkIYgfgNPtU9lkPKliIM3Uk=";
-    sparseCheckout = [ "/util/${pname}" ];
-  } + "/util/${pname}";
+  src =
+    fetchFromGitHub {
+      owner = "open-telemetry";
+      repo = "opentelemetry-python-contrib";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-C20/M5wimQec/8tTKx7+jkIYgfgNPtU9lkPKliIM3Uk=";
+      sparseCheckout = [ "/util/${pname}" ];
+    }
+    + "/util/${pname}";
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     opentelemetry-instrumentation

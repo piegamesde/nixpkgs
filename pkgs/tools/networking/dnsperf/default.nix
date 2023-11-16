@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, autoreconfHook
-, fetchFromGitHub
-, ldns
-, libck
-, nghttp2
-, openssl
-, pkg-config
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  ldns,
+  libck,
+  nghttp2,
+  openssl,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, torch
-, torchvision
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  torch,
+  torchvision,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # Skip as it downloads pretrained weights (require network access)
@@ -37,14 +36,13 @@ buildPythonPackage rec {
     "test_google"
   ];
 
-  disabledTestPaths = [
-    # Wants "compressai", which we don't package (2023-03-23)
-    "tests/torchinfo_xl_test.py"
-  ];
+  disabledTestPaths =
+    [
+      # Wants "compressai", which we don't package (2023-03-23)
+      "tests/torchinfo_xl_test.py"
+    ];
 
-  pythonImportsCheck = [
-    "torchinfo"
-  ];
+  pythonImportsCheck = [ "torchinfo" ];
 
   meta = with lib; {
     description = "API to visualize pytorch models";

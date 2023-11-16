@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, python3, dict, glibcLocales }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  dict,
+  glibcLocales,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dict-db-wiktionary";
@@ -9,7 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "qsha26LL2513SDtriE/0zdPX1zlnpzk1KKk+R9dSdew=";
   };
 
-  nativeBuildInputs = [ python3 dict glibcLocales ];
+  nativeBuildInputs = [
+    python3
+    dict
+    glibcLocales
+  ];
 
   dontUnpack = true;
 
@@ -29,6 +40,9 @@ stdenv.mkDerivation rec {
     homepage = "https://en.wiktionary.org/";
     maintainers = with maintainers; [ qyliss ];
     platforms = platforms.all;
-    license = with licenses; [ cc-by-sa-30 fdl11Plus ];
+    license = with licenses; [
+      cc-by-sa-30
+      fdl11Plus
+    ];
   };
 }

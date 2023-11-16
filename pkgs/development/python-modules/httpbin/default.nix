@@ -1,17 +1,18 @@
-{ lib
-, brotlipy
-, buildPythonPackage
-, decorator
-, fetchpatch
-, fetchPypi
-, flask
-, flask-limiter
-, itsdangerous
-, markupsafe
-, raven
-, six
-, pytestCheckHook
-, werkzeug
+{
+  lib,
+  brotlipy,
+  buildPythonPackage,
+  decorator,
+  fetchpatch,
+  fetchPypi,
+  flask,
+  flask-limiter,
+  itsdangerous,
+  markupsafe,
+  raven,
+  six,
+  pytestCheckHook,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -45,13 +46,9 @@ buildPythonPackage rec {
     werkzeug
   ] ++ raven.optional-dependencies.flask;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "test_httpbin.py"
-  ];
+  pytestFlagsArray = [ "test_httpbin.py" ];
 
   disabledTests = [
     # Tests seems to be outdated
@@ -64,9 +61,7 @@ buildPythonPackage rec {
     "test_relative_redirect_n_higher_than_1"
   ];
 
-  pythonImportsCheck = [
-    "httpbin"
-  ];
+  pythonImportsCheck = [ "httpbin" ];
 
   meta = with lib; {
     description = "HTTP Request and Response Service";

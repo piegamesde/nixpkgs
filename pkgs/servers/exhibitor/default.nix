@@ -1,4 +1,12 @@
-{ fetchFromGitHub, maven, jdk, makeWrapper, lib, stdenv, ... }:
+{
+  fetchFromGitHub,
+  maven,
+  jdk,
+  makeWrapper,
+  lib,
+  stdenv,
+  ...
+}:
 stdenv.mkDerivation rec {
   pname = "exhibitor";
   version = "1.5.6";
@@ -20,7 +28,7 @@ stdenv.mkDerivation rec {
         echo "maven hangs while downloading :("
       done
     '';
-    installPhase = ''find $out/.m2 -type f \! -regex '.+\(pom\|jar\|xml\|sha1\)' -delete''; # delete files with lastModified timestamps inside
+    installPhase = "find $out/.m2 -type f \\! -regex '.+\\(pom\\|jar\\|xml\\|sha1\\)' -delete"; # delete files with lastModified timestamps inside
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = mavenDependenciesSha256;
@@ -31,10 +39,13 @@ stdenv.mkDerivation rec {
   # (given the state of Maven support in Nix). We're not actually building any java
   # source here.
   pomFileDir = "exhibitor-standalone/src/main/resources/buildscripts/standalone/maven";
-  nativeBuildInputs = [ maven makeWrapper ];
+  nativeBuildInputs = [
+    maven
+    makeWrapper
+  ];
   buildPhase = ''
-      cd ${pomFileDir}
-      mvn package --offline -Dmaven.repo.local=$(cp -dpR ${fetchedMavenDeps}/.m2 ./ && chmod +w -R .m2 && pwd)/.m2
+    cd ${pomFileDir}
+    mvn package --offline -Dmaven.repo.local=$(cp -dpR ${fetchedMavenDeps}/.m2 ./ && chmod +w -R .m2 && pwd)/.m2
   '';
   meta = with lib; {
     description = "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization";
@@ -49,7 +60,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     mkdir -p $out/share/java
     mv target/$name.jar $out/share/java/
-    makeWrapper ${jdk}/bin/java $out/bin/startExhibitor.sh --add-flags "-jar $out/share/java/$name.jar" --suffix PATH : ${lib.makeBinPath [ jdk ]}
+    makeWrapper ${jdk}/bin/java $out/bin/startExhibitor.sh --add-flags "-jar $out/share/java/$name.jar" --suffix PATH : ${
+      lib.makeBinPath [ jdk ]
+    }
   '';
-
 }

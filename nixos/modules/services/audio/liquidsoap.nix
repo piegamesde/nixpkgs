@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -7,10 +12,16 @@ let
 
   streamService =
     name:
-    let stream = builtins.getAttr name config.services.liquidsoap.streams; in
-    { inherit name;
+    let
+      stream = builtins.getAttr name config.services.liquidsoap.streams;
+    in
+    {
+      inherit name;
       value = {
-        after = [ "network-online.target" "sound.target" ];
+        after = [
+          "network-online.target"
+          "sound.target"
+        ];
         description = "${name} liquidsoap stream";
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.wget ];
@@ -30,13 +41,12 @@ in
 
     services.liquidsoap.streams = mkOption {
 
-      description =
-        lib.mdDoc ''
-          Set of Liquidsoap streams to start,
-          one systemd service per stream.
-        '';
+      description = lib.mdDoc ''
+        Set of Liquidsoap streams to start,
+        one systemd service per stream.
+      '';
 
-      default = {};
+      default = { };
 
       example = literalExpression ''
         {
@@ -48,7 +58,6 @@ in
 
       type = types.attrsOf (types.either types.path types.str);
     };
-
   };
   ##### implementation
 
@@ -65,7 +74,6 @@ in
 
     users.groups.liquidsoap.gid = config.ids.gids.liquidsoap;
 
-    systemd.services = builtins.listToAttrs ( map streamService streams );
+    systemd.services = builtins.listToAttrs (map streamService streams);
   };
-
 }

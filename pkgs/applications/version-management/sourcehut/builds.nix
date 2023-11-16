@@ -1,15 +1,16 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, srht
-, redis
-, celery
-, pyyaml
-, markdown
-, ansi2html
-, python
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  redis,
+  celery,
+  pyyaml,
+  markdown,
+  ansi2html,
+  python,
+  unzip,
 }:
 let
   version = "0.83.0";
@@ -21,12 +22,18 @@ let
     hash = "sha256-u/y+sYu/09LypWI/ngghbge5SvkuLQpray10j0SjlOo=";
   };
 
-  buildsrht-api = buildGoModule ({
-    inherit src version;
-    pname = "buildsrht-api";
-    modRoot = "api";
-    vendorHash = "sha256-DfVWr/4J4ZrhHpy9CXPaAQcbag/9FmDgiexcNo0lEsk=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; gqlgenVersion= "0.17.20"; });
+  buildsrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "buildsrht-api";
+      modRoot = "api";
+      vendorHash = "sha256-DfVWr/4J4ZrhHpy9CXPaAQcbag/9FmDgiexcNo0lEsk=";
+    }
+    // import ./fix-gqlgen-trimpath.nix {
+      inherit unzip;
+      gqlgenVersion = "0.17.20";
+    }
+  );
 
   buildsrht-worker = buildGoModule {
     inherit src version;

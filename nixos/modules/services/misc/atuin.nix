@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -61,19 +66,21 @@ in
     # enable postgres to host atuin db
     services.postgresql = {
       enable = true;
-      ensureUsers = [{
-        name = "atuin";
-        ensurePermissions = {
-          "DATABASE atuin" = "ALL PRIVILEGES";
-        };
-      }];
+      ensureUsers = [
+        {
+          name = "atuin";
+          ensurePermissions = {
+            "DATABASE atuin" = "ALL PRIVILEGES";
+          };
+        }
+      ];
       ensureDatabases = [ "atuin" ];
     };
 
     systemd.services.atuin = {
       description = "atuin server";
       requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-      after = [ "network.target" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ] ;
+      after = [ "network.target" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
@@ -88,13 +95,12 @@ in
         ATUIN_PORT = toString cfg.port;
         ATUIN_MAX_HISTORY_LENGTH = toString cfg.maxHistoryLength;
         ATUIN_OPEN_REGISTRATION = boolToString cfg.openRegistration;
-        ATUIN_DB_URI =  mkIf cfg.database.createLocally "postgresql:///atuin";
+        ATUIN_DB_URI = mkIf cfg.database.createLocally "postgresql:///atuin";
         ATUIN_PATH = cfg.path;
         ATUIN_CONFIG_DIR = "/run/atuin"; # required to start, but not used as configuration is via environment variables
       };
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
-
   };
 }

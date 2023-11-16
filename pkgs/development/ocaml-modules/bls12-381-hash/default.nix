@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitLab
-, buildDunePackage
-, bls12-381
+{
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  bls12-381,
 }:
 
 buildDunePackage rec {

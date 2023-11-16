@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, spotify, xorg, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  spotify,
+  xorg,
+  makeWrapper,
+}:
 stdenv.mkDerivation {
   pname = "spotifywm-unstable";
   version = "2022-10-26";
@@ -34,6 +41,9 @@ stdenv.mkDerivation {
     description = "Wrapper around Spotify that correctly sets class name before opening the window";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jqueiroz the-argus ];
+    maintainers = with maintainers; [
+      jqueiroz
+      the-argus
+    ];
   };
 }

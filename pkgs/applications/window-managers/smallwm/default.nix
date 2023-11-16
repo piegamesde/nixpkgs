@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub
-, doxygen, graphviz, libX11, libXrandr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  doxygen,
+  graphviz,
+  libX11,
+  libXrandr,
+}:
 
 stdenv.mkDerivation rec {
 
@@ -13,14 +20,26 @@ stdenv.mkDerivation rec {
     sha256 = "0cqhy81ymdcdyvgi55a401rr96h2akskcxi9ddzjbln4a71yjlz8";
   };
 
-  nativeBuildInputs = [ doxygen graphviz ];
-  buildInputs = [ libX11 libXrandr ];
+  nativeBuildInputs = [
+    doxygen
+    graphviz
+  ];
+  buildInputs = [
+    libX11
+    libXrandr
+  ];
 
   dontConfigure = true;
 
-  makeFlags = [ "CC=${stdenv.cc}/bin/cc" "CXX=${stdenv.cc}/bin/c++" ];
+  makeFlags = [
+    "CC=${stdenv.cc}/bin/cc"
+    "CXX=${stdenv.cc}/bin/c++"
+  ];
 
-  buildFlags = [ "all" "doc" ];
+  buildFlags = [
+    "all"
+    "doc"
+  ];
 
   installPhase = ''
     install -dm755 $out/bin $out/share/doc/${pname}-${version}
@@ -28,7 +47,7 @@ stdenv.mkDerivation rec {
     cp -r README.markdown doc/html doc/latex $out/share/doc/${pname}-${version}
   '';
 
-  meta = with lib;{
+  meta = with lib; {
     description = "A small X window manager, extended from tinywm";
     homepage = "https://github.com/adamnew123456/SmallWM";
     license = licenses.bsd2;

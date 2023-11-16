@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, makeWrapper, pkg-config
-, lrzsz, ncurses, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  makeWrapper,
+  pkg-config,
+  lrzsz,
+  ncurses,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minicom";
@@ -15,7 +24,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ] ++ lib.optional stdenv.isDarwin libiconv;
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+  ];
 
   enableParallelBuilding = true;
 

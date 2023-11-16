@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, lib, python3, nixosTests }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  python3,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "knot-exporter";
@@ -27,7 +33,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) knot; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) knot;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/ghedo/knot_exporter";

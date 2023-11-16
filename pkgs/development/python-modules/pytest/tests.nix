@@ -1,8 +1,9 @@
-{ buildPythonPackage
-, isPyPy
-, pytest
-, hypothesis
-, pygments
+{
+  buildPythonPackage,
+  isPyPy,
+  pytest,
+  hypothesis,
+  pygments,
 }:
 
 buildPythonPackage rec {

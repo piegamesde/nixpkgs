@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,13 +11,16 @@ let
 
   cfg = config.services.confluence;
 
-  pkg = cfg.package.override (optionalAttrs cfg.sso.enable {
-    enableSSO = cfg.sso.enable;
-  });
+  pkg = cfg.package.override (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
-    application.password                    ${if cfg.sso.applicationPassword != null then cfg.sso.applicationPassword else "@NIXOS_CONFLUENCE_CROWD_SSO_PWD@"}
+    application.password                    ${
+      if cfg.sso.applicationPassword != null then
+        cfg.sso.applicationPassword
+      else
+        "@NIXOS_CONFLUENCE_CROWD_SSO_PWD@"
+    }
     application.login.url                   ${cfg.sso.crowd}/console/
 
     crowd.server.url                        ${cfg.sso.crowd}/services/
@@ -23,7 +31,6 @@ let
     session.validationinterval              ${toString cfg.sso.validationInterval}
     session.lastvalidation                  session.lastvalidation
   '';
-
 in
 
 {
@@ -63,8 +70,12 @@ in
 
       catalinaOptions = mkOption {
         type = types.listOf types.str;
-        default = [];
-        example = [ "-Xms1024m" "-Xmx2048m" "-Dconfluence.disable.peopledirectory.all=true" ];
+        default = [ ];
+        example = [
+          "-Xms1024m"
+          "-Xmx2048m"
+          "-Dconfluence.disable.peopledirectory.all=true"
+        ];
         description = lib.mdDoc "Java options to pass to catalina/tomcat.";
       };
 
@@ -156,7 +167,9 @@ in
     };
 
     assertions = [
-      { assertion = cfg.sso.enable -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
+      {
+        assertion =
+          cfg.sso.enable -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
         message = "Please set either applicationPassword or applicationPasswordFile";
       }
     ];
@@ -165,7 +178,7 @@ in
       "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!"
     ];
 
-    users.groups.${cfg.group} = {};
+    users.groups.${cfg.group} = { };
 
     systemd.tmpfiles.rules = [
       "d '${cfg.home}' - ${cfg.user} - - -"
@@ -185,7 +198,10 @@ in
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
 
-      path = [ cfg.jrePackage pkgs.bash ];
+      path = [
+        cfg.jrePackage
+        pkgs.bash
+      ];
 
       environment = {
         CONF_USER = cfg.user;
@@ -194,25 +210,30 @@ in
         JAVA_OPTS = mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
-      preStart = ''
-        mkdir -p ${cfg.home}/{logs,work,temp,deploy}
+      preStart =
+        ''
+          mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-        sed -e 's,port="8090",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
-        '' + (lib.optionalString cfg.proxy.enable ''
-          -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${toString cfg.proxy.port}" scheme="${cfg.proxy.scheme}",' \
-        '') + ''
-          ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
+          sed -e 's,port="8090",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
+        ''
+        + (lib.optionalString cfg.proxy.enable ''
+          -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${
+            toString cfg.proxy.port
+          }" scheme="${cfg.proxy.scheme}",' \
+        '')
+        + ''
+            ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
 
-        ${optionalString cfg.sso.enable ''
-          install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
-          ${optionalString (cfg.sso.applicationPasswordFile != null) ''
-            ${pkgs.replace-secret}/bin/replace-secret \
-              '@NIXOS_CONFLUENCE_CROWD_SSO_PWD@' \
-              ${cfg.sso.applicationPasswordFile} \
-              ${cfg.home}/crowd.properties
+          ${optionalString cfg.sso.enable ''
+            install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
+            ${optionalString (cfg.sso.applicationPasswordFile != null) ''
+              ${pkgs.replace-secret}/bin/replace-secret \
+                '@NIXOS_CONFLUENCE_CROWD_SSO_PWD@' \
+                ${cfg.sso.applicationPasswordFile} \
+                ${cfg.home}/crowd.properties
+            ''}
           ''}
-        ''}
-      '';
+        '';
 
       serviceConfig = {
         User = cfg.user;

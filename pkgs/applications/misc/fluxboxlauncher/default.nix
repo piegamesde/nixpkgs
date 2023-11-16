@@ -1,15 +1,16 @@
-{ lib
-, fetchFromGitHub
-, python3
-, gtk3
-, wrapGAppsHook
-, glibcLocales
-, gobject-introspection
-, gettext
-, pango
-, gdk-pixbuf
-, atk
-, fluxbox
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  gtk3,
+  wrapGAppsHook,
+  glibcLocales,
+  gobject-introspection,
+  gettext,
+  pango,
+  gdk-pixbuf,
+  atk,
+  fluxbox,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -39,12 +40,12 @@ python3.pkgs.buildPythonApplication rec {
     fluxbox
   ];
 
-  makeWrapperArgs = [ "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive"
-                      "--set CHARSET en_us.UTF-8" ];
-
-  propagatedBuildInputs = with python3.pkgs; [
-    pygobject3
+  makeWrapperArgs = [
+    "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive"
+    "--set CHARSET en_us.UTF-8"
   ];
+
+  propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
   meta = with lib; {
     description = "A Gui editor (gtk) to configure applications launching on a fluxbox session";

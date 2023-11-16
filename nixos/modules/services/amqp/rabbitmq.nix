@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -11,7 +16,6 @@ let
   config_file = pkgs.writeText "rabbitmq.conf" config_file_content;
 
   advanced_config_file = pkgs.writeText "advanced.config" cfg.config;
-
 in
 {
   ###### interface
@@ -148,7 +152,6 @@ in
     };
   };
 
-
   ###### implementation
   config = mkIf cfg.enable {
 
@@ -167,12 +170,14 @@ in
 
     users.groups.rabbitmq.gid = config.ids.gids.rabbitmq;
 
-    services.rabbitmq.configItems = {
-      "listeners.tcp.1" = mkDefault "${cfg.listenAddress}:${toString cfg.port}";
-    } // optionalAttrs cfg.managementPlugin.enable {
-      "management.tcp.port" = toString cfg.managementPlugin.port;
-      "management.tcp.ip" = cfg.listenAddress;
-    };
+    services.rabbitmq.configItems =
+      {
+        "listeners.tcp.1" = mkDefault "${cfg.listenAddress}:${toString cfg.port}";
+      }
+      // optionalAttrs cfg.managementPlugin.enable {
+        "management.tcp.port" = toString cfg.managementPlugin.port;
+        "management.tcp.ip" = cfg.listenAddress;
+      };
 
     services.rabbitmq.plugins = optional cfg.managementPlugin.enable "rabbitmq_management";
 
@@ -180,8 +185,14 @@ in
       description = "RabbitMQ Server";
 
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "epmd.socket" ];
-      wants = [ "network.target" "epmd.socket" ];
+      after = [
+        "network.target"
+        "epmd.socket"
+      ];
+      wants = [
+        "network.target"
+        "epmd.socket"
+      ];
 
       path = [
         cfg.package
@@ -217,12 +228,10 @@ in
 
       preStart = ''
         ${optionalString (cfg.cookie != "") ''
-            echo -n ${cfg.cookie} > ${cfg.dataDir}/.erlang.cookie
-            chmod 600 ${cfg.dataDir}/.erlang.cookie
+          echo -n ${cfg.cookie} > ${cfg.dataDir}/.erlang.cookie
+          chmod 600 ${cfg.dataDir}/.erlang.cookie
         ''}
       '';
     };
-
   };
-
 }

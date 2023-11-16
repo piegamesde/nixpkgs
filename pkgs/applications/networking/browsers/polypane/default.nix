@@ -1,4 +1,8 @@
-{ lib, fetchurl, appimageTools }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+}:
 
 let
   pname = "polypane";
@@ -10,10 +14,9 @@ let
     sha256 = "sha256-UBWd8ApSb5YN5TUqSxv/352+jAwwRjiv/pM1rocqukk=";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit pname src version;
-  };
-in appimageTools.wrapType2 {
+  appimageContents = appimageTools.extractType2 { inherit pname src version; };
+in
+appimageTools.wrapType2 {
   inherit pname src version;
 
   multiPkgs = null;

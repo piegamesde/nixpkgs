@@ -1,12 +1,14 @@
-{ lib
-, adlfs
-, azure-identity
-, buildPythonPackage
-, dvc-objects
-, fetchPypi
-, knack
-, pythonRelaxDepsHook
-, setuptools-scm }:
+{
+  lib,
+  adlfs,
+  azure-identity,
+  buildPythonPackage,
+  dvc-objects,
+  fetchPypi,
+  knack,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-azure";
@@ -21,10 +23,16 @@ buildPythonPackage rec {
   # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
-    adlfs azure-identity dvc-objects knack
+    adlfs
+    azure-identity
+    dvc-objects
+    knack
   ];
 
   # Network access is needed for tests

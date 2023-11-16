@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-emb";
   version = "20190521-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-emb";
 
-  asdFilesToKeep = ["cl-emb.asd"];
+  asdFilesToKeep = [ "cl-emb.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-emb DESCRIPTION A templating system for Common Lisp SHA256
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-emb/2019-05-21/cl-emb-20190521-git.tgz
     MD5 b27bbe8de2206ab7c461700b58d4d527 NAME cl-emb FILENAME cl-emb DEPS
     ((NAME cl-ppcre FILENAME cl-ppcre)) DEPENDENCIES (cl-ppcre) VERSION
-    20190521-git SIBLINGS NIL PARASITES NIL) */
+    20190521-git SIBLINGS NIL PARASITES NIL)
+*/

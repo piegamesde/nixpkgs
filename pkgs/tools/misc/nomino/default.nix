@@ -1,4 +1,8 @@
-{ fetchFromGitHub, lib, rustPlatform }:
+{
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nomino";
@@ -16,7 +20,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Batch rename utility for developers";
     homepage = "https://github.com/yaa110/nomino";
-    license = with licenses; [ mit /* or */ asl20 ];
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

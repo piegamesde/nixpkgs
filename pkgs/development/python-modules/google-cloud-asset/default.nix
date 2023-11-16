@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, grpc-google-iam-v1
-, google-api-core
-, google-cloud-access-context-manager
-, google-cloud-org-policy
-, google-cloud-os-config
-, google-cloud-testutils
-, libcst
-, protobuf
-, proto-plus
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, mock
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  grpc-google-iam-v1,
+  google-api-core,
+  google-cloud-access-context-manager,
+  google-cloud-org-policy,
+  google-cloud-os-config,
+  google-cloud-testutils,
+  libcst,
+  protobuf,
+  proto-plus,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -40,9 +41,7 @@ buildPythonPackage rec {
   ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
-    libcst = [
-      libcst
-    ];
+    libcst = [ libcst ];
   };
 
   nativeCheckInputs = [

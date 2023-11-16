@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, nix-update-script
-, Security
-, openssl
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  nix-update-script,
+  Security,
+  openssl,
 }:
 
 let
@@ -29,7 +30,9 @@ rustPlatform.buildRustPackage {
   # 0.5.6 release has failing tests
   doCheck = false;
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ] ++ lib.optionals stdenv.isLinux [ openssl ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ Security ]
+    ++ lib.optionals stdenv.isLinux [ openssl ];
 
   passthru = {
     updateScript = nix-update-script { };
@@ -43,4 +46,3 @@ rustPlatform.buildRustPackage {
     platforms = with platforms; all;
   };
 }
-

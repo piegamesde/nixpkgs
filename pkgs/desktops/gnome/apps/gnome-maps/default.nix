@@ -1,28 +1,29 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, gettext
-, python3
-, pkg-config
-, gnome
-, glib
-, gtk4
-, gobject-introspection
-, gdk-pixbuf
-, librest_1_0
-, libgweather
-, geoclue2
-, wrapGAppsHook4
-, desktop-file-utils
-, libshumate
-, libsecret
-, libsoup_3
-, gsettings-desktop-schemas
-, gjs
-, libadwaita
-, geocode-glib_2
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  gettext,
+  python3,
+  pkg-config,
+  gnome,
+  glib,
+  gtk4,
+  gobject-introspection,
+  gdk-pixbuf,
+  librest_1_0,
+  libgweather,
+  geoclue2,
+  wrapGAppsHook4,
+  desktop-file-utils,
+  libshumate,
+  libsecret,
+  libsoup_3,
+  gsettings-desktop-schemas,
+  gjs,
+  libadwaita,
+  geocode-glib_2,
 }:
 
 stdenv.mkDerivation rec {

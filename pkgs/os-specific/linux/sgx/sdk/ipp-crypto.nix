@@ -1,11 +1,12 @@
-{ lib
-, gcc11Stdenv
-, fetchFromGitHub
-, cmake
-, nasm
-, openssl_1_1
-, python3
-, extraCmakeFlags ? [ ]
+{
+  lib,
+  gcc11Stdenv,
+  fetchFromGitHub,
+  cmake,
+  nasm,
+  openssl_1_1,
+  python3,
+  extraCmakeFlags ? [ ],
 }:
 
 gcc11Stdenv.mkDerivation rec {

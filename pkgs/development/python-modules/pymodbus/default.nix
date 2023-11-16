@@ -1,21 +1,22 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, mock
-, prompt-toolkit
-, pygments
-, pyserial
-, pyserial-asyncio
-, pytest-asyncio
-, pytest-rerunfailures
-, pytest-xdist
-, pytestCheckHook
-, redis
-, sqlalchemy
-, tornado
-, twisted
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  mock,
+  prompt-toolkit,
+  pygments,
+  pyserial,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pytestCheckHook,
+  redis,
+  sqlalchemy,
+  tornado,
+  twisted,
 }:
 
 buildPythonPackage rec {
@@ -53,7 +54,8 @@ buildPythonPackage rec {
   ];
 
   pytestFlagsArray = [
-    "--reruns" "3" # Racy socket tests
+    "--reruns"
+    "3" # Racy socket tests
   ];
 
   pythonImportsCheck = [ "pymodbus" ];

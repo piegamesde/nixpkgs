@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, ical
-, parameterized
-, pycryptodome
-, pydantic
-, pytest-aiohttp
-, pytest-asyncio
-, pytest-golden
-, pytest-mock
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pyyaml
-, requests
-, requests-mock
-, responses
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  ical,
+  parameterized,
+  pycryptodome,
+  pydantic,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-golden,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pyyaml,
+  requests,
+  requests-mock,
+  responses,
 }:
 
 buildPythonPackage rec {
@@ -62,9 +63,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [
-    "pyrainbird"
-  ];
+  pythonImportsCheck = [ "pyrainbird" ];
 
   meta = with lib; {
     description = "Module to interact with Rainbird controllers";

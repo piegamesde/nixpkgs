@@ -1,14 +1,23 @@
-{ lib, stdenv, fetchFromGitHub
-, jdk, maven
-, runtimeShell, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  maven,
+  runtimeShell,
+  makeWrapper,
 }:
 
 let
   platform =
-    if stdenv.isLinux then "linux"
-    else if stdenv.isDarwin then "mac"
-    else if stdenv.isWindows then "windows"
-    else throw "unsupported platform";
+    if stdenv.isLinux then
+      "linux"
+    else if stdenv.isDarwin then
+      "mac"
+    else if stdenv.isWindows then
+      "windows"
+    else
+      throw "unsupported platform";
 in
 stdenv.mkDerivation rec {
   pname = "java-language-server";
@@ -54,8 +63,11 @@ stdenv.mkDerivation rec {
     outputHash = "sha256-YkcQKmm8oeEH7uyUzV/qGoe4LiI6o5wZ7o69qrO3oCA=";
   };
 
-
-  nativeBuildInputs = [ maven jdk makeWrapper ];
+  nativeBuildInputs = [
+    maven
+    jdk
+    makeWrapper
+  ];
 
   dontConfigure = true;
   buildPhase = ''

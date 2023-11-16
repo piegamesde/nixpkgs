@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, numpy
-, setuptools
-, setuptools-scm
-, six
-, glibcLocales
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  numpy,
+  setuptools,
+  setuptools-scm,
+  six,
+  glibcLocales,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   nativeCheckInputs = [
     glibcLocales
@@ -36,14 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # FileNotFoundError: [Errno 2] No such file or directory: 'data/genes.fasta.gz'
-    "tests/test_Fasta_bgzip.py"
-  ];
+  disabledTestPaths =
+    [
+      # FileNotFoundError: [Errno 2] No such file or directory: 'data/genes.fasta.gz'
+      "tests/test_Fasta_bgzip.py"
+    ];
 
-  pythonImportsCheck = [
-    "pyfaidx"
-  ];
+  pythonImportsCheck = [ "pyfaidx" ];
 
   meta = with lib; {
     homepage = "https://github.com/mdshw5/pyfaidx";

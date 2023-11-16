@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, perl, readline, rsh, ssh, slurm, slurmSupport ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  perl,
+  readline,
+  rsh,
+  ssh,
+  slurm,
+  slurmSupport ? false,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdsh";
@@ -9,8 +20,11 @@ stdenv.mkDerivation rec {
     sha256 = "1s91hmhrz7rfb6h3l5k97s393rcm1ww3svp8dx5z8vkkc933wyxl";
   };
 
-  buildInputs = [ perl readline ssh ]
-    ++ (lib.optional slurmSupport slurm);
+  buildInputs = [
+    perl
+    readline
+    ssh
+  ] ++ (lib.optional slurmSupport slurm);
 
   nativeBuildInputs = [ autoreconfHook ];
 

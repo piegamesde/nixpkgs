@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, boost, nix, pkg-config }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  boost,
+  nix,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-doc";
@@ -12,9 +19,15 @@ rustPlatform.buildRustPackage rec {
   };
 
   doCheck = true;
-  buildInputs = [ boost nix ];
+  buildInputs = [
+    boost
+    nix
+  ];
 
-  nativeBuildInputs = [ pkg-config nix ];
+  nativeBuildInputs = [
+    pkg-config
+    nix
+  ];
 
   cargoSha256 = "sha256-+6I6+LZs84OcyebAIg/9KeAxV1UdK9IgaT7UsPJ5rWQ=";
 

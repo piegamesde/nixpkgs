@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, text-unidecode
-, unidecode
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  text-unidecode,
+  unidecode,
 }:
 
 buildPythonPackage rec {
@@ -21,27 +22,17 @@ buildPythonPackage rec {
     hash = "sha256-MJac63XjgWdUQdyyEm8O7gAGVszmHxZzRF4frJtR0BU=";
   };
 
-  propagatedBuildInputs = [
-    text-unidecode
-  ];
+  propagatedBuildInputs = [ text-unidecode ];
 
   passthru.optional-dependencies = {
-    unidecode = [
-      unidecode
-    ];
+    unidecode = [ unidecode ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "test.py"
-  ];
+  pytestFlagsArray = [ "test.py" ];
 
-  pythonImportsCheck = [
-    "slugify"
-  ];
+  pythonImportsCheck = [ "slugify" ];
 
   meta = with lib; {
     description = "Python Slugify application that handles Unicode";

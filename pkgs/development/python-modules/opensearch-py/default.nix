@@ -1,15 +1,16 @@
-{ aiohttp
-, botocore
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, lib
-, mock
-, pytest-asyncio
-, pytestCheckHook
-, pyyaml
-, requests
-, urllib3
+{
+  aiohttp,
+  botocore,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  lib,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pyyaml,
+  requests,
+  urllib3,
 }:
 
 buildPythonPackage rec {

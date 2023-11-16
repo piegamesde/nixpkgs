@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, rtl-sdr
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  rtl-sdr,
+  setuptools,
 }:
 
 buildPythonPackage rec {

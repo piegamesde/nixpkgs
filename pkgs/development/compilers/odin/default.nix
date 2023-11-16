@@ -1,13 +1,15 @@
-{ lib
-, fetchFromGitHub
-, llvmPackages
-, makeWrapper
-, libiconv
+{
+  lib,
+  fetchFromGitHub,
+  llvmPackages,
+  makeWrapper,
+  libiconv,
 }:
 
 let
   inherit (llvmPackages) stdenv;
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "odin";
   version = "0.13.0";
 
@@ -18,9 +20,7 @@ in stdenv.mkDerivation rec {
     sha256 = "ke2HPxVtF/Lh74Tv6XbpM9iLBuXLdH1+IE78MAacfYY=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
@@ -30,21 +30,23 @@ in stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  buildFlags = [
-    "release"
-  ];
+  buildFlags = [ "release" ];
 
   installPhase = ''
     mkdir -p $out/bin
     cp odin $out/bin/odin
     cp -r core $out/bin/core
 
-    wrapProgram $out/bin/odin --prefix PATH : ${lib.makeBinPath (with llvmPackages; [
-      bintools
-      llvm
-      clang
-      lld
-    ])}
+    wrapProgram $out/bin/odin --prefix PATH : ${
+      lib.makeBinPath (
+        with llvmPackages; [
+          bintools
+          llvm
+          clang
+          lld
+        ]
+      )
+    }
   '';
 
   meta = with lib; {

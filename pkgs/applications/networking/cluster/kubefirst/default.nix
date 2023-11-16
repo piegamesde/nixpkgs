@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "kubefirst";
@@ -13,7 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-D2Gi90seLPTM0ttlz7V6FW1ZMiVN22YLWKeTquXvagY=";
 
-  ldflags = [ "-s" "-w" "-X github.com/kubefirst/runtime/configs.K1Version=v${version}"];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/kubefirst/runtime/configs.K1Version=v${version}"
+  ];
 
   doCheck = false;
 

@@ -1,12 +1,22 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "type-i";
   version = "20191227-git";
 
   description = "Type Inference Utility on Fundamentally 1-arg Predicates";
 
-  deps = [ args."alexandria" args."closer-mop" args."introspect-environment" args."lisp-namespace" args."trivia_dot_level0" args."trivia_dot_level1" args."trivia_dot_level2" args."trivia_dot_trivial" args."trivial-cltl2" ];
+  deps = [
+    args."alexandria"
+    args."closer-mop"
+    args."introspect-environment"
+    args."lisp-namespace"
+    args."trivia_dot_level0"
+    args."trivia_dot_level1"
+    args."trivia_dot_level2"
+    args."trivia_dot_trivial"
+    args."trivial-cltl2"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/type-i/2019-12-27/type-i-20191227-git.tgz";
@@ -15,7 +25,7 @@ rec {
 
   packageName = "type-i";
 
-  asdFilesToKeep = ["type-i.asd"];
+  asdFilesToKeep = [ "type-i.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM type-i DESCRIPTION
@@ -35,4 +45,5 @@ rec {
     DEPENDENCIES
     (alexandria closer-mop introspect-environment lisp-namespace trivia.level0
      trivia.level1 trivia.level2 trivia.trivial trivial-cltl2)
-    VERSION 20191227-git SIBLINGS (type-i.test) PARASITES NIL) */
+    VERSION 20191227-git SIBLINGS (type-i.test) PARASITES NIL)
+*/

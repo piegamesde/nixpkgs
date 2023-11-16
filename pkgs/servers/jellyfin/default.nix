@@ -1,15 +1,16 @@
-{ lib
-, fetchFromGitHub
-, fetchurl
-, nixosTests
-, stdenv
-, dotnetCorePackages
-, buildDotnetModule
-, ffmpeg
-, fontconfig
-, freetype
-, jellyfin-web
-, sqlite
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  nixosTests,
+  stdenv,
+  dotnetCorePackages,
+  buildDotnetModule,
+  ffmpeg,
+  fontconfig,
+  freetype,
+  jellyfin-web,
+  sqlite,
 }:
 
 buildDotnetModule rec {
@@ -23,14 +24,13 @@ buildDotnetModule rec {
     sha256 = "uX56TSyi0V0Rs6R3A8QHZrjTIHUZobLYIgG+nZDE3Hg=";
   };
 
-  patches = [
-    # when building some warnings are reported as error and fail the build.
-    ./disable-warnings.patch
-  ];
+  patches =
+    [
+      # when building some warnings are reported as error and fail the build.
+      ./disable-warnings.patch
+    ];
 
-  propagatedBuildInputs = [
-    sqlite
-  ];
+  propagatedBuildInputs = [ sqlite ];
 
   projectFile = "Jellyfin.Server/Jellyfin.Server.csproj";
   executables = [ "jellyfin" ];
@@ -62,7 +62,12 @@ buildDotnetModule rec {
     homepage = "https://jellyfin.org/";
     # https://github.com/jellyfin/jellyfin/issues/610#issuecomment-537625510
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ nyanloutre minijackson purcell jojosch ];
+    maintainers = with maintainers; [
+      nyanloutre
+      minijackson
+      purcell
+      jojosch
+    ];
     platforms = dotnet-runtime.meta.platforms;
   };
 }

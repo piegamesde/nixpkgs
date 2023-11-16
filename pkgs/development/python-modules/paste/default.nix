@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, setuptools
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  setuptools,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -31,23 +32,22 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # broken test
-    "test_file_cache"
-    # requires network connection
-    "test_proxy_to_website"
-  ] ++ lib.optionals (pythonAtLeast "3.11") [
-    # https://github.com/cdent/paste/issues/72
-    "test_form"
-  ];
+  disabledTests =
+    [
+      # broken test
+      "test_file_cache"
+      # requires network connection
+      "test_proxy_to_website"
+    ]
+    ++ lib.optionals (pythonAtLeast "3.11")
+      [
+        # https://github.com/cdent/paste/issues/72
+        "test_form"
+      ];
 
-  pythonNamespaces = [
-    "paste"
-  ];
+  pythonNamespaces = [ "paste" ];
 
   meta = with lib; {
     description = "Tools for using a Web Server Gateway Interface stack";

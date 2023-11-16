@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -35,7 +41,10 @@ let
     servo = lib.boolToString cfg.servo;
     timeout = toString cfg.timeout;
   };
-  s3CommonOptions = { s3region = cfg.s3Region; s3credentials = cfg.s3Credentials; };
+  s3CommonOptions = {
+    s3region = cfg.s3Region;
+    s3credentials = cfg.s3Credentials;
+  };
   cliOptionsPerConfig = {
     s3 = {
       s3config = "${cfg.s3Config.bucketName}:${cfg.s3Config.objectKey}";
@@ -58,12 +67,17 @@ let
       noneconfigdir = configDir;
     };
   };
-  cliOptions = concatStringsSep " " (mapAttrsToList (k: v: "--${k} ${v}") (filterAttrs (k: v: v != null && v != "") (cliOptionsCommon //
-               cliOptionsPerConfig.${cfg.configType} //
-               s3CommonOptions //
-               optionalAttrs cfg.s3Backup { s3backup = "true"; } //
-               optionalAttrs cfg.fileSystemBackup { filesystembackup = "true"; }
-               )));
+  cliOptions = concatStringsSep " " (
+    mapAttrsToList (k: v: "--${k} ${v}") (
+      filterAttrs (k: v: v != null && v != "") (
+        cliOptionsCommon
+        // cliOptionsPerConfig.${cfg.configType}
+        // s3CommonOptions
+        // optionalAttrs cfg.s3Backup { s3backup = "true"; }
+        // optionalAttrs cfg.fileSystemBackup { filesystembackup = "true"; }
+      )
+    )
+  );
 in
 {
   options = {
@@ -87,7 +101,12 @@ in
         '';
       };
       configType = mkOption {
-        type = types.enum [ "file" "s3" "zookeeper" "none" ];
+        type = types.enum [
+          "file"
+          "s3"
+          "zookeeper"
+          "none"
+        ];
         description = lib.mdDoc ''
           Which configuration type you want to use. Additional config will be
           required depending on which type you are using.
@@ -122,7 +141,11 @@ in
         default = null;
       };
       jqueryStyle = mkOption {
-        type = types.enum [ "red" "black" "custom" ];
+        type = types.enum [
+          "red"
+          "black"
+          "custom"
+        ];
         description = lib.mdDoc ''
           Styling used for the JQuery-based UI.
         '';
@@ -131,7 +154,7 @@ in
       logLines = mkOption {
         type = types.int;
         description = lib.mdDoc ''
-        Max lines of logging to keep in memory for display.
+          Max lines of logging to keep in memory for display.
         '';
         default = 1000;
       };
@@ -218,11 +241,16 @@ in
       };
       zkServersSpec = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Zookeeper server spec for all servers in the ensemble.
         '';
-        example = [ "S:1:zk1.example.com" "S:2:zk2.example.com" "S:3:zk3.example.com" "O:4:zk-observer.example.com" ];
+        example = [
+          "S:1:zk1.example.com"
+          "S:2:zk2.example.com"
+          "S:3:zk3.example.com"
+          "O:4:zk-observer.example.com"
+        ];
       };
 
       # Backup options
@@ -247,7 +275,10 @@ in
         description = lib.mdDoc ''
           The initial connection string for ZooKeeper shared config storage
         '';
-        example = ["host1:2181" "host2:2181"];
+        example = [
+          "host1:2181"
+          "host2:2181"
+        ];
       };
       zkConfigExhibitorPath = mkOption {
         type = types.str;
@@ -371,13 +402,14 @@ in
         ZOO_LOG_DIR = cfg.baseDir;
       };
       serviceConfig = {
-        /***
-          Exhibitor is a bit un-nixy. It wants to present to you a user interface in order to
-          mutate the configuration of both itself and ZooKeeper, and to coordinate changes
-          among the members of the Zookeeper ensemble. I'm going for a different approach here,
-          which is to manage all the configuration via nix and have it write out the configuration
-          files that exhibitor will use, and to reduce the amount of inter-exhibitor orchestration.
-        ***/
+        /* **
+             Exhibitor is a bit un-nixy. It wants to present to you a user interface in order to
+             mutate the configuration of both itself and ZooKeeper, and to coordinate changes
+             among the members of the Zookeeper ensemble. I'm going for a different approach here,
+             which is to manage all the configuration via nix and have it write out the configuration
+             files that exhibitor will use, and to reduce the amount of inter-exhibitor orchestration.
+           **
+        */
         ExecStart = ''
           ${pkgs.exhibitor}/bin/startExhibitor.sh ${cliOptions}
         '';

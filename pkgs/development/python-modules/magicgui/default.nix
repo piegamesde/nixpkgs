@@ -1,16 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, pytestCheckHook
-, pytest-mypy-plugins
-, typing-extensions
-, qtpy
-, pyside2
-, psygnal
-, docstring-parser
-, napari # a reverse-dependency, for tests
-}: buildPythonPackage rec {
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  pytestCheckHook,
+  pytest-mypy-plugins,
+  typing-extensions,
+  qtpy,
+  pyside2,
+  psygnal,
+  docstring-parser,
+  napari, # a reverse-dependency, for tests
+}:
+buildPythonPackage rec {
   pname = "magicgui";
   version = "0.5.1";
 
@@ -26,12 +28,23 @@
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   nativeBuildInputs = [ setuptools-scm ];
-  propagatedBuildInputs = [ typing-extensions qtpy pyside2 psygnal docstring-parser ];
-  nativeCheckInputs = [ pytestCheckHook pytest-mypy-plugins ];
+  propagatedBuildInputs = [
+    typing-extensions
+    qtpy
+    pyside2
+    psygnal
+    docstring-parser
+  ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mypy-plugins
+  ];
 
   doCheck = false; # Reports "Fatal Python error"
 
-  passthru.tests = { inherit napari; };
+  passthru.tests = {
+    inherit napari;
+  };
 
   meta = with lib; {
     description = "Build GUIs from python functions, using magic.  (napari/magicgui)";

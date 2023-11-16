@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "defclass-std";
   version = "20201220-git";
 
   description = "A shortcut macro to write DEFCLASS forms quickly.";
 
-  deps = [ args."alexandria" args."anaphora" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/defclass-std/2020-12-20/defclass-std-20201220-git.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "defclass-std";
 
-  asdFilesToKeep = ["defclass-std.asd"];
+  asdFilesToKeep = [ "defclass-std.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM defclass-std DESCRIPTION
@@ -26,4 +29,5 @@ rec {
     defclass-std DEPS
     ((NAME alexandria FILENAME alexandria) (NAME anaphora FILENAME anaphora))
     DEPENDENCIES (alexandria anaphora) VERSION 20201220-git SIBLINGS
-    (defclass-std-test) PARASITES NIL) */
+    (defclass-std-test) PARASITES NIL)
+*/

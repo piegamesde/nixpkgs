@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchPypi
-, fetchpatch
-, installShellFiles
-, ninja
-, pkg-config
-, python3
-, zlib
-, coreutils
-, substituteAll
-, Foundation
-, OpenGL
-, AppKit
-, Cocoa
-, libxcrypt
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  fetchpatch,
+  installShellFiles,
+  ninja,
+  pkg-config,
+  python3,
+  zlib,
+  coreutils,
+  substituteAll,
+  Foundation,
+  OpenGL,
+  AppKit,
+  Cocoa,
+  libxcrypt,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -73,9 +74,7 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       url = "https://github.com/mesonbuild/meson/commit/d5252c5d4cf1c1931fef0c1c98dd66c000891d21.patch";
       sha256 = "GiUNVul1N5Fl8mfqM7vA/r1FdKqImiDYLXMVDt77gvw=";
-      excludes = [
-        "docs/yaml/objects/dep.yaml"
-      ];
+      excludes = [ "docs/yaml/objects/dep.yaml" ];
     })
 
     # Fix regression in precomputing CMAKE_SIZEOF_VOID_P
@@ -88,9 +87,18 @@ python3.pkgs.buildPythonApplication rec {
 
   setupHook = ./setup-hook.sh;
 
-  nativeCheckInputs = [ ninja pkg-config ];
-  checkInputs = [ zlib ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation OpenGL AppKit Cocoa ];
+  nativeCheckInputs = [
+    ninja
+    pkg-config
+  ];
+  checkInputs =
+    [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      OpenGL
+      AppKit
+      Cocoa
+    ];
   checkPhase = ''
     runHook preCheck
 
@@ -126,9 +134,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "python3 -c " "${python3.interpreter} -c "
   '';
 
-  buildInputs = lib.optionals (python3.pythonOlder "3.9") [
-    libxcrypt
-  ];
+  buildInputs = lib.optionals (python3.pythonOlder "3.9") [ libxcrypt ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -150,7 +156,10 @@ python3.pkgs.buildPythonApplication rec {
       code.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ mbe AndersonTorres ];
+    maintainers = with maintainers; [
+      mbe
+      AndersonTorres
+    ];
     inherit (python3.meta) platforms;
   };
 }

@@ -1,4 +1,12 @@
-{ fetchurl, lib, autoreconfHook, pkg-config, stdenv, fetchpatch, fetchFromGitHub }:
+{
+  fetchurl,
+  lib,
+  autoreconfHook,
+  pkg-config,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nss-mdns";
@@ -11,18 +19,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-iRaf9/gu9VkGi1VbGpxvC5q+0M8ivezCz/oAKEg5V1M=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   # Note: Although `nss-mdns' works by talking to `avahi-daemon', it
   # doesn't depend on the Avahi libraries.  Instead, it contains
   # hand-written D-Bus code to talk to the Avahi daemon.
 
-  configureFlags =
-    [ # Try to use the Avahi daemon before resolving on our own.
-      "--enable-avahi"
+  configureFlags = [
+    # Try to use the Avahi daemon before resolving on our own.
+    "--enable-avahi"
 
-      # Connect to the daemon at `/var/run/avahi-daemon/socket'.
-      "--localstatedir=/var"
-    ];
+    # Connect to the daemon at `/var/run/avahi-daemon/socket'.
+    "--localstatedir=/var"
+  ];
 
   meta = {
     description = "The mDNS Name Service Switch (NSS) plug-in";

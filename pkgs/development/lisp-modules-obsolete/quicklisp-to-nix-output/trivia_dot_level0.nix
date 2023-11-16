@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivia_dot_level0";
   version = "trivia-20211020-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivia.level0";
 
-  asdFilesToKeep = ["trivia.level0.asd"];
+  asdFilesToKeep = [ "trivia.level0.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivia.level0 DESCRIPTION
@@ -28,4 +28,5 @@ rec {
     (trivia trivia.balland2006 trivia.benchmark trivia.cffi trivia.fset
      trivia.level1 trivia.level2 trivia.ppcre trivia.quasiquote trivia.test
      trivia.trivial)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

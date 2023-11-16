@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "age";
@@ -34,7 +40,9 @@ buildGoModule rec {
   ];
 
   ldflags = [
-    "-s" "-w" "-X main.Version=${version}"
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
   ];
 
   nativeBuildInputs = [ installShellFiles ];

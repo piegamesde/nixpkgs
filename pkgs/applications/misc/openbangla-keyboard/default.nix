@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cargo
-, cmake
-, pkg-config
-, rustPlatform
-, rustc
-, wrapQtAppsHook
-, ibus
-, qtbase
-, zstd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cargo,
+  cmake,
+  pkg-config,
+  rustPlatform,
+  rustc,
+  wrapQtAppsHook,
+  ibus,
+  qtbase,
+  zstd,
 }:
 
 stdenv.mkDerivation rec {

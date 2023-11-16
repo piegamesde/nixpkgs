@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,13 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-ZrVs1kdL9B2MVGYDR9N6/MP30ZcGSN42XBAu93VIqts=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "filetype"
-  ];
+  pythonImportsCheck = [ "filetype" ];
 
   disabledTests = [
     # https://github.com/h2non/filetype.py/issues/119
@@ -34,10 +31,11 @@ buildPythonPackage rec {
     "test_guess_zstd"
   ];
 
-  disabledTestPaths = [
-    # We don't care about benchmarks
-    "tests/test_benchmark.py"
-  ];
+  disabledTestPaths =
+    [
+      # We don't care about benchmarks
+      "tests/test_benchmark.py"
+    ];
 
   meta = with lib; {
     description = "Infer file type and MIME type of any file/buffer";

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, msgpack
-, nose2
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  msgpack,
+  nose2,
 }:
 
 buildPythonPackage rec {

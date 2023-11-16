@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, slang, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  slang,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "most";
@@ -9,16 +15,18 @@ stdenv.mkDerivation rec {
     sha256 = "008537ns659pw2aag15imwjrxj73j26aqq90h285is6kz8gmv06v";
   };
 
-  patches = [
-    # Upstream patch to fix parallel build failure
-    ./parallel-make.patch
+  patches =
+    [
+      # Upstream patch to fix parallel build failure
+      ./parallel-make.patch
+    ];
+
+  outputs = [
+    "out"
+    "doc"
   ];
 
-  outputs = [ "out" "doc" ];
-
-  makeFlags = [
-    "DOC_DIR=${placeholder "doc"}/share/doc/most"
-  ];
+  makeFlags = [ "DOC_DIR=${placeholder "doc"}/share/doc/most" ];
 
   preConfigure = ''
     sed -i -e "s|-ltermcap|-lncurses|" configure
@@ -29,7 +37,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-slang=${slang.dev}" ];
 
-  buildInputs = [ slang ncurses ];
+  buildInputs = [
+    slang
+    ncurses
+  ];
 
   enableParallelBuilding = true;
 

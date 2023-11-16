@@ -1,25 +1,26 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, torch
-, torchvision
-, opencv4
-, yapf
-, packaging
-, pillow
-, addict
-, ninja
-, which
-, onnx
-, onnxruntime
-, scipy
-, pyturbojpeg
-, tifffile
-, lmdb
-, mmengine
-, symlinkJoin
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  torch,
+  torchvision,
+  opencv4,
+  yapf,
+  packaging,
+  pillow,
+  addict,
+  ninja,
+  which,
+  onnx,
+  onnxruntime,
+  scipy,
+  pyturbojpeg,
+  tifffile,
+  lmdb,
+  mmengine,
+  symlinkJoin,
 }:
 
 let
@@ -35,17 +36,19 @@ let
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths = with cudaPackages; [
-      cuda_cudart # cuda_runtime.h
-      cuda_nvcc
-    ] ++ cuda-common-redist;
+    paths =
+      with cudaPackages;
+      [
+        cuda_cudart # cuda_runtime.h
+        cuda_nvcc
+      ]
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
     name = "cuda-redist-${cudaVersion}";
     paths = cuda-common-redist;
   };
-
 in
 buildPythonPackage rec {
   pname = "mmcv";
@@ -61,14 +64,16 @@ buildPythonPackage rec {
     hash = "sha256-36PcvoB0bM0VoNb2psURYFo3krmgHG47OufU6PVjHyw=";
   };
 
-  preConfigure = ''
-    export MMCV_WITH_OPS=1
-  '' + lib.optionalString cudaSupport ''
-    export CC=${backendStdenv.cc}/bin/cc
-    export CXX=${backendStdenv.cc}/bin/c++
-    export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
-    export FORCE_CUDA=1
-  '';
+  preConfigure =
+    ''
+      export MMCV_WITH_OPS=1
+    ''
+    + lib.optionalString cudaSupport ''
+      export CC=${backendStdenv.cc}/bin/cc
+      export CXX=${backendStdenv.cc}/bin/c++
+      export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
+      export FORCE_CUDA=1
+    '';
 
   postPatch = ''
     substituteInPlace setup.py --replace "cpu_use = 4" "cpu_use = $NIX_BUILD_CORES"
@@ -93,12 +98,23 @@ buildPythonPackage rec {
     "test_reader"
   ];
 
-  nativeBuildInputs = [ ninja which ]
-    ++ lib.optionals cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs = [
+    ninja
+    which
+  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
 
   buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
 
-  nativeCheckInputs = [ pytestCheckHook torchvision lmdb onnx onnxruntime scipy pyturbojpeg tifffile ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    torchvision
+    lmdb
+    onnx
+    onnxruntime
+    scipy
+    pyturbojpeg
+    tifffile
+  ];
 
   propagatedBuildInputs = [
     mmengine
@@ -110,9 +126,7 @@ buildPythonPackage rec {
     addict
   ];
 
-  pythonImportsCheck = [
-    "mmcv"
-  ];
+  pythonImportsCheck = [ "mmcv" ];
 
   meta = with lib; {
     description = "A Foundational Library for Computer Vision Research";

@@ -1,4 +1,17 @@
-{ lib, stdenvNoCC, rustPlatform, makeWrapper, Security, gnutar, gzip, nix, testers, fetchurl, prefetch-npm-deps, fetchNpmDeps }:
+{
+  lib,
+  stdenvNoCC,
+  rustPlatform,
+  makeWrapper,
+  Security,
+  gnutar,
+  gzip,
+  nix,
+  testers,
+  fetchurl,
+  prefetch-npm-deps,
+  fetchNpmDeps,
+}:
 
 {
   prefetch-npm-deps = rustPlatform.buildRustPackage {
@@ -7,7 +20,8 @@
 
     src = lib.cleanSourceWith {
       src = ./.;
-      filter = name: type:
+      filter =
+        name: type:
         let
           name' = builtins.baseNameOf name;
         in
@@ -20,27 +34,42 @@
     buildInputs = lib.optional stdenvNoCC.isDarwin Security;
 
     postInstall = ''
-      wrapProgram "$out/bin/prefetch-npm-deps" --prefix PATH : ${lib.makeBinPath [ gnutar gzip nix ]}
+      wrapProgram "$out/bin/prefetch-npm-deps" --prefix PATH : ${
+        lib.makeBinPath [
+          gnutar
+          gzip
+          nix
+        ]
+      }
     '';
 
     passthru.tests =
       let
-        makeTestSrc = { name, src }: stdenvNoCC.mkDerivation {
-          name = "${name}-src";
+        makeTestSrc =
+          { name, src }:
+          stdenvNoCC.mkDerivation {
+            name = "${name}-src";
 
-          inherit src;
+            inherit src;
 
-          buildCommand = ''
-            mkdir -p $out
-            cp $src $out/package-lock.json
-          '';
-        };
+            buildCommand = ''
+              mkdir -p $out
+              cp $src $out/package-lock.json
+            '';
+          };
 
-        makeTest = { name, src, hash, forceGitDeps ? false }: testers.invalidateFetcherByDrvHash fetchNpmDeps {
-          inherit name hash forceGitDeps;
+        makeTest =
+          {
+            name,
+            src,
+            hash,
+            forceGitDeps ? false,
+          }:
+          testers.invalidateFetcherByDrvHash fetchNpmDeps {
+            inherit name hash forceGitDeps;
 
-          src = makeTestSrc { inherit name src; };
-        };
+            src = makeTestSrc { inherit name src; };
+          };
       in
       {
         lockfileV1 = makeTest {
@@ -121,50 +150,57 @@
   };
 
   fetchNpmDeps =
-    { name ? "npm-deps"
-    , hash ? ""
-    , forceGitDeps ? false
-    , ...
-    } @ args:
+    {
+      name ? "npm-deps",
+      hash ? "",
+      forceGitDeps ? false,
+      ...
+    }@args:
     let
       hash_ =
-        if hash != "" then {
-          outputHash = hash;
-        } else {
-          outputHash = "";
-          outputHashAlgo = "sha256";
-        };
+        if hash != "" then
+          { outputHash = hash; }
+        else
+          {
+            outputHash = "";
+            outputHashAlgo = "sha256";
+          };
 
       forceGitDeps_ = lib.optionalAttrs forceGitDeps { FORCE_GIT_DEPS = true; };
     in
-    stdenvNoCC.mkDerivation (args // {
-      inherit name;
+    stdenvNoCC.mkDerivation (
+      args
+      // {
+        inherit name;
 
-      nativeBuildInputs = [ prefetch-npm-deps ];
+        nativeBuildInputs = [ prefetch-npm-deps ];
 
-      buildPhase = ''
-        runHook preBuild
+        buildPhase = ''
+          runHook preBuild
 
-        if [[ ! -e package-lock.json ]]; then
-          echo
-          echo "ERROR: The package-lock.json file does not exist!"
-          echo
-          echo "package-lock.json is required to make sure that npmDepsHash doesn't change"
-          echo "when packages are updated on npm."
-          echo
-          echo "Hint: You can copy a vendored package-lock.json file via postPatch."
-          echo
+          if [[ ! -e package-lock.json ]]; then
+            echo
+            echo "ERROR: The package-lock.json file does not exist!"
+            echo
+            echo "package-lock.json is required to make sure that npmDepsHash doesn't change"
+            echo "when packages are updated on npm."
+            echo
+            echo "Hint: You can copy a vendored package-lock.json file via postPatch."
+            echo
 
-          exit 1
-        fi
+            exit 1
+          fi
 
-        prefetch-npm-deps package-lock.json $out
+          prefetch-npm-deps package-lock.json $out
 
-        runHook postBuild
-      '';
+          runHook postBuild
+        '';
 
-      dontInstall = true;
+        dontInstall = true;
 
-      outputHashMode = "recursive";
-    } // hash_ // forceGitDeps_);
+        outputHashMode = "recursive";
+      }
+      // hash_
+      // forceGitDeps_
+    );
 }

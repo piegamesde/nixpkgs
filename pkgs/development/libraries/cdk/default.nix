@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cdk";
@@ -12,9 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-A8z6Icn8PWHd0P2hnaVFNZBVu+71ociC37n/SPN0avI=";
   };
 
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   enableParallelBuilding = true;
 

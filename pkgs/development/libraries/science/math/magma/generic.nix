@@ -5,33 +5,34 @@
 #  supportedGpuTargets: List String
 # }
 
-{ blas
-, cmake
-, cudaPackages
+{
+  blas,
+  cmake,
+  cudaPackages,
   # FIXME: cuda being unfree means ofborg won't eval "magma".
   # respecting config.cudaSupport -> false by default
   # -> ofborg eval -> throws "no GPU targets specified".
   # Probably should delete everything but "magma-cuda" and "magma-hip"
   # from all-packages.nix
-, cudaSupport ? true
-, fetchurl
-, gfortran
-, cudaCapabilities ? cudaPackages.cudaFlags.cudaCapabilities
-, gpuTargets ? [ ] # Non-CUDA targets, that is HIP
-, hip
-, hipblas
-, hipsparse
-, lapack
-, lib
-, libpthreadstubs
-, magmaRelease
-, ninja
-, openmp
-, rocmSupport ? false
-, stdenv
-, symlinkJoin
+  cudaSupport ? true,
+  fetchurl,
+  gfortran,
+  cudaCapabilities ? cudaPackages.cudaFlags.cudaCapabilities,
+  gpuTargets ? [ ] # Non-CUDA targets, that is HIP
+  ,
+  hip,
+  hipblas,
+  hipsparse,
+  lapack,
+  lib,
+  libpthreadstubs,
+  magmaRelease,
+  ninja,
+  openmp,
+  rocmSupport ? false,
+  stdenv,
+  symlinkJoin,
 }:
-
 
 let
   inherit (lib) lists strings trivial;
@@ -54,7 +55,8 @@ let
   unsupportedCustomGpuTargets = lists.subtractLists supportedCustomGpuTargets gpuTargets;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
-  gpuArchWarner = supported: unsupported:
+  gpuArchWarner =
+    supported: unsupported:
     trivial.throwIf (supported == [ ])
       (
         "No supported GPU targets specified. Requested GPU targets: "
@@ -64,7 +66,7 @@ let
 
   gpuTargetString = strings.concatStringsSep "," (
     if gpuTargets != [ ] then
-    # If gpuTargets is specified, it always takes priority.
+      # If gpuTargets is specified, it always takes priority.
       gpuArchWarner supportedCustomGpuTargets unsupportedCustomGpuTargets
     else if rocmSupport then
       gpuArchWarner supportedRocmArches unsupportedRocmArches
@@ -93,14 +95,19 @@ let
   # Build-time dependencies
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths = with cudaPackages; [
-      cuda_cudart # cuda_runtime.h
-      cuda_nvcc
-    ] ++ lists.optionals (strings.versionOlder cudaVersion "11.8") [
-      cuda_nvprof # <cuda_profiler_api.h>
-    ] ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
-      cuda_profiler_api # <cuda_profiler_api.h>
-    ] ++ cuda-common-redist;
+    paths =
+      with cudaPackages;
+      [
+        cuda_cudart # cuda_runtime.h
+        cuda_nvcc
+      ]
+      ++ lists.optionals (strings.versionOlder cudaVersion "11.8") [
+        cuda_nvprof # <cuda_profiler_api.h>
+      ]
+      ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
+        cuda_profiler_api # <cuda_profiler_api.h>
+      ]
+      ++ cuda-common-redist;
   };
 
   # Run-time dependencies
@@ -126,36 +133,36 @@ stdenv.mkDerivation {
     cmake
     ninja
     gfortran
-  ] ++ lists.optionals cudaSupport [
-    cuda-native-redist
-  ];
+  ] ++ lists.optionals cudaSupport [ cuda-native-redist ];
 
-  buildInputs = [
-    libpthreadstubs
-    lapack
-    blas
-  ] ++ lists.optionals cudaSupport [
-    cuda-redist
-  ] ++ lists.optionals rocmSupport [
-    hip
-    hipblas
-    hipsparse
-    openmp
-  ];
+  buildInputs =
+    [
+      libpthreadstubs
+      lapack
+      blas
+    ]
+    ++ lists.optionals cudaSupport [ cuda-redist ]
+    ++ lists.optionals rocmSupport [
+      hip
+      hipblas
+      hipsparse
+      openmp
+    ];
 
-  cmakeFlags = [
-    "-DGPU_TARGET=${gpuTargetString}"
-  ] ++ lists.optionals cudaSupport [
-    "-DCMAKE_CUDA_ARCHITECTURES=${cudaArchitecturesString}"
-    "-DMIN_ARCH=${minArch}" # Disarms magma's asserts
-    "-DCMAKE_C_COMPILER=${backendStdenv.cc}/bin/cc"
-    "-DCMAKE_CXX_COMPILER=${backendStdenv.cc}/bin/c++"
-    "-DMAGMA_ENABLE_CUDA=ON"
-  ] ++ lists.optionals rocmSupport [
-    "-DCMAKE_C_COMPILER=${hip}/bin/hipcc"
-    "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
-    "-DMAGMA_ENABLE_HIP=ON"
-  ];
+  cmakeFlags =
+    [ "-DGPU_TARGET=${gpuTargetString}" ]
+    ++ lists.optionals cudaSupport [
+      "-DCMAKE_CUDA_ARCHITECTURES=${cudaArchitecturesString}"
+      "-DMIN_ARCH=${minArch}" # Disarms magma's asserts
+      "-DCMAKE_C_COMPILER=${backendStdenv.cc}/bin/cc"
+      "-DCMAKE_CXX_COMPILER=${backendStdenv.cc}/bin/c++"
+      "-DMAGMA_ENABLE_CUDA=ON"
+    ]
+    ++ lists.optionals rocmSupport [
+      "-DCMAKE_C_COMPILER=${hip}/bin/hipcc"
+      "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
+      "-DMAGMA_ENABLE_HIP=ON"
+    ];
 
   buildFlags = [
     "magma"

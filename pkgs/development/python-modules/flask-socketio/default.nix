@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, coverage
-, fetchFromGitHub
-, flask
-, pytestCheckHook
-, python-socketio
-, pythonOlder
-, redis
+{
+  lib,
+  buildPythonPackage,
+  coverage,
+  fetchFromGitHub,
+  flask,
+  pytestCheckHook,
+  python-socketio,
+  pythonOlder,
+  redis,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     redis
   ];
 
-  pytestFlagsArray = [
-    "test_socketio.py"
-  ];
+  pytestFlagsArray = [ "test_socketio.py" ];
 
   pythonImportsCheck = [ "flask_socketio" ];
 

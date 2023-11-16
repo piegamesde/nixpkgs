@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, scipy
-, torch
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  scipy,
+  torch,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -28,14 +29,13 @@ buildPythonPackage rec {
     torch
   ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "linear_operator" ];
-  disabledTests = [
-    # flaky numerical tests
-    "test_svd"
-  ];
+  disabledTests =
+    [
+      # flaky numerical tests
+      "test_svd"
+    ];
 
   meta = with lib; {
     description = "A LinearOperator implementation to wrap the numerical nuts and bolts of GPyTorch";

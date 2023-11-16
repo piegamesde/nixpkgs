@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, appimageTools, undmg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  undmg,
+}:
 
 let
   pname = "passky-desktop";
@@ -14,7 +20,8 @@ let
       sha256 = "0mm7hk4v7zvpjdqyw3nhk33x72j0gh3f59bx3q18azlm4dr61r2d";
     };
   };
-  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src =
+    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   appimageContents = appimageTools.extract { inherit pname version src; };
   meta = with lib; {
@@ -26,7 +33,12 @@ let
   };
 
   linux = appimageTools.wrapType2 {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     extraInstallCommands = ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -42,7 +54,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+    ;
 
     nativeBuildInputs = [ undmg ];
 
@@ -54,6 +71,4 @@ let
     '';
   };
 in
-if stdenv.isDarwin
-  then darwin
-  else linux
+if stdenv.isDarwin then darwin else linux

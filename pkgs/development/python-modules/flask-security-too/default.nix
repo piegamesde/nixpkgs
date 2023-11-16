@@ -1,47 +1,48 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 
-# extras: babel
-, babel
-, flask-babel
+  # extras: babel
+  babel,
+  flask-babel,
 
-# extras: common
-, bcrypt
-, bleach
-, flask-mailman
-, qrcode
+  # extras: common
+  bcrypt,
+  bleach,
+  flask-mailman,
+  qrcode,
 
-# extras: fsqla
-, flask-sqlalchemy
-, sqlalchemy
-, sqlalchemy-utils
+  # extras: fsqla
+  flask-sqlalchemy,
+  sqlalchemy,
+  sqlalchemy-utils,
 
-# extras: mfa
-, cryptography
-, phonenumbers
+  # extras: mfa
+  cryptography,
+  phonenumbers,
 
-# propagates
-, blinker
-, email-validator
-, flask
-, flask-login
-, flask_principal
-, flask-wtf
-, itsdangerous
-, passlib
+  # propagates
+  blinker,
+  email-validator,
+  flask,
+  flask-login,
+  flask_principal,
+  flask-wtf,
+  itsdangerous,
+  passlib,
 
-# tests
-, argon2-cffi
-, flask-mongoengine
-, mongoengine
-, mongomock
-, peewee
-, pony
-, pytestCheckHook
-, python-dateutil
-, zxcvbn
+  # tests
+  argon2-cffi,
+  flask-mongoengine,
+  mongoengine,
+  mongomock,
+  peewee,
+  pony,
+  pytestCheckHook,
+  python-dateutil,
+  zxcvbn,
 }:
 
 buildPythonPackage rec {
@@ -90,26 +91,24 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    argon2-cffi
-    flask-mongoengine
-    mongoengine
-    mongomock
-    peewee
-    pony
-    pytestCheckHook
-    python-dateutil
-    zxcvbn
-  ]
-  ++ passthru.optional-dependencies.babel
-  ++ passthru.optional-dependencies.common
-  ++ passthru.optional-dependencies.fsqla
-  ++ passthru.optional-dependencies.mfa;
+  nativeCheckInputs =
+    [
+      argon2-cffi
+      flask-mongoengine
+      mongoengine
+      mongomock
+      peewee
+      pony
+      pytestCheckHook
+      python-dateutil
+      zxcvbn
+    ]
+    ++ passthru.optional-dependencies.babel
+    ++ passthru.optional-dependencies.common
+    ++ passthru.optional-dependencies.fsqla
+    ++ passthru.optional-dependencies.mfa;
 
-
-  pythonImportsCheck = [
-    "flask_security"
-  ];
+  pythonImportsCheck = [ "flask_security" ];
 
   meta = with lib; {
     changelog = "https://github.com/Flask-Middleware/flask-security/blob/${version}/CHANGES.rst";

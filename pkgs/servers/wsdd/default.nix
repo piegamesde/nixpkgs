@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, makeWrapper, nixosTests, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  nixosTests,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wsdd";
@@ -11,17 +19,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-xfZVGi3OxuRI+Zh6L3Ru4J4j5BB1EAN3fllRCVA/c5o=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   buildInputs = [ python3 ];
 
-  patches = [
-    # Increase timeout to socket urlopen
-    # See https://github.com/christgau/wsdd/issues/80#issuecomment-76848906
-    ./increase_timeout.patch
-  ];
+  patches =
+    [
+      # Increase timeout to socket urlopen
+      # See https://github.com/christgau/wsdd/issues/80#issuecomment-76848906
+      ./increase_timeout.patch
+    ];
 
   installPhase = ''
     install -Dm0555 src/wsdd.py $out/bin/wsdd

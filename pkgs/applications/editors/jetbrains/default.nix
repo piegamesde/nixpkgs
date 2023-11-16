@@ -1,20 +1,38 @@
-{ lib, stdenv, callPackage, fetchurl
-, jdk, cmake, gdb, zlib, python3, icu
-, lldb
-, dotnet-sdk_6
-, maven
-, autoPatchelfHook
-, libdbusmenu
-, patchelf
-, openssl
-, expat
-, libxcrypt-legacy
-, vmopts ? null
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  jdk,
+  cmake,
+  gdb,
+  zlib,
+  python3,
+  icu,
+  lldb,
+  dotnet-sdk_6,
+  maven,
+  autoPatchelfHook,
+  libdbusmenu,
+  patchelf,
+  openssl,
+  expat,
+  libxcrypt-legacy,
+  vmopts ? null,
 }:
 
 let
-  platforms = lib.platforms.linux ++ [ "x86_64-darwin" "aarch64-darwin" ];
-  ideaPlatforms = [ "x86_64-darwin" "i686-darwin" "i686-linux" "x86_64-linux" "aarch64-darwin" ];
+  platforms = lib.platforms.linux ++ [
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
+  ideaPlatforms = [
+    "x86_64-darwin"
+    "i686-darwin"
+    "i686-linux"
+    "x86_64-linux"
+    "aarch64-darwin"
+  ];
 
   inherit (stdenv.hostPlatform) system;
 
@@ -27,9 +45,24 @@ let
 
   # Sorted alphabetically
 
-  buildClion = { pname, version, src, license, description, wmClass, ... }:
+  buildClion =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "CLion";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/clion/";
@@ -38,48 +71,75 @@ let
           Enhancing productivity for every C and C++
           developer on Linux, macOS and Windows.
         '';
-        maintainers = with maintainers; [ edwtjo mic92 ];
+        maintainers = with maintainers; [
+          edwtjo
+          mic92
+        ];
       };
-    }).overrideAttrs (attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ lib.optionals (stdenv.isLinux) [
-        autoPatchelfHook
-        patchelf
-      ];
-      buildInputs = (attrs.buildInputs or []) ++ lib.optionals (stdenv.isLinux) [
-        python3
-        stdenv.cc.cc
-        libdbusmenu
-        openssl.out
-        expat
-        libxcrypt-legacy
-      ];
-      dontAutoPatchelf = true;
-      postFixup = (attrs.postFixup or "") + lib.optionalString (stdenv.isLinux) ''
-        (
-          cd $out/clion
-          # bundled cmake does not find libc
-          rm -rf bin/cmake/linux
-          ln -s ${cmake} bin/cmake/linux
-          # bundled gdb does not find libcrypto 10
-          rm -rf bin/gdb/linux
-          ln -s ${gdb} bin/gdb/linux
+    }).overrideAttrs
+      (
+        attrs: {
+          nativeBuildInputs =
+            (attrs.nativeBuildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [
+              autoPatchelfHook
+              patchelf
+            ];
+          buildInputs =
+            (attrs.buildInputs or [ ])
+            ++ lib.optionals (stdenv.isLinux) [
+              python3
+              stdenv.cc.cc
+              libdbusmenu
+              openssl.out
+              expat
+              libxcrypt-legacy
+            ];
+          dontAutoPatchelf = true;
+          postFixup =
+            (attrs.postFixup or "")
+            + lib.optionalString (stdenv.isLinux) ''
+              (
+                cd $out/clion
+                # bundled cmake does not find libc
+                rm -rf bin/cmake/linux
+                ln -s ${cmake} bin/cmake/linux
+                # bundled gdb does not find libcrypto 10
+                rm -rf bin/gdb/linux
+                ln -s ${gdb} bin/gdb/linux
 
-          ls -d $PWD/bin/lldb/linux/x64/lib/python3.8/lib-dynload/* |
-          xargs patchelf \
-            --replace-needed libssl.so.10 libssl.so \
-            --replace-needed libcrypto.so.10 libcrypto.so
+                ls -d $PWD/bin/lldb/linux/x64/lib/python3.8/lib-dynload/* |
+                xargs patchelf \
+                  --replace-needed libssl.so.10 libssl.so \
+                  --replace-needed libcrypto.so.10 libcrypto.so
 
-          autoPatchelf $PWD/bin
+                autoPatchelf $PWD/bin
 
-          wrapProgram $out/bin/clion \
-            --set CL_JDK "${jdk}"
-        )
-      '';
-    });
+                wrapProgram $out/bin/clion \
+                  --set CL_JDK "${jdk}"
+              )
+            '';
+        }
+      );
 
-  buildDataGrip = { pname, version, src, license, description, wmClass, ... }:
+  buildDataGrip =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "DataGrip";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/datagrip/";
@@ -93,24 +153,56 @@ let
       };
     });
 
-    buildDataSpell = { pname, version, src, license, description, wmClass, ... }:
-      (mkJetBrainsProduct {
-        inherit pname version src wmClass jdk;
-        product = "DataSpell";
-        meta = with lib; {
-          homepage = "https://www.jetbrains.com/dataspell/";
-          inherit description license platforms;
-          longDescription = ''
-            DataSpell is a new IDE from JetBrains built for Data Scientists.
-            Mainly it integrates Jupyter notebooks in the IntelliJ platform.
-          '';
-          maintainers = with maintainers; [ leona ];
-        };
-      });
-
-  buildGateway = { pname, version, src, license, description, wmClass, product, ... }:
+  buildDataSpell =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
+      product = "DataSpell";
+      meta = with lib; {
+        homepage = "https://www.jetbrains.com/dataspell/";
+        inherit description license platforms;
+        longDescription = ''
+          DataSpell is a new IDE from JetBrains built for Data Scientists.
+          Mainly it integrates Jupyter notebooks in the IntelliJ platform.
+        '';
+        maintainers = with maintainers; [ leona ];
+      };
+    });
+
+  buildGateway =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      ...
+    }:
+    (mkJetBrainsProduct {
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "Gateway";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/remote-development/gateway/";
@@ -124,9 +216,24 @@ let
       };
     });
 
-  buildGoland = { pname, version, src, license, description, wmClass, ... }:
+  buildGoland =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "Goland";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/go/";
@@ -139,22 +246,44 @@ let
         '';
         maintainers = [ ];
       };
-    }).overrideAttrs (attrs: {
-      postFixup = (attrs.postFixup or "") + lib.optionalString stdenv.isLinux ''
-        interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-        patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+    }).overrideAttrs
+      (
+        attrs: {
+          postFixup =
+            (attrs.postFixup or "")
+            + lib.optionalString stdenv.isLinux ''
+              interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+              patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
 
-        chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+              chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
 
-        # fortify source breaks build since delve compiles with -O0
-        wrapProgram $out/bin/goland \
-          --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
-      '';
-    });
+              # fortify source breaks build since delve compiles with -O0
+              wrapProgram $out/bin/goland \
+                --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
+            '';
+        }
+      );
 
-  buildIdea = { pname, version, src, license, description, wmClass, product, ... }:
+  buildIdea =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "IDEA";
       extraLdPath = [ zlib ];
       extraWrapperArgs = [
@@ -170,14 +299,36 @@ let
           with JUnit, TestNG, popular SCMs, Ant & Maven. Also known
           as IntelliJ.
         '';
-        maintainers = with maintainers; [ edwtjo gytis-ivaskevicius steinybot AnatolyPopov ];
+        maintainers = with maintainers; [
+          edwtjo
+          gytis-ivaskevicius
+          steinybot
+          AnatolyPopov
+        ];
         platforms = ideaPlatforms;
       };
     });
 
-  buildMps = { pname, version, src, license, description, wmClass, product, ... }:
+  buildMps =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      ...
+    }:
     (mkJetBrainsProduct rec {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "MPS";
       meta = with lib; {
         broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -193,9 +344,24 @@ let
       };
     });
 
-  buildPhpStorm = { pname, version, src, license, description, wmClass, ... }:
+  buildPhpStorm =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "PhpStorm";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/phpstorm/";
@@ -209,9 +375,27 @@ let
       };
     });
 
-  buildPycharm = { pname, version, src, license, description, wmClass, product, cythonSpeedup ? stdenv.isLinux, ... }:
+  buildPycharm =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      product,
+      cythonSpeedup ? stdenv.isLinux,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk product;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+        product
+      ;
       productShort = "PyCharm";
       meta = with lib; {
         broken = (stdenv.isLinux && stdenv.isAarch64);
@@ -232,22 +416,44 @@ let
         '';
         maintainers = with maintainers; [ ];
       };
-    }).overrideAttrs (finalAttrs: previousAttrs: lib.optionalAttrs cythonSpeedup {
-      buildInputs = with python3.pkgs; [ python3 setuptools ];
-      preInstall = ''
-      echo "compiling cython debug speedups"
-      if [[ -d plugins/python-ce ]]; then
-          ${python3.interpreter} plugins/python-ce/helpers/pydev/setup_cython.py build_ext --inplace
-      else
-          ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
-      fi
-      '';
-      # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
-    });
+    }).overrideAttrs
+      (
+        finalAttrs: previousAttrs:
+        lib.optionalAttrs cythonSpeedup {
+          buildInputs = with python3.pkgs; [
+            python3
+            setuptools
+          ];
+          preInstall = ''
+            echo "compiling cython debug speedups"
+            if [[ -d plugins/python-ce ]]; then
+                ${python3.interpreter} plugins/python-ce/helpers/pydev/setup_cython.py build_ext --inplace
+            else
+                ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
+            fi
+          '';
+          # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
+        }
+      );
 
-  buildRider = { pname, version, src, license, description, wmClass, ... }:
+  buildRider =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "Rider";
       # icu is required by Rider.Backend
       extraLdPath = [ icu ];
@@ -264,21 +470,42 @@ let
         '';
         maintainers = with maintainers; [ raphaelr ];
       };
-    }).overrideAttrs (attrs: {
-      postPatch = lib.optionalString (!stdenv.isDarwin) (attrs.postPatch + ''
-        interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-        patchelf --set-interpreter $interp \
-          lib/ReSharperHost/linux-x64/Rider.Backend \
-          plugins/dotCommon/DotFiles/linux-x64/JetBrains.Profiler.PdbServer
+    }).overrideAttrs
+      (
+        attrs: {
+          postPatch = lib.optionalString (!stdenv.isDarwin) (
+            attrs.postPatch
+            + ''
+              interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+              patchelf --set-interpreter $interp \
+                lib/ReSharperHost/linux-x64/Rider.Backend \
+                plugins/dotCommon/DotFiles/linux-x64/JetBrains.Profiler.PdbServer
 
-        rm -rf lib/ReSharperHost/linux-x64/dotnet
-        ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
-      '');
-    });
+              rm -rf lib/ReSharperHost/linux-x64/dotnet
+              ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
+            ''
+          );
+        }
+      );
 
-  buildRubyMine = { pname, version, src, license, description, wmClass, ... }:
+  buildRubyMine =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "RubyMine";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/ruby/";
@@ -288,9 +515,24 @@ let
       };
     });
 
-  buildWebStorm = { pname, version, src, license, description, wmClass, ... }:
+  buildWebStorm =
+    {
+      pname,
+      version,
+      src,
+      license,
+      description,
+      wmClass,
+      ...
+    }:
     (mkJetBrainsProduct {
-      inherit pname version src wmClass jdk;
+      inherit
+        pname
+        version
+        src
+        wmClass
+        jdk
+      ;
       product = "WebStorm";
       meta = with lib; {
         homepage = "https://www.jetbrains.com/webstorm/";
@@ -303,7 +545,6 @@ let
         maintainers = with maintainers; [ abaldeau ];
       };
     });
-
 in
 
 {
@@ -312,7 +553,7 @@ in
   clion = buildClion rec {
     pname = "clion";
     version = products.clion.version;
-    description  = "C/C++ IDE. New. Intelligent. Cross-platform";
+    description = "C/C++ IDE. New. Intelligent. Cross-platform";
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.clion.url;
@@ -496,5 +737,4 @@ in
     wmClass = "jetbrains-webstorm";
     update-channel = products.webstorm.update-channel;
   };
-
 }

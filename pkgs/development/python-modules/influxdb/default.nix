@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, python-dateutil
-, fetchPypi
-, fetchpatch
-, mock
-, msgpack
-, nose
-, pandas
-, pytestCheckHook
-, pytz
-, requests
-, requests-mock
-, six
+{
+  lib,
+  buildPythonPackage,
+  python-dateutil,
+  fetchPypi,
+  fetchpatch,
+  mock,
+  msgpack,
+  nose,
+  pandas,
+  pytestCheckHook,
+  pytz,
+  requests,
+  requests-mock,
+  six,
 }:
 
 buildPythonPackage rec {

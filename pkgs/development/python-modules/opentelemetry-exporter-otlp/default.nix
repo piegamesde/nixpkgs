@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, backoff
-, hatchling
-, opentelemetry-exporter-otlp-proto-grpc
-, opentelemetry-exporter-otlp-proto-http
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  backoff,
+  hatchling,
+  opentelemetry-exporter-otlp-proto-grpc,
+  opentelemetry-exporter-otlp-proto-http,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -14,28 +15,26 @@ buildPythonPackage rec {
   version = "1.18.0";
   disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "open-telemetry";
-    repo = "opentelemetry-python";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-ph9ahT6M8UBvuUJjk6nug68Ou/D7XuuXkfnKHEdD8x8=";
-    sparseCheckout = [ "/exporter/${pname}" ];
-  } + "/exporter/${pname}";
+  src =
+    fetchFromGitHub {
+      owner = "open-telemetry";
+      repo = "opentelemetry-python";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-ph9ahT6M8UBvuUJjk6nug68Ou/D7XuuXkfnKHEdD8x8=";
+      sparseCheckout = [ "/exporter/${pname}" ];
+    }
+    + "/exporter/${pname}";
 
   format = "pyproject";
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     opentelemetry-exporter-otlp-proto-grpc
     opentelemetry-exporter-otlp-proto-http
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "opentelemetry.exporter.otlp" ];
 

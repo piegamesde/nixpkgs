@@ -12,7 +12,12 @@ buildPackage {
   # NOTE lib: cannot split lib from bin at the moment,
   # since some parts of lib depend on executables in bin.
   # (the `*_startf` functions in `libs6`)
-  outputs = [ /*"bin" "lib"*/ "out" "dev" "doc" ];
+  outputs = [
+    # "bin" "lib"
+    "out"
+    "dev"
+    "doc"
+  ];
 
   # TODO: nsss support
   configureFlags = [
@@ -40,5 +45,4 @@ buildPackage {
     mv doc $doc/share/doc/s6/html
     mv examples $doc/share/doc/s6/examples
   '';
-
 }

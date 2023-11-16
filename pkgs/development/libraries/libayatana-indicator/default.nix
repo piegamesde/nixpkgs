@@ -1,7 +1,11 @@
-{ stdenv, fetchFromGitHub, lib
-, pkg-config, cmake
-, gtk3
-, ayatana-ido
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  cmake,
+  gtk3,
+  ayatana-ido,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tOZcrcuZowqDg/LRYTY6PCxKnpEd67k4xAHrIKupunI=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   buildInputs = [ gtk3 ];
 

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, hatch-vcs
-, openssh
-, ps
-, psutil
-, pytest-mock
-, pytest-timeout
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  hatch-vcs,
+  openssh,
+  ps,
+  psutil,
+  pytest-mock,
+  pytest-timeout,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -57,11 +58,12 @@ buildPythonPackage rec {
     "test_incorrect_login"
   ];
 
-  disabledTestPaths = [
-    # incompatible with pytest7
-    # https://github.com/tomerfiliba/plumbum/issues/594
-    "tests/test_remote.py"
-  ];
+  disabledTestPaths =
+    [
+      # incompatible with pytest7
+      # https://github.com/tomerfiliba/plumbum/issues/594
+      "tests/test_remote.py"
+    ];
 
   meta = with lib; {
     changelog = "https://github.com/tomerfiliba/plumbum/releases/tag/v${version}";

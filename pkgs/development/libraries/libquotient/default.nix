@@ -1,4 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, cmake, olm, openssl, qtbase, qtmultimedia, qtkeychain }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  olm,
+  openssl,
+  qtbase,
+  qtmultimedia,
+  qtkeychain,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libquotient";
@@ -11,13 +21,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-Lq404O2VjZ8vlXOW+rhsvWDvZsNd3APNbv6AadQCjhk=";
   };
 
-  buildInputs = [ olm openssl qtbase qtmultimedia qtkeychain ];
+  buildInputs = [
+    olm
+    openssl
+    qtbase
+    qtmultimedia
+    qtkeychain
+  ];
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DQuotient_ENABLE_E2EE=ON"
-  ];
+  cmakeFlags = [ "-DQuotient_ENABLE_E2EE=ON" ];
 
   # https://github.com/quotient-im/libQuotient/issues/551
   postPatch = ''

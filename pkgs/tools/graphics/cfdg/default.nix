@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libpng, bison, flex, ffmpeg, icu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpng,
+  bison,
+  flex,
+  ffmpeg,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cfdg";
@@ -10,8 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "13m8npccacmgxbs4il45zw53dskjh53ngv2nxahwqw8shjrws4mh";
   };
 
-  nativeBuildInputs = [ bison flex ];
-  buildInputs = [ libpng ffmpeg icu ];
+  nativeBuildInputs = [
+    bison
+    flex
+  ];
+  buildInputs = [
+    libpng
+    ffmpeg
+    icu
+  ];
 
   postPatch = ''
     sed -e "/YY_NO_UNISTD/a#include <stdio.h>" -i src-common/cfdg.l

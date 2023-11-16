@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libsass }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libsass,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sassc";
@@ -23,7 +29,10 @@ stdenv.mkDerivation rec {
     description = "A front-end for libsass";
     homepage = "https://github.com/sass/sassc/";
     license = licenses.mit;
-    maintainers = with maintainers; [ codyopel pjones ];
+    maintainers = with maintainers; [
+      codyopel
+      pjones
+    ];
     platforms = platforms.unix;
   };
 }

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libusb1, pico-sdk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libusb1,
+  pico-sdk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "picotool";
@@ -11,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KP5Cq6pYKQI5dV6S4lLapu9EcwAgLgYpK0qreNDZink=";
   };
 
-  buildInputs = [ libusb1 pico-sdk ];
-  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [
+    libusb1
+    pico-sdk
+  ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   cmakeFlags = [ "-DPICO_SDK_PATH=${pico-sdk}/lib/pico-sdk" ];
 
   meta = with lib; {

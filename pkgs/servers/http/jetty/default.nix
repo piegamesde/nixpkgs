@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jetty";
@@ -20,7 +24,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.eclipse.org/jetty/";
     platforms = platforms.all;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = with licenses; [ asl20 epl10 ];
+    license = with licenses; [
+      asl20
+      epl10
+    ];
     maintainers = with maintainers; [ emmanuelrosa ];
   };
 }

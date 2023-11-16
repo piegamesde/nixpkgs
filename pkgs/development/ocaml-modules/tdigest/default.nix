@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, buildDunePackage
-, core
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  core,
 }:
 
 buildDunePackage rec {
@@ -15,9 +18,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [
-    core
-  ];
+  propagatedBuildInputs = [ core ];
 
   meta = with lib; {
     homepage = "https://github.com/SGrondin/${pname}";

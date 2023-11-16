@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cargo
-, rustPlatform
-, rustc
-, glib
-, pkg-config
-, gdk-pixbuf
-, gtk3
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cargo,
+  rustPlatform,
+  rustc,
+  glib,
+  pkg-config,
+  gdk-pixbuf,
+  gtk3,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -44,15 +45,16 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  makeFlags = [
-    "prefix=$(out)"
-  ];
+  makeFlags = [ "prefix=$(out)" ];
 
   meta = with lib; {
     description = "Multiple USB File Flasher";
     homepage = "https://github.com/pop-os/popsicle";
     changelog = "https://github.com/pop-os/popsicle/releases/tag/${version}";
-    maintainers = with maintainers; [ _13r0ck figsoda ];
+    maintainers = with maintainers; [
+      _13r0ck
+      figsoda
+    ];
     license = licenses.mit;
     platforms = platforms.linux;
   };

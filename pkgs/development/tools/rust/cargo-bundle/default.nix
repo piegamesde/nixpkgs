@@ -1,11 +1,12 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, stdenv
-, darwin
-, libxkbcommon
-, wayland
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  stdenv,
+  darwin,
+  libxkbcommon,
+  wayland,
 }:
 
 rustPlatform.buildRustPackage {
@@ -22,21 +23,22 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-h+QPbwYTJk6dieta/Q+VAhYe8/YH/Nik6gslzUn0YxI=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.AppKit
-  ] ++ lib.optionals stdenv.isLinux [
-    libxkbcommon
-    wayland
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
+    ++ lib.optionals stdenv.isLinux [
+      libxkbcommon
+      wayland
+    ];
 
   meta = with lib; {
     description = "Wrap rust executables in OS-specific app bundles";
     homepage = "https://github.com/burtonageo/cargo-bundle";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

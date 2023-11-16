@@ -1,4 +1,13 @@
-{ lib, buildKodiAddon, fetchzip, addonUpdateScript, six, requests, infotagger, inputstreamhelper }:
+{
+  lib,
+  buildKodiAddon,
+  fetchzip,
+  addonUpdateScript,
+  six,
+  requests,
+  infotagger,
+  inputstreamhelper,
+}:
 
 buildKodiAddon rec {
   pname = "youtube";
@@ -19,9 +28,7 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "resources/lib";
-    updateScript = addonUpdateScript {
-      attrPath = "kodi.packages.youtube";
-    };
+    updateScript = addonUpdateScript { attrPath = "kodi.packages.youtube"; };
   };
 
   meta = with lib; {

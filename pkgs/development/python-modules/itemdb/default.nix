@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 }:
 
 buildPythonPackage rec {
@@ -22,5 +23,3 @@ buildPythonPackage rec {
     maintainers = [ maintainers.matthiasbeyer ];
   };
 }
-
-

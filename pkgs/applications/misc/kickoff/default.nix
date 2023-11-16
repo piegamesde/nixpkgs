@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, fontconfig
-, pkg-config
-, wayland
-, libxkbcommon
-, makeWrapper
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  fontconfig,
+  pkg-config,
+  wayland,
+  libxkbcommon,
+  makeWrapper,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -27,7 +28,10 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = [ fontconfig ];
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/kickoff" --prefix LD_LIBRARY_PATH : "${libPath}"

@@ -1,4 +1,10 @@
-{ pkgs, lib, gccStdenv, callPackage, fetchFromGitHub }:
+{
+  pkgs,
+  lib,
+  gccStdenv,
+  callPackage,
+  fetchFromGitHub,
+}:
 # See ../gambit/build.nix regarding gccStdenv
 
 rec {
@@ -15,32 +21,55 @@ rec {
 
   # Use this function in any package that uses Gerbil libraries, to define the GERBIL_LOADPATH.
   gerbilLoadPath =
-    gerbilInputs : builtins.concatStringsSep ":" (map (x : x + "/gerbil/lib") gerbilInputs);
+    gerbilInputs: builtins.concatStringsSep ":" (map (x: x + "/gerbil/lib") gerbilInputs);
 
   # Use this function to create a Gerbil library. See gerbil-utils as an example.
-  gerbilPackage = {
-    pname, version, src, meta, gerbil-package,
-    git-version ? "", version-path ? "",
-    gerbil ? pkgs.gerbil-unstable,
-    gambit-params ? pkgs.gambit-support.stable-params,
-    gerbilInputs ? [],
-    nativeBuildInputs ? [],
-    buildInputs ? [],
-    buildScript ? "./build.ss",
-    softwareName ? ""} :
-    let buildInputs_ = buildInputs; in
+  gerbilPackage =
+    {
+      pname,
+      version,
+      src,
+      meta,
+      gerbil-package,
+      git-version ? "",
+      version-path ? "",
+      gerbil ? pkgs.gerbil-unstable,
+      gambit-params ? pkgs.gambit-support.stable-params,
+      gerbilInputs ? [ ],
+      nativeBuildInputs ? [ ],
+      buildInputs ? [ ],
+      buildScript ? "./build.ss",
+      softwareName ? "",
+    }:
+    let
+      buildInputs_ = buildInputs;
+    in
     gccStdenv.mkDerivation rec {
-      inherit src meta pname version nativeBuildInputs;
-      passthru = { inherit gerbil-package version-path ;};
+      inherit
+        src
+        meta
+        pname
+        version
+        nativeBuildInputs
+      ;
+      passthru = {
+        inherit gerbil-package version-path;
+      };
       buildInputs = [ gerbil ] ++ gerbilInputs ++ buildInputs_;
       postPatch = ''
         set -e ;
         if [ -n "${version-path}.ss" ] ; then
-          echo -e '(import :clan/versioning${builtins.concatStringsSep ""
-                     (map (x : lib.optionalString (x.passthru.version-path != "")
-                               " :${x.passthru.gerbil-package}/${x.passthru.version-path}")
-                          gerbilInputs)
-                     })\n(register-software "${softwareName}" "v${git-version}")\n' > "${passthru.version-path}.ss"
+          echo -e '(import :clan/versioning${
+            builtins.concatStringsSep "" (
+              map
+                (
+                  x:
+                  lib.optionalString (x.passthru.version-path != "")
+                    " :${x.passthru.gerbil-package}/${x.passthru.version-path}"
+                )
+                gerbilInputs
+            )
+          })\n(register-software "${softwareName}" "v${git-version}")\n' > "${passthru.version-path}.ss"
         fi
         patchShebangs . ;
       '';

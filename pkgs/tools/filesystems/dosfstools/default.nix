@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, libiconv, gettext, xxd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  libiconv,
+  gettext,
+  xxd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dosfstools";
@@ -24,8 +34,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ]
-    ++ lib.optional stdenv.isDarwin libiconv;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ] ++ lib.optional stdenv.isDarwin libiconv;
 
   # configure.ac:75: error: required file './config.rpath' not found
   # https://github.com/dosfstools/dosfstools/blob/master/autogen.sh

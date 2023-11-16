@@ -1,4 +1,17 @@
-{ lib, stdenv, pkg-config, fetchFromGitHub, fetchpatch, cmake, wrapGAppsHook, avahi, avahi-compat, openssl, gst_all_1, libplist }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  wrapGAppsHook,
+  avahi,
+  avahi-compat,
+  openssl,
+  gst_all_1,
+  libplist,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rpiplay";
@@ -11,15 +24,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qe7ZTT45NYvzgnhRmz15uGT/FnGi9uppbKVbmch5B9A=";
   };
 
-  patches = [
-    # allow rpiplay to be used with firewall enabled.
-    # sets static ports 7000 7100 (tcp) and 6000 6001 7011 (udp)
-    (fetchpatch {
-      name = "use-static-ports.patch";
-      url = "https://github.com/FD-/RPiPlay/commit/2ffc287ba822e1d2b2ed0fc0e41a2bb3d9dab105.patch";
-      sha256 = "08dy829gyhyzw2n54zn5m3176cmd24k5hij24vpww5bhbwkbabww";
-    })
-  ];
+  patches =
+    [
+      # allow rpiplay to be used with firewall enabled.
+      # sets static ports 7000 7100 (tcp) and 6000 6001 7011 (udp)
+      (fetchpatch {
+        name = "use-static-ports.patch";
+        url = "https://github.com/FD-/RPiPlay/commit/2ffc287ba822e1d2b2ed0fc0e41a2bb3d9dab105.patch";
+        sha256 = "08dy829gyhyzw2n54zn5m3176cmd24k5hij24vpww5bhbwkbabww";
+      })
+    ];
 
   nativeBuildInputs = [
     cmake

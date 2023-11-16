@@ -1,37 +1,38 @@
-{ boost
-, cargo
-, cmake
-, config
-, CoreServices
-, cpptoml
-, double-conversion
-, edencommon
-, ensureNewerSourcesForZipFilesHook
-, fb303
-, fbthrift
-, fetchFromGitHub
-, fizz
-, fmt_8
-, folly
-, glog
-, gtest
-, lib
-, libevent
-, libiconv
-, libsodium
-, libunwind
-, lz4
-, openssl
-, pcre
-, pkg-config
-, python3
-, rustPlatform
-, rustc
-, stateDir ? "/tmp"
-, stdenv
-, wangle
-, zlib
-, zstd
+{
+  boost,
+  cargo,
+  cmake,
+  config,
+  CoreServices,
+  cpptoml,
+  double-conversion,
+  edencommon,
+  ensureNewerSourcesForZipFilesHook,
+  fb303,
+  fbthrift,
+  fetchFromGitHub,
+  fizz,
+  fmt_8,
+  folly,
+  glog,
+  gtest,
+  lib,
+  libevent,
+  libiconv,
+  libsodium,
+  libunwind,
+  lz4,
+  openssl,
+  pcre,
+  pkg-config,
+  python3,
+  rustPlatform,
+  rustc,
+  stateDir ? "/tmp",
+  stdenv,
+  wangle,
+  zlib,
+  zstd,
 }:
 
 stdenv.mkDerivation rec {
@@ -45,14 +46,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZtCUlxx3YgfwKa9J8o9GkdkHquJbh+EytLiGNRlABls=";
   };
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DENABLE_EDEN_SUPPORT=NO" # requires sapling (formerly known as eden), which is not packaged in nixpkgs
-    "-DWATCHMAN_STATE_DIR=${stateDir}"
-    "-DWATCHMAN_VERSION_OVERRIDE=${version}"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
-  ];
+  cmakeFlags =
+    [
+      "-DBUILD_SHARED_LIBS=ON"
+      "-DENABLE_EDEN_SUPPORT=NO" # requires sapling (formerly known as eden), which is not packaged in nixpkgs
+      "-DWATCHMAN_STATE_DIR=${stateDir}"
+      "-DWATCHMAN_VERSION_OVERRIDE=${version}"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -90,9 +93,7 @@ stdenv.mkDerivation rec {
 
   cargoRoot = "watchman/cli";
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     patchShebangs .
@@ -102,7 +103,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Watches files and takes action when they change";
     homepage = "https://facebook.github.io/watchman";
-    maintainers = with maintainers; [ cstrahan kylesferrazza ];
+    maintainers = with maintainers; [
+      cstrahan
+      kylesferrazza
+    ];
     platforms = platforms.unix;
     license = licenses.mit;
   };

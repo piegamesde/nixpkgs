@@ -1,25 +1,26 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cython
-, eventlet
-, fetchFromGitHub
-, geomet
-, gevent
-, gremlinpython
-, iana-etc
-, libev
-, libredirect
-, mock
-, nose
-, pytestCheckHook
-, pythonOlder
-, pytz
-, pyyaml
-, scales
-, six
-, sure
-, twisted
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cython,
+  eventlet,
+  fetchFromGitHub,
+  geomet,
+  gevent,
+  gremlinpython,
+  iana-etc,
+  libev,
+  libredirect,
+  mock,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  pyyaml,
+  scales,
+  six,
+  sure,
+  twisted,
 }:
 
 buildPythonPackage rec {
@@ -41,13 +42,9 @@ buildPythonPackage rec {
       --replace 'geomet>=0.1,<0.3' 'geomet'
   '';
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    libev
-  ];
+  buildInputs = [ libev ];
 
   propagatedBuildInputs = [
     six
@@ -70,31 +67,30 @@ buildPythonPackage rec {
 
   # Make /etc/protocols accessible to allow socket.getprotobyname('tcp') in sandbox,
   # also /etc/resolv.conf is referenced by some tests
-  preCheck = (lib.optionalString stdenv.isLinux ''
-    echo "nameserver 127.0.0.1" > resolv.conf
-    export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)
-    export LD_PRELOAD=${libredirect}/lib/libredirect.so
-  '') + ''
-    # increase tolerance for time-based test
-    substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
-  '';
+  preCheck =
+    (lib.optionalString stdenv.isLinux ''
+      echo "nameserver 127.0.0.1" > resolv.conf
+      export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)
+      export LD_PRELOAD=${libredirect}/lib/libredirect.so
+    '')
+    + ''
+      # increase tolerance for time-based test
+      substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
+    '';
 
-  pythonImportsCheck = [
-    "cassandra"
-  ];
+  pythonImportsCheck = [ "cassandra" ];
 
   postCheck = ''
     unset NIX_REDIRECTS LD_PRELOAD
   '';
 
-  pytestFlagsArray = [
-    "tests/unit"
-  ];
+  pytestFlagsArray = [ "tests/unit" ];
 
-  disabledTestPaths = [
-    # requires puresasl
-    "tests/unit/advanced/test_auth.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires puresasl
+      "tests/unit/advanced/test_auth.py"
+    ];
 
   disabledTests = [
     # doesn't seem to be intended to be run directly
@@ -110,6 +106,9 @@ buildPythonPackage rec {
     homepage = "http://datastax.github.io/python-driver";
     changelog = "https://github.com/datastax/python-driver/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ turion ris ];
+    maintainers = with maintainers; [
+      turion
+      ris
+    ];
   };
 }

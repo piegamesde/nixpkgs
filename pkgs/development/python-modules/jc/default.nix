@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, ruamel-yaml
-, xmltodict
-, pygments
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ruamel-yaml,
+  xmltodict,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-nj7HyYjo5jDnA+H5/er/GPgC/bUR0UYBqu5zOSDA4p0=";
   };
 
-  propagatedBuildInputs = [ ruamel-yaml xmltodict pygments ];
+  propagatedBuildInputs = [
+    ruamel-yaml
+    xmltodict
+    pygments
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

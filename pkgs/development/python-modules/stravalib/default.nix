@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, setuptools
-, arrow
-, requests
-, units
-, pint
-, pydantic
-, pytz
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  setuptools,
+  arrow,
+  requests,
+  units,
+  pint,
+  pydantic,
+  pytz,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-P00oxUz0oVQB969c/N2wpKLe09wtvQWPH4DH4EZUaxc=";
   };
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   propagatedBuildInputs = [
     arrow

@@ -1,19 +1,22 @@
-{ lib, stdenv, fetchzip
-, autoreconfHook
-, boost
-, freeglut
-, glew
-, gsl
-, lcms2
-, libpng
-, libtiff
-, libGLU
-, libGL
-, vigra
-, help2man
-, pkg-config
-, perl
-, texlive
+{
+  lib,
+  stdenv,
+  fetchzip,
+  autoreconfHook,
+  boost,
+  freeglut,
+  glew,
+  gsl,
+  lcms2,
+  libpng,
+  libtiff,
+  libGLU,
+  libGL,
+  vigra,
+  help2man,
+  pkg-config,
+  perl,
+  texlive,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,9 +29,26 @@ stdenv.mkDerivation rec {
     stripRoot = true;
   };
 
-  buildInputs = [ boost freeglut glew gsl lcms2 libpng libtiff libGLU libGL vigra ];
+  buildInputs = [
+    boost
+    freeglut
+    glew
+    gsl
+    lcms2
+    libpng
+    libtiff
+    libGLU
+    libGL
+    vigra
+  ];
 
-  nativeBuildInputs = [ autoreconfHook help2man perl pkg-config texlive.combined.scheme-small ];
+  nativeBuildInputs = [
+    autoreconfHook
+    help2man
+    perl
+    pkg-config
+    texlive.combined.scheme-small
+  ];
 
   preConfigure = ''
     patchShebangs src/embrace

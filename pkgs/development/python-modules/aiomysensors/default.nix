@@ -1,16 +1,17 @@
-{ lib
-, aiofiles
-, asyncio-mqtt
-, awesomeversion
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, marshmallow
-, poetry-core
-, pyserial-asyncio
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiofiles,
+  asyncio-mqtt,
+  awesomeversion,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  marshmallow,
+  poetry-core,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-hLUITEPUoUKGqN3AnacahnKwoKdfGN3mp34df74gsbE=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiofiles
@@ -51,9 +50,7 @@ buildPythonPackage rec {
       --replace 'marshmallow = "^3.17"' 'marshmallow = "*"'
   '';
 
-  pythonImportsCheck = [
-    "aiomysensors"
-  ];
+  pythonImportsCheck = [ "aiomysensors" ];
 
   meta = with lib; {
     description = "Library to connect to MySensors gateways";

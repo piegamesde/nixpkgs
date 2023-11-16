@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nixosTests
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
 }:
 
 buildGoModule rec {
@@ -26,6 +27,9 @@ buildGoModule rec {
     homepage = "https://nats.io/";
     changelog = "https://github.com/nats-io/nats-server/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ swdunlop derekcollison ];
+    maintainers = with maintainers; [
+      swdunlop
+      derekcollison
+    ];
   };
 }

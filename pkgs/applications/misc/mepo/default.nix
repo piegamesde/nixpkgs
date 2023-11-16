@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, pkg-config
-, zig
-, makeWrapper
-, busybox
-, curl
-, SDL2
-, SDL2_gfx
-, SDL2_image
-, SDL2_ttf
-, findutils
-, jq
-, ncurses
-, gnome
-, xorg
-, util-linux
-, gpsd
-, geoclue2-with-demo-agent
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  pkg-config,
+  zig,
+  makeWrapper,
+  busybox,
+  curl,
+  SDL2,
+  SDL2_gfx,
+  SDL2_image,
+  SDL2_ttf,
+  findutils,
+  jq,
+  ncurses,
+  gnome,
+  xorg,
+  util-linux,
+  gpsd,
+  geoclue2-with-demo-agent,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,10 +32,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-OIZ617QLjiTiDwcsn0DnRussYtjDkVyifr2mdSqA98A=";
   };
 
-  nativeBuildInputs = [ pkg-config zig makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    zig
+    makeWrapper
+  ];
 
   buildInputs = [
-    curl SDL2 SDL2_gfx SDL2_image SDL2_ttf jq ncurses
+    curl
+    SDL2
+    SDL2_gfx
+    SDL2_image
+    SDL2_ttf
+    jq
+    ncurses
   ];
 
   preBuild = ''
@@ -68,7 +79,19 @@ stdenv.mkDerivation rec {
       --replace " ls " " ls -a " #circumvent wrapping for script detection
     for program in $out/bin/* ; do
       wrapProgram $program \
-        --suffix PATH : $out/bin:${lib.makeBinPath ([ jq ncurses curl busybox findutils util-linux gpsd gnome.zenity xorg.xwininfo ])}
+        --suffix PATH : $out/bin:${
+          lib.makeBinPath ([
+            jq
+            ncurses
+            curl
+            busybox
+            findutils
+            util-linux
+            gpsd
+            gnome.zenity
+            xorg.xwininfo
+          ])
+        }
     done
   '';
 
@@ -80,7 +103,11 @@ stdenv.mkDerivation rec {
 
     homepage = "https://mepo.milesalan.com";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir McSinyx laalsaas ];
+    maintainers = with maintainers; [
+      sikmir
+      McSinyx
+      laalsaas
+    ];
     platforms = platforms.linux;
   };
 }

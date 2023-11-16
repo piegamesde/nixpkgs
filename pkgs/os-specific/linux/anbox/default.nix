@@ -1,28 +1,35 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl
-, cmake, pkg-config, dbus, makeWrapper
-, boost
-, elfutils # for libdw
-, git
-, glib
-, glm
-, gtest
-, libbfd
-, libcap
-, libdwarf
-, libGL
-, libglvnd
-, lxc
-, mesa
-, properties-cpp
-, protobuf
-, protobufc
-, python3
-, runtimeShell
-, SDL2
-, SDL2_image
-, systemd
-, writeText
-, writeScript
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  pkg-config,
+  dbus,
+  makeWrapper,
+  boost,
+  elfutils, # for libdw
+  git,
+  glib,
+  glm,
+  gtest,
+  libbfd,
+  libcap,
+  libdwarf,
+  libGL,
+  libglvnd,
+  lxc,
+  mesa,
+  properties-cpp,
+  protobuf,
+  protobufc,
+  python3,
+  runtimeShell,
+  SDL2,
+  SDL2_image,
+  systemd,
+  writeText,
+  writeScript,
 }:
 
 let
@@ -44,7 +51,6 @@ let
 
     @out@/bin/anbox launch --package=org.anbox.appmgr --component=org.anbox.appmgr.AppViewActivity
   '';
-
 in
 
 stdenv.mkDerivation rec {
@@ -79,16 +85,20 @@ stdenv.mkDerivation rec {
     lxc
     mesa
     properties-cpp
-    protobuf protobufc
+    protobuf
+    protobufc
     python3
-    SDL2 SDL2_image
+    SDL2
+    SDL2_image
     systemd
   ];
 
   # Flag needed by GCC 12 but unrecognized by GCC 9 (aarch64-linux default now)
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (with stdenv; cc.isGNU && lib.versionAtLeast cc.version "12") [
-    "-Wno-error=mismatched-new-delete"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals (with stdenv; cc.isGNU && lib.versionAtLeast cc.version "12") [
+      "-Wno-error=mismatched-new-delete"
+    ]
+  );
 
   patchPhase = ''
     patchShebangs scripts
@@ -120,7 +130,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/anbox \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libGL libglvnd]} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libGL
+          libglvnd
+        ]
+      } \
       --prefix PATH : ${git}/bin
 
     mkdir -p $out/share/dbus-1/services
@@ -135,9 +150,10 @@ stdenv.mkDerivation rec {
       --subst-var out
   '';
 
-  passthru.image = let
-    imgroot = "https://build.anbox.io/android-images";
-  in
+  passthru.image =
+    let
+      imgroot = "https://build.anbox.io/android-images";
+    in
     {
       armv7l-linux = fetchurl {
         url = imgroot + "/2017/06/12/android_1_armhf.img";
@@ -151,14 +167,18 @@ stdenv.mkDerivation rec {
         url = imgroot + "/2018/07/19/android_amd64.img";
         sha256 = "1jlcda4q20w30cm9ikm6bjq01p547nigik1dz7m4v0aps4rws13b";
       };
-    }.${stdenv.system} or null;
+    }
+    .${stdenv.system} or null;
 
   meta = with lib; {
     homepage = "https://anbox.io";
     description = "Android in a box";
     license = licenses.gpl2;
     maintainers = with maintainers; [ edwtjo ];
-    platforms = [ "armv7l-linux" "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "armv7l-linux"
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
-
 }

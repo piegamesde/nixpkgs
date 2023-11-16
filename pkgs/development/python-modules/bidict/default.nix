@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, sphinx
-, hypothesis
-, py
-, pytest-xdist
-, pytestCheckHook
-, pytest-benchmark
-, sortedcollections
-, sortedcontainers
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  sphinx,
+  hypothesis,
+  py,
+  pytest-xdist,
+  pytestCheckHook,
+  pytest-benchmark,
+  sortedcollections,
+  sortedcontainers,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -27,13 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-mPBruasjQwErl5M91OBf71hArztdRVONOCnqos180DY=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    sphinx
-  ];
+  propagatedBuildInputs = [ sphinx ];
 
   nativeCheckInputs = [
     hypothesis

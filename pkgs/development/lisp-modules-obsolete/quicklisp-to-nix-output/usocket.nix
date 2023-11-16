@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "usocket";
   version = "0.8.3";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "usocket";
 
-  asdFilesToKeep = ["usocket.asd"];
+  asdFilesToKeep = [ "usocket.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM usocket DESCRIPTION Universal socket library for Common Lisp SHA256
@@ -24,4 +24,5 @@ rec {
     b1103034f32565487ab3b6eb92c0ca2b NAME usocket FILENAME usocket DEPS
     ((NAME split-sequence FILENAME split-sequence)) DEPENDENCIES
     (split-sequence) VERSION 0.8.3 SIBLINGS (usocket-server usocket-test)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

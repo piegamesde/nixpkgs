@@ -1,15 +1,16 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, playwright
-, playwright-driver
-, pytest
-, pytest-base-url
-, pytestCheckHook
-, python-slugify
-, pythonOlder
-, setuptools-scm
-, django
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  playwright,
+  playwright-driver,
+  pytest,
+  pytest-base-url,
+  pytestCheckHook,
+  python-slugify,
+  pythonOlder,
+  setuptools-scm,
+  django,
 }:
 
 buildPythonPackage rec {
@@ -28,13 +29,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   propagatedBuildInputs = [
     playwright
@@ -50,9 +47,7 @@ buildPythonPackage rec {
     export PLAYWRIGHT_BROWSERS_PATH=${playwright-driver.browsers}
   '';
 
-  pythonImportsCheck = [
-    "pytest_playwright"
-  ];
+  pythonImportsCheck = [ "pytest_playwright" ];
 
   meta = with lib; {
     description = "Pytest plugin to write end-to-end browser tests with Playwright";

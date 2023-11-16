@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, py-cid
-, pytestCheckHook
-, pytest-cov
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  py-cid,
+  pytestCheckHook,
+  pytest-cov,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
       --replace "pytest >= 5.0, < 7.0" "pytest >= 5.0"
   '';
 
-  propagatedBuildInputs = [
-    py-cid
-  ];
+  propagatedBuildInputs = [ py-cid ];
 
   nativeCheckInputs = [
     pytestCheckHook

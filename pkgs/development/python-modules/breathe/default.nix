@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, pythonOlder
-, sphinx
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+  sphinx,
 }:
 
 buildPythonPackage rec {
@@ -34,13 +35,9 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "breathe"
-  ];
+  pythonImportsCheck = [ "breathe" ];
 
   meta = with lib; {
     description = "Sphinx Doxygen renderer";

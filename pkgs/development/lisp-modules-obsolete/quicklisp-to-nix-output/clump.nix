@@ -1,12 +1,16 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "clump";
   version = "20160825-git";
 
   description = "Library for operations on different kinds of trees";
 
-  deps = [ args."acclimation" args."clump-2-3-tree" args."clump-binary-tree" ];
+  deps = [
+    args."acclimation"
+    args."clump-2-3-tree"
+    args."clump-binary-tree"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clump/2016-08-25/clump-20160825-git.tgz";
@@ -15,7 +19,7 @@ rec {
 
   packageName = "clump";
 
-  asdFilesToKeep = ["clump.asd"];
+  asdFilesToKeep = [ "clump.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clump DESCRIPTION Library for operations on different kinds of trees
@@ -27,4 +31,5 @@ rec {
      (NAME clump-binary-tree FILENAME clump-binary-tree))
     DEPENDENCIES (acclimation clump-2-3-tree clump-binary-tree) VERSION
     20160825-git SIBLINGS (clump-2-3-tree clump-binary-tree clump-test)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

@@ -1,4 +1,8 @@
-{ lib, python3, fetchFromGitHub }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+}:
 
 let
   # csvs-to-sqlite is currently not compatible with Click 8. See the following
@@ -8,16 +12,20 @@ let
   python = python3.override {
     packageOverrides = self: super: {
       # Use click 7
-      click = super.click.overridePythonAttrs (old: rec {
-        version = "7.1.2";
-        src = old.src.override {
-          inherit version;
-          hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
-        };
-      });
+      click = super.click.overridePythonAttrs (
+        old: rec {
+          version = "7.1.2";
+          src = old.src.override {
+            inherit version;
+            hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
+          };
+        }
+      );
     };
   };
-in with python.pkgs; buildPythonApplication rec {
+in
+with python.pkgs;
+buildPythonApplication rec {
   pname = "csvs-to-sqlite";
   version = "1.2";
   format = "setuptools";
@@ -39,9 +47,7 @@ in with python.pkgs; buildPythonApplication rec {
     six
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Convert CSV files into a SQLite database";
@@ -49,5 +55,4 @@ in with python.pkgs; buildPythonApplication rec {
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };
-
 }

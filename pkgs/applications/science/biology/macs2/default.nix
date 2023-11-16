@@ -1,4 +1,8 @@
-{ lib, python3, fetchPypi }:
+{
+  lib,
+  python3,
+  fetchPypi,
+}:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "macs2";
@@ -24,9 +28,7 @@ python3.pkgs.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3.pkgs; [ numpy ];
 
-  nativeCheckInputs = [
-    python3.pkgs.unittestCheckHook
-  ];
+  nativeCheckInputs = [ python3.pkgs.unittestCheckHook ];
 
   unittestFlagsArray = [
     "-s"

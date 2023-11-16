@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, awkward
-, hatchling
-, importlib-metadata
-, numpy
-, packaging
-, pytestCheckHook
-, lz4
-, pytest-timeout
-, scikit-hep-testdata
-, xxhash
-, zstandard
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  awkward,
+  hatchling,
+  importlib-metadata,
+  numpy,
+  packaging,
+  pytestCheckHook,
+  lz4,
+  pytest-timeout,
+  scikit-hep-testdata,
+  xxhash,
+  zstandard,
 }:
 
 buildPythonPackage rec {
@@ -29,17 +30,13 @@ buildPythonPackage rec {
     hash = "sha256-w5KUiizXzHz0+5WJNaaRYTaKwP8455klp8/1eKB8cQs=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     awkward
     numpy
     packaging
-  ]  ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -69,9 +66,7 @@ buildPythonPackage rec {
     "tests/test_0220-contiguous-byte-ranges-in-http.py"
   ];
 
-  pythonImportsCheck = [
-    "uproot"
-  ];
+  pythonImportsCheck = [ "uproot" ];
 
   meta = with lib; {
     description = "ROOT I/O in pure Python and Numpy";

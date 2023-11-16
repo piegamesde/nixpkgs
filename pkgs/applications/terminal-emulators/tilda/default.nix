@@ -1,15 +1,17 @@
-{ lib, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, expat
-, gettext
-, gtk
-, libconfuse
-, pcre2
-, vte
-, makeWrapper
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  expat,
+  gettext,
+  gtk,
+  libconfuse,
+  pcre2,
+  vte,
+  makeWrapper,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +25,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uDx28jmjNUyzJbgTJiHbjI9U5mYb9bnfl/9AjbxNUWA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+  ];
   buildInputs = [
     gettext
     gtk
@@ -53,4 +59,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

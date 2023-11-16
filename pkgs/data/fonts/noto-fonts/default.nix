@@ -1,18 +1,19 @@
-{ stdenv
-, stdenvNoCC
-, lib
-, gitUpdater
-, fetchFromGitHub
-, fetchurl
-, cairo
-, nixosTests
-, pkg-config
-, pngquant
-, which
-, imagemagick
-, zopfli
-, buildPackages
-, variants ? [ ]
+{
+  stdenv,
+  stdenvNoCC,
+  lib,
+  gitUpdater,
+  fetchFromGitHub,
+  fetchurl,
+  cairo,
+  nixosTests,
+  pkg-config,
+  pngquant,
+  which,
+  imagemagick,
+  zopfli,
+  buildPackages,
+  variants ? [ ],
 }:
 let
   notoLongDescription = ''
@@ -29,9 +30,10 @@ let
 in
 rec {
   mkNoto =
-    { pname
-    , variants ? [ ]
-    , longDescription ? notoLongDescription
+    {
+      pname,
+      variants ? [ ],
+      longDescription ? notoLongDescription,
     }:
     stdenvNoCC.mkDerivation rec {
       inherit pname;
@@ -46,38 +48,43 @@ rec {
 
       _variants = map (variant: builtins.replaceStrings [ " " ] [ "" ] variant) variants;
 
-      installPhase = ''
-        # We check availability in order of variable -> otf -> ttf
-        # unhinted -- the hinted versions use autohint
-        # maintaining maximum coverage.
-        #
-        # We have a mix of otf and ttf fonts
-        local out_font=$out/share/fonts/noto
-      '' + (if _variants == [ ] then ''
-        for folder in $(ls -d fonts/*/); do
-          if [[ -d "$folder"unhinted/variable-ttf ]]; then
-            install -m444 -Dt $out_font "$folder"unhinted/variable-ttf/*.ttf
-          elif [[ -d "$folder"unhinted/otf ]]; then
-            install -m444 -Dt $out_font "$folder"unhinted/otf/*.otf
+      installPhase =
+        ''
+          # We check availability in order of variable -> otf -> ttf
+          # unhinted -- the hinted versions use autohint
+          # maintaining maximum coverage.
+          #
+          # We have a mix of otf and ttf fonts
+          local out_font=$out/share/fonts/noto
+        ''
+        + (
+          if _variants == [ ] then
+            ''
+              for folder in $(ls -d fonts/*/); do
+                if [[ -d "$folder"unhinted/variable-ttf ]]; then
+                  install -m444 -Dt $out_font "$folder"unhinted/variable-ttf/*.ttf
+                elif [[ -d "$folder"unhinted/otf ]]; then
+                  install -m444 -Dt $out_font "$folder"unhinted/otf/*.otf
+                else
+                  install -m444 -Dt $out_font "$folder"unhinted/ttf/*.ttf
+                fi
+              done
+            ''
           else
-            install -m444 -Dt $out_font "$folder"unhinted/ttf/*.ttf
-          fi
-        done
-      '' else ''
-        for variant in $_variants; do
-          if [[ -d fonts/"$variant"/unhinted/variable-ttf ]]; then
-            install -m444 -Dt $out_font fonts/"$variant"/unhinted/variable-ttf/*.ttf
-          elif [[ -d fonts/"$variant"/unhinted/otf ]]; then
-            install -m444 -Dt $out_font fonts/"$variant"/unhinted/otf/*.otf
-          else
-            install -m444 -Dt $out_font fonts/"$variant"/unhinted/ttf/*.ttf
-          fi
-        done
-      '');
+            ''
+              for variant in $_variants; do
+                if [[ -d fonts/"$variant"/unhinted/variable-ttf ]]; then
+                  install -m444 -Dt $out_font fonts/"$variant"/unhinted/variable-ttf/*.ttf
+                elif [[ -d fonts/"$variant"/unhinted/otf ]]; then
+                  install -m444 -Dt $out_font fonts/"$variant"/unhinted/otf/*.otf
+                else
+                  install -m444 -Dt $out_font fonts/"$variant"/unhinted/ttf/*.ttf
+                fi
+              done
+            ''
+        );
 
-      passthru.updateScript = gitUpdater {
-        rev-prefix = "noto-monthly-release-";
-      };
+      passthru.updateScript = gitUpdater { rev-prefix = "noto-monthly-release-"; };
 
       meta = with lib; {
         description = "Beautiful and free fonts for many languages";
@@ -85,11 +92,20 @@ rec {
         inherit longDescription;
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ mathnerd314 emily jopejoe1 ];
+        maintainers = with maintainers; [
+          mathnerd314
+          emily
+          jopejoe1
+        ];
       };
     };
 
-  mkNotoCJK = { typeface, version, sha256 }:
+  mkNotoCJK =
+    {
+      typeface,
+      version,
+      sha256,
+    }:
     stdenvNoCC.mkDerivation {
       pname = "noto-fonts-cjk-${lib.toLower typeface}";
       inherit version;
@@ -125,13 +141,14 @@ rec {
         '';
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ mathnerd314 emily ];
+        maintainers = with maintainers; [
+          mathnerd314
+          emily
+        ];
       };
     };
 
-  noto-fonts = mkNoto {
-    pname = "noto-fonts";
-  };
+  noto-fonts = mkNoto { pname = "noto-fonts"; };
 
   noto-fonts-lgc-plus = mkNoto {
     pname = "noto-fonts-lgc-plus";
@@ -167,8 +184,13 @@ rec {
   noto-fonts-emoji =
     let
       version = "2.038";
-      emojiPythonEnv =
-        buildPackages.python3.withPackages (p: with p; [ fonttools nototools ]);
+      emojiPythonEnv = buildPackages.python3.withPackages (
+        p:
+        with p; [
+          fonttools
+          nototools
+        ]
+      );
     in
     stdenvNoCC.mkDerivation {
       pname = "noto-fonts-emoji";
@@ -219,9 +241,15 @@ rec {
       meta = with lib; {
         description = "Color and Black-and-White emoji fonts";
         homepage = "https://github.com/googlefonts/noto-emoji";
-        license = with licenses; [ ofl asl20 ];
+        license = with licenses; [
+          ofl
+          asl20
+        ];
         platforms = platforms.all;
-        maintainers = with maintainers; [ mathnerd314 sternenseemann ];
+        maintainers = with maintainers; [
+          mathnerd314
+          sternenseemann
+        ];
       };
     };
 
@@ -251,9 +279,15 @@ rec {
       meta = with lib; {
         description = "Noto Emoji with extended Blob support";
         homepage = "https://github.com/C1710/blobmoji";
-        license = with licenses; [ ofl asl20 ];
+        license = with licenses; [
+          ofl
+          asl20
+        ];
         platforms = platforms.all;
-        maintainers = with maintainers; [ rileyinman jk ];
+        maintainers = with maintainers; [
+          rileyinman
+          jk
+        ];
       };
     };
 }

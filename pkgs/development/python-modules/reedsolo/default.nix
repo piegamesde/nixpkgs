@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchFromGitHub
-, cython
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchFromGitHub,
+  cython,
+  nose,
 }:
 
 buildPythonPackage rec {

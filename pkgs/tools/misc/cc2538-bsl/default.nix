@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "cc2538-bsl";
@@ -33,4 +37,3 @@ python3Packages.buildPythonPackage rec {
     maintainers = with maintainers; [ lorenz ];
   };
 }
-

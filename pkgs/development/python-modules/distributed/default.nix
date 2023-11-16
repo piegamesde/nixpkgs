@@ -1,26 +1,27 @@
-{ lib
-, buildPythonPackage
-, click
-, cloudpickle
-, dask
-, fetchFromGitHub
-, jinja2
-, locket
-, msgpack
-, packaging
-, psutil
-, pythonOlder
-, pyyaml
-, setuptools
-, setuptools-scm
-, sortedcontainers
-, tblib
-, toolz
-, tornado
-, urllib3
-, versioneer
-, wheel
-, zict
+{
+  lib,
+  buildPythonPackage,
+  click,
+  cloudpickle,
+  dask,
+  fetchFromGitHub,
+  jinja2,
+  locket,
+  msgpack,
+  packaging,
+  psutil,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+  sortedcontainers,
+  tblib,
+  toolz,
+  tornado,
+  urllib3,
+  versioneer,
+  wheel,
+  zict,
 }:
 
 buildPythonPackage rec {
@@ -69,15 +70,16 @@ buildPythonPackage rec {
   # When tested random tests would fail and not repeatably
   doCheck = false;
 
-  pythonImportsCheck = [
-    "distributed"
-  ];
+  pythonImportsCheck = [ "distributed" ];
 
   meta = with lib; {
     description = "Distributed computation in Python";
     homepage = "https://distributed.readthedocs.io/";
     changelog = "https://github.com/dask/distributed/blob/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh costrouc ];
+    maintainers = with maintainers; [
+      teh
+      costrouc
+    ];
   };
 }

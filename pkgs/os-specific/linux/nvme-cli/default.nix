@@ -1,10 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config
-, meson
-, ninja
-, libnvme
-, json_c
-, zlib
-, python3Packages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  libnvme,
+  json_c,
+  zlib,
+  python3Packages,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,9 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vnhvVVfEDnmEIdIkfTRoiLB7dZ1rJV3U4PmUUoaxTUs=";
   };
 
-  mesonFlags = [
-    "-Dversion-tag=${version}"
-  ];
+  mesonFlags = [ "-Dversion-tag=${version}" ];
 
   nativeBuildInputs = [
     meson

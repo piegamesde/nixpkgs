@@ -1,9 +1,11 @@
-{ lib, stdenv
-, fetchurl
-, gnome
-, meson
-, python3
-, ninja
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gnome,
+  meson,
+  python3,
+  ninja,
 }:
 
 stdenv.mkDerivation rec {
@@ -11,7 +13,9 @@ stdenv.mkDerivation rec {
   version = "1.0.5";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "cFxtKfQRaim95ONs/BsEbJK274xtrk6uyFAYdH5tpao=";
   };
 

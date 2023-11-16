@@ -1,10 +1,11 @@
-{ lib
-, mkXfceDerivation
-, gtk3
-, libxfce4ui
-, pcre
-, libxfce4util
-, xfce4-panel
+{
+  lib,
+  mkXfceDerivation,
+  gtk3,
+  libxfce4ui,
+  pcre,
+  libxfce4util,
+  xfce4-panel,
 }:
 
 mkXfceDerivation {
@@ -14,7 +15,13 @@ mkXfceDerivation {
   rev-prefix = "";
   sha256 = "sha256-YwUOSTZMoHsWWmi/ajQv/fX8a0IJoc3re3laVEmnX/M=";
 
-  buildInputs = [ gtk3 libxfce4ui pcre libxfce4util xfce4-panel ];
+  buildInputs = [
+    gtk3
+    libxfce4ui
+    pcre
+    libxfce4util
+    xfce4-panel
+  ];
 
   hardeningDisable = [ "format" ];
 

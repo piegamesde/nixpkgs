@@ -1,9 +1,29 @@
-{ lib, stdenv, fetchurl, pkg-config, libtool, perl, bsdbuild, gettext, mandoc
-, libpng, libjpeg, libXinerama, freetype, SDL, libGLU, libGL
-, libsndfile, portaudio, libmysqlclient, fontconfig
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libtool,
+  perl,
+  bsdbuild,
+  gettext,
+  mandoc,
+  libpng,
+  libjpeg,
+  libXinerama,
+  freetype,
+  SDL,
+  libGLU,
+  libGL,
+  libsndfile,
+  portaudio,
+  libmysqlclient,
+  fontconfig,
 }:
 
-let srcs = import ./srcs.nix { inherit fetchurl; }; in
+let
+  srcs = import ./srcs.nix { inherit fetchurl; };
+in
 stdenv.mkDerivation {
   pname = "libagar";
   inherit (srcs) version src;
@@ -24,13 +44,31 @@ stdenv.mkDerivation {
     "--with-manpages=yes"
   ];
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
-  nativeBuildInputs = [ pkg-config libtool gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+    gettext
+  ];
 
   buildInputs = [
-    bsdbuild perl libXinerama SDL libGL libmysqlclient mandoc
-    freetype.dev libpng libjpeg.dev fontconfig portaudio libsndfile
+    bsdbuild
+    perl
+    libXinerama
+    SDL
+    libGL
+    libmysqlclient
+    mandoc
+    freetype.dev
+    libpng
+    libjpeg.dev
+    fontconfig
+    portaudio
+    libsndfile
   ];
 
   meta = with lib; {

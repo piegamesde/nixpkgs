@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cython
-, numpy
-, pytestCheckHook
-, scipy
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cython,
+  numpy,
+  pytestCheckHook,
+  scipy,
 }:
 
 buildPythonPackage rec {
@@ -22,13 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-/suv1KbG3HbiYqEiuCtB/ia3xbxAO5AMuWx1Svy0rMw=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   preBuild = ''
     cython quadprog/quadprog.pyx
@@ -39,10 +36,11 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pytestFlagsArray = [
-    # test fails on aarch64-darwin
-    "--deselect=tests/test_1.py::test_5"
-  ];
+  pytestFlagsArray =
+    [
+      # test fails on aarch64-darwin
+      "--deselect=tests/test_1.py::test_5"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/quadprog/quadprog";

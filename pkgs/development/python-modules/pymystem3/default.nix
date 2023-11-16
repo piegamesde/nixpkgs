@@ -1,12 +1,13 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, isPy3k
-, requests
-, flake8
-, mock
-, pytest
-, mystem
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  isPy3k,
+  requests,
+  flake8,
+  mock,
+  pytest,
+  mystem,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +20,11 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ requests ];
-  nativeCheckInputs = [ flake8 mock pytest ];
+  nativeCheckInputs = [
+    flake8
+    mock
+    pytest
+  ];
   doCheck = isPy3k; # fails on linting
 
   postPatch = ''

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, ptyprocess
-, tornado
-, pytest-timeout
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  ptyprocess,
+  tornado,
+  pytest-timeout,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,24 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-bMu806T4olpewEmR85oLjbUt/NSH6g5XjZd+Z1I4AzM=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     ptyprocess
     tornado
   ];
 
-  pythonImportsCheck = [
-    "terminado"
-  ];
+  pythonImportsCheck = [ "terminado" ];
 
   nativeCheckInputs = [
     pytest-timeout
     pytestCheckHook
   ];
-
 
   meta = with lib; {
     description = "Terminals served by Tornado websockets";

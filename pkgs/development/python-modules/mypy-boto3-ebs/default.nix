@@ -1,9 +1,10 @@
-{ lib
-, boto3
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, typing-extensions
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mypy_boto3_ebs"
-  ];
+  pythonImportsCheck = [ "mypy_boto3_ebs" ];
 
   meta = with lib; {
     description = "Type annotations for boto3.s3";

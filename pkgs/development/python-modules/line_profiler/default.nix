@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cython
-, isPyPy
-, ipython
-, python
-, scikit-build
-, cmake
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  isPyPy,
+  ipython,
+  python,
+  scikit-build,
+  cmake,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -30,13 +31,9 @@ buildPythonPackage rec {
     scikit-build
   ];
 
-  propagatedBuildInputs = [
-    ipython
-  ];
+  propagatedBuildInputs = [ ipython ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   dontUseCmakeConfigure = true;
 
@@ -48,9 +45,7 @@ buildPythonPackage rec {
     PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH cd tests && ${python.interpreter} -m unittest discover -s .
   '';
 
-  pythonImportsCheck = [
-    "line_profiler"
-  ];
+  pythonImportsCheck = [ "line_profiler" ];
 
   meta = with lib; {
     description = "Line-by-line profiler";

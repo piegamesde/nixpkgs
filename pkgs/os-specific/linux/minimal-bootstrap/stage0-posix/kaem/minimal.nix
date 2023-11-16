@@ -1,8 +1,9 @@
-{ lib
-, derivationWithMeta
-, src
-, hex0
-, version
+{
+  lib,
+  derivationWithMeta,
+  src,
+  hex0,
+  version,
 }:
 derivationWithMeta {
   inherit version;
@@ -21,4 +22,3 @@ derivationWithMeta {
     platforms = [ "i686-linux" ];
   };
 }
-

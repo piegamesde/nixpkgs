@@ -1,16 +1,17 @@
-{ lib
-, aiofiles
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, isPy3k
-, libusb1
-, mock
-, pyasn1
-, pythonAtLeast
-, pycryptodome
-, pytestCheckHook
-, rsa
+{
+  lib,
+  aiofiles,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  isPy3k,
+  libusb1,
+  mock,
+  pyasn1,
+  pythonAtLeast,
+  pycryptodome,
+  pytestCheckHook,
+  rsa,
 }:
 
 buildPythonPackage rec {
@@ -34,25 +35,17 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    async = [
-      aiofiles
-    ];
-    usb = [
-      libusb1
-    ];
+    async = [ aiofiles ];
+    usb = [ libusb1 ];
   };
 
   nativeCheckInputs = [
     mock
     pycryptodome
     pytestCheckHook
-  ]
-  ++ passthru.optional-dependencies.async
-  ++ passthru.optional-dependencies.usb;
+  ] ++ passthru.optional-dependencies.async ++ passthru.optional-dependencies.usb;
 
-  pythonImportsCheck = [
-    "adb_shell"
-  ];
+  pythonImportsCheck = [ "adb_shell" ];
 
   meta = with lib; {
     description = "Python implementation of ADB with shell and FileSync functionality";

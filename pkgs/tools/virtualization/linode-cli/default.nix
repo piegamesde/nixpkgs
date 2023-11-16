@@ -1,13 +1,14 @@
-{ lib
-, fetchFromGitHub
-, fetchurl
-, buildPythonApplication
-, colorclass
-, installShellFiles
-, pyyaml
-, requests
-, setuptools
-, terminaltables
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  buildPythonApplication,
+  colorclass,
+  installShellFiles,
+  pyyaml,
+  requests,
+  setuptools,
+  terminaltables,
 }:
 
 let
@@ -19,7 +20,6 @@ let
     url = "https://raw.githubusercontent.com/linode/linode-api-docs/v${specVersion}/openapi.yaml";
     sha256 = specSha256;
   };
-
 in
 
 buildPythonApplication rec {
@@ -33,9 +33,7 @@ buildPythonApplication rec {
     inherit sha256;
   };
 
-  patches = [
-    ./remove-update-check.patch
-  ];
+  patches = [ ./remove-update-check.patch ];
 
   # remove need for git history
   prePatch = ''

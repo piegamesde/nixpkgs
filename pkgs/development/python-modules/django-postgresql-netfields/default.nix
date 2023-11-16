@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, django
-, netaddr
-, six
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  django,
+  netaddr,
+  six,
+  fetchFromGitHub,
+  pythonOlder,
 # required for tests
 #, djangorestframework
 #, psycopg2
@@ -35,12 +36,12 @@ buildPythonPackage rec {
 
   # keeping the dependencies below as comment for reference
   # checkPhase = ''
-    # python manage.py test
+  # python manage.py test
   # '';
 
   # buildInputs = [
-    # djangorestframework
-    # psycopg2
+  # djangorestframework
+  # psycopg2
   # ];
 
   # Requires psycopg2

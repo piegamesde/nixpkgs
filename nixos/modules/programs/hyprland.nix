@@ -1,9 +1,11 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.programs.hyprland;
 
   defaultHyprlandPackage = pkgs.hyprland.override {
@@ -44,7 +46,9 @@ in
     };
 
     xwayland = {
-      enable = mkEnableOption (mdDoc "XWayland") // { default = true; };
+      enable = mkEnableOption (mdDoc "XWayland") // {
+        default = true;
+      };
       hidpi = mkEnableOption null // {
         description = mdDoc ''
           Enable HiDPI XWayland, based on [XWayland MR 733](https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/733).
@@ -73,9 +77,7 @@ in
 
     xdg.portal = {
       enable = mkDefault true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
-      ];
+      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
     };
   };
 }

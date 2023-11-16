@@ -1,15 +1,34 @@
-{ mkDerivation, backintime-common, python3 }:
+{
+  mkDerivation,
+  backintime-common,
+  python3,
+}:
 
 let
-  python' = python3.withPackages (ps: with ps; [ pyqt5 backintime-common ]);
+  python' = python3.withPackages (
+    ps:
+    with ps; [
+      pyqt5
+      backintime-common
+    ]
+  );
 in
 mkDerivation {
   inherit (backintime-common)
-    version src installFlags meta dontAddPrefix nativeBuildInputs;
+    version
+    src
+    installFlags
+    meta
+    dontAddPrefix
+    nativeBuildInputs
+  ;
 
   pname = "backintime-qt";
 
-  buildInputs = [ python' backintime-common ];
+  buildInputs = [
+    python'
+    backintime-common
+  ];
 
   preConfigure = ''
     cd qt

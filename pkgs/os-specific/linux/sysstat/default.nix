@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gettext, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sysstat";
@@ -19,8 +25,16 @@ stdenv.mkDerivation rec {
     export COMPRESS_MANPG=n
   '';
 
-  makeFlags = [ "SYSCONFIG_DIR=$(out)/etc" "IGNORE_FILE_ATTRIBUTES=y" "CHOWN=true" ];
-  installTargets = [ "install_base" "install_nls" "install_man" ];
+  makeFlags = [
+    "SYSCONFIG_DIR=$(out)/etc"
+    "IGNORE_FILE_ATTRIBUTES=y"
+    "CHOWN=true"
+  ];
+  installTargets = [
+    "install_base"
+    "install_nls"
+    "install_man"
+  ];
 
   patches = [ ./install.patch ];
 

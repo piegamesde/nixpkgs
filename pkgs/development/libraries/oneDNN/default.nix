@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, cmake }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+}:
 
 # This was originally called mkl-dnn, then it was renamed to dnnl, and it has
 # just recently been renamed again to oneDNN. See here for details:
@@ -14,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HBCuSZkApd/6UkAxz/KDFb/gyX2SI1S2GwgXAXSTU/c=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -36,6 +45,9 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/oneapi-src/oneDNN/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ alexarice bhipple ];
+    maintainers = with maintainers; [
+      alexarice
+      bhipple
+    ];
   };
 }

@@ -1,9 +1,11 @@
-{ lib, stdenv
-, fetchFromGitHub
-, pkg-config
-, imlib2
-, libX11
-, libXinerama
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  imlib2,
+  libX11,
+  libXinerama,
 }:
 
 stdenv.mkDerivation rec {
@@ -38,7 +40,10 @@ stdenv.mkDerivation rec {
     description = "Allows you to compose wallpapers ('root pixmaps') for X";
     homepage = "https://github.com/himdel/hsetroot";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ henrytill shamilton ];
+    maintainers = with maintainers; [
+      henrytill
+      shamilton
+    ];
     platforms = platforms.unix;
   };
 }

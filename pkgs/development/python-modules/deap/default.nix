@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, matplotlib, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  matplotlib,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "deap";
@@ -9,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-h3LxsP/wQtXlFrCuusLHBiQwRap9DejguGWPOAGBzzE=";
   };
 
-  propagatedBuildInputs = [ numpy matplotlib ];
+  propagatedBuildInputs = [
+    numpy
+    matplotlib
+  ];
 
   nativeCheckInputs = [ nose ];
   checkPhase = ''
@@ -22,6 +32,4 @@ buildPythonPackage rec {
     license = licenses.lgpl3;
     maintainers = with maintainers; [ psyanticy ];
   };
-
 }
-

@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pythonOlder
-, psutil
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder,
+  psutil,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -27,15 +28,15 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [
-    psutil
-  ];
+  propagatedBuildInputs = [ psutil ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "pyperf/tests/" "-v" ];
+  unittestFlagsArray = [
+    "-s"
+    "pyperf/tests/"
+    "-v"
+  ];
 
   meta = with lib; {
     description = "Python module to generate and modify perf";

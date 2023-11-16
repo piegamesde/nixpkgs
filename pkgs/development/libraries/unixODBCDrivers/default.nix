@@ -1,4 +1,22 @@
-{ fetchurl, stdenv, unixODBC, cmake, postgresql, mariadb, sqlite, zlib, libxml2, dpkg, lib, openssl, libkrb5, libuuid, patchelf, libiconv, fetchFromGitHub }:
+{
+  fetchurl,
+  stdenv,
+  unixODBC,
+  cmake,
+  postgresql,
+  mariadb,
+  sqlite,
+  zlib,
+  libxml2,
+  dpkg,
+  lib,
+  openssl,
+  libkrb5,
+  libuuid,
+  patchelf,
+  libiconv,
+  fetchFromGitHub,
+}:
 
 # I haven't done any parameter tweaking.. So the defaults provided here might be bad
 
@@ -12,7 +30,10 @@
       sha256 = "1cyams7157f3gry86x64xrplqi2vyqrq3rqka59gv4lb4rpl7jl7";
     };
 
-    buildInputs = [ unixODBC postgresql ];
+    buildInputs = [
+      unixODBC
+      postgresql
+    ];
 
     passthru = {
       fancyName = "PostgreSQL";
@@ -42,7 +63,11 @@
     };
 
     nativeBuildInputs = [ cmake ];
-    buildInputs = [ unixODBC openssl libiconv ];
+    buildInputs = [
+      unixODBC
+      openssl
+      libiconv
+    ];
 
     preConfigure = ''
       # we don't want to build a .pkg
@@ -83,7 +108,10 @@
     };
 
     nativeBuildInputs = [ cmake ];
-    buildInputs = [ unixODBC mariadb ];
+    buildInputs = [
+      unixODBC
+      mariadb
+    ];
 
     cmakeFlags = [ "-DWITH_UNIXODBC=1" ];
 
@@ -110,9 +138,17 @@
       sha256 = "0dgsj28sc7f7aprmdd0n5a1rmcx6pv7170c8dfjl0x1qsjxim6hs";
     };
 
-    buildInputs = [ unixODBC sqlite zlib libxml2 ];
+    buildInputs = [
+      unixODBC
+      sqlite
+      zlib
+      libxml2
+    ];
 
-    configureFlags = [ "--with-odbc=${unixODBC}" "--with-sqlite3=${sqlite.dev}" ];
+    configureFlags = [
+      "--with-odbc=${unixODBC}"
+      "--with-sqlite3=${sqlite.dev}"
+    ];
 
     installTargets = [ "install-3" ];
 
@@ -149,7 +185,10 @@
       sha256 = "0vwirnp56jibm3qf0kmi4jnz1w7xfhnsfr8imr0c9hg6av4sk3a6";
     };
 
-    nativeBuildInputs = [ dpkg patchelf ];
+    nativeBuildInputs = [
+      dpkg
+      patchelf
+    ];
 
     unpackPhase = "dpkg -x $src ./";
     buildPhase = "";
@@ -161,7 +200,15 @@
     '';
 
     postFixup = ''
-      patchelf --set-rpath ${lib.makeLibraryPath [ unixODBC openssl libkrb5 libuuid stdenv.cc.cc ]} \
+      patchelf --set-rpath ${
+        lib.makeLibraryPath [
+          unixODBC
+          openssl
+          libkrb5
+          libuuid
+          stdenv.cc.cc
+        ]
+      } \
         $out/lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}
     '';
 

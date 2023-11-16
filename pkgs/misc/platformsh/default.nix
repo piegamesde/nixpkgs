@@ -1,4 +1,14 @@
-{ stdenv, fetchurl, makeWrapper, writeShellScript, lib, php, curl, jq, common-updater-scripts }:
+{
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  writeShellScript,
+  lib,
+  php,
+  curl,
+  jq,
+  common-updater-scripts,
+}:
 
 let
   pname = "platformsh";
@@ -26,19 +36,25 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-      updateScript = writeShellScript "update-${pname}" ''
-        set -o errexit
-        export PATH="${lib.makeBinPath [ curl jq common-updater-scripts ]}"
-        NEW_VERSION=$(curl -s https://api.github.com/repos/platformsh/platformsh-cli/releases/latest | jq .tag_name --raw-output)
+    updateScript = writeShellScript "update-${pname}" ''
+      set -o errexit
+      export PATH="${
+        lib.makeBinPath [
+          curl
+          jq
+          common-updater-scripts
+        ]
+      }"
+      NEW_VERSION=$(curl -s https://api.github.com/repos/platformsh/platformsh-cli/releases/latest | jq .tag_name --raw-output)
 
-        if [[ "v${version}" = "$NEW_VERSION" ]]; then
-            echo "The new version same as the old version."
-            exit 0
-        fi
+      if [[ "v${version}" = "$NEW_VERSION" ]]; then
+          echo "The new version same as the old version."
+          exit 0
+      fi
 
-        update-source-version "platformsh" "$NEW_VERSION"
-      '';
-    };
+      update-source-version "platformsh" "$NEW_VERSION"
+    '';
+  };
 
   meta = with lib; {
     description = "The unified tool for managing your Platform.sh services from the command line.";

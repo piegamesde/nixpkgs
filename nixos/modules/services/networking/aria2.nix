@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -11,16 +16,14 @@ let
   sessionFile = "${homeDir}/aria2.session";
   downloadDir = "${homeDir}/Downloads";
 
-  rangesToStringList = map (x: builtins.toString x.from +"-"+ builtins.toString x.to);
+  rangesToStringList = map (x: builtins.toString x.from + "-" + builtins.toString x.to);
 
-  settingsFile = pkgs.writeText "aria2.conf"
-  ''
+  settingsFile = pkgs.writeText "aria2.conf" ''
     dir=${cfg.downloadDir}
     listen-port=${concatStringsSep "," (rangesToStringList cfg.listenPortRange)}
     rpc-listen-port=${toString cfg.rpcListenPort}
     rpc-secret=${cfg.rpcSecret}
   '';
-
 in
 {
   options = {
@@ -55,7 +58,12 @@ in
       };
       listenPortRange = mkOption {
         type = types.listOf types.attrs;
-        default = [ { from = 6881; to = 6999; } ];
+        default = [
+          {
+            from = 6881;
+            to = 6999;
+          }
+        ];
         description = lib.mdDoc ''
           Set UDP listening port range used by DHT(IPv4, IPv6) and UDP tracker.
         '';
@@ -63,7 +71,9 @@ in
       rpcListenPort = mkOption {
         type = types.int;
         default = 6800;
-        description = lib.mdDoc "Specify a port number for JSON-RPC/XML-RPC server to listen to. Possible Values: 1024-65535";
+        description =
+          lib.mdDoc
+            "Specify a port number for JSON-RPC/XML-RPC server to listen to. Possible Values: 1024-65535";
       };
       rpcSecret = mkOption {
         type = types.str;

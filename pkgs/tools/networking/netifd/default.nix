@@ -1,4 +1,15 @@
-{ lib, stdenv, cmake, fetchgit, libnl, libubox, uci, ubus, json_c, pkg-config }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchgit,
+  libnl,
+  libubox,
+  uci,
+  ubus,
+  json_c,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   pname = "netifd";
@@ -10,8 +21,17 @@ stdenv.mkDerivation {
     sha256 = "0jvk2hx8kbkc6d72gh9rwap8ds6qgnmny6306vvzxy68v03xikwv";
   };
 
-  buildInputs = [ libnl libubox uci ubus json_c ];
-  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [
+    libnl
+    libubox
+    uci
+    ubus
+    json_c
+  ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "OpenWrt Network interface configuration daemon";

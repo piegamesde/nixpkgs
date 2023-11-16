@@ -1,15 +1,16 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, fetchPypi
-, pastedeploy
-, pyquery
-, pytestCheckHook
-, pythonOlder
-, six
-, waitress
-, webob
-, wsgiproxy2
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchPypi,
+  pastedeploy,
+  pyquery,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  waitress,
+  webob,
+  wsgiproxy2,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "webtest"
-  ];
+  pythonImportsCheck = [ "webtest" ];
 
   meta = with lib; {
     description = "Helper to test WSGI applications";

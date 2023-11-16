@@ -1,16 +1,17 @@
-{ lib
-, anyascii
-, buildPythonPackage
-, fetchFromGitHub
-, flaky
-, mock
-, paste
-, pillow
-, pymongo
-, pytestCheckHook
-, pythonOlder
-, requests
-, sqlalchemy
+{
+  lib,
+  anyascii,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flaky,
+  mock,
+  paste,
+  pillow,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  sqlalchemy,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-OJc4Qwar3sKhKKF1WldwaueRG7FCboWT2wXYldHJbPU=";
   };
 
-  propagatedBuildInputs = [
-    anyascii
-  ];
+  propagatedBuildInputs = [ anyascii ];
 
   nativeCheckInputs = [
     flaky
@@ -50,9 +49,7 @@ buildPythonPackage rec {
     "tests/test_wsgi_middleware.py"
   ];
 
-  pythonImportsCheck = [
-    "depot"
-  ];
+  pythonImportsCheck = [ "depot" ];
 
   meta = with lib; {
     description = "Toolkit for storing files and attachments in web applications";

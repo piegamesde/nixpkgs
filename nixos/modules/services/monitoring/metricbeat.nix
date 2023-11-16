@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
@@ -8,11 +13,10 @@ let
     mkIf
     mkOption
     types
-    ;
+  ;
   cfg = config.services.metricbeat;
 
-  settingsFormat = pkgs.formats.yaml {};
-
+  settingsFormat = pkgs.formats.yaml { };
 in
 {
   options = {
@@ -44,30 +48,47 @@ in
 
           See <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
         '';
-        default = {};
-        type = types.attrsOf (types.submodule ({ name, ... }: {
-          freeformType = settingsFormat.type;
-          options = {
-            module = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The name of the module.
+        default = { };
+        type = types.attrsOf (
+          types.submodule (
+            { name, ... }:
+            {
+              freeformType = settingsFormat.type;
+              options = {
+                module = mkOption {
+                  type = types.str;
+                  default = name;
+                  description = lib.mdDoc ''
+                    The name of the module.
 
-                Look for the value after `module:` on the individual
-                module pages linked from <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
-              '';
-            };
-          };
-        }));
+                    Look for the value after `module:` on the individual
+                    module pages linked from <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
+                  '';
+                };
+              };
+            }
+          )
+        );
         example = {
           system = {
-            metricsets = ["cpu" "load" "memory" "network" "process" "process_summary" "uptime" "socket_summary"];
+            metricsets = [
+              "cpu"
+              "load"
+              "memory"
+              "network"
+              "process"
+              "process_summary"
+              "uptime"
+              "socket_summary"
+            ];
             enabled = true;
             period = "10s";
-            processes = [".*"];
-            cpu.metrics = ["percentages" "normalized_percentages"];
-            core.metrics = ["percentages"];
+            processes = [ ".*" ];
+            cpu.metrics = [
+              "percentages"
+              "normalized_percentages"
+            ];
+            core.metrics = [ "percentages" ];
           };
         };
       };
@@ -88,7 +109,7 @@ in
 
             tags = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               description = lib.mdDoc ''
                 Tags to place on the shipped metrics.
                 See <https://www.elastic.co/guide/en/beats/metricbeat/current/configuration-general-options.html#_tags_2>.
@@ -97,7 +118,7 @@ in
 
             metricbeat.modules = mkOption {
               type = types.listOf settingsFormat.type;
-              default = [];
+              default = [ ];
               internal = true;
               description = lib.mdDoc ''
                 The metric collecting modules. Use [](#opt-services.metricbeat.modules) instead.
@@ -107,12 +128,11 @@ in
             };
           };
         };
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Configuration for metricbeat. See <https://www.elastic.co/guide/en/beats/metricbeat/current/configuring-howto-metricbeat.html> for supported values.
         '';
       };
-
     };
   };
 
@@ -121,7 +141,7 @@ in
     assertions = [
       {
         # empty modules would cause a failure at runtime
-        assertion = cfg.settings.metricbeat.modules != [];
+        assertion = cfg.settings.metricbeat.modules != [ ];
         message = "services.metricbeat: You must configure one or more modules.";
       }
     ];

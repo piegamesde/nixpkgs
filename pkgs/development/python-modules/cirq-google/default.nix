@@ -1,9 +1,10 @@
-{ buildPythonPackage
-, cirq-core
-, google-api-core
-, protobuf
-, pytestCheckHook
-, freezegun
+{
+  buildPythonPackage,
+  cirq-core,
+  google-api-core,
+  protobuf,
+  pytestCheckHook,
+  freezegun,
 }:
 
 buildPythonPackage rec {
@@ -41,5 +42,4 @@ buildPythonPackage rec {
     "test_get_engine_sampler_explicit_project_id"
     "test_get_engine_sampler"
   ];
-
 }

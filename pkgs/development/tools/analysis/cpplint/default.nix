@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "cpplint";
@@ -18,7 +22,10 @@ python3Packages.buildPythonApplication rec {
     patchShebangs cpplint_unittest.py
   '';
 
-  nativeCheckInputs = with python3Packages; [ pytest pytest-runner ];
+  nativeCheckInputs = with python3Packages; [
+    pytest
+    pytest-runner
+  ];
   checkPhase = ''
     ./cpplint_unittest.py
   '';

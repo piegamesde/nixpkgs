@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchzip
-, cmake
+{
+  lib,
+  stdenv,
+  fetchzip,
+  cmake,
 }:
 
 stdenv.mkDerivation rec {
@@ -10,13 +11,12 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://monkeysaudio.com/files/MAC_${
-      builtins.concatStringsSep "" (lib.strings.splitString "." version)}_SDK.zip";
+        builtins.concatStringsSep "" (lib.strings.splitString "." version)
+      }_SDK.zip";
     sha256 = "sha256-AsWBcEVyHAFzJd9PhbEA866yCGAmgJedvDUP1G7JfUY=";
     stripRoot = false;
   };
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
     description = "APE codec and decompressor";

@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, coreutils
-, emacs
-, glib
-, gmime3
-, texinfo
-, xapian
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  coreutils,
+  emacs,
+  glib,
+  gmime3,
+  texinfo,
+  xapian,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,26 +33,38 @@ stdenv.mkDerivation rec {
   '';
 
   # AOT native-comp, mostly copied from pkgs/build-support/emacs/generic.nix
-  postInstall = lib.optionalString (emacs.withNativeCompilation or false) ''
-    mkdir -p $out/share/emacs/native-lisp
-    export EMACSLOADPATH=$out/share/emacs/site-lisp/mu4e:
-    export EMACSNATIVELOADPATH=$out/share/emacs/native-lisp:
+  postInstall =
+    lib.optionalString (emacs.withNativeCompilation or false) ''
+      mkdir -p $out/share/emacs/native-lisp
+      export EMACSLOADPATH=$out/share/emacs/site-lisp/mu4e:
+      export EMACSNATIVELOADPATH=$out/share/emacs/native-lisp:
 
-    find $out/share/emacs -type f -name '*.el' -print0 \
-      | xargs -0 -I {} -n 1 -P $NIX_BUILD_CORES sh -c \
-          "emacs --batch --eval '(setq large-file-warning-threshold nil)' -f batch-native-compile {} || true"
-  '' + ''
-    emacs --batch -l package --eval "(package-generate-autoloads \"mu4e\" \"$out/share/emacs/site-lisp/mu4e\")"
-  '';
+      find $out/share/emacs -type f -name '*.el' -print0 \
+        | xargs -0 -I {} -n 1 -P $NIX_BUILD_CORES sh -c \
+            "emacs --batch --eval '(setq large-file-warning-threshold nil)' -f batch-native-compile {} || true"
+    ''
+    + ''
+      emacs --batch -l package --eval "(package-generate-autoloads \"mu4e\" \"$out/share/emacs/site-lisp/mu4e\")"
+    '';
 
-  buildInputs = [ emacs glib gmime3 texinfo xapian ];
+  buildInputs = [
+    emacs
+    glib
+    gmime3
+    texinfo
+    xapian
+  ];
 
   mesonFlags = [
     "-Dguile=disabled"
     "-Dreadline=disabled"
   ];
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
   doCheck = true;
 
@@ -60,7 +73,11 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     homepage = "https://www.djcbsoftware.nl/code/mu/";
     changelog = "https://github.com/djcb/mu/releases/tag/v${version}";
-    maintainers = with maintainers; [ antono chvp peterhoeg ];
+    maintainers = with maintainers; [
+      antono
+      chvp
+      peterhoeg
+    ];
     platforms = platforms.unix;
   };
 }

@@ -1,5 +1,11 @@
-{ buildPythonPackage, lib, fetchFromGitHub, pytest
-, typing ? null, funcsigs ? null, pythonOlder
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  pytest,
+  typing ? null,
+  funcsigs ? null,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -15,8 +21,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    lib.optionals (pythonOlder "3.5") [ typing ] ++
-    lib.optionals (pythonOlder "3.4") [ funcsigs ];
+    lib.optionals (pythonOlder "3.5") [ typing ]
+    ++ lib.optionals (pythonOlder "3.4") [ funcsigs ];
 
   nativeCheckInputs = [ pytest ];
   checkPhase = "pytest";
@@ -27,5 +33,4 @@ buildPythonPackage rec {
     homepage = "https://gentools.readthedocs.io/";
     maintainers = with maintainers; [ mredaelli ];
   };
-
 }

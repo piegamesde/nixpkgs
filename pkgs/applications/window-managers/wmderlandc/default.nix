@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libX11, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libX11,
+  xorgproto,
+}:
 
 stdenv.mkDerivation {
   pname = "wmderlandc";
@@ -13,9 +20,7 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/ipc-client";
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     libX11

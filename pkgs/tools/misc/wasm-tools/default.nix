@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,7 +21,10 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoBuildFlags = [ "--package" "wasm-tools" ];
+  cargoBuildFlags = [
+    "--package"
+    "wasm-tools"
+  ];
 
   cargoTestFlags = [ "--all" ];
 

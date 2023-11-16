@@ -1,5 +1,18 @@
-{ lib, rustPlatform, fetchgit, pkg-config, protobuf, python3, wayland-scanner
-, libcap, libdrm, libepoxy, minijail, virglrenderer, wayland, wayland-protocols
+{
+  lib,
+  rustPlatform,
+  fetchgit,
+  pkg-config,
+  protobuf,
+  python3,
+  wayland-scanner,
+  libcap,
+  libdrm,
+  libepoxy,
+  minijail,
+  virglrenderer,
+  wayland,
+  wayland-protocols,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,11 +31,21 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "hGhYzynNvsaSQO2lSEh/OGWkeE8bEinwb0QxX87TQU0=";
 
   nativeBuildInputs = [
-    pkg-config protobuf python3 rustPlatform.bindgenHook wayland-scanner
+    pkg-config
+    protobuf
+    python3
+    rustPlatform.bindgenHook
+    wayland-scanner
   ];
 
   buildInputs = [
-    libcap libdrm libepoxy minijail virglrenderer wayland wayland-protocols
+    libcap
+    libdrm
+    libepoxy
+    minijail
+    virglrenderer
+    wayland
+    wayland-protocols
   ];
 
   preConfigure = ''
@@ -32,10 +55,13 @@ rustPlatform.buildRustPackage rec {
   # crosvm mistakenly expects the stable protocols to be in the root
   # of the pkgdatadir path, rather than under the "stable"
   # subdirectory.
-  PKG_CONFIG_WAYLAND_PROTOCOLS_PKGDATADIR =
-    "${wayland-protocols}/share/wayland-protocols/stable";
+  PKG_CONFIG_WAYLAND_PROTOCOLS_PKGDATADIR = "${wayland-protocols}/share/wayland-protocols/stable";
 
-  buildFeatures = [ "default" "virgl_renderer" "virgl_renderer_next" ];
+  buildFeatures = [
+    "default"
+    "virgl_renderer"
+    "virgl_renderer_next"
+  ];
 
   passthru.updateScript = ./update.py;
 
@@ -44,6 +70,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://chromium.googlesource.com/crosvm/crosvm/";
     maintainers = with maintainers; [ qyliss ];
     license = licenses.bsd3;
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }

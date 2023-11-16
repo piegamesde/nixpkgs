@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, icalendar
-, lxml
-, pytestCheckHook
-, pythonOlder
-, pytz
-, recurring-ical-events
-, requests
-, tzlocal
-, vobject
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  icalendar,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  recurring-ical-events,
+  requests,
+  tzlocal,
+  vobject,
 }:
 
 buildPythonPackage rec {
@@ -54,6 +55,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-caldav/caldav";
     changelog = "https://github.com/python-caldav/caldav/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marenz dotlambda ];
+    maintainers = with maintainers; [
+      marenz
+      dotlambda
+    ];
   };
 }

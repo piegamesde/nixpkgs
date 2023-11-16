@@ -1,8 +1,9 @@
-{ lib
-, fetchFromGitHub
-, nimPackages
-, nixosTests
-, substituteAll
+{
+  lib,
+  fetchFromGitHub,
+  nimPackages,
+  nixosTests,
+  substituteAll,
 }:
 
 nimPackages.buildNimPackage rec {
@@ -21,7 +22,17 @@ nimPackages.buildNimPackage rec {
       src = ./nitter-version.patch;
       inherit version;
       inherit (src) rev;
-      url = builtins.replaceStrings [ "archive" ".tar.gz" ] [ "commit" "" ] src.url;
+      url =
+        builtins.replaceStrings
+          [
+            "archive"
+            ".tar.gz"
+          ]
+          [
+            "commit"
+            ""
+          ]
+          src.url;
     })
   ];
 
@@ -56,9 +67,14 @@ nimPackages.buildNimPackage rec {
     homepage = "https://github.com/zedeus/nitter";
     description = "Alternative Twitter front-end";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ erdnaxe infinidoge ];
+    maintainers = with maintainers; [
+      erdnaxe
+      infinidoge
+    ];
     mainProgram = "nitter";
   };
 
-  passthru.tests = { inherit (nixosTests) nitter; };
+  passthru.tests = {
+    inherit (nixosTests) nitter;
+  };
 }

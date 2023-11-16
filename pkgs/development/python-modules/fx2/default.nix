@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, python
-, fetchFromGitHub
-, sdcc
-, libusb1
-, crcmod
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchFromGitHub,
+  sdcc,
+  libusb1,
+  crcmod,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ sdcc ];
 
-  propagatedBuildInputs = [ libusb1 crcmod ];
+  propagatedBuildInputs = [
+    libusb1
+    crcmod
+  ];
 
   preBuild = ''
     make -C firmware

@@ -1,4 +1,8 @@
-{ stdenv, fetchFromGitHub, autoreconfHook }:
+{
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation {
   pname = "mcfgthreads";
@@ -11,9 +15,10 @@ stdenv.mkDerivation {
     hash = "sha256-PLGIyoLdWgWvkHgRe0vHLIvnCxFpmHtbjS8xRhNM9Xw=";
   };
 
-  outputs = [ "out" "dev" ];
-
-  nativeBuildInputs = [
-    autoreconfHook
+  outputs = [
+    "out"
+    "dev"
   ];
+
+  nativeBuildInputs = [ autoreconfHook ];
 }

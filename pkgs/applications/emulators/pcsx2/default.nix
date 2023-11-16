@@ -1,34 +1,35 @@
-{ cmake
-, fetchFromGitHub
-, lib
-, stdenv
-, curl
-, ffmpeg
-, fmt
-, gettext
-, harfbuzz
-, libaio
-, libbacktrace
-, libpcap
-, libpulseaudio
-, libsamplerate
-, libXrandr
-, libzip
-, pkg-config
-, qtbase
-, qtsvg
-, qttools
-, qttranslations
-, qtwayland
-, rapidyaml
-, SDL2
-, soundtouch
-, vulkan-headers
-, vulkan-loader
-, wayland
-, wrapQtAppsHook
-, xz
-, zip
+{
+  cmake,
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  curl,
+  ffmpeg,
+  fmt,
+  gettext,
+  harfbuzz,
+  libaio,
+  libbacktrace,
+  libpcap,
+  libpulseaudio,
+  libsamplerate,
+  libXrandr,
+  libzip,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qttools,
+  qttranslations,
+  qtwayland,
+  rapidyaml,
+  SDL2,
+  soundtouch,
+  vulkan-headers,
+  vulkan-loader,
+  wayland,
+  wrapQtAppsHook,
+  xz,
+  zip,
 }:
 
 let
@@ -58,7 +59,12 @@ stdenv.mkDerivation rec {
     "-DDISABLE_BUILD_DATE=TRUE"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook zip ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+    zip
+  ];
 
   buildInputs = [
     curl
@@ -98,11 +104,13 @@ stdenv.mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
-      ffmpeg # It's loaded with dlopen. They plan to change it https://github.com/PCSX2/pcsx2/issues/8624
-      libpulseaudio
-      vulkan-loader
-    ]}"
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        ffmpeg # It's loaded with dlopen. They plan to change it https://github.com/PCSX2/pcsx2/issues/8624
+        libpulseaudio
+        vulkan-loader
+      ]
+    }"
   ];
 
   meta = with lib; {
@@ -115,8 +123,14 @@ stdenv.mkDerivation rec {
       PC, with many additional features and benefits.
     '';
     homepage = "https://pcsx2.net";
-    license = with licenses; [ gpl3 lgpl3 ];
-    maintainers = with maintainers; [ hrdinka govanify ];
+    license = with licenses; [
+      gpl3
+      lgpl3
+    ];
+    maintainers = with maintainers; [
+      hrdinka
+      govanify
+    ];
     mainProgram = "pcsx2-qt";
     platforms = platforms.x86_64;
   };

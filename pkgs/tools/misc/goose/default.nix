@@ -1,7 +1,8 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, stdenv
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  stdenv,
 }:
 
 buildGoModule rec {
@@ -31,10 +32,11 @@ buildGoModule rec {
     "-X=main.gooseVersion=${version}"
   ];
 
-  checkFlags = [
-    # these also require a docker daemon
-    "-skip=TestClickUpDown|TestClickHouseFirstThree"
-  ];
+  checkFlags =
+    [
+      # these also require a docker daemon
+      "-skip=TestClickUpDown|TestClickHouseFirstThree"
+    ];
 
   doCheck = !stdenv.isDarwin;
 

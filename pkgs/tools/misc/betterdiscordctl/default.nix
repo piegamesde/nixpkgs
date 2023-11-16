@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchFromGitHub }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "betterdiscordctl";
@@ -36,7 +40,10 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/bb010g/betterdiscordctl";
     description = "A utility for managing BetterDiscord on Linux";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivar bb010g ];
+    maintainers = with maintainers; [
+      ivar
+      bb010g
+    ];
     platforms = platforms.linux;
   };
 }

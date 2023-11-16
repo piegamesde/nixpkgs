@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, numpy
-, moderngl
-, pyglet
-, pillow
-, pyrr
-, glcontext
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  numpy,
+  moderngl,
+  pyglet,
+  pillow,
+  pyrr,
+  glcontext,
 }:
 
 buildPythonPackage rec {
@@ -21,7 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-jsASGYrsH9UNanswX2bZyWS3co/2Y1joaQ98virWcBE=";
   };
 
-  propagatedBuildInputs = [ numpy moderngl pyglet pillow pyrr glcontext ];
+  propagatedBuildInputs = [
+    numpy
+    moderngl
+    pyglet
+    pillow
+    pyrr
+    glcontext
+  ];
 
   disabled = !isPy3k;
 

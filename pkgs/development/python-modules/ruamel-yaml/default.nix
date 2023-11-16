@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ruamel-base
-, ruamel-yaml-clib
-, isPyPy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ruamel-base,
+  ruamel-yaml-clib,
+  isPyPy,
 }:
 
 buildPythonPackage rec {
@@ -19,8 +20,7 @@ buildPythonPackage rec {
   # Tests use relative paths
   doCheck = false;
 
-  propagatedBuildInputs = [ ruamel-base ]
-    ++ lib.optional (!isPyPy) ruamel-yaml-clib;
+  propagatedBuildInputs = [ ruamel-base ] ++ lib.optional (!isPyPy) ruamel-yaml-clib;
 
   pythonImportsCheck = [ "ruamel.yaml" ];
 

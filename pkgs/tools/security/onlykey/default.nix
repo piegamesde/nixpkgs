@@ -1,11 +1,12 @@
-{ fetchgit
-, lib
-, makeDesktopItem
-, node_webkit
-, pkgs
-, runCommand
-, stdenv
-, writeShellScript
+{
+  fetchgit,
+  lib,
+  makeDesktopItem,
+  node_webkit,
+  pkgs,
+  runCommand,
+  stdenv,
+  writeShellScript,
 }:
 
 let
@@ -25,24 +26,27 @@ let
   # define a shortcut to get to onlykey.
   onlykey = self."${onlykeyPkg}";
 
-  super = (import ./onlykey.nix {
-    inherit pkgs;
-    inherit (stdenv.hostPlatform) system;
-  });
+  super =
+    (import ./onlykey.nix {
+      inherit pkgs;
+      inherit (stdenv.hostPlatform) system;
+    });
 
   self = super // {
-    "${onlykeyPkg}" = super."${onlykeyPkg}".override (attrs: {
-      # when installing packages, nw tries to download nwjs in its postInstall
-      # script. There are currently no other postInstall scripts, so this
-      # should not break other things.
-      npmFlags = attrs.npmFlags or "" + " --ignore-scripts";
+    "${onlykeyPkg}" = super."${onlykeyPkg}".override (
+      attrs: {
+        # when installing packages, nw tries to download nwjs in its postInstall
+        # script. There are currently no other postInstall scripts, so this
+        # should not break other things.
+        npmFlags = attrs.npmFlags or "" + " --ignore-scripts";
 
-      # this package requires to be built in order to become runnable.
-      postInstall = ''
-        cd $out/lib/node_modules/${attrs.packageName}
-        npm run build
-      '';
-    });
+        # this package requires to be built in order to become runnable.
+        postInstall = ''
+          cd $out/lib/node_modules/${attrs.packageName}
+          npm run build
+        '';
+      }
+    );
   };
 
   script = writeShellScript "${onlykey.packageName}-starter-${onlykey.version}" ''

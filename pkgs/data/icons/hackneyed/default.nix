@@ -1,4 +1,12 @@
-{ lib, fetchzip, stdenvNoCC, fetchFromGitLab, xcursorgen, imagemagick6, inkscape }:
+{
+  lib,
+  fetchzip,
+  stdenvNoCC,
+  fetchFromGitLab,
+  xcursorgen,
+  imagemagick6,
+  inkscape,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "hackneyed";
@@ -11,7 +19,11 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-Wtrw/EzxCj4cAyfdBp0OJE4+c6FouW7+b6nFTLxdXNY=";
   };
 
-  buildInputs = [ imagemagick6 inkscape xcursorgen ];
+  buildInputs = [
+    imagemagick6
+    inkscape
+    xcursorgen
+  ];
 
   postPatch = ''
     patchShebangs *.sh
@@ -22,7 +34,10 @@ stdenvNoCC.mkDerivation rec {
   enableParallelBuilding = true;
 
   makeFlags = [ "PREFIX=$(out)" ];
-  buildFlags = [ "theme" "theme.left" ];
+  buildFlags = [
+    "theme"
+    "theme.left"
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/Enthymeme/hackneyed-x11-cursors";

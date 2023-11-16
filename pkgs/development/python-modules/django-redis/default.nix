@@ -1,21 +1,22 @@
-{ lib
-, fetchFromGitHub
-, pythonAtLeast
-, pythonOlder
-, buildPythonPackage
+{
+  lib,
+  fetchFromGitHub,
+  pythonAtLeast,
+  pythonOlder,
+  buildPythonPackage,
 
-# propagated
-, django
-, hiredis
-, lz4
-, msgpack
-, redis
+  # propagated
+  django,
+  hiredis,
+  lz4,
+  msgpack,
+  redis,
 
-# testing
-, pkgs
-, pytest-django
-, pytest-mock
-, pytestCheckHook
+  # testing
+  pkgs,
+  pytest-django,
+  pytest-mock,
+  pytestCheckHook,
 }:
 
 let
@@ -46,9 +47,7 @@ buildPythonPackage {
     redis
   ];
 
-  pythonImportsCheck = [
-    "django_redis"
-  ];
+  pythonImportsCheck = [ "django_redis" ];
 
   DJANGO_SETTINGS_MODULE = "tests.settings.sqlite";
 
@@ -69,7 +68,8 @@ buildPythonPackage {
 
   pytestFlagsArray = lib.optionals (pythonAtLeast "3.11") [
     # DeprecationWarning: 'cgi' is deprecated and slated for removal in Python 3.13
-    "-W" "ignore::DeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
   ];
 
   disabledTests = [

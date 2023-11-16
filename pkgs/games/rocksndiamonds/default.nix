@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeDesktopItem, SDL2, SDL2_image, SDL2_mixer, SDL2_net }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeDesktopItem,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_net,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rocksndiamonds";
@@ -30,10 +40,18 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     desktopName = "Rocks'n'Diamonds";
     genericName = "Tile-based puzzle";
-    categories = [ "Game" "LogicGame" ];
+    categories = [
+      "Game"
+      "LogicGame"
+    ];
   };
 
-  buildInputs = [ SDL2 SDL2_image SDL2_mixer SDL2_net ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_net
+  ];
 
   preBuild = ''
     dataDir="$out/share/rocksndiamonds"

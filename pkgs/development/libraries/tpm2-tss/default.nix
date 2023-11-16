@@ -1,8 +1,23 @@
-{ stdenv, lib, fetchFromGitHub
-, autoreconfHook, autoconf-archive, pkg-config, doxygen, perl
-, openssl, json_c, curl, libgcrypt
-, cmocka, uthash, ibm-sw-tpm2, iproute2, procps, which
-, shadow
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  doxygen,
+  perl,
+  openssl,
+  json_c,
+  curl,
+  libgcrypt,
+  cmocka,
+  uthash,
+  ibm-sw-tpm2,
+  iproute2,
+  procps,
+  which,
+  shadow,
 }:
 let
   # Avoid a circular dependency on Linux systems (systemd depends on tpm2-tss,
@@ -24,24 +39,42 @@ stdenv.mkDerivation rec {
     sha256 = "1jijxnvjcsgz5yw4i9fj7ycdnnz90r3l0zicpwinswrw47ac3yy5";
   };
 
-  outputs = [ "out" "man" "dev" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+  ];
 
   nativeBuildInputs = [
-    autoreconfHook autoconf-archive pkg-config doxygen perl
+    autoreconfHook
+    autoconf-archive
+    pkg-config
+    doxygen
+    perl
     shadow
   ];
 
   # cmocka is checked / used(?) in the configure script
   # when unit and/or integration testing is enabled
-  buildInputs = [ openssl json_c curl libgcrypt uthash ]
+  buildInputs =
+    [
+      openssl
+      json_c
+      curl
+      libgcrypt
+      uthash
+    ]
     # cmocka doesn't build with pkgsStatic, and we don't need it anyway
     # when tests are not run
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
-    cmocka
-  ];
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ cmocka ];
 
   nativeCheckInputs = [
-    cmocka which openssl procps_pkg iproute2 ibm-sw-tpm2
+    cmocka
+    which
+    openssl
+    procps_pkg
+    iproute2
+    ibm-sw-tpm2
   ];
 
   strictDeps = true;
@@ -49,11 +82,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = [
-    # Do not rely on dynamic loader path
-    # TCTI loader relies on dlopen(), this patch prefixes all calls with the output directory
-    ./no-dynamic-loader-path.patch
-  ];
+  patches =
+    [
+      # Do not rely on dynamic loader path
+      # TCTI loader relies on dlopen(), this patch prefixes all calls with the output directory
+      ./no-dynamic-loader-path.patch
+    ];
 
   postPatch = ''
     patchShebangs script

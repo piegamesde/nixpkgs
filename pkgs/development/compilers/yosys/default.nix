@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, abc-verifier
-, bash
-, bison
-, fetchFromGitHub
-, flex
-, libffi
-, makeWrapper
-, pkg-config
-, python3
-, readline
-, symlinkJoin
-, tcl
-, verilog
-, zlib
-, yosys
-, yosys-bluespec
-, yosys-ghdl
-, yosys-symbiflow
+{
+  stdenv,
+  lib,
+  abc-verifier,
+  bash,
+  bison,
+  fetchFromGitHub,
+  flex,
+  libffi,
+  makeWrapper,
+  pkg-config,
+  python3,
+  readline,
+  symlinkJoin,
+  tcl,
+  verilog,
+  zlib,
+  yosys,
+  yosys-bluespec,
+  yosys-ghdl,
+  yosys-symbiflow,
 }:
 
 # NOTE: as of late 2020, yosys has switched to an automation robot that
@@ -47,52 +48,57 @@ let
   #        fasm
   #        bluespec
   #     ]);
-  withPlugins = plugins:
+  withPlugins =
+    plugins:
     let
       paths = lib.closePropagation plugins;
-      module_flags = with builtins; concatStringsSep " "
-        (map (n: "--add-flags -m --add-flags ${n.plugin}") plugins);
-    in lib.appendToName "with-plugins" ( symlinkJoin {
-      inherit (yosys) name;
-      paths = paths ++ [ yosys ] ;
-      nativeBuildInputs = [ makeWrapper ];
-      postBuild = ''
-        wrapProgram $out/bin/yosys \
-          --set NIX_YOSYS_PLUGIN_DIRS $out/share/yosys/plugins \
-          ${module_flags}
-      '';
-    });
+      module_flags =
+        with builtins; concatStringsSep " " (map (n: "--add-flags -m --add-flags ${n.plugin}") plugins);
+    in
+    lib.appendToName "with-plugins" (
+      symlinkJoin {
+        inherit (yosys) name;
+        paths = paths ++ [ yosys ];
+        nativeBuildInputs = [ makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/yosys \
+            --set NIX_YOSYS_PLUGIN_DIRS $out/share/yosys/plugins \
+            ${module_flags}
+        '';
+      }
+    );
 
   allPlugins = {
     bluespec = yosys-bluespec;
-    ghdl     = yosys-ghdl;
+    ghdl = yosys-ghdl;
   } // (yosys-symbiflow);
-
-
-in stdenv.mkDerivation rec {
-  pname   = "yosys";
+in
+stdenv.mkDerivation rec {
+  pname = "yosys";
   version = "0.30";
 
   src = fetchFromGitHub {
     owner = "YosysHQ";
-    repo  = "yosys";
-    rev   = "${pname}-${version}";
-    hash  = "sha256-qhMcXJFEuBPl7vh+gYTu7PnSWi+L3YMLrBMQyYqfc0w=";
+    repo = "yosys";
+    rev = "${pname}-${version}";
+    hash = "sha256-qhMcXJFEuBPl7vh+gYTu7PnSWi+L3YMLrBMQyYqfc0w=";
   };
 
   enableParallelBuilding = true;
-  nativeBuildInputs = [ pkg-config bison flex ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    flex
+  ];
   buildInputs = [
     tcl
     readline
     libffi
     zlib
-    (python3.withPackages (pp: with pp; [
-      click
-    ]))
+    (python3.withPackages (pp: with pp; [ click ]))
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}"];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   patches = [
     ./plugin-search-dirs.patch
@@ -107,23 +113,25 @@ in stdenv.mkDerivation rec {
     patchShebangs tests ./misc/yosys-config.in
   '';
 
-  preBuild = let
-    shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
-  in ''
-    chmod -R u+w .
-    make config-${if stdenv.cc.isClang or false then "clang" else "gcc"}
-    echo 'ABCEXTERNAL = ${abc-verifier}/bin/abc' >> Makefile.conf
+  preBuild =
+    let
+      shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
+    in
+    ''
+      chmod -R u+w .
+      make config-${if stdenv.cc.isClang or false then "clang" else "gcc"}
+      echo 'ABCEXTERNAL = ${abc-verifier}/bin/abc' >> Makefile.conf
 
-    if ! grep -q "ABCREV = ${shortAbcRev}" Makefile; then
-      echo "ERROR: yosys isn't compatible with the provided abc (${shortAbcRev}), failing."
-      exit 1
-    fi
+      if ! grep -q "ABCREV = ${shortAbcRev}" Makefile; then
+        echo "ERROR: yosys isn't compatible with the provided abc (${shortAbcRev}), failing."
+        exit 1
+      fi
 
-    if ! grep -q "YOSYS_VER := $version" Makefile; then
-      echo "ERROR: yosys version in Makefile isn't equivalent to version of the nix package (allegedly ${version}), failing."
-      exit 1
-    fi
-  '';
+      if ! grep -q "YOSYS_VER := $version" Makefile; then
+        echo "ERROR: yosys version in Makefile isn't equivalent to version of the nix package (allegedly ${version}), failing."
+        exit 1
+      fi
+    '';
 
   checkTarget = "test";
   doCheck = true;
@@ -136,7 +144,7 @@ in stdenv.mkDerivation rec {
   #
   # add a symlink to fake things so that both variants work the same way. this
   # is also needed at build time for the test suite.
-  postBuild   = "ln -sfv ${abc-verifier}/bin/abc ./yosys-abc";
+  postBuild = "ln -sfv ${abc-verifier}/bin/abc ./yosys-abc";
   postInstall = "ln -sfv ${abc-verifier}/bin/abc $out/bin/yosys-abc";
 
   setupHook = ./setup-hook.sh;
@@ -147,9 +155,13 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Open RTL synthesis framework and tools";
-    homepage    = "https://yosyshq.net/yosys/";
-    license     = licenses.isc;
-    platforms   = platforms.all;
-    maintainers = with maintainers; [ shell thoughtpolice emily ];
+    homepage = "https://yosyshq.net/yosys/";
+    license = licenses.isc;
+    platforms = platforms.all;
+    maintainers = with maintainers; [
+      shell
+      thoughtpolice
+      emily
+    ];
   };
 }

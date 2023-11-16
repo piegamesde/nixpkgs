@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, isPyPy
-, pkgs
-, python
-, pyqt4
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  isPyPy,
+  pkgs,
+  python,
+  pyqt4,
 }:
 
 buildPythonPackage {
@@ -18,7 +19,10 @@ buildPythonPackage {
 
   nativeBuildInputs = [ pkgs.xorg.lndir ];
 
-  buildInputs = [ pyqt4.qt pyqt4 ];
+  buildInputs = [
+    pyqt4.qt
+    pyqt4
+  ];
 
   preConfigure = ''
     mkdir -p $out

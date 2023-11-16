@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, ronn }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  ronn,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flock";
@@ -24,7 +31,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Cross-platform version of flock(1)";
-    maintainers = with maintainers; [ matthewbauer msfjarvis ];
+    maintainers = with maintainers; [
+      matthewbauer
+      msfjarvis
+    ];
     platforms = platforms.all;
     license = licenses.isc;
   };

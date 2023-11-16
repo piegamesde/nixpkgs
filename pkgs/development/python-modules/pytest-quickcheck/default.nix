@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pytest-flakes
-, tox
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytest-flakes,
+  tox,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ pytest-flakes tox ];
+  propagatedBuildInputs = [
+    pytest-flakes
+    tox
+  ];
 
   meta = with lib; {
     license = licenses.asl20;

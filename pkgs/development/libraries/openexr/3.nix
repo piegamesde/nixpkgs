@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, zlib
-, cmake
-, imath
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  zlib,
+  cmake,
+  imath,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Kl+aOA797aZvrvW4ZQNHdSU7YFPieZEzX3aYeaoH6eU=";
   };
 
-  outputs = [ "bin" "dev" "out" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "doc"
+  ];
 
   # tests are determined to use /var/tmp on unix
   postPatch = ''
@@ -30,7 +36,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
 
   nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ imath zlib ];
+  propagatedBuildInputs = [
+    imath
+    zlib
+  ];
 
   # Without 'sse' enforcement tests fail on i686 as due to excessive precision as:
   #   error reading back channel B pixel 21,-76 got -nan expected -nan

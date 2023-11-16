@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gfortran
-, python3
-, amd-blis
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gfortran,
+  python3,
+  amd-blis,
 
-, withOpenMP ? true
-, blas64 ? false
+  withOpenMP ? true,
+  blas64 ? false,
 }:
 
 # right now only LP64 is supported
@@ -23,16 +24,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-jESae5NqANw90RBbIHH2oGEq5/mudc4IONv50P/AeQ0=";
   };
 
-  patches = [
-    # The LAPACKE interface is compiled as a separate static library,
-    # we want the main dynamic library to provide LAPACKE symbols.
-    # This patch adds lapacke.a to the shared library as well.
-    ./add-lapacke.diff
+  patches =
+    [
+      # The LAPACKE interface is compiled as a separate static library,
+      # we want the main dynamic library to provide LAPACKE symbols.
+      # This patch adds lapacke.a to the shared library as well.
+      ./add-lapacke.diff
+    ];
+
+  passthru = {
+    inherit blas64;
+  };
+
+  nativeBuildInputs = [
+    gfortran
+    python3
   ];
-
-  passthru = { inherit blas64; };
-
-  nativeBuildInputs = [ gfortran python3 ];
 
   buildInputs = [ amd-blis ];
 
@@ -54,8 +61,7 @@ stdenv.mkDerivation rec {
     # implicit dependency. Moreover, since the point of the AMD forks
     # is to optimized for recent AMD CPUs, link against AMD BLIS.
     "LDFLAGS=-lcblas"
-  ]
-  ++ lib.optionals withOpenMP [ "--enable-multithreading=openmp" ];
+  ] ++ lib.optionals withOpenMP [ "--enable-multithreading=openmp" ];
 
   enableParallelBuilding = true;
 

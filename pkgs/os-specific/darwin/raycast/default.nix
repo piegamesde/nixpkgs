@@ -1,7 +1,8 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, undmg
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  undmg,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -43,7 +44,10 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://raycast.app/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ lovesegfault stepbrobd ];
+    maintainers = with maintainers; [
+      lovesegfault
+      stepbrobd
+    ];
     platforms = platforms.darwin;
   };
 }

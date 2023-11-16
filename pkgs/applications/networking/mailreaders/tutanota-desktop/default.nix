@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, copyDesktopItems, makeWrapper,
-electron, libsecret }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  electron,
+  libsecret,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tutanota-desktop";
@@ -46,7 +54,12 @@ stdenv.mkDerivation rec {
       $out/bin/tutanota-desktop \
       --add-flags $out/share/tutanota-desktop/resources/app.asar \
       --run "mkdir -p /tmp/tutanota" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret stdenv.cc.cc.lib ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libsecret
+          stdenv.cc.cc.lib
+        ]
+      }
 
     runHook postInstall
   '';

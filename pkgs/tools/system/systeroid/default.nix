@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, linux-doc
-, xorg
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  linux-doc,
+  xorg,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,9 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-aWkWufHZaAmebdDdrgrIbQrSSzj/RgymQ4hOkGtY2Zc=";
 
-  buildInputs = [
-    xorg.libxcb
-  ];
+  buildInputs = [ xorg.libxcb ];
 
   # tries to access /sys/
   doCheck = false;

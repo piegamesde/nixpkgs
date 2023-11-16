@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cargo
-, cmake
-, openssl
-, perl
-, pkg-config
-, python3
-, rustPlatform
-, sqlcipher
-, sqlite
-, fixDarwinDylibNames
-, CoreFoundation
-, Security
-, SystemConfiguration
-, libiconv
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cargo,
+  cmake,
+  openssl,
+  perl,
+  pkg-config,
+  python3,
+  rustPlatform,
+  sqlcipher,
+  sqlite,
+  fixDarwinDylibNames,
+  CoreFoundation,
+  Security,
+  SystemConfiguration,
+  libiconv,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,9 +29,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fSTte2rqy0w4zk9Vh4y3/UWplR0hvwdBqSoSYjoUhPg=";
   };
 
-  patches = [
-    ./no-static-lib.patch
-  ];
+  patches = [ ./no-static-lib.patch ];
 
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
@@ -48,24 +47,22 @@ stdenv.mkDerivation rec {
     pkg-config
     rustPlatform.cargoSetupHook
     cargo
-  ] ++ lib.optionals stdenv.isDarwin [
-    fixDarwinDylibNames
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  buildInputs = [
-    openssl
-    sqlcipher
-    sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Security
-    SystemConfiguration
-    libiconv
-  ];
+  buildInputs =
+    [
+      openssl
+      sqlcipher
+      sqlite
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      Security
+      SystemConfiguration
+      libiconv
+    ];
 
-  nativeCheckInputs = with rustPlatform; [
-    cargoCheckHook
-  ];
+  nativeCheckInputs = with rustPlatform; [ cargoCheckHook ];
 
   passthru.tests = {
     python = python3.pkgs.deltachat;
@@ -76,7 +73,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/deltachat/deltachat-core-rust/";
     changelog = "https://github.com/deltachat/deltachat-core-rust/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ dotlambda srapenne ];
+    maintainers = with maintainers; [
+      dotlambda
+      srapenne
+    ];
     platforms = platforms.unix;
   };
 }

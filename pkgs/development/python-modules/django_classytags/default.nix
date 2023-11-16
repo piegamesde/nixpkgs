@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-25/Hxe0I3CYZzEwZsZUUzawT3bYYJ4qwcJTGJtKO7w0=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   # pypi version doesn't include runtest.py, needed to run tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "classytags"
-  ];
+  pythonImportsCheck = [ "classytags" ];
 
   meta = with lib; {
     description = "Class based template tags for Django";

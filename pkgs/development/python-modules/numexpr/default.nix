@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, packaging
-, python
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  packaging,
+  python,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-1UMlN0GNGGkbkRXWFdbaoX7oJ1uu8+3xr7v4vGmAYUc=";
   };
 
-  nativeBuildInputs = [
-    numpy
-  ];
+  nativeBuildInputs = [ numpy ];
 
   propagatedBuildInputs = [
     numpy
@@ -40,9 +39,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "numexpr"
-  ];
+  pythonImportsCheck = [ "numexpr" ];
 
   meta = with lib; {
     description = "Fast numerical array expression evaluator for NumPy";

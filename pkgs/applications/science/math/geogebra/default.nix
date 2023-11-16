@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, jre, makeDesktopItem, makeWrapper, unzip, language ? "en_US" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeDesktopItem,
+  makeWrapper,
+  unzip,
+  language ? "en_US",
+}:
 let
   pname = "geogebra";
   version = "5-0-745-0";
@@ -15,8 +24,15 @@ let
     desktopName = "Geogebra";
     genericName = "Geogebra";
     comment = meta.description;
-    categories = [ "Education" "Science" "Math" ];
-    mimeTypes = [ "application/vnd.geogebra.file" "application/vnd.geogebra.tool" ];
+    categories = [
+      "Education"
+      "Science"
+      "Math"
+    ];
+    mimeTypes = [
+      "application/vnd.geogebra.file"
+      "application/vnd.geogebra.tool"
+    ];
   };
 
   meta = with lib; {
@@ -27,18 +43,31 @@ let
       calculus in one easy-to-use package.
     '';
     homepage = "https://www.geogebra.org/";
-    maintainers = with maintainers; [ sikmir imsofi ];
-    license = with licenses; [ gpl3 cc-by-nc-sa-30 geogebra ];
+    maintainers = with maintainers; [
+      sikmir
+      imsofi
+    ];
+    license = with licenses; [
+      gpl3
+      cc-by-nc-sa-30
+      geogebra
+    ];
     sourceProvenance = with sourceTypes; [
       binaryBytecode
-      binaryNativeCode  # some jars include native binaries
+      binaryNativeCode # some jars include native binaries
     ];
     platforms = with platforms; linux ++ darwin;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 
   linuxPkg = stdenv.mkDerivation {
-    inherit pname version meta srcIcon desktopItem;
+    inherit
+      pname
+      version
+      meta
+      srcIcon
+      desktopItem
+    ;
 
     preferLocalBuild = true;
 
@@ -91,6 +120,4 @@ let
     '';
   };
 in
-if stdenv.isDarwin
-then darwinPkg
-else linuxPkg
+if stdenv.isDarwin then darwinPkg else linuxPkg

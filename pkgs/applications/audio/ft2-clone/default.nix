@@ -1,14 +1,16 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, nixosTests
-, alsa-lib
-, SDL2
-, libiconv
-, CoreAudio
-, CoreMIDI
-, CoreServices
-, Cocoa
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  nixosTests,
+  alsa-lib,
+  SDL2,
+  libiconv,
+  CoreAudio,
+  CoreMIDI,
+  CoreServices,
+  Cocoa,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,15 +30,16 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 ]
+  buildInputs =
+    [ SDL2 ]
     ++ lib.optional stdenv.isLinux alsa-lib
     ++ lib.optionals stdenv.isDarwin [
-         libiconv
-         CoreAudio
-         CoreMIDI
-         CoreServices
-         Cocoa
-       ];
+      libiconv
+      CoreAudio
+      CoreMIDI
+      CoreServices
+      Cocoa
+    ];
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin [
     "-framework CoreAudio"
@@ -59,4 +62,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.littleEndian;
   };
 }
-

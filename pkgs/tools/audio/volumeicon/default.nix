@@ -1,6 +1,12 @@
-{ fetchFromGitHub, lib, stdenv
-, autoreconfHook, intltool, pkg-config
-, gtk3, alsa-lib
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  autoreconfHook,
+  intltool,
+  pkg-config,
+  gtk3,
+  alsa-lib,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,4 +39,3 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
   };
 }
-

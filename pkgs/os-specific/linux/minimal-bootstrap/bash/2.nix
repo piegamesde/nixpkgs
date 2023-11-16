@@ -1,13 +1,14 @@
-{ lib
-, derivationWithMeta
-, fetchurl
-, kaem
-, tinycc
-, gnumake
-, gnupatch
-, coreutils
-, mescc-tools-extra
-, bash_2_05
+{
+  lib,
+  derivationWithMeta,
+  fetchurl,
+  kaem,
+  tinycc,
+  gnumake,
+  gnupatch,
+  coreutils,
+  mescc-tools-extra,
+  bash_2_05,
 }:
 let
   pname = "bash";
@@ -66,81 +67,91 @@ let
     })
   ];
 in
-kaem.runCommand "${pname}-${version}" {
-  inherit pname version;
+kaem.runCommand "${pname}-${version}"
+  {
+    inherit pname version;
 
-  nativeBuildInputs = [
-    tinycc.compiler
-    gnumake
-    gnupatch
-    coreutils
-  ];
+    nativeBuildInputs = [
+      tinycc.compiler
+      gnumake
+      gnupatch
+      coreutils
+    ];
 
-  passthru.runCommand = name: env: buildCommand:
-    derivationWithMeta ({
-      inherit name buildCommand;
-      builder = "${bash_2_05}/bin/bash";
-      args = [
-        "-e"
-        (builtins.toFile "bash-builder.sh" ''
-          export CONFIG_SHELL=$SHELL
-          bash -eux $buildCommandPath
-        '')
-      ];
-      passAsFile = [ "buildCommand" ];
+    passthru.runCommand =
+      name: env: buildCommand:
+      derivationWithMeta (
+        {
+          inherit name buildCommand;
+          builder = "${bash_2_05}/bin/bash";
+          args = [
+            "-e"
+            (builtins.toFile "bash-builder.sh" ''
+              export CONFIG_SHELL=$SHELL
+              bash -eux $buildCommandPath
+            '')
+          ];
+          passAsFile = [ "buildCommand" ];
 
-      SHELL = "${bash_2_05}/bin/bash";
-      PATH = lib.makeBinPath ((env.nativeBuildInputs or []) ++ [
-        bash_2_05
-        coreutils
-        # provides untar, ungz, and unbz2
-        mescc-tools-extra
-      ]);
-    } // (builtins.removeAttrs env [ "nativeBuildInputs" ]));
+          SHELL = "${bash_2_05}/bin/bash";
+          PATH = lib.makeBinPath (
+            (env.nativeBuildInputs or [ ])
+            ++ [
+              bash_2_05
+              coreutils
+              # provides untar, ungz, and unbz2
+              mescc-tools-extra
+            ]
+          );
+        }
+        // (builtins.removeAttrs env [ "nativeBuildInputs" ])
+      );
 
-  passthru.tests.get-version = result:
-    kaem.runCommand "${pname}-get-version-${version}" {} ''
-      ${result}/bin/bash --version
-      mkdir ''${out}
-    '';
+    passthru.tests.get-version =
+      result:
+      kaem.runCommand "${pname}-get-version-${version}" { } ''
+        ${result}/bin/bash --version
+        mkdir ''${out}
+      '';
 
-  meta = with lib; {
-    description = "GNU Bourne-Again Shell, the de facto standard shell on Linux";
-    homepage = "https://www.gnu.org/software/bash";
-    license = licenses.gpl3Plus;
-    maintainers = teams.minimal-bootstrap.members;
-    platforms = platforms.unix;
-  };
-} ''
-  # Unpack
-  ungz --file ${src} --output bash.tar
-  untar --file bash.tar
-  rm bash.tar
-  cd bash-${version}
+    meta = with lib; {
+      description = "GNU Bourne-Again Shell, the de facto standard shell on Linux";
+      homepage = "https://www.gnu.org/software/bash";
+      license = licenses.gpl3Plus;
+      maintainers = teams.minimal-bootstrap.members;
+      platforms = platforms.unix;
+    };
+  }
+  ''
+    # Unpack
+    ungz --file ${src} --output bash.tar
+    untar --file bash.tar
+    rm bash.tar
+    cd bash-${version}
 
-  # Patch
-  ${lib.concatMapStringsSep "\n" (f: "patch -Np0 -i ${f}") patches}
+    # Patch
+    ${lib.concatMapStringsSep "\n" (f: "patch -Np0 -i ${f}") patches}
 
-  # Configure
-  cp ${main_mk} Makefile
-  cp ${builtins_mk} builtins/Makefile
-  cp ${common_mk} common.mk
-  touch config.h
-  touch include/version.h
-  touch include/pipesize.h
+    # Configure
+    cp ${main_mk} Makefile
+    cp ${builtins_mk} builtins/Makefile
+    cp ${common_mk} common.mk
+    touch config.h
+    touch include/version.h
+    touch include/pipesize.h
 
-  # Build
-  make \
-    CC="tcc -B ${tinycc.libs}/lib" \
-    mkbuiltins
-  cd builtins
-  make \
-    CC="tcc -B ${tinycc.libs}/lib" \
-    libbuiltins.a
-  cd ..
-  make CC="tcc -B ${tinycc.libs}/lib"
+    # Build
+    make \
+      CC="tcc -B ${tinycc.libs}/lib" \
+      mkbuiltins
+    cd builtins
+    make \
+      CC="tcc -B ${tinycc.libs}/lib" \
+      libbuiltins.a
+    cd ..
+    make CC="tcc -B ${tinycc.libs}/lib"
 
-  # Install
-  install -D bash ''${out}/bin/bash
-  ln -s bash ''${out}/bin/sh
-''
+    # Install
+    install -D bash ''${out}/bin/bash
+    ln -s bash ''${out}/bin/sh
+  ''

@@ -1,45 +1,46 @@
-{ stdenv
-, lib
-, AppKit
-, DarwinTools
-, alsa-utils
-, at-spi2-core
-, cmake
-, curl
-, dbus
-, fetchFromGitHub
-, fetchpatch
-, flac
-, gtk3
-, jasper
-, libGLU
-, libarchive
-, libdatrie
-, libelf
-, libepoxy
-, libexif
-, libogg
-, libopus
-, libselinux
-, libsepol
-, libsndfile
-, libthai
-, libunarr
-, libusb1
-, libvorbis
-, libxkbcommon
-, lsb-release
-, lz4
-, makeWrapper
-, pcre
-, pkg-config
-, portaudio
-, sqlite
-, tinyxml
-, udev
-, util-linux
-, wxGTK32
-, xorg
+{
+  stdenv,
+  lib,
+  AppKit,
+  DarwinTools,
+  alsa-utils,
+  at-spi2-core,
+  cmake,
+  curl,
+  dbus,
+  fetchFromGitHub,
+  fetchpatch,
+  flac,
+  gtk3,
+  jasper,
+  libGLU,
+  libarchive,
+  libdatrie,
+  libelf,
+  libepoxy,
+  libexif,
+  libogg,
+  libopus,
+  libselinux,
+  libsepol,
+  libsndfile,
+  libthai,
+  libunarr,
+  libusb1,
+  libvorbis,
+  libxkbcommon,
+  lsb-release,
+  lz4,
+  makeWrapper,
+  pcre,
+  pkg-config,
+  portaudio,
+  sqlite,
+  tinyxml,
+  udev,
+  util-linux,
+  wxGTK32,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {
@@ -64,62 +65,68 @@ stdenv.mkDerivation rec {
     sed -i '/fixup_bundle/d' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.isLinux [
-    lsb-release
-  ] ++ lib.optionals stdenv.isDarwin [
-    DarwinTools
-    makeWrapper
-  ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ]
+    ++ lib.optionals stdenv.isLinux [ lsb-release ]
+    ++ lib.optionals stdenv.isDarwin [
+      DarwinTools
+      makeWrapper
+    ];
 
-  buildInputs = [
-    at-spi2-core
-    curl
-    dbus
-    flac
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    # gtk3 propagates AppKit from the 10.12 SDK
-    AppKit
-  ] ++ [
-    gtk3
-    jasper
-    libGLU
-    libarchive
-    libdatrie
-    libelf
-    libepoxy
-    libexif
-    libogg
-    libopus
-    libsndfile
-    libthai
-    libunarr
-    libusb1
-    libvorbis
-    libxkbcommon
-    lz4
-    pcre
-    portaudio
-    sqlite
-    tinyxml
-    wxGTK32
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-utils
-    libselinux
-    libsepol
-    udev
-    util-linux
-    xorg.libXdmcp
-    xorg.libXtst
-  ];
+  buildInputs =
+    [
+      at-spi2-core
+      curl
+      dbus
+      flac
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
+      [
+        # gtk3 propagates AppKit from the 10.12 SDK
+        AppKit
+      ]
+    ++ [
+      gtk3
+      jasper
+      libGLU
+      libarchive
+      libdatrie
+      libelf
+      libepoxy
+      libexif
+      libogg
+      libopus
+      libsndfile
+      libthai
+      libunarr
+      libusb1
+      libvorbis
+      libxkbcommon
+      lz4
+      pcre
+      portaudio
+      sqlite
+      tinyxml
+      wxGTK32
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      alsa-utils
+      libselinux
+      libsepol
+      udev
+      util-linux
+      xorg.libXdmcp
+      xorg.libXtst
+    ];
 
   cmakeFlags = [ "-DOCPN_BUNDLE_DOCS=true" ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (!stdenv.hostPlatform.isx86) [
-    "-DSQUISH_USE_SSE=0"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals (!stdenv.hostPlatform.isx86) [ "-DSQUISH_USE_SSE=0" ]
+  );
 
   postInstall = lib.optionals stdenv.isDarwin ''
     mkdir -p $out/Applications
@@ -131,7 +138,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A concise ChartPlotter/Navigator";
-    maintainers = with maintainers; [ kragniz lovesegfault ];
+    maintainers = with maintainers; [
+      kragniz
+      lovesegfault
+    ];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
     homepage = "https://opencpn.org/";

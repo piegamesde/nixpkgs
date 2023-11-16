@@ -1,6 +1,13 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config
-, openssl
-, odbcSupport ? true, unixODBC ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  openssl,
+  odbcSupport ? true,
+  unixODBC ? null,
+}:
 
 assert odbcSupport -> unixODBC != null;
 
@@ -11,21 +18,22 @@ stdenv.mkDerivation rec {
   version = "1.3.18";
 
   src = fetchurl {
-    url    = "https://www.freetds.org/files/stable/${pname}-${version}.tar.bz2";
+    url = "https://www.freetds.org/files/stable/${pname}-${version}.tar.bz2";
     sha256 = "sha256-HYVh1XxxmRoo9GgTQ3hcI6aj61TVvNI4l9B+OCX/LVY=";
   };
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optional odbcSupport unixODBC;
+  buildInputs = [ openssl ] ++ lib.optional odbcSupport unixODBC;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "Libraries to natively talk to Microsoft SQL Server and Sybase databases";
-    homepage    = "https://www.freetds.org";
-    license     = licenses.lgpl2;
+    homepage = "https://www.freetds.org";
+    license = licenses.lgpl2;
     maintainers = with maintainers; [ peterhoeg ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

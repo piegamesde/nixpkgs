@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, runCommandLocal
-, bison
-, flex
-, llvmPackages_11
-, opencl-clang
-, python3
-, spirv-tools
-, spirv-headers
-, spirv-llvm-translator
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  runCommandLocal,
+  bison,
+  flex,
+  llvmPackages_11,
+  opencl-clang,
+  python3,
+  spirv-tools,
+  spirv-headers,
+  spirv-llvm-translator,
 
-, buildWithPatches ? true
+  buildWithPatches ? true,
 }:
 
 let
@@ -23,9 +24,12 @@ let
     sha256 = "sha256-74JBW7qU8huSqwqgxNbvbGj1DlJJThgGhb3owBYmhvI=";
   };
 
-  llvmPkgs = llvmPackages_11 // {
-    spirv-llvm-translator = spirv-llvm-translator.override { llvm = llvm; };
-  } // lib.optionalAttrs buildWithPatches opencl-clang;
+  llvmPkgs =
+    llvmPackages_11
+    // {
+      spirv-llvm-translator = spirv-llvm-translator.override { llvm = llvm; };
+    }
+    // lib.optionalAttrs buildWithPatches opencl-clang;
 
   inherit (llvmPackages_11) lld llvm;
   inherit (llvmPkgs) clang libclang spirv-llvm-translator;
@@ -42,9 +46,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KpaDaDYVp40H7OscDGUpzEMgIOIk397ANi+8sDk4Wow=";
   };
 
-  nativeBuildInputs = [ cmake bison flex python3 ];
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
+    python3
+  ];
 
-  buildInputs = [ spirv-headers spirv-tools spirv-llvm-translator llvm lld ];
+  buildInputs = [
+    spirv-headers
+    spirv-tools
+    spirv-llvm-translator
+    llvm
+    lld
+  ];
 
   strictDeps = true;
 

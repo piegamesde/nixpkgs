@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -26,20 +27,21 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    # Requires a very old version of nptyping
-    # which has a circular dependency on typish
-    "tests/functions/test_instance_of.py"
-  ];
+  disabledTestPaths =
+    [
+      # Requires a very old version of nptyping
+      # which has a circular dependency on typish
+      "tests/functions/test_instance_of.py"
+    ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    # https://github.com/ramonhagenaars/typish/issues/32
-    "test_get_origin"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.11")
+      [
+        # https://github.com/ramonhagenaars/typish/issues/32
+        "test_get_origin"
+      ];
 
-  pythonImportsCheck = [
-    "typish"
-  ];
+  pythonImportsCheck = [ "typish" ];
 
   meta = with lib; {
     description = "Python module for checking types of objects";

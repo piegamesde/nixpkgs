@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, formats
-, nixosTests
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, installShellFiles
-, pkg-config
-, udev
-, openssl
-, sqlite
-, pam
+{
+  stdenv,
+  lib,
+  formats,
+  nixosTests,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  pkg-config,
+  udev,
+  openssl,
+  sqlite,
+  pam,
 }:
 
 let
@@ -89,13 +90,18 @@ rustPlatform.buildRustPackage rec {
     mv $out/lib/libpam_kanidm.so $out/lib/pam_kanidm.so
   '';
 
-  passthru.tests = { inherit (nixosTests) kanidm; };
+  passthru.tests = {
+    inherit (nixosTests) kanidm;
+  };
 
   meta = with lib; {
     description = "A simple, secure and fast identity management platform";
     homepage = "https://github.com/kanidm/kanidm";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ erictapen Flakebi ];
+    maintainers = with maintainers; [
+      erictapen
+      Flakebi
+    ];
   };
 }

@@ -1,22 +1,23 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, fetchFromGitHub
-, cmake
-, git
-, pkg-config
-, python3
-, cairo
-, libsndfile
-, libxcb
-, libxkbcommon
-, xcbutil
-, xcbutilcursor
-, xcbutilkeysyms
-, zenity
-, curl
-, rsync
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub,
+  cmake,
+  git,
+  pkg-config,
+  python3,
+  cairo,
+  libsndfile,
+  libxcb,
+  libxkbcommon,
+  xcbutil,
+  xcbutilcursor,
+  xcbutilkeysyms,
+  zenity,
+  curl,
+  rsync,
 }:
 
 stdenv.mkDerivation rec {
@@ -38,16 +39,17 @@ stdenv.mkDerivation rec {
     sha256 = "1wqv86l70nwlrb10n47rib80f47a96j9qqg8w5dv46ys1sq2nz7z";
   };
 
-  patches = [
-    # Fix build error due to newer glibc version by upgrading lib "catch 2"
-    # Issue: https://github.com/surge-synthesizer/surge/pull/4843
-    # Patch: https://github.com/surge-synthesizer/surge/pull/4845
-    (fetchpatch {
-      url = "https://github.com/surge-synthesizer/surge/commit/7a552038bab4b000d188ae425aa97963dc91db17.patch";
-      sha256 = "sha256-5Flf0uJqEK6e+sadB+vr6phdvvdZYXcFFfm4ywhAeW0=";
-      name = "glibc_build_fix.patch";
-    })
-  ];
+  patches =
+    [
+      # Fix build error due to newer glibc version by upgrading lib "catch 2"
+      # Issue: https://github.com/surge-synthesizer/surge/pull/4843
+      # Patch: https://github.com/surge-synthesizer/surge/pull/4845
+      (fetchpatch {
+        url = "https://github.com/surge-synthesizer/surge/commit/7a552038bab4b000d188ae425aa97963dc91db17.patch";
+        sha256 = "sha256-5Flf0uJqEK6e+sadB+vr6phdvvdZYXcFFfm4ywhAeW0=";
+        name = "glibc_build_fix.patch";
+      })
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -78,7 +80,6 @@ stdenv.mkDerivation rec {
     cp -r $extraContent/Skins/ resources/data/skins
   '';
 
-
   installPhase = ''
     cd ..
     cmake --build build --config Release --target install-everything-global
@@ -100,6 +101,9 @@ stdenv.mkDerivation rec {
     homepage = "https://surge-synthesizer.github.io";
     license = licenses.gpl3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ magnetophon orivej ];
+    maintainers = with maintainers; [
+      magnetophon
+      orivej
+    ];
   };
 }

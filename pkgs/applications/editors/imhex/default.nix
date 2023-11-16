@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, cmake
-, llvm
-, fetchFromGitHub
-, mbedtls
-, gtk3
-, pkg-config
-, capstone
-, dbus
-, libGLU
-, glfw3
-, file
-, perl
-, python3
-, jansson
-, curl
-, fmt_8
-, nlohmann_json
-, yara
+{
+  lib,
+  stdenv,
+  cmake,
+  llvm,
+  fetchFromGitHub,
+  mbedtls,
+  gtk3,
+  pkg-config,
+  capstone,
+  dbus,
+  libGLU,
+  glfw3,
+  file,
+  perl,
+  python3,
+  jansson,
+  curl,
+  fmt_8,
+  nlohmann_json,
+  yara,
 }:
 
 let
@@ -30,7 +31,6 @@ let
     rev = "ImHex-v${version}";
     hash = "sha256-7Aaj+W+zXjHO8A2gmWtp5Pa/i5Uk8lXzX2WHjPIPRZI=";
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "imhex";
@@ -44,7 +44,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-meOx8SkufXbXuBIVefr/mO9fsUi3zeQmqmf86+aDMaI=";
   };
 
-  nativeBuildInputs = [ cmake llvm python3 perl pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    llvm
+    python3
+    perl
+    pkg-config
+  ];
 
   buildInputs = [
     capstone

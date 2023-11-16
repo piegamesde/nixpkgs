@@ -1,6 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
-, meson, ninja, pkg-config, unixtools
-, dbus, libcap, polkit, systemd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  unixtools,
+  dbus,
+  libcap,
+  polkit,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,8 +36,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config unixtools.xxd ];
-  buildInputs = [ dbus libcap polkit systemd ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    unixtools.xxd
+  ];
+  buildInputs = [
+    dbus
+    libcap
+    polkit
+    systemd
+  ];
 
   mesonFlags = [
     "-Dinstalled_tests=false"
@@ -42,7 +62,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/heftig/rtkit";
     description = "A daemon that hands out real-time priority to processes";
-    license = with licenses; [ gpl3 bsd0 ]; # lib is bsd license
+    license = with licenses; [
+      gpl3
+      bsd0
+    ]; # lib is bsd license
     platforms = platforms.linux;
   };
 }

@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, gtk3
-, libsoup
-, tzdata
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk3,
+  libsoup,
+  tzdata,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +15,9 @@ stdenv.mkDerivation rec {
   version = "1.26.1";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "wgCZD0uOnU0OLG99MaWHY3TD0qNsa4y1kEQAQ6hg7zo=";
   };
 

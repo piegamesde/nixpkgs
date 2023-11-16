@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "AWSIoTPythonSDK"
-  ];
+  pythonImportsCheck = [ "AWSIoTPythonSDK" ];
 
   meta = with lib; {
     description = "Python SDK for connecting to AWS IoT";

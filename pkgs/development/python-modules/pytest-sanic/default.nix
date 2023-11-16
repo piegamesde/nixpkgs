@@ -1,13 +1,14 @@
-{ lib
-, aiohttp
-, async_generator
-, buildPythonPackage
-, fetchFromGitHub
-, httpx
-, pytest
-, pytestCheckHook
-, sanic
-, websockets
+{
+  lib,
+  aiohttp,
+  async_generator,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pytest,
+  pytestCheckHook,
+  sanic,
+  websockets,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-82Xq/jyxTXyZVHqn7G+S9K++InDdORCO9oFqgaIgY7s=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -38,9 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "pytest_sanic"
-  ];
+  pythonImportsCheck = [ "pytest_sanic" ];
 
   meta = with lib; {
     description = "A pytest plugin for Sanic";

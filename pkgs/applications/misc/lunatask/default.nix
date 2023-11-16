@@ -1,4 +1,8 @@
-{ lib, appimageTools, fetchurl }:
+{
+  lib,
+  appimageTools,
+  fetchurl,
+}:
 
 let
   version = "1.6.4";
@@ -9,11 +13,9 @@ let
     sha256 = "sha256-rvjjzVgtDNryj7GO+ZfK92nZvWRnRPFoy9hEIGjviqQ=";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit pname version src;
-  };
-
-in appimageTools.wrapType2 rec {
+  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+in
+appimageTools.wrapType2 rec {
   inherit pname version src;
 
   extraInstallCommands = ''

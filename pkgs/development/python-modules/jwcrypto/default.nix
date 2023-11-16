@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cryptography
-, deprecated
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  deprecated,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     deprecated
   ];
 
-  pythonImportsCheck = [
-    "jwcrypto"
-  ];
+  pythonImportsCheck = [ "jwcrypto" ];
 
   meta = with lib; {
     description = "Implementation of JOSE Web standards";

@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, copyDesktopItems
-, fontconfig
-, freetype
-, libX11
-, libXext
-, libXft
-, libXinerama
-, makeDesktopItem
-, pkg-config
-, which
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  copyDesktopItems,
+  fontconfig,
+  freetype,
+  libX11,
+  libXext,
+  libXft,
+  libXinerama,
+  makeDesktopItem,
+  pkg-config,
+  which,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs =[
+  buildInputs = [
     libX11
     libXext
     libXft

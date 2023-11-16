@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, hatch-vcs
-, hatchling
-, wcwidth
-, importlib-metadata
-, pytest-lazy-fixture
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  hatch-vcs,
+  hatchling,
+  wcwidth,
+  importlib-metadata,
+  pytest-lazy-fixture,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,7 +22,7 @@ buildPythonPackage rec {
     owner = "jazzband";
     repo = "prettytable";
     rev = "refs/tags/${version}";
-    hash= "sha256-J6oWNug2MEkUZSi67mM5H/Nf4tdSTB/ku34plp1XWCM=";
+    hash = "sha256-J6oWNug2MEkUZSi67mM5H/Nf4tdSTB/ku34plp1XWCM=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -31,20 +32,14 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [
-    wcwidth
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ wcwidth ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytest-lazy-fixture
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "prettytable"
-  ];
+  pythonImportsCheck = [ "prettytable" ];
 
   meta = with lib; {
     changelog = "https://github.com/jazzband/prettytable/releases/tag/${version}";
@@ -53,5 +48,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };
-
 }

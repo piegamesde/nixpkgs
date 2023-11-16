@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchzip
+{
+  lib,
+  buildPythonPackage,
+  fetchzip,
 }:
 
 buildPythonPackage rec {
@@ -22,5 +23,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = [ maintainers.igsha ];
   };
-
 }

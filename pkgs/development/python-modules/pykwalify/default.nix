@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, python-dateutil
-, docopt
-, fetchPypi
-, pytestCheckHook
-, pyyaml
-, ruamel-yaml
-, testfixtures
+{
+  lib,
+  buildPythonPackage,
+  python-dateutil,
+  docopt,
+  fetchPypi,
+  pytestCheckHook,
+  pyyaml,
+  ruamel-yaml,
+  testfixtures,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  disabledTests = [
-    "test_multi_file_support"
-  ];
+  disabledTests = [ "test_multi_file_support" ];
 
   pythonImportsCheck = [ "pykwalify" ];
 

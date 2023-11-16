@@ -1,4 +1,8 @@
-{ lib, buildNimPackage, fetchFromSourcehut }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromSourcehut,
+}:
 
 buildNimPackage rec {
   pname = "cbor";
@@ -10,10 +14,11 @@ buildNimPackage rec {
     hash = "sha256-VmSYWgXDJLB2D2m3/ymrEytT2iW5JE56WmDz2MPHAqQ=";
   };
   doCheck = true;
-  meta = with lib;
-    src.meta // {
-      description =
-        "Concise Binary Object Representation decoder and encoder (RFC8949)";
+  meta =
+    with lib;
+    src.meta
+    // {
+      description = "Concise Binary Object Representation decoder and encoder (RFC8949)";
       license = licenses.unlicense;
       maintainers = [ maintainers.ehmry ];
       mainProgram = "cbordiag";

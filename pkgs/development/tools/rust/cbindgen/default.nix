@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, python3Packages, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  python3Packages,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-cbindgen";
@@ -15,23 +22,24 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  nativeCheckInputs = [
-    python3Packages.cython
-  ];
+  nativeCheckInputs = [ python3Packages.cython ];
 
-  checkFlags = [
-    # Disable tests that require rust unstable features
-    # https://github.com/eqrion/cbindgen/issues/338
-    "--skip test_expand"
-    "--skip test_bitfield"
-    "--skip lib_default_uses_debug_build"
-    "--skip lib_explicit_debug_build"
-    "--skip lib_explicit_release_build"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # WORKAROUND: test_body fails when using clang
-    # https://github.com/eqrion/cbindgen/issues/628
-    "--skip test_body"
-  ];
+  checkFlags =
+    [
+      # Disable tests that require rust unstable features
+      # https://github.com/eqrion/cbindgen/issues/338
+      "--skip test_expand"
+      "--skip test_bitfield"
+      "--skip lib_default_uses_debug_build"
+      "--skip lib_explicit_debug_build"
+      "--skip lib_explicit_release_build"
+    ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # WORKAROUND: test_body fails when using clang
+        # https://github.com/eqrion/cbindgen/issues/628
+        "--skip test_body"
+      ];
 
   meta = with lib; {
     description = "A project for generating C bindings from Rust code";

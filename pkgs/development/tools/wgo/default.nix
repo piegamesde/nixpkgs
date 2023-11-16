@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "wgo";
@@ -13,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-jxyO3MGrC+y/jJuwur/+tLIsbxGnT57ZXYzaf1lCv7A=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   subPackages = [ "." ];
 
@@ -24,4 +31,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ bokwoon95 ];
   };
 }
-

@@ -1,18 +1,19 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, cmake
-, qttools
-, pkg-config
-, wrapQtAppsHook
-, runtimeShell
-, qtbase
-, gtest
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  cmake,
+  qttools,
+  pkg-config,
+  wrapQtAppsHook,
+  runtimeShell,
+  qtbase,
+  gtest,
 }:
 
 stdenv.mkDerivation rec {
@@ -67,9 +68,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DVERSION=${version}" ];
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
-  qtWrapperArgs = [
-    "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
-  ];
+  qtWrapperArgs = [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
 
   postFixup = ''
     wrapQtApp $out/lib/deepin-daemon/dde-calendar-service

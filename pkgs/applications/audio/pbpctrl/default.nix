@@ -1,9 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, dbus
-, protobuf
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  dbus,
+  protobuf,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,13 +20,19 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-+YtnPKbxZENL6/u36RFFZA6F+19qHDAVx6Q8FSB/LCU=";
 
-  nativeBuildInputs = [ pkg-config protobuf ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+  ];
   buildInputs = [ dbus ];
 
   meta = with lib; {
     description = "Control Google Pixel Buds Pro from the Linux command line.";
     homepage = "https://github.com/qzed/pbpctrl";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = [ maintainers.vanilla ];
     platforms = platforms.linux;
   };

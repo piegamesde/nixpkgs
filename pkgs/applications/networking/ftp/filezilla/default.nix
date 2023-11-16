@@ -1,20 +1,22 @@
-{ lib, stdenv
-, fetchurl
-, autoreconfHook
-, dbus
-, gettext
-, gnutls
-, libfilezilla
-, libidn
-, nettle
-, pkg-config
-, pugixml
-, sqlite
-, tinyxml
-, wrapGAppsHook
-, wxGTK32
-, gtk3
-, xdg-utils
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  dbus,
+  gettext,
+  gnutls,
+  libfilezilla,
+  libidn,
+  nettle,
+  pkg-config,
+  pugixml,
+  sqlite,
+  tinyxml,
+  wrapGAppsHook,
+  wxGTK32,
+  gtk3,
+  xdg-utils,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,7 +33,11 @@ stdenv.mkDerivation rec {
     "--disable-autoupdatecheck"
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     dbus

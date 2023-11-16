@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -12,7 +17,7 @@ in
     i18n.inputMethod.fcitx5 = {
       addons = mkOption {
         type = with types; listOf package;
-        default = [];
+        default = [ ];
         example = literalExpression "with pkgs; [ fcitx5-rime ]";
         description = lib.mdDoc ''
           Enabled Fcitx5 addons.
@@ -22,9 +27,17 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [ "i18n" "inputMethod" "fcitx5" "enableRimeData" ] ''
-      RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
-    '')
+    (mkRemovedOptionModule
+      [
+        "i18n"
+        "inputMethod"
+        "fcitx5"
+        "enableRimeData"
+      ]
+      ''
+        RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
+      ''
+    )
   ];
 
   config = mkIf (im.enabled == "fcitx5") {

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, django
-, fetchFromGitHub
-, python3-openid
-, pythonOlder
-, requests
-, requests-oauthlib
-, pyjwt
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  python3-openid,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  pyjwt,
 }:
 
 buildPythonPackage rec {
@@ -34,8 +35,7 @@ buildPythonPackage rec {
     pyjwt
     requests
     requests-oauthlib
-  ]
-  ++ pyjwt.optional-dependencies.crypto;
+  ] ++ pyjwt.optional-dependencies.crypto;
 
   checkPhase = ''
     # test is out of date
@@ -44,9 +44,7 @@ buildPythonPackage rec {
     ./manage.py test
   '';
 
-  pythonImportsCheck = [
-    "allauth"
-  ];
+  pythonImportsCheck = [ "allauth" ];
 
   meta = with lib; {
     description = "Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication";

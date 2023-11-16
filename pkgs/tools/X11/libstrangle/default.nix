@@ -1,10 +1,19 @@
-{ lib, stdenv, fetchFromGitLab, libGL, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  libGL,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libstrangle";
   version = "unstable-202202022";
 
-  buildInputs = [ libGL libX11 ];
+  buildInputs = [
+    libGL
+    libX11
+  ];
 
   src = fetchFromGitLab {
     owner = "torkel104";
@@ -13,11 +22,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-h10QA7m7hIQHq1g/vCYuZsFR2NVbtWBB46V6OWP5wgM=";
   };
 
-  makeFlags = [ "prefix=" "DESTDIR=$(out)" ];
-
-  patches = [
-      ./nixos.patch
+  makeFlags = [
+    "prefix="
+    "DESTDIR=$(out)"
   ];
+
+  patches = [ ./nixos.patch ];
 
   postPatch = ''
     substituteAllInPlace src/strangle.sh

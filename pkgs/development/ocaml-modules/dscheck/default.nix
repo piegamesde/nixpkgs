@@ -1,6 +1,9 @@
-{ lib, fetchurl, buildDunePackage
-, containers
-, oseq
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  containers,
+  oseq,
 }:
 
 buildDunePackage rec {
@@ -15,7 +18,10 @@ buildDunePackage rec {
     hash = "sha256-zoouFZJcUp71yeluVb1xLUIMcFv99OpkcQQCHkPTKcI=";
   };
 
-  propagatedBuildInputs = [ containers oseq ];
+  propagatedBuildInputs = [
+    containers
+    oseq
+  ];
 
   doCheck = true;
 

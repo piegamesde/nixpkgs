@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivial-gray-streams";
   version = "20210124-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-gray-streams";
 
-  asdFilesToKeep = ["trivial-gray-streams.asd"];
+  asdFilesToKeep = [ "trivial-gray-streams.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivial-gray-streams DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/trivial-gray-streams/2021-01-24/trivial-gray-streams-20210124-git.tgz
     MD5 1b93af1cae9f8465d813964db4d10588 NAME trivial-gray-streams FILENAME
     trivial-gray-streams DEPS NIL DEPENDENCIES NIL VERSION 20210124-git
-    SIBLINGS (trivial-gray-streams-test) PARASITES NIL) */
+    SIBLINGS (trivial-gray-streams-test) PARASITES NIL)
+*/

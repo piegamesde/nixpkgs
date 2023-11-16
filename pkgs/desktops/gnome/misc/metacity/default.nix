@@ -1,19 +1,21 @@
-{ lib, stdenv
-, fetchurl
-, gettext
-, glib
-, gnome
-, gsettings-desktop-schemas
-, gtk3
-, xorg
-, libcanberra-gtk3
-, libgtop
-, libstartup_notification
-, libxml2
-, pkg-config
-, substituteAll
-, wrapGAppsHook
-, zenity
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  glib,
+  gnome,
+  gsettings-desktop-schemas,
+  gtk3,
+  xorg,
+  libcanberra-gtk3,
+  libgtop,
+  libstartup_notification,
+  libxml2,
+  pkg-config,
+  substituteAll,
+  wrapGAppsHook,
+  zenity,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +23,9 @@ stdenv.mkDerivation rec {
   version = "3.46.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "ALpJ92EgiPKzuuynnEXrKjBCPC5Ke+pAFYcr6uJd1sU=";
   };
 

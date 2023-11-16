@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -41,9 +46,7 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
 
     environment.systemPackages = [ pkg ];
 
@@ -54,10 +57,11 @@ in
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";
-        ExecStart = "${pkg}/bin/beanstalkd -l ${cfg.listen.address} -p ${toString cfg.listen.port} -b $STATE_DIRECTORY";
+        ExecStart = "${pkg}/bin/beanstalkd -l ${cfg.listen.address} -p ${
+            toString cfg.listen.port
+          } -b $STATE_DIRECTORY";
         StateDirectory = "beanstalkd";
       };
     };
-
   };
 }

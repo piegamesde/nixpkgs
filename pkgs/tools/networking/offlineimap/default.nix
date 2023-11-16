@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, python3
-, asciidoc
-, cacert
-, docbook_xsl
-, installShellFiles
-, libxml2
-, libxslt
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  asciidoc,
+  cacert,
+  docbook_xsl,
+  installShellFiles,
+  libxml2,
+  libxslt,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -54,9 +55,7 @@ python3.pkgs.buildPythonApplication rec {
   # Test requires credentials
   doCheck = false;
 
-  pythonImportsCheck = [
-    "offlineimap"
-  ];
+  pythonImportsCheck = [ "offlineimap" ];
 
   meta = with lib; {
     description = "Synchronize emails between two repositories, so that you can read the same mailbox from multiple computers";

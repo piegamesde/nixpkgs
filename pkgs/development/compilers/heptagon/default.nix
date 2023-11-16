@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, makeWrapper
-, ocamlPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  makeWrapper,
+  ocamlPackages,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b4O48MQT3Neh8a1Z5wRgS701w6XrwpsbSMprlqTT+CE=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = with ocamlPackages; [
     ocaml

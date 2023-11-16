@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, ninja
-, pkg-config
-, meson
-, libevent
-, curl
-, spdlog
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  ninja,
+  pkg-config,
+  meson,
+  libevent,
+  curl,
+  spdlog,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +22,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-sN+YSddUOdnJLcnHyWdjNm1PpxCwnkwiqSvyrwUrg6w=";
   };
 
-  nativeBuildInputs = [ ninja pkg-config meson ];
+  nativeBuildInputs = [
+    ninja
+    pkg-config
+    meson
+  ];
 
-  buildInputs = [ libevent curl spdlog ];
+  buildInputs = [
+    libevent
+    curl
+    spdlog
+  ];
 
   meta = with lib; {
     description = "A simple async wrapper around CURL for C++";

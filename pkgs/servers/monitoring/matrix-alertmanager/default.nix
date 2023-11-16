@@ -1,4 +1,11 @@
-{ lib, callPackage, mkYarnPackage, fetchYarnDeps, fetchFromGitHub, nodejs }:
+{
+  lib,
+  callPackage,
+  mkYarnPackage,
+  fetchYarnDeps,
+  fetchFromGitHub,
+  nodejs,
+}:
 
 mkYarnPackage rec {
   pname = "matrix-alertmanager";
@@ -27,7 +34,7 @@ mkYarnPackage rec {
     chmod +x $out/libexec/matrix-alertmanager/node_modules/matrix-alertmanager/src/app.js
   '';
 
-  passthru.updateScript = callPackage ./update.nix {};
+  passthru.updateScript = callPackage ./update.nix { };
 
   meta = with lib; {
     description = "Bot to receive Alertmanager webhook events and forward them to chosen rooms";

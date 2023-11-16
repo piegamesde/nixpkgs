@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, astropy
-, astropy-helpers
-, pillow
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  astropy,
+  astropy-helpers,
+  pillow,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-gV78ypvYwohHmdjP3lN5F97PfmxuV91tvw5gsYeZ7i8=";
   };
 
-  propagatedBuildInputs = [
-    astropy-helpers
-  ];
+  propagatedBuildInputs = [ astropy-helpers ];
 
   nativeCheckInputs = [
     astropy

@@ -1,8 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
-, djangorestframework, python, mock
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
+  djangorestframework,
+  python,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  pythonImportsCheck = [
-    "django_filters"
-  ];
+  pythonImportsCheck = [ "django_filters" ];
 
   # Tests fail (needs the 'crispy_forms' module not packaged on nixos)
   doCheck = false;

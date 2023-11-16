@@ -1,19 +1,20 @@
-{ lib
-, cargo
-, clang
-, desktop-file-utils
-, fetchFromGitLab
-, fetchpatch
-, glib
-, gtk4
-, libclang
-, meson
-, ninja
-, pipewire
-, pkg-config
-, rustPlatform
-, rustc
-, stdenv
+{
+  lib,
+  cargo,
+  clang,
+  desktop-file-utils,
+  fetchFromGitLab,
+  fetchpatch,
+  glib,
+  gtk4,
+  libclang,
+  meson,
+  ninja,
+  pipewire,
+  pkg-config,
+  rustPlatform,
+  rustc,
+  stdenv,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchurl, jre_headless, makeWrapper }:
-stdenv.mkDerivation rec{
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre_headless,
+  makeWrapper,
+}:
+stdenv.mkDerivation rec {
   pname = "flyway";
   version = "9.18.0";
   src = fetchurl {

@@ -1,4 +1,9 @@
-{lib, nimPackages, fetchFromGitHub, pcre}:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+  pcre,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "mosdepth";
@@ -12,7 +17,11 @@ nimPackages.buildNimPackage rec {
     sha256 = "sha256-de3h3SXnXlqjuLT1L66jj/1AoiTuFc3PVJYjm7s8Fj8=";
   };
 
-  buildInputs = with nimPackages; [ docopt hts-nim pcre ];
+  buildInputs = with nimPackages; [
+    docopt
+    hts-nim
+    pcre
+  ];
 
   meta = with lib; {
     description = "fast BAM/CRAM depth calculation for WGS, exome, or targeted sequencing";

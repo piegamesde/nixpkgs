@@ -1,12 +1,15 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "pcall-queue";
   version = "pcall-0.3";
 
   description = "System lacks description";
 
-  deps = [ args."alexandria" args."bordeaux-threads" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/pcall/2010-10-06/pcall-0.3.tgz";
@@ -15,7 +18,7 @@ rec {
 
   packageName = "pcall-queue";
 
-  asdFilesToKeep = ["pcall-queue.asd"];
+  asdFilesToKeep = [ "pcall-queue.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM pcall-queue DESCRIPTION System lacks description SHA256
@@ -25,4 +28,5 @@ rec {
     ((NAME alexandria FILENAME alexandria)
      (NAME bordeaux-threads FILENAME bordeaux-threads))
     DEPENDENCIES (alexandria bordeaux-threads) VERSION pcall-0.3 SIBLINGS
-    (pcall) PARASITES NIL) */
+    (pcall) PARASITES NIL)
+*/

@@ -1,30 +1,31 @@
-{ stdenv
-, lib
-, makeWrapper
-, socat
-, iptables
-, iproute2
-, ipset
-, bridge-utils
-, btrfs-progs
-, conntrack-tools
-, buildGoModule
-, runc
-, rsync
-, kmod
-, libseccomp
-, pkg-config
-, ethtool
-, util-linux
-, fetchFromGitHub
-, fetchurl
-, fetchzip
-, fetchgit
-, zstd
-, yq-go
-, sqlite
-, nixosTests
-, pkgsBuildBuild
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  socat,
+  iptables,
+  iproute2,
+  ipset,
+  bridge-utils,
+  btrfs-progs,
+  conntrack-tools,
+  buildGoModule,
+  runc,
+  rsync,
+  kmod,
+  libseccomp,
+  pkg-config,
+  ethtool,
+  util-linux,
+  fetchFromGitHub,
+  fetchurl,
+  fetchzip,
+  fetchgit,
+  zstd,
+  yq-go,
+  sqlite,
+  nixosTests,
+  pkgsBuildBuild,
 }:
 
 # k3s is a kinda weird derivation. One of the main points of k3s is the
@@ -47,7 +48,7 @@
 # Those pieces of software we entirely ignore upstream's handling of, and just
 # make sure they're in the path if desired.
 let
-  k3sVersion = "1.26.4+k3s1";     # k3s git tag
+  k3sVersion = "1.26.4+k3s1"; # k3s git tag
   k3sCommit = "8d0255af07e95b841952563253d27b0d10bd72f0"; # k3s git commit at the above version
   k3sRepoSha256 = "0qlszdnlsvj3hzx2p0wl3zhaw908w8a62z6vlf2g69a3c75f55cs";
   k3sVendorSha256 = "sha256-JXTsZYtTspu/pWMRSS2BcegktawBJ6BK7YEKbz1J/ao=";
@@ -77,7 +78,11 @@ let
     description = "A lightweight Kubernetes distribution";
     license = licenses.asl20;
     homepage = "https://k3s.io";
-    maintainers = with maintainers; [ euank mic92 yajo ];
+    maintainers = with maintainers; [
+      euank
+      mic92
+      yajo
+    ];
     platforms = platforms.linux;
   };
 
@@ -176,12 +181,18 @@ let
     vendorSha256 = k3sVendorSha256;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libseccomp sqlite.dev ];
+    buildInputs = [
+      libseccomp
+      sqlite.dev
+    ];
 
     subPackages = [ "cmd/server" ];
     ldflags = versionldflags;
 
-    tags = [ "libsqlite3" "linux" ];
+    tags = [
+      "libsqlite3"
+      "linux"
+    ];
 
     # create the multicall symlinks for k3s
     postInstall = ''
@@ -214,7 +225,10 @@ let
     };
     vendorSha256 = null;
     buildInputs = [ btrfs-progs ];
-    subPackages = [ "cmd/containerd" "cmd/containerd-shim-runc-v2" ];
+    subPackages = [
+      "cmd/containerd"
+      "cmd/containerd-shim-runc-v2"
+    ];
     ldflags = versionldflags;
   };
 in
@@ -324,14 +338,16 @@ buildGoModule rec {
 
   passthru.updateScript = ./update.sh;
 
-  passthru.mkTests = version:
-    let k3s_version = "k3s_" + lib.replaceStrings ["."] ["_"] (lib.versions.majorMinor version);
-    in {
+  passthru.mkTests =
+    version:
+    let
+      k3s_version = "k3s_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
+    in
+    {
       single-node = nixosTests.k3s.single-node.${k3s_version};
       multi-node = nixosTests.k3s.multi-node.${k3s_version};
     };
   passthru.tests = passthru.mkTests k3sVersion;
-
 
   meta = baseMeta;
 }

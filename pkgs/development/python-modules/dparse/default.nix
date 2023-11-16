@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, toml
-, pyyaml
-, packaging
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  toml,
+  pyyaml,
+  packaging,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -26,18 +27,15 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dparse"
-  ];
+  pythonImportsCheck = [ "dparse" ];
 
-  disabledTests = [
-    # requires unpackaged dependency pipenv
-    "test_update_pipfile"
-  ];
+  disabledTests =
+    [
+      # requires unpackaged dependency pipenv
+      "test_update_pipfile"
+    ];
 
   meta = with lib; {
     description = "A parser for Python dependency files";

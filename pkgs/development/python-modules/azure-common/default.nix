@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, azure-nspkg
-, isPyPy
-, setuptools
-, python
-, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-nspkg,
+  isPyPy,
+  setuptools,
+  python,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-SsDNMhTja2obakQmhnIqXYzESWA6qDPz8PQL2oNnBKM=";
   };
 
-  propagatedBuildInputs = [
-    azure-nspkg
-  ] ++ lib.optionals (!isPy3k) [ setuptools ]; # need for namespace lookup
+  propagatedBuildInputs = [ azure-nspkg ] ++ lib.optionals (!isPy3k) [ setuptools ]; # need for namespace lookup
 
-  postInstall = if isPy3k then "" else ''
-    echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/__init__.py
-  '';
+  postInstall =
+    if isPy3k then
+      ""
+    else
+      ''
+        echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/__init__.py
+      '';
 
   doCheck = false;
 
@@ -33,6 +36,9 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure common code";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ olcai maxwilson ];
+    maintainers = with maintainers; [
+      olcai
+      maxwilson
+    ];
   };
 }

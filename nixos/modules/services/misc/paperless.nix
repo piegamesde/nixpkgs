@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -12,23 +17,21 @@ let
   enableRedis = !hasAttr "PAPERLESS_REDIS" cfg.extraConfig;
   redisServer = config.services.redis.servers.paperless;
 
-  env = {
-    PAPERLESS_DATA_DIR = cfg.dataDir;
-    PAPERLESS_MEDIA_ROOT = cfg.mediaDir;
-    PAPERLESS_CONSUMPTION_DIR = cfg.consumptionDir;
-    PAPERLESS_NLTK_DIR = nltkDir;
-    GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
-  } // optionalAttrs (config.time.timeZone != null) {
-    PAPERLESS_TIME_ZONE = config.time.timeZone;
-  } // optionalAttrs enableRedis {
-    PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
-  } // (
-    lib.mapAttrs (_: toString) cfg.extraConfig
-  );
+  env =
+    {
+      PAPERLESS_DATA_DIR = cfg.dataDir;
+      PAPERLESS_MEDIA_ROOT = cfg.mediaDir;
+      PAPERLESS_CONSUMPTION_DIR = cfg.consumptionDir;
+      PAPERLESS_NLTK_DIR = nltkDir;
+      GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
+    }
+    // optionalAttrs (config.time.timeZone != null) { PAPERLESS_TIME_ZONE = config.time.timeZone; }
+    // optionalAttrs enableRedis { PAPERLESS_REDIS = "unix://${redisServer.unixSocket}"; }
+    // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
   manage =
     let
-      setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: "export ${name}=\"${val}\"") env);
+      setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
     in
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
@@ -79,22 +82,41 @@ let
     # to query CPU and memory information.
     # Note that /proc only contains processes of user `paperless`, so this is safe.
     # ProcSubset = "pid";
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_INET"
+      "AF_INET6"
+    ];
     RestrictNamespaces = true;
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
     SupplementaryGroups = optional enableRedis redisServer.user;
     SystemCallArchitectures = "native";
-    SystemCallFilter = [ "@system-service" "~@privileged @setuid @keyring" ];
+    SystemCallFilter = [
+      "@system-service"
+      "~@privileged @setuid @keyring"
+    ];
     # Does not work well with the temporary root
     #UMask = "0066";
   };
 in
 {
-  meta.maintainers = with maintainers; [ erikarvstedt Flakebi ];
+  meta.maintainers = with maintainers; [
+    erikarvstedt
+    Flakebi
+  ];
 
   imports = [
-    (mkRenamedOptionModule [ "services" "paperless-ng" ] [ "services" "paperless" ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "paperless-ng"
+      ]
+      [
+        "services"
+        "paperless"
+      ]
+    )
   ];
 
   options.services.paperless = {
@@ -208,17 +230,22 @@ in
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
       "d '${cfg.mediaDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
-      (if cfg.consumptionDirIsPublic then
-        "d '${cfg.consumptionDir}' 777 - - - -"
-      else
-        "d '${cfg.consumptionDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
+      (
+        if cfg.consumptionDirIsPublic then
+          "d '${cfg.consumptionDir}' 777 - - - -"
+        else
+          "d '${cfg.consumptionDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
       )
     ];
 
     systemd.services.paperless-scheduler = {
       description = "Paperless Celery Beat";
       wantedBy = [ "multi-user.target" ];
-      wants = [ "paperless-consumer.service" "paperless-web.service" "paperless-task-queue.service" ];
+      wants = [
+        "paperless-consumer.service"
+        "paperless-web.service"
+        "paperless-task-queue.service"
+      ];
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         ExecStart = "${pkg}/bin/celery --app paperless beat --loglevel INFO";
@@ -226,47 +253,46 @@ in
       };
       environment = env;
 
-      preStart = ''
-        ln -sf ${manage} ${cfg.dataDir}/paperless-manage
+      preStart =
+        ''
+          ln -sf ${manage} ${cfg.dataDir}/paperless-manage
 
-        # Auto-migrate on first run or if the package has changed
-        versionFile="${cfg.dataDir}/src-version"
-        version=$(cat "$versionFile" 2>/dev/null || echo 0)
+          # Auto-migrate on first run or if the package has changed
+          versionFile="${cfg.dataDir}/src-version"
+          version=$(cat "$versionFile" 2>/dev/null || echo 0)
 
-        if [[ $version != ${pkg.version} ]]; then
-          ${pkg}/bin/paperless-ngx migrate
+          if [[ $version != ${pkg.version} ]]; then
+            ${pkg}/bin/paperless-ngx migrate
 
-          # Parse old version string format for backwards compatibility
-          version=$(echo "$version" | grep -ohP '[^-]+$')
+            # Parse old version string format for backwards compatibility
+            version=$(echo "$version" | grep -ohP '[^-]+$')
 
-          versionLessThan() {
-            target=$1
-            [[ $({ echo "$version"; echo "$target"; } | sort -V | head -1) != "$target" ]]
-          }
+            versionLessThan() {
+              target=$1
+              [[ $({ echo "$version"; echo "$target"; } | sort -V | head -1) != "$target" ]]
+            }
 
-          if versionLessThan 1.12.0; then
-            # Reindex documents as mentioned in https://github.com/paperless-ngx/paperless-ngx/releases/tag/v1.12.1
-            echo "Reindexing documents, to allow searching old comments. Required after the 1.12.x upgrade."
-            ${pkg}/bin/paperless-ngx document_index reindex
+            if versionLessThan 1.12.0; then
+              # Reindex documents as mentioned in https://github.com/paperless-ngx/paperless-ngx/releases/tag/v1.12.1
+              echo "Reindexing documents, to allow searching old comments. Required after the 1.12.x upgrade."
+              ${pkg}/bin/paperless-ngx document_index reindex
+            fi
+
+            echo ${pkg.version} > "$versionFile"
           fi
+        ''
+        + optionalString (cfg.passwordFile != null) ''
+          export PAPERLESS_ADMIN_USER="''${PAPERLESS_ADMIN_USER:-admin}"
+          export PAPERLESS_ADMIN_PASSWORD=$(cat "${cfg.dataDir}/superuser-password")
+          superuserState="$PAPERLESS_ADMIN_USER:$PAPERLESS_ADMIN_PASSWORD"
+          superuserStateFile="${cfg.dataDir}/superuser-state"
 
-          echo ${pkg.version} > "$versionFile"
-        fi
-      ''
-      + optionalString (cfg.passwordFile != null) ''
-        export PAPERLESS_ADMIN_USER="''${PAPERLESS_ADMIN_USER:-admin}"
-        export PAPERLESS_ADMIN_PASSWORD=$(cat "${cfg.dataDir}/superuser-password")
-        superuserState="$PAPERLESS_ADMIN_USER:$PAPERLESS_ADMIN_PASSWORD"
-        superuserStateFile="${cfg.dataDir}/superuser-state"
-
-        if [[ $(cat "$superuserStateFile" 2>/dev/null) != $superuserState ]]; then
-          ${pkg}/bin/paperless-ngx manage_superuser
-          echo "$superuserState" > "$superuserStateFile"
-        fi
-      '';
-    } // optionalAttrs enableRedis {
-      after = [ "redis-paperless.service" ];
-    };
+          if [[ $(cat "$superuserStateFile" 2>/dev/null) != $superuserState ]]; then
+            ${pkg}/bin/paperless-ngx manage_superuser
+            echo "$superuserState" > "$superuserStateFile"
+          fi
+        '';
+    } // optionalAttrs enableRedis { after = [ "redis-paperless.service" ]; };
 
     systemd.services.paperless-task-queue = {
       description = "Paperless Celery Workers";
@@ -307,7 +333,7 @@ in
         # Enable internet access
         PrivateNetwork = false;
         # Restrict write access
-        BindPaths = [];
+        BindPaths = [ ];
         BindReadOnlyPaths = [
           "/nix/store"
           "-/etc/resolv.conf"
@@ -317,9 +343,13 @@ in
           "-/etc/hosts"
           "-/etc/localtime"
         ];
-        ExecStart = let pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]); in ''
-          ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
-        '';
+        ExecStart =
+          let
+            pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
+          in
+          ''
+            ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
+          '';
       };
     };
 
@@ -343,25 +373,30 @@ in
       # during migrations
       bindsTo = [ "paperless-scheduler.service" ];
       after = [ "paperless-scheduler.service" ];
-      serviceConfig = defaultServiceConfig // {
-        User = cfg.user;
-        ExecStart = ''
-          ${pkg.python.pkgs.gunicorn}/bin/gunicorn \
-            -c ${pkg}/lib/paperless-ngx/gunicorn.conf.py paperless.asgi:application
-        '';
-        Restart = "on-failure";
+      serviceConfig =
+        defaultServiceConfig
+        // {
+          User = cfg.user;
+          ExecStart = ''
+            ${pkg.python.pkgs.gunicorn}/bin/gunicorn \
+              -c ${pkg}/lib/paperless-ngx/gunicorn.conf.py paperless.asgi:application
+          '';
+          Restart = "on-failure";
 
-        # gunicorn needs setuid, liblapack needs mbind
-        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
-        # Needs to serve web page
-        PrivateNetwork = false;
-      } // lib.optionalAttrs (cfg.port < 1024) {
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-      };
+          # gunicorn needs setuid, liblapack needs mbind
+          SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
+          # Needs to serve web page
+          PrivateNetwork = false;
+        }
+        // lib.optionalAttrs (cfg.port < 1024) {
+          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        };
       environment = env // {
         PATH = mkForce pkg.path;
-        PYTHONPATH = "${pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs}:${pkg}/lib/paperless-ngx/src";
+        PYTHONPATH = "${
+            pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs
+          }:${pkg}/lib/paperless-ngx/src";
       };
       # Allow the web interface to access the private /tmp directory of the server.
       # This is required to support uploading files via the web interface.

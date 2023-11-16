@@ -1,12 +1,33 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper
-, cairo, fontconfig, freetype, gdk-pixbuf, glib
-, glibc, gtk2, libX11, nspr, nss, pango
-, libxcb, libXi, libXrender, libXext, dbus
-, testers, chromedriver
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  cairo,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gtk2,
+  libX11,
+  nspr,
+  nss,
+  pango,
+  libxcb,
+  libXi,
+  libXrender,
+  libXext,
+  dbus,
+  testers,
+  chromedriver,
 }:
 
 let
-  upstream-info = (lib.importJSON ../../../../applications/networking/browsers/chromium/upstream-info.json).stable.chromedriver;
+  upstream-info =
+    (lib.importJSON ../../../../applications/networking/browsers/chromium/upstream-info.json)
+    .stable.chromedriver;
   allSpecs = {
     x86_64-linux = {
       system = "linux64";
@@ -24,19 +45,30 @@ let
     };
   };
 
-  spec = allSpecs.${stdenv.hostPlatform.system}
-    or (throw "missing chromedriver binary for ${stdenv.hostPlatform.system}");
+  spec =
+    allSpecs.${stdenv.hostPlatform.system}
+      or (throw "missing chromedriver binary for ${stdenv.hostPlatform.system}");
 
   libs = lib.makeLibraryPath [
     stdenv.cc.cc.lib
-    cairo fontconfig freetype
-    gdk-pixbuf glib gtk2
-    libX11 nspr nss pango libXrender
-    libxcb libXext libXi
+    cairo
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk2
+    libX11
+    nspr
+    nss
+    pango
+    libXrender
+    libxcb
+    libXext
+    libXi
     dbus
   ];
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "chromedriver";
   version = upstream-info.version;
 
@@ -45,16 +77,21 @@ in stdenv.mkDerivation rec {
     sha256 = spec.sha256;
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   unpackPhase = "unzip $src";
 
-  installPhase = ''
-    install -m755 -D chromedriver $out/bin/chromedriver
-  '' + lib.optionalString (!stdenv.isDarwin) ''
-    patchelf --set-interpreter ${glibc.out}/lib/ld-linux-x86-64.so.2 $out/bin/chromedriver
-    wrapProgram "$out/bin/chromedriver" --prefix LD_LIBRARY_PATH : "${libs}"
-  '';
+  installPhase =
+    ''
+      install -m755 -D chromedriver $out/bin/chromedriver
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
+      patchelf --set-interpreter ${glibc.out}/lib/ld-linux-x86-64.so.2 $out/bin/chromedriver
+      wrapProgram "$out/bin/chromedriver" --prefix LD_LIBRARY_PATH : "${libs}"
+    '';
 
   passthru.tests.version = testers.testVersion { package = chromedriver; };
 
@@ -69,7 +106,11 @@ in stdenv.mkDerivation rec {
     '';
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.bsd3;
-    maintainers = with maintainers; [ goibhniu marsam primeos ];
+    maintainers = with maintainers; [
+      goibhniu
+      marsam
+      primeos
+    ];
     # Note from primeos: By updating Chromium I also update Google Chrome and
     # ChromeDriver.
     platforms = attrNames allSpecs;

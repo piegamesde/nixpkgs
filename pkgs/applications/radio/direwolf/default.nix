@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, alsa-lib, espeak, gpsd
-, hamlib, perl, python3, udev }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  alsa-lib,
+  espeak,
+  gpsd,
+  hamlib,
+  perl,
+  python3,
+  udev,
+}:
 
 with lib;
 
@@ -18,9 +29,18 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [
-    espeak gpsd hamlib perl python3
-  ] ++ (optionals stdenv.isLinux [alsa-lib udev]);
+  buildInputs =
+    [
+      espeak
+      gpsd
+      hamlib
+      perl
+      python3
+    ]
+    ++ (optionals stdenv.isLinux [
+      alsa-lib
+      udev
+    ]);
 
   postPatch = ''
     substituteInPlace conf/CMakeLists.txt \

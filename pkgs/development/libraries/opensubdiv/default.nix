@@ -1,11 +1,23 @@
-{ config, lib, stdenv, fetchFromGitHub, cmake, pkg-config, xorg, libGLU
-, libGL, glew, ocl-icd, python3
-, cudaSupport ? config.cudaSupport or false, cudatoolkit
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  xorg,
+  libGLU,
+  libGL,
+  glew,
+  ocl-icd,
+  python3,
+  cudaSupport ? config.cudaSupport or false,
+  cudatoolkit,
   # For visibility mostly. The whole approach to cuda architectures and capabilities
   # will be reworked soon.
-, cudaArch ? "compute_37"
-, openclSupport ? !cudaSupport
-, darwin
+  cudaArch ? "compute_37",
+  openclSupport ? !cudaSupport,
+  darwin,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,37 +27,62 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "PixarAnimationStudios";
     repo = "OpenSubdiv";
-    rev = "v${lib.replaceStrings ["."] ["_"] version}";
+    rev = "v${lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "sha256-pYD2HxAszE9Ux1xsSJ7s2R13U8ct5tDo3ZP7H0+F9Rc=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs =
-    [ libGLU libGL python3
+    [
+      libGLU
+      libGL
+      python3
       # FIXME: these are not actually needed, but the configure script wants them.
-      glew xorg.libX11 xorg.libXrandr xorg.libXxf86vm xorg.libXcursor
-      xorg.libXinerama xorg.libXi
+      glew
+      xorg.libX11
+      xorg.libXrandr
+      xorg.libXxf86vm
+      xorg.libXcursor
+      xorg.libXinerama
+      xorg.libXi
     ]
     ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [OpenCL Cocoa CoreVideo IOKit AppKit AGL ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        OpenCL
+        Cocoa
+        CoreVideo
+        IOKit
+        AppKit
+        AGL
+      ]
+    )
     ++ lib.optional cudaSupport cudatoolkit;
 
   cmakeFlags =
-    [ "-DNO_TUTORIALS=1"
+    [
+      "-DNO_TUTORIALS=1"
       "-DNO_REGRESSION=1"
       "-DNO_EXAMPLES=1"
       "-DNO_METAL=1" # don’t have metal in apple sdk
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       "-DGLEW_INCLUDE_DIR=${glew.dev}/include"
       "-DGLEW_LIBRARY=${glew.dev}/lib"
-    ] ++ lib.optionals cudaSupport [
+    ]
+    ++ lib.optionals cudaSupport [
       "-DOSD_CUDA_NVCC_FLAGS=--gpu-architecture=${cudaArch}"
       "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-    ] ++ lib.optionals (!openclSupport) [
-      "-DNO_OPENCL=1"
-    ];
+    ]
+    ++ lib.optionals (!openclSupport) [ "-DNO_OPENCL=1" ];
 
   postInstall = "rm $out/lib/*.a";
 

@@ -1,9 +1,17 @@
-{ lib, stdenv, fetchFromGitHub
-, talloc
-, pkg-config
-, git
-, ncurses
-, docutils, swig, python3, coreutils, enablePython ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  talloc,
+  pkg-config,
+  git,
+  ncurses,
+  docutils,
+  swig,
+  python3,
+  coreutils,
+  enablePython ? true,
+}:
 
 stdenv.mkDerivation rec {
   pname = "proot";
@@ -23,8 +31,14 @@ stdenv.mkDerivation rec {
     sed -i /CROSS_COMPILE/d src/GNUmakefile
   '';
 
-  buildInputs = [ ncurses talloc ] ++ lib.optional enablePython python3;
-  nativeBuildInputs = [ pkg-config docutils ] ++ lib.optional enablePython swig;
+  buildInputs = [
+    ncurses
+    talloc
+  ] ++ lib.optional enablePython python3;
+  nativeBuildInputs = [
+    pkg-config
+    docutils
+  ] ++ lib.optional enablePython swig;
 
   enableParallelBuilding = true;
 
@@ -48,6 +62,11 @@ stdenv.mkDerivation rec {
     description = "User-space implementation of chroot, mount --bind and binfmt_misc";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ianwookim makefu veprbl dtzWill ];
+    maintainers = with maintainers; [
+      ianwookim
+      makefu
+      veprbl
+      dtzWill
+    ];
   };
 }

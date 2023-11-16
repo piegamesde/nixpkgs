@@ -1,13 +1,29 @@
-{ lib, stdenv, pythonPackages, fetchPypi, pkg-config
-, qmake, qtbase, qtsvg, qtwebengine
-, wrapQtAppsHook
-, darwin
+{
+  lib,
+  stdenv,
+  pythonPackages,
+  fetchPypi,
+  pkg-config,
+  qmake,
+  qtbase,
+  qtsvg,
+  qtwebengine,
+  wrapQtAppsHook,
+  darwin,
 }:
 
 let
-  inherit (pythonPackages) buildPythonPackage python isPy27 pyqt5 sip pyqt-builder;
+  inherit (pythonPackages)
+    buildPythonPackage
+    python
+    isPy27
+    pyqt5
+    sip
+    pyqt-builder
+  ;
   inherit (darwin) autoSignDarwinBinariesHook;
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "PyQtWebEngine";
   version = "5.15.4";
   format = "pyproject";
@@ -21,10 +37,14 @@ in buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace "[tool.sip.project]" "[tool.sip.project]''\nsip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
+      --replace "[tool.sip.project]" "[tool.sip.project]
+    sip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -35,9 +55,7 @@ in buildPythonPackage rec {
     qtwebengine
     pyqt-builder
     pythonPackages.setuptools
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    autoSignDarwinBinariesHook
-  ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
   buildInputs = [
     sip
@@ -69,8 +87,8 @@ in buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python bindings for Qt5";
-    homepage    = "http://www.riverbankcomputing.co.uk";
-    license     = licenses.gpl3;
-    platforms   = lib.lists.intersectLists qtwebengine.meta.platforms platforms.mesaPlatforms;
+    homepage = "http://www.riverbankcomputing.co.uk";
+    license = licenses.gpl3;
+    platforms = lib.lists.intersectLists qtwebengine.meta.platforms platforms.mesaPlatforms;
   };
 }

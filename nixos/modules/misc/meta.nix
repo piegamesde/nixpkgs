@@ -15,11 +15,28 @@ let
     #        "maintainer1 <first@nixos.org>"
     #        "maintainer2 <second@nixos.org>" ];
     #   }
-    merge = loc: defs:
-      zipAttrs
-        (flatten (imap1 (n: def: imap1 (m: def':
-          maintainer.merge (loc ++ ["[${toString n}-${toString m}]"])
-            [{ inherit (def) file; value = def'; }]) def.value) defs));
+    merge =
+      loc: defs:
+      zipAttrs (
+        flatten (
+          imap1
+            (
+              n: def:
+              imap1
+                (
+                  m: def':
+                  maintainer.merge (loc ++ [ "[${toString n}-${toString m}]" ]) [
+                    {
+                      inherit (def) file;
+                      value = def';
+                    }
+                  ]
+                )
+                def.value
+            )
+            defs
+        )
+      );
   };
 
   docFile = types.path // {
@@ -36,8 +53,8 @@ in
       maintainers = mkOption {
         type = listOfMaintainers;
         internal = true;
-        default = [];
-        example = literalExpression ''[ lib.maintainers.all ]'';
+        default = [ ];
+        example = literalExpression "[ lib.maintainers.all ]";
         description = lib.mdDoc ''
           List of maintainers of each module.  This option should be defined at
           most once per module.
@@ -68,7 +85,6 @@ in
           This option should be defined at most once per module.
         '';
       };
-
     };
   };
 

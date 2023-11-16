@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, contexttimer
-, versioneer
-, cython
-, numpy
-, pytest
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  contexttimer,
+  versioneer,
+  cython,
+  numpy,
+  pytest,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
     pytest
   '';
 
-  pythonImportsCheck = [
-    "pyrevolve"
-  ];
+  pythonImportsCheck = [ "pyrevolve" ];
 
   meta = with lib; {
     homepage = "https://github.com/devitocodes/pyrevolve";

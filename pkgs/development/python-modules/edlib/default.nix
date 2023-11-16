@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, edlib
-, cython
-, python
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  edlib,
+  cython,
+  python,
 }:
 
 buildPythonPackage {
@@ -32,5 +33,4 @@ buildPythonPackage {
   '';
 
   pythonImportsCheck = [ "edlib" ];
-
 }

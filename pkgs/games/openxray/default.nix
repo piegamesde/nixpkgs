@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, glew
-, freeimage
-, liblockfile
-, openal
-, libtheora
-, SDL2
-, lzo
-, libjpeg
-, libogg
-, pcre
-, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  glew,
+  freeimage,
+  liblockfile,
+  openal,
+  libtheora,
+  SDL2,
+  lzo,
+  libjpeg,
+  libogg,
+  pcre,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
@@ -63,6 +64,9 @@ stdenv.mkDerivation rec {
       url = "https://github.com/OpenXRay/xray-16/blob/${version}/License.txt";
     };
     maintainers = with maintainers; [ OPNA2608 ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

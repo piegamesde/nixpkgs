@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
 }:
 
 buildPythonPackage rec {
@@ -13,13 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-sQvFVwaZpDinLitaZOdr2MKO4779FvIJOHpVB/oLgwE=";
   };
 
-  patches = [
-    # fix build with python 3.9
-    (fetchpatch {
-      url = "https://github.com/freach/udatetime/pull/33.patch";
-      sha256 = "02wm7ivkv1viqn2wflgd10dgpddfqfrwacmrldigb1mwb79n554j";
-    })
-  ];
+  patches =
+    [
+      # fix build with python 3.9
+      (fetchpatch {
+        url = "https://github.com/freach/udatetime/pull/33.patch";
+        sha256 = "02wm7ivkv1viqn2wflgd10dgpddfqfrwacmrldigb1mwb79n554j";
+      })
+    ];
 
   # tests not included on pypi
   doCheck = false;

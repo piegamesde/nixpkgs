@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, appimageTools
-, makeWrapper
-, electron
-, git
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  makeWrapper,
+  electron,
+  git,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,9 +19,7 @@ stdenv.mkDerivation rec {
     name = "${pname}-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extract {
-    inherit pname src version;
-  };
+  appimageContents = appimageTools.extract { inherit pname src version; };
 
   dontUnpack = true;
   dontConfigure = true;

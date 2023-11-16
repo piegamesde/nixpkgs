@@ -1,9 +1,10 @@
-{ buildDunePackage
-, dune-configurator
-, eio
-, fmt
-, logs
-, iomux
+{
+  buildDunePackage,
+  dune-configurator,
+  eio,
+  fmt,
+  logs,
+  iomux,
 }:
 
 buildDunePackage {
@@ -15,9 +16,7 @@ buildDunePackage {
 
   dontStrip = true;
 
-  buildInputs = [
-    dune-configurator
-  ];
+  buildInputs = [ dune-configurator ];
 
   propagatedBuildInputs = [
     eio

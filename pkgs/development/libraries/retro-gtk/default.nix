@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, cmake
-, meson
-, ninja
-, pkg-config
-, libepoxy
-, glib
-, gtk3
-, libpulseaudio
-, libsamplerate
-, gobject-introspection
-, vala
-, gtk-doc
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  libepoxy,
+  glib,
+  gtk3,
+  libpulseaudio,
+  libsamplerate,
+  gobject-introspection,
+  vala,
+  gtk-doc,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +22,9 @@ stdenv.mkDerivation rec {
   version = "1.0.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/retro-gtk/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/retro-gtk/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1lnb7dwcj3lrrvdzd85dxwrlid28xf4qdbrgfjyg1wn1z6sv063i";
   };
 

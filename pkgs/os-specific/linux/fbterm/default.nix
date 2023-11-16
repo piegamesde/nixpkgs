@@ -1,14 +1,15 @@
-{ stdenv
-, autoreconfHook
-, fetchFromGitLab
-, fetchpatch
-, fetchurl
-, fontconfig
-, freetype
-, gpm
-, lib
-, ncurses
-, pkg-config
+{
+  stdenv,
+  autoreconfHook,
+  fetchFromGitLab,
+  fetchpatch,
+  fetchurl,
+  fontconfig,
+  freetype,
+  gpm,
+  lib,
+  ncurses,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -48,19 +49,19 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall =
-  let
-    fbtermrc = fetchurl {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/fbtermrc?h=fbterm";
-      hash = "sha256-zNIfi2ZjEGc5PLdOIirKGTXESb5Wm5XBAI1sfHa31LY=";
-    };
-  in
-  ''
-    mkdir -p "$out/share/terminfo"
-    tic -a -v2 -o"$out/share/terminfo" terminfo/fbterm
+    let
+      fbtermrc = fetchurl {
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/fbtermrc?h=fbterm";
+        hash = "sha256-zNIfi2ZjEGc5PLdOIirKGTXESb5Wm5XBAI1sfHa31LY=";
+      };
+    in
+    ''
+      mkdir -p "$out/share/terminfo"
+      tic -a -v2 -o"$out/share/terminfo" terminfo/fbterm
 
-    mkdir -p "$out/etc/fbterm"
-    cp "${fbtermrc}" "$out/etc/fbterm"
-  '';
+      mkdir -p "$out/etc/fbterm"
+      cp "${fbtermrc}" "$out/etc/fbterm"
+    '';
 
   # Patches from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fbterm
   patches = [
@@ -93,7 +94,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Framebuffer terminal emulator";
     homepage = "https://salsa.debian.org/debian/fbterm";
-    maintainers = with maintainers; [ lovesegfault raskin ];
+    maintainers = with maintainers; [
+      lovesegfault
+      raskin
+    ];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

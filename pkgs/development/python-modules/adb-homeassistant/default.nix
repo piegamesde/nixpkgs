@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, libusb1
-, rsa
-, pycryptodome
-, pytest
-, mock
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  libusb1,
+  rsa,
+  pycryptodome,
+  pytest,
+  mock,
 }:
 buildPythonPackage {
   pname = "adb-homeassistant";
@@ -17,7 +18,6 @@ buildPythonPackage {
     repo = "python-adb";
     rev = "5949bf432307cbba7128e84d7bc6add7f054a078";
     sha256 = "0s3fazvbzchn1fsvjrd1jl8w9y4dvvgq6q8m8p5lr2gri0npr581";
-
   };
 
   propagatedBuildInputs = [
@@ -26,7 +26,10 @@ buildPythonPackage {
     pycryptodome
   ];
 
-  nativeCheckInputs = [ pytest mock ];
+  nativeCheckInputs = [
+    pytest
+    mock
+  ];
   checkPhase = ''
     py.test test
   '';

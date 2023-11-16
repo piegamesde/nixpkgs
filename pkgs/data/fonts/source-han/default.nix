@@ -1,20 +1,21 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, unzip
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  unzip,
 }:
 
 let
   makePackage =
-    { family
-    , description
-    , rev
-    , hash
-    , zip ? ""
+    {
+      family,
+      description,
+      rev,
+      hash,
+      zip ? "",
     }:
-    let Family =
-      lib.toUpper (lib.substring 0 1 family) +
-      lib.substring 1 (lib.stringLength family) family;
+    let
+      Family = lib.toUpper (lib.substring 0 1 family) + lib.substring 1 (lib.stringLength family) family;
     in
     stdenvNoCC.mkDerivation rec {
       pname = "source-han-${family}";
@@ -27,11 +28,13 @@ let
 
       nativeBuildInputs = lib.optionals (zip == ".zip") [ unzip ];
 
-      unpackPhase = lib.optionalString (zip == "") ''
-        cp $src SourceHan${Family}.ttc${zip}
-      '' + lib.optionalString (zip == ".zip") ''
-        unzip $src
-      '';
+      unpackPhase =
+        lib.optionalString (zip == "") ''
+          cp $src SourceHan${Family}.ttc${zip}
+        ''
+        + lib.optionalString (zip == ".zip") ''
+          unzip $src
+        '';
 
       installPhase = ''
         runHook preInstall
@@ -45,7 +48,10 @@ let
         description = "An open source Pan-CJK ${description} typeface";
         homepage = "https://github.com/adobe-fonts/source-han-${family}";
         license = lib.licenses.ofl;
-        maintainers = with lib.maintainers; [ taku0 emily ];
+        maintainers = with lib.maintainers; [
+          taku0
+          emily
+        ];
       };
     };
 in

@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, zlib
-, ninja
-, meson
-, pkg-config
-, cmake
-, libpng
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  zlib,
+  ninja,
+  meson,
+  pkg-config,
+  cmake,
+  libpng,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,22 +25,24 @@ stdenv.mkDerivation rec {
 
   mesonBuildType = "release";
 
-  mesonFlags = [
-    # this is required to enable testing
-    # https://github.com/randy408/libspng/blob/bc383951e9a6e04dbc0766f6737e873e0eedb40b/tests/README.md#testing
-    "-Ddev_build=true"
-  ];
+  mesonFlags =
+    [
+      # this is required to enable testing
+      # https://github.com/randy408/libspng/blob/bc383951e9a6e04dbc0766f6737e873e0eedb40b/tests/README.md#testing
+      "-Ddev_build=true"
+    ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeCheckInputs = [
     cmake
     libpng
   ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
   nativeBuildInputs = [
     ninja

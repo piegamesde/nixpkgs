@@ -1,18 +1,19 @@
-{ lib
-, bottleneck
-, buildPythonPackage
-, fetchPypi
-, jellyfish
-, joblib
-, networkx
-, numexpr
-, numpy
-, pandas
-, pyarrow
-, pytest
-, scikit-learn
-, scipy
-, pythonOlder
+{
+  lib,
+  bottleneck,
+  buildPythonPackage,
+  fetchPypi,
+  jellyfish,
+  joblib,
+  networkx,
+  numexpr,
+  numpy,
+  pandas,
+  pyarrow,
+  pytest,
+  scikit-learn,
+  scipy,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

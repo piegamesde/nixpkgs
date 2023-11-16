@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, zope_event
-, zope_component
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  zope_event,
+  zope_component,
 }:
 
 buildPythonPackage rec {
@@ -15,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-9ahU6J/5fe6ke/vqN4u77yeJ0uDMkKHB2lfZChzmfLU=";
   };
 
-  propagatedBuildInputs = [ zope_event zope_component ];
+  propagatedBuildInputs = [
+    zope_event
+    zope_component
+  ];
 
   # namespace colides with local directory
   doCheck = false;
@@ -32,5 +36,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
-
 }

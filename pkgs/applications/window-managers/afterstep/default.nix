@@ -1,9 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config
-, libtiff
-, fltk, gtk
-, libICE, libSM
-, dbus
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libtiff,
+  fltk,
+  gtk,
+  libICE,
+  libSM,
+  dbus,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
@@ -41,7 +47,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libtiff fltk gtk libICE libSM dbus ];
+  buildInputs = [
+    libtiff
+    fltk
+    gtk
+    libICE
+    libSM
+    dbus
+  ];
 
   # A strange type of bug: dbus is not immediately found by pkg-config
   preConfigure = ''
@@ -81,5 +94,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;
   };
-
 }

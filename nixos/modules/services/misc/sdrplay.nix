@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   options.services.sdrplayApi = {
     enable = mkOption {
       default = false;
@@ -30,6 +34,5 @@ with lib;
       };
     };
     services.udev.packages = [ pkgs.sdrplay ];
-
   };
 }

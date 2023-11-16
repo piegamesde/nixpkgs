@@ -1,26 +1,27 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, gnome
-, meson
-, ninja
-, pkg-config
-, gtk3
-, gettext
-, glib
-, udev
-, itstool
-, libxml2
-, wrapGAppsHook
-, libnotify
-, libcanberra-gtk3
-, gobject-introspection
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, python3
-, gsettings-desktop-schemas
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  gnome,
+  meson,
+  ninja,
+  pkg-config,
+  gtk3,
+  gettext,
+  glib,
+  udev,
+  itstool,
+  libxml2,
+  wrapGAppsHook,
+  libnotify,
+  libcanberra-gtk3,
+  gobject-introspection,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  python3,
+  gsettings-desktop-schemas,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,21 +29,29 @@ stdenv.mkDerivation rec {
   version = "3.34.5";
 
   # TODO: split out "lib"
-  outputs = [ "out" "dev" "devdoc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "bJSeUsi+zCBU2qzWBJAfZs5c9wml+pHEu3ysyTm1Pqk=";
   };
 
-  patches = [
-    # Fix build with meson 0.61.
-    # sendto/meson.build:24:5: ERROR: Function does not take positional arguments.
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/commit/755fd758f866d3a3f7ca482942beee749f13a91e.patch";
-      sha256 = "sha256-N0MJ0pYO411o2CTNZHWmEoG2m5TGUjR6YW6HSXHTR/A=";
-    })
-  ];
+  patches =
+    [
+      # Fix build with meson 0.61.
+      # sendto/meson.build:24:5: ERROR: Function does not take positional arguments.
+      (fetchpatch {
+        url = "https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/commit/755fd758f866d3a3f7ca482942beee749f13a91e.patch";
+        sha256 = "sha256-N0MJ0pYO411o2CTNZHWmEoG2m5TGUjR6YW6HSXHTR/A=";
+      })
+    ];
 
   nativeBuildInputs = [
     meson

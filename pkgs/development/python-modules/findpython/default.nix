@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 
-# build time
-, pdm-pep517
+  # build time
+  pdm-pep517,
 
-# runtime
-, packaging
+  # runtime
+  packaging,
 
-# tests
-, pytestCheckHook
+  # tests
+  pytestCheckHook,
 }:
 
 let
@@ -28,21 +29,13 @@ buildPythonPackage {
     hash = "sha256-4P1HO0Jl5+DnhD7Hb+rIwMRBuGlXH0Zb7+nmlZSQaf4=";
   };
 
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    packaging
-  ];
+  propagatedBuildInputs = [ packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "findpython"
-  ];
+  pythonImportsCheck = [ "findpython" ];
 
   meta = with lib; {
     description = "A utility to find python versions on your system";

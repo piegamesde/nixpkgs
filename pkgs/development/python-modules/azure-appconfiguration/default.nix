@@ -1,5 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, azure-core
-, msrest
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-core,
+  msrest,
 }:
 
 buildPythonPackage rec {

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, internetarchive
-, fetchPypi
-, yt-dlp
-, docopt
-, pythonOlder
-, urllib3
-, pythonRelaxDepsHook
+{
+  lib,
+  buildPythonPackage,
+  internetarchive,
+  fetchPypi,
+  yt-dlp,
+  docopt,
+  pythonOlder,
+  urllib3,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     sha256 = "sha256-5tvRaIXVzZcNy40uOEPwwN4EKPvvZPiR3qIdmiZSXWw=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     internetarchive
@@ -38,9 +37,7 @@ buildPythonPackage rec {
     "docopt"
   ];
 
-  pythonImportsCheck = [
-    "tubeup"
-  ];
+  pythonImportsCheck = [ "tubeup" ];
 
   # Tests failing upstream
   doCheck = false;

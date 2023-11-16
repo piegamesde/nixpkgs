@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyusb
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyusb,
 }:
 
 buildPythonPackage {
@@ -34,5 +35,4 @@ buildPythonPackage {
     license = licenses.mit;
     platforms = platforms.unix;
   };
-
 }

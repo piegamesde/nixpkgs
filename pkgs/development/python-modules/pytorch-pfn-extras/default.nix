@@ -1,13 +1,14 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, numpy
-, onnx
-, packaging
-, pytestCheckHook
-, torch
-, torchvision
-, typing-extensions
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  numpy,
+  onnx,
+  packaging,
+  pytestCheckHook,
+  torch,
+  torchvision,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-x1aE/55+2QwYG3Hhy35j26jLAj9O5orrU/c4KlTTOcc=";
   };
 
-  propagatedBuildInputs = [ numpy packaging torch typing-extensions ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    torch
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ onnx pytestCheckHook torchvision ];
+  nativeCheckInputs = [
+    onnx
+    pytestCheckHook
+    torchvision
+  ];
 
   # ignore all pytest warnings
   preCheck = ''

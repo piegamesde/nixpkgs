@@ -1,34 +1,36 @@
-{ lib
-, stdenv
-, python3Packages
-, nix-update-script
-, pyrosimple
-, testers
-, fetchPypi
-, buildPythonPackage
-, pythonRelaxDepsHook
-, poetry-core
-, bencode-py
-, apscheduler
-, jinja2
-, python-daemon
-, importlib-resources
-, parsimonious
-, prometheus-client
-, prompt-toolkit
-, requests
-, shtab
-, inotify
-, withInotify ? stdenv.isLinux
-, python-box
-, tomli
-, tomli-w
+{
+  lib,
+  stdenv,
+  python3Packages,
+  nix-update-script,
+  pyrosimple,
+  testers,
+  fetchPypi,
+  buildPythonPackage,
+  pythonRelaxDepsHook,
+  poetry-core,
+  bencode-py,
+  apscheduler,
+  jinja2,
+  python-daemon,
+  importlib-resources,
+  parsimonious,
+  prometheus-client,
+  prompt-toolkit,
+  requests,
+  shtab,
+  inotify,
+  withInotify ? stdenv.isLinux,
+  python-box,
+  tomli,
+  tomli-w,
 }:
 
 let
- pname = "pyrosimple";
- version = "2.8.0";
-in buildPythonPackage {
+  pname = "pyrosimple";
+  version = "2.8.0";
+in
+buildPythonPackage {
   inherit pname version;
 
   src = fetchPypi {
@@ -43,9 +45,7 @@ in buildPythonPackage {
     pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [
-    "python-daemon"
-  ];
+  pythonRelaxDeps = [ "python-daemon" ];
 
   propagatedBuildInputs = [
     bencode-py
@@ -77,7 +77,9 @@ in buildPythonPackage {
     license = licenses.gpl3Plus;
     changelog = "https://github.com/kannibalox/pyrosimple/blob/v${version}/CHANGELOG.md";
     platforms = platforms.all;
-    maintainers = with maintainers; [ ne9z vamega ];
+    maintainers = with maintainers; [
+      ne9z
+      vamega
+    ];
   };
-
 }

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, writeText, vulkan-headers, jq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  writeText,
+  vulkan-headers,
+  jq,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-extension-layer";
@@ -11,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-CuwYpB8HX8pnR+ElkQfckpKDLKyZIzqm4F9kluM1cKo=";
   };
 
-  nativeBuildInputs = [ cmake jq ];
+  nativeBuildInputs = [
+    cmake
+    jq
+  ];
 
   buildInputs = [ vulkan-headers ];
 
@@ -21,9 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Tests are not for gpu-less and headless environments
-  cmakeFlags = [
-    "-DBUILD_TESTS=false"
-  ];
+  cmakeFlags = [ "-DBUILD_TESTS=false" ];
 
   # Include absolute paths to layer libraries in their associated
   # layer definition json files.

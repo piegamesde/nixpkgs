@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchpatch
-, fetchFromGitLab
-, pkg-config
-, autoreconfHook
-, libxslt
-, docbook-xsl-nons
-, gettext
-, gtk3
-, systemd
-, pango
-, cairo
-, libdrm
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitLab,
+  pkg-config,
+  autoreconfHook,
+  libxslt,
+  docbook-xsl-nons,
+  gettext,
+  gtk3,
+  systemd,
+  pango,
+  cairo,
+  libdrm,
 }:
 
 stdenv.mkDerivation rec {

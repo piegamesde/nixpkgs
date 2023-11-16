@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pkg-config
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pkg-config,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,7 @@ buildPythonPackage rec {
     suffixSalt
     targetPrefix
     baseBinName
-    ;
+  ;
 
   src = fetchFromGitHub {
     owner = "matze";

@@ -1,11 +1,12 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, numpy
-, opencv3
-, sphinx-rtd-theme
-, lxml
-, xmljson
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  numpy,
+  opencv3,
+  sphinx-rtd-theme,
+  lxml,
+  xmljson,
 }:
 
 buildPythonPackage rec {

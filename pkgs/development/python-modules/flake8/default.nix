@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, mccabe
-, pycodestyle
-, pyflakes
-, importlib-metadata
-, pythonAtLeast
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  mccabe,
+  pycodestyle,
+  pyflakes,
+  importlib-metadata,
+  pythonAtLeast,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -29,16 +30,12 @@ buildPythonPackage rec {
     mccabe
     pycodestyle
     pyflakes
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # Tests fail on Python 3.7 due to importlib using a deprecated interface
   doCheck = pythonAtLeast "3.7";
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Flake8 is a wrapper around pyflakes, pycodestyle and mccabe.";

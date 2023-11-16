@@ -1,14 +1,15 @@
-{ lib
-, pkg-config
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, coreutils
-, gnupg
-, gnutar
-, squashfsTools
-, debootstrap
-, fetchpatch
+{
+  lib,
+  pkg-config,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  coreutils,
+  gnupg,
+  gnutar,
+  squashfsTools,
+  debootstrap,
+  fetchpatch,
 }:
 
 let

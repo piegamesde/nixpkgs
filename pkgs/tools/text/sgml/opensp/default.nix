@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, xmlto, docbook_xml_dtd_412
-, libxslt, docbook_xsl, autoconf, automake, gettext, libiconv, libtool
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  xmlto,
+  docbook_xml_dtd_412,
+  libxslt,
+  docbook_xsl,
+  autoconf,
+  automake,
+  gettext,
+  libiconv,
+  libtool,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,7 +41,7 @@ stdenv.mkDerivation rec {
     # Remove random ids in the release notes
     sed -i -e 's/href="#idm.*"//g' $out/share/doc/OpenSP/releasenotes.html
     sed -i -e 's/name="idm.*"//g' $out/share/doc/OpenSP/releasenotes.html
-    '';
+  '';
 
   preConfigure = lib.optionalString stdenv.isCygwin ''
     autoreconf -fi
@@ -37,11 +49,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    xmlto
-    docbook_xml_dtd_412
-    docbook_xsl
-  ] ++ lib.optionals stdenv.isCygwin [ autoconf automake libtool ];
+  nativeBuildInputs =
+    [
+      xmlto
+      docbook_xml_dtd_412
+      docbook_xsl
+    ]
+    ++ lib.optionals stdenv.isCygwin [
+      autoconf
+      automake
+      libtool
+    ];
 
   doCheck = false; # fails
 

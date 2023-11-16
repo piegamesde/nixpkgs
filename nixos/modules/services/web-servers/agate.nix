@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -76,11 +81,21 @@ in
     systemd.services.agate = {
       description = "Agate";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
 
       script =
         let
-          prefixKeyList = key: list: concatMap (v: [ key v ]) list;
+          prefixKeyList =
+            key: list:
+            concatMap
+              (v: [
+                key
+                v
+              ])
+              list;
           addresses = prefixKeyList "--addr" cfg.addresses;
           hostnames = prefixKeyList "--hostname" cfg.hostnames;
         in
@@ -88,14 +103,19 @@ in
           exec ${cfg.package}/bin/agate ${
             escapeShellArgs (
               [
-                "--content" "${cfg.contentDir}"
-                "--certs" "${cfg.certificatesDir}"
-              ] ++
-              addresses ++
-              (optionals (cfg.hostnames != []) hostnames) ++
-              (optionals (cfg.language != null) [ "--lang" cfg.language ]) ++
-              (optionals cfg.onlyTls_1_3 [ "--only-tls13" ]) ++
-              (optionals (cfg.extraArgs != []) cfg.extraArgs)
+                "--content"
+                "${cfg.contentDir}"
+                "--certs"
+                "${cfg.certificatesDir}"
+              ]
+              ++ addresses
+              ++ (optionals (cfg.hostnames != [ ]) hostnames)
+              ++ (optionals (cfg.language != null) [
+                "--lang"
+                cfg.language
+              ])
+              ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
+              ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs)
             )
           }
         '';
@@ -127,7 +147,10 @@ in
         ProtectKernelTunables = true;
 
         RestrictNamespaces = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictRealtime = true;
 
         SystemCallArchitectures = "native";

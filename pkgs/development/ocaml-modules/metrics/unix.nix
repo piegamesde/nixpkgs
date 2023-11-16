@@ -1,4 +1,12 @@
-{ buildDunePackage, gnuplot, lwt, metrics, metrics-lwt, mtime, uuidm }:
+{
+  buildDunePackage,
+  gnuplot,
+  lwt,
+  metrics,
+  metrics-lwt,
+  mtime,
+  uuidm,
+}:
 
 buildDunePackage rec {
 
@@ -13,7 +21,13 @@ buildDunePackage rec {
     substituteInPlace src/unix/dune --replace "mtime mtime.clock" "mtime"
   '';
 
-  propagatedBuildInputs = [ gnuplot lwt metrics mtime uuidm ];
+  propagatedBuildInputs = [
+    gnuplot
+    lwt
+    metrics
+    mtime
+    uuidm
+  ];
 
   nativeCheckInputs = [ gnuplot ];
   checkInputs = [ metrics-lwt ];
@@ -23,5 +37,4 @@ buildDunePackage rec {
   meta = metrics.meta // {
     description = "Unix backend for the Metrics library";
   };
-
 }

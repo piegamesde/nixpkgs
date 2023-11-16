@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, ipykernel
-, isPy27
-, python
-, pexpect
-, bash
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  ipykernel,
+  isPy27,
+  python,
+  pexpect,
+  bash,
 }:
 
 buildPythonPackage rec {
@@ -33,7 +34,10 @@ buildPythonPackage rec {
       --replace "\"bash\"" "'${bash}/bin/bash'"
   '';
 
-  propagatedBuildInputs = [ ipykernel pexpect ];
+  propagatedBuildInputs = [
+    ipykernel
+    pexpect
+  ];
 
   # no tests
   doCheck = false;

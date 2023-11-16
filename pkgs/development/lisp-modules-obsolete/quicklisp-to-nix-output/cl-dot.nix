@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-dot";
   version = "20200925-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-dot";
 
-  asdFilesToKeep = ["cl-dot.asd"];
+  asdFilesToKeep = [ "cl-dot.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-dot DESCRIPTION Generate Dot Output from Arbitrary Lisp Data
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-dot/2020-09-25/cl-dot-20200925-git.tgz
     MD5 35c68f431f188d4c1c7604b4b1af220f NAME cl-dot FILENAME cl-dot DEPS
     ((NAME uiop FILENAME uiop)) DEPENDENCIES (uiop) VERSION 20200925-git
-    SIBLINGS NIL PARASITES NIL) */
+    SIBLINGS NIL PARASITES NIL)
+*/

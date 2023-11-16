@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, cached-property
-, packaging
-, pdm-pep517
-, requests
-, flask
-, pytest-httpserver
-, pytestCheckHook
-, requests-wsgi-adapter
-, trustme
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  cached-property,
+  packaging,
+  pdm-pep517,
+  requests,
+  flask,
+  pytest-httpserver,
+  pytestCheckHook,
+  requests-wsgi-adapter,
+  trustme,
 }:
 
 buildPythonPackage rec {
@@ -25,16 +26,12 @@ buildPythonPackage rec {
     hash = "sha256-cgWDKwhwBdG3RpA6U1yn0NtTgcH2Id3AApBSTVav0hc=";
   };
 
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ pdm-pep517 ];
 
   propagatedBuildInputs = [
     packaging
     requests
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    cached-property
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
 
   nativeCheckInputs = [
     flask
@@ -44,9 +41,7 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pythonImportsCheck = [
-    "unearth"
-  ];
+  pythonImportsCheck = [ "unearth" ];
 
   meta = with lib; {
     description = "A utility to fetch and download Python packages";

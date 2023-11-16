@@ -1,25 +1,30 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, wayland-scanner
-, wayland
-, gtk3
-, gobject-introspection
-, vala
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  wayland-scanner,
+  wayland,
+  gtk3,
+  gobject-introspection,
+  vala,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gtk-layer-shell";
   version = "0.8.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "devdoc"; # for demo
 
   src = fetchFromGitHub {
@@ -46,9 +51,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     meson

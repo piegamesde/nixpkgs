@@ -1,4 +1,10 @@
-{ lib, python3, fetchPypi, khard, testers }:
+{
+  lib,
+  python3,
+  fetchPypi,
+  khard,
+  testers,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   version = "0.18.0";
@@ -10,9 +16,7 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
-  nativeBuildInputs = [
-    python3.pkgs.setuptools-scm
-  ];
+  nativeBuildInputs = [ python3.pkgs.setuptools-scm ];
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites

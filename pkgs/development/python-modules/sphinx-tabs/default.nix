@@ -1,22 +1,26 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonImportsCheckHook
-# documentation build dependencies
-, sphinxHook
-# runtime dependencies
-, sphinx
-, pygments
-, docutils
-# test dependencies
-, pytest
-, beautifulsoup4
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonImportsCheckHook,
+  # documentation build dependencies
+  sphinxHook,
+  # runtime dependencies
+  sphinx,
+  pygments,
+  docutils,
+  # test dependencies
+  pytest,
+  beautifulsoup4,
 }:
 
 buildPythonPackage rec {
   pname = "sphinx-tabs";
   version = "3.4.1";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "executablebooks";
@@ -40,7 +44,8 @@ buildPythonPackage rec {
     docutils
   ];
 
-  nativeCheckInputs = [ pytest
+  nativeCheckInputs = [
+    pytest
     beautifulsoup4
   ];
 

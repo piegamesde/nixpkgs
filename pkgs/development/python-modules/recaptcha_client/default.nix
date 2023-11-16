@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonAtLeast
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
 }:
 
 buildPythonPackage rec {
@@ -19,5 +20,4 @@ buildPythonPackage rec {
     homepage = "http://recaptcha.net/";
     license = licenses.mit;
   };
-
 }

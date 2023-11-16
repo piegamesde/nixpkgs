@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, udev
-, libcec_platform
-, withLibraspberrypi ? false
-, libraspberrypi
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  udev,
+  libcec_platform,
+  withLibraspberrypi ? false,
+  libraspberrypi,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,9 +26,14 @@ stdenv.mkDerivation rec {
     substituteInPlace include/cecloader.h --replace "libcec.so" "$out/lib/libcec.so"
   '';
 
-  nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ udev libcec_platform ] ++
-    lib.optional withLibraspberrypi libraspberrypi;
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    udev
+    libcec_platform
+  ] ++ lib.optional withLibraspberrypi libraspberrypi;
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=1" ];
 

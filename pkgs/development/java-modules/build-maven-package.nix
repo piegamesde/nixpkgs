@@ -1,20 +1,43 @@
-{ lib, stdenv, maven, pkgs }:
-{ mavenDeps, src, name, meta, m2Path, skipTests ? true, quiet ? true, ... }:
+{
+  lib,
+  stdenv,
+  maven,
+  pkgs,
+}:
+{
+  mavenDeps,
+  src,
+  name,
+  meta,
+  m2Path,
+  skipTests ? true,
+  quiet ? true,
+  ...
+}:
 
 with builtins;
 with lib;
 
 let
-  mavenMinimal = import ./maven-minimal.nix { inherit lib pkgs ; };
-in stdenv.mkDerivation rec {
-  inherit mavenDeps src name meta m2Path;
+  mavenMinimal = import ./maven-minimal.nix { inherit lib pkgs; };
+in
+stdenv.mkDerivation rec {
+  inherit
+    mavenDeps
+    src
+    name
+    meta
+    m2Path
+  ;
 
   flatDeps = unique (flatten (mavenDeps ++ mavenMinimal.mavenMinimal));
 
   propagatedBuildInput = [ maven ] ++ flatDeps;
 
-  find = ''find ${concatStringsSep " " (map (x: x + "/m2") flatDeps)} -type d -printf '%P\n' | xargs -I {} mkdir -p $out/m2/{}'';
-  copy = ''cp -rsfu ${concatStringsSep " " (map (x: x + "/m2/*") flatDeps)} $out/m2'';
+  find = "find ${
+      concatStringsSep " " (map (x: x + "/m2") flatDeps)
+    } -type d -printf '%P\\n' | xargs -I {} mkdir -p $out/m2/{}";
+  copy = "cp -rsfu ${concatStringsSep " " (map (x: x + "/m2/*") flatDeps)} $out/m2";
 
   dontInstall = true;
 
@@ -27,7 +50,9 @@ in stdenv.mkDerivation rec {
     echo "<settings><mirrors>\
       <mirror><id>tmpm2</id><url>file://$out/m2</url><mirrorOf>*</mirrorOf></mirror></mirrors>\
       <localRepository>$out/m2/</localRepository></settings>" >> $out/m2/settings.xml
-    ${maven}/bin/mvn ${optionalString (quiet) "-q"} clean package -Dmaven.test.skip=${boolToString skipTests} -Danimal.sniffer.skip=true -gs $out/m2/settings.xml
+    ${maven}/bin/mvn ${optionalString (quiet) "-q"} clean package -Dmaven.test.skip=${
+      boolToString skipTests
+    } -Danimal.sniffer.skip=true -gs $out/m2/settings.xml
     cp ./target/*.jar $out/m2/${m2Path}
     cp -v ./target/*.jar $out/target/
   '';

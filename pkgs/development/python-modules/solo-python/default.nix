@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, click
-, cryptography
-, ecdsa
-, fido2
-, intelhex
-, pyserial
-, pyusb
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  click,
+  cryptography,
+  ecdsa,
+  fido2,
+  intelhex,
+  pyserial,
+  pyusb,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -53,7 +54,10 @@ buildPythonPackage rec {
     description = "Python tool and library for SoloKeys Solo 1";
     homepage = "https://github.com/solokeys/solo1-cli";
     maintainers = with maintainers; [ wucke13 ];
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     # not compatible with fido2 >= 1.0.0
     # https://github.com/solokeys/solo1-cli/issues/157
     broken = versionAtLeast fido2.version "1.0.0";

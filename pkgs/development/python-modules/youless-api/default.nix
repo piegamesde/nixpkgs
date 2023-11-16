@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromBitbucket
-, pythonOlder
-, certifi
-, chardet
-, idna
-, nose
-, requests
-, urllib3
+{
+  lib,
+  buildPythonPackage,
+  fetchFromBitbucket,
+  pythonOlder,
+  certifi,
+  chardet,
+  idna,
+  nose,
+  requests,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -32,13 +33,9 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
-  pythonImportsCheck = [
-    "youless_api"
-  ];
+  pythonImportsCheck = [ "youless_api" ];
 
   meta = with lib; {
     description = "Python library for YouLess sensors";

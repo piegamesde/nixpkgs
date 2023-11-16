@@ -1,7 +1,8 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, glibcLocales
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  glibcLocales,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -16,9 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-ioSNd0Fjk2Fp05lk3HeokIjNYGU0jQEaIDfcFB18mV0=";
   };
 
-  nativeBuildInputs = [
-    python3Packages.setuptools
-  ];
+  nativeBuildInputs = [ python3Packages.setuptools ];
 
   postPatch = ''
     substituteInPlace tests/pty_test.py \

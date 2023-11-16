@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_testing
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_testing,
 }:
 
 buildPythonPackage rec {
@@ -21,5 +22,4 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ domenkozar ];
   };
-
 }

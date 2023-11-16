@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.joycond;
@@ -24,7 +29,9 @@ with lib;
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    boot.extraModulePackages = optional (versionOlder kernelPackages.kernel.version "5.16") kernelPackages.hid-nintendo;
+    boot.extraModulePackages =
+      optional (versionOlder kernelPackages.kernel.version "5.16")
+        kernelPackages.hid-nintendo;
 
     services.udev.packages = [ cfg.package ];
 

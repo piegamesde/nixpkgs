@@ -1,28 +1,29 @@
-{ lib
-, buildPythonPackage
-, django
-, djangorestframework
-, falcon
-, fetchFromGitHub
-, flask
-, httpx
-, isodate
-, jsonschema-spec
-, mock
-, more-itertools
-, openapi-schema-validator
-, openapi-spec-validator
-, parse
-, pathable
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, responses
-, requests
-, starlette
-, typing-extensions
-, webob
-, werkzeug
+{
+  lib,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  falcon,
+  fetchFromGitHub,
+  flask,
+  httpx,
+  isodate,
+  jsonschema-spec,
+  mock,
+  more-itertools,
+  openapi-schema-validator,
+  openapi-spec-validator,
+  parse,
+  pathable,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  responses,
+  requests,
+  starlette,
+  typing-extensions,
+  webob,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -43,9 +44,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     isodate
@@ -61,18 +60,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    django = [
-      django
-    ];
-    falcon = [
-      falcon
-    ];
-    flask = [
-      flask
-    ];
-    requests = [
-      requests
-    ];
+    django = [ django ];
+    falcon = [ falcon ];
+    flask = [ flask ];
+    requests = [ requests ];
     starlette = [
       httpx
       starlette
@@ -86,10 +77,11 @@ buildPythonPackage rec {
     webob
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  disabledTestPaths = [
-    # Requires secrets and additional configuration
-    "tests/integration/contrib/django/"
-  ];
+  disabledTestPaths =
+    [
+      # Requires secrets and additional configuration
+      "tests/integration/contrib/django/"
+    ];
 
   pythonImportsCheck = [
     "openapi_core"

@@ -1,27 +1,28 @@
-{ fetchFromGitHub
-, lib
-, stdenv
-, autoconf
-, automake
-, pkg-config
-, m4
-, curl
-, libGLU
-, libGL
-, libXmu
-, libXi
-, freeglut
-, libjpeg
-, libtool
-, wxGTK32
-, xcbutil
-, sqlite
-, gtk3
-, patchelf
-, libXScrnSaver
-, libnotify
-, libX11
-, libxcb
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  pkg-config,
+  m4,
+  curl,
+  libGLU,
+  libGL,
+  libXmu,
+  libXi,
+  freeglut,
+  libjpeg,
+  libtool,
+  wxGTK32,
+  xcbutil,
+  sqlite,
+  gtk3,
+  patchelf,
+  libXScrnSaver,
+  libnotify,
+  libX11,
+  libxcb,
 }:
 
 stdenv.mkDerivation rec {
@@ -36,7 +37,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-9GgvyYiDfppRuDFfxn50e+YZeSX0SLKSfo31lWx2FBs=";
   };
 
-  nativeBuildInputs = [ libtool automake autoconf m4 pkg-config ];
+  nativeBuildInputs = [
+    libtool
+    automake
+    autoconf
+    m4
+    pkg-config
+  ];
 
   buildInputs = [
     curl

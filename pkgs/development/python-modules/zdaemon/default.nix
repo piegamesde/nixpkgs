@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, zconfig
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  zconfig,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-SCHjvbRzh88eklWwREusQ3z3KqC1nRQHuTLjH9QyPvw=";
   };
 
-  propagatedBuildInputs = [
-    zconfig
-  ];
+  propagatedBuildInputs = [ zconfig ];
 
   # too many deps..
   doCheck = false;
 
-  pythonImportsCheck = [
-    "zdaemon"
-  ];
+  pythonImportsCheck = [ "zdaemon" ];
 
   meta = with lib; {
     description = "A daemon process control library and tools for Unix-based systems";

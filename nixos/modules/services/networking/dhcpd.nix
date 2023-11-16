@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -7,8 +12,9 @@ let
   cfg4 = config.services.dhcpd4;
   cfg6 = config.services.dhcpd6;
 
-  writeConfig = postfix: cfg: pkgs.writeText "dhcpd.conf"
-    ''
+  writeConfig =
+    postfix: cfg:
+    pkgs.writeText "dhcpd.conf" ''
       default-lease-time 600;
       max-lease-time 7200;
       ${optionalString (!cfg.authoritative) "not "}authoritative;
@@ -18,88 +24,88 @@ let
       ${cfg.extraConfig}
 
       ${lib.concatMapStrings
-          (machine: ''
-            host ${machine.hostName} {
-              hardware ethernet ${machine.ethernetAddress};
-              fixed-address${
-                optionalString (postfix == "6") postfix
-              } ${machine.ipAddress};
-            }
-          '')
-          cfg.machines
-      }
+        (machine: ''
+          host ${machine.hostName} {
+            hardware ethernet ${machine.ethernetAddress};
+            fixed-address${optionalString (postfix == "6") postfix} ${machine.ipAddress};
+          }
+        '')
+        cfg.machines}
     '';
 
-  dhcpdService = postfix: cfg:
+  dhcpdService =
+    postfix: cfg:
     let
-      configFile =
-        if cfg.configFile != null
-          then cfg.configFile
-          else writeConfig postfix cfg;
+      configFile = if cfg.configFile != null then cfg.configFile else writeConfig postfix cfg;
       leaseFile = "/var/lib/dhcpd${postfix}/dhcpd.leases";
       args = [
-        "@${pkgs.dhcp}/sbin/dhcpd" "dhcpd${postfix}" "-${postfix}"
-        "-pf" "/run/dhcpd${postfix}/dhcpd.pid"
-        "-cf" configFile
-        "-lf" leaseFile
-      ] ++ cfg.extraFlags
-        ++ cfg.interfaces;
+        "@${pkgs.dhcp}/sbin/dhcpd"
+        "dhcpd${postfix}"
+        "-${postfix}"
+        "-pf"
+        "/run/dhcpd${postfix}/dhcpd.pid"
+        "-cf"
+        configFile
+        "-lf"
+        leaseFile
+      ] ++ cfg.extraFlags ++ cfg.interfaces;
     in
-      optionalAttrs cfg.enable {
-        "dhcpd${postfix}" = {
-          description = "DHCPv${postfix} server";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+    optionalAttrs cfg.enable {
+      "dhcpd${postfix}" = {
+        description = "DHCPv${postfix} server";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
 
-          preStart = "touch ${leaseFile}";
-          serviceConfig = {
-            ExecStart = concatMapStringsSep " " escapeShellArg args;
-            Type = "forking";
-            Restart = "always";
-            DynamicUser = true;
-            User = "dhcpd";
-            Group = "dhcpd";
-            AmbientCapabilities = [
-              "CAP_NET_RAW"          # to send ICMP messages
-              "CAP_NET_BIND_SERVICE" # to bind on DHCP port (67)
-            ];
-            StateDirectory   = "dhcpd${postfix}";
-            RuntimeDirectory = "dhcpd${postfix}";
-            PIDFile = "/run/dhcpd${postfix}/dhcpd.pid";
-          };
+        preStart = "touch ${leaseFile}";
+        serviceConfig = {
+          ExecStart = concatMapStringsSep " " escapeShellArg args;
+          Type = "forking";
+          Restart = "always";
+          DynamicUser = true;
+          User = "dhcpd";
+          Group = "dhcpd";
+          AmbientCapabilities = [
+            "CAP_NET_RAW" # to send ICMP messages
+            "CAP_NET_BIND_SERVICE" # to bind on DHCP port (67)
+          ];
+          StateDirectory = "dhcpd${postfix}";
+          RuntimeDirectory = "dhcpd${postfix}";
+          PIDFile = "/run/dhcpd${postfix}/dhcpd.pid";
         };
       };
-
-  machineOpts = { ... }: {
-
-    options = {
-
-      hostName = mkOption {
-        type = types.str;
-        example = "foo";
-        description = lib.mdDoc ''
-          Hostname which is assigned statically to the machine.
-        '';
-      };
-
-      ethernetAddress = mkOption {
-        type = types.str;
-        example = "00:16:76:9a:32:1d";
-        description = lib.mdDoc ''
-          MAC address of the machine.
-        '';
-      };
-
-      ipAddress = mkOption {
-        type = types.str;
-        example = "192.168.1.10";
-        description = lib.mdDoc ''
-          IP address of the machine.
-        '';
-      };
-
     };
-  };
+
+  machineOpts =
+    { ... }:
+    {
+
+      options = {
+
+        hostName = mkOption {
+          type = types.str;
+          example = "foo";
+          description = lib.mdDoc ''
+            Hostname which is assigned statically to the machine.
+          '';
+        };
+
+        ethernetAddress = mkOption {
+          type = types.str;
+          example = "00:16:76:9a:32:1d";
+          description = lib.mdDoc ''
+            MAC address of the machine.
+          '';
+        };
+
+        ipAddress = mkOption {
+          type = types.str;
+          example = "192.168.1.10";
+          description = lib.mdDoc ''
+            IP address of the machine.
+          '';
+        };
+      };
+    };
 
   dhcpConfig = postfix: {
 
@@ -134,7 +140,7 @@ let
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Additional command line flags to be passed to the dhcpd daemon.
       '';
@@ -151,7 +157,7 @@ let
 
     interfaces = mkOption {
       type = types.listOf types.str;
-      default = ["eth0"];
+      default = [ "eth0" ];
       description = lib.mdDoc ''
         The interfaces on which the DHCP server should listen.
       '';
@@ -159,13 +165,15 @@ let
 
     machines = mkOption {
       type = with types; listOf (submodule machineOpts);
-      default = [];
+      default = [ ];
       example = [
-        { hostName = "foo";
+        {
+          hostName = "foo";
           ethernetAddress = "00:16:76:9a:32:1d";
           ipAddress = "192.168.1.10";
         }
-        { hostName = "bar";
+        {
+          hostName = "bar";
           ethernetAddress = "00:19:d1:1d:c4:9a";
           ipAddress = "192.168.1.11";
         }
@@ -185,22 +193,43 @@ let
         IP address after changing subnets until their old lease has expired.
       '';
     };
-
   };
-
 in
 
 {
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "dhcpd" ] [ "services" "dhcpd4" ])
-  ] ++ flip map [ "4" "6" ] (postfix:
-    mkRemovedOptionModule [ "services" "dhcpd${postfix}" "stateDir" ] ''
-      The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
-      This means the directory is named after the service (dhcpd${postfix}), created under
-      /var/lib/private/ and symlinked to /var/lib/.
-    ''
-  );
+  imports =
+    [
+      (mkRenamedOptionModule
+        [
+          "services"
+          "dhcpd"
+        ]
+        [
+          "services"
+          "dhcpd4"
+        ]
+      )
+    ]
+    ++ flip map
+      [
+        "4"
+        "6"
+      ]
+      (
+        postfix:
+        mkRemovedOptionModule
+          [
+            "services"
+            "dhcpd${postfix}"
+            "stateDir"
+          ]
+          ''
+            The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
+            This means the directory is named after the service (dhcpd${postfix}), created under
+            /var/lib/private/ and symlinked to /var/lib/.
+          ''
+      );
 
   ###### interface
 
@@ -208,9 +237,7 @@ in
 
     services.dhcpd4 = dhcpConfig "4";
     services.dhcpd6 = dhcpConfig "6";
-
   };
-
 
   ###### implementation
 
@@ -226,5 +253,4 @@ in
       ''
     ];
   };
-
 }

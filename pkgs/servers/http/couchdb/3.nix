@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, erlang
-, icu
-, openssl
-, spidermonkey_91
-, python3
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  erlang,
+  icu,
+  openssl,
+  spidermonkey_91,
+  python3,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,26 +25,20 @@ stdenv.mkDerivation rec {
     patchShebangs bin/rebar
   '';
 
-  nativeBuildInputs = [
-    erlang
-  ];
+  nativeBuildInputs = [ erlang ];
 
   buildInputs = [
     icu
     openssl
     spidermonkey_91
-    (python3.withPackages(ps: with ps; [ requests ]))
+    (python3.withPackages (ps: with ps; [ requests ]))
   ];
 
-  dontAddPrefix= "True";
+  dontAddPrefix = "True";
 
-  configureFlags = [
-    "--spidermonkey-version=91"
-  ];
+  configureFlags = [ "--spidermonkey-version=91" ];
 
-  buildFlags = [
-    "release"
-  ];
+  buildFlags = [ "release" ];
 
   installPhase = ''
     runHook preInstall

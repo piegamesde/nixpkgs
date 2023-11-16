@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vpcs";
@@ -11,10 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-joEXRMtNZMQumkYDX1gdpGAV+XdNKiAMj3dh1GZxeqc=";
   };
 
-  buildPhase = ''(
-    cd src
-    ./mk.sh ${stdenv.buildPlatform.linuxArch}
-  )'';
+  buildPhase = ''
+    (
+        cd src
+        ./mk.sh ${stdenv.buildPlatform.linuxArch}
+      )'';
 
   installPhase = ''
     install -D -m555 src/vpcs $out/bin/vpcs;

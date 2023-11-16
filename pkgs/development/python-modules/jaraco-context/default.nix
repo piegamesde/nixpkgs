@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -21,20 +22,14 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonNamespaces = [
-    "jaraco"
-  ];
+  pythonNamespaces = [ "jaraco" ];
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "jaraco.context"
-  ];
+  pythonImportsCheck = [ "jaraco.context" ];
 
   meta = with lib; {
     description = "Python module for context management";

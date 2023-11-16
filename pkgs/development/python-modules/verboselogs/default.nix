@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -25,14 +26,13 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [
-    "verboselogs"
-  ];
+  pythonImportsCheck = [ "verboselogs" ];
 
-  disabledTests = [
-    # Do not run pylint plugin test
-    "test_pylint_plugin"
-  ];
+  disabledTests =
+    [
+      # Do not run pylint plugin test
+      "test_pylint_plugin"
+    ];
 
   meta = with lib; {
     description = "Verbose logging for Python's logging module";

@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, wrapGAppsHook
-, dbus
-, libGL
-, libX11
-, libXcursor
-, libXi
-, libXrandr
-, udev
-, unzip
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  dbus,
+  libGL,
+  libX11,
+  libXcursor,
+  libXi,
+  libXrandr,
+  udev,
+  unzip,
 }:
 
 stdenv.mkDerivation rec {
@@ -43,7 +44,15 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL libX11 libXcursor libXrandr libXi ]}"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          libGL
+          libX11
+          libXcursor
+          libXrandr
+          libXi
+        ]
+      }"
     )
   '';
 

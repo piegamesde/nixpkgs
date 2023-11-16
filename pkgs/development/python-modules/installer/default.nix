@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, flit-core
-, mock
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  flit-core,
+  mock,
 }:
 
 buildPythonPackage rec {
@@ -31,6 +32,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/pradyunsg/installer";
     description = "A low-level library for installing a Python package from a wheel distribution";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud fridh ];
+    maintainers = with maintainers; [
+      cpcloud
+      fridh
+    ];
   };
 }

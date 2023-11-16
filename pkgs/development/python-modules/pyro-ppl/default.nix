@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, graphviz
-, jupyter
-, matplotlib
-, networkx
-, opt-einsum
-, pandas
-, pillow
-, pyro-api
-, pythonOlder
-, torch
-, scikit-learn
-, seaborn
-, torchvision
-, tqdm
-, wget
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  graphviz,
+  jupyter,
+  matplotlib,
+  networkx,
+  opt-einsum,
+  pandas,
+  pillow,
+  pyro-api,
+  pythonOlder,
+  torch,
+  scikit-learn,
+  seaborn,
+  torchvision,
+  tqdm,
+  wget,
 }:
 
 buildPythonPackage rec {
@@ -68,6 +69,9 @@ buildPythonPackage rec {
     description = "Library for probabilistic modeling and inference";
     homepage = "http://pyro.ai";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teh georgewhewell ];
+    maintainers = with maintainers; [
+      teh
+      georgewhewell
+    ];
   };
 }

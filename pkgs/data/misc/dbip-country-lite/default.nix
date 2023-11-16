@@ -1,7 +1,8 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, dbip-country-lite
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  dbip-country-lite,
 }:
 
 stdenvNoCC.mkDerivation rec {

@@ -1,11 +1,13 @@
-{ lib, stdenv
-, fetchurl
-, gcc-unwrapped
-, dpkg
-, util-linux
-, bash
-, makeWrapper
-, electron
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gcc-unwrapped,
+  dpkg,
+  util-linux,
+  bash,
+  makeWrapper,
+  electron,
 }:
 
 let
@@ -13,16 +15,19 @@ let
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-  sha256 = {
-    "x86_64-linux" = "1rcidar97nnpjb163x9snnnhw1z1ld4asgbd5dxpzdh8hikh66ll";
-    "i686-linux" = "1jll4i0j9kh78kl10s596xxs60gy7cnlafgpk89861yihj0i73a5";
-  }."${system}" or throwSystem;
+  sha256 =
+    {
+      "x86_64-linux" = "1rcidar97nnpjb163x9snnnhw1z1ld4asgbd5dxpzdh8hikh66ll";
+      "i686-linux" = "1jll4i0j9kh78kl10s596xxs60gy7cnlafgpk89861yihj0i73a5";
+    }
+    ."${system}" or throwSystem;
 
-  arch = {
-    "x86_64-linux" = "amd64";
-    "i686-linux" = "i386";
-  }."${system}" or throwSystem;
-
+  arch =
+    {
+      "x86_64-linux" = "amd64";
+      "i686-linux" = "i386";
+    }
+    ."${system}" or throwSystem;
 in
 
 stdenv.mkDerivation rec {
@@ -78,7 +83,10 @@ stdenv.mkDerivation rec {
     homepage = "https://etcher.io/";
     license = licenses.asl20;
     maintainers = [ maintainers.shou ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }

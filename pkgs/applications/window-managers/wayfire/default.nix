@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, meson
-, ninja
-, pkg-config
-, wf-config
-, cairo
-, doctest
-, libdrm
-, libexecinfo
-, libinput
-, libjpeg
-, libxkbcommon
-, wayland
-, wayland-protocols
-, wayland-scanner
-, wlroots
-, pango
-, xorg
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  wf-config,
+  cairo,
+  doctest,
+  libdrm,
+  libexecinfo,
+  libinput,
+  libjpeg,
+  libxkbcommon,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  wlroots,
+  pango,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {
@@ -40,7 +41,6 @@ stdenv.mkDerivation rec {
     wayland-scanner
   ];
 
-
   buildInputs = [
     wf-config
     libdrm
@@ -55,9 +55,7 @@ stdenv.mkDerivation rec {
     pango
   ];
 
-  propagatedBuildInputs = [
-    wlroots
-  ];
+  propagatedBuildInputs = [ wlroots ];
 
   nativeCheckInputs = [
     cmake
@@ -82,7 +80,11 @@ stdenv.mkDerivation rec {
     homepage = "https://wayfire.org/";
     description = "3D Wayland compositor";
     license = licenses.mit;
-    maintainers = with maintainers; [ qyliss wucke13 rewine ];
+    maintainers = with maintainers; [
+      qyliss
+      wucke13
+      rewine
+    ];
     platforms = platforms.unix;
   };
 }

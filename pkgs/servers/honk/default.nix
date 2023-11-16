@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchurl, installShellFiles, sqlite }:
+{
+  lib,
+  buildGoModule,
+  fetchurl,
+  installShellFiles,
+  sqlite,
+}:
 
 buildGoModule rec {
   pname = "honk";

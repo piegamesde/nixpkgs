@@ -1,4 +1,11 @@
-{ mkDerivation, cmake, fetchFromGitHub, libvncserver, qemu, qtbase, lib
+{
+  mkDerivation,
+  cmake,
+  fetchFromGitHub,
+  libvncserver,
+  qemu,
+  qtbase,
+  lib,
 }:
 
 mkDerivation rec {
@@ -14,7 +21,11 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libvncserver qtbase qemu ];
+  buildInputs = [
+    libvncserver
+    qtbase
+    qemu
+  ];
 
   meta = with lib; {
     description = "A virtual machine manager GUI for qemu";

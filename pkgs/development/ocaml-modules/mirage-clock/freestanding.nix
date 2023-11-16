@@ -1,6 +1,7 @@
-{ lib
-, buildDunePackage
-, mirage-clock
+{
+  lib,
+  buildDunePackage,
+  mirage-clock,
 }:
 
 buildDunePackage {
@@ -11,11 +12,9 @@ buildDunePackage {
     src
     useDune2
     minimumOCamlVersion
-    ;
+  ;
 
-  propagatedBuildInputs = [
-    mirage-clock
-  ];
+  propagatedBuildInputs = [ mirage-clock ];
 
   meta = mirage-clock.meta // {
     description = "Paravirtual implementation of the MirageOS Clock interface";

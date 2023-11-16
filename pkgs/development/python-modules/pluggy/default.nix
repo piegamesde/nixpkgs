@@ -1,9 +1,10 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, setuptools-scm
-, pythonOlder
-, importlib-metadata
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  setuptools-scm,
+  pythonOlder,
+  importlib-metadata,
 }:
 
 buildPythonPackage rec {
@@ -18,9 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # To prevent infinite recursion with pytest
   doCheck = false;

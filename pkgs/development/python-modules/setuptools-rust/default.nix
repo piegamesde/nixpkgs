@@ -1,12 +1,13 @@
-{ callPackage
-, lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, semantic-version
-, setuptools
-, setuptools-scm
-, typing-extensions
+{
+  callPackage,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  semantic-version,
+  setuptools,
+  setuptools-scm,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -21,7 +22,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ semantic-version setuptools typing-extensions ];
+  propagatedBuildInputs = [
+    semantic-version
+    setuptools
+    typing-extensions
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ "setuptools_rust" ];

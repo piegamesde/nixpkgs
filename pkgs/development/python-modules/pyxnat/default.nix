@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, nose
-, lxml
-, requests
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  nose,
+  lxml,
+  requests,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -34,7 +35,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ nose ];
   checkPhase = "nosetests pyxnat/tests";
-  doCheck = false;  # requires a docker container running an XNAT server
+  doCheck = false; # requires a docker container running an XNAT server
 
   pythonImportsCheck = [ "pyxnat" ];
 

@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, unzip }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  unzip,
+}:
 
 buildNimPackage rec {
   pname = "zippy";
@@ -15,8 +20,10 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta = with lib;
-    src.meta // {
+  meta =
+    with lib;
+    src.meta
+    // {
       description = "Pure Nim implementation of deflate, zlib, gzip and zip";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

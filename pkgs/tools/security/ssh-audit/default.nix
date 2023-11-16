@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "ssh-audit";
@@ -11,15 +15,16 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-WrED2cSoqR276iOma+pZq/Uu1vQWJmtJvsI73r8ivJA=";
   };
 
-  nativeCheckInputs = with python3Packages; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Tool for ssh server auditing";
     homepage = "https://github.com/jtesta/ssh-audit";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ tv SuperSandro2000 ];
+    maintainers = with maintainers; [
+      tv
+      SuperSandro2000
+    ];
   };
 }

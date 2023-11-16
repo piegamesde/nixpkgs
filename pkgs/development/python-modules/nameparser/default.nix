@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, glibcLocales
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  glibcLocales,
 }:
 
 buildPythonPackage rec {
@@ -13,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-9LbHwQSNUovWqisnz0KgZEfSsx5FqVsgRJUTB48dhu8=";
   };
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
   buildInputs = [ glibcLocales ];
 
   meta = with lib; {
@@ -21,5 +22,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/derek73/python-nameparser";
     license = licenses.lgpl21Plus;
   };
-
 }

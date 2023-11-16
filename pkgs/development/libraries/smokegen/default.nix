@@ -1,4 +1,10 @@
-{ stdenv, lib, cmake, qt4, fetchzip }:
+{
+  stdenv,
+  lib,
+  cmake,
+  qt4,
+  fetchzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smokegen";
@@ -10,7 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake qt4 ];
+  nativeBuildInputs = [
+    cmake
+    qt4
+  ];
   buildInputs = [ qt4 ];
 
   meta = with lib; {

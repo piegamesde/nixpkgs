@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, asciidoc, pkg-config, libsodium
-, enableDrafts ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  asciidoc,
+  pkg-config,
+  libsodium,
+  enableDrafts ? false,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zeromq";
@@ -12,7 +20,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-epOEyHOswUGVwzz0FLxhow/zISmZHxsIgmpOV8C8bQM=";
   };
 
-  nativeBuildInputs = [ cmake asciidoc pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    asciidoc
+    pkg-config
+  ];
   buildInputs = [ libsodium ];
 
   doCheck = false; # fails all the tests (ctest)

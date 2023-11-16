@@ -1,12 +1,13 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, passlib
-, pytestCheckHook
-, setuptools
-, setuptools-git
-, twine
-, webtest
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  passlib,
+  pytestCheckHook,
+  setuptools,
+  setuptools-git,
+  twine,
+  webtest,
 }:
 
 buildPythonPackage rec {
@@ -42,17 +43,24 @@ buildPythonPackage rec {
     "test_pip_install_open_succeeds"
   ];
 
-  disabledTestPaths = [
-    # requires docker service running
-    "docker/test_docker.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires docker service running
+      "docker/test_docker.py"
+    ];
 
   pythonImportsCheck = [ "pypiserver" ];
 
   meta = with lib; {
     homepage = "https://github.com/pypiserver/pypiserver";
     description = "Minimal PyPI server for use with pip/easy_install";
-    license = with licenses; [ mit zlib ];
-    maintainers = with maintainers; [ austinbutler SuperSandro2000 ];
+    license = with licenses; [
+      mit
+      zlib
+    ];
+    maintainers = with maintainers; [
+      austinbutler
+      SuperSandro2000
+    ];
   };
 }

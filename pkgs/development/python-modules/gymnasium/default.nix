@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, numpy
-, cloudpickle
-, gym-notices
-, jax-jumpy
-, typing-extensions
-, farama-notifications
-, importlib-metadata
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  numpy,
+  cloudpickle,
+  gym-notices,
+  jax-jumpy,
+  typing-extensions,
+  farama-notifications,
+  importlib-metadata,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

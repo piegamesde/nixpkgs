@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, pytest-httpbin
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, six
-, yarl
-, wrapt
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytest-httpbin,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  six,
+  yarl,
+  wrapt,
 }:
 
 buildPythonPackage rec {
@@ -35,17 +36,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [
-    "tests/integration"
-  ];
+  disabledTestPaths = [ "tests/integration" ];
 
-  disabledTests = [
-    "TestVCRConnection"
-  ];
+  disabledTests = [ "TestVCRConnection" ];
 
-  pythonImportsCheck = [
-    "vcr"
-  ];
+  pythonImportsCheck = [ "vcr" ];
 
   meta = with lib; {
     description = "Automatically mock your HTTP interactions to simplify and speed up testing";

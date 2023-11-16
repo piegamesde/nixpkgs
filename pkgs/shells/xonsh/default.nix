@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, glibcLocales
-, coreutils
-, git
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  glibcLocales,
+  coreutils,
+  git,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -75,10 +76,25 @@ python3Packages.buildPythonApplication rec {
     HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [ glibcLocales git ] ++
-    (with python3Packages; [ pyte pytestCheckHook pytest-mock pytest-subprocess ]);
+  nativeCheckInputs =
+    [
+      glibcLocales
+      git
+    ]
+    ++ (
+      with python3Packages; [
+        pyte
+        pytestCheckHook
+        pytest-mock
+        pytest-subprocess
+      ]
+    );
 
-  propagatedBuildInputs = with python3Packages; [ ply prompt-toolkit pygments ];
+  propagatedBuildInputs = with python3Packages; [
+    ply
+    prompt-toolkit
+    pygments
+  ];
 
   meta = with lib; {
     description = "A Python-ish, BASHwards-compatible shell";

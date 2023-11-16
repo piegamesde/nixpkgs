@@ -1,14 +1,15 @@
-{ buildPythonApplication
-, drawio-headless
-, fetchFromGitHub
-, lib
-, pandoc
-, pandocfilters
-, runCommand
-, runtimeShell
-, texlive
-, writeScriptBin
-, xvfb-run
+{
+  buildPythonApplication,
+  drawio-headless,
+  fetchFromGitHub,
+  lib,
+  pandoc,
+  pandocfilters,
+  runCommand,
+  runtimeShell,
+  texlive,
+  writeScriptBin,
+  xvfb-run,
 }:
 
 let
@@ -53,7 +54,6 @@ let
       maintainers = with maintainers; [ tfc ];
     };
   };
-
 in
 
 pandoc-drawio-filter

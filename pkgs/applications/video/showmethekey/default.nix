@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, libevdev
-, json-glib
-, libinput
-, gtk4
-, wrapGAppsHook4
-, libxkbcommon
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  libevdev,
+  json-glib,
+  libinput,
+  gtk4,
+  wrapGAppsHook4,
+  libxkbcommon,
+  pkg-config,
 }:
 stdenv.mkDerivation rec {
   pname = "showmethekey";

@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, setuptools
-, setuptools-scm
-, cython
-, entrypoints
-, numpy
-, msgpack
-, py-cpuinfo
-, pytestCheckHook
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  setuptools,
+  setuptools-scm,
+  cython,
+  entrypoints,
+  numpy,
+  msgpack,
+  py-cpuinfo,
+  pytestCheckHook,
+  python,
 }:
 
 buildPythonPackage rec {
   pname = "numcodecs";
   version = "0.11.0";
-  format ="pyproject";
+  format = "pyproject";
   disabled = isPy27;
 
   src = fetchPypi {
@@ -37,13 +38,9 @@ buildPythonPackage rec {
     msgpack
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "$out/${python.sitePackages}/numcodecs"
-  ];
+  pytestFlagsArray = [ "$out/${python.sitePackages}/numcodecs" ];
 
   disabledTests = [
     "test_backwards_compatibility"
@@ -57,7 +54,7 @@ buildPythonPackage rec {
     "test_non_numpy_inputs"
   ];
 
-  meta = with lib;{
+  meta = with lib; {
     homepage = "https://github.com/zarr-developers/numcodecs";
     license = licenses.mit;
     description = "Buffer compression and transformation codecs for use in data storage and communication applications";

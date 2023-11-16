@@ -1,4 +1,9 @@
-{ lib, fetchurl, appimageTools, pkgs }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+  pkgs,
+}:
 
 let
   pname = "beekeeper-studio";
@@ -11,9 +16,7 @@ let
     sha512 = "sha512-an4Gqx2mx/rnkLe/LUAz3qRdrqWBcrWcdCiNi8Hz1OKBp1SWN3acU8RppIM0uwlrcBkjnigbbM5DZ2o+svA23A==";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit name src;
-  };
+  appimageContents = appimageTools.extractType2 { inherit name src; };
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -35,7 +38,10 @@ appimageTools.wrapType2 {
     homepage = "https://www.beekeeperstudio.io";
     changelog = "https://github.com/beekeeper-studio/beekeeper-studio/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ milogert alexnortung ];
+    maintainers = with maintainers; [
+      milogert
+      alexnortung
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

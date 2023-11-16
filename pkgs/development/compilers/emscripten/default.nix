@@ -1,9 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, python3, nodejs, closurecompiler
-, jre, binaryen
-, llvmPackages
-, symlinkJoin, makeWrapper, substituteAll, fetchpatch
-, buildNpmPackage
-, emscripten
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  nodejs,
+  closurecompiler,
+  jre,
+  binaryen,
+  llvmPackages,
+  symlinkJoin,
+  makeWrapper,
+  substituteAll,
+  fetchpatch,
+  buildNpmPackage,
+  emscripten,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +22,12 @@ stdenv.mkDerivation rec {
 
   llvmEnv = symlinkJoin {
     name = "emscripten-llvm-${version}";
-    paths = with llvmPackages; [ clang-unwrapped clang-unwrapped.lib lld llvm ];
+    paths = with llvmPackages; [
+      clang-unwrapped
+      clang-unwrapped.lib
+      lld
+      llvm
+    ];
   };
 
   nodeModules = buildNpmPackage {
@@ -37,7 +52,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ nodejs python3 ];
+  buildInputs = [
+    nodejs
+    python3
+  ];
 
   patches = [
     (substituteAll {
@@ -143,7 +161,11 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/emscripten-core/emscripten";
     description = "An LLVM-to-JavaScript Compiler";
     platforms = platforms.all;
-    maintainers = with maintainers; [ qknight matthewbauer raitobezarius ];
+    maintainers = with maintainers; [
+      qknight
+      matthewbauer
+      raitobezarius
+    ];
     license = licenses.ncsa;
   };
 }

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, importlib-metadata
-, mock
-, poetry-core
-, pydantic
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, types-docutils
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  importlib-metadata,
+  mock,
+  poetry-core,
+  pydantic,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  types-docutils,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-9U+GhkwBr+f3yEe7McOxqPRUuTp9vP+3WT5wZ92n32w=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     docutils
@@ -45,9 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "rstcheck_core"
-  ];
+  pythonImportsCheck = [ "rstcheck_core" ];
 
   meta = with lib; {
     description = "Library for checking syntax of reStructuredText";

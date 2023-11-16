@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, which
-, frei0r
-, opencolorio
-, ffmpeg_4
-, CoreFoundation
-, cmake
-, wrapQtAppsHook
-, openimageio
-, openexr_3
-, portaudio
-, imath
-, qtwayland
-, qtmultimedia
-, qttools
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  which,
+  frei0r,
+  opencolorio,
+  ffmpeg_4,
+  CoreFoundation,
+  cmake,
+  wrapQtAppsHook,
+  openimageio,
+  openexr_3,
+  portaudio,
+  imath,
+  qtwayland,
+  qtmultimedia,
+  qttools,
 }:
 
 stdenv.mkDerivation {
@@ -30,9 +31,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-lL90+8L7J7pjvhbqfeIVF0WKgl6qQzNun8pL9YPL5Is=";
   };
 
-  cmakeFlags = [
-    "-DBUILD_QT6=1"
-  ];
+  cmakeFlags = [ "-DBUILD_QT6=1" ];
 
   # https://github.com/olive-editor/olive/issues/2200
   patchPhase = ''

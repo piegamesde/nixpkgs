@@ -1,20 +1,21 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, jsonschema
-, pythonOlder
-, requests
-, pytestCheckHook
-, json5
-, babel
-, jupyter-server
-, tomli
-, openapi-core
-, pytest-timeout
-, pytest-tornasync
-, ruamel-yaml
-, importlib-metadata
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  jsonschema,
+  pythonOlder,
+  requests,
+  pytestCheckHook,
+  json5,
+  babel,
+  jupyter-server,
+  tomli,
+  openapi-core,
+  pytest-timeout,
+  pytest-tornasync,
+  ruamel-yaml,
+  importlib-metadata,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-muwhohg7vt2fkahmKDVUSVdfGGLYiyitX5BQGdMebCE=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     requests
@@ -40,9 +39,7 @@ buildPythonPackage rec {
     babel
     jupyter-server
     tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   nativeCheckInputs = [
     openapi-core
@@ -64,11 +61,12 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pytestFlagsArray = [
-    # DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12.
-    # Use setuptools or check PEP 632 for potential alternatives.
-    "-W ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray =
+    [
+      # DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12.
+      # Use setuptools or check PEP 632 for potential alternatives.
+      "-W ignore::DeprecationWarning"
+    ];
 
   __darwinAllowLocalNetworking = true;
 

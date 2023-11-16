@@ -1,61 +1,73 @@
-{ lib
-, nixosTests
-, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, autoreconfHook
-, file
-, glib
-# always required runtime dependencies
-, dbus
-, libmnl
-, gnutls
-, readline
-# configurable options
-, firewallType ? "iptables" # or "nftables"
-, iptables ? null
-, libnftnl ? null # for nftables
-, dnsType ? "internal" # or "systemd-resolved"
-# optional features which are turned *on* by default
-, enableOpenconnect ? true
-, openconnect ? null
-, enableOpenvpn ? true
-, openvpn ? null
-, enableVpnc ? true
-, vpnc ? true
-, enablePolkit ? true
-, polkit ? null
-, enablePptp ? true
-, pptp ? null
-, ppp ? null
-, enableLoopback ? true
-, enableEthernet ? true
-, enableWireguard ? true
-, enableGadget ? true
-, enableWifi ? true
-, enableBluetooth ? true
-, enableOfono ? true
-, enableDundee ? true
-, enablePacrunner ? true
-, enableNeard ? true
-, enableWispr ? true
-, enableTools ? true
-, enableStats ? true
-, enableClient ? true
-, enableDatafiles ? true
-# optional features which are turned *off* by default
-, enableNetworkManager ? false
-, enableHh2serialGps ? false
-, enableL2tp ? false
-, enableIospm ? false
-, enableTist ? false
+{
+  lib,
+  nixosTests,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  autoreconfHook,
+  file,
+  glib,
+  # always required runtime dependencies
+  dbus,
+  libmnl,
+  gnutls,
+  readline,
+  # configurable options
+  firewallType ? "iptables" # or "nftables"
+  ,
+  iptables ? null,
+  libnftnl ? null # for nftables
+  ,
+  dnsType ? "internal" # or "systemd-resolved"
+  ,
+  # optional features which are turned *on* by default
+  enableOpenconnect ? true,
+  openconnect ? null,
+  enableOpenvpn ? true,
+  openvpn ? null,
+  enableVpnc ? true,
+  vpnc ? true,
+  enablePolkit ? true,
+  polkit ? null,
+  enablePptp ? true,
+  pptp ? null,
+  ppp ? null,
+  enableLoopback ? true,
+  enableEthernet ? true,
+  enableWireguard ? true,
+  enableGadget ? true,
+  enableWifi ? true,
+  enableBluetooth ? true,
+  enableOfono ? true,
+  enableDundee ? true,
+  enablePacrunner ? true,
+  enableNeard ? true,
+  enableWispr ? true,
+  enableTools ? true,
+  enableStats ? true,
+  enableClient ? true,
+  enableDatafiles ? true,
+  # optional features which are turned *off* by default
+  enableNetworkManager ? false,
+  enableHh2serialGps ? false,
+  enableL2tp ? false,
+  enableIospm ? false,
+  enableTist ? false,
 }:
 
-assert lib.asserts.assertOneOf "firewallType" firewallType [ "iptables" "nftables" ];
-assert lib.asserts.assertOneOf "dnsType" dnsType [ "internal" "systemd-resolved" ];
+assert lib.asserts.assertOneOf "firewallType" firewallType [
+  "iptables"
+  "nftables"
+];
+assert lib.asserts.assertOneOf "dnsType" dnsType [
+  "internal"
+  "systemd-resolved"
+];
 
-let inherit (lib) optionals; in
+let
+  inherit (lib) optionals;
+in
 
 stdenv.mkDerivation rec {
   pname = "connman";
@@ -65,42 +77,49 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eftA9P3VUwxFqo5ZL7Froj02dPOpjPELiaZXbxmN5Yk=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "pppd-2.5.0-compat.patch";
-      url = "https://git.kernel.org/pub/scm/network/connman/connman.git/patch/?id=a48864a2e5d2a725dfc6eef567108bc13b43857f";
-      sha256 = "sha256-jB1qL13mceQ1riv3K+oFWw4VC7ohv/CcH9sjxZPXcG4=";
-    })
-    (fetchpatch {
-      name = "CVE-2023-28488.patch";
-      url = "https://git.kernel.org/pub/scm/network/connman/connman.git/patch/?id=99e2c16ea1cced34a5dc450d76287a1c3e762138";
-      sha256 = "sha256-377CmsECji2w/c4bZXR+TxzTB7Lce0yo7KdK1oWfCVY=";
-    })
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-    # Fix Musl build by avoiding a Glibc-only API.
-    (fetchpatch {
-      url = "https://git.alpinelinux.org/aports/plain/community/connman/libresolv.patch?id=e393ea84386878cbde3cccadd36a30396e357d1e";
-      sha256 = "1kg2nml7pdxc82h5hgsa3npvzdxy4d2jpz2f93pa97if868i8d43";
-    })
-  ];
+  patches =
+    [
+      (fetchpatch {
+        name = "pppd-2.5.0-compat.patch";
+        url = "https://git.kernel.org/pub/scm/network/connman/connman.git/patch/?id=a48864a2e5d2a725dfc6eef567108bc13b43857f";
+        sha256 = "sha256-jB1qL13mceQ1riv3K+oFWw4VC7ohv/CcH9sjxZPXcG4=";
+      })
+      (fetchpatch {
+        name = "CVE-2023-28488.patch";
+        url = "https://git.kernel.org/pub/scm/network/connman/connman.git/patch/?id=99e2c16ea1cced34a5dc450d76287a1c3e762138";
+        sha256 = "sha256-377CmsECji2w/c4bZXR+TxzTB7Lce0yo7KdK1oWfCVY=";
+      })
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl
+      [
+        # Fix Musl build by avoiding a Glibc-only API.
+        (fetchpatch {
+          url = "https://git.alpinelinux.org/aports/plain/community/connman/libresolv.patch?id=e393ea84386878cbde3cccadd36a30396e357d1e";
+          sha256 = "1kg2nml7pdxc82h5hgsa3npvzdxy4d2jpz2f93pa97if868i8d43";
+        })
+      ];
 
-  buildInputs = [
-    glib
-    dbus
-    libmnl
-    gnutls
-    readline
-  ] ++ optionals (enableOpenconnect) [ openconnect ]
+  buildInputs =
+    [
+      glib
+      dbus
+      libmnl
+      gnutls
+      readline
+    ]
+    ++ optionals (enableOpenconnect) [ openconnect ]
     ++ optionals (firewallType == "iptables") [ iptables ]
     ++ optionals (firewallType == "nftables") [ libnftnl ]
     ++ optionals (enablePolkit) [ polkit ]
-    ++ optionals (enablePptp) [ pptp ppp ]
-  ;
+    ++ optionals (enablePptp) [
+      pptp
+      ppp
+    ];
 
   nativeBuildInputs = [
     pkg-config
     file
-    autoreconfHook  # as long as we're patching configure.ac
+    autoreconfHook # as long as we're patching configure.ac
   ];
 
   # fix invalid path to 'file'
@@ -108,23 +127,24 @@ stdenv.mkDerivation rec {
     sed -i "s/\/usr\/bin\/file/file/g" ./configure
   '';
 
-  configureFlags = [
-    # directories flags
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--with-dbusconfdir=${placeholder "out"}/share"
-    "--with-dbusdatadir=${placeholder "out"}/share"
-    "--with-tmpfilesdir=${placeholder "out"}/lib/tmpfiles.d"
-    "--with-systemdunitdir=${placeholder "out"}/lib/systemd/system"
-    "--with-dns-backend=${dnsType}"
-    "--with-firewall=${firewallType}"
-    # production build flags
-    "--disable-maintainer-mode"
-    "--enable-session-policy-local=builtin"
-    # for building and running tests
-    # "--enable-tests" # installs the tests, we don't want that
-    "--enable-tools"
-  ]
+  configureFlags =
+    [
+      # directories flags
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+      "--with-dbusconfdir=${placeholder "out"}/share"
+      "--with-dbusdatadir=${placeholder "out"}/share"
+      "--with-tmpfilesdir=${placeholder "out"}/lib/tmpfiles.d"
+      "--with-systemdunitdir=${placeholder "out"}/lib/systemd/system"
+      "--with-dns-backend=${dnsType}"
+      "--with-firewall=${firewallType}"
+      # production build flags
+      "--disable-maintainer-mode"
+      "--enable-session-policy-local=builtin"
+      # for building and running tests
+      # "--enable-tests" # installs the tests, we don't want that
+      "--enable-tools"
+    ]
     ++ optionals (!enableLoopback) [ "--disable-loopback" ]
     ++ optionals (!enableEthernet) [ "--disable-ethernet" ]
     ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
@@ -156,32 +176,17 @@ stdenv.mkDerivation rec {
       "--enable-vpnc=builtin"
       "--with-vpnc=${vpnc}/sbin/vpnc"
     ]
-    ++ optionals (enablePolkit) [
-      "--enable-polkit"
-    ]
+    ++ optionals (enablePolkit) [ "--enable-polkit" ]
     ++ optionals (enablePptp) [
       "--enable-pptp"
       "--with-pptp=${pptp}/sbin/pptp"
     ]
-    ++ optionals (!enableWireguard) [
-      "--disable-wireguard"
-    ]
-    ++ optionals (enableNetworkManager) [
-      "--enable-nmcompat"
-    ]
-    ++ optionals (enableHh2serialGps) [
-      "--enable-hh2serial-gps"
-    ]
-    ++ optionals (enableL2tp) [
-      "--enable-l2tp"
-    ]
-    ++ optionals (enableIospm) [
-      "--enable-iospm"
-    ]
-    ++ optionals (enableTist) [
-      "--enable-tist"
-    ]
-  ;
+    ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
+    ++ optionals (enableNetworkManager) [ "--enable-nmcompat" ]
+    ++ optionals (enableHh2serialGps) [ "--enable-hh2serial-gps" ]
+    ++ optionals (enableL2tp) [ "--enable-l2tp" ]
+    ++ optionals (enableIospm) [ "--enable-iospm" ]
+    ++ optionals (enableTist) [ "--enable-tist" ];
 
   doCheck = true;
 

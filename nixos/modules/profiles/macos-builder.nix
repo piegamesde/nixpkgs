@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   keysDirectory = "/var/keys";
@@ -8,7 +13,6 @@ let
   keyType = "ed25519";
 
   cfg = config.virtualisation.darwin-builder;
-
 in
 
 {
@@ -22,7 +26,10 @@ in
         ../services/x11/desktop-managers/xterm.nix
       ];
       config = { };
-      options.boot.isContainer = lib.mkOption { default = false; internal = true; };
+      options.boot.isContainer = lib.mkOption {
+        default = false;
+        internal = true;
+      };
     }
   ];
 
@@ -58,13 +65,13 @@ in
       '';
     };
     workingDirectory = mkOption {
-       default = ".";
-       type = types.str;
-       example = "/var/lib/darwin-builder";
-       description = ''
-         The working directory to use to run the script. When running
-         as part of a flake will need to be set to a non read-only filesystem.
-       '';
+      default = ".";
+      type = types.str;
+      example = "/var/lib/darwin-builder";
+      description = ''
+        The working directory to use to run the script. When running
+        as part of a flake will need to be set to a non read-only filesystem.
+      '';
     };
     hostPort = mkOption {
       default = 22;
@@ -109,7 +116,10 @@ in
 
       max-free = cfg.max-free;
 
-      trusted-users = [ "root" user ];
+      trusted-users = [
+        "root"
+        user
+      ];
     };
 
     services = {
@@ -139,46 +149,56 @@ in
 
         hostPkgs = config.virtualisation.host.pkgs;
 
-  script = hostPkgs.writeShellScriptBin "create-builder" (
+        script = hostPkgs.writeShellScriptBin "create-builder" (
           # When running as non-interactively as part of a DarwinConfiguration the working directory
           # must be set to a writeable directory.
-        (if cfg.workingDirectory != "." then ''
-          ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
-          cd "${cfg.workingDirectory}"
-  '' else "") + ''
-          KEYS="''${KEYS:-./keys}"
-          ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
-          PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
-          PUBLIC_KEY="''${PRIVATE_KEY}.pub"
-          if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
-              ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
-              ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
-          fi
-          if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
-            (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
-          fi
-          KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
-        '');
-
+          (
+            if cfg.workingDirectory != "." then
+              ''
+                ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
+                cd "${cfg.workingDirectory}"
+              ''
+            else
+              ""
+          )
+          + ''
+            KEYS="''${KEYS:-./keys}"
+            ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
+            PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
+            PUBLIC_KEY="''${PRIVATE_KEY}.pub"
+            if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
+                ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
+                ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
+            fi
+            if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
+              (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
+            fi
+            KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
+          ''
+        );
       in
-      script.overrideAttrs (old: {
-        meta = (old.meta or { }) // {
-          platforms = lib.platforms.darwin;
-        };
-      });
+      script.overrideAttrs (
+        old: {
+          meta = (old.meta or { }) // {
+            platforms = lib.platforms.darwin;
+          };
+        }
+      );
 
     system = {
       # To prevent gratuitous rebuilds on each change to Nixpkgs
       nixos.revision = null;
 
-      stateVersion = lib.mkDefault (throw ''
-        The macOS linux builder should not need a stateVersion to be set, but a module
-        has accessed stateVersion nonetheless.
-        Please inspect the trace of the following command to figure out which module
-        has a dependency on stateVersion.
+      stateVersion = lib.mkDefault (
+        throw ''
+          The macOS linux builder should not need a stateVersion to be set, but a module
+          has accessed stateVersion nonetheless.
+          Please inspect the trace of the following command to figure out which module
+          has a dependency on stateVersion.
 
-          nix-instantiate --attr darwin.builder --show-trace
-      '');
+            nix-instantiate --attr darwin.builder --show-trace
+        ''
+      );
     };
 
     users.users."${user}" = {
@@ -203,7 +223,11 @@ in
       memorySize = cfg.memorySize;
 
       forwardPorts = [
-        { from = "host"; guest.port = 22; host.port = cfg.hostPort; }
+        {
+          from = "host";
+          guest.port = 22;
+          host.port = cfg.hostPort;
+        }
       ];
 
       # Disable graphics for the builder since users will likely want to run it
@@ -211,7 +235,7 @@ in
       graphics = false;
 
       sharedDirectories.keys = {
-        source = "\"$KEYS\"";
+        source = ''"$KEYS"'';
         target = keysDirectory;
       };
 

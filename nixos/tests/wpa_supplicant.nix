@@ -1,68 +1,70 @@
-import ./make-test-python.nix ({ pkgs, lib, ...}:
-{
-  name = "wpa_supplicant";
-  meta = with lib.maintainers; {
-    maintainers = [ rnhmjoj ];
-  };
+import ./make-test-python.nix (
+  { pkgs, lib, ... }:
+  {
+    name = "wpa_supplicant";
+    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-  nodes.machine = { ... }: {
-    imports = [ ../modules/profiles/minimal.nix ];
+    nodes.machine =
+      { ... }:
+      {
+        imports = [ ../modules/profiles/minimal.nix ];
 
-    # add a virtual wlan interface
-    boot.kernelModules = [ "mac80211_hwsim" ];
+        # add a virtual wlan interface
+        boot.kernelModules = [ "mac80211_hwsim" ];
 
-    # wireless access point
-    services.hostapd = {
-      enable = true;
-      wpa = true;
-      interface = "wlan0";
-      ssid = "nixos-test";
-      wpaPassphrase = "reproducibility";
-    };
-
-    # wireless client
-    networking.wireless = {
-      # the override is needed because the wifi is
-      # disabled with mkVMOverride in qemu-vm.nix.
-      enable = lib.mkOverride 0 true;
-      userControlled.enable = true;
-      interfaces = [ "wlan1" ];
-      fallbackToWPA2 = true;
-
-      networks = {
-        # test WPA2 fallback
-        mixed-wpa = {
-          psk = "password";
-          authProtocols = [ "WPA-PSK" "SAE" ];
-        };
-        sae-only = {
-          psk = "password";
-          authProtocols = [ "SAE" ];
+        # wireless access point
+        services.hostapd = {
+          enable = true;
+          wpa = true;
+          interface = "wlan0";
+          ssid = "nixos-test";
+          wpaPassphrase = "reproducibility";
         };
 
-        # test network
-        nixos-test.psk = "@PSK_NIXOS_TEST@";
+        # wireless client
+        networking.wireless = {
+          # the override is needed because the wifi is
+          # disabled with mkVMOverride in qemu-vm.nix.
+          enable = lib.mkOverride 0 true;
+          userControlled.enable = true;
+          interfaces = [ "wlan1" ];
+          fallbackToWPA2 = true;
 
-        # secrets substitution test cases
-        test1.psk = "@PSK_VALID@";              # should be replaced
-        test2.psk = "@PSK_SPECIAL@";            # should be replaced
-        test3.psk = "@PSK_MISSING@";            # should not be replaced
-        test4.psk = "P@ssowrdWithSome@tSymbol"; # should not be replaced
+          networks = {
+            # test WPA2 fallback
+            mixed-wpa = {
+              psk = "password";
+              authProtocols = [
+                "WPA-PSK"
+                "SAE"
+              ];
+            };
+            sae-only = {
+              psk = "password";
+              authProtocols = [ "SAE" ];
+            };
+
+            # test network
+            nixos-test.psk = "@PSK_NIXOS_TEST@";
+
+            # secrets substitution test cases
+            test1.psk = "@PSK_VALID@"; # should be replaced
+            test2.psk = "@PSK_SPECIAL@"; # should be replaced
+            test3.psk = "@PSK_MISSING@"; # should not be replaced
+            test4.psk = "P@ssowrdWithSome@tSymbol"; # should not be replaced
+          };
+
+          # secrets
+          environmentFile = pkgs.writeText "wpa-secrets" ''
+            PSK_NIXOS_TEST="reproducibility"
+            PSK_VALID="S0m3BadP4ssw0rd";
+            # taken from https://github.com/minimaxir/big-list-of-naughty-strings
+            PSK_SPECIAL=",./;'[]\-= <>?:\"{}|_+ !@#$%^\&*()`~";
+          '';
+        };
       };
 
-      # secrets
-      environmentFile = pkgs.writeText "wpa-secrets" ''
-        PSK_NIXOS_TEST="reproducibility"
-        PSK_VALID="S0m3BadP4ssw0rd";
-        # taken from https://github.com/minimaxir/big-list-of-naughty-strings
-        PSK_SPECIAL=",./;'[]\-= <>?:\"{}|_+ !@#$%^\&*()`~";
-      '';
-    };
-
-  };
-
-  testScript =
-    ''
+    testScript = ''
       config_file = "/run/wpa_supplicant/wpa_supplicant.conf"
 
       with subtest("Configuration file is inaccessible to other users"):
@@ -93,4 +95,5 @@ import ./make-test-python.nix ({ pkgs, lib, ...}:
             "wpa_cli -i wlan1 status | grep -q wpa_state=COMPLETED"
           )
     '';
-})
+  }
+)

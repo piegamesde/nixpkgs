@@ -1,25 +1,26 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build-system
-, setuptools
-, scikit-build
-, cython
-, cmake
-, ninja
+  # build-system
+  setuptools,
+  scikit-build,
+  cython,
+  cmake,
+  ninja,
 
-# propagates
-, msgpack
-, ndindex
-, numpy
-, py-cpuinfo
-, rich
+  # propagates
+  msgpack,
+  ndindex,
+  numpy,
+  py-cpuinfo,
+  rich,
 
-# tests
-, psutil
-, pytestCheckHook
-, torch
+  # tests
+  psutil,
+  pytestCheckHook,
+  torch,
 }:
 
 buildPythonPackage rec {

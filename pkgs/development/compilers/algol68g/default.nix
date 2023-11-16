@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, gsl
-, plotutils
-, postgresql
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gsl,
+  plotutils,
+  postgresql,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,10 +16,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-WCPM0MGP4Qo2ihF8w5JHSMSl0P6N/w2dgY/3PDQlZfA=";
   };
 
-  patches = [
-    # add PNG support
-    ./0001-plotutils-png-support.diff
-  ];
+  patches =
+    [
+      # add PNG support
+      ./0001-plotutils-png-support.diff
+    ];
 
   buildInputs = [
     gsl
@@ -26,12 +28,13 @@ stdenv.mkDerivation rec {
     postgresql
   ];
 
-  postInstall = let
-    pdfdoc = fetchurl {
-      url = "https://jmvdveer.home.xs4all.nl/learning-algol-68-genie.pdf";
-      hash = "sha256-QCwn1e/lVfTYTeolCFErvfMhvwCgsBnASqq2K+NYmlU=";
-    };
-  in
+  postInstall =
+    let
+      pdfdoc = fetchurl {
+        url = "https://jmvdveer.home.xs4all.nl/learning-algol-68-genie.pdf";
+        hash = "sha256-QCwn1e/lVfTYTeolCFErvfMhvwCgsBnASqq2K+NYmlU=";
+      };
+    in
     ''
       install -m644 ${pdfdoc} $out/share/doc/${pname}/learning-algol-68-genie.pdf
     '';

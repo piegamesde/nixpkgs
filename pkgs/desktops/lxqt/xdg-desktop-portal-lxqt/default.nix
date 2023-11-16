@@ -1,13 +1,14 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, kwindowsystem
-, libfm-qt
-, lxqt-qtplugin
-, qtx11extras
-, gitUpdater
-, extraQtStyles ? []
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  kwindowsystem,
+  libfm-qt,
+  lxqt-qtplugin,
+  qtx11extras,
+  gitUpdater,
+  extraQtStyles ? [ ],
 }:
 
 mkDerivation rec {
@@ -21,17 +22,14 @@ mkDerivation rec {
     sha256 = "gH4L6cjx3DjGWcgoqUSnsx4Bn+T9t03AXPB5ZNDa0Nw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     kwindowsystem
     libfm-qt
     lxqt-qtplugin
     qtx11extras
-  ]
-  ++ extraQtStyles;
+  ] ++ extraQtStyles;
 
   passthru.updateScript = gitUpdater { };
 

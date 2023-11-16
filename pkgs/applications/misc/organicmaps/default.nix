@@ -1,22 +1,23 @@
-{ lib
-, mkDerivation
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, pkg-config
-, which
-, python3
-, rsync
-, qtbase
-, qtsvg
-, libGLU
-, libGL
-, zlib
-, icu
-, freetype
-, pugixml
-, nix-update-script
+{
+  lib,
+  mkDerivation,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  pkg-config,
+  which,
+  python3,
+  rsync,
+  qtbase,
+  qtsvg,
+  libGLU,
+  libGL,
+  zlib,
+  icu,
+  freetype,
+  pugixml,
+  nix-update-script,
 }:
 
 mkDerivation rec {
@@ -36,7 +37,18 @@ mkDerivation rec {
     echo "exit 0" > tools/unix/check_cert.sh
 
     # crude fix for https://github.com/organicmaps/organicmaps/issues/1862
-    echo "echo ${lib.replaceStrings ["." "-"] ["" ""] version}" > tools/unix/version.sh
+    echo "echo ${
+      lib.replaceStrings
+        [
+          "."
+          "-"
+        ]
+        [
+          ""
+          ""
+        ]
+        version
+    }" > tools/unix/version.sh
   '';
 
   nativeBuildInputs = [
@@ -68,7 +80,10 @@ mkDerivation rec {
   passthru = {
     updateScript = nix-update-script {
       attrPath = pname;
-      extraArgs = [ "-vr" "(.*)-android" ];
+      extraArgs = [
+        "-vr"
+        "(.*)-android"
+      ];
     };
   };
 

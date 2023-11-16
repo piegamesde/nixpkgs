@@ -1,9 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-, fetchpatch
-, openblas, blas, lapack, opencv3, libzip, boost, protobuf, mpi
-, onebitSGDSupport ? false
-, cudaSupport ? false, cudaPackages ? {}, addOpenGLRunpath, cudatoolkit, nvidia_x11
-, cudnnSupport ? cudaSupport
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fetchpatch,
+  openblas,
+  blas,
+  lapack,
+  opencv3,
+  libzip,
+  boost,
+  protobuf,
+  mpi,
+  onebitSGDSupport ? false,
+  cudaSupport ? false,
+  cudaPackages ? { },
+  addOpenGLRunpath,
+  cudatoolkit,
+  nvidia_x11,
+  cudnnSupport ? cudaSupport,
 }:
 
 let
@@ -21,8 +36,8 @@ let
     rev = "1.7.4";
     sha256 = "0ksd5n1lxqhm5l5cd2lps4cszhjkf6gmzahaycs7nxb06qci8c66";
   };
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "CNTK";
   version = "2.7";
 
@@ -34,16 +49,17 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # Fix build with protobuf 3.18+
-    # Remove with onnx submodule bump to 1.9+
-    (fetchpatch {
-      url = "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch";
-      extraPrefix = "Source/CNTKv2LibraryDll/proto/onnx/onnx_repo/";
-      stripLen = 1;
-      sha256 = "00raqj8wx30b06ky6cdp5vvc1mrzs7hglyi6h58hchw5lhrwkzxp";
-    })
-  ];
+  patches =
+    [
+      # Fix build with protobuf 3.18+
+      # Remove with onnx submodule bump to 1.9+
+      (fetchpatch {
+        url = "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch";
+        extraPrefix = "Source/CNTKv2LibraryDll/proto/onnx/onnx_repo/";
+        stripLen = 1;
+        sha256 = "00raqj8wx30b06ky6cdp5vvc1mrzs7hglyi6h58hchw5lhrwkzxp";
+      })
+    ];
 
   postPatch = ''
     # Fix build with protobuf 3.18+
@@ -62,26 +78,34 @@ in stdenv.mkDerivation rec {
   # Uses some deprecated tensorflow functions
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
-  buildInputs = [ openblas opencv3 libzip boost protobuf mpi ]
-             ++ lib.optional cudaSupport cudatoolkit
-             ++ lib.optional cudnnSupport cudnn;
+  buildInputs = [
+    openblas
+    opencv3
+    libzip
+    boost
+    protobuf
+    mpi
+  ] ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn;
 
-  configureFlags = [
-    "--with-opencv=${opencv3}"
-    "--with-libzip=${libzip.dev}"
-    "--with-openblas=${openblas.dev}"
-    "--with-boost=${boost.dev}"
-    "--with-protobuf=${protobuf}"
-    "--with-mpi=${mpi}"
-    "--cuda=${if cudaSupport then "yes" else "no"}"
-    # FIXME
-    "--asgd=no"
-  ] ++ lib.optionals cudaSupport [
-    "--with-cuda=${cudatoolkit}"
-    "--with-gdk-include=${cudatoolkit}/include"
-    "--with-gdk-nvml-lib=${nvidia_x11}/lib"
-    "--with-cub=${cub}"
-  ] ++ lib.optional onebitSGDSupport "--1bitsgd=yes";
+  configureFlags =
+    [
+      "--with-opencv=${opencv3}"
+      "--with-libzip=${libzip.dev}"
+      "--with-openblas=${openblas.dev}"
+      "--with-boost=${boost.dev}"
+      "--with-protobuf=${protobuf}"
+      "--with-mpi=${mpi}"
+      "--cuda=${if cudaSupport then "yes" else "no"}"
+      # FIXME
+      "--asgd=no"
+    ]
+    ++ lib.optionals cudaSupport [
+      "--with-cuda=${cudatoolkit}"
+      "--with-gdk-include=${cudatoolkit}/include"
+      "--with-gdk-nvml-lib=${nvidia_x11}/lib"
+      "--with-cub=${cub}"
+    ]
+    ++ lib.optional onebitSGDSupport "--1bitsgd=yes";
 
   configurePhase = ''
     sed -i \

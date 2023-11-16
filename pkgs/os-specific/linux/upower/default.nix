@@ -1,36 +1,39 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, pkg-config
-, rsync
-, libxslt
-, meson
-, ninja
-, python3
-, dbus
-, umockdev
-, libeatmydata
-, gtk-doc
-, docbook-xsl-nons
-, udev
-, libgudev
-, libusb1
-, glib
-, gobject-introspection
-, gettext
-, systemd
-, useIMobileDevice ? true
-, libimobiledevice
-, withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform)
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  pkg-config,
+  rsync,
+  libxslt,
+  meson,
+  ninja,
+  python3,
+  dbus,
+  umockdev,
+  libeatmydata,
+  gtk-doc,
+  docbook-xsl-nons,
+  udev,
+  libgudev,
+  libusb1,
+  glib,
+  gobject-introspection,
+  gettext,
+  systemd,
+  useIMobileDevice ? true,
+  libimobiledevice,
+  withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform),
 }:
 
 stdenv.mkDerivation rec {
   pname = "upower";
   version = "1.90.0";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals withDocs [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals withDocs [ "devdoc" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -42,14 +45,13 @@ stdenv.mkDerivation rec {
 
   # Remove when this is fixed upstream:
   # https://gitlab.freedesktop.org/upower/upower/-/issues/214
-  patches = lib.optional (stdenv.hostPlatform.system == "i686-linux")
-    ./i686-test-remove-battery-check.patch;
+  patches =
+    lib.optional (stdenv.hostPlatform.system == "i686-linux")
+      ./i686-test-remove-battery-check.patch;
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     meson
@@ -71,9 +73,7 @@ stdenv.mkDerivation rec {
     systemd
     # Duplicate from nativeCheckInputs until https://github.com/NixOS/nixpkgs/issues/161570 is solved
     umockdev
-  ] ++ lib.optionals useIMobileDevice [
-    libimobiledevice
-  ];
+  ] ++ lib.optionals useIMobileDevice [ libimobiledevice ];
 
   nativeCheckInputs = [
     python3.pkgs.dbus-python
@@ -85,9 +85,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.packaging
   ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
   mesonFlags = [
     "--localstatedir=/var"

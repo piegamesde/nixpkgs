@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, zlib
-, lz4
-, bzip2
-, zstd
-, spdlog
-, tbb
-, openssl
-, boost
-, libpqxx
-, clang-tools
-, catch2
-, python3
-, gtest
-, doxygen
-, fixDarwinDylibNames
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  lz4,
+  bzip2,
+  zstd,
+  spdlog,
+  tbb,
+  openssl,
+  boost,
+  libpqxx,
+  clang-tools,
+  catch2,
+  python3,
+  gtest,
+  doxygen,
+  fixDarwinDylibNames,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,9 +33,7 @@ stdenv.mkDerivation rec {
 
   # (bundled) blosc headers have a warning on some archs that it will be using
   # unaccelerated routines.
-  cmakeFlags = [
-    "-DTILEDB_WERROR=0"
-  ];
+  cmakeFlags = [ "-DTILEDB_WERROR=0" ];
 
   nativeBuildInputs = [
     clang-tools
@@ -43,9 +42,7 @@ stdenv.mkDerivation rec {
     doxygen
   ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-  nativeCheckInputs = [
-    gtest
-  ];
+  nativeCheckInputs = [ gtest ];
 
   buildInputs = [
     catch2
@@ -68,7 +65,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  installTargets = [ "install-tiledb" "doc" ];
+  installTargets = [
+    "install-tiledb"
+    "doc"
+  ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -add_rpath ${tbb}/lib $out/lib/libtiledb.dylib
@@ -81,5 +81,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ rakesh4g ];
   };
-
 }

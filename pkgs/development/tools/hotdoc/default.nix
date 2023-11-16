@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, buildPythonApplication
-, fetchPypi
-, pytestCheckHook
-, pkg-config
-, cmake
-, flex
-, glib
-, json-glib
-, libxml2
-, appdirs
-, dbus-deviation
-, faust-cchardet
-, feedgen
-, lxml
-, networkx
-, pkgconfig
-, pyyaml
-, schema
-, setuptools
-, toposort
-, wheezy-template
-, libclang
-, gst_all_1
+{
+  lib,
+  stdenv,
+  buildPythonApplication,
+  fetchPypi,
+  pytestCheckHook,
+  pkg-config,
+  cmake,
+  flex,
+  glib,
+  json-glib,
+  libxml2,
+  appdirs,
+  dbus-deviation,
+  faust-cchardet,
+  feedgen,
+  lxml,
+  networkx,
+  pkgconfig,
+  pyyaml,
+  schema,
+  setuptools,
+  toposort,
+  wheezy-template,
+  libclang,
+  gst_all_1,
 }:
 
 buildPythonApplication rec {
@@ -56,14 +57,12 @@ buildPythonApplication rec {
     pkgconfig
     pyyaml
     schema
-    setuptools  # for pkg_resources
+    setuptools # for pkg_resources
     toposort
     wheezy-template
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # CMake is used to build CMARK, but the build system is still python
   dontUseCmakeConfigure = true;
@@ -76,15 +75,21 @@ buildPythonApplication rec {
   ];
 
   # Run the tests by package instead of current dir
-  pytestFlagsArray = [ "--pyargs" "hotdoc" ];
-
-  disabledTests = [
-    # Test does not correctly handle path normalization for test comparison
-    "test_cli_overrides"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # Test does not correctly handle absolute /home paths on Darwin (even fake ones)
-    "test_index"
+  pytestFlagsArray = [
+    "--pyargs"
+    "hotdoc"
   ];
+
+  disabledTests =
+    [
+      # Test does not correctly handle path normalization for test comparison
+      "test_cli_overrides"
+    ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # Test does not correctly handle absolute /home paths on Darwin (even fake ones)
+        "test_index"
+      ];
 
   # Hardcode libclang paths
   postPatch = ''

@@ -1,4 +1,11 @@
-{ mkDerivation, lib, fetchFromGitHub, pkg-config, qtscript, qmake, libjack2
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  qtscript,
+  qmake,
+  libjack2,
 }:
 
 mkDerivation rec {
@@ -11,8 +18,14 @@ mkDerivation rec {
     sha256 = "sha256-K2HznkntDhp+I8DHJk5Cuh5cR8yjwfzX+pGGzS8yVLQ=";
   };
 
-  nativeBuildInputs = [ pkg-config qmake ];
-  buildInputs = [ qtscript libjack2 ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
+  buildInputs = [
+    qtscript
+    libjack2
+  ];
 
   qmakeFlags = [ "CONFIG+=noupcasename" ];
 

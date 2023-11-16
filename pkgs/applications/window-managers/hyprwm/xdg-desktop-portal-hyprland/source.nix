@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, wayland
+{
+  lib,
+  fetchFromGitHub,
+  wayland,
 }:
 let
   version = "0.4.0";

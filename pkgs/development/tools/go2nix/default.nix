@@ -1,5 +1,13 @@
-{ lib, buildGoPackage, go-bindata, gotools, nix-prefetch-git, git, makeWrapper,
-  fetchFromGitHub }:
+{
+  lib,
+  buildGoPackage,
+  go-bindata,
+  gotools,
+  nix-prefetch-git,
+  git,
+  makeWrapper,
+  fetchFromGitHub,
+}:
 
 buildGoPackage rec {
   pname = "go2nix";
@@ -17,9 +25,16 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ go-bindata gotools makeWrapper ];
+  nativeBuildInputs = [
+    go-bindata
+    gotools
+    makeWrapper
+  ];
 
   preBuild = "go generate ./...";
 

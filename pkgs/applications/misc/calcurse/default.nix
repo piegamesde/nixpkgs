@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, ncurses, gettext, python3, python3Packages, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  gettext,
+  python3,
+  python3Packages,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "calcurse";
@@ -9,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SKc2ZmzEtrUwEtc7OqcBUsGLQebHtIB/qw8WjWRa4yw=";
   };
 
-  buildInputs = [ ncurses gettext python3 python3Packages.wrapPython ];
+  buildInputs = [
+    ncurses
+    gettext
+    python3
+    python3Packages.wrapPython
+  ];
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''

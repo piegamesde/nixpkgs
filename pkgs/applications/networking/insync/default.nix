@@ -1,41 +1,42 @@
-{ lib
-, writeShellScript
-, buildFHSEnv
-, stdenvNoCC
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, nss
-, libvorbis
-, libdrm
-, libGL
-, wayland
-, xkeyboard_config
-, libthai
+{
+  lib,
+  writeShellScript,
+  buildFHSEnv,
+  stdenvNoCC,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  nss,
+  libvorbis,
+  libdrm,
+  libGL,
+  wayland,
+  xkeyboard_config,
+  libthai,
 }:
 
 let
   pname = "insync";
   version = "3.8.6.50504";
   meta = with lib; {
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = with maintainers; [ hellwolf ];
     homepage = "https://www.insynchq.com";
     description = "Google Drive sync and backup with multiple account support";
     longDescription = ''
-     Insync is a commercial application that syncs your Drive files to your
-     computer.  It has more advanced features than Google's official client
-     such as multiple account support, Google Doc conversion, symlink support,
-     and built in sharing.
+      Insync is a commercial application that syncs your Drive files to your
+      computer.  It has more advanced features than Google's official client
+      such as multiple account support, Google Doc conversion, symlink support,
+      and built in sharing.
 
-     There is a 15-day free trial, and it is a paid application after that.
+      There is a 15-day free trial, and it is a paid application after that.
 
-     Known bug(s):
+      Known bug(s):
 
-     1) Currently the system try icon does not render correctly.
-     2) libqtvirtualkeyboardplugin does not have necessary Qt library shipped from vendor.
+      1) Currently the system try icon does not render correctly.
+      2) libqtvirtualkeyboardplugin does not have necessary Qt library shipped from vendor.
     '';
   };
 
@@ -57,7 +58,10 @@ let
       libthai
     ];
 
-    nativeBuildInputs = [ autoPatchelfHook dpkg ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+    ];
 
     unpackPhase = ''
       dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner
@@ -89,24 +93,26 @@ let
     # for including insync's xdg data dirs
     extraOutputsToInstall = [ "share" ];
 
-    targetPkgs = pkgs: with pkgs; [
-      insync-pkg
-      libudev0-shim
-    ];
+    targetPkgs =
+      pkgs:
+      with pkgs; [
+        insync-pkg
+        libudev0-shim
+      ];
 
     runScript = writeShellScript "insync-wrapper.sh" ''
-    # QT_STYLE_OVERRIDE was used to suppress a QT warning, it should have no actual effect for this binary.
-    export QT_STYLE_OVERRIDE=Fusion
-    # xkb configuration needed: https://github.com/NixOS/nixpkgs/issues/236365
-    export XKB_CONFIG_ROOT=${xkeyboard_config}/share/X11/xkb/
-    exec "${insync-pkg.outPath}/lib/insync/insync" "$@"
+      # QT_STYLE_OVERRIDE was used to suppress a QT warning, it should have no actual effect for this binary.
+      export QT_STYLE_OVERRIDE=Fusion
+      # xkb configuration needed: https://github.com/NixOS/nixpkgs/issues/236365
+      export XKB_CONFIG_ROOT=${xkeyboard_config}/share/X11/xkb/
+      exec "${insync-pkg.outPath}/lib/insync/insync" "$@"
     '';
 
     # "insync start" command starts a daemon.
     dieWithParent = false;
   };
-
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   inherit pname version meta;
 
   dontUnpack = true;

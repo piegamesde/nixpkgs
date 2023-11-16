@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitLab
-, pythonOlder
-, argcomplete
-, requests
-, gnupg
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  pythonOlder,
+  argcomplete,
+  requests,
+  gnupg,
 }:
 
 buildPythonPackage rec {

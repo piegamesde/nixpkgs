@@ -1,20 +1,23 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 let
   py = python3.override {
     packageOverrides = self: super: {
-      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (oldAttrs: rec {
-        version = "2.7.1";
-        src = fetchFromGitHub {
-          owner = "CycloneDX";
-          repo = "cyclonedx-python-lib";
-          rev = "v${version}";
-          hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
-        };
-      });
+      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "2.7.1";
+          src = fetchFromGitHub {
+            owner = "CycloneDX";
+            repo = "cyclonedx-python-lib";
+            rev = "v${version}";
+            hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
+          };
+        }
+      );
     };
   };
 in
@@ -32,9 +35,7 @@ buildPythonApplication rec {
     hash = "sha256-m/AZfHT9ZW4K82WHxlj1iddh+Na4+Rvwgl46fdHRVhA=";
   };
 
-  patches = [
-    ./flake8-compat-5.x.patch
-  ];
+  patches = [ ./flake8-compat-5.x.patch ];
 
   pythonRelaxDeps = [
     "bc-detect-secrets"
@@ -150,9 +151,7 @@ buildPythonApplication rec {
     "dogfood_tests/test_checkov_dogfood.py"
   ];
 
-  pythonImportsCheck = [
-    "checkov"
-  ];
+  pythonImportsCheck = [ "checkov" ];
 
   postInstall = ''
     chmod +x $out/bin/checkov
@@ -167,6 +166,9 @@ buildPythonApplication rec {
       Kubernetes, Serverless framework and other infrastructure-as-code-languages.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ anhdle14 fab ];
+    maintainers = with maintainers; [
+      anhdle14
+      fab
+    ];
   };
 }

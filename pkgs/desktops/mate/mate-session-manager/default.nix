@@ -1,21 +1,22 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, gettext
-, xtrans
-, dbus-glib
-, systemd
-, libSM
-, libXtst
-, gtk3
-, libepoxy
-, polkit
-, hicolor-icon-theme
-, mate
-, wrapGAppsHook
-, fetchpatch
-, mateUpdateScript
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  xtrans,
+  dbus-glib,
+  systemd,
+  libSM,
+  libXtst,
+  gtk3,
+  libepoxy,
+  polkit,
+  hicolor-icon-theme,
+  mate,
+  wrapGAppsHook,
+  fetchpatch,
+  mateUpdateScript,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,17 +24,20 @@ stdenv.mkDerivation rec {
   version = "1.26.1";
 
   src = fetchurl {
-    url = "https://pub.mate-desktop.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://pub.mate-desktop.org/releases/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "W4x9ZEH9nCk8hjiCq2enSTxTzfZOqyfAlFdfQj69Qng=";
   };
 
-  patches = [
-    # allow turning on debugging from environment variable
-    (fetchpatch {
-      url = "https://github.com/mate-desktop/mate-session-manager/commit/3ab6fbfc811d00100d7a2959f8bbb157b536690d.patch";
-      sha256 = "0yjaklq0mp44clymyhy240kxlw95z3azmravh4f5pfm9dys33sg0";
-    })
-  ];
+  patches =
+    [
+      # allow turning on debugging from environment variable
+      (fetchpatch {
+        url = "https://github.com/mate-desktop/mate-session-manager/commit/3ab6fbfc811d00100d7a2959f8bbb157b536690d.patch";
+        sha256 = "0yjaklq0mp44clymyhy240kxlw95z3azmravh4f5pfm9dys33sg0";
+      })
+    ];
 
   nativeBuildInputs = [
     pkg-config
@@ -68,7 +72,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "MATE Desktop session manager";
     homepage = "https://github.com/mate-desktop/mate-session-manager";
-    license = with licenses; [ gpl2Plus lgpl2Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl2Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

@@ -1,4 +1,16 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, openssl, attr, keyutils, asciidoc, libxslt, docbook_xsl }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  openssl,
+  attr,
+  keyutils,
+  asciidoc,
+  libxslt,
+  docbook_xsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ima-evm-utils";
@@ -10,8 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WPBG7v29JHZ+ZGeLgA2gtLzZmaG0Xdvpq+BZ6NriY+A=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ openssl attr keyutils asciidoc libxslt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    openssl
+    attr
+    keyutils
+    asciidoc
+    libxslt
+  ];
 
   MANPAGE_DOCBOOK_XSL = "${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl";
 

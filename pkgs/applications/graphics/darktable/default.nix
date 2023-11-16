@@ -1,60 +1,61 @@
-{ lib
-, stdenv
-, fetchurl
-, libsoup
-, graphicsmagick
-, json-glib
-, wrapGAppsHook
-, cairo
-, cmake
-, ninja
-, curl
-, perl
-, llvm_13
-, desktop-file-utils
-, exiv2
-, glib
-, glib-networking
-, ilmbase
-, gtk3
-, intltool
-, lcms2
-, lensfun
-, libX11
-, libexif
-, libgphoto2
-, libjpeg
-, libpng
-, librsvg
-, libtiff
-, libjxl
-, openexr_3
-, osm-gps-map
-, pkg-config
-, sqlite
-, libxslt
-, openjpeg
-, pugixml
-, colord
-, colord-gtk
-, libwebp
-, libsecret
-, gnome
-, SDL2
-, ocl-icd
-, pcre
-, gtk-mac-integration
-, isocodes
-, llvmPackages
-, gmic
-, libavif
-, icu
-, jasper
-, libheif
-, libaom
-, portmidi
-, fetchpatch
-, lua
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libsoup,
+  graphicsmagick,
+  json-glib,
+  wrapGAppsHook,
+  cairo,
+  cmake,
+  ninja,
+  curl,
+  perl,
+  llvm_13,
+  desktop-file-utils,
+  exiv2,
+  glib,
+  glib-networking,
+  ilmbase,
+  gtk3,
+  intltool,
+  lcms2,
+  lensfun,
+  libX11,
+  libexif,
+  libgphoto2,
+  libjpeg,
+  libpng,
+  librsvg,
+  libtiff,
+  libjxl,
+  openexr_3,
+  osm-gps-map,
+  pkg-config,
+  sqlite,
+  libxslt,
+  openjpeg,
+  pugixml,
+  colord,
+  colord-gtk,
+  libwebp,
+  libsecret,
+  gnome,
+  SDL2,
+  ocl-icd,
+  pcre,
+  gtk-mac-integration,
+  isocodes,
+  llvmPackages,
+  gmic,
+  libavif,
+  icu,
+  jasper,
+  libheif,
+  libaom,
+  portmidi,
+  fetchpatch,
+  lua,
 }:
 
 stdenv.mkDerivation rec {
@@ -66,62 +67,74 @@ stdenv.mkDerivation rec {
     sha256 = "603a39c6074291a601f7feb16ebb453fd0c5b02a6f5d3c7ab6db612eadc97bac";
   };
 
-  nativeBuildInputs = [ cmake ninja llvm_13 pkg-config intltool perl desktop-file-utils wrapGAppsHook ];
-
-  buildInputs = [
-    cairo
-    curl
-    exiv2
-    glib
-    glib-networking
-    gtk3
-    ilmbase
-    lcms2
-    lensfun
-    libexif
-    libgphoto2
-    libjpeg
-    libpng
-    librsvg
-    libtiff
-    libjxl
-    openexr_3
-    sqlite
-    libxslt
-    libsoup
-    graphicsmagick
-    json-glib
-    openjpeg
-    pugixml
-    libwebp
-    libsecret
-    SDL2
-    gnome.adwaita-icon-theme
-    osm-gps-map
-    pcre
-    isocodes
-    gmic
-    libavif
-    icu
-    jasper
-    libheif
-    libaom
-    portmidi
-    lua
-  ] ++ lib.optionals stdenv.isLinux [
-    colord
-    colord-gtk
-    libX11
-    ocl-icd
-  ] ++ lib.optional stdenv.isDarwin gtk-mac-integration
-  ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
-
-  cmakeFlags = [
-    "-DBUILD_USERMANUAL=False"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DUSE_COLORD=OFF"
-    "-DUSE_KWALLET=OFF"
+  nativeBuildInputs = [
+    cmake
+    ninja
+    llvm_13
+    pkg-config
+    intltool
+    perl
+    desktop-file-utils
+    wrapGAppsHook
   ];
+
+  buildInputs =
+    [
+      cairo
+      curl
+      exiv2
+      glib
+      glib-networking
+      gtk3
+      ilmbase
+      lcms2
+      lensfun
+      libexif
+      libgphoto2
+      libjpeg
+      libpng
+      librsvg
+      libtiff
+      libjxl
+      openexr_3
+      sqlite
+      libxslt
+      libsoup
+      graphicsmagick
+      json-glib
+      openjpeg
+      pugixml
+      libwebp
+      libsecret
+      SDL2
+      gnome.adwaita-icon-theme
+      osm-gps-map
+      pcre
+      isocodes
+      gmic
+      libavif
+      icu
+      jasper
+      libheif
+      libaom
+      portmidi
+      lua
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      colord
+      colord-gtk
+      libX11
+      ocl-icd
+    ]
+    ++ lib.optional stdenv.isDarwin gtk-mac-integration
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
+
+  cmakeFlags =
+    [ "-DBUILD_USERMANUAL=False" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "-DUSE_COLORD=OFF"
+      "-DUSE_KWALLET=OFF"
+    ];
 
   # darktable changed its rpath handling in commit
   # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
@@ -147,6 +160,11 @@ stdenv.mkDerivation rec {
     homepage = "https://www.darktable.org";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ goibhniu flosse mrVanDalo paperdigits ];
+    maintainers = with maintainers; [
+      goibhniu
+      flosse
+      mrVanDalo
+      paperdigits
+    ];
   };
 }

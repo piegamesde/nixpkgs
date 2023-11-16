@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchPypi
-, mercantile
-, pytestCheckHook
-, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchPypi,
+  mercantile,
+  pytestCheckHook,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -17,14 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-M0K7pBDXlBKQ7tDlii5arbD3uXhj7EKDsoPEBu5yOig=";
   };
 
-  disabledTests = [
-    # requires network connections
-    "test_free_providers"
-  ];
+  disabledTests =
+    [
+      # requires network connections
+      "test_free_providers"
+    ];
 
-  pythonImportsCheck = [
-    "xyzservices.providers"
-  ];
+  pythonImportsCheck = [ "xyzservices.providers" ];
 
   nativeCheckInputs = [
     mercantile

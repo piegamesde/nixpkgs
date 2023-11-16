@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, python3
-, qtbase
-, qttools
-, radare2
-, wrapQtAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  qtbase,
+  qttools,
+  radare2,
+  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -57,7 +58,10 @@ stdenv.mkDerivation rec {
   ];
 
   # the radare2 binary package seems to not install all necessary headers.
-  env.NIX_CFLAGS_COMPILE = toString [ "-I" "${radare2.src}/shlr/sdb/include/sdb" ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-I"
+    "${radare2.src}/shlr/sdb/include/sdb"
+  ];
 
   postBuild = ''
     pushd ../../../iaito-translations

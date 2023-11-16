@@ -1,21 +1,22 @@
-{ lib
-, fetchurl
-, pkg-config
-, gettext
-, itstool
-, python3
-, wrapGAppsHook
-, gst_all_1
-, gtk3
-, gobject-introspection
-, libpeas
-, librsvg
-, gnome
-, libnotify
-, gsound
-, meson
-, ninja
-, gsettings-desktop-schemas
+{
+  lib,
+  fetchurl,
+  pkg-config,
+  gettext,
+  itstool,
+  python3,
+  wrapGAppsHook,
+  gst_all_1,
+  gtk3,
+  gobject-introspection,
+  libpeas,
+  librsvg,
+  gnome,
+  libnotify,
+  gsound,
+  meson,
+  ninja,
+  gsettings-desktop-schemas,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -29,12 +30,13 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "PX1OFEeavqMPvF613BKgxwErxqW2huw6mQxo8YpBS/M=";
   };
 
-  patches = [
-    # By default, the build picks up environment variables like PYTHONPATH
-    # and saves them to the generated binary. This would make the build-time
-    # dependencies part of the closure so we remove it.
-    ./prevent-closure-contamination.patch
-  ];
+  patches =
+    [
+      # By default, the build picks up environment variables like PYTHONPATH
+      # and saves them to the generated binary. This would make the build-time
+      # dependencies part of the closure so we remove it.
+      ./prevent-closure-contamination.patch
+    ];
 
   nativeBuildInputs = [
     meson
@@ -47,23 +49,27 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gtk3
-    libpeas
-    librsvg
-    gsound
-    gsettings-desktop-schemas
-    libnotify
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-editing-services
-    gst-plugins-base
-    (gst-plugins-good.override { gtkSupport = true; })
-    gst-plugins-bad
-    gst-plugins-ugly
-    gst-libav
-    gst-devtools
-  ]);
+  buildInputs =
+    [
+      gtk3
+      libpeas
+      librsvg
+      gsound
+      gsettings-desktop-schemas
+      libnotify
+    ]
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-editing-services
+        gst-plugins-base
+        (gst-plugins-good.override { gtkSupport = true; })
+        gst-plugins-bad
+        gst-plugins-ugly
+        gst-libav
+        gst-devtools
+      ]
+    );
 
   pythonPath = with python3.pkgs; [
     pygobject3
@@ -94,7 +100,7 @@ python3.pkgs.buildPythonApplication rec {
       that can appeal to newbies and professionals alike.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     platforms = platforms.linux;
   };
 }

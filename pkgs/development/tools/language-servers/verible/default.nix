@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildBazelPackage
-, bazel_4
-, flex
-, bison
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildBazelPackage,
+  bazel_4,
+  flex,
+  bison,
+  python3,
 }:
 
 let
@@ -21,7 +22,9 @@ buildBazelPackage rec {
   GIT_VERSION = "v0.0-3253-gf85c768c";
 
   # Derive nix package version from GIT_VERSION: "v1.2-345-abcde" -> "1.2.345"
-  version = builtins.concatStringsSep "." (lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION)));
+  version = builtins.concatStringsSep "." (
+    lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION))
+  );
 
   src = fetchFromGitHub {
     owner = "chipsalliance";
@@ -30,12 +33,13 @@ buildBazelPackage rec {
     sha256 = "sha256-scLYQQt6spBImJEYG60ZbIsUfKqWBj2DINjZgFKESoI=";
   };
 
-  patches = [
-    # Patch WORKSPACE file to not include windows-related dependencies,
-    # as they are removed by bazel, breaking the fixed output derivation
-    # TODO: fix upstream
-    ./remove-unused-deps.patch
-  ];
+  patches =
+    [
+      # Patch WORKSPACE file to not include windows-related dependencies,
+      # as they are removed by bazel, breaking the fixed output derivation
+      # TODO: fix upstream
+      ./remove-unused-deps.patch
+    ];
 
   bazelFlags = [
     "--//bazel:use_local_flex_bison"
@@ -48,15 +52,17 @@ buildBazelPackage rec {
     # This varies per platform, probably from the JDK pulled in being part
     # of the output derivation ? Is there a more robust way to do this ?
     # (Hashes extracted from the ofborg build logs)
-    sha256 = {
-      aarch64-linux = "sha256-BrJyFeq3BB4sHIXMMxRIaYV+VJAfTs2bvK7pnw6faBY=";
-      x86_64-linux = "sha256-G6tqHWeQBi2Ph3IDFNu2sp+UU2BO93+lcyJ+kvpuRJo=";
-    }.${system} or (throw "No hash for system: ${system}");
+    sha256 =
+      {
+        aarch64-linux = "sha256-BrJyFeq3BB4sHIXMMxRIaYV+VJAfTs2bvK7pnw6faBY=";
+        x86_64-linux = "sha256-G6tqHWeQBi2Ph3IDFNu2sp+UU2BO93+lcyJ+kvpuRJo=";
+      }
+      .${system} or (throw "No hash for system: ${system}");
   };
 
   nativeBuildInputs = [
-    flex       # We use local flex and bison as WORKSPACE sources fail
-    bison      # .. to compile with newer glibc
+    flex # We use local flex and bison as WORKSPACE sources fail
+    bison # .. to compile with newer glibc
     python3
   ];
 
@@ -76,9 +82,7 @@ buildBazelPackage rec {
   removeRulesCC = false;
   bazelTargets = [ ":install-binaries" ];
   bazelTestTargets = [ "//..." ];
-  bazelBuildFlags = [
-    "-c opt"
-  ];
+  bazelBuildFlags = [ "-c opt" ];
   buildAttrs = {
     installPhase = ''
       mkdir -p "$out/bin"
@@ -103,6 +107,9 @@ buildBazelPackage rec {
     description = "Suite of SystemVerilog developer tools. Including a style-linter, indexer, formatter, and language server.";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hzeller newam ];
+    maintainers = with maintainers; [
+      hzeller
+      newam
+    ];
   };
 }

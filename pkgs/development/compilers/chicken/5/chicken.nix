@@ -1,12 +1,25 @@
-{ lib, stdenv, fetchurl, makeWrapper, darwin, bootstrap-chicken ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  darwin,
+  bootstrap-chicken ? null,
+}:
 
 let
-  platform = with stdenv;
-    if isDarwin then "macosx"
-    else if isCygwin then "cygwin"
-    else if (isFreeBSD || isOpenBSD) then "bsd"
-    else if isSunOS then "solaris"
-    else "linux"; # Should be a sane default
+  platform =
+    with stdenv;
+    if isDarwin then
+      "macosx"
+    else if isCygwin then
+      "cygwin"
+    else if (isFreeBSD || isOpenBSD) then
+      "bsd"
+    else if isSunOS then
+      "solaris"
+    else
+      "linux"; # Should be a sane default
 in
 stdenv.mkDerivation rec {
   pname = "chicken";
@@ -22,27 +35,26 @@ stdenv.mkDerivation rec {
   setupHook = lib.optional (bootstrap-chicken != null) ./setup-hook.sh;
 
   # -fno-strict-overflow is not a supported argument in clang on darwin
-  hardeningDisable = lib.optionals stdenv.isDarwin ["strictoverflow"];
+  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
-  makeFlags = [
-    "PLATFORM=${platform}" "PREFIX=$(out)"
-  ] ++ (lib.optionals stdenv.isDarwin [
-    "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
-    "C_COMPILER=$(CC)"
-    "CXX_COMPILER=$(CXX)"
-    "LINKER_OPTIONS=-headerpad_max_install_names"
-    "POSTINSTALL_PROGRAM=install_name_tool"
-  ]);
+  makeFlags =
+    [
+      "PLATFORM=${platform}"
+      "PREFIX=$(out)"
+    ]
+    ++ (lib.optionals stdenv.isDarwin [
+      "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
+      "C_COMPILER=$(CC)"
+      "CXX_COMPILER=$(CXX)"
+      "LINKER_OPTIONS=-headerpad_max_install_names"
+      "POSTINSTALL_PROGRAM=install_name_tool"
+    ]);
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    darwin.autoSignDarwinBinariesHook
-  ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
 
-  buildInputs = lib.optionals (bootstrap-chicken != null) [
-    bootstrap-chicken
-  ];
+  buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 
   postInstall = ''
     for f in $out/bin/*
@@ -66,7 +78,11 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://call-cc.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ corngood nagy konst-aa ];
+    maintainers = with lib.maintainers; [
+      corngood
+      nagy
+      konst-aa
+    ];
     platforms = lib.platforms.unix;
     description = "A portable compiler for the Scheme programming language";
     longDescription = ''

@@ -1,14 +1,15 @@
-{ lib
-, which
-, stdenv
-, fetchzip
-, opaline
-, cmake
-, ocaml
-, findlib
-, hacl-star
-, ctypes
-, cppo
+{
+  lib,
+  which,
+  stdenv,
+  fetchzip,
+  opaline,
+  cmake,
+  ocaml,
+  findlib,
+  hacl-star,
+  ctypes,
+  cppo,
 }:
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-hacl-star-raw";
@@ -20,9 +21,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  patches = [
-    ./aligned-alloc.patch
-  ];
+  patches = [ ./aligned-alloc.patch ];
 
   minimalOCamlVersion = "4.08";
 
@@ -67,13 +66,9 @@ stdenv.mkDerivation rec {
     findlib
   ];
 
-  propagatedBuildInputs = [
-    ctypes
-  ];
+  propagatedBuildInputs = [ ctypes ];
 
-  checkInputs = [
-    cppo
-  ];
+  checkInputs = [ cppo ];
 
   strictDeps = true;
 

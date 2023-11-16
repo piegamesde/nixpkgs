@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,11 +20,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [ "-s" "tests" ];
-
-  pythonImportsCheck = [
-    "webcolors"
+  unittestFlagsArray = [
+    "-s"
+    "tests"
   ];
+
+  pythonImportsCheck = [ "webcolors" ];
 
   meta = with lib; {
     description = "Library for working with color names/values defined by the HTML and CSS specifications";

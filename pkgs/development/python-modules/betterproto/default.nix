@@ -1,19 +1,20 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, pythonOlder
-, poetry-core
-, grpclib
-, python-dateutil
-, black
-, jinja2
-, isort
-, python
-, pytestCheckHook
-, pytest-asyncio
-, pytest-mock
-, tomlkit
-, grpcio-tools
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pythonOlder,
+  poetry-core,
+  grpclib,
+  python-dateutil,
+  black,
+  jinja2,
+  isort,
+  python,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-mock,
+  tomlkit,
+  grpcio-tools,
 }:
 
 buildPythonPackage rec {

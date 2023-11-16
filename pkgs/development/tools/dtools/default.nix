@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, ldc, curl, gnumake42 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  ldc,
+  curl,
+  gnumake42,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dtools";
@@ -20,7 +28,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ ldc gnumake42 ]; # fails with make 4.4
+  nativeBuildInputs = [
+    ldc
+    gnumake42
+  ]; # fails with make 4.4
   buildInputs = [ curl ];
 
   makeCmd = ''
@@ -34,11 +45,11 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   checkPhase = ''
-      $makeCmd test_rdmd
-    '';
+    $makeCmd test_rdmd
+  '';
 
   installPhase = ''
-      $makeCmd INSTALL_DIR=$out install
+    $makeCmd INSTALL_DIR=$out install
   '';
 
   meta = with lib; {

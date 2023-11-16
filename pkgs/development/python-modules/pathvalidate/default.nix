@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +20,7 @@ buildPythonPackage rec {
   # Requires `pytest-md-report`, causing infinite recursion.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pathvalidate"
-  ];
+  pythonImportsCheck = [ "pathvalidate" ];
 
   meta = with lib; {
     description = "A Python library to sanitize/validate a string such as filenames/file-paths/etc";

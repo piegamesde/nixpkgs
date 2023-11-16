@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, qt4, gdb, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qt4,
+  gdb,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "omapd";
@@ -11,7 +18,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./zlib.patch ];
 
-  buildInputs = [ qt4 zlib gdb ];
+  buildInputs = [
+    qt4
+    zlib
+    gdb
+  ];
 
   buildPhase = ''
     (cd plugins/RAMHashTables; qmake; make)

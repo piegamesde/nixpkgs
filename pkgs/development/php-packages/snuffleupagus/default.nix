@@ -1,9 +1,10 @@
-{ buildPecl
-, lib
-, php
-, fetchFromGitHub
-, pcre2
-, fetchpatch
+{
+  buildPecl,
+  lib,
+  php,
+  fetchFromGitHub,
+  pcre2,
+  fetchpatch,
 }:
 
 buildPecl rec {
@@ -16,13 +17,9 @@ buildPecl rec {
     sha256 = "1la6wa9xznc110b7isiy502x71mkvhisq6m8llhczpq4rs4nbcw2";
   };
 
-  buildInputs = [
-    pcre2
-  ];
+  buildInputs = [ pcre2 ];
 
-  internalDeps = with php.extensions; [
-    session
-  ];
+  internalDeps = with php.extensions; [ session ];
 
   patches = [
     (fetchpatch {
@@ -34,9 +31,7 @@ buildPecl rec {
 
   sourceRoot = "source/src";
 
-  configureFlags = [
-    "--enable-snuffleupagus"
-  ];
+  configureFlags = [ "--enable-snuffleupagus" ];
 
   postPhpize = ''
     ./configure --enable-snuffleupagus

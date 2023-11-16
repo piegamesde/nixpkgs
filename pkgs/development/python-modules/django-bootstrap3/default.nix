@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, django
-, pytest-django
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  django,
+  pytest-django,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -17,17 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-cJW3xmqJ87rreOoCh5nr15XSlzn8hgJGBCLnwqGUrTA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  buildInputs = [
-    django
-  ];
+  buildInputs = [ django ];
 
-  pythonImportsCheck = [
-    "bootstrap3"
-  ];
+  pythonImportsCheck = [ "bootstrap3" ];
 
   nativeCheckInputs = [
     pytest-django
@@ -44,5 +39,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ hexa ];
   };
 }
-
-

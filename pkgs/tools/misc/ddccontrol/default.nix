@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, intltool
-, libxml2
-, pciutils
-, pkg-config
-, gtk2
-, ddccontrol-db
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  intltool,
+  libxml2,
+  pciutils,
+  pkg-config,
+  gtk2,
+  ddccontrol-db,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,23 +35,23 @@ stdenv.mkDerivation rec {
     ddccontrol-db
   ];
 
-  configureFlags = [
-    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-  ];
+  configureFlags = [ "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system" ];
 
-  prePatch = ''
-    substituteInPlace configure.ac              \
-      --replace                                 \
-      "\$""{datadir}/ddccontrol-db"             \
-      "${ddccontrol-db}/share/ddccontrol-db"
+  prePatch =
+    ''
+      substituteInPlace configure.ac              \
+        --replace                                 \
+        "\$""{datadir}/ddccontrol-db"             \
+        "${ddccontrol-db}/share/ddccontrol-db"
 
-    substituteInPlace src/ddcpci/Makefile.am    \
-       --replace "chmod 4711" "chmod 0711"
-  '' + lib.optionalString (lib.versionAtLeast "0.6.1" version) ''
-    # Upstream PR: https://github.com/ddccontrol/ddccontrol/pull/115
-    substituteInPlace src/lib/Makefile.am       \
-      --replace "/etc/" "\$""{sysconfdir}/"
-  '';
+      substituteInPlace src/ddcpci/Makefile.am    \
+         --replace "chmod 4711" "chmod 0711"
+    ''
+    + lib.optionalString (lib.versionAtLeast "0.6.1" version) ''
+      # Upstream PR: https://github.com/ddccontrol/ddccontrol/pull/115
+      substituteInPlace src/lib/Makefile.am       \
+        --replace "/etc/" "\$""{sysconfdir}/"
+    '';
 
   preConfigure = ''
     intltoolize --force

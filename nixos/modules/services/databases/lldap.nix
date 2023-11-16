@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 let
   cfg = config.services.lldap;
@@ -107,7 +113,9 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${lib.getExe cfg.package} run --config-file ${format.generate "lldap_config.toml" cfg.settings}";
+        ExecStart = "${lib.getExe cfg.package} run --config-file ${
+            format.generate "lldap_config.toml" cfg.settings
+          }";
         StateDirectory = "lldap";
         WorkingDirectory = "%S/lldap";
         User = "lldap";

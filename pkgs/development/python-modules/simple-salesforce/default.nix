@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, authlib
-, requests
-, nose
-, pyjwt
-, pythonOlder
-, pytz
-, responses
-, zeep
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  authlib,
+  requests,
+  nose,
+  pyjwt,
+  pythonOlder,
+  pytz,
+  responses,
+  zeep,
 }:
 
 buildPythonPackage rec {
@@ -44,9 +45,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "simple_salesforce"
-  ];
+  pythonImportsCheck = [ "simple_salesforce" ];
 
   meta = with lib; {
     description = "A very simple Salesforce.com REST API client for Python";
@@ -55,5 +54,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ costrouc ];
   };
-
 }

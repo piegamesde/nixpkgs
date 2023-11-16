@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, colorama
-, fetchFromGitHub
-, pytest-mypy
-, pytestCheckHook
-, pythonOlder
-, regex
+{
+  lib,
+  buildPythonPackage,
+  colorama,
+  fetchFromGitHub,
+  pytest-mypy,
+  pytestCheckHook,
+  pythonOlder,
+  regex,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "tatsu"
-  ];
+  pythonImportsCheck = [ "tatsu" ];
 
   meta = with lib; {
     description = "Generates Python parsers from grammars in a variation of EBNF";

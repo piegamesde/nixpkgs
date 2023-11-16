@@ -1,6 +1,7 @@
-{ lib
-, fetchFromBitbucket
-, fetchFromSavannah
+{
+  lib,
+  fetchFromBitbucket,
+  fetchFromSavannah,
 }:
 
 {

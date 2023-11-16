@@ -1,4 +1,8 @@
-{ buildSetupcfg, fetchFromGitHub, lib }:
+{
+  buildSetupcfg,
+  fetchFromGitHub,
+  lib,
+}:
 
 buildSetupcfg rec {
   info = import ./info.nix;

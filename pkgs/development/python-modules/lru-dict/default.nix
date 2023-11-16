@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
 }:
 
 let
@@ -17,13 +18,9 @@ buildPythonPackage {
     hash = "sha256-h4vI70Bz5c+5U9/Bz0WF20HouBTAEGq9400A7g0LMRU=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "lru"
-  ];
+  pythonImportsCheck = [ "lru" ];
 
   meta = with lib; {
     description = "Fast and memory efficient LRU cache for Python";

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, perl, perlPackages, makeWrapper, }:
+{
+  lib,
+  fetchFromGitHub,
+  perl,
+  perlPackages,
+  makeWrapper,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "cope";
@@ -11,7 +17,15 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-Tkv26M6YnaUB0nudjKGG482fvUkCobPk0VF1manBCoY=";
   };
 
-  buildInputs = with perlPackages; [ EnvPath FileShareDir IOPty IOStty ListMoreUtils RegexpCommon RegexpIPv6 ];
+  buildInputs = with perlPackages; [
+    EnvPath
+    FileShareDir
+    IOPty
+    IOStty
+    ListMoreUtils
+    RegexpCommon
+    RegexpIPv6
+  ];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -22,7 +36,10 @@ perlPackages.buildPerlPackage rec {
   meta = with lib; {
     description = "A colourful wrapper for terminal programs";
     homepage = "https://github.com/lotrfan/cope";
-    license = with licenses; [ artistic1 gpl1Plus ];
+    license = with licenses; [
+      artistic1
+      gpl1Plus
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

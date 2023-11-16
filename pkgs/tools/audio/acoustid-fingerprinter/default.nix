@@ -1,17 +1,36 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, pkg-config, qt4, taglib, chromaprint, ffmpeg_4 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  qt4,
+  taglib,
+  chromaprint,
+  ffmpeg_4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "acoustid-fingerprinter";
   version = "0.6";
 
   src = fetchurl {
-    url = "https://bitbucket.org/acoustid/acoustid-fingerprinter/downloads/"
-        + "${pname}-${version}.tar.gz";
+    url =
+      "https://bitbucket.org/acoustid/acoustid-fingerprinter/downloads/" + "${pname}-${version}.tar.gz";
     sha256 = "0ckglwy95qgqvl2l6yd8ilwpd6qs7yzmj8g7lnxb50d12115s5n0";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ qt4 taglib chromaprint ffmpeg_4 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    qt4
+    taglib
+    chromaprint
+    ffmpeg_4
+  ];
 
   cmakeFlags = [ "-DTAGLIB_MIN_VERSION=${lib.getVersion taglib}" ];
 

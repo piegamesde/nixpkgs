@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,9 +11,7 @@ let
 
   cfg = config.services.jira;
 
-  pkg = cfg.package.override (optionalAttrs cfg.sso.enable {
-    enableSSO = cfg.sso.enable;
-  });
+  pkg = cfg.package.override (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
@@ -23,7 +26,6 @@ let
     session.validationinterval              ${toString cfg.sso.validationInterval}
     session.lastvalidation                  session.lastvalidation
   '';
-
 in
 
 {
@@ -63,8 +65,11 @@ in
 
       catalinaOptions = mkOption {
         type = types.listOf types.str;
-        default = [];
-        example = [ "-Xms1024m" "-Xmx2048m" ];
+        default = [ ];
+        example = [
+          "-Xms1024m"
+          "-Xmx2048m"
+        ];
         description = lib.mdDoc "Java options to pass to catalina/tomcat.";
       };
 
@@ -115,7 +120,9 @@ in
 
         applicationPasswordFile = mkOption {
           type = types.str;
-          description = lib.mdDoc "Path to the file containing the application password of this JIRA instance in Crowd";
+          description =
+            lib.mdDoc
+              "Path to the file containing the application password of this JIRA instance in Crowd";
         };
 
         validationInterval = mkOption {
@@ -155,7 +162,7 @@ in
       home = cfg.home;
     };
 
-    users.groups.${cfg.group} = {};
+    users.groups.${cfg.group} = { };
 
     systemd.tmpfiles.rules = [
       "d '${cfg.home}' - ${cfg.user} - - -"
@@ -175,7 +182,10 @@ in
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
 
-      path = [ cfg.jrePackage pkgs.bash ];
+      path = [
+        cfg.jrePackage
+        pkgs.bash
+      ];
 
       environment = {
         JIRA_USER = cfg.user;
@@ -185,23 +195,28 @@ in
         JAVA_OPTS = mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
-      preStart = ''
-        mkdir -p ${cfg.home}/{logs,work,temp,deploy}
+      preStart =
+        ''
+          mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-        sed -e 's,port="8080",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
-        '' + (lib.optionalString cfg.proxy.enable ''
-          -e 's,protocol="HTTP/1.1",protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${toString cfg.proxy.port}" scheme="${cfg.proxy.scheme}" secure="${toString cfg.proxy.secure}",' \
-        '') + ''
-          ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
+          sed -e 's,port="8080",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
+        ''
+        + (lib.optionalString cfg.proxy.enable ''
+          -e 's,protocol="HTTP/1.1",protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${
+            toString cfg.proxy.port
+          }" scheme="${cfg.proxy.scheme}" secure="${toString cfg.proxy.secure}",' \
+        '')
+        + ''
+            ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
 
-        ${optionalString cfg.sso.enable ''
-          install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
-          ${pkgs.replace-secret}/bin/replace-secret \
-            '@NIXOS_JIRA_CROWD_SSO_PWD@' \
-            ${cfg.sso.applicationPasswordFile} \
-            ${cfg.home}/crowd.properties
-        ''}
-      '';
+          ${optionalString cfg.sso.enable ''
+            install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
+            ${pkgs.replace-secret}/bin/replace-secret \
+              '@NIXOS_JIRA_CROWD_SSO_PWD@' \
+              ${cfg.sso.applicationPasswordFile} \
+              ${cfg.home}/crowd.properties
+          ''}
+        '';
 
       serviceConfig = {
         User = cfg.user;
@@ -216,8 +231,16 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [ "services" "jira" "sso" "applicationPassword" ] ''
-      Use `applicationPasswordFile` instead!
-    '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "jira"
+        "sso"
+        "applicationPassword"
+      ]
+      ''
+        Use `applicationPasswordFile` instead!
+      ''
+    )
   ];
 }

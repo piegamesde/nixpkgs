@@ -1,6 +1,10 @@
-{ lib, fetchurl, buildDunePackage
-, menhir, menhirLib
-, fmt
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  menhir,
+  menhirLib,
+  fmt,
 }:
 
 buildDunePackage rec {
@@ -15,7 +19,10 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ menhir ];
-  propagatedBuildInputs = [ menhirLib fmt ];
+  propagatedBuildInputs = [
+    menhirLib
+    fmt
+  ];
 
   # Testr are not compatible with menhir 20211128
   doCheck = false;

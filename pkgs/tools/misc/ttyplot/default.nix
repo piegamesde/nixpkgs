@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ttyplot";
@@ -14,7 +19,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses ];
 
   buildPhase = ''
-   ${stdenv.cc}/bin/cc ./ttyplot.c -lncurses -o ttyplot
+    ${stdenv.cc}/bin/cc ./ttyplot.c -lncurses -o ttyplot
   '';
 
   installPhase = ''

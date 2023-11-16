@@ -1,18 +1,19 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchNpmDeps
-, fetchpatch
-, cacert
-, go
-, git
-, enumer
-, mockgen
-, nodejs
-, npmHooks
-, nix-update-script
-, nixosTests
-, stdenv
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchNpmDeps,
+  fetchpatch,
+  cacert,
+  go,
+  git,
+  enumer,
+  mockgen,
+  nodejs,
+  npmHooks,
+  nix-update-script,
+  nixosTests,
+  stdenv,
 }:
 
 buildGoModule rec {

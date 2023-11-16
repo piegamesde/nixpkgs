@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
 }:
 
 buildGoModule rec {
@@ -29,4 +30,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ helium ];
   };
 }
-

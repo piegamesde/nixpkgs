@@ -1,8 +1,9 @@
-{ lib
-, python3
-, fetchFromGitHub
-, espeak-ng
-, tts
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  espeak-ng,
+  tts,
 }:
 
 let
@@ -25,28 +26,32 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-AVU4ULz++t9850pYeNrG5HKNvUZcMld4O1/zu697rzk=";
   };
 
-  postPatch = let
-    relaxedConstraints = [
-      "bnunicodenormalizer"
-      "cython"
-      "gruut"
-      "inflect"
-      "librosa"
-      "mecab-python3"
-      "numba"
-      "numpy"
-      "unidic-lite"
-      "trainer"
-    ];
-  in ''
-    sed -r -i \
-      ${lib.concatStringsSep "\n" (map (package:
-        ''-e 's/${package}.*[<>=]+.*/${package}/g' \''
-      ) relaxedConstraints)}
-    requirements.txt
-    # only used for notebooks and visualization
-    sed -r -i -e '/umap-learn/d' requirements.txt
-  '';
+  postPatch =
+    let
+      relaxedConstraints = [
+        "bnunicodenormalizer"
+        "cython"
+        "gruut"
+        "inflect"
+        "librosa"
+        "mecab-python3"
+        "numba"
+        "numpy"
+        "unidic-lite"
+        "trainer"
+      ];
+    in
+    ''
+      sed -r -i \
+        ${
+          lib.concatStringsSep "\n" (
+            map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\") relaxedConstraints
+          )
+        }
+      requirements.txt
+      # only used for notebooks and visualization
+      sed -r -i -e '/umap-learn/d' requirements.txt
+    '';
 
   nativeBuildInputs = with python.pkgs; [
     cython

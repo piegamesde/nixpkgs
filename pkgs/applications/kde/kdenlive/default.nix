@@ -1,38 +1,39 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, breeze-icons
-, breeze-qt5
-, kdoctools
-, kconfig
-, kcrash
-, kguiaddons
-, kiconthemes
-, ki18n
-, kinit
-, kdbusaddons
-, knotifications
-, knewstuff
-, karchive
-, knotifyconfig
-, kplotting
-, ktextwidgets
-, mlt
-, shared-mime-info
-, libv4l
-, kfilemetadata
-, ffmpeg-full
-, frei0r
-, phonon-backend-gstreamer
-, qtdeclarative
-, qtmultimedia
-, qtnetworkauth
-, qtquickcontrols2
-, qtscript
-, rttr
-, kpurpose
-, kdeclarative
-, wrapGAppsHook
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  breeze-icons,
+  breeze-qt5,
+  kdoctools,
+  kconfig,
+  kcrash,
+  kguiaddons,
+  kiconthemes,
+  ki18n,
+  kinit,
+  kdbusaddons,
+  knotifications,
+  knewstuff,
+  karchive,
+  knotifyconfig,
+  kplotting,
+  ktextwidgets,
+  mlt,
+  shared-mime-info,
+  libv4l,
+  kfilemetadata,
+  ffmpeg-full,
+  frei0r,
+  phonon-backend-gstreamer,
+  qtdeclarative,
+  qtmultimedia,
+  qtnetworkauth,
+  qtquickcontrols2,
+  qtscript,
+  rttr,
+  kpurpose,
+  kdeclarative,
+  wrapGAppsHook,
 }:
 
 mkDerivation {
@@ -77,7 +78,10 @@ mkDerivation {
   # Both MLT and FFMpeg paths must be set or Kdenlive will complain that it
   # doesn't find them. See:
   # https://github.com/NixOS/nixpkgs/issues/83885
-  patches = [ ./mlt-path.patch ./ffmpeg-path.patch ];
+  patches = [
+    ./mlt-path.patch
+    ./ffmpeg-path.patch
+  ];
   inherit mlt;
   ffmpeg = ffmpeg-full;
   postPatch =
@@ -92,9 +96,7 @@ mkDerivation {
   # Frei0r path needs to be set too or Kdenlive will complain. See:
   # https://github.com/NixOS/nixpkgs/issues/83885
   # https://github.com/NixOS/nixpkgs/issues/29614#issuecomment-488849325
-  qtWrapperArgs = [
-    "--set FREI0R_PATH ${frei0r}/lib/frei0r-1"
-  ];
+  qtWrapperArgs = [ "--set FREI0R_PATH ${frei0r}/lib/frei0r-1" ];
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")

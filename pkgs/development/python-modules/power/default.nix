@@ -1,7 +1,8 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -22,5 +23,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/Kentzo/Power";
     license = licenses.mit;
   };
-
 }

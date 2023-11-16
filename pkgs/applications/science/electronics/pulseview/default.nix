@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, cmake, glib, boost, libsigrok
-, libsigrokdecode, libserialport, libzip, udev, libusb1, libftdi1, glibmm
-, pcre, python3, qtsvg, qttools, wrapQtAppsHook, desktopToDarwinBundle
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  glib,
+  boost,
+  libsigrok,
+  libsigrokdecode,
+  libserialport,
+  libzip,
+  udev,
+  libusb1,
+  libftdi1,
+  glibmm,
+  pcre,
+  python3,
+  qtsvg,
+  qttools,
+  wrapQtAppsHook,
+  desktopToDarwinBundle,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,12 +32,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-8EL3ej4bNb8wZmMw427Dj6uNJIw2k8N7fjXUAcO/q8s=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
-    glib boost libsigrok libsigrokdecode libserialport libzip libusb1 libftdi1 glibmm
-    pcre python3
+    glib
+    boost
+    libsigrok
+    libsigrokdecode
+    libserialport
+    libzip
+    libusb1
+    libftdi1
+    glibmm
+    pcre
+    python3
     qtsvg
   ] ++ lib.optional stdenv.isLinux udev;
 

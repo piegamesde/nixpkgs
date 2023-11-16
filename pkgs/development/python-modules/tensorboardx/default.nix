@@ -1,20 +1,21 @@
-{ boto3
-, buildPythonPackage
-, crc32c
-, which
-, fetchFromGitHub
-, lib
-, matplotlib
-, moto
-, numpy
-, pillow
-, protobuf
-, pytestCheckHook
-, torch
-, six
-, soundfile
-, tensorboard
-, torchvision
+{
+  boto3,
+  buildPythonPackage,
+  crc32c,
+  which,
+  fetchFromGitHub,
+  lib,
+  matplotlib,
+  moto,
+  numpy,
+  pillow,
+  protobuf,
+  pytestCheckHook,
+  torch,
+  six,
+  soundfile,
+  tensorboard,
+  torchvision,
 }:
 
 buildPythonPackage rec {
@@ -73,16 +74,20 @@ buildPythonPackage rec {
     "test_onnx_graph"
   ];
 
-  disabledTestPaths = [
-    # we are not interested in linting errors
-    "tests/test_lint.py"
-  ];
+  disabledTestPaths =
+    [
+      # we are not interested in linting errors
+      "tests/test_lint.py"
+    ];
 
   meta = with lib; {
     description = "Library for writing tensorboard-compatible logs";
     homepage = "https://github.com/lanpa/tensorboardX";
     license = licenses.mit;
-    maintainers = with maintainers; [ lebastr akamaus ];
+    maintainers = with maintainers; [
+      lebastr
+      akamaus
+    ];
     platforms = platforms.all;
   };
 }

@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, guile
-, libgit2
-, scheme-bytestructures
-, autoreconfHook
-, pkg-config
-, texinfo
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  guile,
+  libgit2,
+  scheme-bytestructures,
+  autoreconfHook,
+  pkg-config,
+  texinfo,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,13 +22,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    autoreconfHook pkg-config texinfo
+    autoreconfHook
+    pkg-config
+    texinfo
   ];
-  buildInputs = [
-    guile
-  ];
+  buildInputs = [ guile ];
   propagatedBuildInputs = [
-    libgit2 scheme-bytestructures
+    libgit2
+    scheme-bytestructures
   ];
   doCheck = true;
   makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
@@ -47,4 +49,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

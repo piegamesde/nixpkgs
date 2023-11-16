@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, gtest
-, xsimd
-, xtl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  xsimd,
+  xtl,
 }:
 stdenv.mkDerivation rec {
   pname = "xtensor";
@@ -18,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ xtl xsimd ];
+  propagatedBuildInputs = [
+    xtl
+    xsimd
+  ];
 
   cmakeFlags = [ "-DBUILD_TESTS=ON" ];
 

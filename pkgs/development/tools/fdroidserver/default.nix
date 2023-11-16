@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitLab
-, python
-, apksigner
+{
+  lib,
+  fetchFromGitLab,
+  python,
+  apksigner,
 }:
 
 python.pkgs.buildPythonApplication rec {
@@ -35,13 +36,9 @@ python.pkgs.buildPythonApplication rec {
     install -m 0755 gradlew-fdroid $out/bin
   '';
 
-  nativeBuildInputs = with python.pkgs; [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python.pkgs; [ pythonRelaxDepsHook ];
 
-  buildInputs = with python.pkgs; [
-    babel
-  ];
+  buildInputs = with python.pkgs; [ babel ];
 
   propagatedBuildInputs = with python.pkgs; [
     androguard
@@ -72,9 +69,7 @@ python.pkgs.buildPythonApplication rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "fdroidserver"
-  ];
+  pythonImportsCheck = [ "fdroidserver" ];
 
   meta = with lib; {
     homepage = "https://github.com/f-droid/fdroidserver";
@@ -83,5 +78,4 @@ python.pkgs.buildPythonApplication rec {
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ obfusk ];
   };
-
 }

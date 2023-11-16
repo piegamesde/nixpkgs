@@ -1,8 +1,9 @@
-{ lib
-, fetchurl
-, bash
-, tinycc
-, gnumake
+{
+  lib,
+  fetchurl,
+  bash,
+  tinycc,
+  gnumake,
 }:
 let
   pname = "gnused";
@@ -21,44 +22,47 @@ let
     sha256 = "0w1f5ri0g5zla31m6l6xyzbqwdvandqfnzrsw90dd6ak126w3mya";
   };
 in
-bash.runCommand "${pname}-${version}" {
-  inherit pname version;
+bash.runCommand "${pname}-${version}"
+  {
+    inherit pname version;
 
-  nativeBuildInputs = [
-    tinycc.compiler
-    gnumake
-  ];
+    nativeBuildInputs = [
+      tinycc.compiler
+      gnumake
+    ];
 
-  passthru.tests.get-version = result:
-    bash.runCommand "${pname}-get-version-${version}" {} ''
-      ${result}/bin/sed --version
-      mkdir ''${out}
-    '';
+    passthru.tests.get-version =
+      result:
+      bash.runCommand "${pname}-get-version-${version}" { } ''
+        ${result}/bin/sed --version
+        mkdir ''${out}
+      '';
 
-  meta = with lib; {
-    description = "GNU sed, a batch stream editor";
-    homepage = "https://www.gnu.org/software/sed";
-    license = licenses.gpl3Plus;
-    maintainers = teams.minimal-bootstrap.members;
-    mainProgram = "sed";
-    platforms = platforms.unix;
-  };
-} ''
-  # Unpack
-  ungz --file ${src} --output sed.tar
-  untar --file sed.tar
-  rm sed.tar
-  cd sed-${version}
+    meta = with lib; {
+      description = "GNU sed, a batch stream editor";
+      homepage = "https://www.gnu.org/software/sed";
+      license = licenses.gpl3Plus;
+      maintainers = teams.minimal-bootstrap.members;
+      mainProgram = "sed";
+      platforms = platforms.unix;
+    };
+  }
+  ''
+    # Unpack
+    ungz --file ${src} --output sed.tar
+    untar --file sed.tar
+    rm sed.tar
+    cd sed-${version}
 
-  # Configure
-  cp ${makefile} Makefile
-  catm config.h
+    # Configure
+    cp ${makefile} Makefile
+    catm config.h
 
-  # Build
-  make \
-    CC="tcc -B ${tinycc.libs}/lib" \
-    LIBC=mes
+    # Build
+    make \
+      CC="tcc -B ${tinycc.libs}/lib" \
+      LIBC=mes
 
-  # Install
-  make install PREFIX=$out
-''
+    # Install
+    make install PREFIX=$out
+  ''

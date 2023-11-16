@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cmake
-, ninja
-, cython
-, rapidfuzz-capi
-, scikit-build
-, setuptools
-, jarowinkler-cpp
-, hypothesis
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  cython,
+  rapidfuzz-capi,
+  scikit-build,
+  setuptools,
+  jarowinkler-cpp,
+  hypothesis,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [
-    jarowinkler-cpp
-  ];
+  buildInputs = [ jarowinkler-cpp ];
 
   preBuild = ''
     export JAROWINKLER_BUILD_EXTENSION=1

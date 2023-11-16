@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# build-system
-, setuptools
+  # build-system
+  setuptools,
 
-# dependencies
-, beautifulsoup4
+  # dependencies
+  beautifulsoup4,
 
-# tests
-, django
-, python
+  # tests
+  django,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -25,21 +26,13 @@ buildPythonPackage rec {
     hash = "sha256-55pfUPwxDzpDn4stMEPvrQAexs+goN5SKFvwSR3J4aM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 ];
 
-  pythonImportsCheck = [
-    "bootstrap4"
-  ];
+  pythonImportsCheck = [ "bootstrap4" ];
 
-  nativeCheckInputs = [
-    (django.override { withGdal = true; })
-  ];
+  nativeCheckInputs = [ (django.override { withGdal = true; }) ];
 
   checkPhase = ''
     runHook preCheck

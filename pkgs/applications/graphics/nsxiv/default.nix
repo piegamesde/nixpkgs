@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitea
-, giflib
-, imlib2
-, libXft
-, libexif
-, libwebp
-, libinotify-kqueue
-, conf ? null
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  giflib,
+  imlib2,
+  libXft,
+  libexif,
+  libwebp,
+  libinotify-kqueue,
+  conf ? null,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
     libwebp
   ] ++ lib.optional stdenv.isDarwin libinotify-kqueue;
 
-  preBuild = lib.optionalString (conf!=null) ''
+  preBuild = lib.optionalString (conf != null) ''
     cp ${(builtins.toFile "config.def.h" conf)} config.def.h
   '';
 
@@ -60,7 +61,10 @@ stdenv.mkDerivation rec {
       - Display image name/path in X title
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres sikmir ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      sikmir
+    ];
     platforms = platforms.unix;
     changelog = "https://codeberg.org/nsxiv/nsxiv/src/tag/${src.rev}/etc/CHANGELOG.md";
   };

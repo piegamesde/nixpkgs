@@ -1,17 +1,23 @@
-{ stdenv, lib, fetchFromGitHub
-, which
-, python3
-, help2man
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  which,
+  python3,
+  help2man,
 }:
 
 let
-  pyEnv = python3.withPackages(ps: [ ps.setuptools ]);
+  pyEnv = python3.withPackages (ps: [ ps.setuptools ]);
 in
 stdenv.mkDerivation rec {
   pname = "mininet";
   version = "2.3.0";
 
-  outputs = [ "out" "py" ];
+  outputs = [
+    "out"
+    "py"
+  ];
 
   src = fetchFromGitHub {
     owner = "mininet";
@@ -26,9 +32,15 @@ stdenv.mkDerivation rec {
   pythonPath = [ python3.pkgs.setuptools ];
   nativeBuildInputs = [ help2man ];
 
-  propagatedBuildInputs = [ python3 which ];
+  propagatedBuildInputs = [
+    python3
+    which
+  ];
 
-  installTargets = [ "install-mnexec" "install-manpages" ];
+  installTargets = [
+    "install-mnexec"
+    "install-manpages"
+  ];
 
   preInstall = ''
     mkdir -p $out $py
@@ -37,7 +49,6 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = false;
-
 
   meta = with lib; {
     description = "Emulator for rapid prototyping of Software Defined Networks";

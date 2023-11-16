@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     nosetests
   '';
 
-  pythonImportsCheck = [
-    "colored"
-  ];
+  pythonImportsCheck = [ "colored" ];
 
   meta = with lib; {
     description = "Simple library for color and formatting to terminal";

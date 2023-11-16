@@ -1,19 +1,20 @@
-{ curl
-, dbus
-, fetchFromGitHub
-, fetchpatch
-, glib
-, json-glib
-, lib
-, nix-update-script
-, openssl
-, pkg-config
-, stdenv
-, meson
-, ninja
-, util-linux
-, libnl
-, systemd
+{
+  curl,
+  dbus,
+  fetchFromGitHub,
+  fetchpatch,
+  glib,
+  json-glib,
+  lib,
+  nix-update-script,
+  openssl,
+  pkg-config,
+  stdenv,
+  meson,
+  ninja,
+  util-linux,
+  libnl,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
@@ -40,9 +41,23 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config meson ninja glib ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    glib
+  ];
 
-  buildInputs = [ curl dbus glib json-glib openssl util-linux libnl systemd ];
+  buildInputs = [
+    curl
+    dbus
+    glib
+    json-glib
+    openssl
+    util-linux
+    libnl
+    systemd
+  ];
 
   mesonFlags = [
     "--buildtype=release"

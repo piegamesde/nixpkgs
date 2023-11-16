@@ -1,4 +1,11 @@
-{ pkgs, lib, fetchFromGitHub, gerbil-unstable, gerbil-support, gambit-support }:
+{
+  pkgs,
+  lib,
+  fetchFromGitHub,
+  gerbil-unstable,
+  gerbil-support,
+  gambit-support,
+}:
 
 gerbil-support.gerbilPackage {
   pname = "gerbil-persist";
@@ -6,8 +13,12 @@ gerbil-support.gerbilPackage {
   git-version = "0.0-8-gd211390";
   gerbil-package = "clan/persist";
   gerbil = gerbil-unstable;
-  gerbilInputs = with gerbil-support.gerbilPackages-unstable; [gerbil-utils gerbil-crypto gerbil-poo];
-  buildInputs = [];
+  gerbilInputs = with gerbil-support.gerbilPackages-unstable; [
+    gerbil-utils
+    gerbil-crypto
+    gerbil-poo
+  ];
+  buildInputs = [ ];
   gambit-params = gambit-support.unstable-params;
   version-path = "version";
   softwareName = "Gerbil-persist";
@@ -19,9 +30,9 @@ gerbil-support.gerbilPackage {
   };
   meta = {
     description = "Gerbil Persist: Persistent data and activities";
-    homepage    = "https://github.com/fare/gerbil-persist";
-    license     = lib.licenses.asl20;
-    platforms   = lib.platforms.unix;
+    homepage = "https://github.com/fare/gerbil-persist";
+    license = lib.licenses.asl20;
+    platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ fare ];
   };
 }

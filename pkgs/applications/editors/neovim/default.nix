@@ -1,62 +1,105 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gettext, msgpack, libtermkey, libiconv
-, libuv, lua, ncurses, pkg-config
-, unibilium, gperf
-, libvterm-neovim
-, tree-sitter
-, fetchurl
-, treesitter-parsers ? import ./treesitter-parsers.nix { inherit fetchurl; }
-, CoreServices
-, glibcLocales ? null, procps ? null
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gettext,
+  msgpack,
+  libtermkey,
+  libiconv,
+  libuv,
+  lua,
+  ncurses,
+  pkg-config,
+  unibilium,
+  gperf,
+  libvterm-neovim,
+  tree-sitter,
+  fetchurl,
+  treesitter-parsers ? import ./treesitter-parsers.nix { inherit fetchurl; },
+  CoreServices,
+  glibcLocales ? null,
+  procps ? null,
 
-# now defaults to false because some tests can be flaky (clipboard etc), see
-# also: https://github.com/neovim/neovim/issues/16233
-, doCheck ? false
-, nodejs ? null, fish ? null, python3 ? null
+  # now defaults to false because some tests can be flaky (clipboard etc), see
+  # also: https://github.com/neovim/neovim/issues/16233
+  doCheck ? false,
+  nodejs ? null,
+  fish ? null,
+  python3 ? null,
 }:
 
 let
-  neovimLuaEnv = lua.withPackages(ps:
-    (with ps; [ lpeg luabitop mpack ]
-    ++ lib.optionals doCheck [
-        nvim-client luv coxpcall busted luafilesystem penlight inspect
+  neovimLuaEnv = lua.withPackages (
+    ps:
+    (
+      with ps;
+      [
+        lpeg
+        luabitop
+        mpack
       ]
-    ));
+      ++ lib.optionals doCheck [
+        nvim-client
+        luv
+        coxpcall
+        busted
+        luafilesystem
+        penlight
+        inspect
+      ]
+    )
+  );
   codegenLua =
-    if lua.pkgs.isLuaJIT
-      then
-        let deterministicLuajit =
-          lua.override {
-            deterministicStringIds = true;
-            self = deterministicLuajit;
-          };
-        in deterministicLuajit.withPackages(ps: [ ps.mpack ps.lpeg ])
-      else lua;
+    if lua.pkgs.isLuaJIT then
+      let
+        deterministicLuajit = lua.override {
+          deterministicStringIds = true;
+          self = deterministicLuajit;
+        };
+      in
+      deterministicLuajit.withPackages (
+        ps: [
+          ps.mpack
+          ps.lpeg
+        ]
+      )
+    else
+      lua;
 
-  pyEnv = python3.withPackages(ps: with ps; [ pynvim msgpack ]);
+  pyEnv = python3.withPackages (
+    ps:
+    with ps; [
+      pynvim
+      msgpack
+    ]
+  );
 in
-  stdenv.mkDerivation rec {
-    pname = "neovim-unwrapped";
-    version = "0.9.1";
+stdenv.mkDerivation rec {
+  pname = "neovim-unwrapped";
+  version = "0.9.1";
 
-    src = fetchFromGitHub {
-      owner = "neovim";
-      repo = "neovim";
-      rev = "v${version}";
-      hash = "sha256-G51qD7GklEn0JrneKSSqDDx0Odi7W2FjdQc0ZDE9ZK4=";
-    };
+  src = fetchFromGitHub {
+    owner = "neovim";
+    repo = "neovim";
+    rev = "v${version}";
+    hash = "sha256-G51qD7GklEn0JrneKSSqDDx0Odi7W2FjdQc0ZDE9ZK4=";
+  };
 
-    patches = [
+  patches =
+    [
       # introduce a system-wide rplugin.vim in addition to the user one
       # necessary so that nix can handle `UpdateRemotePlugins` for the plugins
       # it installs. See https://github.com/neovim/neovim/issues/9413.
       ./system_rplugin_manifest.patch
     ];
 
-    dontFixCmake = true;
+  dontFixCmake = true;
 
-    inherit lua;
+  inherit lua;
 
-    buildInputs = [
+  buildInputs =
+    [
       gperf
       libtermkey
       libuv
@@ -71,93 +114,113 @@ in
       neovimLuaEnv
       tree-sitter
       unibilium
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv CoreServices ]
-      ++ lib.optionals doCheck [ glibcLocales procps ]
-    ;
-
-    inherit doCheck;
-
-    # to be exhaustive, one could run
-    # make oldtests too
-    checkPhase = ''
-      make functionaltest
-    '';
-
-    nativeBuildInputs = [
-      cmake
-      gettext
-      pkg-config
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreServices
+    ]
+    ++ lib.optionals doCheck [
+      glibcLocales
+      procps
     ];
 
-    # extra programs test via `make functionaltest`
-    nativeCheckInputs = [
-      fish
-      nodejs
-      pyEnv      # for src/clint.py
-    ];
+  inherit doCheck;
 
-    # nvim --version output retains compilation flags and references to build tools
-    postPatch = ''
-      substituteInPlace src/nvim/version.c --replace NVIM_VERSION_CFLAGS "";
-    '';
-    # check that the above patching actually works
-    disallowedReferences = [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
+  # to be exhaustive, one could run
+  # make oldtests too
+  checkPhase = ''
+    make functionaltest
+  '';
 
-    cmakeFlags = [
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+  ];
+
+  # extra programs test via `make functionaltest`
+  nativeCheckInputs = [
+    fish
+    nodejs
+    pyEnv # for src/clint.py
+  ];
+
+  # nvim --version output retains compilation flags and references to build tools
+  postPatch = ''
+    substituteInPlace src/nvim/version.c --replace NVIM_VERSION_CFLAGS "";
+  '';
+  # check that the above patching actually works
+  disallowedReferences = [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
+
+  cmakeFlags =
+    [
       # Don't use downloaded dependencies. At the end of the configurePhase one
       # can spot that cmake says this option was "not used by the project".
       # That's because all dependencies were found and
       # third-party/CMakeLists.txt is not read at all.
       "-DUSE_BUNDLED=OFF"
     ]
-    ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON"
-    ;
+    ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON";
 
-    preConfigure = lib.optionalString lua.pkgs.isLuaJIT ''
+  preConfigure =
+    lib.optionalString lua.pkgs.isLuaJIT ''
       cmakeFlagsArray+=(
         "-DLUAC_PRG=${codegenLua}/bin/luajit -b -s %s -"
         "-DLUA_GEN_PRG=${codegenLua}/bin/luajit"
       )
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/nvim/CMakeLists.txt --replace "    util" ""
-    '' + ''
+    ''
+    + ''
       mkdir -p $out/lib/nvim/parser
-    '' + lib.concatStrings (lib.mapAttrsToList
-      (language: src: ''
-        ln -s \
-          ${tree-sitter.buildGrammar {
-            inherit language src;
-            version = "neovim-${version}";
-          }}/parser \
-          $out/lib/nvim/parser/${language}.so
-      '')
-      treesitter-parsers);
+    ''
+    + lib.concatStrings (
+      lib.mapAttrsToList
+        (language: src: ''
+          ln -s \
+            ${
+              tree-sitter.buildGrammar {
+                inherit language src;
+                version = "neovim-${version}";
+              }
+            }/parser \
+            $out/lib/nvim/parser/${language}.so
+        '')
+        treesitter-parsers
+    );
 
-    shellHook=''
-      export VIMRUNTIME=$PWD/runtime
+  shellHook = ''
+    export VIMRUNTIME=$PWD/runtime
+  '';
+
+  separateDebugInfo = true;
+
+  meta = with lib; {
+    description = "Vim text editor fork focused on extensibility and agility";
+    longDescription = ''
+      Neovim is a project that seeks to aggressively refactor Vim in order to:
+      - Simplify maintenance and encourage contributions
+      - Split the work between multiple developers
+      - Enable the implementation of new/modern user interfaces without any
+        modifications to the core source
+      - Improve extensibility with a new plugin architecture
     '';
-
-    separateDebugInfo = true;
-
-    meta = with lib; {
-      description = "Vim text editor fork focused on extensibility and agility";
-      longDescription = ''
-        Neovim is a project that seeks to aggressively refactor Vim in order to:
-        - Simplify maintenance and encourage contributions
-        - Split the work between multiple developers
-        - Enable the implementation of new/modern user interfaces without any
-          modifications to the core source
-        - Improve extensibility with a new plugin architecture
-      '';
-      homepage    = "https://www.neovim.io";
-      mainProgram = "nvim";
-      # "Contributions committed before b17d96 by authors who did not sign the
-      # Contributor License Agreement (CLA) remain under the Vim license.
-      # Contributions committed after b17d96 are licensed under Apache 2.0 unless
-      # those contributions were copied from Vim (identified in the commit logs
-      # by the vim-patch token). See LICENSE for details."
-      license = with licenses; [ asl20 vim ];
-      maintainers = with maintainers; [ manveru rvolosatovs ];
-      platforms   = platforms.unix;
-    };
-  }
+    homepage = "https://www.neovim.io";
+    mainProgram = "nvim";
+    # "Contributions committed before b17d96 by authors who did not sign the
+    # Contributor License Agreement (CLA) remain under the Vim license.
+    # Contributions committed after b17d96 are licensed under Apache 2.0 unless
+    # those contributions were copied from Vim (identified in the commit logs
+    # by the vim-patch token). See LICENSE for details."
+    license = with licenses; [
+      asl20
+      vim
+    ];
+    maintainers = with maintainers; [
+      manveru
+      rvolosatovs
+    ];
+    platforms = platforms.unix;
+  };
+}

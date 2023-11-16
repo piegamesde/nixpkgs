@@ -1,44 +1,45 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
 
-# build time
-, bison
-, docbook_xsl
-, docutils
-, flex
-, gtk-doc
-, meson
-, ninja
-, pkg-config
-, utilmacros
+  # build time
+  bison,
+  docbook_xsl,
+  docutils,
+  flex,
+  gtk-doc,
+  meson,
+  ninja,
+  pkg-config,
+  utilmacros,
 
-# runtime
-, alsa-lib
-, cairo
-, curl
-, elfutils
-, glib
-, gsl
-, json_c
-, kmod
-, libdrm
-, liboping
-, libpciaccess
-, libunwind
-, libX11
-, libXext
-, libXrandr
-, libXv
-, openssl
-, peg
-, procps
-, python3
-, udev
-, valgrind
-, xmlrpc_c
-, xorgproto
+  # runtime
+  alsa-lib,
+  cairo,
+  curl,
+  elfutils,
+  glib,
+  gsl,
+  json_c,
+  kmod,
+  libdrm,
+  liboping,
+  libpciaccess,
+  libunwind,
+  libX11,
+  libXext,
+  libXrandr,
+  libXv,
+  openssl,
+  peg,
+  procps,
+  python3,
+  udev,
+  valgrind,
+  xmlrpc_c,
+  xorgproto,
 }:
 
 stdenv.mkDerivation rec {
@@ -53,14 +54,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-7Z9Y7uUjtjdQbB+xV/fvO18xB18VV7fBZqw1fI7U0jQ=";
   };
 
-  patches = [
-    # fixes pkgsMusl.intel-gpu-tools
-    # https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/138
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/void-linux/void-packages/111918317d06598fe1459dbe139923404f3f4b9d/srcpkgs/igt-gpu-tools/patches/musl.patch";
-      hash = "sha256-cvtwZg7js7O/Ww7puBTfVzLRji2bHTyV91+PvpH8qrg=";
-    })
-  ];
+  patches =
+    [
+      # fixes pkgsMusl.intel-gpu-tools
+      # https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/138
+      (fetchpatch {
+        url = "https://raw.githubusercontent.com/void-linux/void-packages/111918317d06598fe1459dbe139923404f3f4b9d/srcpkgs/igt-gpu-tools/patches/musl.patch";
+        hash = "sha256-cvtwZg7js7O/Ww7puBTfVzLRji2bHTyV91+PvpH8qrg=";
+      })
+    ];
 
   nativeBuildInputs = [
     bison
@@ -112,7 +114,10 @@ stdenv.mkDerivation rec {
     homepage = "https://drm.pages.freedesktop.org/igt-gpu-tools/";
     description = "Tools for development and testing of the Intel DRM driver";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = with maintainers; [ pSub ];
   };
 }

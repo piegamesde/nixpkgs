@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, vtk_9, libX11, libGL, Cocoa, OpenGL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  vtk_9,
+  libX11,
+  libGL,
+  Cocoa,
+  OpenGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "f3d";
@@ -13,7 +23,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ vtk_9 ] ++ lib.optionals stdenv.isDarwin [ Cocoa OpenGL ];
+  buildInputs =
+    [ vtk_9 ]
+    ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      OpenGL
+    ];
 
   # conflict between VTK and Nixpkgs;
   # see https://github.com/NixOS/nixpkgs/issues/89167

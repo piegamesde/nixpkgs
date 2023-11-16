@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, six
-, asn1crypto
-, python-dateutil
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  six,
+  asn1crypto,
+  python-dateutil,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  pythonImportsCheck = [
-    "cryptoparser"
-  ];
+  pythonImportsCheck = [ "cryptoparser" ];
 
   meta = with lib; {
     description = "Security protocol parser and generator";

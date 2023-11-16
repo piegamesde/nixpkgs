@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, treelog
-, stringly
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  treelog,
+  stringly,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -29,18 +30,15 @@ buildPythonPackage rec {
     stringly
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "nutils"
-  ];
+  pythonImportsCheck = [ "nutils" ];
 
-  disabledTestPaths = [
-    # AttributeError: type object 'setup' has no attribute '__code__'
-    "tests/test_cli.py"
-  ];
+  disabledTestPaths =
+    [
+      # AttributeError: type object 'setup' has no attribute '__code__'
+      "tests/test_cli.py"
+    ];
 
   meta = with lib; {
     description = "Numerical Utilities for Finite Element Analysis";

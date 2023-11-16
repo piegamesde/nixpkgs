@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, chardet
-, fetchPypi
-, flask
-, ldapdomaindump
-, pyasn1
-, pycryptodomex
-, pyopenssl
-, pythonOlder
-, setuptools
-, six
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  fetchPypi,
+  flask,
+  ldapdomaindump,
+  pyasn1,
+  pycryptodomex,
+  pyopenssl,
+  pythonOlder,
+  setuptools,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
   # RecursionError: maximum recursion depth exceeded
   doCheck = false;
 
-  pythonImportsCheck = [
-    "impacket"
-  ];
+  pythonImportsCheck = [ "impacket" ];
 
   meta = with lib; {
     description = "Network protocols Constructors and Dissectors";

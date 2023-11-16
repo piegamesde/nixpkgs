@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, rustPlatform
-, setuptools-rust
-, openssl
-, pkg-config
-, cyrus_sasl
-, protobuf
-, cmake
-, gcc
-, confluent-kafka
-, pytestCheckHook
-, pythonAtLeast
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  setuptools-rust,
+  openssl,
+  pkg-config,
+  cyrus_sasl,
+  protobuf,
+  cmake,
+  gcc,
+  confluent-kafka,
+  pytestCheckHook,
+  pythonAtLeast,
 }:
 
 buildPythonPackage rec {
@@ -66,7 +67,10 @@ buildPythonPackage rec {
     description = "Python Stream Processing";
     homepage = "https://github.com/bytewax/bytewax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mslingsby kfollesdal ];
+    maintainers = with maintainers; [
+      mslingsby
+      kfollesdal
+    ];
     # mismatched type expected u8, found i8
     broken = stdenv.isAarch64;
   };

@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, isPy27
-, pytestCheckHook
-, autoconf
-, automake
-, cmake
-, gcc
-, libtool
-, perl
-, simplejson
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  isPy27,
+  pytestCheckHook,
+  autoconf,
+  automake,
+  cmake,
+  gcc,
+  libtool,
+  perl,
+  simplejson,
 }:
 
 buildPythonPackage rec {
@@ -41,7 +42,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ simplejson ];
 
-  nativeBuildInputs = [ autoconf automake cmake libtool perl ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    cmake
+    libtool
+    perl
+  ];
 
   buildInputs = [ gcc ];
 
@@ -49,12 +56,16 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    # Test fails with: Assertion error
-    "test_handle_event_request_fault_exception_logging_syntax_error"
-  ];
+  disabledTests =
+    [
+      # Test fails with: Assertion error
+      "test_handle_event_request_fault_exception_logging_syntax_error"
+    ];
 
-  pythonImportsCheck = [ "awslambdaric" "runtime_client" ];
+  pythonImportsCheck = [
+    "awslambdaric"
+    "runtime_client"
+  ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

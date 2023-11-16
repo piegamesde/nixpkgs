@@ -1,4 +1,11 @@
-{ lib, stdenv, zlib, bzip2, xz, fetchFromGitHub } :
+{
+  lib,
+  stdenv,
+  zlib,
+  bzip2,
+  xz,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.1.0";
@@ -12,7 +19,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ zlib bzip2 xz ];
+  buildInputs = [
+    zlib
+    bzip2
+    xz
+  ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -44,6 +55,5 @@ stdenv.mkDerivation rec {
       These contigs are then immediately aligned to the reference with BWA-MEM and parsed to identify variants.
       Sequencing reads are then realigned to the contigs with BWA-MEM, and variants are scored by their read support.
     '';
-
   };
 }

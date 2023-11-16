@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -16,9 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-yCZ16rmqi8DAwIVuEgCw373bQX+cLhSNbpKutF5L2bc=";
 
-  subPackages = [
-    "cmd/protoc-gen-connect-go"
-  ];
+  subPackages = [ "cmd/protoc-gen-connect-go" ];
 
   meta = with lib; {
     description = "library for building browser and gRPC-compatible HTTP APIs";

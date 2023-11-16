@@ -1,21 +1,22 @@
-{ stdenv
-, lib
-, fetchurl
+{
+  stdenv,
+  lib,
+  fetchurl,
 
-# build time
-, autoreconfHook
-, pkg-config
+  # build time
+  autoreconfHook,
+  pkg-config,
 
-# runtime
-, boost
-, libmysqlclient
-, log4cplus
-, openssl
-, postgresql
-, python3
+  # runtime
+  boost,
+  libmysqlclient,
+  log4cplus,
+  openssl,
+  postgresql,
+  python3,
 
-# tests
-, nixosTests
+  # tests
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,9 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2n2QymKncmAtrG535QcxkDhCKJWtaO6xQvFIfWfVMdI=";
   };
 
-  patches = [
-    ./dont-create-var.patch
-  ];
+  patches = [ ./dont-create-var.patch ];
 
   postPatch = ''
     substituteInPlace ./src/bin/keactrl/Makefile.am --replace '@sysconfdir@' "$out/etc"
@@ -52,13 +51,17 @@ stdenv.mkDerivation rec {
     "--with-pgsql=${postgresql}/bin/pg_config"
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ] ++ (with python3.pkgs; [
-    sphinxHook
-    sphinx-rtd-theme
-  ]);
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+    ]
+    ++ (
+      with python3.pkgs; [
+        sphinxHook
+        sphinx-rtd-theme
+      ]
+    );
 
   sphinxBuilders = [
     "html"
@@ -94,6 +97,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fpletz hexa ];
+    maintainers = with maintainers; [
+      fpletz
+      hexa
+    ];
   };
 }

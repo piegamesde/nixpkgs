@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, pytestCheckHook
-, pytest-asyncio
-, pytest-timeout
-, numpy
-, pandas
-, rich
-, tkinter
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-timeout,
+  numpy,
+  pandas,
+  rich,
+  tkinter,
 }:
 
 buildPythonPackage rec {
@@ -21,34 +22,33 @@ buildPythonPackage rec {
     hash = "sha256-X09oKgBJUcG0ULx1PHEOkoDFdGzm/+3uJT3by/VM8eQ=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-timeout
-    # tests of optional features
-    numpy
-    rich
-    tkinter
-  ] ++
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-asyncio
+      pytest-timeout
+      # tests of optional features
+      numpy
+      rich
+      tkinter
+    ]
+    ++
     # pandas is not supported on i686 or risc-v
     lib.optional (!stdenv.isi686 && !stdenv.hostPlatform.isRiscV) pandas;
 
-  pytestFlagsArray = [
-    # pytest-asyncio 0.17.0 compat; https://github.com/tqdm/tqdm/issues/1289
-    "--asyncio-mode=strict"
-  ];
+  pytestFlagsArray =
+    [
+      # pytest-asyncio 0.17.0 compat; https://github.com/tqdm/tqdm/issues/1289
+      "--asyncio-mode=strict"
+    ];
 
   # Remove performance testing.
   # Too sensitive for on Hydra.
-  disabledTests = [
-    "perf"
-  ];
+  disabledTests = [ "perf" ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   pythonImportsCheck = [ "tqdm" ];
 

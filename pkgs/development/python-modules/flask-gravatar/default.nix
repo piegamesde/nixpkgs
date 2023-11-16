@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flask
-, pytestCheckHook
-, pygments
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  pytestCheckHook,
+  pygments,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
      --replace "--cov=flask_gravatar --cov-report=term-missing" ""
   '';
 
-  propagatedBuildInputs = [
-    flask
-  ];
+  propagatedBuildInputs = [ flask ];
 
   nativeCheckInputs = [
     pytestCheckHook

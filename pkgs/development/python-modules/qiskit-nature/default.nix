@@ -1,22 +1,23 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
   # Python Inputs
-, h5py
-, numpy
-, psutil
-, qiskit-terra
-, rustworkx
-, scikit-learn
-, scipy
-, withPyscf ? false
-, pyscf
+  h5py,
+  numpy,
+  psutil,
+  qiskit-terra,
+  rustworkx,
+  scikit-learn,
+  scipy,
+  withPyscf ? false,
+  pyscf,
   # Check Inputs
-, pytestCheckHook
-, ddt
-, pylatexenc
-, qiskit-aer
+  pytestCheckHook,
+  ddt,
+  pylatexenc,
+  qiskit-aer,
 }:
 
 buildPythonPackage rec {
@@ -51,12 +52,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "qiskit_nature" ];
 
-  pytestFlagsArray = [
-    "--durations=10"
-  ];
+  pytestFlagsArray = [ "--durations=10" ];
 
   disabledTests = [
-    "test_two_qubit_reduction"  # failure cause unclear
+    "test_two_qubit_reduction" # failure cause unclear
   ];
 
   meta = with lib; {
@@ -66,7 +65,7 @@ buildPythonPackage rec {
     changelog = "https://qiskit.org/documentation/release_notes.html";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryNativeCode  # drivers/gaussiand/gauopen/*.so
+      binaryNativeCode # drivers/gaussiand/gauopen/*.so
     ];
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];

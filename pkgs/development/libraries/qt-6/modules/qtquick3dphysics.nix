@@ -1,13 +1,18 @@
-{ qtModule
-, lib
-, stdenv
-, qtbase
-, qtquick3d
+{
+  qtModule,
+  lib,
+  stdenv,
+  qtbase,
+  qtquick3d,
 }:
 
 qtModule {
   pname = "qtquick3dphysics";
-  qtInputs = [ qtbase qtquick3d ];
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
-    "-faligned-allocation";
+  qtInputs = [
+    qtbase
+    qtquick3d
+  ];
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
+      "-faligned-allocation";
 }

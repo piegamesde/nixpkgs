@@ -1,14 +1,15 @@
-{ lib
-, awkward
-, buildPythonPackage
-, dask
-, fetchFromGitHub
-, hatch-vcs
-, hatchling
-, pyarrow
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  awkward,
+  buildPythonPackage,
+  dask,
+  fetchFromGitHub,
+  hatch-vcs,
+  hatchling,
+  pyarrow,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -27,9 +28,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [
-    "awkward"
-  ];
+  pythonRelaxDeps = [ "awkward" ];
 
   nativeBuildInputs = [
     hatch-vcs
@@ -47,9 +46,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  pythonImportsCheck = [
-    "dask_awkward"
-  ];
+  pythonImportsCheck = [ "dask_awkward" ];
 
   disabledTests = [
     # Tests require network access

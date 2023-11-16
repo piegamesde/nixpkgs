@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "4th";
@@ -9,10 +13,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-+W6nTNsqrf3Dvr+NbSz3uJdrXVbBI3OHR5v/rs7en+M=";
   };
 
-  patches = [
-    # Fix install manual; report this patch to upstream
-    ./001-install-manual-fixup.diff
-  ];
+  patches =
+    [
+      # Fix install manual; report this patch to upstream
+      ./001-install-manual-fixup.diff
+    ];
 
   dontConfigure = true;
 

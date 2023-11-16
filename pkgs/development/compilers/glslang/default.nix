@@ -1,12 +1,14 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, bison
-, cmake
-, jq
-, python3
-, spirv-headers
-, spirv-tools
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bison,
+  cmake,
+  jq,
+  python3,
+  spirv-headers,
+  spirv-tools,
 }:
 stdenv.mkDerivation rec {
   pname = "glslang";
@@ -25,7 +27,12 @@ stdenv.mkDerivation rec {
     spirv-headers = spirv-headers;
   };
 
-  nativeBuildInputs = [ cmake python3 bison jq ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    bison
+    jq
+  ];
 
   patches = [
     # Related PR: https://github.com/KhronosGroup/glslang/pull/3067

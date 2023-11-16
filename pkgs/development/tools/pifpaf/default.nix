@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -27,9 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     export PATH=$out/bin:$PATH
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
-    requests
-  ];
+  nativeCheckInputs = with python3.pkgs; [ requests ];
 
   pythonImportsCheck = [ "pifpaf" ];
 

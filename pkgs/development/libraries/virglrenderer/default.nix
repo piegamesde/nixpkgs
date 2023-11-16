@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, cmake, meson, ninja, pkg-config, python3
-, libGLU, libepoxy, libX11, libdrm, mesa
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  libGLU,
+  libepoxy,
+  libX11,
+  libdrm,
+  mesa,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,9 +25,21 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = true;
 
-  buildInputs = [ libGLU libepoxy libX11 libdrm mesa ];
+  buildInputs = [
+    libGLU
+    libepoxy
+    libX11
+    libdrm
+    mesa
+  ];
 
-  nativeBuildInputs = [ cmake meson ninja pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    meson
+    ninja
+    pkg-config
+    python3
+  ];
 
   dontUseCmakeConfigure = true;
 

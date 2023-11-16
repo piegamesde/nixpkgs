@@ -1,11 +1,28 @@
-{ callPackage, fetchzip, dart, lib, stdenv }:
+{
+  callPackage,
+  fetchzip,
+  dart,
+  lib,
+  stdenv,
+}:
 let
   mkCustomFlutter = args: callPackage ./flutter.nix args;
   wrapFlutter = flutter: callPackage ./wrapper.nix { inherit flutter; };
-  getPatches = dir:
-    let files = builtins.attrNames (builtins.readDir dir);
-    in map (f: dir + ("/" + f)) files;
-  mkFlutter = { version, engineVersion, dartVersion, hash, dartHash, patches }:
+  getPatches =
+    dir:
+    let
+      files = builtins.attrNames (builtins.readDir dir);
+    in
+    map (f: dir + ("/" + f)) files;
+  mkFlutter =
+    {
+      version,
+      engineVersion,
+      dartVersion,
+      hash,
+      dartHash,
+      patches,
+    }:
     let
       args = {
         inherit version engineVersion patches;
@@ -29,23 +46,30 @@ let
         };
       };
     in
-    (mkCustomFlutter args).overrideAttrs (prev: next: {
-      passthru = next.passthru // rec {
-        inherit wrapFlutter mkCustomFlutter mkFlutter;
-        buildFlutterApplication = callPackage ../../../build-support/flutter {
-          # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
-          flutter = (wrapFlutter (mkCustomFlutter args)).override {
-            supportsAndroid = false;
-            includedEngineArtifacts = {
-              common = [ "flutter_patched_sdk_product" ];
-              platform.linux = lib.optionals stdenv.hostPlatform.isLinux
-                (lib.genAttrs ((lib.optional stdenv.hostPlatform.isx86_64 "x64") ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
-                  (architecture: [ "release" ]));
+    (mkCustomFlutter args).overrideAttrs (
+      prev: next: {
+        passthru = next.passthru // rec {
+          inherit wrapFlutter mkCustomFlutter mkFlutter;
+          buildFlutterApplication = callPackage ../../../build-support/flutter {
+            # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
+            flutter = (wrapFlutter (mkCustomFlutter args)).override {
+              supportsAndroid = false;
+              includedEngineArtifacts = {
+                common = [ "flutter_patched_sdk_product" ];
+                platform.linux = lib.optionals stdenv.hostPlatform.isLinux (
+                  lib.genAttrs
+                    (
+                      (lib.optional stdenv.hostPlatform.isx86_64 "x64")
+                      ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
+                    )
+                    (architecture: [ "release" ])
+                );
+              };
             };
           };
         };
-      };
-    });
+      }
+    );
 
   flutter2Patches = getPatches ./patches/flutter2;
   flutter3Patches = getPatches ./patches/flutter3;

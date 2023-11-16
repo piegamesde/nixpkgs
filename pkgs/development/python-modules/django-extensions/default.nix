@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, django
-, factory_boy
-, mock
-, pygments
-, pytest-django
-, pytestCheckHook
-, shortuuid
-, vobject
-, werkzeug
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  django,
+  factory_boy,
+  mock,
+  pygments,
+  pytest-django,
+  pytestCheckHook,
+  shortuuid,
+  vobject,
+  werkzeug,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
       --replace "--cov=django_extensions --cov-report html --cov-report term" ""
   '';
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -54,10 +53,11 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  disabledTestPaths = [
-    # requires network access
-    "tests/management/commands/test_pipchecker.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires network access
+      "tests/management/commands/test_pipchecker.py"
+    ];
 
   meta = with lib; {
     description = "A collection of custom extensions for the Django Framework";

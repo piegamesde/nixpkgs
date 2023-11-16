@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, ocaml, gd, freetype, findlib, zlib, libpng, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  gd,
+  freetype,
+  findlib,
+  zlib,
+  libpng,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-gd4o";
@@ -9,18 +20,28 @@ stdenv.mkDerivation rec {
     sha256 = "1vbyakz7byvxmqf3hj68rw15b4kb94ppcnhvmjv38rsyg05bc47s";
   };
 
-  buildInputs = [ ocaml findlib libjpeg libpng ];
-  propagatedBuildInputs = [ gd zlib freetype ];
-
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
+  buildInputs = [
+    ocaml
+    findlib
+    libjpeg
+    libpng
   ];
+  propagatedBuildInputs = [
+    gd
+    zlib
+    freetype
+  ];
+
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   preInstall = ''
     mkdir -p $OCAMLFIND_DESTDIR/stublibs
   '';
 
-  buildFlags = [ "all" "opt" ];
+  buildFlags = [
+    "all"
+    "opt"
+  ];
 
   checkPhase = ''
     runHook preCheck

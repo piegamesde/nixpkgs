@@ -1,4 +1,13 @@
-{ lib, stdenv, pkg-config, darwin, fetchurl, SDL2, freetype, libGL }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  darwin,
+  fetchurl,
+  SDL2,
+  freetype,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL2_ttf";
@@ -13,8 +22,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ SDL2 freetype libGL ]
-    ++ lib.optional stdenv.isDarwin darwin.libobjc;
+  buildInputs = [
+    SDL2
+    freetype
+    libGL
+  ] ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
   meta = with lib; {
     description = "SDL TrueType library";

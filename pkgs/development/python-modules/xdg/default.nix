@@ -1,7 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27
-, clikit
-, poetry-core
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  clikit,
+  poetry-core,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,9 +23,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    clikit
-  ];
+  propagatedBuildInputs = [ clikit ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

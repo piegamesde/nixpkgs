@@ -1,21 +1,24 @@
-{ lib, stdenv
-, fetchurl
-, cmake
-, bash
-, unzip
-, glibc
-, openssl
-, gcc
-, libGLU
-, libGL
-, freetype
-, xorg
-, alsa-lib
-, cairo
-, libuuid
-, libnsl
-, makeWrapper
-, ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  bash,
+  unzip,
+  glibc,
+  openssl,
+  gcc,
+  libGLU,
+  libGL,
+  freetype,
+  xorg,
+  alsa-lib,
+  cairo,
+  libuuid,
+  libnsl,
+  makeWrapper,
+  ...
+}:
 
 { name, src, ... }:
 
@@ -23,18 +26,54 @@ stdenv.mkDerivation rec {
 
   inherit name src;
 
-  pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
+  pharo-share = import ./share.nix {
+    inherit
+      lib
+      stdenv
+      fetchurl
+      unzip
+    ;
+  };
 
-  hardeningDisable = [ "format" "pic" ];
+  hardeningDisable = [
+    "format"
+    "pic"
+  ];
 
-  nativeBuildInputs = [ unzip cmake gcc makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    cmake
+    gcc
+    makeWrapper
+  ];
 
-  buildInputs = [ bash glibc openssl libGLU libGL freetype
-                  xorg.libX11 xorg.libICE xorg.libSM alsa-lib cairo pharo-share libnsl ];
+  buildInputs = [
+    bash
+    glibc
+    openssl
+    libGLU
+    libGL
+    freetype
+    xorg.libX11
+    xorg.libICE
+    xorg.libSM
+    alsa-lib
+    cairo
+    pharo-share
+    libnsl
+  ];
 
-  LD_LIBRARY_PATH = lib.makeLibraryPath
-    [ cairo libGLU libGL freetype openssl libuuid alsa-lib
-      xorg.libICE xorg.libSM ];
+  LD_LIBRARY_PATH = lib.makeLibraryPath [
+    cairo
+    libGLU
+    libGL
+    freetype
+    openssl
+    libuuid
+    alsa-lib
+    xorg.libICE
+    xorg.libSM
+  ];
 
   preConfigure = ''
     cd build/
@@ -96,9 +135,8 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.lukego ];
     # Pharo VM sources are packaged separately for darwin (OS X)
-    platforms = lib.filter
-      (system: with lib.systems.elaborate { inherit system; };
-         isUnix && !isDarwin)
-      lib.platforms.mesaPlatforms;
+    platforms =
+      lib.filter (system: with lib.systems.elaborate { inherit system; }; isUnix && !isDarwin)
+        lib.platforms.mesaPlatforms;
   };
 }

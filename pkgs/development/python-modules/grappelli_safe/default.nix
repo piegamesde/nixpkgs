@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -30,5 +31,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ prikhi ];
     platforms = platforms.unix;
   };
-
 }

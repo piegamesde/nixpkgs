@@ -1,15 +1,16 @@
-{ fetchFromGitHub
-, buildPythonPackage
-, cargo
-, rustPlatform
-, rustc
-, setuptools-rust
-, numpy
-, fixtures
-, networkx
-, libiconv
-, stdenv
-, lib
+{
+  fetchFromGitHub,
+  buildPythonPackage,
+  cargo,
+  rustPlatform,
+  rustc,
+  setuptools-rust,
+  numpy,
+  fixtures,
+  networkx,
+  libiconv,
+  stdenv,
+  lib,
 }:
 
 buildPythonPackage rec {
@@ -37,7 +38,10 @@ buildPythonPackage rec {
 
   buildInputs = [ numpy ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  checkInputs = [ fixtures networkx ];
+  checkInputs = [
+    fixtures
+    networkx
+  ];
 
   pythonImportsCheck = [ "rustworkx" ];
 

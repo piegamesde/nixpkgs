@@ -1,13 +1,15 @@
-{ lib,
- fetchFromGitHub,
- buildPythonPackage,
- boto,
- inflection,
- pytest,
- mock,
- requests,
- six,
- urllib3 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  boto,
+  inflection,
+  pytest,
+  mock,
+  requests,
+  six,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "qds_sdk";
@@ -29,7 +31,10 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ pytest mock ];
+  nativeCheckInputs = [
+    pytest
+    mock
+  ];
   checkPhase = ''
     py.test --disable-pytest-warnings tests
   '';

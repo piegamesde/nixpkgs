@@ -1,4 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, glfw, freetype, openssl, makeWrapper, upx, boehmgc, xorg, binaryen, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glfw,
+  freetype,
+  openssl,
+  makeWrapper,
+  upx,
+  boehmgc,
+  xorg,
+  binaryen,
+  darwin,
+}:
 
 let
   version = "weekly.2023.19";
@@ -18,13 +31,15 @@ let
     };
 
     # patch the ptrace reference for darwin
-    installPhase = lib.optionalString stdenv.isDarwin ''
-      substituteInPlace v.c \
-        --replace "#include <sys/ptrace.h>" "${ptraceSubstitution}"
-    '' + ''
-      mkdir -p $out
-      cp v.c $out/
-    '';
+    installPhase =
+      lib.optionalString stdenv.isDarwin ''
+        substituteInPlace v.c \
+          --replace "#include <sys/ptrace.h>" "${ptraceSubstitution}"
+      ''
+      + ''
+        mkdir -p $out
+        cp v.c $out/
+      '';
   };
   # Required for vdoc.
   markdown = fetchFromGitHub {
@@ -33,9 +48,7 @@ let
     rev = "6e970bd0a7459ad7798588f1ace4aa46c5e789a2";
     hash = "sha256-hFf7c8ZNMU1j7fgmDakuO7tBVr12Wq0dgQddJnkMajE=";
   };
-  boehmgcStatic = boehmgc.override {
-    enableStatic = true;
-  };
+  boehmgcStatic = boehmgc.override { enableStatic = true; };
 in
 stdenv.mkDerivation {
   pname = "vlang";
@@ -48,25 +61,25 @@ stdenv.mkDerivation {
     sha256 = "sha256-fHn1z2q3LmSycCOa1ii4DoHvbEW4uJt3Psq3/VuZNVQ=";
   };
 
-  propagatedBuildInputs = [ glfw freetype openssl ]
-    ++ lib.optional stdenv.hostPlatform.isUnix upx;
+  propagatedBuildInputs = [
+    glfw
+    freetype
+    openssl
+  ] ++ lib.optional stdenv.hostPlatform.isUnix upx;
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    binaryen
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Cocoa
-  ] ++ lib.optionals stdenv.isLinux [
-    xorg.libX11
-    xorg.libXau
-    xorg.libXdmcp
-    xorg.xorgproto
-  ];
+  buildInputs =
+    [ binaryen ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
+    ++ lib.optionals stdenv.isLinux [
+      xorg.libX11
+      xorg.libXau
+      xorg.libXdmcp
+      xorg.xorgproto
+    ];
 
-  makeFlags = [
-    "local=1"
-  ];
+  makeFlags = [ "local=1" ];
 
   env.VC = vc;
 

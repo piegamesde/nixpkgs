@@ -1,4 +1,9 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "buildkit";
@@ -15,7 +20,12 @@ buildGoModule rec {
 
   subPackages = [ "cmd/buildctl" ] ++ lib.optionals stdenv.isLinux [ "cmd/buildkitd" ];
 
-  ldflags = [ "-s" "-w" "-X github.com/moby/buildkit/version.Version=${version}" "-X github.com/moby/buildkit/version.Revision=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/moby/buildkit/version.Version=${version}"
+    "-X github.com/moby/buildkit/version.Revision=${src.rev}"
+  ];
 
   doCheck = false;
 
@@ -23,7 +33,11 @@ buildGoModule rec {
     description = "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit";
     homepage = "https://github.com/moby/buildkit";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vdemeester marsam developer-guy ];
+    maintainers = with maintainers; [
+      vdemeester
+      marsam
+      developer-guy
+    ];
     mainProgram = "buildctl";
   };
 }

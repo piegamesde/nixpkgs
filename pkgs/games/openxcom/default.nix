@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, libGLU
-, libGL
-, zlib
-, openssl
-, yaml-cpp
-, boost
-, SDL
-, SDL_image
-, SDL_mixer
-, SDL_gfx
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libGLU,
+  libGL,
+  zlib,
+  openssl,
+  yaml-cpp,
+  boost,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  SDL_gfx,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,9 +27,23 @@ stdenv.mkDerivation rec {
     hash = "sha256-APv49ZT94oeM4KVKGtUdoQ1t8Ly8lsocr+FqXiRXbk0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost yaml-cpp libGLU libGL openssl zlib ];
+  buildInputs = [
+    SDL
+    SDL_gfx
+    SDL_image
+    SDL_mixer
+    boost
+    yaml-cpp
+    libGLU
+    libGL
+    openssl
+    zlib
+  ];
 
   meta = with lib; {
     description = "Open source clone of UFO: Enemy Unknown";

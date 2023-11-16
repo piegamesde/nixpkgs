@@ -1,19 +1,20 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, python3
-, wrapGAppsHook
-, gtkmm3
-, gtksourceview
-, gtksourceviewmm
-, gspell
-, libxmlxx
-, sqlite
-, curl
-, libuchardet
-, spdlog
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  python3,
+  wrapGAppsHook,
+  gtkmm3,
+  gtksourceview,
+  gtksourceviewmm,
+  gspell,
+  libxmlxx,
+  sqlite,
+  curl,
+  libuchardet,
+  spdlog,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,12 +1,19 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "file-attributes";
   version = "20210807-git";
 
   description = "Access to file attributes (uid, gid, atime, mtime, mod)";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."documentation-utils" args."trivial-features" args."trivial-indent" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."documentation-utils"
+    args."trivial-features"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/file-attributes/2021-08-07/file-attributes-20210807-git.tgz";
@@ -15,7 +22,7 @@ rec {
 
   packageName = "file-attributes";
 
-  asdFilesToKeep = ["file-attributes.asd"];
+  asdFilesToKeep = [ "file-attributes.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM file-attributes DESCRIPTION
@@ -31,4 +38,5 @@ rec {
      (NAME trivial-indent FILENAME trivial-indent))
     DEPENDENCIES
     (alexandria babel cffi documentation-utils trivial-features trivial-indent)
-    VERSION 20210807-git SIBLINGS NIL PARASITES NIL) */
+    VERSION 20210807-git SIBLINGS NIL PARASITES NIL)
+*/

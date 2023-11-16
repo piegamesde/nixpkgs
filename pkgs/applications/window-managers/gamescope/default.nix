@@ -1,33 +1,34 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-, meson
-, pkg-config
-, ninja
-, xorg
-, libdrm
-, vulkan-loader
-, vulkan-headers
-, wayland
-, wayland-protocols
-, libxkbcommon
-, libcap
-, SDL2
-, pipewire
-, udev
-, pixman
-, libinput
-, seatd
-, xwayland
-, glslang
-, hwdata
-, openvr
-, stb
-, wlroots
-, libliftoff
-, libdisplay-info
-, lib
-, makeBinaryWrapper
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  pkg-config,
+  ninja,
+  xorg,
+  libdrm,
+  vulkan-loader,
+  vulkan-headers,
+  wayland,
+  wayland-protocols,
+  libxkbcommon,
+  libcap,
+  SDL2,
+  pipewire,
+  udev,
+  pixman,
+  libinput,
+  seatd,
+  xwayland,
+  glslang,
+  hwdata,
+  openvr,
+  stb,
+  wlroots,
+  libliftoff,
+  libdisplay-info,
+  lib,
+  makeBinaryWrapper,
 }:
 let
   pname = "gamescope";
@@ -128,14 +129,25 @@ stdenv.mkDerivation {
   # --debug-layers flag expects these in the path
   postInstall = ''
     wrapProgram "$out/bin/gamescope" \
-     --prefix PATH : ${with xorg; lib.makeBinPath [xprop xwininfo]}
+     --prefix PATH : ${
+       with xorg;
+       lib.makeBinPath [
+         xprop
+         xwininfo
+       ]
+     }
   '';
 
   meta = with lib; {
     description = "SteamOS session compositing window manager";
     homepage = "https://github.com/ValveSoftware/gamescope";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nrdxp pedrohlc Scrumplex zhaofengli ];
+    maintainers = with maintainers; [
+      nrdxp
+      pedrohlc
+      Scrumplex
+      zhaofengli
+    ];
     platforms = platforms.linux;
   };
 }

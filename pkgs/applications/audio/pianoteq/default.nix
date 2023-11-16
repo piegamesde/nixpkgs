@@ -1,8 +1,30 @@
-{ lib, stdenv, curl, jq, htmlq, xorg, alsa-lib, freetype, p7zip, autoPatchelfHook, writeShellScript, zlib, libjack2, makeWrapper }:
+{
+  lib,
+  stdenv,
+  curl,
+  jq,
+  htmlq,
+  xorg,
+  alsa-lib,
+  freetype,
+  p7zip,
+  autoPatchelfHook,
+  writeShellScript,
+  zlib,
+  libjack2,
+  makeWrapper,
+}:
 let
-  versionForFile = v: builtins.replaceStrings ["."] [""] v;
+  versionForFile = v: builtins.replaceStrings [ "." ] [ "" ] v;
 
-  mkPianoteq = { name, src, version, archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then "arm-64bit" else "x86-64bit", ... }:
+  mkPianoteq =
+    {
+      name,
+      src,
+      version,
+      archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then "arm-64bit" else "x86-64bit",
+      ...
+    }:
     stdenv.mkDerivation rec {
       inherit src version;
 
@@ -19,10 +41,10 @@ let
 
       buildInputs = [
         stdenv.cc.cc.lib
-        xorg.libX11      # libX11.so.6
-        xorg.libXext     # libXext.so.6
-        alsa-lib          # libasound.so.2
-        freetype         # libfreetype.so.6
+        xorg.libX11 # libX11.so.6
+        xorg.libXext # libXext.so.6
+        alsa-lib # libasound.so.2
+        freetype # libfreetype.so.6
       ];
 
       installPhase = ''
@@ -31,13 +53,16 @@ let
         for f in $out/bin/Pianoteq*; do
           if [ -x "$f" ] && [ -f "$f" ]; then
             wrapProgram "$f" --prefix LD_LIBRARY_PATH : ${
-              lib.makeLibraryPath (buildInputs ++ [
-                xorg.libXcursor
-                xorg.libXinerama
-                xorg.libXrandr
-                libjack2
-                zlib
-              ])
+              lib.makeLibraryPath (
+                buildInputs
+                ++ [
+                  xorg.libXcursor
+                  xorg.libXinerama
+                  xorg.libXrandr
+                  libjack2
+                  zlib
+                ]
+              )
             }
           fi
         done
@@ -47,12 +72,21 @@ let
         homepage = "https://www.modartt.com/pianoteq";
         description = "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments";
         license = licenses.unfree;
-        platforms = [ "x86_64-linux" "aarch64-linux" ];
+        platforms = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
         maintainers = [ maintainers.mausch ];
       };
     };
 
-  fetchWithCurlScript = { name, sha256, script, impureEnvVars ? [] }:
+  fetchWithCurlScript =
+    {
+      name,
+      sha256,
+      script,
+      impureEnvVars ? [ ],
+    }:
     stdenv.mkDerivation {
       inherit name;
       builder = writeShellScript "builder.sh" ''
@@ -83,13 +117,17 @@ let
       outputHashAlgo = "sha256";
       outputHash = sha256;
 
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ impureEnvVars ++ [
-        # This variable allows the user to pass additional options to curl
-        "NIX_CURL_FLAGS"
-      ];
+      impureEnvVars =
+        lib.fetchers.proxyImpureEnvVars
+        ++ impureEnvVars
+        ++ [
+          # This variable allows the user to pass additional options to curl
+          "NIX_CURL_FLAGS"
+        ];
     };
 
-  fetchPianoteqTrial = { name, sha256 }:
+  fetchPianoteqTrial =
+    { name, sha256 }:
     fetchWithCurlScript {
       inherit name sha256;
       script = ''
@@ -122,11 +160,15 @@ let
       '';
     };
 
-  fetchPianoteqWithLogin = { name, sha256 }:
+  fetchPianoteqWithLogin =
+    { name, sha256 }:
     fetchWithCurlScript {
       inherit name sha256;
 
-      impureEnvVars = [ "NIX_MODARTT_USERNAME" "NIX_MODARTT_PASSWORD" ];
+      impureEnvVars = [
+        "NIX_MODARTT_USERNAME"
+        "NIX_MODARTT_PASSWORD"
+      ];
 
       script = ''
         if [ -z "''${NIX_MODARTT_USERNAME}" -o -z "''${NIX_MODARTT_PASSWORD}" ]; then
@@ -163,8 +205,8 @@ let
         "''${curl[@]}" --progress-bar --cookie cookies -o $out "$url"
       '';
     };
-
-in {
+in
+{
   # TODO currently can't install more than one because `lame` clashes
   stage-trial = mkPianoteq rec {
     name = "stage-trial";
@@ -185,7 +227,11 @@ in {
   stage-6 = mkPianoteq rec {
     name = "stage-6";
     version = "6.7.3";
-    archdir = if (stdenv.hostPlatform.system == "aarch64-linux") then throw "Pianoteq stage-6 is not supported on aarch64-linux" else "amd64";
+    archdir =
+      if (stdenv.hostPlatform.system == "aarch64-linux") then
+        throw "Pianoteq stage-6 is not supported on aarch64-linux"
+      else
+        "amd64";
     src = fetchPianoteqWithLogin {
       name = "pianoteq_stage_linux_v${versionForFile version}.7z";
       sha256 = "0jy0hkdynhwv0zhrqkby0hdphgmcc09wxmy74rhg9afm1pzl91jy";

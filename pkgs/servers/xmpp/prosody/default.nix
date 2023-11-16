@@ -1,20 +1,37 @@
-{ stdenv, fetchurl, lib, libidn, openssl, makeWrapper, fetchhg
-, icu
-, lua
-, nixosTests
-, withLibevent ? true
-, withDBI ? true
-# use withExtraLibs to add additional dependencies of community modules
-, withExtraLibs ? [ ]
-, withExtraLuaPackages ? _: [ ]
-, withOnlyInstalledCommunityModules ? [ ]
-, withCommunityModules ? [ ] }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  libidn,
+  openssl,
+  makeWrapper,
+  fetchhg,
+  icu,
+  lua,
+  nixosTests,
+  withLibevent ? true,
+  withDBI ? true,
+  # use withExtraLibs to add additional dependencies of community modules
+  withExtraLibs ? [ ],
+  withExtraLuaPackages ? _: [ ],
+  withOnlyInstalledCommunityModules ? [ ],
+  withCommunityModules ? [ ],
+}:
 
 with lib;
 
 let
-  luaEnv = lua.withPackages(p: with p; [
-      luasocket luasec luaexpat luafilesystem luabitop luadbi-sqlite3 luaunbound
+  luaEnv = lua.withPackages (
+    p:
+    with p;
+    [
+      luasocket
+      luasec
+      luaexpat
+      luafilesystem
+      luabitop
+      luadbi-sqlite3
+      luaunbound
     ]
     ++ lib.optional withLibevent p.luaevent
     ++ lib.optional withDBI p.luadbi
@@ -48,9 +65,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [
-    luaEnv libidn openssl icu
-  ]
-  ++ withExtraLibs;
+    luaEnv
+    libidn
+    openssl
+    icu
+  ] ++ withExtraLibs;
 
   configureFlags = [
     "--ostype=linux"
@@ -64,17 +83,21 @@ stdenv.mkDerivation rec {
 
   # the wrapping should go away once lua hook is fixed
   postInstall = ''
-      ${concatMapStringsSep "\n" (module: ''
+    ${concatMapStringsSep "\n"
+      (module: ''
         cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
-      '') (lib.lists.unique(nixosModuleDeps ++ withCommunityModules ++ withOnlyInstalledCommunityModules))}
-      wrapProgram $out/bin/prosodyctl \
-        --add-flags '--config "/etc/prosody/prosody.cfg.lua"'
-      make -C tools/migration install
-    '';
+      '')
+      (lib.lists.unique (nixosModuleDeps ++ withCommunityModules ++ withOnlyInstalledCommunityModules))}
+    wrapProgram $out/bin/prosodyctl \
+      --add-flags '--config "/etc/prosody/prosody.cfg.lua"'
+    make -C tools/migration install
+  '';
 
   passthru = {
     communityModules = withCommunityModules;
-    tests = { inherit (nixosTests) prosody prosody-mysql; };
+    tests = {
+      inherit (nixosTests) prosody prosody-mysql;
+    };
   };
 
   meta = {

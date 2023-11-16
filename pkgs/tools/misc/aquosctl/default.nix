@@ -1,6 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 }:
 
 let
@@ -31,4 +32,3 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
   };
 }
-

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, polkit, gtk3, pkg-config, intltool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  polkit,
+  gtk3,
+  pkg-config,
+  intltool,
+}:
 stdenv.mkDerivation rec {
   pname = "polkit-gnome";
   version = "0.105";
@@ -8,15 +16,23 @@ stdenv.mkDerivation rec {
     sha256 = "0sckmcbxyj6sbrnfc5p5lnw27ccghsid6v6wxq09mgxqcd4lk10p";
   };
 
-  buildInputs = [ polkit gtk3 ];
-  nativeBuildInputs = [ pkg-config intltool ];
+  buildInputs = [
+    polkit
+    gtk3
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
 
   configureFlags = [ "--disable-introspection" ];
 
   # Desktop file from Debian
   postInstall = ''
     mkdir -p $out/etc/xdg/autostart
-    substituteAll ${./polkit-gnome-authentication-agent-1.desktop} $out/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop
+    substituteAll ${
+      ./polkit-gnome-authentication-agent-1.desktop
+    } $out/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop
   '';
 
   meta = {

@@ -1,29 +1,30 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
 
-# build
-, pdm-pep517
+  # build
+  pdm-pep517,
 
-# docs
-, docutils
-, sphinxHook
-, sphinx-rtd-theme
-, sphinx-autodoc-typehints
+  # docs
+  docutils,
+  sphinxHook,
+  sphinx-rtd-theme,
+  sphinx-autodoc-typehints,
 
-# runtime
-, tomli
-, packaging
+  # runtime
+  tomli,
+  packaging,
 
-# optionals
-, pydantic
-, platformdirs
-, sphinx
-, tabulate
+  # optionals
+  pydantic,
+  platformdirs,
+  sphinx,
+  tabulate,
 
-# tests
-, pytestCheckHook
+  # tests
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -62,28 +63,18 @@ buildPythonPackage rec {
       --replace "packaging>=22.0" "packaging"
   '';
 
-  propagatedBuildInputs = [
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   passthru.optional-dependencies = {
-    validation = [
-      pydantic
-    ];
-    global = [
-      platformdirs
-    ];
+    validation = [ pydantic ];
+    global = [ platformdirs ];
     doc = [
       sphinx
       tabulate
     ];
   };
 
-  pythonImportsCheck = [
-    "pytoolconfig"
-  ];
+  pythonImportsCheck = [ "pytoolconfig" ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -94,6 +85,9 @@ buildPythonPackage rec {
     description = "Python tool configuration";
     homepage = "https://github.com/bagel897/pytoolconfig";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ fab hexa ];
+    maintainers = with maintainers; [
+      fab
+      hexa
+    ];
   };
 }

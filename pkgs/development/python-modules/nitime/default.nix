@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, cython
-, numpy
-, scipy
-, matplotlib
-, networkx
-, nibabel
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  cython,
+  numpy,
+  scipy,
+  matplotlib,
+  networkx,
+  nibabel,
 }:
 
 buildPythonPackage rec {
@@ -24,10 +25,16 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ cython ];
-  propagatedBuildInputs = [ numpy scipy matplotlib networkx nibabel ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    matplotlib
+    networkx
+    nibabel
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
-  doCheck = !stdenv.isDarwin;  # tests hang indefinitely
+  doCheck = !stdenv.isDarwin; # tests hang indefinitely
   pythonImportsCheck = [ "nitime" ];
 
   meta = with lib; {

@@ -1,7 +1,8 @@
-{ lib
-, stdenvNoCC
-, fetchzip
-, rpmextract
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  rpmextract,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -15,7 +16,10 @@ stdenvNoCC.mkDerivation rec {
 
     # Dell seems to block "uncommon" user-agents, such as Nixpkgs's custom one.
     # Sending no user-agent at all seems to be fine though.
-    curlOptsList = [ "--user-agent" "" ];
+    curlOptsList = [
+      "--user-agent"
+      ""
+    ];
   };
 
   nativeBuildInputs = [ rpmextract ];
@@ -28,15 +32,17 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  installPhase = let
-    inherit (stdenvNoCC.hostPlatform) system;
-    platforms = {
-      x86_64-linux = ''
-        install -D ./opt/MegaRAID/perccli/perccli64 $out/bin/perccli64
-        ln -s perccli64 $out/bin/perccli
-      '';
-    };
-  in platforms.${system} or (throw "unsupported system: ${system}");
+  installPhase =
+    let
+      inherit (stdenvNoCC.hostPlatform) system;
+      platforms = {
+        x86_64-linux = ''
+          install -D ./opt/MegaRAID/perccli/perccli64 $out/bin/perccli64
+          ln -s perccli64 $out/bin/perccli
+        '';
+      };
+    in
+    platforms.${system} or (throw "unsupported system: ${system}");
 
   # Not needed because the binary is statically linked
   dontFixup = true;

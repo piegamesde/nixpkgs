@@ -1,5 +1,15 @@
-{ cmake, fetchFromGitHub, makeWrapper, opencv3, lib, stdenv, ocl-icd, opencl-headers, OpenCL
-, cudaSupport ? false, cudatoolkit ? null
+{
+  cmake,
+  fetchFromGitHub,
+  makeWrapper,
+  opencv3,
+  lib,
+  stdenv,
+  ocl-icd,
+  opencl-headers,
+  OpenCL,
+  cudaSupport ? false,
+  cudatoolkit ? null,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,27 +23,35 @@ stdenv.mkDerivation rec {
     sha256 = "0rv8bnyxz89za6gwk9gmdbaf3j7c1j52mip7h81rir288j35m84x";
   };
 
-  patches = [
-    # Remove the hard-coded compiler on Darwin and use the one in stdenv.
-    ./waifu2x_darwin_build.diff
-  ];
+  patches =
+    [
+      # Remove the hard-coded compiler on Darwin and use the one in stdenv.
+      ./waifu2x_darwin_build.diff
+    ];
 
-  buildInputs = [
-    opencv3
-  ] ++ lib.optional cudaSupport cudatoolkit
+  buildInputs =
+    [ opencv3 ]
+    ++ lib.optional cudaSupport cudatoolkit
     ++ lib.optional stdenv.isDarwin OpenCL
-    ++ lib.optionals stdenv.isLinux [ ocl-icd opencl-headers ];
+    ++ lib.optionals stdenv.isLinux [
+      ocl-icd
+      opencl-headers
+    ];
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
 
   preFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/waifu2x-converter-cpp --prefix LD_LIBRARY_PATH : "${ocl-icd}/lib"
   '';
 
-  cmakeFlags = [
-    # file RPATH_CHANGE could not write new RPATH
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ];
+  cmakeFlags =
+    [
+      # file RPATH_CHANGE could not write new RPATH
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ];
 
   meta = {
     description = "Improved fork of Waifu2X C++ using OpenCL and OpenCV";

@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, rustPlatform
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  rustPlatform,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,5 +25,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ onny ];
     platforms = platforms.linux;
   };
-
 }

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, setuptools
-, numpy
-, pandas
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
+  numpy,
+  pandas,
 }:
 
 buildPythonPackage rec {
@@ -16,18 +17,20 @@ buildPythonPackage rec {
 
   # `tests/data` dir missing from PyPI dist
   src = fetchFromGitHub {
-     owner = "ANCPLabOldenburg";
-     repo = pname;
-     rev = "refs/tags/${version}";
-     hash = "sha256-Nu9pulVSZysgm/F7jl+VpoqMCiHeysZjQDQ1dT7AnpE=";
+    owner = "ANCPLabOldenburg";
+    repo = pname;
+    rev = "refs/tags/${version}";
+    hash = "sha256-Nu9pulVSZysgm/F7jl+VpoqMCiHeysZjQDQ1dT7AnpE=";
   };
 
-  nativeBuildInputs = [ setuptools ] ;
+  nativeBuildInputs = [ setuptools ];
 
-  checkInputs = [ numpy pandas pytestCheckHook ];
-  pythonImportsCheck = [
-    "ancpbids"
+  checkInputs = [
+    numpy
+    pandas
+    pytestCheckHook
   ];
+  pythonImportsCheck = [ "ancpbids" ];
 
   pytestFlagsArray = [ "tests/auto" ];
   disabledTests = [ "test_fetch_dataset" ];

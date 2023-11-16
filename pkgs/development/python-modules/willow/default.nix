@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, six
-, pillow
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  six,
+  pillow,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-Dfj/UoUx4AtI1Av3Ltgb6sHcgvLULlu+1K/wIYvvjA0=";
   };
 
-  propagatedBuildInputs = [ six pillow ];
+  propagatedBuildInputs = [
+    six
+    pillow
+  ];
 
   # Test data is not included
   # https://github.com/torchbox/Willow/issues/34
@@ -29,5 +33,4 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ desiderius ];
   };
-
 }

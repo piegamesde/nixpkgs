@@ -1,26 +1,33 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, gtk3
-, gettext
-, json_c
-, lcms2
-, libpng
-, librsvg
-, gobject-introspection
-, libmypaint
-, hicolor-icon-theme
-, mypaint-brushes
-, gdk-pixbuf
-, pkg-config
-, python3
-, swig
-, wrapGAppsHook
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  gtk3,
+  gettext,
+  json_c,
+  lcms2,
+  libpng,
+  librsvg,
+  gobject-introspection,
+  libmypaint,
+  hicolor-icon-theme,
+  mypaint-brushes,
+  gdk-pixbuf,
+  pkg-config,
+  python3,
+  swig,
+  wrapGAppsHook,
 }:
 
 let
-  inherit (python3.pkgs) pycairo pygobject3 numpy buildPythonApplication;
-in buildPythonApplication rec {
+  inherit (python3.pkgs)
+    pycairo
+    pygobject3
+    numpy
+    buildPythonApplication
+  ;
+in
+buildPythonApplication rec {
   pname = "mypaint";
   version = "2.0.1";
   format = "other";
@@ -33,14 +40,15 @@ in buildPythonApplication rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # Fix build due to setuptools issue.
-    # https://github.com/mypaint/mypaint/pull/1183
-    (fetchpatch {
-      url = "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch";
-      sha256 = "OxJJOi20bFMRibL59zx6svtMrkgeMYyEvbdSXbZHqpc=";
-    })
-  ];
+  patches =
+    [
+      # Fix build due to setuptools issue.
+      # https://github.com/mypaint/mypaint/pull/1183
+      (fetchpatch {
+        url = "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch";
+        sha256 = "OxJJOi20bFMRibL59zx6svtMrkgeMYyEvbdSXbZHqpc=";
+      })
+    ];
 
   nativeBuildInputs = [
     gettext
@@ -74,9 +82,7 @@ in buildPythonApplication rec {
     pygobject3
   ];
 
-  nativeCheckInputs = [
-    gtk3
-  ];
+  nativeCheckInputs = [ gtk3 ];
 
   buildPhase = ''
     runHook preBuild
@@ -107,6 +113,9 @@ in buildPythonApplication rec {
     homepage = "http://mypaint.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ goibhniu jtojnar ];
+    maintainers = with maintainers; [
+      goibhniu
+      jtojnar
+    ];
   };
 }

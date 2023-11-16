@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, fetchurl
-, gtk3
-, glib
-, pkg-config
-, libpng
-, zlib
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gtk3,
+  glib,
+  pkg-config,
+  libpng,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +31,10 @@ stdenv.mkDerivation rec {
     description = "An open source toolkit for medical image conversion ";
     homepage = "https://xmedcon.sourceforge.io/Main/HomePage";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ arianvp flokli ];
+    maintainers = with maintainers; [
+      arianvp
+      flokli
+    ];
     platforms = platforms.darwin ++ platforms.linux;
   };
 }

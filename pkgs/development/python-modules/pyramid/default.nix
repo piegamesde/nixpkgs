@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, webtest
-, zope_component
-, hupper
-, pastedeploy
-, plaster
-, plaster-pastedeploy
-, repoze_lru
-, translationstring
-, venusian
-, webob
-, zope_deprecation
-, zope_interface
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  webtest,
+  zope_component,
+  hupper,
+  pastedeploy,
+  plaster,
+  plaster-pastedeploy,
+  repoze_lru,
+  translationstring,
+  venusian,
+  webob,
+  zope_deprecation,
+  zope_interface,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -46,9 +47,7 @@ buildPythonPackage rec {
     zope_component
   ];
 
-  pythonImportsCheck = [
-    "pyramid"
-  ];
+  pythonImportsCheck = [ "pyramid" ];
 
   meta = with lib; {
     description = "Python web framework";

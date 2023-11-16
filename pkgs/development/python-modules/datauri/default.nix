@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -15,18 +16,15 @@ buildPythonPackage rec {
     hash = "sha256-Eevd/xxKgxvvsAfI/L/KShH+PfxffBGyVwKewLgyEu0=";
   };
 
-  pythonImportsCheck = [
-    "datauri"
-  ];
+  pythonImportsCheck = [ "datauri" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths = [
-    # UnicodeDecodeError: 'utf-8' codec can't decode
-    "tests/test_file_ebcdic.txt"
-  ];
+  disabledTestPaths =
+    [
+      # UnicodeDecodeError: 'utf-8' codec can't decode
+      "tests/test_file_ebcdic.txt"
+    ];
 
   meta = with lib; {
     description = "Data URI manipulation made easy.";

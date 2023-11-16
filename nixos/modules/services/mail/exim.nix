@@ -1,7 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) literalExpression mkIf mkOption singleton types;
+  inherit (lib)
+    literalExpression
+    mkIf
+    mkOption
+    singleton
+    types
+  ;
   inherit (pkgs) coreutils;
   cfg = config.services.exim;
 in
@@ -75,9 +86,7 @@ in
         '';
       };
     };
-
   };
-
 
   ###### implementation
 
@@ -104,21 +113,21 @@ in
       gid = config.ids.gids.exim;
     };
 
-    security.wrappers.exim =
-      { setuid = true;
-        owner = "root";
-        group = "root";
-        source = "${cfg.package}/bin/exim";
-      };
+    security.wrappers.exim = {
+      setuid = true;
+      owner = "root";
+      group = "root";
+      source = "${cfg.package}/bin/exim";
+    };
 
     systemd.services.exim = {
       description = "Exim Mail Daemon";
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."exim.conf".source ];
       serviceConfig = {
-        ExecStart   = "!${cfg.package}/bin/exim -bdf -q${cfg.queueRunnerInterval}";
-        ExecReload  = "!${coreutils}/bin/kill -HUP $MAINPID";
-        User        = cfg.user;
+        ExecStart = "!${cfg.package}/bin/exim -bdf -q${cfg.queueRunnerInterval}";
+        ExecReload = "!${coreutils}/bin/kill -HUP $MAINPID";
+        User = cfg.user;
       };
       preStart = ''
         if ! test -d ${cfg.spoolDir}; then
@@ -127,7 +136,5 @@ in
         fi
       '';
     };
-
   };
-
 }

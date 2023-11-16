@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, editorconfig-checker }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  editorconfig-checker,
+}:
 
 buildGoModule rec {
   pname = "editorconfig-checker";
@@ -23,14 +30,15 @@ buildGoModule rec {
     installManPage docs/editorconfig-checker.1
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = editorconfig-checker;
-  };
+  passthru.tests.version = testers.testVersion { package = editorconfig-checker; };
 
   meta = with lib; {
     description = "A tool to verify that your files are in harmony with your .editorconfig";
     homepage = "https://editorconfig-checker.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ uri-canva zowoq ];
+    maintainers = with maintainers; [
+      uri-canva
+      zowoq
+    ];
   };
 }

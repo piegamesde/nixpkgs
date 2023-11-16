@@ -1,14 +1,15 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, bison
-, cairo
-, flex
-, libX11
-, libXpm
-, pkg-config
-, tcl
-, tk
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  bison,
+  cairo,
+  flex,
+  libX11,
+  libXpm,
+  pkg-config,
+  tcl,
+  tk,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SHpESg5mn9lSDOURQusQUsug8Jqin/W5rqkVgmseSgA=";
   };
 
-  nativeBuildInputs = [ bison flex pkg-config ];
+  nativeBuildInputs = [
+    bison
+    flex
+    pkg-config
+  ];
 
-  buildInputs = [ cairo libX11 libXpm tcl tk ];
+  buildInputs = [
+    cairo
+    libX11
+    libXpm
+    tcl
+    tk
+  ];
 
   hardeningDisable = [ "format" ];
 

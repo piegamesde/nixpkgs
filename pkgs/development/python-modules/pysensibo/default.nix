@@ -1,8 +1,9 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-7mYYsJCiJZedbmO9fv/Zr+QZOaSE6d6ld94yWUhUmUQ=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # No tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pysensibo"
-  ];
+  pythonImportsCheck = [ "pysensibo" ];
 
   meta = with lib; {
     description = "Module for interacting with Sensibo";

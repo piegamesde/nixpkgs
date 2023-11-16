@@ -1,26 +1,27 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, dask
-, bokeh
-, toolz
-, datashape
-, numba
-, numpy
-, pandas
-, pillow
-, xarray
-, colorcet
-, param
-, pyct
-, scipy
-, pytestCheckHook
-, pythonOlder
-, nbsmoke
-, fastparquet
-, nbconvert
-, pytest-xdist
-, netcdf4
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  dask,
+  bokeh,
+  toolz,
+  datashape,
+  numba,
+  numpy,
+  pandas,
+  pillow,
+  xarray,
+  colorcet,
+  param,
+  pyct,
+  scipy,
+  pytestCheckHook,
+  pythonOlder,
+  nbsmoke,
+  fastparquet,
+  nbconvert,
+  pytest-xdist,
+  netcdf4,
 }:
 
 buildPythonPackage rec {
@@ -72,9 +73,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pytestFlagsArray = [
-    "datashader"
-  ];
+  pytestFlagsArray = [ "datashader" ];
 
   disabledTests = [
     # Not compatible with current version of bokeh
@@ -85,16 +84,15 @@ buildPythonPackage rec {
     "test_raster_quadmesh_autorange_reversed"
   ];
 
-  disabledTestPaths = [
-    # 31/50 tests fail with TypeErrors
-    "datashader/tests/test_datatypes.py"
-  ];
+  disabledTestPaths =
+    [
+      # 31/50 tests fail with TypeErrors
+      "datashader/tests/test_datatypes.py"
+    ];
 
-  pythonImportsCheck = [
-    "datashader"
-  ];
+  pythonImportsCheck = [ "datashader" ];
 
-  meta = with lib;{
+  meta = with lib; {
     description = "Data visualization toolchain based on aggregating into a grid";
     homepage = "https://datashader.org";
     license = licenses.bsd3;

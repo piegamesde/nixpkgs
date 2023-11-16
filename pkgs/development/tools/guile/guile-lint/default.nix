@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, guile }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  guile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "guile-lint";

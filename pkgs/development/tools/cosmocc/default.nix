@@ -25,10 +25,11 @@ let
             ./a.out > $out
           '';
         };
-      } ''
-      mkdir -p $out/bin
-      install ${cosmopolitan.dist}/tool/scripts/{cosmocc,cosmoc++} $out/bin
-      sed 's|/opt/cosmo\([ /]\)|${cosmopolitan.dist}\1|g' -i $out/bin/*
-    '';
+      }
+      ''
+        mkdir -p $out/bin
+        install ${cosmopolitan.dist}/tool/scripts/{cosmocc,cosmoc++} $out/bin
+        sed 's|/opt/cosmo\([ /]\)|${cosmopolitan.dist}\1|g' -i $out/bin/*
+      '';
 in
 cosmocc

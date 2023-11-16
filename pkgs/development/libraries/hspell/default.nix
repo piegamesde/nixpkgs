@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, perl, zlib, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  zlib,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   name = "${passthru.pname}-${passthru.version}";
@@ -22,12 +29,21 @@ stdenv.mkDerivation rec {
     make clean
 
     substituteInPlace Makefile --replace "./find_sizes" "./find_sizes_build"
-    substituteInPlace Makefile --replace "ar cr" "${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar cr"
-    substituteInPlace Makefile --replace "ranlib" "${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib"
-    substituteInPlace Makefile --replace "STRIP=strip" "STRIP=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip"
+    substituteInPlace Makefile --replace "ar cr" "${
+      lib.getBin stdenv.cc.bintools.bintools
+    }/bin/${stdenv.cc.targetPrefix}ar cr"
+    substituteInPlace Makefile --replace "ranlib" "${
+      lib.getBin stdenv.cc.bintools.bintools
+    }/bin/${stdenv.cc.targetPrefix}ranlib"
+    substituteInPlace Makefile --replace "STRIP=strip" "STRIP=${
+      lib.getBin stdenv.cc.bintools.bintools
+    }/bin/${stdenv.cc.targetPrefix}strip"
   '';
-  nativeBuildInputs = [ perl zlib ];
-#  buildInputs = [ zlib ];
+  nativeBuildInputs = [
+    perl
+    zlib
+  ];
+  #  buildInputs = [ zlib ];
 
   meta = with lib; {
     description = "Hebrew spell checker";

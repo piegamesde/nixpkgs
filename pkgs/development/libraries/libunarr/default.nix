@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunarr";
@@ -12,16 +18,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   # https://github.com/selmf/unarr/issues/23
-  postPatch = ''
-    substituteInPlace pkg-config.pc.cmake \
-      --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \
-      --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@
-  ''
-  # ld: unknown option: --no-undefined
-  + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace CMakeLists.txt \
-      --replace '-Wl,--no-undefined -Wl,--as-needed' '-Wl,-undefined,error'
-  '';
+  postPatch =
+    ''
+      substituteInPlace pkg-config.pc.cmake \
+        --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \
+        --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@
+    ''
+    # ld: unknown option: --no-undefined
+    + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace CMakeLists.txt \
+        --replace '-Wl,--no-undefined -Wl,--as-needed' '-Wl,-undefined,error'
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/selmf/unarr";

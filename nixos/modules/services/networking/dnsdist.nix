@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,7 +13,8 @@ let
     setLocal('${cfg.listenAddress}:${toString cfg.listenPort}')
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   options = {
     services.dnsdist = {
       enable = mkEnableOption (lib.mdDoc "dnsdist domain name server");
@@ -45,8 +51,14 @@ in {
         DynamicUser = true;
 
         # upstream overrides for better nixos compatibility
-        ExecStartPre = [ "" "${pkgs.dnsdist}/bin/dnsdist --check-config --config ${configFile}" ];
-        ExecStart = [ "" "${pkgs.dnsdist}/bin/dnsdist --supervised --disable-syslog --config ${configFile}" ];
+        ExecStartPre = [
+          ""
+          "${pkgs.dnsdist}/bin/dnsdist --check-config --config ${configFile}"
+        ];
+        ExecStart = [
+          ""
+          "${pkgs.dnsdist}/bin/dnsdist --supervised --disable-syslog --config ${configFile}"
+        ];
       };
     };
   };

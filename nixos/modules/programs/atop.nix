@@ -1,11 +1,16 @@
 # Global configuration for atop.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.programs.atop;
-
+let
+  cfg = config.programs.atop;
 in
 {
   ###### interface
@@ -104,36 +109,48 @@ in
 
   config = mkIf cfg.enable (
     let
-      atop =
-        if cfg.atopgpu.enable then
-          (cfg.package.override { withAtopgpu = true; })
-        else
-          cfg.package;
+      atop = if cfg.atopgpu.enable then (cfg.package.override { withAtopgpu = true; }) else cfg.package;
     in
     {
       environment.etc = mkIf (cfg.settings != { }) {
-        atoprc.text = concatStrings
-          (mapAttrsToList
+        atoprc.text = concatStrings (
+          mapAttrsToList
             (n: v: ''
               ${n} ${toString v}
             '')
-            cfg.settings);
+            cfg.settings
+        );
       };
-      environment.systemPackages = [ atop (lib.mkIf cfg.netatop.enable cfg.netatop.package) ];
+      environment.systemPackages = [
+        atop
+        (lib.mkIf cfg.netatop.enable cfg.netatop.package)
+      ];
       boot.extraModulePackages = [ (lib.mkIf cfg.netatop.enable cfg.netatop.package) ];
       systemd =
         let
           mkSystemd = type: cond: name: restartTriggers: {
             ${name} = lib.mkIf cond {
               inherit restartTriggers;
-              wantedBy = [ (if type == "services" then "multi-user.target" else if type == "timers" then "timers.target" else null) ];
+              wantedBy = [
+                (
+                  if type == "services" then
+                    "multi-user.target"
+                  else if type == "timers" then
+                    "timers.target"
+                  else
+                    null
+                )
+              ];
             };
           };
           mkService = mkSystemd "services";
           mkTimer = mkSystemd "timers";
         in
         {
-          packages = [ atop (lib.mkIf cfg.netatop.enable cfg.netatop.package) ];
+          packages = [
+            atop
+            (lib.mkIf cfg.netatop.enable cfg.netatop.package)
+          ];
           services =
             mkService cfg.atopService.enable "atop" [ atop ]
             // lib.mkIf cfg.atopService.enable {
@@ -164,12 +181,12 @@ in
         };
 
       security.wrappers = lib.mkIf cfg.setuidWrapper.enable {
-        atop =
-          { setuid = true;
-            owner = "root";
-            group = "root";
-            source = "${atop}/bin/atop";
-          };
+        atop = {
+          setuid = true;
+          owner = "root";
+          group = "root";
+          source = "${atop}/bin/atop";
+        };
       };
     }
   );

@@ -1,19 +1,20 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
-, pkg-config
-, makeWrapper
-, bzip2
-, fontconfig
-, freetype
-, libGL
-, libX11
-, libXcursor
-, libXrandr
-, libXi
-, gnome
-, libsForQt5
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  bzip2,
+  fontconfig,
+  freetype,
+  libGL,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXi,
+  gnome,
+  libsForQt5,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -71,9 +72,13 @@ rustPlatform.buildRustPackage rec {
     in
     ''
       patchelf --set-rpath "${libPath}" "$out/bin/$pname"
-      wrapProgram $out/bin/$pname --prefix PATH : ${lib.makeBinPath [ gnome.zenity libsForQt5.kdialog ]}
+      wrapProgram $out/bin/$pname --prefix PATH : ${
+        lib.makeBinPath [
+          gnome.zenity
+          libsForQt5.kdialog
+        ]
+      }
     '';
-
 
   meta = with lib; {
     description = "Backup tool for PC game saves";

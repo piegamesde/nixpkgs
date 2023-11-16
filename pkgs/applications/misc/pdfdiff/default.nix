@@ -1,4 +1,9 @@
-{ lib, python2Packages, fetchurl, xpdf }:
+{
+  lib,
+  python2Packages,
+  fetchurl,
+  xpdf,
+}:
 
 python2Packages.buildPythonApplication rec {
   pname = "pdfdiff";
@@ -9,7 +14,7 @@ python2Packages.buildPythonApplication rec {
     sha256 = "0zxwjjbklz87wkbhkmsvhc7xmv5php7m2a9vm6ydhmhlxsybf836";
   };
 
-  buildInputs = [  python2Packages.wrapPython ];
+  buildInputs = [ python2Packages.wrapPython ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -20,7 +25,7 @@ python2Packages.buildPythonApplication rec {
   postPatch = ''
     sed -i -r 's|pdftotextProgram = "pdftotext"|pdftotextProgram = "${xpdf}/bin/pdftotext"|' pdfdiff.py
     sed -i -r 's|progName = "pdfdiff.py"|progName = "pdfdiff"|' pdfdiff.py
-    '';
+  '';
 
   installPhase = ''
     mkdir -p $out/bin
@@ -28,7 +33,7 @@ python2Packages.buildPythonApplication rec {
     chmod +x $out/bin/pdfdiff
 
     substituteInPlace $out/bin/pdfdiff --replace "#!/usr/bin/python" "#!${python2Packages.python.interpreter}"
-    '';
+  '';
 
   meta = with lib; {
     homepage = "http://www.cs.ox.ac.uk/people/cas.cremers/misc/pdfdiff.html";

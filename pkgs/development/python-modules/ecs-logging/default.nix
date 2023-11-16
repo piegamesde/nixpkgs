@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -20,16 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-CfPpUpzNfPuCAiuNsJrJ1nVLiUCPvclfrK7tByytoQE=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   # Circular dependency elastic-apm
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ecs_logging"
-  ];
+  pythonImportsCheck = [ "ecs_logging" ];
 
   meta = with lib; {
     description = "Logging formatters for the Elastic Common Schema (ECS) in Python";

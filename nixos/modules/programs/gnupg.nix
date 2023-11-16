@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -9,9 +14,11 @@ let
   xserverCfg = config.services.xserver;
 
   defaultPinentryFlavor =
-    if xserverCfg.desktopManager.lxqt.enable
-    || xserverCfg.desktopManager.plasma5.enable
-    || xserverCfg.desktopManager.deepin.enable then
+    if
+      xserverCfg.desktopManager.lxqt.enable
+      || xserverCfg.desktopManager.plasma5.enable
+      || xserverCfg.desktopManager.deepin.enable
+    then
       "qt"
     else if xserverCfg.desktopManager.xfce.enable then
       "gtk2"
@@ -19,7 +26,6 @@ let
       "gnome3"
     else
       "curses";
-
 in
 
 {
@@ -72,7 +78,7 @@ in
       type = types.nullOr (types.enum pkgs.pinentry.flavors);
       example = "gnome3";
       default = defaultPinentryFlavor;
-      defaultText = literalMD ''matching the configured desktop environment'';
+      defaultText = literalMD "matching the configured desktop environment";
       description = lib.mdDoc ''
         Which pinentry interface to use. If not null, the path to the
         pinentry binary will be passed to gpg-agent via commandline and
@@ -96,10 +102,13 @@ in
   config = mkIf cfg.agent.enable {
     # This overrides the systemd user unit shipped with the gnupg package
     systemd.user.services.gpg-agent = mkIf (cfg.agent.pinentryFlavor != null) {
-      serviceConfig.ExecStart = [ "" ''
-        ${cfg.package}/bin/gpg-agent --supervised \
-          --pinentry-program ${pkgs.pinentry.${cfg.agent.pinentryFlavor}}/bin/pinentry
-      '' ];
+      serviceConfig.ExecStart = [
+        ""
+        ''
+          ${cfg.package}/bin/gpg-agent --supervised \
+            --pinentry-program ${pkgs.pinentry.${cfg.agent.pinentryFlavor}}/bin/pinentry
+        ''
+      ];
     };
 
     systemd.user.sockets.gpg-agent = {
@@ -118,9 +127,7 @@ in
       wantedBy = [ "sockets.target" ];
     };
 
-    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable { wantedBy = [ "sockets.target" ]; };
 
     services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [ pkgs.gcr ];
 
@@ -146,7 +153,8 @@ in
     '';
 
     assertions = [
-      { assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
+      {
+        assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
         message = "You can't use ssh-agent and GnuPG agent with SSH support enabled at the same time!";
       }
     ];

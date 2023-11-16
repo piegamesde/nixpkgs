@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, dulwich
-, fetchFromGitHub
-, mock
-, pytestCheckHook
-, pythonOlder
-, six
+{
+  lib,
+  buildPythonPackage,
+  dulwich,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -29,14 +30,13 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [
-    "simplekv"
-  ];
+  pythonImportsCheck = [ "simplekv" ];
 
-  disabledTests = [
-    # Issue with fixture
-    "test_concurrent_mkdir"
-  ];
+  disabledTests =
+    [
+      # Issue with fixture
+      "test_concurrent_mkdir"
+    ];
 
   meta = with lib; {
     description = "A simple key-value store for binary data";

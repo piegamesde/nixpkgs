@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -32,15 +33,19 @@ buildGoModule rec {
     mv $out/bin/base $out/bin/pocketbase
   '';
 
-  patches = [
-    # To provide a consistent update experience, we remove the built in update method
-    ./remove-update-method.patch
-  ];
+  patches =
+    [
+      # To provide a consistent update experience, we remove the built in update method
+      ./remove-update-method.patch
+    ];
 
   meta = with lib; {
     description = "Open Source realtime backend in 1 file";
     homepage = "https://github.com/pocketbase/pocketbase";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya thilobillerbeck ];
+    maintainers = with maintainers; [
+      dit7ya
+      thilobillerbeck
+    ];
   };
 }

@@ -1,28 +1,27 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, arpack
-, bison
-, blas
-, cmake
-, flex
-, fop
-, glpk
-, gmp
-, lapack
-, libxml2
-, libxslt
-, llvmPackages
-, pkg-config
-, plfit
-, python3
-, sourceHighlight
-, xmlto
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  arpack,
+  bison,
+  blas,
+  cmake,
+  flex,
+  fop,
+  glpk,
+  gmp,
+  lapack,
+  libxml2,
+  libxslt,
+  llvmPackages,
+  pkg-config,
+  plfit,
+  python3,
+  sourceHighlight,
+  xmlto,
 }:
 
-assert (blas.isILP64 == lapack.isILP64 &&
-        blas.isILP64 == arpack.isILP64 &&
-        !blas.isILP64);
+assert (blas.isILP64 == lapack.isILP64 && blas.isILP64 == arpack.isILP64 && !blas.isILP64);
 
 stdenv.mkDerivation rec {
   pname = "igraph";
@@ -39,7 +38,11 @@ stdenv.mkDerivation rec {
     echo "${version}" > IGRAPH_VERSION
   '';
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   nativeBuildInputs = [
     bison
@@ -62,9 +65,7 @@ stdenv.mkDerivation rec {
     lapack
     libxml2
     plfit
-  ] ++ lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ];
+  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
   cmakeFlags = [
     "-DIGRAPH_USE_INTERNAL_BLAS=OFF"
@@ -98,6 +99,9 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/igraph/igraph/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ MostAwesomeDude dotlambda ];
+    maintainers = with maintainers; [
+      MostAwesomeDude
+      dotlambda
+    ];
   };
 }

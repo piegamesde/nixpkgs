@@ -1,8 +1,11 @@
-{ lib, python3Packages, fetchPypi }:
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+}:
 
 let
   pythonPackages = python3Packages;
-
 in
 pythonPackages.buildPythonApplication rec {
   pname = "zfs_autobackup";
@@ -22,7 +25,10 @@ pythonPackages.buildPythonApplication rec {
 
   # tests need zfs filesystem
   doCheck = false;
-  pythonImportsCheck = [ "colorama" "argparse" ];
+  pythonImportsCheck = [
+    "colorama"
+    "argparse"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/psy0rz/zfs_autobackup";

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, poetry-core
-, six
-, cryptography
-, mock
-, pyfakefs
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  six,
+  cryptography,
+  mock,
+  pyfakefs,
+  unittestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ six cryptography ];
+  propagatedBuildInputs = [
+    six
+    cryptography
+  ];
 
-  nativeCheckInputs = [ unittestCheckHook mock pyfakefs ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    mock
+    pyfakefs
+  ];
 
   unittestFlagsArray = [ "-v" ];
 

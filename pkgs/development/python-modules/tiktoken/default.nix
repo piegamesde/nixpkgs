@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, rustPlatform
-, cargo
-, rustc
-, setuptools-rust
-, libiconv
-, requests
-, regex
-, blobfile
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  rustPlatform,
+  cargo,
+  rustc,
+  setuptools-rust,
+  libiconv,
+  requests,
+  regex,
+  blobfile,
 }:
 let
   pname = "tiktoken";
@@ -24,14 +25,17 @@ let
   '';
 in
 buildPythonPackage {
-  inherit pname version src postPatch;
+  inherit
+    pname
+    version
+    src
+    postPatch
+  ;
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
 
-  nativeBuildInput = [
-    setuptools-rust
-  ];
+  nativeBuildInput = [ setuptools-rust ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src postPatch;

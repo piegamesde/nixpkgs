@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pillow
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-jtnFffKr0yhSv2jBmXzPa6iP2r41MbmGukfmnvgABhk=";
   };
 
-  buildInputs = [
-    pillow
-  ];
+  buildInputs = [ pillow ];
 
   nativeCheckInputs = [
     mock
@@ -35,9 +34,7 @@ buildPythonPackage rec {
       --replace " --cov --cov-report term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [
-    "pilkit"
-  ];
+  pythonImportsCheck = [ "pilkit" ];
 
   meta = with lib; {
     description = "A collection of utilities and processors for the Python Imaging Library";

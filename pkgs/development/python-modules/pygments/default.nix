@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, lxml
-, pytestCheckHook
-, wcag-contrast-ratio
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  lxml,
+  pytestCheckHook,
+  wcag-contrast-ratio,
 }:
 
-let pygments = buildPythonPackage
-  rec {
+let
+  pygments = buildPythonPackage rec {
     pname = "pygments";
     version = "2.14.0";
 
@@ -18,9 +19,7 @@ let pygments = buildPythonPackage
       hash = "sha256-s+0GqeismpquWm9dvniopYZV0XtDuTwHjwlN3Edq4pc=";
     };
 
-    propagatedBuildInputs = [
-      docutils
-    ];
+    propagatedBuildInputs = [ docutils ];
 
     # circular dependencies if enabled by default
     doCheck = false;
@@ -30,10 +29,11 @@ let pygments = buildPythonPackage
       wcag-contrast-ratio
     ];
 
-    disabledTestPaths = [
-      # 5 lines diff, including one nix store path in 20000+ lines
-      "tests/examplefiles/bash/ltmain.sh"
-    ];
+    disabledTestPaths =
+      [
+        # 5 lines diff, including one nix store path in 20000+ lines
+        "tests/examplefiles/bash/ltmain.sh"
+      ];
 
     pythonImportsCheck = [ "pygments" ];
 
@@ -49,4 +49,5 @@ let pygments = buildPythonPackage
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in pygments
+in
+pygments

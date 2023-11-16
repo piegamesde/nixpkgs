@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, freezegun
-, numpy
-, py
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  freezegun,
+  numpy,
+  py,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-oUDAU+TRwLroNfQGYusAQKdRkHcazysqiDLfp77v5Sk=";
   };
 
-  propagatedBuildInputs = [
-    py
-  ];
+  propagatedBuildInputs = [ py ];
 
   nativeCheckInputs = [
     freezegun
@@ -33,23 +32,24 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  patches = [
-    # Support for later Python releases, https://github.com/antocuni/pypytools/pull/2
-    (fetchpatch {
-      name = "support-later-python.patch";
-      url = "https://github.com/antocuni/pypytools/commit/c6aed496ec35a6ef7ce9e95084849eebc16bafef.patch";
-      hash = "sha256-YoYRZmgueQmxRtGaeP4zEVxuA0U7TB0PmoYHHVI7ICQ=";
-    })
-  ];
+  patches =
+    [
+      # Support for later Python releases, https://github.com/antocuni/pypytools/pull/2
+      (fetchpatch {
+        name = "support-later-python.patch";
+        url = "https://github.com/antocuni/pypytools/commit/c6aed496ec35a6ef7ce9e95084849eebc16bafef.patch";
+        hash = "sha256-YoYRZmgueQmxRtGaeP4zEVxuA0U7TB0PmoYHHVI7ICQ=";
+      })
+    ];
 
-  pythonImportsCheck = [
-    "pypytools"
-  ];
+  pythonImportsCheck = [ "pypytools" ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [
-    # https://github.com/antocuni/pypytools/issues/4
-    "test_clonefunc"
-  ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.11")
+      [
+        # https://github.com/antocuni/pypytools/issues/4
+        "test_clonefunc"
+      ];
 
   meta = with lib; {
     description = "Collection of tools to use PyPy-specific features";

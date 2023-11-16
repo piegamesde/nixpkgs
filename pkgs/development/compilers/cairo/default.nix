@@ -1,7 +1,8 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, rustfmt
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  rustfmt,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -17,14 +18,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-IY3RE+EeNRhUSZX+bqojhPl6y8qm+i9C0zQmNApmat8=";
 
-  nativeCheckInputs = [
-    rustfmt
-  ];
+  nativeCheckInputs = [ rustfmt ];
 
-  checkFlags = [
-    # Requires a mythical rustfmt 2.0 or a nightly compiler
-    "--skip=golden_test::sourcegen_ast"
-  ];
+  checkFlags =
+    [
+      # Requires a mythical rustfmt 2.0 or a nightly compiler
+      "--skip=golden_test::sourcegen_ast"
+    ];
 
   postInstall = ''
     # The core library is needed for compilation.

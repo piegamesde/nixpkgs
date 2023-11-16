@@ -1,46 +1,51 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gi-docgen
-, docbook-xsl-nons
-, gettext
-, libxml2
-, desktop-file-utils
-, wrapGAppsHook4
-, gtk4
-, libadwaita
-, libportal-gtk4
-, gnome
-, gnome-autoar
-, glib-networking
-, shared-mime-info
-, libnotify
-, libexif
-, libseccomp
-, librsvg
-, webp-pixbuf-loader
-, tracker
-, tracker-miners
-, gexiv2
-, libselinux
-, libcloudproviders
-, gdk-pixbuf
-, substituteAll
-, gnome-desktop
-, gst_all_1
-, gsettings-desktop-schemas
-, gnome-user-share
-, gobject-introspection
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gi-docgen,
+  docbook-xsl-nons,
+  gettext,
+  libxml2,
+  desktop-file-utils,
+  wrapGAppsHook4,
+  gtk4,
+  libadwaita,
+  libportal-gtk4,
+  gnome,
+  gnome-autoar,
+  glib-networking,
+  shared-mime-info,
+  libnotify,
+  libexif,
+  libseccomp,
+  librsvg,
+  webp-pixbuf-loader,
+  tracker,
+  tracker-miners,
+  gexiv2,
+  libselinux,
+  libcloudproviders,
+  gdk-pixbuf,
+  substituteAll,
+  gnome-desktop,
+  gst_all_1,
+  gsettings-desktop-schemas,
+  gnome-user-share,
+  gobject-introspection,
 }:
 
 stdenv.mkDerivation rec {
   pname = "nautilus";
   version = "44.2.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
@@ -94,13 +99,9 @@ stdenv.mkDerivation rec {
     gnome-autoar
   ];
 
-  propagatedBuildInputs = [
-    gtk4
-  ];
+  propagatedBuildInputs = [ gtk4 ];
 
-  mesonFlags = [
-    "-Ddocs=true"
-  ];
+  mesonFlags = [ "-Ddocs=true" ];
 
   preFixup = ''
     gappsWrapperArgs+=(

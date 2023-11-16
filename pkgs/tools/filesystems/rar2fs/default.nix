@@ -1,8 +1,10 @@
-{ lib, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, fuse
-, unrar
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  fuse,
+  unrar,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +24,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ fuse unrar ];
+  buildInputs = [
+    fuse
+    unrar
+  ];
 
   configureFlags = [
     "--with-unrar=${unrar.dev}/include/unrar"

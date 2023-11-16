@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, isPyPy
-, fetchPypi
-, fetchpatch
-, pytestCheckHook
-, setuptools-scm
-, apipkg
-, py
+{
+  lib,
+  buildPythonPackage,
+  isPyPy,
+  fetchPypi,
+  fetchpatch,
+  pytestCheckHook,
+  setuptools-scm,
+  apipkg,
+  py,
 }:
 
 buildPythonPackage rec {
@@ -36,22 +37,16 @@ buildPythonPackage rec {
     ${lib.optionalString isPyPy "rm -v testing/test_multi.py"}
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    apipkg
-  ];
+  propagatedBuildInputs = [ apipkg ];
 
   nativeCheckInputs = [
     py
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "execnet"
-  ];
+  pythonImportsCheck = [ "execnet" ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -62,5 +57,4 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
-
 }

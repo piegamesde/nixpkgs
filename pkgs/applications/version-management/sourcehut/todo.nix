@@ -1,15 +1,16 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, srht
-, redis
-, alembic
-, pystache
-, pytest
-, factory_boy
-, python
-, unzip
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  redis,
+  alembic,
+  pystache,
+  pytest,
+  factory_boy,
+  python,
+  unzip,
 }:
 
 buildPythonPackage rec {
@@ -28,12 +29,15 @@ buildPythonPackage rec {
       --replace "all: api" ""
   '';
 
-  todosrht-api = buildGoModule ({
-    inherit src version;
-    pname = "todosrht-api";
-    modRoot = "api";
-    vendorSha256 = "sha256-LB1H4jwnvoEyaaYJ09NI/M6IkgZwRet/fkso6b9EPV0=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  todosrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "todosrht-api";
+      modRoot = "api";
+      vendorSha256 = "sha256-LB1H4jwnvoEyaaYJ09NI/M6IkgZwRet/fkso6b9EPV0=";
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   propagatedBuildInputs = [
     srht

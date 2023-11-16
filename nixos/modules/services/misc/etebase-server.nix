@@ -1,14 +1,24 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.etebase-server;
 
-  pythonEnv = pkgs.python3.withPackages (ps: with ps;
-    [ etebase-server daphne ]);
+  pythonEnv = pkgs.python3.withPackages (
+    ps:
+    with ps; [
+      etebase-server
+      daphne
+    ]
+  );
 
-  iniFmt = pkgs.formats.ini {};
+  iniFmt = pkgs.formats.ini { };
 
   configIni = iniFmt.generate "etebase-server.ini" cfg.settings;
 
@@ -17,17 +27,48 @@ in
 {
   imports = [
     (mkRemovedOptionModule
-      [ "services" "etebase-server" "customIni" ]
-      "Set the option `services.etebase-server.settings' instead.")
+      [
+        "services"
+        "etebase-server"
+        "customIni"
+      ]
+      "Set the option `services.etebase-server.settings' instead."
+    )
     (mkRemovedOptionModule
-      [ "services" "etebase-server" "database" ]
-      "Set the option `services.etebase-server.settings.database' instead.")
+      [
+        "services"
+        "etebase-server"
+        "database"
+      ]
+      "Set the option `services.etebase-server.settings.database' instead."
+    )
     (mkRenamedOptionModule
-      [ "services" "etebase-server" "secretFile" ]
-      [ "services" "etebase-server" "settings" "secret_file" ])
+      [
+        "services"
+        "etebase-server"
+        "secretFile"
+      ]
+      [
+        "services"
+        "etebase-server"
+        "settings"
+        "secret_file"
+      ]
+    )
     (mkRenamedOptionModule
-      [ "services" "etebase-server" "host" ]
-      [ "services" "etebase-server" "settings" "allowed_hosts" "allowed_host1" ])
+      [
+        "services"
+        "etebase-server"
+        "host"
+      ]
+      [
+        "services"
+        "etebase-server"
+        "settings"
+        "allowed_hosts"
+        "allowed_host1"
+      ]
+    )
   ];
 
   options = {
@@ -119,7 +160,10 @@ in
             };
             database = {
               engine = mkOption {
-                type = types.enum [ "django.db.backends.sqlite3" "django.db.backends.postgresql" ];
+                type = types.enum [
+                  "django.db.backends.sqlite3"
+                  "django.db.backends.postgresql"
+                ];
                 default = "django.db.backends.sqlite3";
                 description = lib.mdDoc "The database engine to use.";
               };
@@ -132,7 +176,7 @@ in
             };
           };
         };
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Configuration for `etebase-server`. Refer to
           <https://github.com/etesync/server/blob/master/etebase-server.ini.example>
@@ -161,9 +205,7 @@ in
   config = mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      (runCommand "etebase-server" {
-        nativeBuildInputs = [ makeWrapper ];
-      } ''
+      (runCommand "etebase-server" { nativeBuildInputs = [ makeWrapper ]; } ''
         makeWrapper ${pythonEnv}/bin/etebase-server \
           $out/bin/etebase-server \
           --chdir ${escapeShellArg cfg.dataDir} \
@@ -177,7 +219,10 @@ in
 
     systemd.services.etebase-server = {
       description = "An Etebase (EteSync 2.0) server";
-      after = [ "network.target" "systemd-tmpfiles-setup.service" ];
+      after = [
+        "network.target"
+        "systemd-tmpfiles-setup.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       path = [ pythonEnv ];
       serviceConfig = {
@@ -199,10 +244,10 @@ in
       '';
       script =
         let
-          networking = if cfg.unixSocket != null
-          then "-u ${cfg.unixSocket}"
-          else "-b 0.0.0.0 -p ${toString cfg.port}";
-        in ''
+          networking =
+            if cfg.unixSocket != null then "-u ${cfg.unixSocket}" else "-b 0.0.0.0 -p ${toString cfg.port}";
+        in
+        ''
           cd "${pythonEnv}/lib/etebase-server";
           daphne ${networking} \
             etebase_server.asgi:application
@@ -216,11 +261,9 @@ in
         home = cfg.dataDir;
       };
 
-      groups.${defaultUser} = {};
+      groups.${defaultUser} = { };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
   };
 }

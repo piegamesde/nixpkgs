@@ -1,8 +1,9 @@
-{ lib
-, python3
-, fetchFromGitHub
-, glibcLocales
-, libnotify
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  glibcLocales,
+  libnotify,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -17,9 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-ZouUU4p1FSGMxPuzDo5P971R+rDXpBdJn2MqvkJO+Fw=";
   };
 
-  patches = [
-    ./pytest-executable-name.patch
-  ];
+  patches = [ ./pytest-executable-name.patch ];
 
   propagatedBuildInputs = with python3.pkgs; [
     beautifulsoup4
@@ -35,16 +34,21 @@ python3.pkgs.buildPythonApplication rec {
     zulip
   ];
 
-  nativeCheckInputs = [
-    glibcLocales
-  ] ++ (with python3.pkgs; [
-    pytestCheckHook
-    pytest-cov
-    pytest-mock
-  ]);
+  nativeCheckInputs =
+    [ glibcLocales ]
+    ++ (
+      with python3.pkgs; [
+        pytestCheckHook
+        pytest-cov
+        pytest-mock
+      ]
+    );
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [ libnotify ])
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ libnotify ])
   ];
 
   meta = with lib; {

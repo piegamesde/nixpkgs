@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, drawio-headless
-, fetchPypi
-, pythonOlder
-, mkdocs
-, beautifulsoup4
+{
+  lib,
+  buildPythonPackage,
+  drawio-headless,
+  fetchPypi,
+  pythonOlder,
+  mkdocs,
+  beautifulsoup4,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,7 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  pythonImportsCheck = [
-    "mkdocs_swagger_ui_tag"
-  ];
+  pythonImportsCheck = [ "mkdocs_swagger_ui_tag" ];
 
   meta = with lib; {
     description = "A MkDocs plugin supports for add Swagger UI in page";

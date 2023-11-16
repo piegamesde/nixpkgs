@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, pythonPackages, mopidy }:
+{
+  lib,
+  fetchFromGitHub,
+  pythonPackages,
+  mopidy,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-spotify";
@@ -16,9 +21,7 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.responses
   ];
 
-  nativeBuildInputs = [
-    pythonPackages.pytestCheckHook
-  ];
+  nativeBuildInputs = [ pythonPackages.pytestCheckHook ];
 
   pythonImportsCheck = [ "mopidy_spotify" ];
 

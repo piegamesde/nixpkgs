@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, django, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "django-pglocks";
@@ -16,7 +22,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ django ];
-  propagatedBuildInputs = [ django six ];
+  propagatedBuildInputs = [
+    django
+    six
+  ];
 
   # tests need a postgres database
   doCheck = false;

@@ -1,10 +1,25 @@
-{ buildDunePackage, printbox, uucp, uutf, mdx }:
+{
+  buildDunePackage,
+  printbox,
+  uucp,
+  uutf,
+  mdx,
+}:
 
 buildDunePackage {
   pname = "printbox-text";
-  inherit (printbox) src version useDune2 doCheck;
+  inherit (printbox)
+    src
+    version
+    useDune2
+    doCheck
+  ;
 
-  propagatedBuildInputs = [ printbox uucp uutf ];
+  propagatedBuildInputs = [
+    printbox
+    uucp
+    uutf
+  ];
 
   nativeCheckInputs = [ mdx.bin ];
 

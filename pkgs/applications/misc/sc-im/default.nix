@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, pkg-config
-, which
-, bison
-, gnuplot
-, libxls
-, libxlsxwriter
-, libxml2
-, libzip
-, ncurses
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  which,
+  bison,
+  gnuplot,
+  libxls,
+  libxlsxwriter,
+  libxml2,
+  libzip,
+  ncurses,
 }:
 
 stdenv.mkDerivation rec {

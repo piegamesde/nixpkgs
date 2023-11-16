@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, click
-, fetchPypi
-, pyyaml
-, rdflib
-, ply
-, xmltodict
-, pytestCheckHook
-, pythonOlder
-, uritools
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchPypi,
+  pyyaml,
+  rdflib,
+  ply,
+  xmltodict,
+  pytestCheckHook,
+  pythonOlder,
+  uritools,
 }:
 
 buildPythonPackage rec {
@@ -32,13 +33,9 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "spdx"
-  ];
+  pythonImportsCheck = [ "spdx" ];
 
   meta = with lib; {
     description = "SPDX parser and tools";

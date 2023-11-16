@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, clang, which, libobjc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  clang,
+  which,
+  libobjc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnustep-make";
@@ -18,11 +25,12 @@ stdenv.mkDerivation rec {
     configureFlags="$configureFlags --with-config-file=$out/etc/GNUstep/GNUstep.conf"
   '';
 
-  makeFlags = [
-    "GNUSTEP_INSTALLATION_DOMAIN=SYSTEM"
-  ];
+  makeFlags = [ "GNUSTEP_INSTALLATION_DOMAIN=SYSTEM" ];
 
-  nativeBuildInputs = [ clang which ];
+  nativeBuildInputs = [
+    clang
+    which
+  ];
   buildInputs = [ libobjc ];
 
   patches = [ ./fixup-paths.patch ];
@@ -30,9 +38,14 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A build manager for GNUstep";
     homepage = "http://gnustep.org/";
-    changelog = "https://github.com/gnustep/tools-make/releases/tag/make-${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    changelog = "https://github.com/gnustep/tools-make/releases/tag/make-${
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ ashalkhakov matthewbauer ];
+    maintainers = with lib.maintainers; [
+      ashalkhakov
+      matthewbauer
+    ];
     platforms = lib.platforms.unix;
   };
 }

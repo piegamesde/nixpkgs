@@ -1,5 +1,20 @@
-{ stdenv, lib, makeWrapper, fetchFromGitLab, openjade, gnumake, perl, flex
-, gnused, coreutils, which, opensp, groff, texlive, texinfo, withLatex ? false
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  fetchFromGitLab,
+  openjade,
+  gnumake,
+  perl,
+  flex,
+  gnused,
+  coreutils,
+  which,
+  opensp,
+  groff,
+  texlive,
+  texinfo,
+  withLatex ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,18 +28,24 @@ stdenv.mkDerivation rec {
     sha256 = "17v9ilh79av4n94vk4m52aq57ykb9myffxd2qr8kb8b3xnq5d36z";
   };
 
-  outputs = [ "out" "man" "doc" ];
-
-  configureFlags = [
-    ("--enable-docs=txt info lyx html rtf"
-      + lib.optionalString withLatex " pdf")
+  outputs = [
+    "out"
+    "man"
+    "doc"
   ];
+
+  configureFlags = [ ("--enable-docs=txt info lyx html rtf" + lib.optionalString withLatex " pdf") ];
 
   LEX = "flex";
 
   postInstall = ''
     wrapProgram $out/bin/linuxdoc \
-      --prefix PATH : "${lib.makeBinPath [ groff opensp ]}:$out/bin" \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          groff
+          opensp
+        ]
+      }:$out/bin" \
       --prefix PERL5LIB : "$out/share/linuxdoc-tools/"
   '';
 
@@ -39,10 +60,20 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  nativeBuildInputs = [ flex which makeWrapper ];
+  nativeBuildInputs = [
+    flex
+    which
+    makeWrapper
+  ];
 
-  buildInputs = [ opensp groff texinfo perl gnused coreutils ]
-    ++ lib.optionals withLatex [ texlive.combined.scheme-medium ];
+  buildInputs = [
+    opensp
+    groff
+    texinfo
+    perl
+    gnused
+    coreutils
+  ] ++ lib.optionals withLatex [ texlive.combined.scheme-medium ];
 
   meta = with lib; {
     description = "Toolset for processing LinuxDoc DTD SGML files";
@@ -55,7 +86,11 @@ stdenv.mkDerivation rec {
       documents written in LinuxDoc DTD sgml source.
     '';
     homepage = "https://gitlab.com/agmartin/linuxdoc-tools";
-    license = with licenses; [ gpl3Plus mit sgmlug ];
+    license = with licenses; [
+      gpl3Plus
+      mit
+      sgmlug
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ p-h ];
   };

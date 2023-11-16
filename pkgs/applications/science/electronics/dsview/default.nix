@@ -1,6 +1,16 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, cmake
-, libzip, boost, fftw, qtbase, libusb1
-, python3, fetchpatch
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  libzip,
+  boost,
+  fftw,
+  qtbase,
+  libusb1,
+  python3,
+  fetchpatch,
 }:
 
 mkDerivation rec {
@@ -9,21 +19,29 @@ mkDerivation rec {
   version = "1.2.2";
 
   src = fetchFromGitHub {
-      owner = "DreamSourceLab";
-      repo = "DSView";
-      rev = "v${version}";
-      sha256 = "sha256-QaCVu/n9PDbAiJgPDVN6SJMILeUO/KRkKcHYAstm86Q=";
+    owner = "DreamSourceLab";
+    repo = "DSView";
+    rev = "v${version}";
+    sha256 = "sha256-QaCVu/n9PDbAiJgPDVN6SJMILeUO/KRkKcHYAstm86Q=";
   };
 
-  patches = [
-    # Fix absolute install paths
-    ./install.patch
+  patches =
+    [
+      # Fix absolute install paths
+      ./install.patch
+    ];
+
+  nativeBuildInputs = [
+    cmake
+    pkg-config
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
-
   buildInputs = [
-    boost fftw qtbase libusb1 libzip
+    boost
+    fftw
+    qtbase
+    libusb1
+    libzip
     python3
   ];
 

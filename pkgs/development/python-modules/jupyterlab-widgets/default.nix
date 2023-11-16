@@ -1,5 +1,8 @@
-{ lib, buildPythonPackage, fetchPypi
-, jupyter-packaging
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-packaging,
 }:
 
 buildPythonPackage rec {
@@ -12,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-w6UO1b9Sigx6hpCWUDr1RwL4bdodtGmu4cktwMAbQ8o=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-  ];
+  nativeBuildInputs = [ jupyter-packaging ];
 
   # has no tests
   doCheck = false;
@@ -25,6 +26,9 @@ buildPythonPackage rec {
     description = "Jupyter Widgets JupyterLab Extension";
     homepage = "https://github.com/jupyter-widgets/ipywidgets";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jonringer SuperSandro2000 ];
+    maintainers = with maintainers; [
+      jonringer
+      SuperSandro2000
+    ];
   };
 }

@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, markdown
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  markdown,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -20,17 +21,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    markdown
-  ];
+  propagatedBuildInputs = [ markdown ];
 
-  pythonImportsCheck = [
-    "markdown_include"
-  ];
+  pythonImportsCheck = [ "markdown_include" ];
 
   doCheck = false; # no tests
 

@@ -1,6 +1,7 @@
-{ buildPecl
-, lib
-, stdenv
+{
+  buildPecl,
+  lib,
+  stdenv,
 }:
 
 buildPecl {

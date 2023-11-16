@@ -1,4 +1,10 @@
-{ fetchurl, lib, stdenv, libidn, libkrb5 }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libidn,
+  libkrb5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gsasl";
@@ -15,7 +21,10 @@ stdenv.mkDerivation rec {
   # https://git.musl-libc.org/cgit/musl/commit/?id=b50eb8c36c20f967bd0ed70c0b0db38a450886ba
   patches = lib.optional stdenv.hostPlatform.isMusl ./gsasl.patch;
 
-  buildInputs = [ libidn libkrb5 ];
+  buildInputs = [
+    libidn
+    libkrb5
+  ];
 
   configureFlags = [ "--with-gssapi-impl=mit" ];
 
@@ -27,12 +36,12 @@ stdenv.mkDerivation rec {
   meta = {
     description = "GNU SASL, Simple Authentication and Security Layer library";
 
-    longDescription =
-      '' GNU SASL is a library that implements the IETF Simple
-         Authentication and Security Layer (SASL) framework and
-         some SASL mechanisms. SASL is used in network servers
-         (e.g. IMAP, SMTP, etc.) to authenticate peers.
-       '';
+    longDescription = ''
+      GNU SASL is a library that implements the IETF Simple
+              Authentication and Security Layer (SASL) framework and
+              some SASL mechanisms. SASL is used in network servers
+              (e.g. IMAP, SMTP, etc.) to authenticate peers.
+    '';
 
     homepage = "https://www.gnu.org/software/gsasl/";
     license = lib.licenses.gpl3Plus;

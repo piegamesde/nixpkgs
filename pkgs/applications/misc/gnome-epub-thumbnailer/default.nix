@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchurl
-, wrapGAppsNoGuiHook
-, meson
-, ninja
-, pkg-config
-, gnome
-, gdk-pixbuf
-, glib
-, libarchive
-, librsvg
-, libxml2
+{
+  stdenv,
+  lib,
+  fetchurl,
+  wrapGAppsNoGuiHook,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  gdk-pixbuf,
+  glib,
+  libarchive,
+  librsvg,
+  libxml2,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,9 @@ stdenv.mkDerivation rec {
   version = "1.7";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-epub-thumbnailer/${lib.versions.majorMinor version}/gnome-epub-thumbnailer-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-epub-thumbnailer/${
+        lib.versions.majorMinor version
+      }/gnome-epub-thumbnailer-${version}.tar.xz";
     sha256 = "sha256-S7Ah++RCgNuY3xTBH6XkMgsWe4GpG9e6WGvqDE+il1I=";
   };
 
@@ -38,9 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gnome-epub-thumbnailer";
-    };
+    updateScript = gnome.updateScript { packageName = "gnome-epub-thumbnailer"; };
   };
 
   meta = with lib; {

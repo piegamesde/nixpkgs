@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, gdb
-, pytest
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gdb,
+  pytest,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-JqEDN8Pg/JttyYQbwkxKkLYuxVnvV45VlClD23eaYyc=";
   };
 
-  nativeCheckInputs = [ gdb pytest ];
+  nativeCheckInputs = [
+    gdb
+    pytest
+  ];
 
   # tests require gcc for some reason
   doCheck = !stdenv.hostPlatform.isDarwin;

@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "trivial-arguments";
   version = "20200925-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-arguments";
 
-  asdFilesToKeep = ["trivial-arguments.asd"];
+  asdFilesToKeep = [ "trivial-arguments.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM trivial-arguments DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/trivial-arguments/2020-09-25/trivial-arguments-20200925-git.tgz
     MD5 3d7b76a729b272019c8827e40bfb6db8 NAME trivial-arguments FILENAME
     trivial-arguments DEPS NIL DEPENDENCIES NIL VERSION 20200925-git SIBLINGS
-    NIL PARASITES NIL) */
+    NIL PARASITES NIL)
+*/

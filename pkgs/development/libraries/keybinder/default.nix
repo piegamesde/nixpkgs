@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, gnome
-, gtk-doc, gtk2, lua, gobject-introspection
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  gnome,
+  gtk-doc,
+  gtk2,
+  lua,
+  gobject-introspection,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,11 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-elL6DZtzCwAtoyGZYP0jAma6tHPks2KAtrziWtBENGU=";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
 
   buildInputs = [
-    libtool gnome.gnome-common gtk-doc gtk2
-    lua gobject-introspection
+    libtool
+    gnome.gnome-common
+    gtk-doc
+    gtk2
+    lua
+    gobject-introspection
   ];
 
   configureFlags = [ "--disable-python" ];

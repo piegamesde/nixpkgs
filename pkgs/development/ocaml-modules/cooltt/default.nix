@@ -1,21 +1,22 @@
-{ lib
-, fetchFromGitHub
-, fetchurl
-, buildDunePackage
-, bwd
-, cmdliner
-, containers
-, ezjsonm
-, findlib
-, menhir
-, menhirLib
-, ppx_deriving
-, ppxlib
-, uuseg
-, uutf
-, yuujinchou
-, ounit2
-, qcheck
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  buildDunePackage,
+  bwd,
+  cmdliner,
+  containers,
+  ezjsonm,
+  findlib,
+  menhir,
+  menhirLib,
+  ppx_deriving,
+  ppxlib,
+  uuseg,
+  uutf,
+  yuujinchou,
+  ounit2,
+  qcheck,
 }:
 
 let
@@ -31,7 +32,10 @@ let
 
     duneVersion = "3";
 
-    propagatedBuildInputs = [ ezjsonm findlib ];
+    propagatedBuildInputs = [
+      ezjsonm
+      findlib
+    ];
 
     meta = {
       description = "Extensible Library Management and Path Resolution";
@@ -77,9 +81,7 @@ buildDunePackage {
     sha256 = "sha256:1n9bh86r2n9s3mm7ayfzwjbnjqcphpsf8yqnf4whd3yi930sqisw";
   };
 
-  nativeBuildInputs = [
-    menhir
-  ];
+  nativeBuildInputs = [ menhir ];
 
   buildInputs = [
     cmdliner

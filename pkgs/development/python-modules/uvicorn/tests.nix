@@ -1,15 +1,16 @@
-{ stdenv
-, buildPythonPackage
-, asgiref
-, uvicorn
-, httpx
-, pytest-asyncio
-, pytestCheckHook
-, pytest-mock
-, requests
-, trustme
-, watchgod
-, wsproto
+{
+  stdenv,
+  buildPythonPackage,
+  asgiref,
+  uvicorn,
+  httpx,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytest-mock,
+  requests,
+  trustme,
+  watchgod,
+  wsproto,
 }:
 
 buildPythonPackage rec {
@@ -36,8 +37,7 @@ buildPythonPackage rec {
     # strictly optional dependencies
     watchgod
     wsproto
-  ]
-  ++ uvicorn.optional-dependencies.standard;
+  ] ++ uvicorn.optional-dependencies.standard;
 
   doCheck = !stdenv.isDarwin;
 
@@ -50,4 +50,3 @@ buildPythonPackage rec {
     "test_multiple_server_header"
   ];
 }
-

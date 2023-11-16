@@ -1,14 +1,15 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, setuptools-scm
-, astropy
-, numpy
-, matplotlib
-, scipy
-, six
-, pytestCheckHook
-, pytest-astropy
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools-scm,
+  astropy,
+  numpy,
+  matplotlib,
+  scipy,
+  six,
+  pytestCheckHook,
+  pytest-astropy,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     sha256 = "e032257f1501303873f251c00c74b1188180785c79677fb4443098d517852309";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     astropy
@@ -47,5 +46,3 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ smaret ];
   };
 }
-
-

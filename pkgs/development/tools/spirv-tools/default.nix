@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, spirv-headers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  spirv-headers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spirv-tools";
@@ -11,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-l44Ru0WjROQEDNU/2YQJGti1uDZP9osRdfsXus5EGX0=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   cmakeFlags = [
     "-DSPIRV-Headers_SOURCE_DIR=${spirv-headers.src}"

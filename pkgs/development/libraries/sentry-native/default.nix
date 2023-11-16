@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, curl
-, breakpad
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  curl,
+  breakpad,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {

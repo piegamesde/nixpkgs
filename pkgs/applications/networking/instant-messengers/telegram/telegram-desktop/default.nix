@@ -1,63 +1,64 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, callPackage
-, pkg-config
-, cmake
-, ninja
-, python3
-, gobject-introspection
-, wrapGAppsHook
-, wrapQtAppsHook
-, extra-cmake-modules
-, qtbase
-, qtwayland
-, qtsvg
-, qtimageformats
-, gtk3
-, boost
-, fmt
-, libdbusmenu
-, lz4
-, xxHash
-, ffmpeg
-, openalSoft
-, minizip
-, libopus
-, alsa-lib
-, libpulseaudio
-, pipewire
-, range-v3
-, tl-expected
-, hunspell
-, glibmm_2_68
-, webkitgtk_6_0
-, jemalloc
-, rnnoise
-, protobuf
-, abseil-cpp
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  callPackage,
+  pkg-config,
+  cmake,
+  ninja,
+  python3,
+  gobject-introspection,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  extra-cmake-modules,
+  qtbase,
+  qtwayland,
+  qtsvg,
+  qtimageformats,
+  gtk3,
+  boost,
+  fmt,
+  libdbusmenu,
+  lz4,
+  xxHash,
+  ffmpeg,
+  openalSoft,
+  minizip,
+  libopus,
+  alsa-lib,
+  libpulseaudio,
+  pipewire,
+  range-v3,
+  tl-expected,
+  hunspell,
+  glibmm_2_68,
+  webkitgtk_6_0,
+  jemalloc,
+  rnnoise,
+  protobuf,
+  abseil-cpp,
   # Transitive dependencies:
-, util-linuxMinimal
-, pcre
-, libpthreadstubs
-, libXdamage
-, libXdmcp
-, libselinux
-, libsepol
-, libepoxy
-, at-spi2-core
-, libXtst
-, libthai
-, libdatrie
-, xdg-utils
-, xorg
-, libsysprof-capture
-, libpsl
-, brotli
-, microsoft-gsl
-, rlottie
-, stdenv
-, nix-update-script
+  util-linuxMinimal,
+  pcre,
+  libpthreadstubs,
+  libXdamage,
+  libXdmcp,
+  libselinux,
+  libsepol,
+  libepoxy,
+  at-spi2-core,
+  libXtst,
+  libthai,
+  libdatrie,
+  xdg-utils,
+  xorg,
+  libsysprof-capture,
+  libpsl,
+  brotli,
+  microsoft-gsl,
+  rlottie,
+  stdenv,
+  nix-update-script,
 }:
 
 # Main reference:
@@ -68,11 +69,7 @@
 # - https://github.com/void-linux/void-packages/blob/master/srcpkgs/telegram-desktop/template
 
 let
-  tg_owt = callPackage ./tg_owt.nix {
-    abseil-cpp = abseil-cpp.override {
-      cxxStandard = "20";
-    };
-  };
+  tg_owt = callPackage ./tg_owt.nix { abseil-cpp = abseil-cpp.override { cxxStandard = "20"; }; };
 in
 stdenv.mkDerivation rec {
   pname = "telegram-desktop";

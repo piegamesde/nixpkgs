@@ -1,4 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, jdk11, gradle_6, makeDesktopItem, copyDesktopItems, perl, writeText, runtimeShell, makeWrapper, glib, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk11,
+  gradle_6,
+  makeDesktopItem,
+  copyDesktopItems,
+  perl,
+  writeText,
+  runtimeShell,
+  makeWrapper,
+  glib,
+  wrapGAppsHook,
+}:
 let
   gradle = gradle_6;
 
@@ -16,7 +30,11 @@ let
     name = "${pname}-deps";
     inherit src;
 
-    nativeBuildInputs = [ jdk11 perl gradle ];
+    nativeBuildInputs = [
+      jdk11
+      perl
+      gradle
+    ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -69,14 +87,24 @@ let
     icon = "scenebuilder";
     comment = "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces.";
     desktopName = "Scene Builder";
-    mimeTypes = [ "application/java" "application/java-vm" "application/java-archive" ];
+    mimeTypes = [
+      "application/java"
+      "application/java-vm"
+      "application/java-archive"
+    ];
     categories = [ "Development" ];
   };
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit pname src version;
 
-  nativeBuildInputs = [ jdk11 gradle makeWrapper glib wrapGAppsHook ];
+  nativeBuildInputs = [
+    jdk11
+    gradle
+    makeWrapper
+    glib
+    wrapGAppsHook
+  ];
 
   dontWrapGApps = true; # prevent double wrapping
 
@@ -87,7 +115,7 @@ in stdenv.mkDerivation rec {
     gradle -PVERSION=${version} --offline --no-daemon --info --init-script ${gradleInit} build -x test
 
     runHook postBuild
-    '';
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -101,7 +129,7 @@ in stdenv.mkDerivation rec {
 
   postFixup = ''
     makeWrapper ${jdk11}/bin/java $out/bin/${pname} --add-flags "-jar $out/share/${pname}/${pname}.jar" "''${gappsWrapperArgs[@]}"
-    '';
+  '';
 
   desktopItems = [ desktopItem ];
 
@@ -111,7 +139,7 @@ in stdenv.mkDerivation rec {
     homepage = "https://gluonhq.com/products/scene-builder/";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.bsd3;
     maintainers = with maintainers; [ wirew0rm ];

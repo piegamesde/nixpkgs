@@ -1,9 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi
-, pytestCheckHook
-, pyyaml
-, setuptools-scm
-, setuptools-scm-git-archive
-, toml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pyyaml,
+  setuptools-scm,
+  setuptools-scm-git-archive,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +25,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "yamlinclude" ];
 

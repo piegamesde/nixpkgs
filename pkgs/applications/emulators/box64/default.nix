@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gitUpdater
-, cmake
-, python3
-, withDynarec ? stdenv.hostPlatform.isAarch64
-, runCommand
-, hello-x86_64
-, box64
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  cmake,
+  python3,
+  withDynarec ? stdenv.hostPlatform.isAarch64,
+  runCommand,
+  hello-x86_64,
+  box64,
 }:
 
 # Currently only supported on ARM
@@ -29,15 +30,19 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  cmakeFlags = [
-    "-DNOGIT=ON"
-    "-DARM_DYNAREC=${if withDynarec then "ON" else "OFF"}"
-    "-DRV64=${if stdenv.hostPlatform.isRiscV64 then "ON" else "OFF"}"
-    "-DPPC64LE=${if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then "ON" else "OFF"}"
-  ] ++ lib.optionals stdenv.hostPlatform.isx86_64 [
-    "-DLD80BITS=ON"
-    "-DNOALIGN=ON"
-  ];
+  cmakeFlags =
+    [
+      "-DNOGIT=ON"
+      "-DARM_DYNAREC=${if withDynarec then "ON" else "OFF"}"
+      "-DRV64=${if stdenv.hostPlatform.isRiscV64 then "ON" else "OFF"}"
+      "-DPPC64LE=${
+        if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then "ON" else "OFF"
+      }"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isx86_64 [
+      "-DLD80BITS=ON"
+      "-DNOALIGN=ON"
+    ];
 
   installPhase = ''
     runHook preInstall
@@ -64,23 +69,35 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
-    tests.hello = runCommand "box64-test-hello" {
-      nativeBuildInputs = [ box64 hello-x86_64 ];
-    } ''
-      # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
-      # tell what problems the emulator has run into.
-      BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
-    '';
+    updateScript = gitUpdater { rev-prefix = "v"; };
+    tests.hello =
+      runCommand "box64-test-hello"
+        {
+          nativeBuildInputs = [
+            box64
+            hello-x86_64
+          ];
+        }
+        ''
+          # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
+          # tell what problems the emulator has run into.
+          BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
+        '';
   };
 
   meta = with lib; {
     homepage = "https://box86.org/";
     description = "Lets you run x86_64 Linux programs on non-x86_64 Linux systems";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador OPNA2608 ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "riscv64-linux" "powerpc64le-linux" ];
+    maintainers = with maintainers; [
+      gador
+      OPNA2608
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "riscv64-linux"
+      "powerpc64le-linux"
+    ];
   };
 }

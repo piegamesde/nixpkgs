@@ -1,10 +1,11 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, installShellFiles
-, docker
-, distrobox
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  installShellFiles,
+  docker,
+  distrobox,
 }:
 
 buildGoModule rec {
@@ -20,7 +21,10 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -39,7 +43,12 @@ buildGoModule rec {
     }
     EOF
 
-    wrapProgram $out/bin/apx --prefix PATH : ${lib.makeBinPath [ docker distrobox ]}
+    wrapProgram $out/bin/apx --prefix PATH : ${
+      lib.makeBinPath [
+        docker
+        distrobox
+      ]
+    }
 
     installManPage man/de/man1/apx.1 man/es/man1/apx.1 man/fr/man1/apx.1 man/it/man1/apx.1 man/man1/apx.1 man/nl/man1/apx.1 man/pl/man1/apx.1 man/pt/man1/apx.1 man/pt_BR/man1/apx.1 man/ro/man1/apx.1 man/ru/man1/apx.1 man/sv/man1/apx.1 man/tr/man1/apx.1
   '';

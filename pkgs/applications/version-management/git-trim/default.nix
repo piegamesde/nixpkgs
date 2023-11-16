@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, libgit2
-, IOKit
-, CoreFoundation
-, Security
-, fetchpatch
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  libgit2,
+  IOKit,
+  CoreFoundation,
+  Security,
+  fetchpatch,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,20 +25,29 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-mS8kNkZs8jX99ryG4XkU+U/iWIIcmET2vOfG1YNNZFU=";
 
-  cargoPatches = [
-    # Update git2 https://github.com/foriequal0/git-trim/pull/202
-    (fetchpatch {
-      url = "https://github.com/foriequal0/git-trim/commit/4355cd1d6f605455087c4d7ad16bfb92ffee941f.patch";
-      sha256 = "sha256-C1pX4oe9ZCgvqYTBJeSjMdr0KFyjv2PNVMJDlwCAngY=";
-    })
-  ];
+  cargoPatches =
+    [
+      # Update git2 https://github.com/foriequal0/git-trim/pull/202
+      (fetchpatch {
+        url = "https://github.com/foriequal0/git-trim/commit/4355cd1d6f605455087c4d7ad16bfb92ffee941f.patch";
+        sha256 = "sha256-C1pX4oe9ZCgvqYTBJeSjMdr0KFyjv2PNVMJDlwCAngY=";
+      })
+    ];
 
   OPENSSL_NO_VENDOR = 1;
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl libgit2 ]
-    ++ lib.optionals stdenv.isDarwin [ IOKit CoreFoundation Security ];
+  buildInputs =
+    [
+      openssl
+      libgit2
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      IOKit
+      CoreFoundation
+      Security
+    ];
 
   postInstall = ''
     install -Dm644 -t $out/share/man/man1/ docs/git-trim.1

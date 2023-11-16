@@ -1,4 +1,10 @@
-{ self, callPackage, fetchFromGitHub, lib, passthruFun }:
+{
+  self,
+  callPackage,
+  fetchFromGitHub,
+  lib,
+  passthruFun,
+}:
 
 callPackage ./default.nix {
   version = "2.0.5-2022-09-13";
@@ -10,9 +16,9 @@ callPackage ./default.nix {
     hash = "sha256-/XR9+6NjXs2TrUVKJNkH2h970BkDNFqMDJTWcy/bswU=";
   };
 
-  extraMeta = { # this isn't precise but it at least stops the useless Hydra build
-    platforms = with lib; filter (p: !hasPrefix "aarch64-" p)
-      (platforms.linux ++ platforms.darwin);
+  extraMeta = {
+    # this isn't precise but it at least stops the useless Hydra build
+    platforms = with lib; filter (p: !hasPrefix "aarch64-" p) (platforms.linux ++ platforms.darwin);
   };
   inherit self passthruFun;
 }

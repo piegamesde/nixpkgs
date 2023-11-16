@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "marshal";
   version = "cl-20211020-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "marshal";
 
-  asdFilesToKeep = ["marshal.asd"];
+  asdFilesToKeep = [ "marshal.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM marshal DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/cl-marshal/2021-10-20/cl-marshal-20211020-git.tgz
     MD5 52eaad7da569610099d15c1d91020e17 NAME marshal FILENAME marshal DEPS NIL
     DEPENDENCIES NIL VERSION cl-20211020-git SIBLINGS (marshal-tests) PARASITES
-    NIL) */
+    NIL)
+*/

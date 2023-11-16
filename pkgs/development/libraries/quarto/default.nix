@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, pandoc
-, esbuild
-, deno
-, fetchurl
-, nodePackages
-, rWrapper
-, rPackages
-, extraRPackages ? []
-, makeWrapper
-, python3
-, extraPythonPackages ? ps: with ps; []
+{
+  stdenv,
+  lib,
+  pandoc,
+  esbuild,
+  deno,
+  fetchurl,
+  nodePackages,
+  rWrapper,
+  rPackages,
+  extraRPackages ? [ ],
+  makeWrapper,
+  python3,
+  extraPythonPackages ? ps: with ps; [ ],
 }:
 
 stdenv.mkDerivation rec {
@@ -21,13 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oyKjDlTKt2fIzirOqgNRrpuM7buNCG5mmgIztPa28rY=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  patches = [
-    ./fix-deno-path.patch
-  ];
+  patches = [ ./fix-deno-path.patch ];
 
   postPatch = ''
     # Compat for Deno >=1.26
@@ -44,34 +41,58 @@ stdenv.mkDerivation rec {
       --prefix QUARTO_PANDOC : ${pandoc}/bin/pandoc \
       --prefix QUARTO_ESBUILD : ${esbuild}/bin/esbuild \
       --prefix QUARTO_DART_SASS : ${nodePackages.sass}/bin/sass \
-      ${lib.optionalString (rWrapper != null) "--prefix QUARTO_R : ${rWrapper.override { packages = [ rPackages.rmarkdown ] ++ extraRPackages; }}/bin/R"} \
-      ${lib.optionalString (python3 != null) "--prefix QUARTO_PYTHON : ${python3.withPackages (ps: with ps; [ jupyter ipython ] ++ (extraPythonPackages ps))}/bin/python3"}
+      ${
+        lib.optionalString (rWrapper != null)
+          "--prefix QUARTO_R : ${
+            rWrapper.override { packages = [ rPackages.rmarkdown ] ++ extraRPackages; }
+          }/bin/R"
+      } \
+      ${
+        lib.optionalString (python3 != null)
+          "--prefix QUARTO_PYTHON : ${
+            python3.withPackages (
+              ps:
+              with ps;
+              [
+                jupyter
+                ipython
+              ]
+              ++ (extraPythonPackages ps)
+            )
+          }/bin/python3"
+      }
   '';
 
   installPhase = ''
-      runHook preInstall
+    runHook preInstall
 
-      mkdir -p $out/bin $out/share
+    mkdir -p $out/bin $out/share
 
-      rm -r bin/tools
+    rm -r bin/tools
 
-      mv bin/* $out/bin
-      mv share/* $out/share
+    mv bin/* $out/bin
+    mv share/* $out/share
 
-      runHook preInstall
+    runHook preInstall
   '';
 
   meta = with lib; {
     description = "Open-source scientific and technical publishing system built on Pandoc";
     longDescription = ''
-        Quarto is an open-source scientific and technical publishing system built on Pandoc.
-        Quarto documents are authored using markdown, an easy to write plain text format.
+      Quarto is an open-source scientific and technical publishing system built on Pandoc.
+      Quarto documents are authored using markdown, an easy to write plain text format.
     '';
     homepage = "https://quarto.org/";
     changelog = "https://github.com/quarto-dev/quarto-cli/releases/tag/v${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ minijackson mrtarantoga ];
+    maintainers = with maintainers; [
+      minijackson
+      mrtarantoga
+    ];
     platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode binaryBytecode ];
+    sourceProvenance = with sourceTypes; [
+      binaryNativeCode
+      binaryBytecode
+    ];
   };
 }

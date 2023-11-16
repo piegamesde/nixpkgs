@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bats
-, uncrustify
-, testers
-, packcc
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bats,
+  uncrustify,
+  testers,
+  packcc,
 }:
 
 stdenv.mkDerivation rec {
@@ -21,14 +22,22 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   preBuild = ''
-    cd build/${if stdenv.cc.isGNU then "gcc"
-               else if stdenv.cc.isClang then "clang"
-               else throw "Unsupported C compiler"}
+    cd build/${
+      if stdenv.cc.isGNU then
+        "gcc"
+      else if stdenv.cc.isClang then
+        "clang"
+      else
+        throw "Unsupported C compiler"
+    }
   '';
 
   doCheck = true;
 
-  nativeCheckInputs = [ bats uncrustify ];
+  nativeCheckInputs = [
+    bats
+    uncrustify
+  ];
 
   preCheck = ''
     patchShebangs ../../tests
@@ -45,9 +54,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = packcc;
-  };
+  passthru.tests.version = testers.testVersion { package = packcc; };
 
   meta = with lib; {
     description = "A parser generator for C";

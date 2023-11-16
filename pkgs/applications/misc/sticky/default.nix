@@ -1,13 +1,14 @@
-{ lib
-, python3
-, fetchFromGitHub
-, wrapGAppsHook
-, cinnamon
-, glib
-, gspell
-, gtk3
-, gobject-introspection
-, gitUpdater
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  cinnamon,
+  glib,
+  gspell,
+  gtk3,
+  gobject-introspection,
+  gitUpdater,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -75,9 +76,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater {
-      ignoredVersions = ''master.*'';
-    };
+    updateScript = gitUpdater { ignoredVersions = "master.*"; };
   };
 
   meta = with lib; {
@@ -85,6 +84,9 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/linuxmint/sticky";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ linsui bobby285271 ];
+    maintainers = with maintainers; [
+      linsui
+      bobby285271
+    ];
   };
 }

@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, openssl, pkg-config, libpcap }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  libpcap,
+}:
 
 buildGoModule rec {
   pname = "mongo-tools";
@@ -14,7 +21,10 @@ buildGoModule rec {
   vendorHash = null;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl libpcap ];
+  buildInputs = [
+    openssl
+    libpcap
+  ];
 
   # Mongodb incorrectly names all of their binaries main
   # Let's work around this with our own installer
@@ -29,14 +39,17 @@ buildGoModule rec {
         "mongorestore"
         "mongostat"
         "mongotop"
-      ]; in
+      ];
+    in
     ''
       # move vendored codes so nixpkgs go builder could find it
       runHook preBuild
 
-      ${lib.concatMapStrings (t: ''
-        go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
-      '') tools}
+      ${lib.concatMapStrings
+        (t: ''
+          go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
+        '')
+        tools}
 
       runHook postBuild
     '';

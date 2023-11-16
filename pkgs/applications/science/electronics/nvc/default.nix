@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, check
-, flex
-, pkg-config
-, which
-, elfutils
-, libelf
-, libffi
-, llvm
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  check,
+  flex,
+  pkg-config,
+  which,
+  elfutils,
+  libelf,
+  libffi,
+  llvm,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {
@@ -37,11 +38,7 @@ stdenv.mkDerivation rec {
     libffi
     llvm
     zlib
-  ] ++ lib.optionals stdenv.isLinux [
-    elfutils
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    libelf
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ elfutils ] ++ lib.optionals (!stdenv.isLinux) [ libelf ];
 
   preConfigure = ''
     mkdir build

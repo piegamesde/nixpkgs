@@ -1,15 +1,16 @@
-{ lib
-, argcomplete
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, importlib-metadata
-, packaging
-, pip
-, platformdirs
-, pytestCheckHook
-, pythonOlder
-, userpath
+{
+  lib,
+  argcomplete,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  importlib-metadata,
+  packaging,
+  pip,
+  platformdirs,
+  pytestCheckHook,
+  pythonOlder,
+  userpath,
 }:
 
 buildPythonPackage rec {
@@ -26,22 +27,16 @@ buildPythonPackage rec {
     hash = "sha256-lm/Q+8nNubhaUR1pUbSIoD4DEUEkK+pQvvUdWNquW4Q=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     argcomplete
     packaging
     platformdirs
     userpath
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

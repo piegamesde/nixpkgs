@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, llvm_meta
-, monorepoSrc
-, runCommand
-, cmake
-, ninja
-, llvm
-, targetLlvm
-, lit
-, clang-unwrapped
-, perl
-, pkg-config
-, version
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  monorepoSrc,
+  runCommand,
+  cmake,
+  ninja,
+  llvm,
+  targetLlvm,
+  lit,
+  clang-unwrapped,
+  perl,
+  pkg-config,
+  version,
 }:
 
 stdenv.mkDerivation rec {
   pname = "openmp";
   inherit version;
 
-  src = runCommand "${pname}-src-${version}" {} ''
+  src = runCommand "${pname}-src-${version}" { } ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -32,12 +33,19 @@ stdenv.mkDerivation rec {
     ./run-lit-directly.patch
   ];
 
-  outputs = [ "out" "dev" ];
-
-  nativeBuildInputs = [ cmake ninja perl pkg-config lit ];
-  buildInputs = [
-    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
+  outputs = [
+    "out"
+    "dev"
   ];
+
+  nativeBuildInputs = [
+    cmake
+    ninja
+    perl
+    pkg-config
+    lit
+  ];
+  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm) ];
 
   # Unsup:Pass:XFail:Fail
   # 26:267:16:8
@@ -66,6 +74,9 @@ stdenv.mkDerivation rec {
     '';
     # "All of the code is dual licensed under the MIT license and the UIUC
     # License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

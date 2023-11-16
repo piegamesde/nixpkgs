@@ -1,4 +1,10 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "steampipe";
@@ -25,7 +31,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     INSTALL_DIR=$(mktemp -d)

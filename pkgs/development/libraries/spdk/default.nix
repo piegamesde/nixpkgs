@@ -1,28 +1,33 @@
-{ lib, stdenv
-, fetchpatch
-, fetchFromGitHub
-, ncurses
-, python3
-, cunit
-, dpdk
-, libaio
-, libbsd
-, libuuid
-, numactl
-, openssl
-, fetchurl
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  ncurses,
+  python3,
+  cunit,
+  dpdk,
+  libaio,
+  libbsd,
+  libuuid,
+  numactl,
+  openssl,
+  fetchurl,
 }:
 
 let
   # The old version has some CVEs howver they should not affect SPDK's usage of the framework: https://github.com/NixOS/nixpkgs/pull/171648#issuecomment-1121964568
-  dpdk' = dpdk.overrideAttrs (old: rec {
-    name = "dpdk-21.11";
-    src = fetchurl {
-      url = "https://fast.dpdk.org/rel/${name}.tar.xz";
-      sha256 = "sha256-Mkbj7WjuKzaaXYviwGzxCKZp4Vf01Bxby7sha/Wr06E=";
-    };
-  });
-in stdenv.mkDerivation rec {
+  dpdk' = dpdk.overrideAttrs (
+    old: rec {
+      name = "dpdk-21.11";
+      src = fetchurl {
+        url = "https://fast.dpdk.org/rel/${name}.tar.xz";
+        sha256 = "sha256-Mkbj7WjuKzaaXYviwGzxCKZp4Vf01Bxby7sha/Wr06E=";
+      };
+    }
+  );
+in
+stdenv.mkDerivation rec {
   pname = "spdk";
   version = "21.10";
 
@@ -45,12 +50,17 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    python3
-  ];
+  nativeBuildInputs = [ python3 ];
 
   buildInputs = [
-    cunit dpdk' libaio libbsd libuuid numactl openssl ncurses
+    cunit
+    dpdk'
+    libaio
+    libbsd
+    libuuid
+    numactl
+    openssl
+    ncurses
   ];
 
   postPatch = ''
@@ -74,7 +84,7 @@ in stdenv.mkDerivation rec {
     description = "Set of libraries for fast user-mode storage";
     homepage = "https://spdk.io/";
     license = licenses.bsd3;
-    platforms =  [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ orivej ];
   };
 }

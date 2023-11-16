@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, eth-hash
-, eth-typing
-, cytoolz
-, hypothesis
-, isPyPy
-, pytestCheckHook
-, pythonOlder
-, toolz
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  eth-hash,
+  eth-typing,
+  cytoolz,
+  hypothesis,
+  isPyPy,
+  pytestCheckHook,
+  pythonOlder,
+  toolz,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     eth-hash
     eth-typing
-  ] ++ lib.optional (!isPyPy) cytoolz
-  ++ lib.optional isPyPy toolz;
-
+  ] ++ lib.optional (!isPyPy) cytoolz ++ lib.optional isPyPy toolz;
 
   nativeCheckInputs = [
     hypothesis

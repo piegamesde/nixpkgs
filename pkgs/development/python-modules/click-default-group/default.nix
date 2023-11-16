@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, click
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  click,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -18,13 +19,14 @@ buildPythonPackage rec {
     sha256 = "0nk39lmkn208w8kvq6f4h3a6qzxrrvxixahpips6ik3zflbkss86";
   };
 
-  patches = [
-    # make tests compatible with click 8
-    (fetchpatch {
-      url = "https://github.com/click-contrib/click-default-group/commit/9415c77d05cf7d16876e7d70a49a41a6189983b4.patch";
-      sha256 = "1czzma8nmwyxhwhnr8rfw5bjw6d46b3s5r5bfb8ly3sjwqjlwhw2";
-    })
-  ];
+  patches =
+    [
+      # make tests compatible with click 8
+      (fetchpatch {
+        url = "https://github.com/click-contrib/click-default-group/commit/9415c77d05cf7d16876e7d70a49a41a6189983b4.patch";
+        sha256 = "1czzma8nmwyxhwhnr8rfw5bjw6d46b3s5r5bfb8ly3sjwqjlwhw2";
+      })
+    ];
 
   propagatedBuildInputs = [ click ];
 

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, fetchpatch, substituteAll
-, python, util-linux, pygit2, gitMinimal, git-annex, cacert
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  python,
+  util-linux,
+  pygit2,
+  gitMinimal,
+  git-annex,
+  cacert,
 }:
 
 buildPythonPackage rec {
@@ -41,7 +52,10 @@ buildPythonPackage rec {
     util-linux # `rev` is needed in tests/test_process.py
   ];
 
-  propagatedBuildInputs = [ pygit2 cacert ];
+  propagatedBuildInputs = [
+    pygit2
+    cacert
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest

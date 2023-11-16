@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, cmake
-, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,9 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-t8XVdKrrewfqefUnEz5xHgRHF0NThNQD1KGPMLOO/o8=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   doCheck = true;
 

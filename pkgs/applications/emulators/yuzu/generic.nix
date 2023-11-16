@@ -1,50 +1,51 @@
-{ version
-, src
-, branch
-, compat-list
+{
+  version,
+  src,
+  branch,
+  compat-list,
 
-, lib
-, stdenv
-, wrapQtAppsHook
-, alsa-lib
-, boost
-, catch2_3
-, cmake
-, cpp-jwt
-, cubeb
-, discord-rpc
-, doxygen
-, enet
-, ffmpeg
-, fmt
-, glslang
-, httplib
-, inih
-, libjack2
-, libopus
-, libpulseaudio
-, libusb1
-, libva
-, libzip
-, lz4
-, nlohmann_json
-, perl
-, pkg-config
-, python3
-, qtbase
-, qtmultimedia
-, qttools
-, qtwayland
-, qtwebengine
-, rapidjson
-, SDL2
-, sndio
-, speexdsp
-, udev
-, vulkan-headers
-, vulkan-loader
-, zlib
-, zstd
+  lib,
+  stdenv,
+  wrapQtAppsHook,
+  alsa-lib,
+  boost,
+  catch2_3,
+  cmake,
+  cpp-jwt,
+  cubeb,
+  discord-rpc,
+  doxygen,
+  enet,
+  ffmpeg,
+  fmt,
+  glslang,
+  httplib,
+  inih,
+  libjack2,
+  libopus,
+  libpulseaudio,
+  libusb1,
+  libva,
+  libzip,
+  lz4,
+  nlohmann_json,
+  perl,
+  pkg-config,
+  python3,
+  qtbase,
+  qtmultimedia,
+  qttools,
+  qtwayland,
+  qtwebengine,
+  rapidjson,
+  SDL2,
+  sndio,
+  speexdsp,
+  udev,
+  vulkan-headers,
+  vulkan-loader,
+  zlib,
+  zstd,
 }:
 
 stdenv.mkDerivation {
@@ -131,9 +132,7 @@ stdenv.mkDerivation {
 
   # Fixes vulkan detection.
   # FIXME: patchelf --add-rpath corrupts the binary for some reason, investigate
-  qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
-  ];
+  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib" ];
 
   preConfigure = ''
     # see https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
@@ -164,7 +163,9 @@ stdenv.mkDerivation {
     license = with licenses; [
       gpl3Plus
       # Icons
-      asl20 mit cc0
+      asl20
+      mit
+      cc0
     ];
     maintainers = with maintainers; [
       ashley

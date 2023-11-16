@@ -1,29 +1,34 @@
-{ buildPythonPackage
-, lib
-, python
-, fetchFromGitHub
-, fetchpatch
-, pyopenssl
-, webcolors
-, future
-, atomicwrites
-, attrs
-, logbook
-, pygments
-, matrix-nio
-, aiohttp
-, requests
+{
+  buildPythonPackage,
+  lib,
+  python,
+  fetchFromGitHub,
+  fetchpatch,
+  pyopenssl,
+  webcolors,
+  future,
+  atomicwrites,
+  attrs,
+  logbook,
+  pygments,
+  matrix-nio,
+  aiohttp,
+  requests,
 }:
 
 let
-  scriptPython = python.withPackages (ps: with ps; [
-    aiohttp
-    requests
-    python-magic
-  ]);
+  scriptPython = python.withPackages (
+    ps:
+    with ps; [
+      aiohttp
+      requests
+      python-magic
+    ]
+  );
 
   version = "0.3.0";
-in buildPythonPackage {
+in
+buildPythonPackage {
   pname = "weechat-matrix";
   inherit version;
 
@@ -89,6 +94,9 @@ in buildPythonPackage {
     homepage = "https://github.com/poljar/weechat-matrix";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ tilpner emily ];
+    maintainers = with maintainers; [
+      tilpner
+      emily
+    ];
   };
 }

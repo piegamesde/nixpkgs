@@ -1,20 +1,16 @@
-{ lib
-, stdenv
-, fetchgit
-, wrapLisp
-, openssl
-, sbcl
+{
+  lib,
+  stdenv,
+  fetchgit,
+  wrapLisp,
+  openssl,
+  sbcl,
 }:
 
 # Broken on newer versions:
 # "https://gitlab.common-lisp.net/clpm/clpm/-/issues/51". Once that bug is
 # fixed, remove this, and all 2.1.9 references from the SBCL build file.
-with rec {
-  sbcl_2_1_9 = sbcl.override (_: {
-    version = "2.1.9";
-  });
-};
-
+with rec { sbcl_2_1_9 = sbcl.override (_: { version = "2.1.9"; }); };
 
 stdenv.mkDerivation rec {
   pname = "clpm";
@@ -27,9 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UhaLmbdsIPj6O+s262HUMxuz/5t43JR+TlOjq8Y2CDs=";
   };
 
-  propagatedBuildInputs = [
-    openssl
-  ];
+  propagatedBuildInputs = [ openssl ];
 
   postPatch = ''
     # patch cl-plus-ssl to ensure that it finds libssl and libcrypto
@@ -68,6 +62,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.clpm.dev/";
     license = licenses.bsd2;
     maintainers = [ maintainers.petterstorvik ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

@@ -1,5 +1,17 @@
-{ lib, buildPythonApplication, fetchFromGitHub, python, mpv, requests, python-mpv-jsonipc, pystray, tkinter
-, wrapGAppsHook, gobject-introspection, mpv-shim-default-shaders }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  python,
+  mpv,
+  requests,
+  python-mpv-jsonipc,
+  pystray,
+  tkinter,
+  wrapGAppsHook,
+  gobject-introspection,
+  mpv-shim-default-shaders,
+}:
 
 buildPythonApplication rec {
   pname = "plex-mpv-shim";
@@ -17,7 +29,13 @@ buildPythonApplication rec {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = [ mpv requests python-mpv-jsonipc pystray tkinter ];
+  propagatedBuildInputs = [
+    mpv
+    requests
+    python-mpv-jsonipc
+    pystray
+    tkinter
+  ];
 
   # needed for pystray to access appindicator using GI
   preFixup = ''

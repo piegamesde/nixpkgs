@@ -1,10 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, fasteners
-, jinja2
-, pbr
-, python-jenkins
-, pyyaml
-, six
-, stevedore
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fasteners,
+  jinja2,
+  pbr,
+  python-jenkins,
+  pyyaml,
+  six,
+  stevedore,
 }:
 
 buildPythonPackage rec {
@@ -23,7 +27,15 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  propagatedBuildInputs = [ pbr python-jenkins pyyaml six stevedore fasteners jinja2 ];
+  propagatedBuildInputs = [
+    pbr
+    python-jenkins
+    pyyaml
+    six
+    stevedore
+    fasteners
+    jinja2
+  ];
 
   # Need to fix test deps, relies on stestr and a few other packages that aren't available on nixpkgs
   checkPhase = "$out/bin/jenkins-jobs --help";
@@ -34,5 +46,4 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };
-
 }

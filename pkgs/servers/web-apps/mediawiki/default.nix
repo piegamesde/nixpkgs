@@ -1,11 +1,19 @@
-{ lib, stdenv, fetchurl, writeText, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mediawiki";
   version = "1.39.3";
 
   src = fetchurl {
-    url = "https://releases.wikimedia.org/mediawiki/${lib.versions.majorMinor version}/mediawiki-${version}.tar.gz";
+    url = "https://releases.wikimedia.org/mediawiki/${
+        lib.versions.majorMinor version
+      }/mediawiki-${version}.tar.gz";
     hash = "sha256-41dpNDh2r0JJbaQ64vRyJPuMd5uPRXBcQUfG/zUizB0=";
   };
 
@@ -13,21 +21,23 @@ stdenv.mkDerivation rec {
     sed -i 's|$vars = Installer::getExistingLocalSettings();|$vars = null;|' includes/installer/CliInstaller.php
   '';
 
-  installPhase = let
-    phpConfig = writeText "LocalSettings.php" ''
-      <?php
-        return require(getenv('MEDIAWIKI_CONFIG'));
-      ?>
+  installPhase =
+    let
+      phpConfig = writeText "LocalSettings.php" ''
+        <?php
+          return require(getenv('MEDIAWIKI_CONFIG'));
+        ?>
+      '';
+    in
+    ''
+      runHook preInstall
+
+      mkdir -p $out/share/mediawiki
+      cp -r * $out/share/mediawiki
+      cp ${phpConfig} $out/share/mediawiki/LocalSettings.php
+
+      runHook postInstall
     '';
-  in ''
-    runHook preInstall
-
-    mkdir -p $out/share/mediawiki
-    cp -r * $out/share/mediawiki
-    cp ${phpConfig} $out/share/mediawiki/LocalSettings.php
-
-    runHook postInstall
-  '';
 
   passthru.tests = {
     inherit (nixosTests.mediawiki) mysql postgresql;

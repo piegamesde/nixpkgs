@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, opencascade
-, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  opencascade,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smesh";
@@ -20,7 +28,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
   buildInputs = [ opencascade ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];

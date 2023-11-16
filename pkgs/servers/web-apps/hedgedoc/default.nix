@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchzip
-, makeWrapper
-, which
-, nodejs
-, mkYarnPackage
-, fetchYarnDeps
-, python3
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchzip,
+  makeWrapper,
+  which,
+  nodejs,
+  mkYarnPackage,
+  fetchYarnDeps,
+  python3,
+  nixosTests,
 }:
 
 mkYarnPackage rec {
@@ -22,7 +23,10 @@ mkYarnPackage rec {
     hash = "sha256-tPkhnnKDS5TICsW66YCOy7xWFj5usLyDMbYMYQ3Euoc=";
   };
 
-  nativeBuildInputs = [ which makeWrapper ];
+  nativeBuildInputs = [
+    which
+    makeWrapper
+  ];
   extraBuildInputs = [ python3 ];
 
   packageJSON = ./package.json;
@@ -71,7 +75,9 @@ mkYarnPackage rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) hedgedoc; };
+    tests = {
+      inherit (nixosTests) hedgedoc;
+    };
   };
 
   meta = with lib; {

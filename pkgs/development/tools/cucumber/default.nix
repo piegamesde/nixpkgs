@@ -1,4 +1,8 @@
-{ lib, bundlerApp, bundlerUpdateScript }:
+{
+  lib,
+  bundlerApp,
+  bundlerUpdateScript,
+}:
 
 bundlerApp {
   pname = "cucumber";
@@ -9,9 +13,12 @@ bundlerApp {
 
   meta = with lib; {
     description = "A tool for executable specifications";
-    homepage    = "https://cucumber.io/";
-    license     = with licenses; mit;
-    maintainers = with maintainers; [ manveru nicknovitski ];
-    platforms   = platforms.unix;
+    homepage = "https://cucumber.io/";
+    license = with licenses; mit;
+    maintainers = with maintainers; [
+      manveru
+      nicknovitski
+    ];
+    platforms = platforms.unix;
   };
 }

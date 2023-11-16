@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, glib
-, meson
-, ninja
-, pantheon
-, pkg-config
-, vala
-, gettext
-, wrapGAppsHook
-, unstableGitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  meson,
+  ninja,
+  pantheon,
+  pkg-config,
+  vala,
+  gettext,
+  wrapGAppsHook,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,16 +33,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-  ];
+  buildInputs = [ glib ];
 
   doCheck = true;
 
   passthru = {
-    updateScript = unstableGitUpdater {
-      url = "https://github.com/vala-lang/vala-lint.git";
-    };
+    updateScript = unstableGitUpdater { url = "https://github.com/vala-lang/vala-lint.git"; };
   };
 
   meta = with lib; {

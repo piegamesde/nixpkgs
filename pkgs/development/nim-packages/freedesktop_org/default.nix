@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromSourcehut, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromSourcehut,
+  fetchFromGitHub,
+}:
 
 let
   # freedesktop_org requires a fork of configparser
@@ -13,7 +18,8 @@ let
     };
     doCheck = true;
   };
-in buildNimPackage rec {
+in
+buildNimPackage rec {
   pname = "freedesktop_org";
   version = "20230201";
   src = fetchFromSourcehut {

@@ -1,20 +1,21 @@
-{ stdenv
-, lib
-, fetchzip
-, alsa-lib
-, autoPatchelfHook
-, copyDesktopItems
-, dbus-glib
-, ffmpeg
-, gtk2-x11
-, withGTK3 ? true
-, gtk3
-, libXt
-, libpulseaudio
-, makeDesktopItem
-, wrapGAppsHook
-, testers
-, palemoon-bin
+{
+  stdenv,
+  lib,
+  fetchzip,
+  alsa-lib,
+  autoPatchelfHook,
+  copyDesktopItems,
+  dbus-glib,
+  ffmpeg,
+  gtk2-x11,
+  withGTK3 ? true,
+  gtk3,
+  libXt,
+  libpulseaudio,
+  makeDesktopItem,
+  wrapGAppsHook,
+  testers,
+  palemoon-bin,
 }:
 
 stdenv.mkDerivation rec {
@@ -23,13 +24,18 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     urls = [
-      "https://rm-eu.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${if withGTK3 then "3" else "2"}.tar.xz"
-      "https://rm-us.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${if withGTK3 then "3" else "2"}.tar.xz"
+      "https://rm-eu.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${
+        if withGTK3 then "3" else "2"
+      }.tar.xz"
+      "https://rm-us.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${
+        if withGTK3 then "3" else "2"
+      }.tar.xz"
     ];
-    hash = if withGTK3 then
-      "sha256-Bw8L5+3f46lOGJ5xR3bBF7sQWwEFxoK/NH3ngs1i4lU="
-    else
-      "sha256-eP7GIsWPFLYmBPUcMPn6vAlsFEAP3Oyy9mhj0oGeMT4=";
+    hash =
+      if withGTK3 then
+        "sha256-Bw8L5+3f46lOGJ5xR3bBF7sQWwEFxoK/NH3ngs1i4lU="
+      else
+        "sha256-eP7GIsWPFLYmBPUcMPn6vAlsFEAP3Oyy9mhj0oGeMT4=";
   };
 
   preferLocalBuild = true;
@@ -48,70 +54,70 @@ stdenv.mkDerivation rec {
     gtk2-x11
     libXt
     stdenv.cc.cc.lib
-  ] ++ lib.optionals withGTK3 [
-    gtk3
-  ];
+  ] ++ lib.optionals withGTK3 [ gtk3 ];
 
-  desktopItems = [(makeDesktopItem rec {
-    name = pname;
-    desktopName = "Pale Moon Web Browser";
-    comment = "Browse the World Wide Web";
-    keywords = [
-      "Internet"
-      "WWW"
-      "Browser"
-      "Web"
-      "Explorer"
-    ];
-    exec = "palemoon %u";
-    terminal = false;
-    type = "Application";
-    icon = "palemoon";
-    categories = [
-      "Network"
-      "WebBrowser"
-    ];
-    mimeTypes = [
-      "text/html"
-      "text/xml"
-      "application/xhtml+xml"
-      "application/xml"
-      "application/rss+xml"
-      "application/rdf+xml"
-      "image/gif"
-      "image/jpeg"
-      "image/png"
-      "x-scheme-handler/http"
-      "x-scheme-handler/https"
-      "x-scheme-handler/ftp"
-      "x-scheme-handler/chrome"
-      "video/webm"
-      "application/x-xpinstall"
-    ];
-    startupNotify = true;
-    startupWMClass = "Pale moon";
-    extraConfig = {
-      X-MultipleArgs = "false";
-    };
-    actions = {
-      "NewTab" = {
-        name = "Open new tab";
-        exec = "palemoon -new-tab https://start.palemoon.org";
+  desktopItems = [
+    (makeDesktopItem rec {
+      name = pname;
+      desktopName = "Pale Moon Web Browser";
+      comment = "Browse the World Wide Web";
+      keywords = [
+        "Internet"
+        "WWW"
+        "Browser"
+        "Web"
+        "Explorer"
+      ];
+      exec = "palemoon %u";
+      terminal = false;
+      type = "Application";
+      icon = "palemoon";
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
+      mimeTypes = [
+        "text/html"
+        "text/xml"
+        "application/xhtml+xml"
+        "application/xml"
+        "application/rss+xml"
+        "application/rdf+xml"
+        "image/gif"
+        "image/jpeg"
+        "image/png"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+        "x-scheme-handler/ftp"
+        "x-scheme-handler/chrome"
+        "video/webm"
+        "application/x-xpinstall"
+      ];
+      startupNotify = true;
+      startupWMClass = "Pale moon";
+      extraConfig = {
+        X-MultipleArgs = "false";
       };
-      "NewWindow" = {
-        name = "Open new window";
-        exec = "palemoon -new-window";
+      actions = {
+        "NewTab" = {
+          name = "Open new tab";
+          exec = "palemoon -new-tab https://start.palemoon.org";
+        };
+        "NewWindow" = {
+          name = "Open new window";
+          exec = "palemoon -new-window";
+        };
+        "NewPrivateWindow" = {
+          name = "Open new private window";
+          exec = "palemoon -private-window";
+        };
+        "ProfileManager" = {
+          name = "Open the Profile Manager";
+          exec = "palemoon --ProfileManager";
+        };
       };
-      "NewPrivateWindow" = {
-        name = "Open new private window";
-        exec = "palemoon -private-window";
-      };
-      "ProfileManager" = {
-        name = "Open the Profile Manager";
-        exec = "palemoon --ProfileManager";
-      };
-    };
-  })];
+    })
+  ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -136,7 +142,9 @@ stdenv.mkDerivation rec {
     # > Please do not take this as permission to change, remove, or alter any other preferences as that is forbidden
     # > without express permission according to the Pale Moon Redistribution License.
     # > We are allowing this one and **ONLY** one exception in order to properly facilitate [package manager] repacks.
-    install -Dm644 ${./zz-disableUpdater.js} $out/lib/palemoon/browser/defaults/preferences/zz-disableUpdates.js
+    install -Dm644 ${
+      ./zz-disableUpdater.js
+    } $out/lib/palemoon/browser/defaults/preferences/zz-disableUpdates.js
 
     runHook postInstall
   '';
@@ -146,17 +154,17 @@ stdenv.mkDerivation rec {
   preFixup = ''
     # Make optional dependencies available
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [
-        ffmpeg
-        libpulseaudio
-      ]}"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          ffmpeg
+          libpulseaudio
+        ]
+      }"
     )
     wrapGApp $out/lib/palemoon/palemoon
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = palemoon-bin;
-  };
+  passthru.tests.version = testers.testVersion { package = palemoon-bin; };
 
   meta = with lib; {
     homepage = "https://www.palemoon.org/";
@@ -180,10 +188,13 @@ stdenv.mkDerivation rec {
         # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
       }
     ];
-    maintainers = with maintainers; [ AndersonTorres OPNA2608 ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      OPNA2608
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     mainProgram = "palemoon";
     platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, nickel
+{
+  lib,
+  rustPlatform,
+  nickel,
 }:
 
 rustPlatform.buildRustPackage {
@@ -13,7 +14,12 @@ rustPlatform.buildRustPackage {
   cargoBuildFlags = [ "-p nickel-lang-lsp" ];
 
   meta = {
-    inherit (nickel.meta) homepage changelog license maintainers;
+    inherit (nickel.meta)
+      homepage
+      changelog
+      license
+      maintainers
+    ;
     description = "A language server for the Nickel programming language";
     longDescription = ''
       The Nickel Language Server (NLS) is a language server for the Nickel

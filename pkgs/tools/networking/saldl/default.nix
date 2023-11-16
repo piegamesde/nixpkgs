@@ -1,15 +1,17 @@
-{ lib, stdenv
-, fetchFromGitHub
-, pkg-config
-, wafHook
-, python3
-, asciidoc
-, docbook_xml_dtd_45
-, docbook_xsl
-, libxml2
-, libxslt
-, curl
-, libevent
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  wafHook,
+  python3,
+  asciidoc,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  libxml2,
+  libxslt,
+  curl,
+  libevent,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,11 +36,20 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs = [ curl libevent ];
+  buildInputs = [
+    curl
+    libevent
+  ];
 
-  wafConfigureFlags = [ "--saldl-version ${version}" "--no-werror" ];
+  wafConfigureFlags = [
+    "--saldl-version ${version}"
+    "--no-werror"
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = with lib; {
     description = "CLI downloader optimized for speed and early preview";

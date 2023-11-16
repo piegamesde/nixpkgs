@@ -1,4 +1,12 @@
-{ lib, buildKodiAddon, fetchFromGitHub, addonUpdateScript, requests, inputstream-adaptive, inputstreamhelper }:
+{
+  lib,
+  buildKodiAddon,
+  fetchFromGitHub,
+  addonUpdateScript,
+  requests,
+  inputstream-adaptive,
+  inputstreamhelper,
+}:
 
 buildKodiAddon rec {
   pname = "invidious";

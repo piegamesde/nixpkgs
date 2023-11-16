@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, fetchFromSourcehut
-, pkg-config
-, cmake
-, meson
-, ninja
-, gtk3
-, gtk-layer-shell
-, json_c
-, scdoc
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  pkg-config,
+  cmake,
+  meson,
+  ninja,
+  gtk3,
+  gtk-layer-shell,
+  json_c,
+  scdoc,
 }:
 
 stdenv.mkDerivation rec {
@@ -36,9 +37,7 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  mesonFlags = [
-    "-Dlayershell=enabled"
-  ];
+  mesonFlags = [ "-Dlayershell=enabled" ];
 
   # G_APPLICATION_FLAGS_NONE is deprecated in GLib 2.73.3+.
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";

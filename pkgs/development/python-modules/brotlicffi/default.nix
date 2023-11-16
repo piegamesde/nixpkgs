@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, cffi
-, brotli
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  cffi,
+  brotli,
 }:
 
 buildPythonPackage rec {
@@ -18,17 +19,11 @@ buildPythonPackage rec {
     sha256 = "0qx7an7772brmx1rbbrqzqnkqqvicc70mx740nl31kzzyv4jjs00";
   };
 
-  buildInputs = [
-    brotli
-  ];
+  buildInputs = [ brotli ];
 
-  propagatedNativeBuildInputs = [
-    cffi
-  ];
+  propagatedNativeBuildInputs = [ cffi ];
 
-  propagatedBuildInputs = [
-    cffi
-  ];
+  propagatedBuildInputs = [ cffi ];
 
   preBuild = ''
     export USE_SHARED_BROTLI=1

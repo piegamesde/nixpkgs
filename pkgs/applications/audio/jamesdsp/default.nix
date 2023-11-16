@@ -1,29 +1,37 @@
-{ stdenv
-, lib
-, mkDerivation
-, fetchFromGitHub
-, pipewire
-, pulseaudio
-, gst_all_1
-, glibmm
-, qmake
-, qtbase
-, qtsvg
-, wrapQtAppsHook
-, makeDesktopItem
-, pkg-config
-, libarchive
-, copyDesktopItems
-, usePipewire ? true
-, usePulseaudio ? false
+{
+  stdenv,
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pipewire,
+  pulseaudio,
+  gst_all_1,
+  glibmm,
+  qmake,
+  qtbase,
+  qtsvg,
+  wrapQtAppsHook,
+  makeDesktopItem,
+  pkg-config,
+  libarchive,
+  copyDesktopItems,
+  usePipewire ? true,
+  usePulseaudio ? false,
 }:
 
-assert lib.asserts.assertMsg (usePipewire != usePulseaudio) "You need to enable one and only one of pulseaudio or pipewire support";
+assert lib.asserts.assertMsg (usePipewire != usePulseaudio)
+    "You need to enable one and only one of pulseaudio or pipewire support";
 
 let
-  pluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ]);
+  pluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
+    with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+    ]
+  );
 in
-  mkDerivation rec {
+mkDerivation rec {
   pname = "jamesdsp";
   version = "2.4";
   src = fetchFromGitHub rec {
@@ -41,20 +49,24 @@ in
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    glibmm
-    libarchive
-    qtbase
-    qtsvg
-  ] ++ lib.optional usePipewire pipewire
-  ++ lib.optionals usePulseaudio [
-    pulseaudio
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gstreamer
-  ];
+  buildInputs =
+    [
+      glibmm
+      libarchive
+      qtbase
+      qtsvg
+    ]
+    ++ lib.optional usePipewire pipewire
+    ++ lib.optionals usePulseaudio [
+      pulseaudio
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gstreamer
+    ];
 
-  qtWrapperArgs = lib.optionals usePulseaudio [ "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pluginPath}" ];
+  qtWrapperArgs = lib.optionals usePulseaudio [
+    "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pluginPath}"
+  ];
 
   qmakeFlags = lib.optionals usePulseaudio [ "CONFIG+=USE_PULSEAUDIO" ];
 
@@ -66,9 +78,16 @@ in
       exec = "jamesdsp";
       icon = "jamesdsp";
       comment = "JamesDSP for Linux";
-      categories = [ "AudioVideo" "Audio" ];
+      categories = [
+        "AudioVideo"
+        "Audio"
+      ];
       startupNotify = false;
-      keywords = [ "equalizer" "audio" "effect" ];
+      keywords = [
+        "equalizer"
+        "audio"
+        "effect"
+      ];
     })
   ];
 
@@ -77,12 +96,15 @@ in
     install -D resources/icons/icon.svg $out/share/icons/hicolor/scalable/apps/jamesdsp.svg
   '';
 
-  meta = with lib;{
+  meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "An audio effect processor for PipeWire clients";
     homepage = "https://github.com/Audio4Linux/JDSP4Linux";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ pasqui23 rewine ];
+    maintainers = with maintainers; [
+      pasqui23
+      rewine
+    ];
     platforms = platforms.linux;
   };
 }

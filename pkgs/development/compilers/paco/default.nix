@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 buildGoModule rec {
   pname = "paco";
@@ -13,17 +18,21 @@ buildGoModule rec {
 
   vendorHash = "sha256-J0TKp1df5IWq3Irlzf1lvhWlXnP//MsVqs9M8TtEraw=";
 
-  patches = [
-    # Set correct package path in go.mod
-    (fetchpatch {
-      url = "https://github.com/pacolang/paco/pull/1/commits/886f0407e94418d34c7e062c6857834aea3c99ac.patch";
-      hash = "sha256-HRNJSyWz1OY+kCV+eaRJbaDXkH4n1NaMpFxCuEhocK4=";
-    })
-  ];
+  patches =
+    [
+      # Set correct package path in go.mod
+      (fetchpatch {
+        url = "https://github.com/pacolang/paco/pull/1/commits/886f0407e94418d34c7e062c6857834aea3c99ac.patch";
+        hash = "sha256-HRNJSyWz1OY+kCV+eaRJbaDXkH4n1NaMpFxCuEhocK4=";
+      })
+    ];
 
   subPackages = [ "." ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "A simple compiled programming language";

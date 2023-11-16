@@ -1,18 +1,19 @@
-{ lib
-, aiohttp
-, aiosqlite
-, buildPythonPackage
-, crccheck
-, cryptography
-, freezegun
-, fetchFromGitHub
-, pycryptodome
-, pyserial-asyncio
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, voluptuous
+{
+  lib,
+  aiohttp,
+  aiosqlite,
+  buildPythonPackage,
+  crccheck,
+  cryptography,
+  freezegun,
+  fetchFromGitHub,
+  pycryptodome,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
 }:
 
 buildPythonPackage rec {
@@ -46,12 +47,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # # Our two manual scans succeeded and the periodic one was attempted
-    # assert len(mock_scan.mock_calls) == 3
-    # AssertionError: assert 4 == 3
-    "test_periodic_scan_priority"
-  ];
+  disabledTests =
+    [
+      # # Our two manual scans succeeded and the periodic one was attempted
+      # assert len(mock_scan.mock_calls) == 3
+      # AssertionError: assert 4 == 3
+      "test_periodic_scan_priority"
+    ];
 
   pythonImportsCheck = [
     "zigpy.application"

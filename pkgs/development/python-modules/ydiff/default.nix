@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, docutils, pygments
-, gitMinimal, mercurial, subversion, patchutils, less
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  pygments,
+  gitMinimal,
+  mercurial,
+  subversion,
+  patchutils,
+  less,
 }:
 
 buildPythonPackage rec {
@@ -25,7 +34,10 @@ buildPythonPackage rec {
     patchShebangs tests/*.sh
   '';
 
-  nativeCheckInputs = [ docutils pygments ];
+  nativeCheckInputs = [
+    docutils
+    pygments
+  ];
 
   checkPhase = ''
     runHook preCheck
@@ -34,7 +46,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "View colored, incremental diff in workspace or from stdin with side by side and auto pager support (Was \"cdiff\")";
+    description = ''
+      View colored, incremental diff in workspace or from stdin with side by side and auto pager support (Was "cdiff")'';
     longDescription = ''
       Term based tool to view colored, incremental diff in a version
       controlled workspace (supports Git, Mercurial, Perforce and Svn

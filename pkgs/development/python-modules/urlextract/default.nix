@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, dnspython
-, fetchPypi
-, filelock
-, idna
-, platformdirs
-, pytestCheckHook
-, pythonOlder
-, uritools
+{
+  lib,
+  buildPythonPackage,
+  dnspython,
+  fetchPypi,
+  filelock,
+  idna,
+  platformdirs,
+  pytestCheckHook,
+  pythonOlder,
+  uritools,
 }:
 
 buildPythonPackage rec {
@@ -43,9 +44,7 @@ buildPythonPackage rec {
     "test_dns_cache_reuse"
   ];
 
-  pythonImportsCheck = [
-    "urlextract"
-  ];
+  pythonImportsCheck = [ "urlextract" ];
 
   meta = with lib; {
     description = "Collects and extracts URLs from given text";

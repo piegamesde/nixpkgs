@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "lla";
   version = "20180328-git";
@@ -8,7 +8,18 @@ rec {
 
   description = "Lisp Linear Algebra";
 
-  deps = [ args."alexandria" args."anaphora" args."array-operations" args."babel" args."cffi" args."cl-num-utils" args."cl-slice" args."clunit" args."let-plus" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."array-operations"
+    args."babel"
+    args."cffi"
+    args."cl-num-utils"
+    args."cl-slice"
+    args."clunit"
+    args."let-plus"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lla/2018-03-28/lla-20180328-git.tgz";
@@ -17,7 +28,7 @@ rec {
 
   packageName = "lla";
 
-  asdFilesToKeep = ["lla.asd"];
+  asdFilesToKeep = [ "lla.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lla DESCRIPTION Lisp Linear Algebra SHA256
@@ -34,4 +45,5 @@ rec {
     DEPENDENCIES
     (alexandria anaphora array-operations babel cffi cl-num-utils cl-slice
      clunit let-plus trivial-features)
-    VERSION 20180328-git SIBLINGS NIL PARASITES (lla-tests)) */
+    VERSION 20180328-git SIBLINGS NIL PARASITES (lla-tests))
+*/

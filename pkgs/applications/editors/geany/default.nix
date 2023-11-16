@@ -1,20 +1,27 @@
-{ lib, stdenv
-, fetchurl
-, gtk3
-, which
-, pkg-config
-, intltool
-, file
-, libintl
-, hicolor-icon-theme
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk3,
+  which,
+  pkg-config,
+  intltool,
+  file,
+  libintl,
+  hicolor-icon-theme,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
   pname = "geany";
   version = "1.38";
 
-  outputs = [ "out" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://download.geany.org/${pname}-${version}.tar.bz2";
@@ -31,9 +38,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gtk3
-  ];
+  buildInputs = [ gtk3 ];
 
   doCheck = true;
 

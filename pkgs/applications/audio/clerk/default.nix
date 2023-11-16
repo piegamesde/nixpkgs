@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, rofi
-, mpc-cli
-, perl
-, util-linux
-, python3Packages
-, libnotify
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  rofi,
+  mpc-cli,
+  perl,
+  util-linux,
+  python3Packages,
+  libnotify,
 }:
 
 stdenv.mkDerivation {
@@ -38,14 +39,14 @@ stdenv.mkDerivation {
         util-linux
       ];
     in
-      ''
-        runHook preInstall
+    ''
+      runHook preInstall
 
-        DESTDIR=$out PREFIX=/ make install
-        wrapProgram $out/bin/clerk --prefix PATH : "${binPath}"
+      DESTDIR=$out PREFIX=/ make install
+      wrapProgram $out/bin/clerk --prefix PATH : "${binPath}"
 
-        runHook postInstall
-      '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     description = "An MPD client built on top of rofi";

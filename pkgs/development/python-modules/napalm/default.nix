@@ -1,7 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, setuptools, cffi
-, paramiko, requests, future, textfsm, jinja2, netaddr, pyyaml, pyeapi, netmiko
-, junos-eznc, ciscoconfparse, scp, lxml, ncclient, pytestCheckHook, ddt, mock
-, pythonOlder, invoke }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  cffi,
+  paramiko,
+  requests,
+  future,
+  textfsm,
+  jinja2,
+  netaddr,
+  pyyaml,
+  pyeapi,
+  netmiko,
+  junos-eznc,
+  ciscoconfparse,
+  scp,
+  lxml,
+  ncclient,
+  pytestCheckHook,
+  ddt,
+  mock,
+  pythonOlder,
+  invoke,
+}:
 
 buildPythonPackage rec {
   pname = "napalm";
@@ -19,12 +42,12 @@ buildPythonPackage rec {
 
   patches = [
     # netmiko 4.0.0 support
-    (fetchpatch{
+    (fetchpatch {
       url = "https://github.com/napalm-automation/napalm/commit/4b8cc85db3236099a04f742cf71773e74d9dd70e.patch";
       excludes = [ "requirements.txt" ];
       hash = "sha256-DBKp+wiKd+/j2xAqaQL3UCcGQd6wnWcNTsNXBBt9c98=";
     })
-    (fetchpatch{
+    (fetchpatch {
       url = "https://github.com/napalm-automation/napalm/commit/4a8b5b1823335dd79aa5269c038a1f08ecd35cdd.patch";
       hash = "sha256-uiou/rzmnFf4wAvXwmUsGJx99GeHWKJB2JrMM1kLakM=";
     })
@@ -55,11 +78,14 @@ buildPythonPackage rec {
     ncclient
   ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ddt ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    ddt
+  ];
 
   meta = with lib; {
-    description =
-      "Network Automation and Programmability Abstraction Layer with Multivendor support";
+    description = "Network Automation and Programmability Abstraction Layer with Multivendor support";
     homepage = "https://github.com/napalm-automation/napalm";
     license = licenses.asl20;
     maintainers = with maintainers; [ ] ++ teams.c3d2.members;

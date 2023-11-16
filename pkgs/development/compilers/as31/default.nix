@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, bison
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,10 +15,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-zSEyWHFon5nyq717Mpmdv1XZ5Hz0e8ZABqsP8M83c1U=";
   };
 
-  patches = [
-    # Check return value of getline in run.c
-    ./0000-getline-break.patch
-  ];
+  patches =
+    [
+      # Check return value of getline in run.c
+      ./0000-getline-break.patch
+    ];
 
   postPatch = ''
     # parser.c is generated from parser.y; it is better to generate it via bison
@@ -29,9 +31,7 @@ stdenv.mkDerivation rec {
     chmod +x configure
   '';
 
-  nativeBuildInputs = [
-    bison
-  ];
+  nativeBuildInputs = [ bison ];
 
   meta = with lib; {
     homepage = "http://wiki.erazor-zone.de/wiki:projects:linux:as31";

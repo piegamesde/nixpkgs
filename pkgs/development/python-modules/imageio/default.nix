@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, substituteAll
-, imageio-ffmpeg
-, numpy
-, pillow
-, psutil
-, pytestCheckHook
-, tifffile
-, fsspec
-, libGL
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  substituteAll,
+  imageio-ffmpeg,
+  numpy,
+  pillow,
+  psutil,
+  pytestCheckHook,
+  tifffile,
+  fsspec,
+  libGL,
 }:
 
 buildPythonPackage rec {
@@ -46,9 +47,7 @@ buildPythonPackage rec {
     tifffile
   ];
 
-  pytestFlagsArray = [
-    "-m 'not needs_internet'"
-  ];
+  pytestFlagsArray = [ "-m 'not needs_internet'" ];
 
   preCheck = ''
     export IMAGEIO_USERDIR="$TMP"

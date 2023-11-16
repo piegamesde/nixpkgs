@@ -1,31 +1,35 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, substituteAll
-, openssl
-, gsound
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
-, wrapGAppsHook
-, glib
-, glib-networking
-, gtk3
-, openssh
-, gnome
-, evolution-data-server-gtk4
-, gjs
-, nixosTests
-, desktop-file-utils
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  openssl,
+  gsound,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  wrapGAppsHook,
+  glib,
+  glib-networking,
+  gtk3,
+  openssh,
+  gnome,
+  evolution-data-server-gtk4,
+  gjs,
+  nixosTests,
+  desktop-file-utils,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-gsconnect";
   version = "55";
 
-  outputs = [ "out" "installedTests" ];
+  outputs = [
+    "out"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "GSConnect";
@@ -86,7 +90,9 @@ stdenv.mkDerivation rec {
 
     # slightly janky fix for gsettings_schemadir being removed
     substituteInPlace data/config.js.in \
-      --subst-var-by GSETTINGS_SCHEMA_DIR ${glib.makeSchemaPath (placeholder "out") "${pname}-${version}"}
+      --subst-var-by GSETTINGS_SCHEMA_DIR ${
+        glib.makeSchemaPath (placeholder "out") "${pname}-${version}"
+      }
   '';
 
   postFixup = ''

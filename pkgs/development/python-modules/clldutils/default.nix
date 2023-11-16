@@ -1,21 +1,22 @@
-{ lib
-, attrs
-, buildPythonPackage
-, colorlog
-, csvw
-, fetchFromGitHub
-, git
-, isPy27
-, lxml
-, markdown
-, markupsafe
-, mock
-, postgresql
-, pylatexenc
-, pytest-mock
-, pytestCheckHook
-, python-dateutil
-, tabulate
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  colorlog,
+  csvw,
+  fetchFromGitHub,
+  git,
+  isPy27,
+  lxml,
+  markdown,
+  markupsafe,
+  mock,
+  postgresql,
+  pylatexenc,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  tabulate,
 }:
 
 buildPythonPackage rec {

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, autoPatchelfHook
-, pythonRelaxDepsHook
-, onnxruntime
-, coloredlogs
-, numpy
-, packaging
-, oneDNN
+{
+  lib,
+  buildPythonPackage,
+  autoPatchelfHook,
+  pythonRelaxDepsHook,
+  onnxruntime,
+  coloredlogs,
+  numpy,
+  packaging,
+  oneDNN,
 
 }:
 
@@ -60,5 +61,7 @@ buildPythonPackage {
     # sympy
   ];
 
-  meta = onnxruntime.meta // { maintainers = with lib.maintainers; [ fridh ]; };
+  meta = onnxruntime.meta // {
+    maintainers = with lib.maintainers; [ fridh ];
+  };
 }

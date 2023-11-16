@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, uritemplate
-, pyjwt
-, pytestCheckHook
-, aiohttp
-, httpx
-, importlib-resources
-, pytest-asyncio
-, pytest-tornasync
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  uritemplate,
+  pyjwt,
+  pytestCheckHook,
+  aiohttp,
+  httpx,
+  importlib-resources,
+  pytest-asyncio,
+  pytest-tornasync,
 }:
 
 buildPythonPackage rec {
@@ -27,8 +28,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     uritemplate
     pyjwt
-  ]
-  ++ pyjwt.optional-dependencies.crypto;
+  ] ++ pyjwt.optional-dependencies.crypto;
 
   nativeCheckInputs = [
     pytestCheckHook

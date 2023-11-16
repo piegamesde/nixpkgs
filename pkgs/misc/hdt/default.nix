@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config, zlib, serd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libtool,
+  pkg-config,
+  zlib,
+  serd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hdt";
@@ -11,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "1vsq80jnix6cy78ayag7v8ajyw7h8dqyad1q6xkf2hzz3skvr34z";
   };
 
-  buildInputs = [ zlib serd ];
+  buildInputs = [
+    zlib
+    serd
+  ];
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+  ];
 
   enableParallelBuilding = true;
 

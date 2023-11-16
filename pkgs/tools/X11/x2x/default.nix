@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, imake, libX11, libXtst, libXext, gccmakedep }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imake,
+  libX11,
+  libXtst,
+  libXext,
+  gccmakedep,
+}:
 
 stdenv.mkDerivation rec {
   pname = "x2x";
@@ -9,8 +18,15 @@ stdenv.mkDerivation rec {
     sha256 = "0dha0kn1lbc4as0wixsvk6bn4innv49z9a0sm5wlx4q1v0vzqzyj";
   };
 
-  nativeBuildInputs = [ imake gccmakedep ];
-  buildInputs = [ libX11 libXtst libXext ];
+  nativeBuildInputs = [
+    imake
+    gccmakedep
+  ];
+  buildInputs = [
+    libX11
+    libXtst
+    libXext
+  ];
 
   hardeningDisable = [ "format" ];
 

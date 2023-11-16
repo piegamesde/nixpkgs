@@ -1,5 +1,13 @@
-{ callPackage, lib, stdenv, appimageTools, autoPatchelfHook, desktop-file-utils
-, fetchurl, libsecret  }:
+{
+  callPackage,
+  lib,
+  stdenv,
+  appimageTools,
+  autoPatchelfHook,
+  desktop-file-utils,
+  fetchurl,
+  libsecret,
+}:
 
 let
   srcjson = builtins.fromJSON (builtins.readFile ./src.json);
@@ -10,18 +18,17 @@ let
 
   src = fetchurl (srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem);
 
-  appimageContents = appimageTools.extract {
-    inherit name src;
-  };
+  appimageContents = appimageTools.extract { inherit name src; };
 
-  nativeBuildInputs = [ autoPatchelfHook desktop-file-utils ];
-
-in appimageTools.wrapType2 rec {
+  nativeBuildInputs = [
+    autoPatchelfHook
+    desktop-file-utils
+  ];
+in
+appimageTools.wrapType2 rec {
   inherit name src;
 
-  extraPkgs = pkgs: with pkgs; [
-    libsecret
-  ];
+  extraPkgs = pkgs: with pkgs; [ libsecret ];
 
   extraInstallCommands = ''
     # directory in /nix/store so readonly
@@ -35,7 +42,7 @@ in appimageTools.wrapType2 rec {
     ln -s ${appimageContents}/usr/share/icons share
   '';
 
-  passthru.updateScript = callPackage ./update.nix {};
+  passthru.updateScript = callPackage ./update.nix { };
 
   meta = with lib; {
     description = "A simple and private notes app";
@@ -45,7 +52,11 @@ in appimageTools.wrapType2 rec {
     '';
     homepage = "https://standardnotes.org";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ mgregoire chuangzhu squalus ];
+    maintainers = with maintainers; [
+      mgregoire
+      chuangzhu
+      squalus
+    ];
     sourceProvenance = [ sourceTypes.binaryNativeCode ];
     platforms = builtins.attrNames srcjson.appimage;
   };

@@ -1,39 +1,46 @@
-{ stdenv
-, lib
-, docbook-xsl-nons
-, fetchurl
-, glib
-, gobject-introspection
-, gtk-doc
-, libgudev
-, libpcap
-, meson
-, mesonEmulatorHook
-, ninja
-, pkg-config
-, python3
-, systemd
-, usbutils
-, vala
-, which
+{
+  stdenv,
+  lib,
+  docbook-xsl-nons,
+  fetchurl,
+  glib,
+  gobject-introspection,
+  gtk-doc,
+  libgudev,
+  libpcap,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  python3,
+  systemd,
+  usbutils,
+  vala,
+  which,
 }:
 
 stdenv.mkDerivation rec {
   pname = "umockdev";
   version = "0.17.17";
 
-  outputs = [ "bin" "out" "dev" "devdoc" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "https://github.com/martinpitt/umockdev/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-IOYhseRYsyADz+qZc5tngkuGZShUqLzjPiYSTjR/32w=";
   };
 
-  patches = [
-    # Hardcode absolute paths to libraries so that consumers
-    # do not need to set LD_LIBRARY_PATH themselves.
-    ./hardcode-paths.patch
-  ];
+  patches =
+    [
+      # Hardcode absolute paths to libraries so that consumers
+      # do not need to set LD_LIBRARY_PATH themselves.
+      ./hardcode-paths.patch
+    ];
 
   nativeBuildInputs = [
     docbook-xsl-nons
@@ -43,9 +50,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     glib
@@ -60,9 +65,7 @@ stdenv.mkDerivation rec {
     usbutils
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" ];
 
   doCheck = true;
 

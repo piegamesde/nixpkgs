@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, ujson
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  ujson,
 }:
 
 buildPythonPackage rec {
@@ -16,13 +17,9 @@ buildPythonPackage rec {
     sha256 = "0h4bs8s4axcm0p02v59amz9sq3nr4zhzdgwq7iaw6awl27v1hd0i";
   };
 
-  propagatedBuildInputs = [
-    ujson
-  ];
+  propagatedBuildInputs = [ ujson ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchPypi
-, python
-, pythonOlder
-, buildPythonPackage
-, cython
-, gfortran
-, meson-python
-, pkg-config
-, pythran
-, wheel
-, nose
-, pytest
-, pytest-xdist
-, numpy
-, pybind11
-, pooch
-, libxcrypt
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  python,
+  pythonOlder,
+  buildPythonPackage,
+  cython,
+  gfortran,
+  meson-python,
+  pkg-config,
+  pythran,
+  wheel,
+  nose,
+  pytest,
+  pytest-xdist,
+  numpy,
+  pybind11,
+  pooch,
+  libxcrypt,
 }:
 
 buildPythonPackage rec {
@@ -29,26 +30,36 @@ buildPythonPackage rec {
     hash = "sha256-LPnfuAp7RYm6TEDOdYiYbW1c68VFfK0sKID2vC1C86U=";
   };
 
-  patches = [
-    # These tests require internet connection, currently impossible to disable
-    # them otherwise, see:
-    # https://github.com/scipy/scipy/pull/17965
-    ./disable-datasets-tests.patch
-  ];
+  patches =
+    [
+      # These tests require internet connection, currently impossible to disable
+      # them otherwise, see:
+      # https://github.com/scipy/scipy/pull/17965
+      ./disable-datasets-tests.patch
+    ];
 
-  nativeBuildInputs = [ cython gfortran meson-python pythran pkg-config wheel ];
+  nativeBuildInputs = [
+    cython
+    gfortran
+    meson-python
+    pythran
+    pkg-config
+    wheel
+  ];
 
   buildInputs = [
     numpy.blas
     pybind11
     pooch
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    libxcrypt
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ nose pytest pytest-xdist ];
+  nativeCheckInputs = [
+    nose
+    pytest
+    pytest-xdist
+  ];
 
   doCheck = !(stdenv.isx86_64 && stdenv.isDarwin);
 

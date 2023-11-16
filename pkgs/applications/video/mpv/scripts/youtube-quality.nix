@@ -1,7 +1,8 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, oscSupport ? false
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  oscSupport ? false,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -17,15 +18,18 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/share/mpv/scripts
-    cp youtube-quality.lua $out/share/mpv/scripts
-  '' + lib.optionalString oscSupport ''
-    cp youtube-quality-osc.lua $out/share/mpv/scripts
-  '' + ''
-    runHook postInstall
-  '';
+  installPhase =
+    ''
+      runHook preInstall
+      mkdir -p $out/share/mpv/scripts
+      cp youtube-quality.lua $out/share/mpv/scripts
+    ''
+    + lib.optionalString oscSupport ''
+      cp youtube-quality-osc.lua $out/share/mpv/scripts
+    ''
+    + ''
+      runHook postInstall
+    '';
 
   passthru.scriptName = "youtube-quality.lua";
 

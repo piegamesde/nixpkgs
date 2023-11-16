@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, git
-, darwin
-, makeWrapper
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  git,
+  darwin,
+  makeWrapper,
 }:
 
 let
@@ -34,7 +35,11 @@ rustPlatform.buildRustPackage {
   '';
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
-  nativeBuildInputs = [ pkg-config git makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    git
+    makeWrapper
+  ];
 
   preInstall = ''
     mkdir -p $out/share/
@@ -48,7 +53,10 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "Rust on mobile made easy! ";
     homepage = "https://tauri.app/";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ happysalada ];
   };
 }

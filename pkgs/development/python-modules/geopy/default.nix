@@ -1,12 +1,13 @@
-{ lib
-, async_generator
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, geographiclib
-, pytestCheckHook
-, pythonOlder
-, pytz
+{
+  lib,
+  async_generator,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  geographiclib,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-bHfjUfuiEH3AxRDTLmbm67bKOw6fBuMQDUQA2NLg800=";
   };
 
-  propagatedBuildInputs = [
-    geographiclib
-  ];
+  propagatedBuildInputs = [ geographiclib ];
 
   nativeCheckInputs = [
     async_generator
@@ -33,10 +32,11 @@ buildPythonPackage rec {
     pytz
   ];
 
-  disabledTests = [
-    # ignore --skip-tests-requiring-internet flag
-    "test_user_agent_default"
-  ];
+  disabledTests =
+    [
+      # ignore --skip-tests-requiring-internet flag
+      "test_user_agent_default"
+    ];
 
   pytestFlagsArray = [ "--skip-tests-requiring-internet" ];
 

@@ -1,33 +1,35 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, autoflake
-, cython
-, devtools
-, email-validator
-, fetchFromGitHub
-, pytest-mock
-, pytestCheckHook
-, python-dotenv
-, pythonAtLeast
-, pythonOlder
-, pyupgrade
-, typing-extensions
-# dependencies for building documentation.
-# docs fail to build in Darwin sandbox: https://github.com/samuelcolvin/pydantic/issues/4245
-, withDocs ? (stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isDarwin && pythonAtLeast "3.10")
-, ansi2html
-, markdown-include
-, mike
-, mkdocs
-, mkdocs-exclude
-, mkdocs-material
-, mdx-truly-sane-lists
-, sqlalchemy
-, ujson
-, orjson
-, hypothesis
-, libxcrypt
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  autoflake,
+  cython,
+  devtools,
+  email-validator,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  python-dotenv,
+  pythonAtLeast,
+  pythonOlder,
+  pyupgrade,
+  typing-extensions,
+  # dependencies for building documentation.
+  # docs fail to build in Darwin sandbox: https://github.com/samuelcolvin/pydantic/issues/4245
+  withDocs ?
+    (stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isDarwin && pythonAtLeast "3.10"),
+  ansi2html,
+  markdown-include,
+  mike,
+  mkdocs,
+  mkdocs-exclude,
+  mkdocs-material,
+  mdx-truly-sane-lists,
+  sqlalchemy,
+  ujson,
+  orjson,
+  hypothesis,
+  libxcrypt,
 }:
 
 buildPythonPackage rec {
@@ -35,11 +37,7 @@ buildPythonPackage rec {
   version = "1.10.8";
   format = "setuptools";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals withDocs [
-    "doc"
-  ];
+  outputs = [ "out" ] ++ lib.optionals withDocs [ "doc" ];
 
   disabled = pythonOlder "3.7";
 
@@ -54,27 +52,25 @@ buildPythonPackage rec {
     sed -i '/flake8/ d' Makefile
   '';
 
-  buildInputs = lib.optionals (pythonOlder "3.9") [
-    libxcrypt
-  ];
+  buildInputs = lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
-  nativeBuildInputs = [
-    cython
-  ] ++ lib.optionals withDocs [
-    # dependencies for building documentation
-    autoflake
-    ansi2html
-    markdown-include
-    mdx-truly-sane-lists
-    mike
-    mkdocs
-    mkdocs-exclude
-    mkdocs-material
-    sqlalchemy
-    ujson
-    orjson
-    hypothesis
-  ];
+  nativeBuildInputs =
+    [ cython ]
+    ++ lib.optionals withDocs [
+      # dependencies for building documentation
+      autoflake
+      ansi2html
+      markdown-include
+      mdx-truly-sane-lists
+      mike
+      mkdocs
+      mkdocs-exclude
+      mkdocs-material
+      sqlalchemy
+      ujson
+      orjson
+      hypothesis
+    ];
 
   propagatedBuildInputs = [
     devtools
@@ -83,12 +79,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    dotenv = [
-      python-dotenv
-    ];
-    email = [
-      email-validator
-    ];
+    dotenv = [ python-dotenv ];
+    email = [ email-validator ];
   };
 
   nativeCheckInputs = [
@@ -98,7 +90,8 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     # https://github.com/pydantic/pydantic/issues/4817
-    "-W" "ignore::pytest.PytestReturnNotNoneWarning"
+    "-W"
+    "ignore::pytest.PytestReturnNotNoneWarning"
   ];
 
   preCheck = ''

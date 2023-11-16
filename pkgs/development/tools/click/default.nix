@@ -1,19 +1,20 @@
-{ lib
-, fetchFromGitLab
-, buildPythonApplication
-, autoreconfHook
-, debian
-, perl
-, vala
-, pkg-config
-, libgee
-, json-glib
-, properties-cpp
-, gobject-introspection
-, getopt
-, setuptools
-, pygobject3
-, wrapGAppsHook
+{
+  lib,
+  fetchFromGitLab,
+  buildPythonApplication,
+  autoreconfHook,
+  debian,
+  perl,
+  vala,
+  pkg-config,
+  libgee,
+  json-glib,
+  properties-cpp,
+  gobject-introspection,
+  getopt,
+  setuptools,
+  pygobject3,
+  wrapGAppsHook,
 }:
 
 buildPythonApplication {
@@ -59,10 +60,11 @@ buildPythonApplication {
 
   enableParallelBuilding = true;
 
-  patches = [
-    # dbus-test-runner not packaged yet, otherwise build-time dependency even when not running tests
-    ./dbus-test-runner.patch
-  ];
+  patches =
+    [
+      # dbus-test-runner not packaged yet, otherwise build-time dependency even when not running tests
+      ./dbus-test-runner.patch
+    ];
 
   buildInputs = [
     libgee
@@ -80,7 +82,10 @@ buildPythonApplication {
     description = "A tool to build click packages. Mainly used for Ubuntu Touch.";
     homepage = "https://gitlab.com/ubports/development/core/click";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ilyakooo0 OPNA2608 ];
+    maintainers = with lib.maintainers; [
+      ilyakooo0
+      OPNA2608
+    ];
     platforms = lib.platforms.linux;
   };
 }

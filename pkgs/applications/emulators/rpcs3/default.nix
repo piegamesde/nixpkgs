@@ -1,10 +1,37 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, pkg-config, git
-, qtbase, qtquickcontrols, qtmultimedia, openal, glew, vulkan-headers, vulkan-loader, libpng
-, ffmpeg, libevdev, libusb1, zlib, curl, wolfssl, python3, pugixml, faudio, flatbuffers
-, sdl2Support ? true, SDL2
-, pulseaudioSupport ? true, libpulseaudio
-, waylandSupport ? true, wayland
-, alsaSupport ? true, alsa-lib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  cmake,
+  pkg-config,
+  git,
+  qtbase,
+  qtquickcontrols,
+  qtmultimedia,
+  openal,
+  glew,
+  vulkan-headers,
+  vulkan-loader,
+  libpng,
+  ffmpeg,
+  libevdev,
+  libusb1,
+  zlib,
+  curl,
+  wolfssl,
+  python3,
+  pugixml,
+  faudio,
+  flatbuffers,
+  sdl2Support ? true,
+  SDL2,
+  pulseaudioSupport ? true,
+  libpulseaudio,
+  waylandSupport ? true,
+  wayland,
+  alsaSupport ? true,
+  alsa-lib,
 }:
 
 let
@@ -60,12 +87,35 @@ stdenv.mkDerivation {
     "-DITTAPI_SOURCE_DIR=${ittapi}"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [
-    qtbase qtquickcontrols qtmultimedia openal glew vulkan-headers vulkan-loader libpng ffmpeg
-    libevdev zlib libusb1 curl wolfssl python3 pugixml faudio flatbuffers
-  ] ++ lib.optional sdl2Support SDL2
+  buildInputs =
+    [
+      qtbase
+      qtquickcontrols
+      qtmultimedia
+      openal
+      glew
+      vulkan-headers
+      vulkan-loader
+      libpng
+      ffmpeg
+      libevdev
+      zlib
+      libusb1
+      curl
+      wolfssl
+      python3
+      pugixml
+      faudio
+      flatbuffers
+    ]
+    ++ lib.optional sdl2Support SDL2
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional waylandSupport wayland;
@@ -80,8 +130,16 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
-    maintainers = with maintainers; [ abbradar neonfuz ilian zane ];
+    maintainers = with maintainers; [
+      abbradar
+      neonfuz
+      ilian
+      zane
+    ];
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

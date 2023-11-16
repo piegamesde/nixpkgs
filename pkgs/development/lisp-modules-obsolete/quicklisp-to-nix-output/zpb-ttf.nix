@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "zpb-ttf";
   version = "release-1.0.4";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "zpb-ttf";
 
-  asdFilesToKeep = ["zpb-ttf.asd"];
+  asdFilesToKeep = [ "zpb-ttf.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM zpb-ttf DESCRIPTION
@@ -23,4 +23,5 @@ rec {
     186jzhmklby2pkmwv3zxw09qh8023f7w5ng2ql46l6abx146s3ll URL
     http://beta.quicklisp.org/archive/zpb-ttf/2021-01-24/zpb-ttf-release-1.0.4.tgz
     MD5 b66f67b0a1fc347657d4d71ddb304920 NAME zpb-ttf FILENAME zpb-ttf DEPS NIL
-    DEPENDENCIES NIL VERSION release-1.0.4 SIBLINGS NIL PARASITES NIL) */
+    DEPENDENCIES NIL VERSION release-1.0.4 SIBLINGS NIL PARASITES NIL)
+*/

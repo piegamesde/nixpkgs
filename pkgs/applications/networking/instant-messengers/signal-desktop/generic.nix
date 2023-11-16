@@ -1,53 +1,54 @@
-{ pname
-, dir
-, version
-, hash
-, stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, wrapGAppsHook
-, makeWrapper
-, nixosTests
-, gtk3
-, atk
-, at-spi2-atk
-, cairo
-, pango
-, gdk-pixbuf
-, glib
-, freetype
-, fontconfig
-, dbus
-, libX11
-, xorg
-, libXi
-, libXcursor
-, libXdamage
-, libXrandr
-, libXcomposite
-, libXext
-, libXfixes
-, libXrender
-, libXtst
-, libXScrnSaver
-, nss
-, nspr
-, alsa-lib
-, cups
-, expat
-, libuuid
-, at-spi2-core
-, libappindicator-gtk3
-, mesa
+{
+  pname,
+  dir,
+  version,
+  hash,
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  wrapGAppsHook,
+  makeWrapper,
+  nixosTests,
+  gtk3,
+  atk,
+  at-spi2-atk,
+  cairo,
+  pango,
+  gdk-pixbuf,
+  glib,
+  freetype,
+  fontconfig,
+  dbus,
+  libX11,
+  xorg,
+  libXi,
+  libXcursor,
+  libXdamage,
+  libXrandr,
+  libXcomposite,
+  libXext,
+  libXfixes,
+  libXrender,
+  libXtst,
+  libXScrnSaver,
+  nss,
+  nspr,
+  alsa-lib,
+  cups,
+  expat,
+  libuuid,
+  at-spi2-core,
+  libappindicator-gtk3,
+  mesa,
   # Runtime dependencies:
-, systemd
-, libnotify
-, libdbusmenu
-, libpulseaudio
-, xdg-utils
-, wayland
+  systemd,
+  libnotify,
+  libdbusmenu,
+  libpulseaudio,
+  xdg-utils,
+  wayland,
 }:
 
 stdenv.mkDerivation rec {
@@ -150,7 +151,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ] }"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
       # Currently crashes see https://github.com/NixOS/nixpkgs/issues/222043
       #--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
@@ -176,7 +177,11 @@ stdenv.mkDerivation rec {
     homepage = "https://signal.org/";
     changelog = "https://github.com/signalapp/Signal-Desktop/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ mic92 equirosa urandom ];
+    maintainers = with lib.maintainers; [
+      mic92
+      equirosa
+      urandom
+    ];
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };

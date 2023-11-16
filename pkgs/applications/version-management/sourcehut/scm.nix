@@ -1,10 +1,11 @@
-{ lib
-, fetchFromSourcehut
-, buildPythonPackage
-, srht
-, redis
-, pyyaml
-, buildsrht
+{
+  lib,
+  fetchFromSourcehut,
+  buildPythonPackage,
+  srht,
+  redis,
+  pyyaml,
+  buildsrht,
 }:
 
 buildPythonPackage rec {

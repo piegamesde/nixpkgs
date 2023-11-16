@@ -1,4 +1,11 @@
-{ libsmbios, lib, stdenv, autoreconfHook, fetchFromGitHub, fetchpatch }:
+{
+  libsmbios,
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation {
   pname = "netperf";
@@ -11,15 +18,16 @@ stdenv.mkDerivation {
     sha256 = "s4G1ZN+6LERdEMDkc+12ZQgTi6K+ppUYUCGn4faCS9c=";
   };
 
-  patches = [
-    # Pul fix pending upstream inclusion for -fno-common toolchains:
-    #   https://github.com/HewlettPackard/netperf/pull/46
-    (fetchpatch {
-      name = "fno-common.patch";
-      url = "https://github.com/HewlettPackard/netperf/commit/c6a2e17fe35f0e68823451fedfdf5b1dbecddbe3.patch";
-      sha256 = "P/lRa6EakSalKWDTgZ7bWeGleaTLLa5UhzulxKd1xE4=";
-    })
-  ];
+  patches =
+    [
+      # Pul fix pending upstream inclusion for -fno-common toolchains:
+      #   https://github.com/HewlettPackard/netperf/pull/46
+      (fetchpatch {
+        name = "fno-common.patch";
+        url = "https://github.com/HewlettPackard/netperf/commit/c6a2e17fe35f0e68823451fedfdf5b1dbecddbe3.patch";
+        sha256 = "P/lRa6EakSalKWDTgZ7bWeGleaTLLa5UhzulxKd1xE4=";
+      })
+    ];
 
   buildInputs = lib.optional (with stdenv.hostPlatform; isx86 && isLinux) libsmbios;
   nativeBuildInputs = [ autoreconfHook ];

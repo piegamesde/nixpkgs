@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cmake
-, gtest
-, xtensor
-, pybind11
-, numpy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  xtensor,
+  pybind11,
+  numpy,
 }:
 
 buildPythonPackage rec {
@@ -19,17 +20,21 @@ buildPythonPackage rec {
     sha256 = "17la76hn4r1jv67dzz8x2pzl608r0mnvz854407mchlzj6rhsxza";
   };
 
-  nativeBuildInputs = [ cmake pybind11 ];
+  nativeBuildInputs = [
+    cmake
+    pybind11
+  ];
 
-  propagatedBuildInputs = [ xtensor numpy ];
+  propagatedBuildInputs = [
+    xtensor
+    numpy
+  ];
 
   dontUseSetuptoolsBuild = true;
   dontUsePipInstall = true;
   dontUseSetuptoolsCheck = true;
 
-  nativeCheckInputs = [
-    gtest
-  ];
+  nativeCheckInputs = [ gtest ];
 
   meta = with lib; {
     homepage = "https://github.com/xtensor-stack/xtensor-python";

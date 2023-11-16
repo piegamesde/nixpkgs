@@ -1,25 +1,26 @@
-{ config
-, lib
-, stdenv
-, fetchFromGitHub
-, glib
-, gobject-introspection
-, python3
-, pkg-config
-, ninja
-, wayland
-, wayland-protocols
-, desktop-file-utils
-, makeWrapper
-, shared-mime-info
-, wrapGAppsHook4
-, meson
-, gjs
-, gtk4
-, gst_all_1
-, libadwaita
-, appstream-glib
-, libsoup
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  gobject-introspection,
+  python3,
+  pkg-config,
+  ninja,
+  wayland,
+  wayland-protocols,
+  desktop-file-utils,
+  makeWrapper,
+  shared-mime-info,
+  wrapGAppsHook4,
+  meson,
+  gjs,
+  gtk4,
+  gst_all_1,
+  libadwaita,
+  appstream-glib,
+  libsoup,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,9 +28,9 @@ stdenv.mkDerivation rec {
   version = "0.5.2";
 
   src = fetchFromGitHub {
-    owner  = "Rafostar";
-    repo   = pname;
-    rev    = version;
+    owner = "Rafostar";
+    repo = pname;
+    rev = version;
     sha256 = "sha256-s+qdTq3/pHHstwr1W3Hs2Zje++iJFHM6hQTFoZD43bY=";
   };
 

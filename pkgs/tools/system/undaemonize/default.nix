@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation {
   pname = "undaemonize";
@@ -21,4 +25,3 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
   };
 }
-

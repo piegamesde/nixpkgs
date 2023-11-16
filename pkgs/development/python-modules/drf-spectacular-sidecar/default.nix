@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
 }:
 
 buildPythonPackage rec {
@@ -16,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-UTH6t/znN4nYnqDhtFFxXoBXX8Zo19pJE9iDsvw7bGE=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   # no tests
   doCheck = false;

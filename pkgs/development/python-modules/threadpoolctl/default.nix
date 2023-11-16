@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, flit
-, pytestCheckHook
-, numpy
-, scipy
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  flit,
+  pytestCheckHook,
+  numpy,
+  scipy,
 }:
 
 buildPythonPackage rec {
@@ -43,9 +44,7 @@ buildPythonPackage rec {
     "test_threadpool_limits_manual_restore"
   ];
 
-  pythonImportsCheck = [
-    "threadpoolctl"
-  ];
+  pythonImportsCheck = [ "threadpoolctl" ];
 
   meta = with lib; {
     homepage = "https://github.com/joblib/threadpoolctl";
@@ -53,5 +52,4 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];
   };
-
 }

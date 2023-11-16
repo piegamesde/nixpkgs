@@ -1,10 +1,11 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, wrapGAppsHook
-, gtk-layer-shell
-, libpulseaudio
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  gtk-layer-shell,
+  libpulseaudio,
 }:
 
 rustPlatform.buildRustPackage {

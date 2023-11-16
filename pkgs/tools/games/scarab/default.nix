@@ -1,18 +1,19 @@
-{ lib
-, buildDotnetModule
-, fetchFromGitHub
-, dotnetCorePackages
-, glibc
-, zlib
-, libX11
-, libICE
-, libSM
-, fontconfig
-, gtk3
-, copyDesktopItems
-, graphicsmagick
-, wrapGAppsHook
-, makeDesktopItem
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  glibc,
+  zlib,
+  libX11,
+  libICE,
+  libSM,
+  fontconfig,
+  gtk3,
+  copyDesktopItems,
+  graphicsmagick,
+  wrapGAppsHook,
+  makeDesktopItem,
 }:
 
 buildDotnetModule rec {
@@ -40,9 +41,7 @@ buildDotnetModule rec {
     gtk3
   ];
 
-  buildInputs = [
-    gtk3
-  ];
+  buildInputs = [ gtk3 ];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -56,15 +55,17 @@ buildDotnetModule rec {
     gm convert $src/Scarab/Assets/omegamaggotprime.ico $out/share/icons/hicolor/256x256/apps/scarab.png
   '';
 
-  desktopItems = [(makeDesktopItem {
-    desktopName = "Scarab";
-    name = "scarab";
-    exec = "Scarab";
-    icon = "scarab";
-    comment = meta.description;
-    type = "Application";
-    categories = [ "Game" ];
-  })];
+  desktopItems = [
+    (makeDesktopItem {
+      desktopName = "Scarab";
+      name = "scarab";
+      exec = "Scarab";
+      icon = "scarab";
+      comment = meta.description;
+      type = "Application";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description = "Hollow Knight mod installer and manager";

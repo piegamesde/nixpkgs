@@ -39,52 +39,54 @@ with pkgs;
   fetchgit = callPackages ../build-support/fetchgit/tests.nix { };
   fetchFirefoxAddon = callPackages ../build-support/fetchfirefoxaddon/tests.nix { };
 
-  install-shell-files = callPackage ./install-shell-files {};
+  install-shell-files = callPackage ./install-shell-files { };
 
-  kernel-config = callPackage ./kernel.nix {};
+  kernel-config = callPackage ./kernel.nix { };
 
-  ld-library-path = callPackage ./ld-library-path {};
+  ld-library-path = callPackage ./ld-library-path { };
 
-  macOSSierraShared = callPackage ./macos-sierra-shared {};
+  macOSSierraShared = callPackage ./macos-sierra-shared { };
 
-  cross = callPackage ./cross {};
+  cross = callPackage ./cross { };
 
-  php = recurseIntoAttrs (callPackages ./php {});
+  php = recurseIntoAttrs (callPackages ./php { });
 
   pkg-config = recurseIntoAttrs (callPackage ../top-level/pkg-config/tests.nix { });
 
   buildRustCrate = callPackage ../build-support/rust/build-rust-crate/test { };
   importCargoLock = callPackage ../build-support/rust/test/import-cargo-lock { };
 
-  vim = callPackage ./vim {};
+  vim = callPackage ./vim { };
 
-  nixos-functions = callPackage ./nixos-functions {};
+  nixos-functions = callPackage ./nixos-functions { };
 
   overriding = callPackage ./overriding.nix { };
 
-  texlive = callPackage ./texlive {};
+  texlive = callPackage ./texlive { };
 
   cuda = callPackage ./cuda { };
 
   trivial-builders = recurseIntoAttrs {
-    writeStringReferencesToFile = callPackage ../build-support/trivial-builders/test/writeStringReferencesToFile.nix {};
-    writeTextFile = callPackage ../build-support/trivial-builders/test/write-text-file.nix {};
-    writeShellScript = callPackage ../build-support/trivial-builders/test/write-shell-script.nix {};
-    references = callPackage ../build-support/trivial-builders/test/references.nix {};
-    overriding = callPackage ../build-support/trivial-builders/test-overriding.nix {};
-    concat = callPackage ../build-support/trivial-builders/test/concat-test.nix {};
-    linkFarm = callPackage ../build-support/trivial-builders/test/link-farm.nix {};
+    writeStringReferencesToFile =
+      callPackage ../build-support/trivial-builders/test/writeStringReferencesToFile.nix
+        { };
+    writeTextFile = callPackage ../build-support/trivial-builders/test/write-text-file.nix { };
+    writeShellScript = callPackage ../build-support/trivial-builders/test/write-shell-script.nix { };
+    references = callPackage ../build-support/trivial-builders/test/references.nix { };
+    overriding = callPackage ../build-support/trivial-builders/test-overriding.nix { };
+    concat = callPackage ../build-support/trivial-builders/test/concat-test.nix { };
+    linkFarm = callPackage ../build-support/trivial-builders/test/link-farm.nix { };
   };
 
-  writers = callPackage ../build-support/writers/test.nix {};
+  writers = callPackage ../build-support/writers/test.nix { };
 
-  testers = callPackage ../build-support/testers/test/default.nix {};
+  testers = callPackage ../build-support/testers/test/default.nix { };
 
   dhall = callPackage ./dhall { };
 
-  cue-validation = callPackage ./cue {};
+  cue-validation = callPackage ./cue { };
 
-  coq = callPackage ./coq {};
+  coq = callPackage ./coq { };
 
   makeHardcodeGsettingsPatch = callPackage ./make-hardcode-gsettings-patch { };
 
@@ -93,8 +95,10 @@ with pkgs;
     makeBinaryWrapper = pkgs.makeBinaryWrapper.override {
       # Enable sanitizers in the tests only, to avoid the performance cost in regular usage.
       # The sanitizers cause errors on aarch64-darwin, see https://github.com/NixOS/nixpkgs/pull/150079#issuecomment-994132734
-      sanitizers = pkgs.lib.optionals (! (pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64))
-        [ "undefined" "address" ];
+      sanitizers = pkgs.lib.optionals (!(pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64)) [
+        "undefined"
+        "address"
+      ];
     };
   };
 

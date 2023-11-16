@@ -1,15 +1,16 @@
-{ lib
-, gitSupport ? true
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, cmake
-, pandoc
-, pkg-config
-, zlib
-, Security
-, libiconv
-, installShellFiles
+{
+  lib,
+  gitSupport ? true,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  pandoc,
+  pkg-config,
+  zlib,
+  Security,
+  libiconv,
+  installShellFiles,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -32,14 +33,26 @@ rustPlatform.buildRustPackage rec {
   # remove this with rustc 1.61.1+
   CARGO_PROFILE_RELEASE_LTO = "false";
 
-  nativeBuildInputs = [ cmake pkg-config installShellFiles pandoc ];
-  buildInputs = [ zlib ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    installShellFiles
+    pandoc
+  ];
+  buildInputs =
+    [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Security
+    ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = lib.optional gitSupport "git";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   postInstall = ''
     pandoc --standalone -f markdown -t man man/exa.1.md > man/exa.1
@@ -67,6 +80,11 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/ogham/exa/releases/tag/v${version}";
     homepage = "https://the.exa.website";
     license = licenses.mit;
-    maintainers = with maintainers; [ ehegnes lilyball globin fortuneteller2k ];
+    maintainers = with maintainers; [
+      ehegnes
+      lilyball
+      globin
+      fortuneteller2k
+    ];
   };
 }

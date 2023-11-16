@@ -1,14 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27
-, attrs
-, functools32
-, importlib-metadata
-, mock
-, nose
-, pyperf
-, pyrsistent
-, setuptools-scm
-, twisted
-, vcversioner
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  attrs,
+  functools32,
+  importlib-metadata,
+  mock,
+  nose,
+  pyperf,
+  pyrsistent,
+  setuptools-scm,
+  twisted,
+  vcversioner,
 }:
 
 buildPythonPackage rec {
@@ -21,8 +25,19 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ setuptools-scm ];
-  propagatedBuildInputs = [ attrs importlib-metadata functools32 pyrsistent ];
-  nativeCheckInputs = [ nose mock pyperf twisted vcversioner ];
+  propagatedBuildInputs = [
+    attrs
+    importlib-metadata
+    functools32
+    pyrsistent
+  ];
+  nativeCheckInputs = [
+    nose
+    mock
+    pyperf
+    twisted
+    vcversioner
+  ];
 
   # zope namespace collides on py27
   doCheck = !isPy27;

@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, alsa-lib
-, autoPatchelfHook
-, dpkg
-, gtk3
-, makeWrapper
-, mesa
-, nss
-, systemd
-, xorg
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  autoPatchelfHook,
+  dpkg,
+  gtk3,
+  makeWrapper,
+  mesa,
+  nss,
+  systemd,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {
@@ -70,5 +71,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
-
 }

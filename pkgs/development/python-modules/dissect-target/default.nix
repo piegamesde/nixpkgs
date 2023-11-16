@@ -1,39 +1,40 @@
-{ lib
-, asn1crypto
-, buildPythonPackage
-, defusedxml
-, dissect-cim
-, dissect-clfs
-, dissect-cstruct
-, dissect-esedb
-, dissect-etl
-, dissect-eventlog
-, dissect-evidence
-, dissect-extfs
-, dissect-fat
-, dissect-ffs
-, dissect-hypervisor
-, dissect-ntfs
-, dissect-regf
-, dissect-sql
-, dissect-shellitem
-, dissect-thumbcache
-, dissect-util
-, dissect-volume
-, dissect-xfs
-, fetchFromGitHub
-, flow-record
-, fusepy
-, ipython
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, setuptools
-, setuptools-scm
-, structlog
-, yara-python
-, zstandard
+{
+  lib,
+  asn1crypto,
+  buildPythonPackage,
+  defusedxml,
+  dissect-cim,
+  dissect-clfs,
+  dissect-cstruct,
+  dissect-esedb,
+  dissect-etl,
+  dissect-eventlog,
+  dissect-evidence,
+  dissect-extfs,
+  dissect-fat,
+  dissect-ffs,
+  dissect-hypervisor,
+  dissect-ntfs,
+  dissect-regf,
+  dissect-sql,
+  dissect-shellitem,
+  dissect-thumbcache,
+  dissect-util,
+  dissect-volume,
+  dissect-xfs,
+  fetchFromGitHub,
+  flow-record,
+  fusepy,
+  ipython,
+  pycryptodome,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+  structlog,
+  yara-python,
+  zstandard,
 }:
 
 buildPythonPackage rec {
@@ -94,13 +95,9 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
 
-  pythonImportsCheck = [
-    "dissect.target"
-  ];
+  pythonImportsCheck = [ "dissect.target" ];
 
   disabledTests = [
     # Test requires rdump
@@ -111,10 +108,11 @@ buildPythonPackage rec {
     "yum"
   ];
 
-  disabledTestPaths = [
-    # Tests are using Windows paths
-    "tests/test_plugins_browsers.py"
-  ];
+  disabledTestPaths =
+    [
+      # Tests are using Windows paths
+      "tests/test_plugins_browsers.py"
+    ];
 
   meta = with lib; {
     description = "Dissect module that provides a programming API and command line tools";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, texinfo, buildPackages, pkgsStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  texinfo,
+  buildPackages,
+  pkgsStatic,
+}:
 
 stdenv.mkDerivation rec {
   pname = "indent";
@@ -18,7 +25,9 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optional stdenv.cc.isClang "-Wno-implicit-function-declaration"
-    ++ lib.optional (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc) "13")  "-Wno-unused-but-set-variable"
+    ++
+      lib.optional (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc) "13")
+        "-Wno-unused-but-set-variable"
   );
 
   hardeningDisable = [ "format" ];

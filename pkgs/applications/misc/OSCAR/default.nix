@@ -1,4 +1,14 @@
-{ lib, stdenv, mkDerivation, fetchFromGitLab, qmake, qtbase, qttools, qtserialport, libGLU }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitLab,
+  qmake,
+  qtbase,
+  qttools,
+  qtserialport,
+  libGLU,
+}:
 mkDerivation rec {
   pname = "OSCAR";
   version = "1.4.0";
@@ -10,7 +20,12 @@ mkDerivation rec {
     sha256 = "sha256-bgETkpyL0yhCD1FfTVN0s9RNOPkDp88W/1Gdxvu+Ons=";
   };
 
-  buildInputs = [ qtbase qttools qtserialport libGLU ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtserialport
+    libGLU
+  ];
   nativeBuildInputs = [ qmake ];
   postPatch = ''
     substituteInPlace oscar/oscar.pro --replace "/bin/bash" "${stdenv.shell}"

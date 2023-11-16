@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -9,8 +14,8 @@ let
   configYAML = pkgs.runCommand "tedicross-settings.yaml" { preferLocalBuild = true; } ''
     ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
   '';
-
-in {
+in
+{
   options = {
     services.tedicross = {
       enable = mkEnableOption (lib.mdDoc "the TediCross Telegram-Discord bridge service");
@@ -97,4 +102,3 @@ in {
 
   meta.maintainers = with maintainers; [ pacien ];
 }
-

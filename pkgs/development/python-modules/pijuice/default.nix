@@ -1,9 +1,10 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, smbus-cffi
-, urwid
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  smbus-cffi,
+  urwid,
 }:
 
 buildPythonPackage rec {
@@ -20,12 +21,13 @@ buildPythonPackage rec {
     sha256 = "07Jr7RSjqI8j0tT0MNAjrN1sjF1+mI+V0vtKInvtxj8=";
   };
 
-  patches = [
-    # The pijuice_cli.cli file doesn't have a shebang as the first line of the
-    # script. Without it, the pythonWrapPrograms hook will not wrap the program.
-    # Add a python shebang here so that the the hook is triggered.
-    ./patch-shebang.diff
-  ];
+  patches =
+    [
+      # The pijuice_cli.cli file doesn't have a shebang as the first line of the
+      # script. Without it, the pythonWrapPrograms hook will not wrap the program.
+      # Add a python shebang here so that the the hook is triggered.
+      ./patch-shebang.diff
+    ];
 
   PIJUICE_BUILD_BASE = 1;
   PIJUICE_VERSION = version;
@@ -34,7 +36,10 @@ buildPythonPackage rec {
     cd Software/Source
   '';
 
-  propagatedBuildInputs = [ smbus-cffi urwid ];
+  propagatedBuildInputs = [
+    smbus-cffi
+    urwid
+  ];
 
   # Remove the following files from the package:
   #

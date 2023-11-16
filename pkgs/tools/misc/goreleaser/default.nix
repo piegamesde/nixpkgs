@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, buildPackages
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  buildPackages,
 }:
 buildGoModule rec {
   pname = "goreleaser";
@@ -18,8 +19,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-0hT7wraXTUAGMJdAw3xkGzojpXnwaEOoHnW28DrA1QQ=";
 
-  ldflags =
-    [ "-s" "-w" "-X main.version=${version}" "-X main.builtBy=nixpkgs" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+    "-X main.builtBy=nixpkgs"
+  ];
 
   # tests expect the source files to be a build repo
   doCheck = false;
@@ -27,8 +32,10 @@ buildGoModule rec {
   nativeBuildInputs = [ installShellFiles ];
 
   postInstall =
-    let emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
+    let
+      emulator = stdenv.hostPlatform.emulator buildPackages;
+    in
+    ''
       ${emulator} $out/bin/goreleaser man > goreleaser.1
       installManPage ./goreleaser.1
       installShellCompletion --cmd goreleaser \

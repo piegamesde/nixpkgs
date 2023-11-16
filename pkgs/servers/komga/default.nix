@@ -1,9 +1,10 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, makeWrapper
-, jdk11_headless
-, nixosTests
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
+  jdk11_headless,
+  nixosTests,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -15,9 +16,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-J8dpw7GzLJnLiiFSFVCoqZFQ6mI2z0zBZHdbmxMgmf8=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildCommand = ''
     makeWrapper ${jdk11_headless}/bin/java $out/bin/komga --add-flags "-jar $src"
@@ -34,5 +33,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = jdk11_headless.meta.platforms;
     maintainers = with maintainers; [ govanify ];
   };
-
 }

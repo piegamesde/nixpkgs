@@ -1,5 +1,15 @@
-{ lib, mkDerivation, cmake, hunspell, pkg-config, qttools, qtbase, qtsvg, qtx11extras
-, fetchFromGitHub }:
+{
+  lib,
+  mkDerivation,
+  cmake,
+  hunspell,
+  pkg-config,
+  qttools,
+  qtbase,
+  qtsvg,
+  qtx11extras,
+  fetchFromGitHub,
+}:
 
 mkDerivation rec {
   pname = "featherpad";
@@ -12,8 +22,17 @@ mkDerivation rec {
     sha256 = "sha256-6hu8r38hrQEt0vaO9XA+KaWPuWYcBdydpjEf2V+m5xY=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config qttools ];
-  buildInputs = [ hunspell qtbase qtsvg qtx11extras ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+  ];
+  buildInputs = [
+    hunspell
+    qtbase
+    qtsvg
+    qtx11extras
+  ];
 
   meta = with lib; {
     description = "Lightweight Qt5 Plain-Text Editor for Linux";

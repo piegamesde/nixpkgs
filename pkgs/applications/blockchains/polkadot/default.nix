@@ -1,11 +1,12 @@
-{ fetchFromGitHub
-, lib
-, protobuf
-, rocksdb
-, rustPlatform
-, stdenv
-, Security
-, SystemConfiguration
+{
+  fetchFromGitHub,
+  lib,
+  protobuf,
+  rocksdb,
+  rustPlatform,
+  stdenv,
+  Security,
+  SystemConfiguration,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "polkadot";
@@ -39,7 +40,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security SystemConfiguration ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    SystemConfiguration
+  ];
 
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
 
@@ -64,7 +68,13 @@ rustPlatform.buildRustPackage rec {
     description = "Polkadot Node Implementation";
     homepage = "https://polkadot.network";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ akru andresilva asymmetric FlorianFranzen RaghavSood ];
+    maintainers = with maintainers; [
+      akru
+      andresilva
+      asymmetric
+      FlorianFranzen
+      RaghavSood
+    ];
     platforms = platforms.unix;
   };
 }

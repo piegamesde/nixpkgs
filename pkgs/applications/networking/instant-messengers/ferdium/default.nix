@@ -1,4 +1,10 @@
-{ lib, mkFranzDerivation, fetchurl, xorg, nix-update-script }:
+{
+  lib,
+  mkFranzDerivation,
+  fetchurl,
+  xorg,
+  nix-update-script,
+}:
 
 mkFranzDerivation rec {
   pname = "ferdium";
@@ -13,7 +19,10 @@ mkFranzDerivation rec {
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--override-filename" ./default.nix  ];
+      extraArgs = [
+        "--override-filename"
+        ./default.nix
+      ];
     };
   };
 

@@ -1,18 +1,19 @@
-{ lib
-, mkXfceDerivation
-, exo
-, gtk3
-, libXtst
-, libxfce4ui
-, libxfce4util
-, xfce4-panel
-, xfconf
-, xorgproto
+{
+  lib,
+  mkXfceDerivation,
+  exo,
+  gtk3,
+  libXtst,
+  libxfce4ui,
+  libxfce4util,
+  xfce4-panel,
+  xfconf,
+  xorgproto,
 }:
 
 mkXfceDerivation rec {
   category = "panel-plugins";
-  pname  = "xfce4-cpugraph-plugin";
+  pname = "xfce4-cpugraph-plugin";
   version = "1.2.7";
   rev-prefix = "xfce4-cpugraph-plugin-";
   odd-unstable = false;

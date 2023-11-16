@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "glsl-symbols";
   version = "glsl-spec-release-quicklisp-f04476f7-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "glsl-symbols";
 
-  asdFilesToKeep = ["glsl-symbols.asd"];
+  asdFilesToKeep = [ "glsl-symbols.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM glsl-symbols DESCRIPTION Lispy versions of all glsl names as symbols
@@ -24,4 +24,5 @@ rec {
     MD5 52760939a269acce6b2cba8dbde81ef7 NAME glsl-symbols FILENAME
     glsl-symbols DEPS NIL DEPENDENCIES NIL VERSION
     glsl-spec-release-quicklisp-f04476f7-git SIBLINGS (glsl-docs glsl-spec)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

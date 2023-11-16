@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pygments
-, pytestCheckHook
-, uvloop
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pygments,
+  pytestCheckHook,
+  uvloop,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-1qXt3HT/0sECOqPRwc0p+5+YZh1kyHSbkZHajcrjvZc=";
   };
 
-  propagatedBuildInputs = [
-    pygments
-  ];
+  propagatedBuildInputs = [ pygments ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -35,9 +34,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [
-    "aiorun"
-  ];
+  pythonImportsCheck = [ "aiorun" ];
 
   meta = with lib; {
     description = "Boilerplate for asyncio applications";

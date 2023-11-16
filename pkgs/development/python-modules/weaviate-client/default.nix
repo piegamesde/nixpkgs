@@ -1,11 +1,12 @@
-{ lib
-, authlib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools-scm
-, tqdm
-, validators
+{
+  lib,
+  authlib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  tqdm,
+  validators,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
       --replace "requests>=2.28.0,<2.29.0" "requests>=2.28.0"
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     authlib
@@ -40,9 +39,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "weaviate"
-  ];
+  pythonImportsCheck = [ "weaviate" ];
 
   meta = with lib; {
     description = "Python native client for easy interaction with a Weaviate instance";

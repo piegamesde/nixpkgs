@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hypothesis
-, pythonOlder
-, pytestCheckHook
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hypothesis,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -18,9 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-DWJxK5VrwVT4X7CiZuKjxZE8KWfgA0hwGzJBHW3vMeU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   nativeCheckInputs = [
     # "hypothesis" indirectly depends on chardet to build its documentation.
@@ -28,10 +27,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # flaky; https://github.com/chardet/chardet/issues/256
-    "test_detect_all_and_detect_one_should_agree"
-  ];
+  disabledTests =
+    [
+      # flaky; https://github.com/chardet/chardet/issues/256
+      "test_detect_all_and_detect_one_should_agree"
+    ];
 
   pythonImportsCheck = [ "chardet" ];
 

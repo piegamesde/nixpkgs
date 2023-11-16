@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, makeWrapper, lib, php }:
+{
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  lib,
+  php,
+}:
 
 let
   pname = "pdepend";
@@ -29,12 +35,7 @@ stdenv.mkDerivation {
     description = "An adaptation of JDepend for PHP";
     homepage = "https://github.com/pdepend/pdepend";
     license = licenses.bsd3;
-    longDescription = "
-      PHP Depend is an adaptation of the established Java
-      development tool JDepend. This tool shows you the quality
-      of your design in terms of extensibility, reusability and
-      maintainability.
-    ";
+    longDescription = "\n      PHP Depend is an adaptation of the established Java\n      development tool JDepend. This tool shows you the quality\n      of your design in terms of extensibility, reusability and\n      maintainability.\n    ";
     maintainers = teams.php.members;
     platforms = platforms.all;
   };

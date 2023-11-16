@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, byacc
-, ncurses, readline, pkgsStatic
-, historySupport ? false, readlineSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  byacc,
+  ncurses,
+  readline,
+  pkgsStatic,
+  historySupport ? false,
+  readlineSupport ? true,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rc";
@@ -14,23 +23,29 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook byacc ];
+  nativeBuildInputs = [
+    autoreconfHook
+    byacc
+  ];
 
   # acinclude.m4 wants headers for tgetent().
-  buildInputs = [ ncurses ]
-    ++ lib.optionals readlineSupport [ readline ];
+  buildInputs = [ ncurses ] ++ lib.optionals readlineSupport [ readline ];
 
-  CPPFLAGS = ["-DSIGCLD=SIGCHLD"];
+  CPPFLAGS = [ "-DSIGCLD=SIGCHLD" ];
 
-  configureFlags = [
-    "--enable-def-interp=${stdenv.shell}" #183
-    ] ++ lib.optionals historySupport [ "--with-history" ]
+  configureFlags =
+    [
+      "--enable-def-interp=${stdenv.shell}" # 183
+    ]
+    ++ lib.optionals historySupport [ "--with-history" ]
     ++ lib.optionals readlineSupport [ "--with-edit=readline" ];
 
   #reproducible-build
   postPatch = ''
     substituteInPlace configure.ac \
-      --replace "$(git describe || echo '(git description unavailable)')" "${builtins.substring 0 7 src.rev}"
+      --replace "$(git describe || echo '(git description unavailable)')" "${
+        builtins.substring 0 7 src.rev
+      }"
   '';
 
   passthru = {

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook
-, zlib, SDL, readline, libGLU, libGL, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  zlib,
+  SDL,
+  readline,
+  libGLU,
+  libGL,
+  libX11,
+}:
 
 with lib;
 stdenv.mkDerivation rec {
@@ -9,13 +19,20 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "atari800";
     repo = "atari800";
-    rev = "ATARI800_${replaceStrings ["."] ["_"] version}";
+    rev = "ATARI800_${replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "sha256-+eJXhqPyU0GhmzF7DbteTXzEnn5klCor9Io/UgXQfQg=";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ zlib SDL readline libGLU libGL libX11 ];
+  buildInputs = [
+    zlib
+    SDL
+    readline
+    libGLU
+    libGL
+    libX11
+  ];
 
   configureFlags = [
     "--target=default"

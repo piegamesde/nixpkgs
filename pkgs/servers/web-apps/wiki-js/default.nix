@@ -1,4 +1,11 @@
-{ stdenv, fetchurl, lib, nixosTests, jq, moreutils }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  nixosTests,
+  jq,
+  moreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wiki-js";
@@ -30,7 +37,10 @@ stdenv.mkDerivation rec {
   # [2] https://nodejs.org/en/blog/release/v17.0.0
   # [3] https://nodejs.org/en/blog/release/v18.0.0
   patches = [ ./drop-node-check.patch ];
-  nativeBuildInputs = [ jq moreutils ];
+  nativeBuildInputs = [
+    jq
+    moreutils
+  ];
   postPatch = ''
     # Dirty hack to implement nodejs-18 support.
     <./node_modules/extract-files/package.json jq '
@@ -57,7 +67,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) wiki-js; };
+    tests = {
+      inherit (nixosTests) wiki-js;
+    };
     updateScript = ./update.sh;
   };
 

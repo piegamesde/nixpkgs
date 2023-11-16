@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, nix-update-script
-, autoreconfHook
-, pkg-config
-, perl
-, unittest-cpp
-, xa
-, libgcrypt
-, libexsid
-, docSupport ? true
-, doxygen
-, graphviz
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  autoreconfHook,
+  pkg-config,
+  perl,
+  unittest-cpp,
+  xa,
+  libgcrypt,
+  libexsid,
+  docSupport ? true,
+  doxygen,
+  graphviz,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,10 +31,22 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config perl xa ]
-    ++ lib.optionals docSupport [ doxygen graphviz ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+      perl
+      xa
+    ]
+    ++ lib.optionals docSupport [
+      doxygen
+      graphviz
+    ];
 
-  buildInputs = [ libgcrypt libexsid ];
+  buildInputs = [
+    libgcrypt
+    libexsid
+  ];
 
   doCheck = true;
 
@@ -41,18 +54,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installTargets = [ "install" ]
-    ++ lib.optionals docSupport [ "doc" ];
+  installTargets = [ "install" ] ++ lib.optionals docSupport [ "doc" ];
 
-  outputs = [ "out" ]
-    ++ lib.optionals docSupport [ "doc" ];
+  outputs = [ "out" ] ++ lib.optionals docSupport [ "doc" ];
 
   configureFlags = [
     "--enable-hardsid"
     "--with-gcrypt"
     "--with-exsid"
-  ]
-  ++ lib.optional doCheck "--enable-tests";
+  ] ++ lib.optional doCheck "--enable-tests";
 
   postInstall = lib.optionalString docSupport ''
     mkdir -p $doc/share/doc/libsidplayfp
@@ -73,7 +83,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/libsidplayfp/libsidplayfp";
     license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ ramkromberg OPNA2608 ];
+    maintainers = with maintainers; [
+      ramkromberg
+      OPNA2608
+    ];
     platforms = platforms.all;
   };
 }

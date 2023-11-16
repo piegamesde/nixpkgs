@@ -1,4 +1,9 @@
-{lib, pkgs, config, ...}:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 let
@@ -12,12 +17,12 @@ in
 
   config = mkIf cfg.enable {
     services.xserver.windowManager = {
-      session = [{
-        name = "openbox";
-        start = "
-          ${pkgs.openbox}/bin/openbox-session
-        ";
-      }];
+      session = [
+        {
+          name = "openbox";
+          start = "\n          ${pkgs.openbox}/bin/openbox-session\n        ";
+        }
+      ];
     };
     environment.systemPackages = [ pkgs.openbox ];
   };

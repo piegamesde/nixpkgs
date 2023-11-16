@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchFromGitHub
-, appdirs
-, consonance
-, protobuf
-, python-axolotl
-, six
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchFromGitHub,
+  appdirs,
+  consonance,
+  protobuf,
+  python-axolotl,
+  six,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
       --replace "==" ">=" \
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   propagatedBuildInputs = [
     appdirs

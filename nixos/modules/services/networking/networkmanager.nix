@@ -1,74 +1,76 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.networking.networkmanager;
 
-  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [];
+  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [ ];
 
   enableIwd = cfg.wifi.backend == "iwd";
 
-  mkValue = v:
-    if v == true then "yes"
-    else if v == false then "no"
-    else if lib.isInt v then toString v
-    else v;
+  mkValue =
+    v:
+    if v == true then
+      "yes"
+    else if v == false then
+      "no"
+    else if lib.isInt v then
+      toString v
+    else
+      v;
 
   mkSection = name: attrs: ''
     [${name}]
-    ${
-      lib.concatStringsSep "\n"
-        (lib.mapAttrsToList
-          (k: v: "${k}=${mkValue v}")
-          (lib.filterAttrs
-            (k: v: v != null)
-            attrs))
-    }
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (lib.filterAttrs (k: v: v != null) attrs)
+    )}
   '';
 
-  configFile = pkgs.writeText "NetworkManager.conf" (lib.concatStringsSep "\n" [
-    (mkSection "main" {
-      plugins = "keyfile";
-      dhcp = cfg.dhcp;
-      dns = cfg.dns;
-      # If resolvconf is disabled that means that resolv.conf is managed by some other module.
-      rc-manager =
-        if config.networking.resolvconf.enable then "resolvconf"
-        else "unmanaged";
-      firewall-backend = cfg.firewallBackend;
-    })
-    (mkSection "keyfile" {
-      unmanaged-devices =
-        if cfg.unmanaged == [] then null
-        else lib.concatStringsSep ";" cfg.unmanaged;
-    })
-    (mkSection "logging" {
-      audit = config.security.audit.enable;
-      level = cfg.logLevel;
-    })
-    (mkSection "connection" cfg.connectionConfig)
-    (mkSection "device" {
-      "wifi.scan-rand-mac-address" = cfg.wifi.scanRandMacAddress;
-      "wifi.backend" = cfg.wifi.backend;
-    })
-    cfg.extraConfig
-  ]);
+  configFile = pkgs.writeText "NetworkManager.conf" (
+    lib.concatStringsSep "\n" [
+      (mkSection "main" {
+        plugins = "keyfile";
+        dhcp = cfg.dhcp;
+        dns = cfg.dns;
+        # If resolvconf is disabled that means that resolv.conf is managed by some other module.
+        rc-manager = if config.networking.resolvconf.enable then "resolvconf" else "unmanaged";
+        firewall-backend = cfg.firewallBackend;
+      })
+      (mkSection "keyfile" {
+        unmanaged-devices = if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
+      })
+      (mkSection "logging" {
+        audit = config.security.audit.enable;
+        level = cfg.logLevel;
+      })
+      (mkSection "connection" cfg.connectionConfig)
+      (mkSection "device" {
+        "wifi.scan-rand-mac-address" = cfg.wifi.scanRandMacAddress;
+        "wifi.backend" = cfg.wifi.backend;
+      })
+      cfg.extraConfig
+    ]
+  );
 
-  /*
-    [network-manager]
-    Identity=unix-group:networkmanager
-    Action=org.freedesktop.NetworkManager.*
-    ResultAny=yes
-    ResultInactive=no
-    ResultActive=yes
+  /* [network-manager]
+     Identity=unix-group:networkmanager
+     Action=org.freedesktop.NetworkManager.*
+     ResultAny=yes
+     ResultInactive=no
+     ResultActive=yes
 
-    [modem-manager]
-    Identity=unix-group:networkmanager
-    Action=org.freedesktop.ModemManager*
-    ResultAny=yes
-    ResultInactive=no
-    ResultActive=yes
+     [modem-manager]
+     Identity=unix-group:networkmanager
+     Action=org.freedesktop.ModemManager*
+     ResultAny=yes
+     ResultInactive=no
+     ResultActive=yes
   */
   polkitConf = ''
     polkit.addRule(function(action, subject) {
@@ -81,13 +83,28 @@ let
     });
   '';
 
-  ns = xs: pkgs.writeText "nameservers" (
-    concatStrings (map (s: "nameserver ${s}\n") xs)
-  );
+  ns =
+    xs:
+    pkgs.writeText "nameservers" (
+      concatStrings (
+        map
+          (s: ''
+            nameserver ${s}
+          '')
+          xs
+      )
+    );
 
   overrideNameserversScript = pkgs.writeScript "02overridedns" ''
     #!/bin/sh
-    PATH=${with pkgs; makeBinPath [ gnused gnugrep coreutils ]}
+    PATH=${
+      with pkgs;
+      makeBinPath [
+        gnused
+        gnugrep
+        coreutils
+      ]
+    }
     tmp=$(mktemp)
     sed '/nameserver /d' /etc/resolv.conf > $tmp
     grep 'nameserver ' /etc/resolv.conf | \
@@ -103,7 +120,14 @@ let
   };
 
   macAddressOpt = mkOption {
-    type = types.either types.str (types.enum ["permanent" "preserve" "random" "stable"]);
+    type = types.either types.str (
+      types.enum [
+        "permanent"
+        "preserve"
+        "random"
+        "stable"
+      ]
+    );
     default = "preserve";
     example = "00:11:22:33:44:55";
     description = lib.mdDoc ''
@@ -120,13 +144,9 @@ let
   packages = [
     pkgs.modemmanager
     pkgs.networkmanager
-  ]
-  ++ cfg.plugins
-  ++ lib.optionals (!delegateWireless && !enableIwd) [
-    pkgs.wpa_supplicant
-  ];
-
-in {
+  ] ++ cfg.plugins ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
+in
+{
 
   meta = {
     maintainers = teams.freedesktop.members;
@@ -151,12 +171,18 @@ in {
       };
 
       connectionConfig = mkOption {
-        type = with types; attrsOf (nullOr (oneOf [
-          bool
-          int
-          str
-        ]));
-        default = {};
+        type =
+          with types;
+          attrsOf (
+            nullOr (
+              oneOf [
+                bool
+                int
+                str
+              ]
+            )
+          );
+        default = { };
         description = lib.mdDoc ''
           Configuration for the [connection] section of NetworkManager.conf.
           Refer to
@@ -186,7 +212,7 @@ in {
 
       unmanaged = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           List of interfaces that will not be managed by NetworkManager.
           Interface name can be specified here, but if you need more fidelity,
@@ -207,9 +233,7 @@ in {
               check =
                 p:
                 lib.assertMsg
-                  (types.package.check p
-                    && p ? networkManagerPlugin
-                    && lib.isString p.networkManagerPlugin)
+                  (types.package.check p && p ? networkManagerPlugin && lib.isString p.networkManagerPlugin)
                   ''
                     Package ‘${p.name}’, is not a NetworkManager plug-in.
                     Those need to have a ‘networkManagerPlugin’ attribute.
@@ -225,7 +249,10 @@ in {
       };
 
       dhcp = mkOption {
-        type = types.enum [ "dhcpcd" "internal" ];
+        type = types.enum [
+          "dhcpcd"
+          "internal"
+        ];
         default = "internal";
         description = lib.mdDoc ''
           Which program (or internal library) should be used for DHCP.
@@ -233,7 +260,11 @@ in {
       };
 
       firewallBackend = mkOption {
-        type = types.enum [ "iptables" "nftables" "none" ];
+        type = types.enum [
+          "iptables"
+          "nftables"
+          "none"
+        ];
         default = "iptables";
         description = lib.mdDoc ''
           Which firewall backend should be used for configuring masquerading with shared mode.
@@ -242,7 +273,14 @@ in {
       };
 
       logLevel = mkOption {
-        type = types.enum [ "OFF" "ERR" "WARN" "INFO" "DEBUG" "TRACE" ];
+        type = types.enum [
+          "OFF"
+          "ERR"
+          "WARN"
+          "INFO"
+          "DEBUG"
+          "TRACE"
+        ];
         default = "WARN";
         description = lib.mdDoc ''
           Set the default logging verbosity level.
@@ -251,7 +289,7 @@ in {
 
       appendNameservers = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           A list of name servers that should be appended
           to the ones configured in NetworkManager or received by DHCP.
@@ -260,7 +298,7 @@ in {
 
       insertNameservers = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           A list of name servers that should be inserted before
           the ones configured in NetworkManager or received by DHCP.
@@ -273,7 +311,10 @@ in {
         macAddress = macAddressOpt;
 
         backend = mkOption {
-          type = types.enum [ "wpa_supplicant" "iwd" ];
+          type = types.enum [
+            "wpa_supplicant"
+            "iwd"
+          ];
           default = "wpa_supplicant";
           description = lib.mdDoc ''
             Specify the Wi-Fi backend used for the device.
@@ -300,7 +341,13 @@ in {
       };
 
       dns = mkOption {
-        type = types.enum [ "default" "dnsmasq" "unbound" "systemd-resolved" "none" ];
+        type = types.enum [
+          "default"
+          "dnsmasq"
+          "unbound"
+          "systemd-resolved"
+          "none"
+        ];
         default = "default";
         description = lib.mdDoc ''
           Set the DNS (`resolv.conf`) processing mode.
@@ -315,42 +362,44 @@ in {
       };
 
       dispatcherScripts = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            source = mkOption {
-              type = types.path;
-              description = lib.mdDoc ''
-                Path to the hook script.
-              '';
-            };
+        type = types.listOf (
+          types.submodule {
+            options = {
+              source = mkOption {
+                type = types.path;
+                description = lib.mdDoc ''
+                  Path to the hook script.
+                '';
+              };
 
-            type = mkOption {
-              type = types.enum (attrNames dispatcherTypesSubdirMap);
-              default = "basic";
-              description = lib.mdDoc ''
-                Dispatcher hook type. Look up the hooks described at
-                [https://developer.gnome.org/NetworkManager/stable/NetworkManager.html](https://developer.gnome.org/NetworkManager/stable/NetworkManager.html)
-                and choose the type depending on the output folder.
-                You should then filter the event type (e.g., "up"/"down") from within your script.
-              '';
+              type = mkOption {
+                type = types.enum (attrNames dispatcherTypesSubdirMap);
+                default = "basic";
+                description = lib.mdDoc ''
+                  Dispatcher hook type. Look up the hooks described at
+                  [https://developer.gnome.org/NetworkManager/stable/NetworkManager.html](https://developer.gnome.org/NetworkManager/stable/NetworkManager.html)
+                  and choose the type depending on the output folder.
+                  You should then filter the event type (e.g., "up"/"down") from within your script.
+                '';
+              };
             };
-          };
-        });
-        default = [];
+          }
+        );
+        default = [ ];
         example = literalExpression ''
-        [ {
-              source = pkgs.writeText "upHook" '''
+          [ {
+                source = pkgs.writeText "upHook" '''
 
-                if [ "$2" != "up" ]; then
-                    logger "exit: event $2 != up"
-                    exit
-                fi
+                  if [ "$2" != "up" ]; then
+                      logger "exit: event $2 != up"
+                      exit
+                  fi
 
-                # coreutils and iproute are in PATH too
-                logger "Device $DEVICE_IFACE coming up"
-            ''';
-            type = "basic";
-        } ]'';
+                  # coreutils and iproute are in PATH too
+                  logger "Device $DEVICE_IFACE coming up"
+              ''';
+              type = "basic";
+          } ]'';
         description = lib.mdDoc ''
           A list of scripts which will be executed in response to  network  events.
         '';
@@ -384,26 +433,53 @@ in {
 
   imports = [
     (mkRenamedOptionModule
-      [ "networking" "networkmanager" "packages" ]
-      [ "networking" "networkmanager" "plugins" ])
-    (mkRenamedOptionModule [ "networking" "networkmanager" "useDnsmasq" ] [ "networking" "networkmanager" "dns" ])
-    (mkRemovedOptionModule ["networking" "networkmanager" "dynamicHosts"] ''
-      This option was removed because allowing (multiple) regular users to
-      override host entries affecting the whole system opens up a huge attack
-      vector. There seem to be very rare cases where this might be useful.
-      Consider setting system-wide host entries using networking.hosts, provide
-      them via the DNS server in your network, or use environment.etc
-      to add a file into /etc/NetworkManager/dnsmasq.d reconfiguring hostsdir.
-    '')
+      [
+        "networking"
+        "networkmanager"
+        "packages"
+      ]
+      [
+        "networking"
+        "networkmanager"
+        "plugins"
+      ]
+    )
+    (mkRenamedOptionModule
+      [
+        "networking"
+        "networkmanager"
+        "useDnsmasq"
+      ]
+      [
+        "networking"
+        "networkmanager"
+        "dns"
+      ]
+    )
+    (mkRemovedOptionModule
+      [
+        "networking"
+        "networkmanager"
+        "dynamicHosts"
+      ]
+      ''
+        This option was removed because allowing (multiple) regular users to
+        override host entries affecting the whole system opens up a huge attack
+        vector. There seem to be very rare cases where this might be useful.
+        Consider setting system-wide host entries using networking.hosts, provide
+        them via the DNS server in your network, or use environment.etc
+        to add a file into /etc/NetworkManager/dnsmasq.d reconfiguring hostsdir.
+      ''
+    )
   ];
-
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [];
+      {
+        assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [ ];
         message = ''
           You can not use networking.networkmanager with networking.wireless.
           Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
@@ -413,26 +489,39 @@ in {
 
     hardware.wirelessRegulatoryDatabase = true;
 
-    environment.etc = {
+    environment.etc =
+      {
         "NetworkManager/NetworkManager.conf".source = configFile;
       }
-      // builtins.listToAttrs (map (pkg: nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" {
-        source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}";
-      }) cfg.plugins)
-      // optionalAttrs cfg.enableFccUnlock
-         {
-           "ModemManager/fcc-unlock.d".source =
-             "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
-         }
-      // optionalAttrs (cfg.appendNameservers != [] || cfg.insertNameservers != [])
-         {
-           "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
-         }
-      // listToAttrs (lib.imap1 (i: s:
-         {
-            name = "NetworkManager/dispatcher.d/${dispatcherTypesSubdirMap.${s.type}}03userscript${lib.fixedWidthNumber 4 i}";
-            value = { mode = "0544"; inherit (s) source; };
-         }) cfg.dispatcherScripts);
+      // builtins.listToAttrs (
+        map
+          (
+            pkg:
+            nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" {
+              source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}";
+            }
+          )
+          cfg.plugins
+      )
+      // optionalAttrs cfg.enableFccUnlock {
+        "ModemManager/fcc-unlock.d".source = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
+      }
+      // optionalAttrs (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ]) {
+        "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
+      }
+      // listToAttrs (
+        lib.imap1
+          (i: s: {
+            name = "NetworkManager/dispatcher.d/${dispatcherTypesSubdirMap.${s.type}}03userscript${
+                lib.fixedWidthNumber 4 i
+              }";
+            value = {
+              mode = "0544";
+              inherit (s) source;
+            };
+          })
+          cfg.dispatcherScripts
+      );
 
     environment.systemPackages = packages;
 
@@ -483,18 +572,23 @@ in {
 
     systemd.services.NetworkManager-dispatcher = {
       wantedBy = [ "network.target" ];
-      restartTriggers = [ configFile overrideNameserversScript ];
+      restartTriggers = [
+        configFile
+        overrideNameserversScript
+      ];
 
       # useful binaries for user-specified hooks
-      path = [ pkgs.iproute2 pkgs.util-linux pkgs.coreutils ];
+      path = [
+        pkgs.iproute2
+        pkgs.util-linux
+        pkgs.coreutils
+      ];
       aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
     };
 
     # Turn off NixOS' network management when networking is managed entirely by NetworkManager
     networking = mkMerge [
-      (mkIf (!delegateWireless) {
-        useDHCP = false;
-      })
+      (mkIf (!delegateWireless) { useDHCP = false; })
 
       {
         networkmanager.plugins = with pkgs; [
@@ -508,22 +602,21 @@ in {
         ];
       }
 
-      (mkIf cfg.enableStrongSwan {
-        networkmanager.plugins = [ pkgs.networkmanager_strongswan ];
-      })
+      (mkIf cfg.enableStrongSwan { networkmanager.plugins = [ pkgs.networkmanager_strongswan ]; })
 
-      (mkIf enableIwd {
-        wireless.iwd.enable = true;
-      })
+      (mkIf enableIwd { wireless.iwd.enable = true; })
 
       {
         networkmanager.connectionConfig = {
           "ethernet.cloned-mac-address" = cfg.ethernet.macAddress;
           "wifi.cloned-mac-address" = cfg.wifi.macAddress;
           "wifi.powersave" =
-            if cfg.wifi.powersave == null then null
-            else if cfg.wifi.powersave then 3
-            else 2;
+            if cfg.wifi.powersave == null then
+              null
+            else if cfg.wifi.powersave then
+              3
+            else
+              2;
         };
       }
     ];
@@ -533,7 +626,8 @@ in {
     security.polkit.enable = true;
     security.polkit.extraConfig = polkitConf;
 
-    services.dbus.packages = packages
+    services.dbus.packages =
+      packages
       ++ optional cfg.enableStrongSwan pkgs.strongswanNM
       ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq;
 

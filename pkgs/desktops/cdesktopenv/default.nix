@@ -1,22 +1,55 @@
-{ lib, stdenv, fetchurl
-, fetchpatch
-, xorgproto, libX11, bison, ksh, perl, gnum4
-, libXinerama, libXt, libXext, libtirpc, motif, libXft, xbitmaps
-, libjpeg, libXmu, libXdmcp, libXScrnSaver, symlinkJoin, bdftopcf
-, ncompress, mkfontdir, tcl-8_5, libXaw, libxcrypt, gcc, glibcLocales
-, autoPatchelfHook, libredirect, makeWrapper, xset, xrdb, fakeroot
-, rpcsvc-proto }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  xorgproto,
+  libX11,
+  bison,
+  ksh,
+  perl,
+  gnum4,
+  libXinerama,
+  libXt,
+  libXext,
+  libtirpc,
+  motif,
+  libXft,
+  xbitmaps,
+  libjpeg,
+  libXmu,
+  libXdmcp,
+  libXScrnSaver,
+  symlinkJoin,
+  bdftopcf,
+  ncompress,
+  mkfontdir,
+  tcl-8_5,
+  libXaw,
+  libxcrypt,
+  gcc,
+  glibcLocales,
+  autoPatchelfHook,
+  libredirect,
+  makeWrapper,
+  xset,
+  xrdb,
+  fakeroot,
+  rpcsvc-proto,
+}:
 
 let
   x11ProjectRoot = symlinkJoin {
     name = "x11ProjectRoot";
     paths = [
-      bdftopcf mkfontdir
+      bdftopcf
+      mkfontdir
       xset # fonts
       xrdb # session load
     ];
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   version = "2.3.2";
   pname = "cde";
 
@@ -39,11 +72,29 @@ in stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    libX11 libXinerama libXt libXext libtirpc motif libXft xbitmaps
-    libjpeg libXmu libXdmcp libXScrnSaver tcl-8_5 libXaw ksh libxcrypt
+    libX11
+    libXinerama
+    libXt
+    libXext
+    libtirpc
+    motif
+    libXft
+    xbitmaps
+    libjpeg
+    libXmu
+    libXdmcp
+    libXScrnSaver
+    tcl-8_5
+    libXaw
+    ksh
+    libxcrypt
   ];
   nativeBuildInputs = [
-    bison ncompress autoPatchelfHook makeWrapper fakeroot
+    bison
+    ncompress
+    autoPatchelfHook
+    makeWrapper
+    fakeroot
     rpcsvc-proto
   ];
   # build fails otherwise
@@ -78,22 +129,22 @@ in stdenv.mkDerivation rec {
   '';
 
   preBuild = ''
-    while IFS= read -r -d ''$'\0' i; do
-      substituteInPlace "$i" --replace /usr/dt $out/opt/dt
-    done < <(find "." -type f -exec grep -Iq /usr/dt {} \; -and -print0)
+        while IFS= read -r -d $'\0' i; do
+          substituteInPlace "$i" --replace /usr/dt $out/opt/dt
+        done < <(find "." -type f -exec grep -Iq /usr/dt {} \; -and -print0)
 
-    cat >> config/cf/site.def << EOF
-#define MakeFlagsToShellFlags(makeflags,shellcmd) set -e
-#define KornShell ${ksh}/bin/ksh
-#define PerlCmd ${perl}/bin/perl
-#define M4Cmd ${gnum4}/bin/m4
-#define X11ProjectRoot ${x11ProjectRoot}
-#define CppCmd ${gcc}/bin/cpp
-TIRPCINC = -I${libtirpc.dev}/include/tirpc
-EOF
+        cat >> config/cf/site.def << EOF
+    #define MakeFlagsToShellFlags(makeflags,shellcmd) set -e
+    #define KornShell ${ksh}/bin/ksh
+    #define PerlCmd ${perl}/bin/perl
+    #define M4Cmd ${gnum4}/bin/m4
+    #define X11ProjectRoot ${x11ProjectRoot}
+    #define CppCmd ${gcc}/bin/cpp
+    TIRPCINC = -I${libtirpc.dev}/include/tirpc
+    EOF
 
-    patchShebangs .
-    unset AR
+        patchShebangs .
+        unset AR
   '';
 
   installPhase = ''
@@ -108,6 +159,9 @@ EOF
     homepage = "https://sourceforge.net/projects/cdesktopenv/";
     license = licenses.lgpl2;
     maintainers = [ ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

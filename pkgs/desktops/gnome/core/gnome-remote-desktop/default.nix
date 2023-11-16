@@ -1,31 +1,33 @@
-{ lib, stdenv
-, fetchurl
-, cairo
-, meson
-, ninja
-, pkg-config
-, python3
-, asciidoc
-, wrapGAppsHook
-, glib
-, libepoxy
-, libdrm
-, nv-codec-headers-11
-, pipewire
-, systemd
-, libsecret
-, libnotify
-, libxkbcommon
-, gdk-pixbuf
-, freerdp
-, fdk_aac
-, tpm2-tss
-, fuse3
-, mesa
-, libgudev
-, xvfb-run
-, dbus
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cairo,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  asciidoc,
+  wrapGAppsHook,
+  glib,
+  libepoxy,
+  libdrm,
+  nv-codec-headers-11,
+  pipewire,
+  systemd,
+  libsecret,
+  libnotify,
+  libxkbcommon,
+  gdk-pixbuf,
+  freerdp,
+  fdk_aac,
+  tpm2-tss,
+  fuse3,
+  mesa,
+  libgudev,
+  xvfb-run,
+  dbus,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
@@ -73,9 +75,7 @@ stdenv.mkDerivation rec {
     dbus # for dbus-run-session
   ];
 
-  mesonFlags = [
-    "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user"
-  ];
+  mesonFlags = [ "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user" ];
 
   # Too deep of a rabbit hole.
   doCheck = false;

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, imagemagickBig
-, py
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  imagemagickBig,
+  py,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -42,6 +43,9 @@ buildPythonPackage rec {
     description = "Ctypes-based simple MagickWand API binding for Python";
     homepage = "http://wand-py.org/";
     license = [ licenses.mit ];
-    maintainers = with maintainers; [ infinisil dotlambda ];
+    maintainers = with maintainers; [
+      infinisil
+      dotlambda
+    ];
   };
 }

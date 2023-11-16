@@ -1,8 +1,18 @@
-{ lib, stdenv, fetchurl, fetchzip, autoPatchelfHook, installShellFiles, cpio, xar }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  autoPatchelfHook,
+  installShellFiles,
+  cpio,
+  xar,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;
-  fetch = srcPlatform: sha256: extension:
+  fetch =
+    srcPlatform: sha256: extension:
     let
       args = {
         url = "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${srcPlatform}_v${version}.${extension}";
@@ -17,7 +27,9 @@ let
     aarch64-linux = fetch "linux_arm64" "sha256-BmYGx4DI/Hvj9hBBZo5iprQeUgMNqEkESDjYcOVAt4Q=" "zip";
     i686-linux = fetch "linux_386" "sha256-KpacioVLSPju9iW7B/yVCS66CZTwCTVAjxoaeBscJe8=" "zip";
     x86_64-linux = fetch "linux_amd64" "sha256-p4wztBVQ2x2RrODJhX3z72QQtF8mnvqk3wT72hiPE3o=" "zip";
-    aarch64-darwin = fetch "apple_universal" "sha256-GfmTx4WS5oGgXXWqlA4bEmQJyFTu/bZnoEhIfZpfqpg=" "pkg";
+    aarch64-darwin =
+      fetch "apple_universal" "sha256-GfmTx4WS5oGgXXWqlA4bEmQJyFTu/bZnoEhIfZpfqpg="
+        "pkg";
     x86_64-darwin = aarch64-darwin;
   };
   platforms = builtins.attrNames sources;
@@ -34,7 +46,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-  buildInputs = lib.optionals stdenv.isDarwin [ xar cpio ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    xar
+    cpio
+  ];
 
   unpackPhase = lib.optionalString stdenv.isDarwin ''
     xar -xf $src
@@ -67,7 +82,10 @@ stdenv.mkDerivation {
     description = "1Password command-line tool";
     homepage = "https://developer.1password.com/docs/cli/";
     downloadPage = "https://app-updates.agilebits.com/product_history/CLI2";
-    maintainers = with maintainers; [ joelburget marsam ];
+    maintainers = with maintainers; [
+      joelburget
+      marsam
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     inherit mainProgram platforms;

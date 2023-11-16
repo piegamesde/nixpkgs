@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, mkYarnPackage
-, electron
+{
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  mkYarnPackage,
+  electron,
 }:
 
 mkYarnPackage rec {

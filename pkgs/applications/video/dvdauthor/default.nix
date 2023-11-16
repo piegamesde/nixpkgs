@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, imagemagick
-, libdvdread
-, libxml2
-, freetype
-, fribidi
-, libpng
-, zlib
-, pkg-config
-, flex
-, bison
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imagemagick,
+  libdvdread,
+  libxml2,
+  freetype,
+  fribidi,
+  libpng,
+  zlib,
+  pkg-config,
+  flex,
+  bison,
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "1s8zqlim0s3hk5sbdsilip3qqh0yv05l1jwx49d9rsy614dv27sh";
   };
 
-  buildInputs = [ libpng freetype libdvdread libxml2 zlib fribidi imagemagick flex bison ];
+  buildInputs = [
+    libpng
+    freetype
+    libdvdread
+    libxml2
+    zlib
+    fribidi
+    imagemagick
+    flex
+    bison
+  ];
   nativeBuildInputs = [ pkg-config ];
 
   patches = [

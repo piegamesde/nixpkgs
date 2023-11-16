@@ -1,13 +1,14 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, makeBinaryWrapper
-, stdenv
-, darwin
-, gitMinimal
-, mercurial
-, nixVersions
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  makeBinaryWrapper,
+  stdenv,
+  darwin,
+  gitMinimal,
+  mercurial,
+  nixVersions,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -33,16 +34,20 @@ rustPlatform.buildRustPackage rec {
     makeBinaryWrapper
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   # tests require internet access
   doCheck = false;
 
   postInstall = ''
     wrapProgram $out/bin/nurl \
-      --prefix PATH : ${lib.makeBinPath [ gitMinimal mercurial nixVersions.unstable ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          gitMinimal
+          mercurial
+          nixVersions.unstable
+        ]
+      }
     installManPage artifacts/nurl.1
     installShellCompletion artifacts/nurl.{bash,fish} --zsh artifacts/_nurl
   '';

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, pyparsing, robotframework, allpairspy }:
+{
+  stdenv,
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pyparsing,
+  robotframework,
+  allpairspy,
+}:
 
 buildPythonPackage rec {
   pname = "RoboMachine";
@@ -9,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-XrxHaV9U7mZ2TvySHGm6qw1AsoukppzwPq4wufIjL+k=";
   };
 
-  propagatedBuildInputs = [ pyparsing robotframework allpairspy ];
+  propagatedBuildInputs = [
+    pyparsing
+    robotframework
+    allpairspy
+  ];
 
   # Remove Windows .bat files
   postInstall = ''

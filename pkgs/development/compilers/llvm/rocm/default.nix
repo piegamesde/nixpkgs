@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, callPackage
-, overrideCC
-, wrapCCWith
-, wrapBintoolsWith
-, runCommand
-, lit
-, glibc
-, spirv-llvm-translator
-, xz
-, swig
-, lua5_3
-, gtest
-, hip
-, rocm-comgr
-, vulkan-loader
-, vulkan-headers
-, glslang
-, shaderc
-, perl
-, rocm-device-libs
-, rocm-runtime
-, elfutils
-, python3Packages
+{
+  lib,
+  stdenv,
+  callPackage,
+  overrideCC,
+  wrapCCWith,
+  wrapBintoolsWith,
+  runCommand,
+  lit,
+  glibc,
+  spirv-llvm-translator,
+  xz,
+  swig,
+  lua5_3,
+  gtest,
+  hip,
+  rocm-comgr,
+  vulkan-loader,
+  vulkan-headers,
+  glslang,
+  shaderc,
+  perl,
+  rocm-device-libs,
+  rocm-runtime,
+  elfutils,
+  python3Packages,
 }:
 
 let
@@ -50,7 +51,8 @@ let
       ln -s ../cmake/Modules/FindLibEdit.cmake cmake/modules
 
       substituteInPlace CMakeLists.txt \
-        --replace "include(CheckIncludeFile)" "include(CheckIncludeFile)''\nfind_package(LibEdit)"
+        --replace "include(CheckIncludeFile)" "include(CheckIncludeFile)
+      find_package(LibEdit)"
 
       # `No such file or directory: '/build/source/clang/tools/scan-build/bin/scan-build'`
       rm test/Analysis/scan-build/*.test
@@ -105,31 +107,33 @@ let
 
   # Stage 2
   # Helpers
-  rStdenv = overrideCC stdenv (wrapCCWith rec {
-    inherit bintools;
-    libcxx = runtimes;
-    cc = clang-unwrapped;
+  rStdenv = overrideCC stdenv (
+    wrapCCWith rec {
+      inherit bintools;
+      libcxx = runtimes;
+      cc = clang-unwrapped;
 
-    extraPackages = [
-      llvm
-      lld
-    ];
+      extraPackages = [
+        llvm
+        lld
+      ];
 
-    nixSupport.cc-cflags = [
-      "-resource-dir=$out/resource-root"
-      "-fuse-ld=lld"
-      "-rtlib=compiler-rt"
-      "-unwindlib=libunwind"
-      "-Wno-unused-command-line-argument"
-    ];
+      nixSupport.cc-cflags = [
+        "-resource-dir=$out/resource-root"
+        "-fuse-ld=lld"
+        "-rtlib=compiler-rt"
+        "-unwindlib=libunwind"
+        "-Wno-unused-command-line-argument"
+      ];
 
-    extraBuildCommands = ''
-      clang_version=`${cc}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
-      mkdir -p $out/resource-root
-      ln -s ${cc}/lib/clang/$clang_version/include $out/resource-root
-      ln -s ${runtimes}/lib $out/resource-root
-    '';
-  });
+      extraBuildCommands = ''
+        clang_version=`${cc}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
+        mkdir -p $out/resource-root
+        ln -s ${cc}/lib/clang/$clang_version/include $out/resource-root
+        ln -s ${runtimes}/lib $out/resource-root
+      '';
+    }
+  );
 
   bintools = wrapBintoolsWith { bintools = bintools-unwrapped; };
 
@@ -156,13 +160,15 @@ let
     ln -s ${llvm}/bin/llvm-strip $out/bin/strip
     ln -s ${lld}/bin/lld $out/bin/ld
   '';
-in rec {
+in
+rec {
   inherit
-  llvm
-  clang-unwrapped
-  lld
-  bintools
-  bintools-unwrapped;
+    llvm
+    clang-unwrapped
+    lld
+    bintools
+    bintools-unwrapped
+  ;
 
   # Runtimes
   libc = callPackage ./llvm.nix rec {
@@ -312,7 +318,9 @@ in rec {
 
       # We can run these
       substituteInPlace ../compiler-rt/test/CMakeLists.txt \
-        --replace "endfunction()" "endfunction()''\nadd_subdirectory(builtins)''\nadd_subdirectory(shadowcallstack)"
+        --replace "endfunction()" "endfunction()
+      add_subdirectory(builtins)
+      add_subdirectory(shadowcallstack)"
     '';
 
     extraLicenses = [ lib.licenses.mit ];
@@ -327,30 +335,32 @@ in rec {
     inherit libcxx bintools;
 
     # We do this to avoid HIP pathing problems, and mimic a monolithic install
-    cc = stdenv.mkDerivation (finalAttrs: {
-      inherit (clang-unwrapped) pname version;
-      dontUnpack = true;
+    cc = stdenv.mkDerivation (
+      finalAttrs: {
+        inherit (clang-unwrapped) pname version;
+        dontUnpack = true;
 
-      installPhase = ''
-        runHook preInstall
+        installPhase = ''
+          runHook preInstall
 
-        clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
-        mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
+          clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
+          mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
 
-        for path in ${llvm} ${clang-unwrapped} ${lld} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
-          cp -as $path/* $out
-          chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
-          rm -f $out/lib/libc++.so
-        done
+          for path in ${llvm} ${clang-unwrapped} ${lld} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
+            cp -as $path/* $out
+            chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
+            rm -f $out/lib/libc++.so
+          done
 
-        ln -s $out/lib/* $out/lib/clang/$clang_version/lib
-        ln -s $out/include/* $out/lib/clang/$clang_version/include
+          ln -s $out/lib/* $out/lib/clang/$clang_version/lib
+          ln -s $out/include/* $out/lib/clang/$clang_version/include
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
-      passthru.isClang = true;
-    });
+        passthru.isClang = true;
+      }
+    );
 
     extraPackages = [
       llvm
@@ -379,7 +389,8 @@ in rec {
 
       # GPU compilation uses builtin `lld`
       substituteInPlace $out/bin/{clang,clang++} \
-        --replace "-MM) dontLink=1 ;;" "-MM | --cuda-device-only) dontLink=1 ;;''\n--cuda-host-only | --cuda-compile-host-device) dontLink=0 ;;"
+        --replace "-MM) dontLink=1 ;;" "-MM | --cuda-device-only) dontLink=1 ;;
+      --cuda-host-only | --cuda-compile-host-device) dontLink=0 ;;"
     '';
   };
 
@@ -419,33 +430,35 @@ in rec {
   };
 
   # Projects
-  libclc = let
-    spirv = (spirv-llvm-translator.override { inherit llvm; });
-  in callPackage ./llvm.nix rec {
-    stdenv = rocmClangStdenv;
-    buildDocs = false; # No documentation to build
-    buildMan = false; # No man pages to build
-    targetName = "libclc";
-    targetDir = targetName;
-    extraBuildInputs = [ spirv ];
+  libclc =
+    let
+      spirv = (spirv-llvm-translator.override { inherit llvm; });
+    in
+    callPackage ./llvm.nix rec {
+      stdenv = rocmClangStdenv;
+      buildDocs = false; # No documentation to build
+      buildMan = false; # No man pages to build
+      targetName = "libclc";
+      targetDir = targetName;
+      extraBuildInputs = [ spirv ];
 
-    # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
-    # Try removing the `spirv-mesa3d` and `clspv` patches next update
-    # `clspv` tests fail, unresolved calls
-    extraPostPatch = ''
-      substituteInPlace CMakeLists.txt \
-        --replace "find_program( LLVM_CLANG clang PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
-          "find_program( LLVM_CLANG clang PATHS \"${clang}/bin\" NO_DEFAULT_PATH )" \
-        --replace "find_program( LLVM_SPIRV llvm-spirv PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
-          "find_program( LLVM_SPIRV llvm-spirv PATHS \"${spirv}/bin\" NO_DEFAULT_PATH )" \
-        --replace "  spirv-mesa3d-" "" \
-        --replace "  spirv64-mesa3d-" "" \
-        --replace "NOT \''${t} MATCHES" \
-          "NOT \''${ARCH} STREQUAL \"clspv\" AND NOT \''${ARCH} STREQUAL \"clspv64\" AND NOT \''${t} MATCHES"
-    '';
+      # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
+      # Try removing the `spirv-mesa3d` and `clspv` patches next update
+      # `clspv` tests fail, unresolved calls
+      extraPostPatch = ''
+        substituteInPlace CMakeLists.txt \
+          --replace "find_program( LLVM_CLANG clang PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
+            "find_program( LLVM_CLANG clang PATHS \"${clang}/bin\" NO_DEFAULT_PATH )" \
+          --replace "find_program( LLVM_SPIRV llvm-spirv PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
+            "find_program( LLVM_SPIRV llvm-spirv PATHS \"${spirv}/bin\" NO_DEFAULT_PATH )" \
+          --replace "  spirv-mesa3d-" "" \
+          --replace "  spirv64-mesa3d-" "" \
+          --replace "NOT \''${t} MATCHES" \
+            "NOT \''${ARCH} STREQUAL \"clspv\" AND NOT \''${ARCH} STREQUAL \"clspv64\" AND NOT \''${t} MATCHES"
+      '';
 
-    checkTargets = [ ];
-  };
+      checkTargets = [ ];
+    };
 
   lldb = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;

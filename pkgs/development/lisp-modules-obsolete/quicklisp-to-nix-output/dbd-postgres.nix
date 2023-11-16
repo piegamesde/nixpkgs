@@ -1,12 +1,26 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "dbd-postgres";
   version = "cl-dbi-20211020-git";
 
   description = "Database driver for PostgreSQL.";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."cl-base64" args."cl-postgres" args."cl-ppcre" args."closer-mop" args."dbi" args."ironclad" args."md5" args."split-sequence" args."trivial-garbage" args."uax-15" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."cl-base64"
+    args."cl-postgres"
+    args."cl-ppcre"
+    args."closer-mop"
+    args."dbi"
+    args."ironclad"
+    args."md5"
+    args."split-sequence"
+    args."trivial-garbage"
+    args."uax-15"
+    args."usocket"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-dbi/2021-10-20/cl-dbi-20211020-git.tgz";
@@ -15,7 +29,7 @@ rec {
 
   packageName = "dbd-postgres";
 
-  asdFilesToKeep = ["dbd-postgres.asd"];
+  asdFilesToKeep = [ "dbd-postgres.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM dbd-postgres DESCRIPTION Database driver for PostgreSQL. SHA256
@@ -36,4 +50,5 @@ rec {
     (alexandria bordeaux-threads cl-base64 cl-postgres cl-ppcre closer-mop dbi
      ironclad md5 split-sequence trivial-garbage uax-15 usocket)
     VERSION cl-dbi-20211020-git SIBLINGS
-    (cl-dbi dbd-mysql dbd-sqlite3 dbi-test dbi) PARASITES NIL) */
+    (cl-dbi dbd-mysql dbd-sqlite3 dbi-test dbi) PARASITES NIL)
+*/

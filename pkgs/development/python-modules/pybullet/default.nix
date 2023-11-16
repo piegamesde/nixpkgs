@@ -1,9 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, libGLU, libGL
-, xorg
-, numpy
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  libGLU,
+  libGL,
+  xorg,
+  numpy,
 }:
 
 buildPythonPackage rec {
@@ -16,16 +18,18 @@ buildPythonPackage rec {
   };
 
   buildInputs = [
-    libGLU libGL
+    libGLU
+    libGL
     xorg.libX11
   ];
 
-  propagatedBuildInputs =  [ numpy ];
+  propagatedBuildInputs = [ numpy ];
 
-  patches = [
-    # make sure X11 and OpenGL can be found at runtime
-    ./static-libs.patch
-  ];
+  patches =
+    [
+      # make sure X11 and OpenGL can be found at runtime
+      ./static-libs.patch
+    ];
 
   meta = with lib; {
     description = "Open-source software for robot simulation, integrated with OpenAI Gym";

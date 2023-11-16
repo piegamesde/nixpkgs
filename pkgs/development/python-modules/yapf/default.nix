@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, nose
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  nose,
 }:
 
 buildPythonPackage rec {
@@ -17,9 +18,7 @@ buildPythonPackage rec {
   # nose is unavailable on pypy
   doCheck = !isPyPy;
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   meta = with lib; {
     homepage = "https://github.com/google/yapf";
@@ -45,6 +44,9 @@ buildPythonPackage rec {
       takes away some of the drudgery of maintaining your code.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ AndersonTorres siddharthist ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      siddharthist
+    ];
   };
 }

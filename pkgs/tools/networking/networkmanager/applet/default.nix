@@ -1,25 +1,27 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, gettext
-, pkg-config
-, networkmanager
-, gnome
-, libsecret
-, polkit
-, modemmanager
-, libnma
-, glib-networking
-, gsettings-desktop-schemas
-, libgudev
-, jansson
-, wrapGAppsHook
-, gobject-introspection
-, python3
-, gtk3
-, libappindicator-gtk3
-, glib
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  gettext,
+  pkg-config,
+  networkmanager,
+  gnome,
+  libsecret,
+  polkit,
+  modemmanager,
+  libnma,
+  glib-networking,
+  gsettings-desktop-schemas,
+  libgudev,
+  jansson,
+  wrapGAppsHook,
+  gobject-introspection,
+  python3,
+  gtk3,
+  libappindicator-gtk3,
+  glib,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,7 +29,9 @@ stdenv.mkDerivation rec {
   version = "1.32.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-orWv+hUFrUOQKVn9vgnlvOxXsR7TM/pgRY/7nGLvujg=";
   };
 
@@ -36,7 +40,10 @@ stdenv.mkDerivation rec {
     "-Dappindicator=yes"
   ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   buildInputs = [
     libnma

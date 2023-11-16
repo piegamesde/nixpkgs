@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, setuptools-scm, rich, pytest-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  setuptools-scm,
+  rich,
+  pytest-mock,
+}:
 
 buildPythonPackage rec {
   pname = "enrich";
@@ -13,12 +21,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ rich ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
-
-  disabledTests = [
-    # console output order is racy
-    "test_rich_console_ex"
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
   ];
+
+  disabledTests =
+    [
+      # console output order is racy
+      "test_rich_console_ex"
+    ];
 
   pythonImportsCheck = [ "enrich" ];
 

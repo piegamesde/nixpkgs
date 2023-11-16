@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, meson
-, ninja
-, pkg-config
-, doctest
-, glm
-, libevdev
-, libxml2
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  doctest,
+  glm,
+  libevdev,
+  libxml2,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,9 +34,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  propagatedBuildInputs = [
-    glm
-  ];
+  propagatedBuildInputs = [ glm ];
 
   nativeCheckInputs = [
     cmake
@@ -44,9 +43,7 @@ stdenv.mkDerivation rec {
   # CMake is just used for finding doctest.
   dontUseCmakeConfigure = true;
 
-  mesonFlags = [
-    (lib.mesonEnable "tests" (stdenv.buildPlatform.canExecute stdenv.hostPlatform))
-  ];
+  mesonFlags = [ (lib.mesonEnable "tests" (stdenv.buildPlatform.canExecute stdenv.hostPlatform)) ];
 
   doCheck = true;
 
@@ -54,7 +51,11 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/WayfireWM/wf-config";
     description = "Library for managing configuration files, written for Wayfire";
     license = licenses.mit;
-    maintainers = with maintainers; [ qyliss wucke13 rewine ];
+    maintainers = with maintainers; [
+      qyliss
+      wucke13
+      rewine
+    ];
     platforms = platforms.unix;
   };
 }

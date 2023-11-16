@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, h5py
-, nose
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  h5py,
+  nose,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -18,17 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-5nv7uDfRMG2kVVyIOGDHshXLMqhk5AAiKS1YR60foLs=";
   };
 
-  nativeBuildInputs = [
-    h5py
-  ];
+  nativeBuildInputs = [ h5py ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
-  pythonImportsCheck = [
-    "annoy"
-  ];
+  pythonImportsCheck = [ "annoy" ];
 
   meta = with lib; {
     description = "Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk";

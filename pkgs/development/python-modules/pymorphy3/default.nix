@@ -1,11 +1,12 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, dawg-python
-, docopt
-, pytestCheckHook
-, pymorphy3-dicts-ru
-, pymorphy3-dicts-uk
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  dawg-python,
+  docopt,
+  pytestCheckHook,
+  pymorphy3-dicts-ru,
+  pymorphy3-dicts-uk,
 }:
 
 buildPythonPackage rec {
@@ -26,9 +27,7 @@ buildPythonPackage rec {
     pymorphy3-dicts-uk
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "pymorphy3" ];
 

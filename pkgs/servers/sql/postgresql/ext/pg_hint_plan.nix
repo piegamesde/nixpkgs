@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_hint_plan";
@@ -7,7 +12,18 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ossc-db";
     repo = pname;
-    rev = "REL${builtins.replaceStrings ["-" "."] ["_" "_"] version}";
+    rev = "REL${
+        builtins.replaceStrings
+          [
+            "-"
+            "."
+          ]
+          [
+            "_"
+            "_"
+          ]
+          version
+      }";
     sha256 = "sha256-2hYDn/69264x2lMRVIp/I5chjocL6UqIw5ry1qdRcDM=";
   };
 

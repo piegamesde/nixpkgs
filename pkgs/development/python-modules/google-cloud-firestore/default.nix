@@ -1,16 +1,17 @@
-{ lib
-, aiounittest
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-core
-, google-cloud-testutils
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  aiounittest,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-core,
+  google-cloud-testutils,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -53,10 +54,11 @@ buildPythonPackage rec {
     "tests/unit/v1/test_bulk_writer.py"
   ];
 
-  disabledTests = [
-    # requires credentials
-    "test_collections"
-  ];
+  disabledTests =
+    [
+      # requires credentials
+      "test_collections"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.firestore_v1"

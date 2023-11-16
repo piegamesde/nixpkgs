@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, jdk8, maven, makeWrapper, jre8_headless, pcsclite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk8,
+  maven,
+  makeWrapper,
+  jre8_headless,
+  pcsclite,
+}:
 
-let jdk = jdk8; jre_headless = jre8_headless; in
+let
+  jdk = jdk8;
+  jre_headless = jre8_headless;
+in
 # TODO: This is quite a bit of duplicated logic with gephi. Factor it out?
 stdenv.mkDerivation rec {
   pname = "global-platform-pro";
@@ -17,7 +29,10 @@ stdenv.mkDerivation rec {
   deps = stdenv.mkDerivation {
     name = "${pname}-${version}-deps";
     inherit src;
-    nativeBuildInputs = [ jdk maven ];
+    nativeBuildInputs = [
+      jdk
+      maven
+    ];
     installPhase = ''
       # Download the dependencies
       while ! mvn package "-Dmaven.repo.local=$out/.m2" -Dmaven.wagon.rto=5000; do
@@ -35,7 +50,11 @@ stdenv.mkDerivation rec {
     outputHash = "1qwgvz6l5wia8q5824c9f3iwyapfskljhqf1z09fw6jjj1jy3b15";
   };
 
-  nativeBuildInputs = [ jdk maven makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    maven
+    makeWrapper
+  ];
 
   buildPhase = ''
     cp -dpR "${deps}/.m2" ./
@@ -63,7 +82,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/martinpaljak/GlobalPlatformPro";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = with licenses; [ lgpl3 ];
     maintainers = with maintainers; [ ekleog ];

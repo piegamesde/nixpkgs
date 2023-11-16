@@ -1,24 +1,25 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, python3
-, vala
-, wrapGAppsHook4
-, evolution-data-server
-, glib
-, glib-networking
-, gtk4
-, json-glib
-, libadwaita
-, libgee
-, libical
-, pantheon
-, sqlite
-, webkitgtk_6_0
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook4,
+  evolution-data-server,
+  glib,
+  glib-networking,
+  gtk4,
+  json-glib,
+  libadwaita,
+  libgee,
+  libical,
+  pantheon,
+  sqlite,
+  webkitgtk_6_0,
 }:
 
 stdenv.mkDerivation rec {
@@ -56,9 +57,7 @@ stdenv.mkDerivation rec {
     webkitgtk_6_0
   ];
 
-  mesonFlags = [
-    "-Dproduction=true"
-  ];
+  mesonFlags = [ "-Dproduction=true" ];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py

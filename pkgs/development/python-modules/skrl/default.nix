@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pythonOlder
-, pytestCheckHook
-, gym
-, gymnasium
-, torch
-, tensorboard
-, tqdm
-, wandb
-, packaging
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder,
+  pytestCheckHook,
+  gym,
+  gymnasium,
+  torch,
+  tensorboard,
+  tqdm,
+  wandb,
+  packaging,
 }:
 
 buildPythonPackage rec {
@@ -27,14 +28,15 @@ buildPythonPackage rec {
     hash = "sha256-OY5+bUPg+G1eKFMvHlXSHwc2WWHTpyoyCKjY3MvlLyM=";
   };
 
-  patches = [
-    # remove after next release:
-    (fetchpatch {
-       name = "fix-python_requires-specification";
-       url = "https://github.com/Toni-SM/skrl/pull/62/commits/9b554adfe2da6cd97cccbbcd418a349cc8f1de80.patch";
-       hash = "sha256-GeASMU1Pgy8U1zaIAVroBDjYaY+n93XP5uFyP4U9lok=";
-    })
-  ];
+  patches =
+    [
+      # remove after next release:
+      (fetchpatch {
+        name = "fix-python_requires-specification";
+        url = "https://github.com/Toni-SM/skrl/pull/62/commits/9b554adfe2da6cd97cccbbcd418a349cc8f1de80.patch";
+        hash = "sha256-GeASMU1Pgy8U1zaIAVroBDjYaY+n93XP5uFyP4U9lok=";
+      })
+    ];
 
   propagatedBuildInputs = [
     gym

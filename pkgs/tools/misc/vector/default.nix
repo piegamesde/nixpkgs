@@ -1,33 +1,45 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, protobuf
-, rdkafka
-, oniguruma
-, zstd
-, Security
-, libiconv
-, coreutils
-, CoreServices
-, tzdata
-, cmake
-, perl
-, git
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  protobuf,
+  rdkafka,
+  oniguruma,
+  zstd,
+  Security,
+  libiconv,
+  coreutils,
+  CoreServices,
+  tzdata,
+  cmake,
+  perl,
+  git,
   # nix has a problem with the `?` in the feature list
   # enabling kafka will produce a vector with no features at all
-, enableKafka ? false
+  enableKafka ? false,
   # TODO investigate adding "vrl-cli" and various "vendor-*"
   # "disk-buffer" is using leveldb TODO: investigate how useful
   # it would be, perhaps only for massive scale?
-, features ? ([ "api" "api-client" "enrichment-tables" "sinks" "sources" "sources-dnstap" "transforms" "vrl-cli" ]
+  features ? (
+    [
+      "api"
+      "api-client"
+      "enrichment-tables"
+      "sinks"
+      "sources"
+      "sources-dnstap"
+      "transforms"
+      "vrl-cli"
+    ]
     # the second feature flag is passed to the rdkafka dependency
     # building on linux fails without this feature flag (both x86_64 and AArch64)
     ++ lib.optionals enableKafka [ "rdkafka?/gssapi-vendored" ]
-    ++ lib.optional stdenv.targetPlatform.isUnix "unix")
-, nix-update-script
+    ++ lib.optional stdenv.targetPlatform.isUnix "unix"
+  ),
+  nix-update-script,
 }:
 
 let
@@ -56,9 +68,27 @@ rustPlatform.buildRustPackage {
       "tracing-0.2.0" = "sha256-YAxeEofFA43PX2hafh3RY+C81a2v6n1fGzYz2FycC3M=";
     };
   };
-  nativeBuildInputs = [ pkg-config cmake perl git rustPlatform.bindgenHook ];
-  buildInputs = [ oniguruma openssl protobuf rdkafka zstd ]
-    ++ lib.optionals stdenv.isDarwin [ Security libiconv coreutils CoreServices ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    perl
+    git
+    rustPlatform.bindgenHook
+  ];
+  buildInputs =
+    [
+      oniguruma
+      openssl
+      protobuf
+      rdkafka
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Security
+      libiconv
+      coreutils
+      CoreServices
+    ];
 
   # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";
@@ -68,7 +98,7 @@ rustPlatform.buildRustPackage {
   TZDIR = "${tzdata}/share/zoneinfo";
 
   # needed to dynamically link rdkafka
-  CARGO_FEATURE_DYNAMIC_LINKING=1;
+  CARGO_FEATURE_DYNAMIC_LINKING = 1;
 
   buildNoDefaultFeatures = true;
   buildFeatures = features;
@@ -117,7 +147,10 @@ rustPlatform.buildRustPackage {
     description = "A high-performance observability data pipeline";
     homepage = "https://github.com/vectordotdev/vector";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ thoughtpolice happysalada ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      happysalada
+    ];
     platforms = with platforms; all;
   };
 }

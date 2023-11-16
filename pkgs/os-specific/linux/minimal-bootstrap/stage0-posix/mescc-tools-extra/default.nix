@@ -1,9 +1,10 @@
-{ lib
-, derivationWithMeta
-, kaem-unwrapped
-, mescc-tools
-, src
-, version
+{
+  lib,
+  derivationWithMeta,
+  kaem-unwrapped,
+  mescc-tools,
+  src,
+  version,
 }:
 derivationWithMeta {
   inherit version src mescc-tools;

@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bison, flex, libusb-compat-0_1, libelf
-, libftdi1, readline
-# documentation building is broken on darwin
-, docSupport ? (!stdenv.isDarwin), texlive, texinfo, texi2html, unixtools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bison,
+  flex,
+  libusb-compat-0_1,
+  libelf,
+  libftdi1,
+  readline,
+  # documentation building is broken on darwin
+  docSupport ? (!stdenv.isDarwin),
+  texlive,
+  texinfo,
+  texi2html,
+  unixtools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avrdude";
@@ -14,18 +28,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pGjOefWnf11kG/zFGwYGet1OjAhKsULNGgh6vqvIQ7c=";
   };
 
-  nativeBuildInputs = [ cmake bison flex ] ++ lib.optionals docSupport [
-    unixtools.more
-    texlive.combined.scheme-medium
-    texinfo
-    texi2html
+  nativeBuildInputs =
+    [
+      cmake
+      bison
+      flex
+    ]
+    ++ lib.optionals docSupport [
+      unixtools.more
+      texlive.combined.scheme-medium
+      texinfo
+      texi2html
+    ];
+
+  buildInputs = [
+    libusb-compat-0_1
+    libelf
+    libftdi1
+    readline
   ];
 
-  buildInputs = [ libusb-compat-0_1 libelf libftdi1 readline ];
-
-  cmakeFlags = lib.optionals docSupport [
-    "-DBUILD_DOC=ON"
-  ];
+  cmakeFlags = lib.optionals docSupport [ "-DBUILD_DOC=ON" ];
 
   meta = with lib; {
     description = "Command-line tool for programming Atmel AVR microcontrollers";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -20,7 +25,9 @@ let
   '';
   backupDatabaseScript = db: ''
     dest="${cfg.location}/${db}.gz"
-    if ${mariadb}/bin/mysqldump ${optionalString cfg.singleTransaction "--single-transaction"} ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
+    if ${mariadb}/bin/mysqldump ${
+      optionalString cfg.singleTransaction "--single-transaction"
+    } ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
       mv $dest.tmp $dest
       echo "Backed up to $dest"
     else
@@ -29,7 +36,6 @@ let
       failed="$failed ${db}"
     fi
   '';
-
 in
 
 {
@@ -56,7 +62,7 @@ in
       };
 
       databases = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of database names to dump.
@@ -79,7 +85,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -92,15 +97,18 @@ in
       };
     };
 
-    services.mysql.ensureUsers = [{
-      name = cfg.user;
-      ensurePermissions = with lib;
-        let
-          privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
-          grant = db: nameValuePair "${db}.*" privs;
-        in
+    services.mysql.ensureUsers = [
+      {
+        name = cfg.user;
+        ensurePermissions =
+          with lib;
+          let
+            privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
+            grant = db: nameValuePair "${db}.*" privs;
+          in
           listToAttrs (map grant cfg.databases);
-    }];
+      }
+    ];
 
     systemd = {
       timers.mysql-backup = {
@@ -121,10 +129,7 @@ in
         };
         script = backupScript;
       };
-      tmpfiles.rules = [
-        "d ${cfg.location} 0700 ${cfg.user} - - -"
-      ];
+      tmpfiles.rules = [ "d ${cfg.location} 0700 ${cfg.user} - - -" ];
     };
   };
-
 }

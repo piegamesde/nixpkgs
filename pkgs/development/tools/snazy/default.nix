@@ -1,4 +1,9 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "snazy";
@@ -39,6 +44,9 @@ rustPlatform.buildRustPackage rec {
       with nice colors.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda jk ];
+    maintainers = with maintainers; [
+      figsoda
+      jk
+    ];
   };
 }

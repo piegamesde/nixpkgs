@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "tf2pulumi";
@@ -14,7 +18,9 @@ buildGoModule rec {
   vendorSha256 = "sha256-wsgNrDnFXbpanEULEjf6OxOeMYmWzjE7vpVUB/UFNp8=";
 
   ldflags = [
-    "-s" "-w" "-X=github.com/pulumi/tf2pulumi/version.Version=${src.rev}"
+    "-s"
+    "-w"
+    "-X=github.com/pulumi/tf2pulumi/version.Version=${src.rev}"
   ];
 
   subPackages = [ "." ];

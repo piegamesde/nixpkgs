@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, cmake
-, ninja
-, qt6
-, python
-, moveBuildTree
-, shiboken6
-, libxcrypt
+{
+  lib,
+  stdenv,
+  cmake,
+  ninja,
+  qt6,
+  python,
+  moveBuildTree,
+  shiboken6,
+  libxcrypt,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,50 +31,54 @@ stdenv.mkDerivation rec {
     cmake
     ninja
     python
-  ] ++ lib.optionals stdenv.isDarwin [
-    moveBuildTree
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
 
-  buildInputs = with qt6; [
-    # required
-    qtbase
-  ] ++ lib.optionals stdenv.isLinux [
-    # optional
-    qt3d
-    qtcharts
-    qtconnectivity
-    qtdatavis3d
-    qtdeclarative
-    qthttpserver
-    qtmultimedia
-    qtnetworkauth
-    qtquick3d
-    qtremoteobjects
-    qtscxml
-    qtsensors
-    qtspeech
-    qtsvg
-    qttools
-    qtwebchannel
-    qtwebengine
-    qtwebsockets
-  ];
+  buildInputs =
+    with qt6;
+    [
+      # required
+      qtbase
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      # optional
+      qt3d
+      qtcharts
+      qtconnectivity
+      qtdatavis3d
+      qtdeclarative
+      qthttpserver
+      qtmultimedia
+      qtnetworkauth
+      qtquick3d
+      qtremoteobjects
+      qtscxml
+      qtsensors
+      qtspeech
+      qtsvg
+      qttools
+      qtwebchannel
+      qtwebengine
+      qtwebsockets
+    ];
 
-  propagatedBuildInputs = [
-    shiboken6
-  ];
+  propagatedBuildInputs = [ shiboken6 ];
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 
   dontWrapQtApps = true;
 
   meta = with lib; {
     description = "Python bindings for Qt";
-    license = with licenses; [ lgpl3Only gpl2Only gpl3Only ];
+    license = with licenses; [
+      lgpl3Only
+      gpl2Only
+      gpl3Only
+    ];
     homepage = "https://wiki.qt.io/Qt_for_Python";
-    maintainers = with maintainers; [ gebner Enzime ];
+    maintainers = with maintainers; [
+      gebner
+      Enzime
+    ];
     platforms = platforms.all;
   };
 }

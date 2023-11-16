@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, setuptools
-, setuptools-scm
-, toml
-, jaraco_functools
-, jaraco-context
-, more-itertools
-, jaraco_collections
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  toml,
+  jaraco_functools,
+  jaraco-context,
+  more-itertools,
+  jaraco_collections,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -38,13 +39,9 @@ buildPythonPackage rec {
     jaraco_collections
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "jaraco.test"
-  ];
+  pythonImportsCheck = [ "jaraco.test" ];
 
   meta = with lib; {
     description = "Testing support by jaraco";

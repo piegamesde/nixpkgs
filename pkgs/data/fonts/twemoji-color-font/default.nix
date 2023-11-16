@@ -1,6 +1,7 @@
-{ lib
-, stdenv
-, fetchurl
+{
+  lib,
+  stdenv,
+  fetchurl,
 }:
 
 stdenv.mkDerivation rec {
@@ -36,7 +37,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/eosrei/twemoji-color-font";
     downloadPage = "https://github.com/eosrei/twemoji-color-font/releases";
-    license = with licenses; [ cc-by-40 mit ];
+    license = with licenses; [
+      cc-by-40
+      mit
+    ];
     maintainers = [ maintainers.fgaz ];
   };
 }

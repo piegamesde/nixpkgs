@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, callPackage
-, maven
-, jdk
-, jre
-, buildMaven
-, makeWrapper
-, git
-, fetchFromGitHub
-, graphviz
-, ensureNewerSourcesHook
+{
+  lib,
+  stdenv,
+  callPackage,
+  maven,
+  jdk,
+  jre,
+  buildMaven,
+  makeWrapper,
+  git,
+  fetchFromGitHub,
+  graphviz,
+  ensureNewerSourcesHook,
 }:
 
 let
@@ -27,7 +28,11 @@ let
     name = "${pname}-${version}-deps";
     inherit src;
 
-    nativeBuildInputs = [ jdk maven git ];
+    nativeBuildInputs = [
+      jdk
+      maven
+      git
+    ];
     buildInputs = [ jre ];
 
     buildPhase = ''
@@ -50,9 +55,7 @@ in
 stdenv.mkDerivation rec {
   inherit version pname src;
 
-  buildInputs = [
-    maven
-  ];
+  buildInputs = [ maven ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -65,9 +68,7 @@ stdenv.mkDerivation rec {
     (ensureNewerSourcesHook { year = "1980"; })
   ];
 
-  wrappedPath = lib.makeBinPath [
-    graphviz
-  ];
+  wrappedPath = lib.makeBinPath [ graphviz ];
 
   buildPhase = ''
     VERSION=${version}
@@ -91,4 +92,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jraygauthier ];
   };
 }
-

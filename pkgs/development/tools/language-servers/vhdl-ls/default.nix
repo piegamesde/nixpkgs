@@ -1,6 +1,7 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -19,14 +20,15 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
   };
-  postPatch = ''
-    ln -s ${./Cargo.lock} Cargo.lock
-  ''
-  # Also make it look up vhdl_libraries in an expected location
-  + ''
-    substituteInPlace vhdl_lang/src/config.rs \
-      --replace /usr/lib $out/lib
-  '';
+  postPatch =
+    ''
+      ln -s ${./Cargo.lock} Cargo.lock
+    ''
+    # Also make it look up vhdl_libraries in an expected location
+    + ''
+      substituteInPlace vhdl_lang/src/config.rs \
+        --replace /usr/lib $out/lib
+    '';
 
   postInstall = ''
     mkdir -p $out/lib/rust_hdl

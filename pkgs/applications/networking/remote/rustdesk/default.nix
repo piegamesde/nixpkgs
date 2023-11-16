@@ -1,27 +1,28 @@
-{ lib
-, fetchFromGitHub
-, makeDesktopItem
-, copyDesktopItems
-, makeWrapper
-, rustPlatform
-, cmake
-, yasm
-, nasm
-, pkg-config
-, clang
-, gtk3
-, xdotool
-, libxcb
-, libXfixes
-, alsa-lib
-, pulseaudio
-, libXtst
-, libvpx
-, libyuv
-, libopus
-, libsciter
-, wrapGAppsHook
-, writeText
+{
+  lib,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  rustPlatform,
+  cmake,
+  yasm,
+  nasm,
+  pkg-config,
+  clang,
+  gtk3,
+  xdotool,
+  libxcb,
+  libXfixes,
+  alsa-lib,
+  pulseaudio,
+  libXtst,
+  libvpx,
+  libyuv,
+  libopus,
+  libsciter,
+  wrapGAppsHook,
+  writeText,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -35,10 +36,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-IlrfqwNyaSHE9Ct0mn7MUxEg7p1Ku34eOMYelEAYFW8=";
   };
 
-  patches = [
-    # based on https://github.com/rustdesk/rustdesk/pull/1900
-    ./fix-for-rust-1.65.diff
-  ];
+  patches =
+    [
+      # based on https://github.com/rustdesk/rustdesk/pull/1900
+      ./fix-for-rust-1.65.diff
+    ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -57,9 +59,7 @@ rustPlatform.buildRustPackage rec {
 
   # Change magnus-opus version to upstream so that it does not use
   # vcpkg for libopus since it does not work.
-  cargoPatches = [
-    ./cargo.patch
-  ];
+  cargoPatches = [ ./cargo.patch ];
 
   # Manually simulate a vcpkg installation so that it can link the libraries
   # properly.
@@ -67,18 +67,17 @@ rustPlatform.buildRustPackage rec {
     let
       vcpkg_target = "x64-linux";
 
-      updates_vcpkg_file = writeText "update_vcpkg_rustdesk"
-        ''
-          Package : libyuv
-          Architecture : ${vcpkg_target}
-          Version : 1.0
-          Status : is installed
+      updates_vcpkg_file = writeText "update_vcpkg_rustdesk" ''
+        Package : libyuv
+        Architecture : ${vcpkg_target}
+        Version : 1.0
+        Status : is installed
 
-          Package : libvpx
-          Architecture : ${vcpkg_target}
-          Version : 1.0
-          Status : is installed
-        '';
+        Package : libvpx
+        Architecture : ${vcpkg_target}
+        Version : 1.0
+        Status : is installed
+      '';
     in
     ''
       export VCPKG_ROOT="$TMP/vcpkg";
@@ -95,8 +94,29 @@ rustPlatform.buildRustPackage rec {
       ln -s ${libyuv.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
     '';
 
-  nativeBuildInputs = [ pkg-config cmake makeWrapper copyDesktopItems yasm nasm clang wrapGAppsHook rustPlatform.bindgenHook ];
-  buildInputs = [ alsa-lib pulseaudio libXfixes libxcb xdotool gtk3 libvpx libopus libXtst libyuv ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    makeWrapper
+    copyDesktopItems
+    yasm
+    nasm
+    clang
+    wrapGAppsHook
+    rustPlatform.bindgenHook
+  ];
+  buildInputs = [
+    alsa-lib
+    pulseaudio
+    libXfixes
+    libxcb
+    xdotool
+    gtk3
+    libvpx
+    libopus
+    libXtst
+    libyuv
+  ];
 
   # Checks require an active X display.
   doCheck = false;
@@ -139,7 +159,10 @@ rustPlatform.buildRustPackage rec {
     description = "Yet another remote desktop software";
     homepage = "https://rustdesk.com";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ocfox leixb ];
+    maintainers = with maintainers; [
+      ocfox
+      leixb
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "rustdesk";
   };

@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, makeWrapper
-, webkitgtk
-, zenity
-, Cocoa
-, Security
-, WebKit
-, withGui ? true
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  makeWrapper,
+  webkitgtk,
+  zenity,
+  Cocoa,
+  Security,
+  WebKit,
+  withGui ? true,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -40,15 +41,20 @@ rustPlatform.buildRustPackage rec {
     "--skip=dns::client::tests::test_udp_client"
   ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
-  buildInputs = lib.optional stdenv.isDarwin Security
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
+  buildInputs =
+    lib.optional stdenv.isDarwin Security
     ++ lib.optional (withGui && stdenv.isLinux) webkitgtk
-    ++ lib.optionals (withGui && stdenv.isDarwin) [ Cocoa WebKit ];
+    ++ lib.optionals (withGui && stdenv.isDarwin) [
+      Cocoa
+      WebKit
+    ];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [
-    "doh"
-  ] ++ lib.optional withGui "webgui";
+  buildFeatures = [ "doh" ] ++ lib.optional withGui "webgui";
 
   postInstall = lib.optionalString (withGui && stdenv.isLinux) ''
     wrapProgram $out/bin/alfis \

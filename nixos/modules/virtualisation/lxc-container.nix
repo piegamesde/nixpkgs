@@ -1,52 +1,75 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
-  templateSubmodule = { ... }: {
-    options = {
-      enable = mkEnableOption (lib.mdDoc "this template");
+  templateSubmodule =
+    { ... }:
+    {
+      options = {
+        enable = mkEnableOption (lib.mdDoc "this template");
 
-      target = mkOption {
-        description = lib.mdDoc "Path in the container";
-        type = types.path;
-      };
-      template = mkOption {
-        description = lib.mdDoc ".tpl file for rendering the target";
-        type = types.path;
-      };
-      when = mkOption {
-        description = lib.mdDoc "Events which trigger a rewrite (create, copy)";
-        type = types.listOf (types.str);
-      };
-      properties = mkOption {
-        description = lib.mdDoc "Additional properties";
-        type = types.attrs;
-        default = {};
+        target = mkOption {
+          description = lib.mdDoc "Path in the container";
+          type = types.path;
+        };
+        template = mkOption {
+          description = lib.mdDoc ".tpl file for rendering the target";
+          type = types.path;
+        };
+        when = mkOption {
+          description = lib.mdDoc "Events which trigger a rewrite (create, copy)";
+          type = types.listOf (types.str);
+        };
+        properties = mkOption {
+          description = lib.mdDoc "Additional properties";
+          type = types.attrs;
+          default = { };
+        };
       };
     };
-  };
 
-  toYAML = name: data: pkgs.writeText name (generators.toYAML {} data);
+  toYAML = name: data: pkgs.writeText name (generators.toYAML { } data);
 
   cfg = config.virtualisation.lxc;
-  templates = if cfg.templates != {} then let
-    list = mapAttrsToList (name: value: { inherit name; } // value)
-      (filterAttrs (name: value: value.enable) cfg.templates);
-  in
-    {
-      files = map (tpl: {
-        source = tpl.template;
-        target = "/templates/${tpl.name}.tpl";
-      }) list;
-      properties = listToAttrs (map (tpl: nameValuePair tpl.target {
-        when = tpl.when;
-        template = "${tpl.name}.tpl";
-        properties = tpl.properties;
-      }) list);
-    }
-  else { files = []; properties = {}; };
-
+  templates =
+    if cfg.templates != { } then
+      let
+        list = mapAttrsToList (name: value: { inherit name; } // value) (
+          filterAttrs (name: value: value.enable) cfg.templates
+        );
+      in
+      {
+        files =
+          map
+            (tpl: {
+              source = tpl.template;
+              target = "/templates/${tpl.name}.tpl";
+            })
+            list;
+        properties = listToAttrs (
+          map
+            (
+              tpl:
+              nameValuePair tpl.target {
+                when = tpl.when;
+                template = "${tpl.name}.tpl";
+                properties = tpl.properties;
+              }
+            )
+            list
+        );
+      }
+    else
+      {
+        files = [ ];
+        properties = { };
+      };
 in
 {
   imports = [
@@ -60,7 +83,7 @@ in
       templates = mkOption {
         description = lib.mdDoc "Templates for LXD";
         type = types.attrsOf (types.submodule (templateSubmodule));
-        default = {};
+        default = { };
         example = literalExpression ''
           {
             # create /etc/hostname on container creation. also requires networking.hostName = "" to be set
@@ -103,18 +126,17 @@ in
 
   config = {
     boot.isContainer = true;
-    boot.postBootCommands =
-      ''
-        # After booting, register the contents of the Nix store in the Nix
-        # database.
-        if [ -f /nix-path-registration ]; then
-          ${config.nix.package.out}/bin/nix-store --load-db < /nix-path-registration &&
-          rm /nix-path-registration
-        fi
+    boot.postBootCommands = ''
+      # After booting, register the contents of the Nix store in the Nix
+      # database.
+      if [ -f /nix-path-registration ]; then
+        ${config.nix.package.out}/bin/nix-store --load-db < /nix-path-registration &&
+        rm /nix-path-registration
+      fi
 
-        # nixos-rebuild also requires a "system" profile
-        ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
-      '';
+      # nixos-rebuild also requires a "system" profile
+      ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
+    '';
 
     system.build.metadata = pkgs.callPackage ../../lib/make-system-tarball.nix {
       contents = [
@@ -172,24 +194,26 @@ in
       (pkgs.writeTextFile {
         name = "systemd-lxc-service-overrides";
         destination = "/etc/systemd/system/service.d/zzz-lxc-service.conf";
-        text = ''
-          [Service]
-          ProcSubset=all
-          ProtectProc=default
-          ProtectControlGroups=no
-          ProtectKernelTunables=no
-          NoNewPrivileges=no
-          LoadCredential=
-        '' + optionalString cfg.privilegedContainer ''
-          # Additional settings for privileged containers
-          ProtectHome=no
-          ProtectSystem=no
-          PrivateDevices=no
-          PrivateTmp=no
-          ProtectKernelLogs=no
-          ProtectKernelModules=no
-          ReadWritePaths=
-        '';
+        text =
+          ''
+            [Service]
+            ProcSubset=all
+            ProtectProc=default
+            ProtectControlGroups=no
+            ProtectKernelTunables=no
+            NoNewPrivileges=no
+            LoadCredential=
+          ''
+          + optionalString cfg.privilegedContainer ''
+            # Additional settings for privileged containers
+            ProtectHome=no
+            ProtectSystem=no
+            PrivateDevices=no
+            PrivateTmp=no
+            ProtectKernelLogs=no
+            ProtectKernelModules=no
+            ReadWritePaths=
+          '';
       })
     ];
 
@@ -201,11 +225,10 @@ in
     '';
 
     # Some more help text.
-    services.getty.helpLine =
-      ''
+    services.getty.helpLine = ''
 
-        Log in as "root" with an empty password.
-      '';
+      Log in as "root" with an empty password.
+    '';
 
     # Containers should be light-weight, so start sshd on demand.
     services.openssh.enable = mkDefault true;

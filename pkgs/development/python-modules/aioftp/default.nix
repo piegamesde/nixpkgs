@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, async-timeout
-, buildPythonPackage
-, fetchPypi
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, siosocks
-, trustme
+{
+  lib,
+  stdenv,
+  async-timeout,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  siosocks,
+  trustme,
 }:
 
 buildPythonPackage rec {
@@ -22,9 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-KLsm1GFsfDgaFUMoH5hwUbjS0dW/rwI9nn4sIQXFG7k=";
   };
 
-  propagatedBuildInputs = [
-    siosocks
-  ];
+  propagatedBuildInputs = [ siosocks ];
 
   nativeCheckInputs = [
     async-timeout
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     trustme
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    # uses 127.0.0.2, which macos doesn't like
-    "test_pasv_connection_pasv_forced_response_address"
-  ];
+  disabledTests =
+    lib.optionals stdenv.isDarwin
+      [
+        # uses 127.0.0.2, which macos doesn't like
+        "test_pasv_connection_pasv_forced_response_address"
+      ];
 
-  pythonImportsCheck = [
-    "aioftp"
-  ];
+  pythonImportsCheck = [ "aioftp" ];
 
   meta = with lib; {
     description = "Python FTP client/server for asyncio";

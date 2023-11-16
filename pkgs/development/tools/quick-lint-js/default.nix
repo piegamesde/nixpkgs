@@ -1,5 +1,12 @@
-{ cmake, fetchFromGitHub, lib, ninja, stdenv, testers, quick-lint-js }:
-
+{
+  cmake,
+  fetchFromGitHub,
+  lib,
+  ninja,
+  stdenv,
+  testers,
+  quick-lint-js,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quick-lint-js";
@@ -12,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TzkJupn2oy7zUZybAuTnXZXVLSe72GM7XByo0Kd66Qs=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
   doCheck = true;
 
   # Temporary workaround for https://github.com/NixOS/nixpkgs/pull/108496#issuecomment-1192083379

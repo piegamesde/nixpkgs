@@ -1,9 +1,10 @@
-{ lib
-, buildGoPackage
-, fetchFromGitHub
-, buildGoModule
-, sqlite
-, callPackage
+{
+  lib,
+  buildGoPackage,
+  fetchFromGitHub,
+  buildGoModule,
+  sqlite,
+  callPackage,
 }:
 
 buildGoModule rec {
@@ -46,7 +47,8 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   ldflags = [
-    "-X main.Version=${version}" "-X main.Mode=prod"
+    "-X main.Version=${version}"
+    "-X main.Mode=prod"
   ];
 
   meta = with lib; {
@@ -56,5 +58,4 @@ buildGoModule rec {
     maintainers = with maintainers; [ doronbehar ];
     mainProgram = "server";
   };
-
 }

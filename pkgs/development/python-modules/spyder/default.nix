@@ -1,46 +1,47 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, atomicwrites
-, chardet
-, cloudpickle
-, cookiecutter
-, diff-match-patch
-, flake8
-, intervaltree
-, jedi
-, jellyfish
-, keyring
-, matplotlib
-, mccabe
-, nbconvert
-, numpy
-, numpydoc
-, psutil
-, pygments
-, pylint
-, pylint-venv
-, pyls-spyder
-, pyopengl
-, pyqtwebengine
-, python-lsp-black
-, python-lsp-server
-, pyxdg
-, pyzmq
-, pycodestyle
-, qdarkstyle
-, qstylizer
-, qtawesome
-, qtconsole
-, qtpy
-, rope
-, rtree
-, scipy
-, spyder-kernels
-, textdistance
-, three-merge
-, watchdog
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  atomicwrites,
+  chardet,
+  cloudpickle,
+  cookiecutter,
+  diff-match-patch,
+  flake8,
+  intervaltree,
+  jedi,
+  jellyfish,
+  keyring,
+  matplotlib,
+  mccabe,
+  nbconvert,
+  numpy,
+  numpydoc,
+  psutil,
+  pygments,
+  pylint,
+  pylint-venv,
+  pyls-spyder,
+  pyopengl,
+  pyqtwebengine,
+  python-lsp-black,
+  python-lsp-server,
+  pyxdg,
+  pyzmq,
+  pycodestyle,
+  qdarkstyle,
+  qstylizer,
+  qtawesome,
+  qtconsole,
+  qtpy,
+  rope,
+  rtree,
+  scipy,
+  spyder-kernels,
+  textdistance,
+  three-merge,
+  watchdog,
 }:
 
 buildPythonPackage rec {
@@ -55,13 +56,9 @@ buildPythonPackage rec {
     hash = "sha256-L8zgT7M7N+P5/9FQgf6ab7afUQXC1afzwUjAp6yKxC8=";
   };
 
-  patches = [
-    ./dont-clear-pythonpath.patch
-  ];
+  patches = [ ./dont-clear-pythonpath.patch ];
 
-  nativeBuildInputs = [
-    pyqtwebengine.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pyqtwebengine.wrapQtAppsHook ];
 
   propagatedBuildInputs = [
     atomicwrites

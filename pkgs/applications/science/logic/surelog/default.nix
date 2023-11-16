@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, python3
-, pkg-config
-, libuuid
-, openjdk
-, gperftools
-, gtest
-, uhdm
-, antlr4
-, flatbuffers
-, capnproto
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  pkg-config,
+  libuuid,
+  openjdk,
+  gperftools,
+  gtest,
+  uhdm,
+  antlr4,
+  flatbuffers,
+  capnproto,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,10 +30,13 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     openjdk
-    (python3.withPackages (p: with p; [
-      psutil
-      orderedmultidict
-    ]))
+    (python3.withPackages (
+      p:
+      with p; [
+        psutil
+        orderedmultidict
+      ]
+    ))
     gtest
     antlr4
   ];

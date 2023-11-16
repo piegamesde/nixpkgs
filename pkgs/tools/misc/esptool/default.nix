@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -44,7 +45,13 @@ python3.pkgs.buildPythonApplication rec {
     description = "ESP8266 and ESP32 serial bootloader utility";
     homepage = "https://github.com/espressif/esptool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dezgeg dotlambda ] ++ teams.lumiguide.members;
+    maintainers =
+      with maintainers;
+      [
+        dezgeg
+        dotlambda
+      ]
+      ++ teams.lumiguide.members;
     platforms = with platforms; linux ++ darwin;
     mainProgram = "esptool.py";
   };

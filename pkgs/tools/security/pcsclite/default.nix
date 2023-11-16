@@ -1,24 +1,31 @@
-{ stdenv
-, lib
-, fetchurl
-, autoreconfHook
-, autoconf-archive
-, pkg-config
-, perl
-, python3
-, dbus
-, polkit
-, systemdMinimal
-, IOKit
-, pname ? "pcsclite"
-, polkitSupport ? false
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  autoconf-archive,
+  pkg-config,
+  perl,
+  python3,
+  dbus,
+  polkit,
+  systemdMinimal,
+  IOKit,
+  pname ? "pcsclite",
+  polkitSupport ? false,
 }:
 
 stdenv.mkDerivation rec {
   inherit pname;
   version = "1.9.5";
 
-  outputs = [ "bin" "out" "dev" "doc" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://pcsclite.apdu.fr/files/pcsc-lite-${version}.tar.bz2";
@@ -32,16 +39,18 @@ stdenv.mkDerivation rec {
       -e "s@polkit_policy_dir=.*@polkit_policy_dir=$bin/share/polkit-1/actions@"
   '';
 
-  configureFlags = [
-    "--enable-confdir=/etc"
-    # The OS should care on preparing the drivers into this location
-    "--enable-usbdropdir=/var/lib/pcsc/drivers"
-    (lib.enableFeature stdenv.isLinux "libsystemd")
-    (lib.enableFeature polkitSupport "polkit")
-  ] ++ lib.optionals stdenv.isLinux [
-    "--enable-ipcdir=/run/pcscd"
-    "--with-systemdsystemunitdir=${placeholder "bin"}/lib/systemd/system"
-  ];
+  configureFlags =
+    [
+      "--enable-confdir=/etc"
+      # The OS should care on preparing the drivers into this location
+      "--enable-usbdropdir=/var/lib/pcsc/drivers"
+      (lib.enableFeature stdenv.isLinux "libsystemd")
+      (lib.enableFeature polkitSupport "polkit")
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      "--enable-ipcdir=/run/pcscd"
+      "--with-systemdsystemunitdir=${placeholder "bin"}/lib/systemd/system"
+    ];
 
   postConfigure = ''
     sed -i -re '/^#define *PCSCLITE_HP_DROPDIR */ {
@@ -56,12 +65,21 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook autoconf-archive pkg-config perl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+    pkg-config
+    perl
+  ];
 
-  buildInputs = [ python3 ]
+  buildInputs =
+    [ python3 ]
     ++ lib.optionals stdenv.isLinux [ systemdMinimal ]
     ++ lib.optionals stdenv.isDarwin [ IOKit ]
-    ++ lib.optionals polkitSupport [ dbus polkit ];
+    ++ lib.optionals polkitSupport [
+      dbus
+      polkit
+    ];
 
   meta = with lib; {
     description = "Middleware to access a smart card using SCard API (PC/SC)";

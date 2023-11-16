@@ -1,21 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder,
 
-# build
-, poetry-core
+  # build
+  poetry-core,
 
-# propagates
-, aiohttp
-, pydantic
-, toml
+  # propagates
+  aiohttp,
+  pydantic,
+  toml,
 
-# tests
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
+  # tests
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
 }:
 
 let
@@ -33,9 +34,7 @@ buildPythonPackage {
     hash = "sha256-sTkAKxtJa7CVYKuXC//eMmf3l8ABsrEr2mdf1r2Gf9A=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -49,18 +48,17 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    "-m 'not network'"
-  ];
+  pytestFlagsArray = [ "-m 'not network'" ];
 
-  pythonImportsCheck = [
-    "kanidm"
-  ];
+  pythonImportsCheck = [ "kanidm" ];
 
   meta = with lib; {
     description = "Kanidm client library";
     homepage = "https://github.com/kanidm/kanidm/tree/master/pykanidm";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ arianvp hexa ];
+    maintainers = with maintainers; [
+      arianvp
+      hexa
+    ];
   };
 }

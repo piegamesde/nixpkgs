@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, opencv4
-, torch
-, onnx
-, onnxruntime
-, pillow
-, pywavelets
-, numpy
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  opencv4,
+  torch,
+  onnx,
+  onnxruntime,
+  pillow,
+  pywavelets,
+  numpy,
 }:
 
 buildPythonPackage rec {

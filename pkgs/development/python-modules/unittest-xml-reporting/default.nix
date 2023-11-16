@@ -1,10 +1,11 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, lxml
-, pythonAtLeast
-, pythonOlder
-, pytestCheckHook
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  lxml,
+  pythonAtLeast,
+  pythonOlder,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-lOJ/+8CVJUXdIaZLLF5PpPkG0DzlNgo46kRZ1Xy7Ju0=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-  ];
+  propagatedBuildInputs = [ lxml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pytestFlagsArray = lib.optionals (pythonAtLeast "3.11") [
     # AttributeError: 'tuple' object has no attribute 'shortDescription'
@@ -39,6 +36,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/xmlrunner/unittest-xml-reporting";
     description = "unittest-based test runner with Ant/JUnit like XML reporting";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ rprospero SuperSandro2000 ];
+    maintainers = with maintainers; [
+      rprospero
+      SuperSandro2000
+    ];
   };
 }

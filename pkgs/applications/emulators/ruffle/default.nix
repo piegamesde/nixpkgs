@@ -1,20 +1,21 @@
-{ alsa-lib
-, fetchFromGitHub
-, makeWrapper
-, openssl
-, pkg-config
-, python3
-, rustPlatform
-, lib
-, wayland
-, xorg
-, vulkan-loader
-, jre_minimal
-, cairo
-, gtk3
-, wrapGAppsHook
-, gsettings-desktop-schemas
-, glib
+{
+  alsa-lib,
+  fetchFromGitHub,
+  makeWrapper,
+  openssl,
+  pkg-config,
+  python3,
+  rustPlatform,
+  lib,
+  wayland,
+  xorg,
+  vulkan-loader,
+  jre_minimal,
+  cairo,
+  gtk3,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  glib,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -94,7 +95,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "An Adobe Flash Player emulator written in the Rust programming language.";
     homepage = "https://ruffle.rs/";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ govanify ];
     platforms = platforms.linux;
   };

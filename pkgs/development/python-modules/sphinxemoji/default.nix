@@ -1,15 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, sphinx
-, sphinxHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  sphinxHook,
 }:
 
 buildPythonPackage rec {
   pname = "sphinxemoji";
   version = "0.2.0";
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "sphinx-contrib";
@@ -18,17 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-TLhjpJpUIoDAe3RZ/7sjTgdW+5s7OpMEd1/w0NyCQ3A=";
   };
 
-  propagatedBuildInputs = [
-    sphinx
-   ];
+  propagatedBuildInputs = [ sphinx ];
 
-  nativeBuildInputs = [
-    sphinxHook
-  ];
+  nativeBuildInputs = [ sphinxHook ];
 
-  pythonImportsCheck = [
-    "sphinxemoji"
-  ];
+  pythonImportsCheck = [ "sphinxemoji" ];
 
   meta = with lib; {
     description = "Extension to use emoji codes in your Sphinx documentation";

@@ -1,11 +1,11 @@
-{ callPackage
-, wolfram-engine
-}:
+{ callPackage, wolfram-engine }:
 
 # To test:
 # $(nix-build -E 'with import ./. {}; jupyter.override { definitions = { wolfram = wolfram-for-jupyter-kernel.definition; }; }')/bin/jupyter-notebook
-let kernel = callPackage ./kernel.nix {};
-in {
+let
+  kernel = callPackage ./kernel.nix { };
+in
+{
   definition = {
     displayName = "Wolfram Language ${wolfram-engine.version}";
     argv = [

@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, docutils
-, importlib-metadata
-, jinja2
-, packaging
-, pygments
-, pyyaml
-, reportlab
-, smartypants
-, pillow
-, pytestCheckHook
-, pymupdf
-, sphinx
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  docutils,
+  importlib-metadata,
+  jinja2,
+  packaging,
+  pygments,
+  pyyaml,
+  reportlab,
+  smartypants,
+  pillow,
+  pytestCheckHook,
+  pymupdf,
+  sphinx,
 }:
 
 buildPythonPackage rec {
@@ -27,11 +28,12 @@ buildPythonPackage rec {
     sha256 = "sha256-Zkw8FubT3qJ06ECkNurE26bLUKtq8xYvydVxa+PLe0I=";
   };
 
-  outputs = [ "out" "man" ];
-
-  nativeBuildInputs = [
-    setuptools
+  outputs = [
+    "out"
+    "man"
   ];
+
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     docutils
@@ -45,9 +47,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [
-    "rst2pdf"
-  ];
+  pythonImportsCheck = [ "rst2pdf" ];
 
   nativeCheckInputs = [
     pytestCheckHook

@@ -1,4 +1,11 @@
-{ lib, fetchurl, stdenv, libiconv, ncurses, lua }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  libiconv,
+  ncurses,
+  lua,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dit";
@@ -9,8 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "0cmbyzqfz2qa83cg8lpjifn34wmx34c5innw485zh4vk3c0k8wlj";
   };
 
-  buildInputs = [ ncurses lua ]
-    ++ lib.optional stdenv.isDarwin libiconv;
+  buildInputs = [
+    ncurses
+    lua
+  ] ++ lib.optional stdenv.isDarwin libiconv;
 
   # fix paths
   prePatch = ''

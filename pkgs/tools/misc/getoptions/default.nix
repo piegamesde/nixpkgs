@@ -1,4 +1,14 @@
-{ lib, stdenvNoCC, fetchFromGitHub, shellspec, busybox-sandbox-shell, ksh, mksh, yash, zsh }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  shellspec,
+  busybox-sandbox-shell,
+  ksh,
+  mksh,
+  yash,
+  zsh,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "getoptions";
@@ -15,14 +25,21 @@ stdenvNoCC.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ shellspec ksh mksh yash zsh ]
-    ++ lib.lists.optional (!stdenvNoCC.isDarwin) busybox-sandbox-shell;
+  nativeCheckInputs = [
+    shellspec
+    ksh
+    mksh
+    yash
+    zsh
+  ] ++ lib.lists.optional (!stdenvNoCC.isDarwin) busybox-sandbox-shell;
 
-  preCheck = ''
-    sed -i '/shellspec -s posh/d' Makefile
-    '' + lib.strings.optionalString stdenvNoCC.isDarwin ''
-    sed -i "/shellspec -s 'busybox ash'/d" Makefile
-  '';
+  preCheck =
+    ''
+      sed -i '/shellspec -s posh/d' Makefile
+    ''
+    + lib.strings.optionalString stdenvNoCC.isDarwin ''
+      sed -i "/shellspec -s 'busybox ash'/d" Makefile
+    '';
 
   checkTarget = "testall";
 

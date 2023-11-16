@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 
 buildGoModule rec {
   pname = "ssh-key-confirmer";
@@ -13,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "0v9yw6v8fj6dqgbkks4pnmvxx9b7jqdy7bn7ywddk396sbsxjiqa";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Test ssh login key acceptance without having the private key";

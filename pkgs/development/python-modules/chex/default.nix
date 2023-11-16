@@ -1,14 +1,15 @@
-{ absl-py
-, buildPythonPackage
-, cloudpickle
-, dm-tree
-, fetchFromGitHub
-, jax
-, jaxlib
-, lib
-, numpy
-, pytestCheckHook
-, toolz
+{
+  absl-py,
+  buildPythonPackage,
+  cloudpickle,
+  dm-tree,
+  fetchFromGitHub,
+  jax,
+  jaxlib,
+  lib,
+  numpy,
+  pytestCheckHook,
+  toolz,
 }:
 
 buildPythonPackage rec {
@@ -32,9 +33,7 @@ buildPythonPackage rec {
     toolz
   ];
 
-  pythonImportsCheck = [
-    "chex"
-  ];
+  pythonImportsCheck = [ "chex" ];
 
   nativeCheckInputs = [
     jaxlib

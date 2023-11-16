@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchgit, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchgit,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "python-linux-procfs";

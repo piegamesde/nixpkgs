@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm
-, inflect, more-itertools, six, pytest
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  inflect,
+  more-itertools,
+  six,
+  pytest,
 }:
 
 buildPythonPackage rec {
@@ -16,7 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ inflect more-itertools six ];
+  propagatedBuildInputs = [
+    inflect
+    more-itertools
+    six
+  ];
   nativeCheckInputs = [ pytest ];
 
   # tests no longer available through pypi

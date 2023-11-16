@@ -1,5 +1,14 @@
-{ buildPythonApplication, click, fetchPypi, hypothesis, mypy, pytest
-, pytest-cov, pytest-runner, lib, stringcase
+{
+  buildPythonApplication,
+  click,
+  fetchPypi,
+  hypothesis,
+  mypy,
+  pytest,
+  pytest-cov,
+  pytest-runner,
+  lib,
+  stringcase,
 }:
 
 buildPythonApplication rec {
@@ -18,9 +27,7 @@ buildPythonApplication rec {
     pytest-cov
   ];
 
-  buildInputs = [
-    pytest-runner
-  ];
+  buildInputs = [ pytest-runner ];
 
   propagatedBuildInputs = [
     click

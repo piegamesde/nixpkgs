@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, dpkg, autoPatchelfHook, makeWrapper, electron
-, alsa-lib, gtk3, libxshmfence, mesa, nss, popt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
+  electron,
+  alsa-lib,
+  gtk3,
+  libxshmfence,
+  mesa,
+  nss,
+  popt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "binance";
@@ -16,7 +29,14 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ alsa-lib gtk3 libxshmfence mesa nss popt ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+    libxshmfence
+    mesa
+    nss
+    popt
+  ];
 
   libPath = lib.makeLibraryPath buildInputs;
 

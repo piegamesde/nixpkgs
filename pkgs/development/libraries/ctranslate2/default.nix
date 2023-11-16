@@ -1,12 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, darwin # Accelerate
-, llvmPackages # openmp
-, oneDNN
-, openblas
-, withMkl ? false, mkl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  darwin, # Accelerate
+  llvmPackages, # openmp
+  oneDNN,
+  openblas,
+  withMkl ? false,
+  mkl,
 }:
 
 let
@@ -24,30 +26,27 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
     # https://opennmt.net/CTranslate2/installation.html#build-options
     "-DWITH_DNNL=OFF" # requires oneDNN>=3.0
     "-DWITH_OPENBLAS=ON"
     "-DWITH_MKL=${cmakeBool withMkl}"
-  ]
-  ++ lib.optional stdenv.isDarwin "-DWITH_ACCELERATE=ON";
+  ] ++ lib.optional stdenv.isDarwin "-DWITH_ACCELERATE=ON";
 
-  buildInputs = [
-    llvmPackages.openmp
-    openblas
-    oneDNN
-  ] ++ lib.optional withMkl [
-    mkl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Accelerate
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    darwin.apple_sdk.frameworks.CoreGraphics
-    darwin.apple_sdk.frameworks.CoreVideo
-  ];
+  buildInputs =
+    [
+      llvmPackages.openmp
+      openblas
+      oneDNN
+    ]
+    ++ lib.optional withMkl [ mkl ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+      darwin.apple_sdk.frameworks.CoreGraphics
+      darwin.apple_sdk.frameworks.CoreVideo
+    ];
 
   meta = with lib; {
     description = "Fast inference engine for Transformer models";

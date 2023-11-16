@@ -1,4 +1,9 @@
-{lib, stdenv, fetchFromGitHub, cmake}:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.3";
@@ -13,9 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DBUILD_EXAMPLES=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" ];
 
   doCheck = true;
   checkTarget = "test";

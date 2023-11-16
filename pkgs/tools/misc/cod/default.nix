@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  python3,
+}:
 
 buildGoModule rec {
   pname = "cod";
@@ -13,14 +19,18 @@ buildGoModule rec {
 
   vendorSha256 = "0ann1fbh8rqys3rwbz5h9mfnvkpqiw5rgkd4c30y99706h2dzv4i";
 
-  ldflags = [ "-s" "-w" "-X main.GitSha=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.GitSha=${src.rev}"
+  ];
 
   nativeCheckInputs = [ python3 ];
 
   preCheck = ''
     pushd test/binaries/
     for f in *.py; do
-      patchShebangs ''$f
+      patchShebangs $f
     done
     popd
     export COD_TEST_BINARY="''${NIX_BUILD_TOP}/go/bin/cod"

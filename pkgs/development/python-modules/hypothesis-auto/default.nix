@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, hypothesis
-, poetry-core
-, pydantic
-, pytest
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  hypothesis,
+  poetry-core,
+  pydantic,
+  pytest,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -36,9 +37,7 @@ buildPythonPackage rec {
       --replace 'hypothesis = ">=4.36<6.0.0"' 'hypothesis = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pydantic
@@ -46,9 +45,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  pythonImportsCheck = [
-    "hypothesis_auto"
-  ];
+  pythonImportsCheck = [ "hypothesis_auto" ];
 
   meta = with lib; {
     description = "Enables fully automatic tests for type annotated functions";

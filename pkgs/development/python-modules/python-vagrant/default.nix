@@ -1,7 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -14,16 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-qP6TzPL/N+zJXsL0nqdKkabOc6TbShapjdJtOXz9CeU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   # The tests try to connect to qemu
   doCheck = false;
 
-  pythonImportsCheck = [
-    "vagrant"
-  ];
+  pythonImportsCheck = [ "vagrant" ];
 
   meta = {
     description = "Python module that provides a thin wrapper around the vagrant command line executable";

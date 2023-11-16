@@ -1,19 +1,20 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, dnsmasq
-, gawk
-, getent
-, gobject-introspection
-, gtk3
-, kmod
-, lxc
-, iproute2
-, iptables
-, util-linux
-, wrapGAppsHook
-, xclip
-, runtimeShell
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  dnsmasq,
+  gawk,
+  getent,
+  gobject-introspection,
+  gtk3,
+  kmod,
+  lxc,
+  iproute2,
+  iptables,
+  util-linux,
+  wrapGAppsHook,
+  xclip,
+  runtimeShell,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -28,9 +29,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-0AkNzMIumvgnVcLKX72E2+Eg54Y9j7tdIYPsroOTLWA=";
   };
 
-  buildInputs = [
-    gtk3
-  ];
+  buildInputs = [ gtk3 ];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -59,20 +58,29 @@ python3Packages.buildPythonApplication rec {
 
     patchShebangs --host $out/lib/waydroid/data/scripts
     wrapProgram $out/lib/waydroid/data/scripts/waydroid-net.sh \
-      --prefix PATH ":" ${lib.makeBinPath [ dnsmasq getent iproute2 iptables ]}
+      --prefix PATH ":" ${
+        lib.makeBinPath [
+          dnsmasq
+          getent
+          iproute2
+          iptables
+        ]
+      }
 
-    wrapPythonProgramsIn $out/lib/waydroid/ "${lib.concatStringsSep " " [
-      "$out"
-      python3Packages.dbus-python
-      python3Packages.gbinder-python
-      python3Packages.pygobject3
-      python3Packages.pyclip
-      gawk
-      kmod
-      lxc
-      util-linux
-      xclip
-    ]}"
+    wrapPythonProgramsIn $out/lib/waydroid/ "${
+      lib.concatStringsSep " " [
+        "$out"
+        python3Packages.dbus-python
+        python3Packages.gbinder-python
+        python3Packages.pygobject3
+        python3Packages.pyclip
+        gawk
+        kmod
+        lxc
+        util-linux
+        xclip
+      ]
+    }"
 
     substituteInPlace $out/lib/waydroid/tools/helpers/*.py \
       --replace '"sh"' '"${runtimeShell}"'

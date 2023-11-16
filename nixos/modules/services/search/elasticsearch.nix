@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -37,7 +42,6 @@ let
     paths = cfg.plugins;
     postBuild = "${pkgs.coreutils}/bin/mkdir -p $out/plugins";
   };
-
 in
 {
 
@@ -143,7 +147,7 @@ in
       example = lib.literalExpression "[ pkgs.elasticsearchPlugins.discovery-ec2 ]";
     };
 
-    restartIfChanged  = mkOption {
+    restartIfChanged = mkOption {
       type = types.bool;
       description = lib.mdDoc ''
         Automatically restart the service on config change.
@@ -153,7 +157,6 @@ in
       '';
       default = true;
     };
-
   };
 
   ###### implementation
@@ -218,7 +221,9 @@ in
       postStart = ''
         # Make sure elasticsearch is up and running before dependents
         # are started
-        while ! ${pkgs.curl}/bin/curl -sS -f http://${cfg.listenAddress}:${toString cfg.port} 2>/dev/null; do
+        while ! ${pkgs.curl}/bin/curl -sS -f http://${cfg.listenAddress}:${
+          toString cfg.port
+        } 2>/dev/null; do
           sleep 1
         done
       '';

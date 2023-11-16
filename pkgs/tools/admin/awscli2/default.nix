@@ -1,22 +1,25 @@
-{ lib
-, python3
-, groff
-, less
-, fetchFromGitHub
-, nix-update-script
-, testers
-, awscli2
+{
+  lib,
+  python3,
+  groff,
+  less,
+  fetchFromGitHub,
+  nix-update-script,
+  testers,
+  awscli2,
 }:
 
 let
   py = python3 // {
-    pkgs = python3.pkgs.overrideScope (self: super: {
-      # nothing right now
-    });
+    pkgs = python3.pkgs.overrideScope (
+      self: super: {
+        # nothing right now
+      }
+    );
   };
-
 in
-with py.pkgs; buildPythonApplication rec {
+with py.pkgs;
+buildPythonApplication rec {
   pname = "awscli2";
   version = "2.11.27"; # N.B: if you change this, check if overrides are still up-to-date
   format = "pyproject";
@@ -33,9 +36,7 @@ with py.pkgs; buildPythonApplication rec {
       --replace "pip>=22.0.0,<23.0.0" "pip>=22.0.0,<24.0.0"
   '';
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     awscrt
@@ -81,9 +82,7 @@ with py.pkgs; buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-  pytestFlagsArray = [
-    "-Wignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
 
   disabledTestPaths = [
     # Integration tests require networking
@@ -94,15 +93,16 @@ with py.pkgs; buildPythonApplication rec {
     "tests/functional"
   ];
 
-  pythonImportsCheck = [
-    "awscli"
-  ];
+  pythonImportsCheck = [ "awscli" ];
 
   passthru = {
     python = py; # for aws_shell
     updateScript = nix-update-script {
       # Excludes 1.x versions from the Github tags list
-      extraArgs = [ "--version-regex" "^(2\.(.*))" ];
+      extraArgs = [
+        "--version-regex"
+        "^(2.(.*))"
+      ];
     };
     tests.version = testers.testVersion {
       package = awscli2;
@@ -116,7 +116,13 @@ with py.pkgs; buildPythonApplication rec {
     changelog = "https://github.com/aws/aws-cli/blob/${version}/CHANGELOG.rst";
     description = "Unified tool to manage your AWS services";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bhipple davegallant bryanasdev000 devusb anthonyroussel ];
+    maintainers = with maintainers; [
+      bhipple
+      davegallant
+      bryanasdev000
+      devusb
+      anthonyroussel
+    ];
     mainProgram = "aws";
   };
 }

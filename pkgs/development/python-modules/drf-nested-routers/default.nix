@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, django
-, djangorestframework
-, pytest
-, pytest-cov
-, pytest-django
-, ipdb
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  django,
+  djangorestframework,
+  pytest,
+  pytest-cov,
+  pytest-django,
+  ipdb,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -22,8 +23,17 @@ buildPythonPackage rec {
     sha256 = "1gmw6gwiqzfysx8qn7aan7xgkizxy64db94z30pm3bvn6jxv08si";
   };
 
-  propagatedBuildInputs = [ django djangorestframework setuptools ];
-  nativeCheckInputs = [ pytest pytest-cov pytest-django ipdb ];
+  propagatedBuildInputs = [
+    django
+    djangorestframework
+    setuptools
+  ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+    pytest-django
+    ipdb
+  ];
 
   checkPhase = ''
     ${python.interpreter} runtests.py --nolint

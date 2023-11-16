@@ -1,4 +1,13 @@
-{ fetchurl, lib, stdenv, libjpeg, libpng, libtiff, perl, cmake }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libjpeg,
+  libpng,
+  libtiff,
+  perl,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpano13";
@@ -9,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eeWhRSGZMF4pYUYnIO9ZQRUnecEnxblvw0DSSS5jNZA=";
   };
 
-  buildInputs = [ perl libjpeg libpng libtiff ];
+  buildInputs = [
+    perl
+    libjpeg
+    libpng
+    libtiff
+  ];
   nativeBuildInputs = [ cmake ];
 
   # one of the tests succeeds on my machine but fails on Hydra (no idea why)
@@ -20,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "Free software suite for authoring and displaying virtual reality panoramas";
     license = lib.licenses.gpl2Plus;
 
-    platforms = lib.platforms.gnu ++ lib.platforms.linux;  # arbitrary choice
+    platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

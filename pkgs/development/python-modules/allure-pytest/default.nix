@@ -1,19 +1,20 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, six
-, pythonOlder
-, allure-python-commons
-, pytest
-, pytestCheckHook
-, pytest-check
-, pytest-flakes
-, pytest-lazy-fixture
-, pytest-rerunfailures
-, pytest-xdist
-, pyhamcrest
-, mock
-, setuptools-scm
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  six,
+  pythonOlder,
+  allure-python-commons,
+  pytest,
+  pytestCheckHook,
+  pytest-check,
+  pytest-flakes,
+  pytest-lazy-fixture,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pyhamcrest,
+  mock,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -27,13 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-hbc7Hb6ZCLpPhLgBGKk+EEnALdWTIJJg2MHJUM8ob2w=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   pythonImportsCheck = [ "allure_pytest" ];
 

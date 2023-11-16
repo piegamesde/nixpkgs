@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, grpc-google-iam-v1
-, mock
-, libcst
-, proto-plus
-, protobuf
-, pytestCheckHook
-, pytest-asyncio
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  grpc-google-iam-v1,
+  mock,
+  libcst,
+  proto-plus,
+  protobuf,
+  pytestCheckHook,
+  pytest-asyncio,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -38,10 +39,11 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  disabledTests = [
-    # Test requires credentials
-    "test_list_clusters"
-  ];
+  disabledTests =
+    [
+      # Test requires credentials
+      "test_list_clusters"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.dataproc"

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, configobj
-, fetchpatch
-, fetchPypi
-, importlib-resources
-, pandas
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, tables
-, traits
-, traitsui
+{
+  lib,
+  buildPythonPackage,
+  configobj,
+  fetchpatch,
+  fetchPypi,
+  importlib-resources,
+  pandas,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  tables,
+  traits,
+  traitsui,
 }:
 
 buildPythonPackage rec {
@@ -47,9 +48,7 @@ buildPythonPackage rec {
     configobj
     traits
     traitsui
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [
     tables
@@ -61,9 +60,7 @@ buildPythonPackage rec {
     export HOME=$TMP
   '';
 
-  pythonImportsCheck = [
-    "apptools"
-  ];
+  pythonImportsCheck = [ "apptools" ];
 
   meta = with lib; {
     description = "Set of packages that Enthought has found useful in creating a number of applications";

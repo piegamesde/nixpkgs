@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchzip, installShellFiles, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchzip,
+  installShellFiles,
+  stdenv,
+}:
 
 let
   version = "2.0.0-rc.5";
@@ -6,13 +13,12 @@ let
   manifestsSha256 = "1vra1vqw38r17fdkcj5a5rmifpdzi29z5qggzy4h9bqsqhxy488f";
 
   manifests = fetchzip {
-    url =
-      "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz";
+    url = "https://github.com/fluxcd/flux2/releases/download/v${version}/manifests.tar.gz";
     sha256 = manifestsSha256;
     stripRoot = false;
   };
-
-in buildGoModule rec {
+in
+buildGoModule rec {
   pname = "fluxcd";
   inherit version;
 
@@ -32,7 +38,11 @@ in buildGoModule rec {
     rm source/cmd/flux/create_secret_git_test.go
   '';
 
-  ldflags = [ "-s" "-w" "-X main.VERSION=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.VERSION=${version}"
+  ];
 
   subPackages = [ "cmd/flux" ];
 
@@ -57,8 +67,7 @@ in buildGoModule rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description =
-      "Open and extensible continuous delivery solution for Kubernetes";
+    description = "Open and extensible continuous delivery solution for Kubernetes";
     longDescription = ''
       Flux is a tool for keeping Kubernetes clusters in sync
       with sources of configuration (like Git repositories), and automating
@@ -66,7 +75,10 @@ in buildGoModule rec {
     '';
     homepage = "https://fluxcd.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bryanasdev000 jlesquembre ];
+    maintainers = with maintainers; [
+      bryanasdev000
+      jlesquembre
+    ];
     mainProgram = "flux";
   };
 }

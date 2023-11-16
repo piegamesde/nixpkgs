@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, jupyter-packaging
-, bqscales
-, ipywidgets
-, numpy
-, pandas
-, traitlets
-, traittypes
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  jupyter-packaging,
+  bqscales,
+  ipywidgets,
+  numpy,
+  pandas,
+  traitlets,
+  traittypes,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-FNjeb5pNGUW76mwTIOpNHJMlb3JoN3T24AINzFefPdI=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-  ];
+  nativeBuildInputs = [ jupyter-packaging ];
 
   propagatedBuildInputs = [
     bqscales

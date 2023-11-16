@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, cmark
-, ninja
-, jdk17
-, zlib
-, qtbase
-, quazip
-, extra-cmake-modules
-, tomlplusplus
-, ghc_filesystem
-, gamemode
-, msaClientID ? null
-, gamemodeSupport ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  cmark,
+  ninja,
+  jdk17,
+  zlib,
+  qtbase,
+  quazip,
+  extra-cmake-modules,
+  tomlplusplus,
+  ghc_filesystem,
+  gamemode,
+  msaClientID ? null,
+  gamemodeSupport ? true,
 }:
 let
   libnbtplusplus = fetchFromGitHub {
@@ -34,7 +35,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jBBHWN/ERUVzJAyebN7eFCODZg1P7QYPOBPIM+bIbak=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules cmake jdk17 ninja ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    cmake
+    jdk17
+    ninja
+  ];
   buildInputs = [
     qtbase
     zlib
@@ -46,7 +52,8 @@ stdenv.mkDerivation rec {
 
   hardeningEnable = [ "pie" ];
 
-  cmakeFlags = lib.optionals (msaClientID != null) [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]
+  cmakeFlags =
+    lib.optionals (msaClientID != null) [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]
     ++ lib.optionals (lib.versionOlder qtbase.version "6") [ "-DLauncher_QT_VERSION_MAJOR=5" ];
 
   postUnpack = ''
@@ -67,6 +74,10 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     changelog = "https://github.com/PrismLauncher/PrismLauncher/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ minion3665 Scrumplex getchoo ];
+    maintainers = with maintainers; [
+      minion3665
+      Scrumplex
+      getchoo
+    ];
   };
 }

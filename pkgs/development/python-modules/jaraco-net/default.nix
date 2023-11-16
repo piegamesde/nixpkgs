@@ -1,32 +1,33 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, more-itertools
-, beautifulsoup4
-, mechanize
-, keyring
-, requests
-, feedparser
-, jaraco_text
-, jaraco_logging
-, jaraco-email
-, jaraco_functools
-, jaraco_collections
-, path
-, python-dateutil
-, pathvalidate
-, jsonpickle
-, ifconfig-parser
-, pytestCheckHook
-, cherrypy
-, importlib-resources
-, pyparsing
-, requests-mock
-, nettools
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  more-itertools,
+  beautifulsoup4,
+  mechanize,
+  keyring,
+  requests,
+  feedparser,
+  jaraco_text,
+  jaraco_logging,
+  jaraco-email,
+  jaraco_functools,
+  jaraco_collections,
+  path,
+  python-dateutil,
+  pathvalidate,
+  jsonpickle,
+  ifconfig-parser,
+  pytestCheckHook,
+  cherrypy,
+  importlib-resources,
+  pyparsing,
+  requests-mock,
+  nettools,
 }:
 
 buildPythonPackage rec {
@@ -67,9 +68,7 @@ buildPythonPackage rec {
     python-dateutil
     pathvalidate
     jsonpickle
-  ] ++ lib.optionals stdenv.isDarwin [
-    ifconfig-parser
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ];
 
   pythonImportsCheck = [ "jaraco.net" ];
 
@@ -79,9 +78,7 @@ buildPythonPackage rec {
     importlib-resources
     pyparsing
     requests-mock
-  ] ++ lib.optionals stdenv.isDarwin [
-    nettools
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ nettools ];
 
   disabledTestPaths = [
     # doesn't actually contain tests

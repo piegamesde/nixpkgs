@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
-, gtree
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  gtree,
 }:
 
 buildGoModule rec {
@@ -18,9 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-WI6li9q3AuWm6MP7Y1TL9TjcZozX6czgdXNRbLlu590=";
 
-  subPackages = [
-    "cmd/gtree"
-  ];
+  subPackages = [ "cmd/gtree" ];
 
   ldflags = [
     "-s"

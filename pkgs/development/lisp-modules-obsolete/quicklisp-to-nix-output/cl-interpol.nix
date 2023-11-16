@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-interpol";
   version = "20201220-git";
@@ -8,7 +8,12 @@ rec {
 
   description = "System lacks description";
 
-  deps = [ args."cl-ppcre" args."cl-unicode" args."flexi-streams" args."named-readtables" ];
+  deps = [
+    args."cl-ppcre"
+    args."cl-unicode"
+    args."flexi-streams"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-interpol/2020-12-20/cl-interpol-20201220-git.tgz";
@@ -17,7 +22,7 @@ rec {
 
   packageName = "cl-interpol";
 
-  asdFilesToKeep = ["cl-interpol.asd"];
+  asdFilesToKeep = [ "cl-interpol.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-interpol DESCRIPTION System lacks description SHA256
@@ -29,4 +34,5 @@ rec {
      (NAME flexi-streams FILENAME flexi-streams)
      (NAME named-readtables FILENAME named-readtables))
     DEPENDENCIES (cl-ppcre cl-unicode flexi-streams named-readtables) VERSION
-    20201220-git SIBLINGS NIL PARASITES (cl-interpol-test)) */
+    20201220-git SIBLINGS NIL PARASITES (cl-interpol-test))
+*/

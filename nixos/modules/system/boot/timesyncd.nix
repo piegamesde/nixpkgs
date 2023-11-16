@@ -76,11 +76,10 @@ with lib;
       # If the file doesn't exist we assume that our current system clock is
       # good enough to provide an initial value.
       ''
-      if ! [ -f /var/lib/systemd/timesync/clock ]; then
-        test -d /var/lib/systemd/timesync || mkdir -p /var/lib/systemd/timesync
-        touch /var/lib/systemd/timesync/clock
-      fi
+        if ! [ -f /var/lib/systemd/timesync/clock ]; then
+          test -d /var/lib/systemd/timesync || mkdir -p /var/lib/systemd/timesync
+          touch /var/lib/systemd/timesync/clock
+        fi
       '';
   };
-
 }

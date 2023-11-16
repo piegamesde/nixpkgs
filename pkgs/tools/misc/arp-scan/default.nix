@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libpcap, makeWrapper, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libpcap,
+  makeWrapper,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "arp-scan";
@@ -18,8 +26,14 @@ stdenv.mkDerivation rec {
     URI
   ];
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
-  buildInputs = [ perlPackages.perl libpcap ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+  ];
+  buildInputs = [
+    perlPackages.perl
+    libpcap
+  ];
 
   postInstall = ''
     for name in get-{oui,iab}; do
@@ -36,6 +50,10 @@ stdenv.mkDerivation rec {
     homepage = "http://www.nta-monitor.com/wiki/index.php/Arp-scan_Documentation";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor mikoim r-burns ];
+    maintainers = with maintainers; [
+      bjornfor
+      mikoim
+      r-burns
+    ];
   };
 }

@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, gpiozero
-, mock
-, pyserial
-, pyserial-asyncio
-, pyusb
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, zigpy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gpiozero,
+  mock,
+  pyserial,
+  pyserial-asyncio,
+  pyusb,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  zigpy,
 }:
 
 buildPythonPackage rec {
@@ -40,14 +41,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "zigpy_zigate"
-  ];
+  pythonImportsCheck = [ "zigpy_zigate" ];
 
-  disabledTestPaths = [
-    # Fails in sandbox
-    "tests/test_application.py "
-  ];
+  disabledTestPaths =
+    [
+      # Fails in sandbox
+      "tests/test_application.py "
+    ];
 
   meta = with lib; {
     description = "Library which communicates with ZiGate radios for zigpy";

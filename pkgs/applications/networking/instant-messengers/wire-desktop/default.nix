@@ -1,17 +1,18 @@
-{ atomEnv
-, autoPatchelfHook
-, dpkg
-, fetchurl
-, makeDesktopItem
-, makeWrapper
-, stdenv
-, lib
-, udev
-, wrapGAppsHook
-, cpio
-, xar
-, libdbusmenu
-, libxshmfence
+{
+  atomEnv,
+  autoPatchelfHook,
+  dpkg,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  stdenv,
+  lib,
+  udev,
+  wrapGAppsHook,
+  cpio,
+  xar,
+  libdbusmenu,
+  libxshmfence,
 }:
 
 let
@@ -22,15 +23,19 @@ let
 
   pname = "wire-desktop";
 
-  version = {
-    x86_64-darwin = "3.31.4556";
-    x86_64-linux = "3.31.3060";
-  }.${system} or throwSystem;
+  version =
+    {
+      x86_64-darwin = "3.31.4556";
+      x86_64-linux = "3.31.3060";
+    }
+    .${system} or throwSystem;
 
-  hash = {
-    x86_64-darwin = "sha256-qRRdt/TvSvQ3RiO/I36HT+C88+ev3gFcj+JaEG38BfU=";
-    x86_64-linux = "sha256-9LdTsBOE1IJH0OM+Ag7GJADsFRgYMjbPXBH6roY7Msg=";
-  }.${system} or throwSystem;
+  hash =
+    {
+      x86_64-darwin = "sha256-qRRdt/TvSvQ3RiO/I36HT+C88+ev3gFcj+JaEG38BfU=";
+      x86_64-linux = "sha256-9LdTsBOE1IJH0OM+Ag7GJADsFRgYMjbPXBH6roY7Msg=";
+    }
+    .${system} or throwSystem;
 
   meta = with lib; {
     description = "A modern, secure messenger for everyone";
@@ -64,13 +69,17 @@ let
     inherit pname version meta;
 
     src = fetchurl {
-      url = "https://wire-app.wire.com/linux/debian/pool/main/"
-        + "Wire-${version}_amd64.deb";
+      url = "https://wire-app.wire.com/linux/debian/pool/main/" + "Wire-${version}_amd64.deb";
       inherit hash;
     };
 
     desktopItem = makeDesktopItem {
-      categories = [ "Network" "InstantMessaging" "Chat" "VideoConference" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+        "VideoConference"
+      ];
       comment = "Secure messenger for everyone";
       desktopName = "Wire";
       exec = "wire-desktop %U";
@@ -132,8 +141,7 @@ let
     inherit pname version meta;
 
     src = fetchurl {
-      url = "https://github.com/wireapp/wire-desktop/releases/download/"
-        + "macos%2F${version}/Wire.pkg";
+      url = "https://github.com/wireapp/wire-desktop/releases/download/" + "macos%2F${version}/Wire.pkg";
       inherit hash;
     };
 
@@ -168,8 +176,5 @@ let
       runHook postInstall
     '';
   };
-
 in
-if stdenv.isDarwin
-then darwin
-else linux
+if stdenv.isDarwin then darwin else linux

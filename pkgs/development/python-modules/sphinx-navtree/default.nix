@@ -1,4 +1,9 @@
-{ lib, fetchPypi, buildPythonPackage, sphinx }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   version = "0.3.0";

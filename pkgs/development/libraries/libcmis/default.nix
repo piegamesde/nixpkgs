@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, boost, libxml2, pkg-config, docbook2x, curl, autoreconfHook, cppunit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  libxml2,
+  pkg-config,
+  docbook2x,
+  curl,
+  autoreconfHook,
+  cppunit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcmis";
@@ -11,8 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "0s6prfh55hn11vrs72ph1gs01v0vngly81pvyjm5v1sgwymdxx57";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config docbook2x ];
-  buildInputs = [ boost libxml2 curl cppunit ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    docbook2x
+  ];
+  buildInputs = [
+    boost
+    libxml2
+    curl
+    cppunit
+  ];
 
   configureFlags = [
     "--disable-werror"

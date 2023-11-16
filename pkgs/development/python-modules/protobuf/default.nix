@@ -1,10 +1,11 @@
-{ buildPackages
-, lib
-, buildPythonPackage
-, protobuf
-, isPyPy
-, fetchpatch
-, pythonAtLeast
+{
+  buildPackages,
+  lib,
+  buildPythonPackage,
+  protobuf,
+  isPyPy,
+  fetchpatch,
+  pythonAtLeast,
 }:
 
 let
@@ -17,9 +18,10 @@ buildPythonPackage {
 
   # protobuf 3.21 corresponds with its python library 4.21
   version =
-    if lib.versionAtLeast protobuf.version "3.21"
-    then "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}"
-    else protobuf.version;
+    if lib.versionAtLeast protobuf.version "3.21" then
+      "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}"
+    else
+      protobuf.version;
 
   disabled = isPyPy;
 
@@ -43,10 +45,13 @@ buildPythonPackage {
 
   buildInputs = [ protobuf ];
 
-  propagatedNativeBuildInputs = [
-    # For protoc of the same version.
-    buildPackages."protobuf${lib.versions.major protobuf.version}_${lib.versions.minor protobuf.version}"
-  ];
+  propagatedNativeBuildInputs =
+    [
+      # For protoc of the same version.
+      buildPackages."protobuf${lib.versions.major protobuf.version}_${
+        lib.versions.minor protobuf.version
+      }"
+    ];
 
   setupPyGlobalFlags = [ "--cpp_implementation" ];
 

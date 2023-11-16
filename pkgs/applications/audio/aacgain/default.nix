@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, autoconf
-, automake
-, libtool
-, faad2
-, mp4v2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  autoconf,
+  automake,
+  libtool,
+  faad2,
+  mp4v2,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, tor
-, firejail
-, iptables
-, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  tor,
+  firejail,
+  iptables,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,9 +28,7 @@ stdenv.mkDerivation rec {
     rm -r usr
   '';
 
-  makeFlags = [
-    "DESTDIR=${placeholder "out"}"
-  ];
+  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
   postInstall = ''
     # Specify binary paths: tor, firejail, iptables
@@ -38,8 +37,8 @@ stdenv.mkDerivation rec {
     # firejail will fail reading /etc/hosts, therefore remove --hostname arg
     # https://github.com/netblue30/firejail/issues/2758
     substituteInPlace $out/bin/orjail \
-      --replace ''$'TORBIN=\n' ''$'TORBIN=${tor}/bin/tor\n' \
-      --replace ''$'FIREJAILBIN=\n' ''$'FIREJAILBIN=${firejail}/bin/firejail\n' \
+      --replace $'TORBIN=\n' $'TORBIN=${tor}/bin/tor\n' \
+      --replace $'FIREJAILBIN=\n' $'FIREJAILBIN=${firejail}/bin/firejail\n' \
       --replace 'iptables -' '${iptables}/bin/iptables -' \
       --replace 'mktemp /tmp/' 'mktemp ' \
       --replace '--hostname=host ' ""

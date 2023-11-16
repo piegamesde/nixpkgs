@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, hyperscan
-, pkg-config
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  hyperscan,
+  pkg-config,
 }:
 
 buildGoModule rec {
@@ -34,4 +35,3 @@ buildGoModule rec {
     maintainers = with maintainers; [ fab ];
   };
 }
-

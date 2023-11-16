@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, hatchling
-, jupyter-packaging
-, ipywidgets
-, numpy
-, traitlets
-, traittypes
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  hatchling,
+  jupyter-packaging,
+  ipywidgets,
+  numpy,
+  traitlets,
+  traittypes,
 }:
 
 buildPythonPackage rec {

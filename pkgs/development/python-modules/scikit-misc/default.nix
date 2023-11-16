@@ -1,13 +1,14 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, cython
-, gfortran
-, git
-, meson-python
-, pkg-config
-, numpy
-, openblas
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  cython,
+  gfortran,
+  git,
+  meson-python,
+  pkg-config,
+  numpy,
+  openblas,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     openblas
   ];
 
-  pythonImportsCheck = [
-    "skmisc"
-  ];
+  pythonImportsCheck = [ "skmisc" ];
 
   meta = with lib; {
     description = "Miscellaneous tools for scientific computing";

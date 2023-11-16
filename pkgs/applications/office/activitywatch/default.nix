@@ -1,17 +1,18 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, makeWrapper
-, pkg-config
-, perl
-, openssl
-, python3
-, wrapQtAppsHook
-, qtbase
-, qtsvg
-, xdg-utils
-, substituteAll
-, buildNpmPackage
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  pkg-config,
+  perl,
+  openssl,
+  python3,
+  wrapQtAppsHook,
+  qtbase,
+  qtsvg,
+  xdg-utils,
+  substituteAll,
+  buildNpmPackage,
 }:
 
 let
@@ -33,9 +34,7 @@ rec {
 
     src = "${sources}/aw-watcher-afk";
 
-    nativeBuildInputs = [
-      python3.pkgs.poetry-core
-    ];
+    nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
     propagatedBuildInputs = with python3.pkgs; [
       aw-client
@@ -61,9 +60,7 @@ rec {
 
     src = "${sources}/aw-watcher-window";
 
-    nativeBuildInputs = [
-      python3.pkgs.poetry-core
-    ];
+    nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
     propagatedBuildInputs = with python3.pkgs; [
       aw-client
@@ -104,9 +101,7 @@ rec {
     # Prevent double wrapping
     dontWrapQtApps = true;
 
-    makeWrapperArgs = [
-      "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
-    ];
+    makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}" ];
 
     postPatch = ''
       sed -E 's#PyQt6 = "6.3.1"#PyQt6 = "^6.4.0"#g' -i pyproject.toml
@@ -157,13 +152,14 @@ rec {
     # Bypass rust nightly features not being available on rust stable
     RUSTC_BOOTSTRAP = 1;
 
-    patches = [
-      # Override version string with hardcoded value as it may be outdated upstream.
-      (substituteAll {
-        src = ./override-version.patch;
-        version = sources.rev;
-      })
-    ];
+    patches =
+      [
+        # Override version string with hardcoded value as it may be outdated upstream.
+        (substituteAll {
+          src = ./override-version.patch;
+          version = sources.rev;
+        })
+      ];
 
     nativeBuildInputs = [
       makeWrapper
@@ -171,9 +167,7 @@ rec {
       perl
     ];
 
-    buildInputs = [
-      openssl
-    ];
+    buildInputs = [ openssl ];
 
     postFixup = ''
       wrapProgram "$out/bin/aw-server" \
@@ -206,13 +200,14 @@ rec {
 
     npmDepsHash = "sha256-yds2P2PKfTB6yUGnc+P73InV5+MZP9kmz2ZS4CRqlmA=";
 
-    patches = [
-      # Hardcode version to avoid the need to have the Git repo available at build time.
-      (substituteAll {
-        src = ./commit-hash.patch;
-        commit_hash = sources.rev;
-      })
-    ];
+    patches =
+      [
+        # Hardcode version to avoid the need to have the Git repo available at build time.
+        (substituteAll {
+          src = ./commit-hash.patch;
+          commit_hash = sources.rev;
+        })
+      ];
 
     installPhase = ''
       runHook preInstall

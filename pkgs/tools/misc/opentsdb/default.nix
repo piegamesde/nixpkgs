@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, autoconf
-, automake
-, bash
-, curl
-, fetchFromGitHub
-, fetchMavenArtifact
-, fetchurl
-, fetchpatch
-, git
-, jdk8
-, makeWrapper
-, nettools
-, python3
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  bash,
+  curl,
+  fetchFromGitHub,
+  fetchMavenArtifact,
+  fetchurl,
+  fetchpatch,
+  git,
+  jdk8,
+  makeWrapper,
+  nettools,
+  python3,
 }:
 
 let
@@ -266,7 +267,8 @@ let
       })
     ];
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "opentsdb";
   version = "2.4.1";
 
@@ -321,7 +323,13 @@ in stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ curl jdk nettools python3 git ];
+  buildInputs = [
+    curl
+    jdk
+    nettools
+    python3
+    git
+  ];
 
   preConfigure = ''
     chmod +x build-aux/fetchdep.sh.in
@@ -329,9 +337,18 @@ in stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  preBuild = lib.concatStrings (lib.mapAttrsToList (dir: lib.concatMapStrings (artifact: ''
-    cp ${artifact}/share/java/* third_party/${dir}
-  '')) artifacts);
+  preBuild = lib.concatStrings (
+    lib.mapAttrsToList
+      (
+        dir:
+        lib.concatMapStrings (
+          artifact: ''
+            cp ${artifact}/share/java/* third_party/${dir}
+          ''
+        )
+      )
+      artifacts
+  );
 
   postInstall = ''
     wrapProgram $out/bin/tsdb \
@@ -346,7 +363,7 @@ in stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # maven dependencies
+      binaryBytecode # maven dependencies
     ];
     maintainers = [ ];
   };

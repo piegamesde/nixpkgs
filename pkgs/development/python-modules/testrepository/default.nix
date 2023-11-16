@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, testtools
-, testresources
-, pbr
-, subunit
-, fixtures
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  testtools,
+  testresources,
+  pbr,
+  subunit,
+  fixtures,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +21,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ testresources ];
   buildInputs = [ pbr ];
-  propagatedBuildInputs = [ fixtures subunit testtools ];
+  propagatedBuildInputs = [
+    fixtures
+    subunit
+    testtools
+  ];
 
   checkPhase = ''
     ${python.interpreter} ./testr
@@ -31,5 +36,4 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/testrepository";
     license = licenses.bsd2;
   };
-
 }

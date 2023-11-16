@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, atomEnv
-, systemd
-, pulseaudio
-, libxshmfence
-, libnotify
-, libappindicator-gtk3
-, wrapGAppsHook
-, autoPatchelfHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  atomEnv,
+  systemd,
+  pulseaudio,
+  libxshmfence,
+  libnotify,
+  libappindicator-gtk3,
+  wrapGAppsHook,
+  autoPatchelfHook,
 }:
 
 let
@@ -29,7 +30,6 @@ let
   };
 
   inherit (stdenv.hostPlatform) system;
-
 in
 
 stdenv.mkDerivation {
@@ -41,11 +41,12 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontStrip = true;
 
-  nativeBuildInputs = [ wrapGAppsHook autoPatchelfHook ];
-
-  buildInputs = atomEnv.packages ++ [
-    libxshmfence
+  nativeBuildInputs = [
+    wrapGAppsHook
+    autoPatchelfHook
   ];
+
+  buildInputs = atomEnv.packages ++ [ libxshmfence ];
 
   runtimeDependencies = [
     (lib.getLib systemd)
@@ -86,7 +87,10 @@ stdenv.mkDerivation {
     homepage = "https://about.mattermost.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = [ maintainers.joko ];
   };
 }

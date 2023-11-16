@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, sip
-, qtbase
-, qmake
-, pyqt5
-, pyqt-builder
-, poppler
-, pkg-config
-, setuptools
-, fetchpatch
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  sip,
+  qtbase,
+  qmake,
+  pyqt5,
+  pyqt-builder,
+  poppler,
+  pkg-config,
+  setuptools,
+  fetchpatch,
 }:
 
 buildPythonPackage rec {
@@ -24,16 +25,26 @@ buildPythonPackage rec {
     sha256 = "0b82gm4i75q5v19kfbq0h4y0b2vcwr2213zkhxh6l0h45kdndmxd";
   };
 
-  patches = [
-    # Fix for https://github.com/frescobaldi/python-poppler-qt5/issues/43 (from PR #45)
-    (fetchpatch {
-      url = "https://github.com/frescobaldi/python-poppler-qt5/commit/40e71ad88173d02648bceb2438bc0567e60dacd5.patch";
-      sha256 = "0c93d0k7b1n2s2njl8g92x6vw3z96da1fczah9qx07x08iw8dzi5";
-    })
-  ];
+  patches =
+    [
+      # Fix for https://github.com/frescobaldi/python-poppler-qt5/issues/43 (from PR #45)
+      (fetchpatch {
+        url = "https://github.com/frescobaldi/python-poppler-qt5/commit/40e71ad88173d02648bceb2438bc0567e60dacd5.patch";
+        sha256 = "0c93d0k7b1n2s2njl8g92x6vw3z96da1fczah9qx07x08iw8dzi5";
+      })
+    ];
 
-  buildInputs = [ qtbase.dev poppler pyqt-builder ];
-  nativeBuildInputs = [ pkg-config qmake sip setuptools ];
+  buildInputs = [
+    qtbase.dev
+    poppler
+    pyqt-builder
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+    sip
+    setuptools
+  ];
   propagatedBuildInputs = [ pyqt5.dev ];
 
   format = "pyproject";

@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
+{
+  lib,
+  fetchFromGitHub,
+  python3,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -16,9 +17,7 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools-scm
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools-scm ];
 
   propagatedBuildInputs = with python3.pkgs; [
     netaddr
@@ -45,14 +44,13 @@ python3.pkgs.buildPythonApplication rec {
       --replace "--cov=kube_hunter" ""
   '';
 
-  pythonImportsCheck = [
-    "kube_hunter"
-  ];
+  pythonImportsCheck = [ "kube_hunter" ];
 
-  disabledTests = [
-    # Test is out-dated
-    "test_K8sCveHunter"
-  ];
+  disabledTests =
+    [
+      # Test is out-dated
+      "test_K8sCveHunter"
+    ];
 
   meta = with lib; {
     description = "Tool to search issues in Kubernetes clusters";

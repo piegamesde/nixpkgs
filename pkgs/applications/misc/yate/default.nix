@@ -1,4 +1,11 @@
-{ stdenv, fetchurl, lib, qt4, openssl, pkg-config }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  qt4,
+  openssl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "yate";
@@ -11,25 +18,26 @@ stdenv.mkDerivation rec {
 
   # TODO zaptel ? postgres ?
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ qt4 openssl ];
+  buildInputs = [
+    qt4
+    openssl
+  ];
 
   # /dev/null is used when linking which is a impure path for the wrapper
-  postPatch =
-    ''
-      patchShebangs configure
-      substituteInPlace configure --replace ",/dev/null" ""
-    '';
+  postPatch = ''
+    patchShebangs configure
+    substituteInPlace configure --replace ",/dev/null" ""
+  '';
 
   enableParallelBuilding = false; # fails to build if true
 
   # --unresolved-symbols=ignore-in-shared-libs makes ld no longer find --library=yate? Why?
-  preBuild =
-    ''
-      export NIX_LDFLAGS="-L$TMP/yate $NIX_LDFLAGS"
-      find . -type f -iname Makefile | xargs sed -i \
-        -e 's@-Wl,--unresolved-symbols=ignore-in-shared-libs@@' \
-        -e 's@-Wl,--retain-symbols-file@@'
-    '';
+  preBuild = ''
+    export NIX_LDFLAGS="-L$TMP/yate $NIX_LDFLAGS"
+    find . -type f -iname Makefile | xargs sed -i \
+      -e 's@-Wl,--unresolved-symbols=ignore-in-shared-libs@@' \
+      -e 's@-Wl,--retain-symbols-file@@'
+  '';
 
   meta = {
     description = "Yet another telephony engine";
@@ -38,7 +46,9 @@ stdenv.mkDerivation rec {
     # OpenH323 and PWlib (licensed under MPL).
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.marcweber ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
-
 }

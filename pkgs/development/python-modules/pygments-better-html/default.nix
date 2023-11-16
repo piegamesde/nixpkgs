@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pygments
-, isPy3k
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pygments,
+  isPy3k,
 }:
 
 buildPythonPackage rec {
   pname = "pygments_better_html";
   version = "0.1.4";
-  disabled = ! isPy3k;
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;

@@ -1,15 +1,16 @@
-{ lib
-, fetchFromGitHub
-, gitUpdater
-, glibcLocales
-, gnome
-, gobject-introspection
-, gtk3
-, intltool
-, python3
-, python3Packages
-, wrapGAppsHook
-, xdg-utils
+{
+  lib,
+  fetchFromGitHub,
+  gitUpdater,
+  glibcLocales,
+  gnome,
+  gobject-introspection,
+  gtk3,
+  intltool,
+  python3,
+  python3Packages,
+  wrapGAppsHook,
+  xdg-utils,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -24,9 +25,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "Ns03MFhd4ZLtyeQTLTgLWY2Ot6gmrksFMOZm8jFaLIg=";
   };
 
-  patches = [
-    ./disable-autoupdate.patch
-  ];
+  patches = [ ./disable-autoupdate.patch ];
 
   postPatch = with lib; ''
     sed -i -re 's,^( *gpodder_dir *= *).*,\1"'"$out"'",' bin/gpodder
@@ -83,7 +82,7 @@ python3Packages.buildPythonApplication rec {
 
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}" ];
 
-  passthru.updateScript = gitUpdater {};
+  passthru.updateScript = gitUpdater { };
 
   meta = with lib; {
     description = "A podcatcher written in python";
@@ -94,6 +93,9 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://gpodder.org/";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ skeidel mic92 ];
+    maintainers = with maintainers; [
+      skeidel
+      mic92
+    ];
   };
 }

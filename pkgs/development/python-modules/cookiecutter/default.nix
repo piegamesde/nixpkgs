@@ -1,8 +1,20 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy
-, pytest, pytest-cov, pytest-mock, freezegun
-, jinja2, future, binaryornot, click, jinja2-time, requests
-, python-slugify
-, pyyaml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  pytest,
+  pytest-cov,
+  pytest-mock,
+  freezegun,
+  jinja2,
+  future,
+  binaryornot,
+  click,
+  jinja2-time,
+  requests,
+  python-slugify,
+  pyyaml,
 }:
 
 buildPythonPackage rec {
@@ -17,7 +29,12 @@ buildPythonPackage rec {
     hash = "sha256-85gr6NnFPawSYYZAE/3sf4Ov0uQu3m9t0GnF4UnFQNU=";
   };
 
-  nativeCheckInputs = [ pytest pytest-cov pytest-mock freezegun ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+    pytest-mock
+    freezegun
+  ];
   propagatedBuildInputs = [
     binaryornot
     jinja2

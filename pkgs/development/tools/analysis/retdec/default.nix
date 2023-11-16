@@ -1,27 +1,28 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-, fetchzip
-, lib
-, callPackage
-, openssl
-, cmake
-, autoconf
-, automake
-, libtool
-, pkg-config
-, bison
-, flex
-, groff
-, perl
-, python3
-, time
-, upx
-, ncurses
-, libffi
-, libxml2
-, zlib
-, withPEPatterns ? false
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchzip,
+  lib,
+  callPackage,
+  openssl,
+  cmake,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  bison,
+  flex,
+  groff,
+  perl,
+  python3,
+  time,
+  upx,
+  ncurses,
+  libffi,
+  libxml2,
+  zlib,
+  withPEPatterns ? false,
 }:
 
 let
@@ -37,7 +38,8 @@ let
     rev = "998374baace397ea98f3b1d768e81c978b4fba41";
     sha256 = "09n34rdp0wpm8zy30zx40wkkc4gbv2k3cv181y6c1260rllwk5d1";
   };
-  keystone = fetchFromGitHub { # only for tests
+  keystone = fetchFromGitHub {
+    # only for tests
     owner = "keystone-engine";
     repo = "keystone";
     rev = "d7ba8e378e5284e6384fc9ecd660ed5f6532e922";
@@ -67,7 +69,7 @@ let
     rev = "v1.1.0";
     sha256 = "1jixgb8w97l9gdh3inihz7avz7i770gy2j2irvvlyrq3wi41f5ab";
   };
-  yaracpp = callPackage ./yaracpp.nix {}; # is its own package because it needs a patch
+  yaracpp = callPackage ./yaracpp.nix { }; # is its own package because it needs a patch
   yaramod = fetchFromGitHub {
     owner = "avast-tl";
     repo = "yaramod";
@@ -80,7 +82,8 @@ let
     rev = "1.8.4";
     sha256 = "1z0gj7a6jypkijmpknis04qybs1hkd04d1arr3gy89lnxmp6qzlm";
   };
-  googletest = fetchFromGitHub { # only for tests
+  googletest = fetchFromGitHub {
+    # only for tests
     owner = "google";
     repo = "googletest";
     rev = "83fa0cb17dad47a1d905526dcdddb5b96ed189d2";
@@ -93,20 +96,26 @@ let
     sha256 = "015g8520a0c55gwmv7pfdsgfz2rpdmh3d1nq5n9bd65n35492s3q";
   };
 
-  retdec-support = let
-    version = "2018-02-08"; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
-  in fetchzip {
-    url = "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz";
-    sha256 = if withPEPatterns then "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
-                               else "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy";
-    stripRoot = false;
-    # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
-    postFetch = lib.optionalString (!withPEPatterns) ''
-      rm -r "$out/generic/yara_patterns/static-code/pe"
-    '';
-  } // {
-    inherit version; # necessary to check the version against the expected version
-  };
+  retdec-support =
+    let
+      version = "2018-02-08"; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
+    in
+    fetchzip {
+      url = "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz";
+      sha256 =
+        if withPEPatterns then
+          "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
+        else
+          "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy";
+      stripRoot = false;
+      # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
+      postFetch = lib.optionalString (!withPEPatterns) ''
+        rm -r "$out/generic/yara_patterns/static-code/pe"
+      '';
+    }
+    // {
+      inherit version; # necessary to check the version against the expected version
+    };
 
   # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
   # this has to be applied for every dependency (which it is in postPatch)
@@ -122,8 +131,8 @@ let
     # patch the CMakeLists.txt file to use our local copy of the dependency instead of fetching it at build time
     sed -i -e 's|URL .*|URL ${dep}|' "deps/${dep.dep_name}/CMakeLists.txt"
   '';
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "retdec";
 
   # If you update this you will also need to adjust the versions of the updated dependencies. You can do this by first just updating retdec
@@ -196,25 +205,27 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch = (lib.concatMapStrings patchDep external_deps) + ''
-    # install retdec-support
-    echo "Checking version of retdec-support"
-    expected_version="$( sed -n -e "s|^version = '\(.*\)'$|\1|p" 'cmake/install-share.py' )"
-    if [ "$expected_version" != '${retdec-support.version}' ]; then
-      echo "The retdec-support dependency has the wrong version: ${retdec-support.version} while $expected_version is expected."
-      exit 1
-    fi
-    mkdir -p "$out/share/retdec"
-    cp -r ${retdec-support} "$out/share/retdec/support" # write permission needed during install
-    chmod -R u+w "$out/share/retdec/support"
-    # python file originally responsible for fetching the retdec-support archive to $out/share/retdec
-    # that is not necessary anymore, so empty the file
-    echo > cmake/install-share.py
+  postPatch =
+    (lib.concatMapStrings patchDep external_deps)
+    + ''
+      # install retdec-support
+      echo "Checking version of retdec-support"
+      expected_version="$( sed -n -e "s|^version = '\(.*\)'$|\1|p" 'cmake/install-share.py' )"
+      if [ "$expected_version" != '${retdec-support.version}' ]; then
+        echo "The retdec-support dependency has the wrong version: ${retdec-support.version} while $expected_version is expected."
+        exit 1
+      fi
+      mkdir -p "$out/share/retdec"
+      cp -r ${retdec-support} "$out/share/retdec/support" # write permission needed during install
+      chmod -R u+w "$out/share/retdec/support"
+      # python file originally responsible for fetching the retdec-support archive to $out/share/retdec
+      # that is not necessary anymore, so empty the file
+      echo > cmake/install-share.py
 
-    # call correct `time` and `upx` programs
-    substituteInPlace scripts/retdec-config.py --replace /usr/bin/time ${time}/bin/time
-    substituteInPlace scripts/retdec-unpacker.py --replace "'upx'" "'${upx}/bin/upx'"
-  '';
+      # call correct `time` and `upx` programs
+      substituteInPlace scripts/retdec-config.py --replace /usr/bin/time ${time}/bin/time
+      substituteInPlace scripts/retdec-unpacker.py --replace "'upx'" "'${upx}/bin/upx'"
+    '';
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -227,7 +238,13 @@ in stdenv.mkDerivation rec {
     description = "A retargetable machine-code decompiler based on LLVM";
     homepage = "https://retdec.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ dtzWill timokau ];
-    platforms = ["x86_64-linux" "i686-linux"];
+    maintainers = with maintainers; [
+      dtzWill
+      timokau
+    ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

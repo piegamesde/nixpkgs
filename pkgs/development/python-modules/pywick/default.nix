@@ -1,30 +1,31 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, dill
-, h5py
-, hickle
-, numpy
-, opencv4
-, pandas
-, pillow
-, pycm
-, pyyaml
-, scipy
-, requests
-, scikit-image
-, six
-, tabulate
-, torch
-, torchvision
-, tqdm
-, yacs
-, lib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  dill,
+  h5py,
+  hickle,
+  numpy,
+  opencv4,
+  pandas,
+  pillow,
+  pycm,
+  pyyaml,
+  scipy,
+  requests,
+  scikit-image,
+  six,
+  tabulate,
+  torch,
+  torchvision,
+  tqdm,
+  yacs,
+  lib,
 }:
 
 buildPythonPackage rec {
-  pname   = "pywick";
+  pname = "pywick";
   version = "0.6.5";
 
   disabled = pythonOlder "3.6";
@@ -68,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/achaiah/pywick";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];
-    broken = true;  # Nixpkgs missing `albumentations` and `prodict`
+    broken = true; # Nixpkgs missing `albumentations` and `prodict`
   };
 }

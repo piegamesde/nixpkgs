@@ -1,34 +1,37 @@
-{ stdenv
-, mkDerivation
-, lib
-, fetchFromGitHub
-, fetchpatch
-, brotli
-, lz4
-, pyotherside
-, python3
-, python3Packages
-, qtbase
-, qtcharts
-, qmake
-, qttools
-, rdbtools
-, snappy
-, wrapQtAppsHook
-, zstd
+{
+  stdenv,
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  brotli,
+  lz4,
+  pyotherside,
+  python3,
+  python3Packages,
+  qtbase,
+  qtcharts,
+  qmake,
+  qttools,
+  rdbtools,
+  snappy,
+  wrapQtAppsHook,
+  zstd,
 }:
 
 let
-  rdbtools-patched = rdbtools.overridePythonAttrs (oldAttrs: {
-    # Add required additional flag for resp-app
-    patches = [
-      (fetchpatch {
-        name = "Add-flag-to-parse-only-key-names.patch";
-        url = "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
-        hash = "sha256-1gjqB/IDSsAbrwzWSezlAW/2SYr6BFm1QJ2HAHK2fFs=";
-      })
-    ];
-  });
+  rdbtools-patched = rdbtools.overridePythonAttrs (
+    oldAttrs: {
+      # Add required additional flag for resp-app
+      patches = [
+        (fetchpatch {
+          name = "Add-flag-to-parse-only-key-names.patch";
+          url = "https://github.com/uglide/redis-rdb-tools/commit/b74946e6fbca589947ef0186429d5ce45a074b87.patch";
+          hash = "sha256-1gjqB/IDSsAbrwzWSezlAW/2SYr6BFm1QJ2HAHK2fFs=";
+        })
+      ];
+    }
+  );
 in
 mkDerivation rec {
   pname = "RESP.app";
@@ -59,7 +62,6 @@ mkDerivation rec {
     snappy
     zstd
   ] ++ pythonPath;
-
 
   pythonPath = with python3Packages; [
     bitstring

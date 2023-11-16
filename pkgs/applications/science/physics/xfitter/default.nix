@@ -1,24 +1,26 @@
-{ lib
-, stdenv
-, fetchurl
-, apfel
-, apfelgrid
-, applgrid
-, blas
-, ceres-solver
-, cmake
-, gfortran
-, gsl
-, lapack
-, lhapdf
-, libtirpc
-, libyaml
-, yaml-cpp
-, pkg-config
-, qcdnum
-, root
-, zlib
-, memorymappingHook, memstreamHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  apfel,
+  apfelgrid,
+  applgrid,
+  blas,
+  ceres-solver,
+  cmake,
+  gfortran,
+  gsl,
+  lapack,
+  lhapdf,
+  libtirpc,
+  libyaml,
+  yaml-cpp,
+  pkg-config,
+  qcdnum,
+  root,
+  zlib,
+  memorymappingHook,
+  memstreamHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -31,20 +33,44 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZHIQ5hOY+k0/wmpE0o4Po+RZ4MkVMk+bK1Rc6eqwwH0=";
   };
 
-  patches = [
-    # Avoid need for -fallow-argument-mismatch
-    ./0001-src-GetChisquare.f-use-correct-types-in-calls-to-DSY.patch
+  patches =
+    [
+      # Avoid need for -fallow-argument-mismatch
+      ./0001-src-GetChisquare.f-use-correct-types-in-calls-to-DSY.patch
+    ];
+
+  nativeBuildInputs = [
+    cmake
+    gfortran
+    pkg-config
   ];
-
-  nativeBuildInputs = [ cmake gfortran pkg-config ];
   buildInputs =
-    [ apfel blas ceres-solver lhapdf lapack libyaml root qcdnum gsl yaml-cpp zlib ]
-    ++ lib.optionals ("5" == lib.versions.major root.version) [ apfelgrid applgrid ]
-    ++ lib.optionals (stdenv.system == "x86_64-darwin") [ memorymappingHook memstreamHook ]
-    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc
-    ;
+    [
+      apfel
+      blas
+      ceres-solver
+      lhapdf
+      lapack
+      libyaml
+      root
+      qcdnum
+      gsl
+      yaml-cpp
+      zlib
+    ]
+    ++ lib.optionals ("5" == lib.versions.major root.version) [
+      apfelgrid
+      applgrid
+    ]
+    ++ lib.optionals (stdenv.system == "x86_64-darwin") [
+      memorymappingHook
+      memstreamHook
+    ]
+    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc;
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (stdenv.hostPlatform.libc == "glibc") "-I${libtirpc.dev}/include/tirpc";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString (stdenv.hostPlatform.libc == "glibc")
+      "-I${libtirpc.dev}/include/tirpc";
   NIX_LDFLAGS = lib.optional (stdenv.hostPlatform.libc == "glibc") "-ltirpc";
 
   # workaround wrong library IDs
@@ -54,9 +80,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The xFitter project is an open source QCD fit framework ready to extract PDFs and assess the impact of new data";
-    license     = licenses.gpl3;
-    homepage    = "https://www.xfitter.org/xFitter";
-    platforms   = platforms.unix;
+    license = licenses.gpl3;
+    homepage = "https://www.xfitter.org/xFitter";
+    platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
   };
 }

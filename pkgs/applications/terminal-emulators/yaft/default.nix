@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.2.9";
@@ -13,7 +18,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  installFlags = [ "PREFIX=$(out)" "MANPREFIX=$(out)/share/man" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "MANPREFIX=$(out)/share/man"
+  ];
 
   meta = {
     homepage = "https://github.com/uobikiemukot/yaft";

@@ -1,16 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, irctokens
-, pendulum
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  irctokens,
+  pendulum,
+  python,
 }:
 
 buildPythonPackage rec {
   pname = "ircstates";
   version = "0.11.8";
-  disabled = pythonOlder "3.6";  # f-strings
+  disabled = pythonOlder "3.6"; # f-strings
 
   src = fetchFromGitHub {
     owner = "jesopo";

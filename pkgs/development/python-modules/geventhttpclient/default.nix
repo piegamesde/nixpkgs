@@ -1,14 +1,15 @@
-{ lib
-, brotli
-, buildPythonPackage
-, certifi
-, dpkt
-, fetchPypi
-, gevent
-, pytestCheckHook
-, pythonOlder
-, six
-, urllib3
+{
+  lib,
+  brotli,
+  buildPythonPackage,
+  certifi,
+  dpkt,
+  fetchPypi,
+  gevent,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -49,9 +50,7 @@ buildPythonPackage rec {
     "test_multi_queries_greenlet_safe"
   ];
 
-  pythonImportsCheck = [
-    "geventhttpclient"
-  ];
+  pythonImportsCheck = [ "geventhttpclient" ];
 
   meta = with lib; {
     homepage = "https://github.com/geventhttpclient/geventhttpclient";

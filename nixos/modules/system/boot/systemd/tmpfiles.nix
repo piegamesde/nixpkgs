@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 with lib;
 
@@ -10,7 +16,7 @@ in
   options = {
     systemd.tmpfiles.rules = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "d /tmp 1777 root root 10d" ];
       description = lib.mdDoc ''
         Rules for creation, deletion and cleaning of volatile and temporary files
@@ -22,7 +28,7 @@ in
 
     systemd.tmpfiles.packages = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       example = literalExpression "[ pkgs.lvm2 ]";
       apply = map getLib;
       description = lib.mdDoc ''
@@ -55,25 +61,35 @@ in
     ];
 
     environment.etc = {
-      "tmpfiles.d".source = (pkgs.symlinkJoin {
-        name = "tmpfiles.d";
-        paths = map (p: p + "/lib/tmpfiles.d") cfg.packages;
-        postBuild = ''
-          for i in $(cat $pathsPath); do
-            (test -d "$i" && test $(ls "$i"/*.conf | wc -l) -ge 1) || (
-              echo "ERROR: The path '$i' from systemd.tmpfiles.packages contains no *.conf files."
-              exit 1
-            )
-          done
-        '' + concatMapStrings (name: optionalString (hasPrefix "tmpfiles.d/" name) ''
-          rm -f $out/${removePrefix "tmpfiles.d/" name}
-        '') config.system.build.etc.passthru.targets;
-      }) + "/*";
+      "tmpfiles.d".source =
+        (pkgs.symlinkJoin {
+          name = "tmpfiles.d";
+          paths = map (p: p + "/lib/tmpfiles.d") cfg.packages;
+          postBuild =
+            ''
+              for i in $(cat $pathsPath); do
+                (test -d "$i" && test $(ls "$i"/*.conf | wc -l) -ge 1) || (
+                  echo "ERROR: The path '$i' from systemd.tmpfiles.packages contains no *.conf files."
+                  exit 1
+                )
+              done
+            ''
+            +
+              concatMapStrings
+                (
+                  name:
+                  optionalString (hasPrefix "tmpfiles.d/" name) ''
+                    rm -f $out/${removePrefix "tmpfiles.d/" name}
+                  ''
+                )
+                config.system.build.etc.passthru.targets;
+        })
+        + "/*";
     };
 
     systemd.tmpfiles.packages = [
       # Default tmpfiles rules provided by systemd
-      (pkgs.runCommand "systemd-default-tmpfiles" {} ''
+      (pkgs.runCommand "systemd-default-tmpfiles" { } ''
         mkdir -p $out/lib/tmpfiles.d
         cd $out/lib/tmpfiles.d
 

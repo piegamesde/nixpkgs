@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "minheap";
   version = "20160628-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "minheap";
 
-  asdFilesToKeep = ["minheap.asd"];
+  asdFilesToKeep = [ "minheap.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM minheap DESCRIPTION Various heap/priority queue data structures
@@ -23,4 +23,5 @@ rec {
     http://beta.quicklisp.org/archive/minheap/2016-06-28/minheap-20160628-git.tgz
     MD5 27a57cdd27e91eb767f1377fcbfe2af3 NAME minheap FILENAME minheap DEPS NIL
     DEPENDENCIES NIL VERSION 20160628-git SIBLINGS (minheap-tests) PARASITES
-    NIL) */
+    NIL)
+*/

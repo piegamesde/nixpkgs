@@ -1,31 +1,34 @@
-{ lib
-, fetchFromGitHub
-, python3
-, nixosTests
-, testers
-, sqlite3-to-mysql
-, fetchPypi
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  nixosTests,
+  testers,
+  sqlite3-to-mysql,
+  fetchPypi,
 }:
 
 let
   py = python3.override {
     packageOverrides = self: super: {
       # sqlite3-to-mysql is incompatible with versions > 1.4.44 of sqlalchemy
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
-        version = "1.4.44";
-        format = "setuptools";
-        src = fetchPypi {
-          pname = "SQLAlchemy";
-          inherit version;
-          hash = "sha256-LdpflnGa6Js+wPG3lpjYbrmuyx1U6ZCrs/3ZLAS0apA=";
-        };
-      });
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "1.4.44";
+          format = "setuptools";
+          src = fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-LdpflnGa6Js+wPG3lpjYbrmuyx1U6ZCrs/3ZLAS0apA=";
+          };
+        }
+      );
     };
     self = py;
   };
-
 in
-with py.pkgs; buildPythonApplication rec {
+with py.pkgs;
+buildPythonApplication rec {
   pname = "sqlite3-to-mysql";
   version = "1.4.19";
   format = "pyproject";
@@ -37,9 +40,7 @@ with py.pkgs; buildPythonApplication rec {
     hash = "sha256-gtXwDLHl5f1sXLm+b8l08bY/XJkN+zVtd7m45K0CAYY=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     click

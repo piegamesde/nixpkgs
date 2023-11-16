@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchPypi, ... }:
+{
+  lib,
+  python3Packages,
+  fetchPypi,
+  ...
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "ical2orgpy";
@@ -19,7 +24,11 @@ python3Packages.buildPythonPackage rec {
     tzlocal
     recurring-ical-events
   ];
-  checkInputs = with python3Packages; [ freezegun pytest pyyaml ];
+  checkInputs = with python3Packages; [
+    freezegun
+    pytest
+    pyyaml
+  ];
   nativeBuildInputs = [ python3Packages.pbr ];
 
   meta = with lib; {
@@ -28,5 +37,4 @@ python3Packages.buildPythonPackage rec {
     license = licenses.gpl3;
     maintainers = with maintainers; [ StillerHarpo ];
   };
-
 }

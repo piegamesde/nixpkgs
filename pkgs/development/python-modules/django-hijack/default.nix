@@ -1,21 +1,22 @@
-{ lib
-, fetchFromGitHub
-, fetchNpmDeps
-, buildPythonPackage
+{
+  lib,
+  fetchFromGitHub,
+  fetchNpmDeps,
+  buildPythonPackage,
 
-# build-system
-, gettext
-, nodejs
-, npmHooks
-, setuptools-scm
+  # build-system
+  gettext,
+  nodejs,
+  npmHooks,
+  setuptools-scm,
 
-# dependencies
-, django
-, django_compat
+  # dependencies
+  django,
+  django_compat,
 
-# tests
-, pytest-django
-, pytestCheckHook
+  # tests
+  pytest-django,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -65,8 +66,10 @@ buildPythonPackage rec {
   env.DJANGO_SETTINGS_MODULE = "hijack.tests.test_app.settings";
 
   pytestFlagsArray = [
-    "--pyargs" "hijack"
-    "-W" "ignore::DeprecationWarning"
+    "--pyargs"
+    "hijack"
+    "-W"
+    "ignore::DeprecationWarning"
   ];
 
   meta = with lib; {

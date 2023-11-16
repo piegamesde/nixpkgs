@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchzip
-, nixosTests
-, iptables
-, iproute2
-, makeWrapper
-, openresolv
-, procps
-, bash
+{
+  lib,
+  stdenv,
+  fetchzip,
+  nixosTests,
+  iptables,
+  iproute2,
+  makeWrapper,
+  openresolv,
+  procps,
+  bash,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eGGkTVdPPTWK6iEyowW11F4ywRhd+0IXJTZCqY3OZws=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   sourceRoot = "source/src";
 
@@ -35,18 +39,30 @@ stdenv.mkDerivation rec {
     "WITH_WGQUICK=yes"
   ];
 
-  postFixup = ''
-    substituteInPlace $out/lib/systemd/system/wg-quick@.service \
-      --replace /usr/bin $out/bin
-  '' + lib.optionalString stdenv.isLinux ''
-    for f in $out/bin/*; do
-      # Which firewall and resolvconf implementations to use should be determined by the
-      # environment, we provide the "default" ones as fallback.
-      wrapProgram $f \
-        --prefix PATH : ${lib.makeBinPath [ procps iproute2 ]} \
-        --suffix PATH : ${lib.makeBinPath [ iptables openresolv ]}
-    done
-  '';
+  postFixup =
+    ''
+      substituteInPlace $out/lib/systemd/system/wg-quick@.service \
+        --replace /usr/bin $out/bin
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      for f in $out/bin/*; do
+        # Which firewall and resolvconf implementations to use should be determined by the
+        # environment, we provide the "default" ones as fallback.
+        wrapProgram $f \
+          --prefix PATH : ${
+            lib.makeBinPath [
+              procps
+              iproute2
+            ]
+          } \
+          --suffix PATH : ${
+            lib.makeBinPath [
+              iptables
+              openresolv
+            ]
+          }
+      done
+    '';
 
   passthru = {
     updateScript = ./update.sh;
@@ -65,7 +81,13 @@ stdenv.mkDerivation rec {
     downloadPage = "https://git.zx2c4.com/wireguard-tools/refs/";
     homepage = "https://www.wireguard.com/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ericsagnes zx2c4 globin ma27 d-xo ];
+    maintainers = with maintainers; [
+      ericsagnes
+      zx2c4
+      globin
+      ma27
+      d-xo
+    ];
     platforms = platforms.unix;
   };
 }

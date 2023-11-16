@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, asn1crypto
-, cbor2
-, pythonOlder
-, pydantic
-, pyopenssl
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asn1crypto,
+  cbor2,
+  pythonOlder,
+  pydantic,
+  pyopenssl,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -30,18 +31,15 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "webauthn"
-  ];
+  pythonImportsCheck = [ "webauthn" ];
 
-  disabledTests = [
-    # TypeError: X509StoreContextError.__init__() missing 1 required...
-    "test_throws_on_bad_root_cert"
-  ];
+  disabledTests =
+    [
+      # TypeError: X509StoreContextError.__init__() missing 1 required...
+      "test_throws_on_bad_root_cert"
+    ];
 
   meta = with lib; {
     description = "Implementation of the WebAuthn API";

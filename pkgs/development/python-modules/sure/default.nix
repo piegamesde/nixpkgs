@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, rednose
-, six
-, mock
-, isPyPy
-, pythonOlder
-, fetchpatch
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  rednose,
+  six,
+  mock,
+  isPyPy,
+  pythonOlder,
+  fetchpatch,
 }:
 
 buildPythonPackage rec {
@@ -21,28 +22,25 @@ buildPythonPackage rec {
     sha256 = "34ae88c846046742ef074036bf311dc90ab152b7bc09c342b281cebf676727a2";
   };
 
-  patches = [
-    # https://github.com/gabrielfalcao/sure/issues/169
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinux/svntogit-community/055baa81cd987e566de62a5657513937521a90d4/trunk/python310.diff";
-      hash = "sha256-BKylV8xpTOuO/X4hzZKpoIcAQcdAK0kXYENRad7AGPc=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/gabrielfalcao/sure/issues/169
+      (fetchpatch {
+        url = "https://raw.githubusercontent.com/archlinux/svntogit-community/055baa81cd987e566de62a5657513937521a90d4/trunk/python310.diff";
+        hash = "sha256-BKylV8xpTOuO/X4hzZKpoIcAQcdAK0kXYENRad7AGPc=";
+      })
+    ];
 
   propagatedBuildInputs = [
     six
     mock
   ];
 
-  nativeCheckInputs = [
-    rednose
-  ];
+  nativeCheckInputs = [ rednose ];
 
   doCheck = pythonOlder "3.11";
 
-  pythonImportsCheck = [
-    "sure"
-  ];
+  pythonImportsCheck = [ "sure" ];
 
   meta = with lib; {
     description = "Utility belt for automated testing";

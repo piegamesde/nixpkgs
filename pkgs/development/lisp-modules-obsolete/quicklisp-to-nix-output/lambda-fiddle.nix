@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "lambda-fiddle";
   version = "20190710-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lambda-fiddle";
 
-  asdFilesToKeep = ["lambda-fiddle.asd"];
+  asdFilesToKeep = [ "lambda-fiddle.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lambda-fiddle DESCRIPTION
@@ -24,4 +24,5 @@ rec {
     http://beta.quicklisp.org/archive/lambda-fiddle/2019-07-10/lambda-fiddle-20190710-git.tgz
     MD5 78f68f144ace9cb8f634ac14b3414e5e NAME lambda-fiddle FILENAME
     lambda-fiddle DEPS NIL DEPENDENCIES NIL VERSION 20190710-git SIBLINGS NIL
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

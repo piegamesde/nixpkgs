@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, pkg-config
-, util-linux
-, hexdump
-, autoSignDarwinBinariesHook
-, wrapQtAppsHook ? null
-, boost
-, libevent
-, miniupnpc
-, zeromq
-, zlib
-, db48
-, sqlite
-, qrencode
-, qtbase ? null
-, qttools ? null
-, python3
-, nixosTests
-, withGui
-, withWallet ? true
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  util-linux,
+  hexdump,
+  autoSignDarwinBinariesHook,
+  wrapQtAppsHook ? null,
+  boost,
+  libevent,
+  miniupnpc,
+  zeromq,
+  zlib,
+  db48,
+  sqlite,
+  qrencode,
+  qtbase ? null,
+  qttools ? null,
+  python3,
+  nixosTests,
+  withGui,
+  withWallet ? true,
 }:
 
 let
@@ -35,23 +36,38 @@ stdenv.mkDerivation rec {
   version = "25.0";
 
   src = fetchurl {
-    urls = [
-      "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
-    ];
+    urls = [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz" ];
     # hash retrieved from signed SHA256SUMS
     sha256 = "5df67cf42ca3b9a0c38cdafec5bbb517da5b58d251f32c8d2a47511f9be1ebc2";
   };
 
   nativeBuildInputs =
-    [ autoreconfHook pkg-config ]
+    [
+      autoreconfHook
+      pkg-config
+    ]
     ++ lib.optionals stdenv.isLinux [ util-linux ]
     ++ lib.optionals stdenv.isDarwin [ hexdump ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
     ++ lib.optionals withGui [ wrapQtAppsHook ];
 
-  buildInputs = [ boost libevent miniupnpc zeromq zlib ]
-    ++ lib.optionals withWallet [ db48 sqlite ]
-    ++ lib.optionals withGui [ qrencode qtbase qttools ];
+  buildInputs =
+    [
+      boost
+      libevent
+      miniupnpc
+      zeromq
+      zlib
+    ]
+    ++ lib.optionals withWallet [
+      db48
+      sqlite
+    ]
+    ++ lib.optionals withGui [
+      qrencode
+      qtbase
+      qttools
+    ];
 
   postInstall = lib.optionalString withGui ''
     install -Dm644 ${desktop} $out/share/applications/bitcoin-qt.desktop
@@ -59,18 +75,20 @@ stdenv.mkDerivation rec {
     install -Dm644 share/pixmaps/bitcoin256.png $out/share/pixmaps/bitcoin.png
   '';
 
-  configureFlags = [
-    "--with-boost-libdir=${boost.out}/lib"
-    "--disable-bench"
-  ] ++ lib.optionals (!doCheck) [
-    "--disable-tests"
-    "--disable-gui-tests"
-  ] ++ lib.optionals (!withWallet) [
-    "--disable-wallet"
-  ] ++ lib.optionals withGui [
-    "--with-gui=qt5"
-    "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
-  ];
+  configureFlags =
+    [
+      "--with-boost-libdir=${boost.out}/lib"
+      "--disable-bench"
+    ]
+    ++ lib.optionals (!doCheck) [
+      "--disable-tests"
+      "--disable-gui-tests"
+    ]
+    ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
+    ++ lib.optionals withGui [
+      "--with-gui=qt5"
+      "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
+    ];
 
   nativeCheckInputs = [ python3 ];
 
@@ -99,7 +117,10 @@ stdenv.mkDerivation rec {
     homepage = "https://bitcoin.org/en/";
     downloadPage = "https://bitcoincore.org/bin/bitcoin-core-${version}/";
     changelog = "https://bitcoincore.org/en/releases/${version}/";
-    maintainers = with maintainers; [ prusnak roconnor ];
+    maintainers = with maintainers; [
+      prusnak
+      roconnor
+    ];
     license = licenses.mit;
     platforms = platforms.unix;
   };

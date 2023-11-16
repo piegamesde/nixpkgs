@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, jre
-, fetchzip
-, bash
+{
+  stdenv,
+  lib,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  jre,
+  fetchzip,
+  bash,
 }:
 let
   desktopItem = makeDesktopItem {
@@ -15,7 +16,6 @@ let
     desktopName = "Universal-G-Code-Sender";
     categories = [ "Game" ];
   };
-
 in
 stdenv.mkDerivation rec {
   pname = "ugs";
@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, python3Packages
-, asciidoc
-, makeWrapper
-, iw
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  python3Packages,
+  asciidoc,
+  makeWrapper,
+  iw,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,11 +20,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-yO9/HlUkaQmW/n9N3vboHw//YMzBjxIHA2zAxgZNEv0=";
   };
 
-  patches = [
-    # Support rule files in NixOS store paths. Required for the networkd-dispatcher
-    # module to work
-    ./support_nix_store_path.patch
-  ];
+  patches =
+    [
+      # Support rule files in NixOS store paths. Required for the networkd-dispatcher
+      # module to work
+      ./support_nix_store_path.patch
+    ];
 
   postPatch = ''
     # Fix paths in systemd unit file

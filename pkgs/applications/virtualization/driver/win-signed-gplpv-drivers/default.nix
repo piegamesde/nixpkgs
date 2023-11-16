@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, p7zip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  p7zip,
+}:
 
 let
   src_x86 = fetchurl {
@@ -44,4 +49,4 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     license = licenses.gpl2;
   };
-  }
+}

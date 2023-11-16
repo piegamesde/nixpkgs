@@ -1,4 +1,8 @@
-{ lib, rustPlatform, fetchFromGitHub }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "typst-fmt";
   version = "unstable-2023-04-26";
@@ -17,10 +21,11 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  checkFlags = [
-    # test_eof is ignored upstream
-    "--skip=rules::tests_typst_format::test_eof"
-  ];
+  checkFlags =
+    [
+      # test_eof is ignored upstream
+      "--skip=rules::tests_typst_format::test_eof"
+    ];
 
   meta = with lib; {
     description = "A formatter for the Typst language";

@@ -1,10 +1,16 @@
-{ config, lib, pkgs, options }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+}:
 
 with lib;
 
 let
   cfg = config.services.prometheus.exporters.knot;
-in {
+in
+{
   port = 9433;
   extraOpts = {
     knotLibraryPath = mkOption {
@@ -44,10 +50,11 @@ in {
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
       SupplementaryGroups = [ "knot" ];
-      RestrictAddressFamilies = [
-        # Need AF_UNIX to collect data
-        "AF_UNIX"
-      ];
+      RestrictAddressFamilies =
+        [
+          # Need AF_UNIX to collect data
+          "AF_UNIX"
+        ];
     };
   };
 }

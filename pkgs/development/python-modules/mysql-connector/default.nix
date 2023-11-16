@@ -1,12 +1,13 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, django
-, dnspython
-, fetchFromGitHub
-, protobuf
-, pythonOlder
-, fetchpatch
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  django,
+  dnspython,
+  fetchFromGitHub,
+  protobuf,
+  pythonOlder,
+  fetchpatch,
 }:
 
 buildPythonPackage rec {
@@ -43,9 +44,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonImportsCheck = [
-    "mysql"
-  ];
+  pythonImportsCheck = [ "mysql" ];
 
   # Tests require a running MySQL instance
   doCheck = false;
@@ -59,6 +58,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/mysql/mysql-connector-python";
     changelog = "https://raw.githubusercontent.com/mysql/mysql-connector-python/${version}/CHANGES.txt";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ neosimsim turion ];
+    maintainers = with maintainers; [
+      neosimsim
+      turion
+    ];
   };
 }

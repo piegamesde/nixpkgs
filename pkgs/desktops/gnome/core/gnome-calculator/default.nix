@@ -1,26 +1,27 @@
-{ stdenv
-, lib
-, meson
-, ninja
-, vala
-, gettext
-, itstool
-, fetchurl
-, pkg-config
-, libxml2
-, gtk4
-, glib
-, gtksourceview5
-, wrapGAppsHook4
-, gobject-introspection
-, gnome
-, mpfr
-, gmp
-, libsoup_3
-, libmpc
-, libadwaita
-, gsettings-desktop-schemas
-, libgee
+{
+  stdenv,
+  lib,
+  meson,
+  ninja,
+  vala,
+  gettext,
+  itstool,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  gtk4,
+  glib,
+  gtksourceview5,
+  wrapGAppsHook4,
+  gobject-introspection,
+  gnome,
+  mpfr,
+  gmp,
+  libsoup_3,
+  libmpc,
+  libadwaita,
+  gsettings-desktop-schemas,
+  libgee,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,7 +29,9 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-calculator/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-calculator/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "FOdjMp+IMJp+FSeA1XNhtUMQDjI5BrNOBlX9wxW3EEM=";
   };
 

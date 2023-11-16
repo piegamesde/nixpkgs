@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, pythonOlder
-, buildPythonPackage
-, fetchPypi
-, ruff
-, pygls
-, lsprotocol
-, hatchling
-, typing-extensions
-, unittestCheckHook
-, python-lsp-jsonrpc
+{
+  lib,
+  stdenv,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  ruff,
+  pygls,
+  lsprotocol,
+  hatchling,
+  typing-extensions,
+  unittestCheckHook,
+  python-lsp-jsonrpc,
 }:
 
 buildPythonPackage rec {
@@ -29,9 +30,7 @@ buildPythonPackage rec {
     sed -i '/"ruff>=/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   propagatedBuildInputs = [
     pygls
@@ -47,11 +46,11 @@ buildPythonPackage rec {
     ruff
   ];
 
-  makeWrapperArgs = [
-    # prefer ruff from user's PATH, that's usually desired behavior
-    "--suffix PATH : ${lib.makeBinPath [ ruff ]}"
-  ];
-
+  makeWrapperArgs =
+    [
+      # prefer ruff from user's PATH, that's usually desired behavior
+      "--suffix PATH : ${lib.makeBinPath [ ruff ]}"
+    ];
 
   meta = with lib; {
     homepage = "https://github.com/charliermarsh/ruff-lsp";

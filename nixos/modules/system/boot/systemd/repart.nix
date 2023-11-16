@@ -1,16 +1,22 @@
-{ config, pkgs, lib, utils, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  utils,
+  ...
+}:
 
 let
   cfg = config.systemd.repart;
   initrdCfg = config.boot.initrd.systemd.repart;
 
-  writeDefinition = name: partitionConfig: pkgs.writeText
-    "${name}.conf"
-    (lib.generators.toINI { } { Partition = partitionConfig; });
+  writeDefinition =
+    name: partitionConfig:
+    pkgs.writeText "${name}.conf" (lib.generators.toINI { } { Partition = partitionConfig; });
 
-  listOfDefinitions = lib.mapAttrsToList
-    writeDefinition
-    (lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions);
+  listOfDefinitions = lib.mapAttrsToList writeDefinition (
+    lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions
+  );
 
   # Create a directory in the store that contains a copy of all definition
   # files. This is then passed to systemd-repart in the initrd so it can access
@@ -19,9 +25,7 @@ let
   # because otherwise the files do not show up in the sysroot.
   definitionsDirectory = pkgs.runCommand "systemd-repart-definitions" { } ''
     mkdir -p $out
-    ${(lib.concatStringsSep "\n"
-      (map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions)
-    )}
+    ${(lib.concatStringsSep "\n" (map (pkg: "cp ${pkg} $out/${pkg.name}") listOfDefinitions))}
   '';
 in
 {
@@ -63,7 +67,17 @@ in
       };
 
       partitions = lib.mkOption {
-        type = with lib.types; attrsOf (attrsOf (oneOf [ str int bool ]));
+        type =
+          with lib.types;
+          attrsOf (
+            attrsOf (
+              oneOf [
+                str
+                int
+                bool
+              ]
+            )
+          );
         default = { };
         example = {
           "10-root" = {
@@ -88,13 +102,9 @@ in
 
   config = lib.mkIf (cfg.enable || initrdCfg.enable) {
     boot.initrd.systemd = lib.mkIf initrdCfg.enable {
-      additionalUpstreamUnits = [
-        "systemd-repart.service"
-      ];
+      additionalUpstreamUnits = [ "systemd-repart.service" ];
 
-      storePaths = [
-        "${config.boot.initrd.systemd.package}/bin/systemd-repart"
-      ];
+      storePaths = [ "${config.boot.initrd.systemd.package}/bin/systemd-repart" ];
 
       contents."/etc/repart.d".source = definitionsDirectory;
 
@@ -115,9 +125,10 @@ in
               # When running in the initrd, systemd-repart by default searches
               # for definition files in /sysroot or /sysusr. We tell it to look
               # in the initrd itself.
-              ''${config.boot.initrd.systemd.package}/bin/systemd-repart \
-                  --definitions=/etc/repart.d \
-                  --dry-run=no ${lib.optionalString (initrdCfg.device != null) initrdCfg.device}
+              ''
+                ${config.boot.initrd.systemd.package}/bin/systemd-repart \
+                                  --definitions=/etc/repart.d \
+                                  --dry-run=no ${lib.optionalString (initrdCfg.device != null) initrdCfg.device}
               ''
             ];
           };
@@ -129,23 +140,13 @@ in
           # on. The service then needs to be ordered to run after this device
           # is available.
           requires = lib.mkIf (initrdCfg.device != null) [ deviceUnit ];
-          after =
-            if initrdCfg.device == null then
-              [ "sysroot.mount" ]
-            else
-              [ deviceUnit ];
+          after = if initrdCfg.device == null then [ "sysroot.mount" ] else [ deviceUnit ];
         };
     };
 
-    environment.etc = lib.mkIf cfg.enable {
-      "repart.d".source = definitionsDirectory;
-    };
+    environment.etc = lib.mkIf cfg.enable { "repart.d".source = definitionsDirectory; };
 
-    systemd = lib.mkIf cfg.enable {
-      additionalUpstreamSystemUnits = [
-        "systemd-repart.service"
-      ];
-    };
+    systemd = lib.mkIf cfg.enable { additionalUpstreamSystemUnits = [ "systemd-repart.service" ]; };
   };
 
   meta.maintainers = with lib.maintainers; [ nikstur ];

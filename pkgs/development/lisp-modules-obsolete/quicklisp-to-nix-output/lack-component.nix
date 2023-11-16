@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "lack-component";
   version = "lack-20211209-git";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lack-component";
 
-  asdFilesToKeep = ["lack-component.asd"];
+  asdFilesToKeep = [ "lack-component.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lack-component DESCRIPTION System lacks description SHA256
@@ -32,4 +32,5 @@ rec {
      t-lack-middleware-backtrace t-lack-middleware-csrf t-lack-middleware-mount
      t-lack-middleware-session t-lack-middleware-static t-lack-request
      t-lack-session-store-dbi t-lack-session-store-redis t-lack-util t-lack)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

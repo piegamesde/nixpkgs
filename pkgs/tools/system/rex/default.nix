@@ -1,4 +1,15 @@
-{ pkgs, lib, fetchurl, fetchpatch, perl, perlPackages, rsync, which, installShellFiles, ... }:
+{
+  pkgs,
+  lib,
+  fetchurl,
+  fetchpatch,
+  perl,
+  perlPackages,
+  rsync,
+  which,
+  installShellFiles,
+  ...
+}:
 perlPackages.buildPerlPackage rec {
   pname = "Rex";
   version = "1.14.0";
@@ -47,7 +58,10 @@ perlPackages.buildPerlPackage rec {
     })
   ];
 
-  nativeBuildInputs = with perlPackages; [ installShellFiles ParallelForkManager ];
+  nativeBuildInputs = with perlPackages; [
+    installShellFiles
+    ParallelForkManager
+  ];
 
   propagatedBuildInputs = with perlPackages; [
     AWSSignature4

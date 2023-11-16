@@ -1,17 +1,18 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, cacert
-, setuptools
-, matrix-nio
-, python-magic
-, markdown
-, pillow
-, aiofiles
-, notify2
-, dbus-python
-, pyxdg
-, python-olm
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  cacert,
+  setuptools,
+  matrix-nio,
+  python-magic,
+  markdown,
+  pillow,
+  aiofiles,
+  notify2,
+  dbus-python,
+  pyxdg,
+  python-olm,
 }:
 
 buildPythonApplication rec {

@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.n8n;
-  format = pkgs.formats.json {};
+  format = pkgs.formats.json { };
   configFile = format.generate "n8n.json" cfg.settings;
 in
 {
@@ -19,13 +24,12 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = {};
+      default = { };
       description = lib.mdDoc ''
         Configuration for n8n, see <https://docs.n8n.io/hosting/environment-variables/configuration-methods/>
         for supported values.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -75,8 +79,6 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
   };
 }

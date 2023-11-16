@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  python,
 
   # python dependencies
-, awacs
-, cfn-flip
-, typing-extensions
+  awacs,
+  cfn-flip,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -26,13 +27,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     cfn-flip
-  ] ++ lib.lists.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  ] ++ lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    awacs
-  ];
+  nativeCheckInputs = [ awacs ];
 
   passthru.optional-dependencies = {
     policy = [ awacs ];

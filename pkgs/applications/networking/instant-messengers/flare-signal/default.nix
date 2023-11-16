@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cargo
-, meson
-, ninja
-, pkg-config
-, protobuf
-, libsecret
-, libadwaita
-, rustPlatform
-, rustc
-, desktop-file-utils
-, wrapGAppsHook4
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cargo,
+  meson,
+  ninja,
+  pkg-config,
+  protobuf,
+  libsecret,
+  libadwaita,
+  rustPlatform,
+  rustc,
+  desktop-file-utils,
+  wrapGAppsHook4,
 }:
 
 stdenv.mkDerivation rec {
@@ -58,7 +59,10 @@ stdenv.mkDerivation rec {
     description = "An unofficial Signal GTK client";
     homepage = "https://gitlab.com/Schmiddiii/flare";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda tomfitzhenry ];
+    maintainers = with lib.maintainers; [
+      dotlambda
+      tomfitzhenry
+    ];
     platforms = lib.platforms.linux;
   };
 }

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, alsa-lib, freepats }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  alsa-lib,
+  freepats,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wildmidi";
@@ -13,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ alsa-lib stdenv.cc.libc/*couldn't find libm*/ ];
+  buildInputs = [
+    alsa-lib
+    stdenv.cc.libc # couldn't find libm
+  ];
 
   preConfigure = ''
     substituteInPlace CMakeLists.txt \

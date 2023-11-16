@@ -1,7 +1,33 @@
-{ lib, stdenv, fetchgit, dconf, gtksourceview3, at-spi2-core, gtksourceviewmm,
-  boost, libepoxy, cmake, aspell, llvmPackages, libgit2, pkg-config, pcre,
-  libXdmcp, libxkbcommon, libpthreadstubs, wrapGAppsHook, aspellDicts, gtkmm3,
-  coreutils, glibc, dbus, openssl, libxml2, gnumake, ctags }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  dconf,
+  gtksourceview3,
+  at-spi2-core,
+  gtksourceviewmm,
+  boost,
+  libepoxy,
+  cmake,
+  aspell,
+  llvmPackages,
+  libgit2,
+  pkg-config,
+  pcre,
+  libXdmcp,
+  libxkbcommon,
+  libpthreadstubs,
+  wrapGAppsHook,
+  aspellDicts,
+  gtkmm3,
+  coreutils,
+  glibc,
+  dbus,
+  openssl,
+  libxml2,
+  gnumake,
+  ctags,
+}:
 
 stdenv.mkDerivation rec {
   pname = "juicipp";
@@ -25,7 +51,11 @@ stdenv.mkDerivation rec {
     sha256 = "0xp6ijnrggskjrvscp204bmdpz48l5a8nxr9abp17wni6akb5wiq";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    cmake
+  ];
   buildInputs = [
     dbus
     openssl
@@ -47,15 +77,26 @@ stdenv.mkDerivation rec {
     dconf
   ];
 
-
-  lintIncludes = let
-    p = "arguments.emplace_back(\"-I";
-    e = "\");";
-    v = lib.getVersion llvmPackages.clang;
-  in
-    p+llvmPackages.libcxx.dev+"/include/c++/v1"+e
-    +p+llvmPackages.clang-unwrapped.lib+"/lib/clang/"+v+"/include/"+e
-    +p+glibc.dev+"/include"+e;
+  lintIncludes =
+    let
+      p = ''arguments.emplace_back("-I'';
+      e = ''");'';
+      v = lib.getVersion llvmPackages.clang;
+    in
+    p
+    + llvmPackages.libcxx.dev
+    + "/include/c++/v1"
+    + e
+    + p
+    + llvmPackages.clang-unwrapped.lib
+    + "/lib/clang/"
+    + v
+    + "/include/"
+    + e
+    + p
+    + glibc.dev
+    + "/include"
+    + e;
 
   preConfigure = ''
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt
@@ -65,9 +106,18 @@ stdenv.mkDerivation rec {
   postInstall = ''
     mv $out/bin/juci $out/bin/.juci
     makeWrapper "$out/bin/.juci" "$out/bin/juci" \
-      --set PATH "${lib.makeBinPath [ ctags coreutils llvmPackages.clang.cc cmake gnumake llvmPackages.clang.bintools llvmPackages.clang ]}" \
+      --set PATH "${
+        lib.makeBinPath [
+          ctags
+          coreutils
+          llvmPackages.clang.cc
+          cmake
+          gnumake
+          llvmPackages.clang.bintools
+          llvmPackages.clang
+        ]
+      }" \
       --set NO_AT_BRIDGE 1 \
       --set ASPELL_CONF "dict-dir ${aspellDicts.en}/lib/aspell"
   '';
-
 }

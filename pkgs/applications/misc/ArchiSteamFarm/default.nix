@@ -1,11 +1,12 @@
-{ lib
-, buildDotnetModule
-, fetchFromGitHub
-, dotnetCorePackages
-, libkrb5
-, zlib
-, openssl
-, callPackage
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  libkrb5,
+  zlib,
+  openssl,
+  callPackage,
 }:
 
 buildDotnetModule rec {
@@ -31,12 +32,14 @@ buildDotnetModule rec {
     "-p:PublishSingleFile=true"
     "-p:PublishTrimmed=true"
   ];
-  dotnetInstallFlags = [
-    "--framework=net7.0"
-  ];
+  dotnetInstallFlags = [ "--framework=net7.0" ];
   selfContainedBuild = true;
 
-  runtimeDeps = [ libkrb5 zlib openssl ];
+  runtimeDeps = [
+    libkrb5
+    zlib
+    openssl
+  ];
 
   doCheck = true;
 
@@ -76,7 +79,13 @@ buildDotnetModule rec {
     description = "Application with primary purpose of idling Steam cards from multiple accounts simultaneously";
     homepage = "https://github.com/JustArchiNET/ArchiSteamFarm";
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ SuperSandro2000 lom ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      lom
+    ];
   };
 }

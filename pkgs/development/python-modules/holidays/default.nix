@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, convertdate
-, fetchFromGitHub
-, hijri-converter
-, korean-lunar-calendar
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  convertdate,
+  fetchFromGitHub,
+  hijri-converter,
+  korean-lunar-calendar,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -30,18 +31,15 @@ buildPythonPackage rec {
     korean-lunar-calendar
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "holidays"
-  ];
+  pythonImportsCheck = [ "holidays" ];
 
-  disabledTests = [
-    # Failure starting with 0.24
-    "test_l10n"
-  ];
+  disabledTests =
+    [
+      # Failure starting with 0.24
+      "test_l10n"
+    ];
 
   meta = with lib; {
     description = "Generate and work with holidays in Python";
@@ -51,4 +49,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ jluttine ];
   };
 }
-

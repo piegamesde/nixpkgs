@@ -1,12 +1,13 @@
-{ lib
-, buildGo120Module
-, fetchFromGitHub
-, gitUpdater
-, makeWrapper
-, openssh
-, libxcrypt
-, testers
-, shellhub-agent
+{
+  lib,
+  buildGo120Module,
+  fetchFromGitHub,
+  gitUpdater,
+  makeWrapper,
+  openssh,
+  libxcrypt,
+  testers,
+  shellhub-agent,
 }:
 
 buildGo120Module rec {
@@ -24,7 +25,11 @@ buildGo120Module rec {
 
   vendorSha256 = "sha256-gVW0vyfQ8i3HaTAJMZLWZvSjuRZcPPCj+BLPL5A6uzM=";
 
-  ldflags = [ "-s" "-w" "-X main.AgentVersion=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.AgentVersion=v${version}"
+  ];
 
   passthru = {
     updateScript = gitUpdater {
@@ -47,8 +52,7 @@ buildGo120Module rec {
   '';
 
   meta = with lib; {
-    description =
-      "Enables easy access any Linux device behind firewall and NAT";
+    description = "Enables easy access any Linux device behind firewall and NAT";
     longDescription = ''
       ShellHub is a modern SSH server for remotely accessing Linux devices via
       command line (using any SSH client) or web-based user interface, designed

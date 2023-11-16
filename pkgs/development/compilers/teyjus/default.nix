@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, omake, ocaml, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  omake,
+  ocaml,
+  flex,
+  bison,
+}:
 
 stdenv.mkDerivation rec {
   pname = "teyjus";
@@ -11,9 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gaAWKd5/DZrIPaaQzx9l0KtCMW9LPw17vvNPsnopZA0=";
   };
 
-  patches = [
-    ./fix-lex-to-flex.patch
-  ];
+  patches = [ ./fix-lex-to-flex.patch ];
 
   postPatch = ''
     sed -i "/TST/d" source/OMakefile
@@ -22,7 +28,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ omake ocaml flex bison ];
+  nativeBuildInputs = [
+    omake
+    ocaml
+    flex
+    bison
+  ];
 
   hardeningDisable = [ "format" ];
 

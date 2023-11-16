@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, blinker
-, pytestCheckHook
-, buildPythonPackage
-, fetchPypi
-, flask
-, pythonOlder
+{
+  lib,
+  stdenv,
+  blinker,
+  pytestCheckHook,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-CnNNe2jmOpQQtBPNex+WRW+ahYvQmmIi1GVlDMeC6wE=";
   };
 
-  propagatedBuildInputs = [
-    flask
-  ];
+  propagatedBuildInputs = [ flask ];
 
   nativeCheckInputs = [
     blinker
@@ -42,14 +41,13 @@ buildPythonPackage rec {
     "test_assert_template_rendered_signal_sent"
   ];
 
-  disabledTestPaths = [
-    # twill is only used by Python 2 according setup.py
-    "tests/test_twill.py"
-  ];
+  disabledTestPaths =
+    [
+      # twill is only used by Python 2 according setup.py
+      "tests/test_twill.py"
+    ];
 
-  pythonImportsCheck = [
-    "flask_testing"
-  ];
+  pythonImportsCheck = [ "flask_testing" ];
 
   meta = with lib; {
     description = "Extension provides unit testing utilities for Flask";

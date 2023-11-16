@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, gitUpdater
-, testers
-, furnace
-, fetchFromGitHub
-, cmake
-, pkg-config
-, makeWrapper
-, fftw
-, fmt_8
-, libsndfile
-, libX11
-, rtmidi
-, SDL2
-, zlib
-, withJACK ? stdenv.hostPlatform.isUnix
-, libjack2
-, withGUI ? true
-, Cocoa
+{
+  stdenv,
+  lib,
+  gitUpdater,
+  testers,
+  furnace,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  fftw,
+  fmt_8,
+  libsndfile,
+  libX11,
+  rtmidi,
+  SDL2,
+  zlib,
+  withJACK ? stdenv.hostPlatform.isUnix,
+  libjack2,
+  withGUI ? true,
+  Cocoa,
 }:
 
 stdenv.mkDerivation rec {
@@ -42,9 +43,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    makeWrapper
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ];
 
   buildInputs = [
     fftw
@@ -53,11 +52,7 @@ stdenv.mkDerivation rec {
     rtmidi
     SDL2
     zlib
-  ] ++ lib.optionals withJACK [
-    libjack2
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    Cocoa
-  ];
+  ] ++ lib.optionals withJACK [ libjack2 ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
 
   cmakeFlags = [
     "-DBUILD_GUI=${if withGUI then "ON" else "OFF"}"
@@ -71,11 +66,13 @@ stdenv.mkDerivation rec {
     "-DWARNINGS_ARE_ERRORS=ON"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-    # Needed with GCC 12 but breaks on darwin (with clang) or aarch64 (old gcc)
-    "-Wno-error=mismatched-new-delete"
-    "-Wno-error=use-after-free"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but breaks on darwin (with clang) or aarch64 (old gcc)
+      "-Wno-error=mismatched-new-delete"
+      "-Wno-error=use-after-free"
+    ]
+  );
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # Normal CMake install phase on Darwin only installs the binary, the user is expected to use CPack to build a
@@ -94,12 +91,8 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
-    tests.version = testers.testVersion {
-      package = furnace;
-    };
+    updateScript = gitUpdater { rev-prefix = "v"; };
+    tests.version = testers.testVersion { package = furnace; };
   };
 
   meta = with lib; {

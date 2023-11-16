@@ -1,10 +1,11 @@
-{ lib
-, aiohttp
-, beautifulsoup4
-, buildPythonPackage
-, fetchFromGitHub
-, pkce
-, pythonOlder
+{
+  lib,
+  aiohttp,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkce,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -28,9 +29,7 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pymyq"
-  ];
+  pythonImportsCheck = [ "pymyq" ];
 
   meta = with lib; {
     description = "Python wrapper for MyQ API";

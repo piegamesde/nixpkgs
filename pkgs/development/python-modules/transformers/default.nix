@@ -1,25 +1,26 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, cookiecutter
-, filelock
-, huggingface-hub
-, importlib-metadata
-, regex
-, requests
-, numpy
-, packaging
-, tensorflow
-, sagemaker
-, ftfy
-, protobuf
-, scikit-learn
-, pillow
-, pyyaml
-, torch
-, tokenizers
-, tqdm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  cookiecutter,
+  filelock,
+  huggingface-hub,
+  importlib-metadata,
+  regex,
+  requests,
+  numpy,
+  packaging,
+  tensorflow,
+  sagemaker,
+  ftfy,
+  protobuf,
+  scikit-learn,
+  pillow,
+  pyyaml,
+  torch,
+  tokenizers,
+  tqdm,
 }:
 
 buildPythonPackage rec {
@@ -47,54 +48,39 @@ buildPythonPackage rec {
     requests
     tokenizers
     tqdm
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
-    ja = [
-      # fugashi
-      # ipadic
-      # unidic_lite
-      # unidic
-    ];
-    sklearn = [
-      scikit-learn
-    ];
+    ja =
+      [
+        # fugashi
+        # ipadic
+        # unidic_lite
+        # unidic
+      ];
+    sklearn = [ scikit-learn ];
     tf = [
       tensorflow
       # onnxconverter-common
       # tf2onnx
     ];
-    torch = [
-      torch
-    ];
-    tokenizers = [
-      tokenizers
-    ];
-    modelcreation = [
-      cookiecutter
-    ];
-    sagemaker = [
-      sagemaker
-    ];
+    torch = [ torch ];
+    tokenizers = [ tokenizers ];
+    modelcreation = [ cookiecutter ];
+    sagemaker = [ sagemaker ];
     ftfy = [ ftfy ];
-    onnx = [
-      # onnxconverter-common
-      # tf2onnx
-    ];
-    vision = [
-      pillow
-    ];
+    onnx =
+      [
+        # onnxconverter-common
+        # tf2onnx
+      ];
+    vision = [ pillow ];
   };
-
 
   # Many tests require internet access.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "transformers"
-  ];
+  pythonImportsCheck = [ "transformers" ];
 
   meta = with lib; {
     homepage = "https://github.com/huggingface/transformers";

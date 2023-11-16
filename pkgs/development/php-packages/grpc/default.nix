@@ -1,4 +1,8 @@
-{ buildPecl, zlib, lib }:
+{
+  buildPecl,
+  zlib,
+  lib,
+}:
 
 buildPecl {
   pname = "grpc";

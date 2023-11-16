@@ -1,14 +1,15 @@
-{ lib
-, aenum
-, aiohttp
-, asynctest
-, buildPythonPackage
-, fetchFromGitHub
-, pydantic
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
+{
+  lib,
+  aenum,
+  aiohttp,
+  asynctest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pydantic,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {
@@ -38,14 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # Test file is missing
-    "test_json_files"
-  ];
+  disabledTests =
+    [
+      # Test file is missing
+      "test_json_files"
+    ];
 
-  pythonImportsCheck = [
-    "intellifire4py"
-  ];
+  pythonImportsCheck = [ "intellifire4py" ];
 
   meta = with lib; {
     description = "Module to read Intellifire fireplace status data";

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, matplotlib
-, numpy
-, pandas
-, pytestCheckHook
-, pythonOlder
-, scipy
-, tabulate
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  matplotlib,
+  numpy,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  tabulate,
 }:
 
 buildPythonPackage rec {
@@ -33,9 +34,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -43,14 +42,13 @@ buildPythonPackage rec {
     echo "backend: ps" > $HOME/.matplotlib/matplotlibrc
   '';
 
-  pytestFlagsArray = [
-    "-Wignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
 
-  disabledTestPaths = [
-    # ValueError: Unknown window type: "hanning"
-    "tests/standards/test_iso_1996_2_2007.py"
-  ];
+  disabledTestPaths =
+    [
+      # ValueError: Unknown window type: "hanning"
+      "tests/standards/test_iso_1996_2_2007.py"
+    ];
 
   pythonImportsCheck = [ "acoustics" ];
 

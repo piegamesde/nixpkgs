@@ -1,5 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
+# Generated file.
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-slice";
   version = "20210531-git";
@@ -8,7 +8,12 @@ rec {
 
   description = "DSL for array slices in Common Lisp.";
 
-  deps = [ args."alexandria" args."anaphora" args."clunit" args."let-plus" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."clunit"
+    args."let-plus"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-slice/2021-05-31/cl-slice-20210531-git.tgz";
@@ -17,7 +22,7 @@ rec {
 
   packageName = "cl-slice";
 
-  asdFilesToKeep = ["cl-slice.asd"];
+  asdFilesToKeep = [ "cl-slice.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-slice DESCRIPTION DSL for array slices in Common Lisp. SHA256
@@ -27,4 +32,5 @@ rec {
     ((NAME alexandria FILENAME alexandria) (NAME anaphora FILENAME anaphora)
      (NAME clunit FILENAME clunit) (NAME let-plus FILENAME let-plus))
     DEPENDENCIES (alexandria anaphora clunit let-plus) VERSION 20210531-git
-    SIBLINGS NIL PARASITES (cl-slice-tests)) */
+    SIBLINGS NIL PARASITES (cl-slice-tests))
+*/

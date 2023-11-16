@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, cmake, gfortran, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  gfortran,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxc";
@@ -11,7 +18,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-VILqlvACQyccaXXS+UE25+LzE74+52pI66RUrVS0esI=";
   };
 
-  nativeBuildInputs = [ perl cmake gfortran ];
+  nativeBuildInputs = [
+    perl
+    cmake
+    gfortran
+  ];
 
   preConfigure = ''
     patchShebangs ./

@@ -1,4 +1,9 @@
-{ stdenv, fetchurl, emacs, lib }:
+{
+  stdenv,
+  fetchurl,
+  emacs,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "session-management-for-emacs";
@@ -18,8 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     /* installation: add to your ~/.emacs
-      (require 'session)
-      (add-hook 'after-init-hook 'session-initialize)
+       (require 'session)
+       (add-hook 'after-init-hook 'session-initialize)
     */
     description = "Small session management for emacs";
     homepage = "https://emacs-session.sourceforge.net/";

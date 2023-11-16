@@ -27,10 +27,14 @@
    the firewall.  However, if the reloading fails, the ‘firewall-stop’
    script will be called which in return will effectively disable the
    complete firewall (in the default configuration).
-
 */
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -40,11 +44,14 @@ let
 
   inherit (config.boot.kernelPackages) kernel;
 
-  kernelHasRPFilter = ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER") || (kernel.features.netfilterRPFilter or false);
+  kernelHasRPFilter =
+    ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER")
+    || (kernel.features.netfilterRPFilter or false);
 
   helpers = import ./helpers.nix { inherit config lib; };
 
-  writeShScript = name: text:
+  writeShScript =
+    name: text:
     let
       dir = pkgs.writeScriptBin name ''
         #! ${pkgs.runtimeShell} -e
@@ -74,15 +81,18 @@ let
     # The "nixos-fw-refuse" chain rejects or drops packets.
     ip46tables -N nixos-fw-refuse
 
-    ${if cfg.rejectPackets then ''
-      # Send a reset for existing TCP connections that we've
-      # somehow forgotten about.  Send ICMP "port unreachable"
-      # for everything else.
-      ip46tables -A nixos-fw-refuse -p tcp ! --syn -j REJECT --reject-with tcp-reset
-      ip46tables -A nixos-fw-refuse -j REJECT
-    '' else ''
-      ip46tables -A nixos-fw-refuse -j DROP
-    ''}
+    ${if cfg.rejectPackets then
+      ''
+        # Send a reset for existing TCP connections that we've
+        # somehow forgotten about.  Send ICMP "port unreachable"
+        # for everything else.
+        ip46tables -A nixos-fw-refuse -p tcp ! --syn -j REJECT --reject-with tcp-reset
+        ip46tables -A nixos-fw-refuse -j REJECT
+      ''
+    else
+      ''
+        ip46tables -A nixos-fw-refuse -j DROP
+      ''}
 
 
     # The "nixos-fw-log-refuse" chain performs logging, then
@@ -118,7 +128,9 @@ let
       # Perform a reverse-path test to refuse spoofers
       # For now, we just drop, as the mangle table doesn't have a log-refuse yet
       ip46tables -t mangle -N nixos-fw-rpfilter 2> /dev/null || true
-      ip46tables -t mangle -A nixos-fw-rpfilter -m rpfilter --validmark ${optionalString (cfg.checkReversePath == "loose") "--loose"} -j RETURN
+      ip46tables -t mangle -A nixos-fw-rpfilter -m rpfilter --validmark ${
+        optionalString (cfg.checkReversePath == "loose") "--loose"
+      } -j RETURN
 
       # Allows this host to act as a DHCP4 client without first having to use APIPA
       iptables -t mangle -A nixos-fw-rpfilter -p udp --sport 67 --dport 68 -j RETURN
@@ -135,55 +147,95 @@ let
     ''}
 
     # Accept all traffic on the trusted interfaces.
-    ${flip concatMapStrings cfg.trustedInterfaces (iface: ''
-      ip46tables -A nixos-fw -i ${iface} -j nixos-fw-accept
-    '')}
+    ${flip concatMapStrings cfg.trustedInterfaces (
+      iface: ''
+        ip46tables -A nixos-fw -i ${iface} -j nixos-fw-accept
+      ''
+    )}
 
     # Accept packets from established or related connections.
     ip46tables -A nixos-fw -m conntrack --ctstate ESTABLISHED,RELATED -j nixos-fw-accept
 
     # Accept connections to the allowed TCP ports.
-    ${concatStrings (mapAttrsToList (iface: cfg:
-      concatMapStrings (port:
-        ''
-          ip46tables -A nixos-fw -p tcp --dport ${toString port} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
-        ''
-      ) cfg.allowedTCPPorts
-    ) cfg.allInterfaces)}
+    ${concatStrings (
+      mapAttrsToList
+        (
+          iface: cfg:
+          concatMapStrings
+            (port: ''
+              ip46tables -A nixos-fw -p tcp --dport ${toString port} -j nixos-fw-accept ${
+                optionalString (iface != "default") "-i ${iface}"
+              }
+            '')
+            cfg.allowedTCPPorts
+        )
+        cfg.allInterfaces
+    )}
 
     # Accept connections to the allowed TCP port ranges.
-    ${concatStrings (mapAttrsToList (iface: cfg:
-      concatMapStrings (rangeAttr:
-        let range = toString rangeAttr.from + ":" + toString rangeAttr.to; in
-        ''
-          ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
-        ''
-      ) cfg.allowedTCPPortRanges
-    ) cfg.allInterfaces)}
+    ${concatStrings (
+      mapAttrsToList
+        (
+          iface: cfg:
+          concatMapStrings
+            (
+              rangeAttr:
+              let
+                range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+              in
+              ''
+                ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
+                  optionalString (iface != "default") "-i ${iface}"
+                }
+              ''
+            )
+            cfg.allowedTCPPortRanges
+        )
+        cfg.allInterfaces
+    )}
 
     # Accept packets on the allowed UDP ports.
-    ${concatStrings (mapAttrsToList (iface: cfg:
-      concatMapStrings (port:
-        ''
-          ip46tables -A nixos-fw -p udp --dport ${toString port} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
-        ''
-      ) cfg.allowedUDPPorts
-    ) cfg.allInterfaces)}
+    ${concatStrings (
+      mapAttrsToList
+        (
+          iface: cfg:
+          concatMapStrings
+            (port: ''
+              ip46tables -A nixos-fw -p udp --dport ${toString port} -j nixos-fw-accept ${
+                optionalString (iface != "default") "-i ${iface}"
+              }
+            '')
+            cfg.allowedUDPPorts
+        )
+        cfg.allInterfaces
+    )}
 
     # Accept packets on the allowed UDP port ranges.
-    ${concatStrings (mapAttrsToList (iface: cfg:
-      concatMapStrings (rangeAttr:
-        let range = toString rangeAttr.from + ":" + toString rangeAttr.to; in
-        ''
-          ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
-        ''
-      ) cfg.allowedUDPPortRanges
-    ) cfg.allInterfaces)}
+    ${concatStrings (
+      mapAttrsToList
+        (
+          iface: cfg:
+          concatMapStrings
+            (
+              rangeAttr:
+              let
+                range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+              in
+              ''
+                ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
+                  optionalString (iface != "default") "-i ${iface}"
+                }
+              ''
+            )
+            cfg.allowedUDPPortRanges
+        )
+        cfg.allInterfaces
+    )}
 
     # Optionally respond to ICMPv4 pings.
     ${optionalString cfg.allowPing ''
-      iptables -w -A nixos-fw -p icmp --icmp-type echo-request ${optionalString (cfg.pingLimit != null)
-        "-m limit ${cfg.pingLimit} "
+      iptables -w -A nixos-fw -p icmp --icmp-type echo-request ${
+        optionalString (cfg.pingLimit != null) "-m limit ${cfg.pingLimit} "
       }-j nixos-fw-accept
     ''}
 
@@ -248,7 +300,6 @@ let
       exit 1
     fi
   '';
-
 in
 
 {
@@ -284,22 +335,22 @@ in
         '';
       };
     };
-
   };
 
   # FIXME: Maybe if `enable' is false, the firewall should still be
   # built but not started by default?
   config = mkIf (cfg.enable && config.networking.nftables.enable == false) {
 
-    assertions = [
-      # This is approximately "checkReversePath -> kernelHasRPFilter",
-      # but the checkReversePath option can include non-boolean
-      # values.
-      {
-        assertion = cfg.checkReversePath == false || kernelHasRPFilter;
-        message = "This kernel does not support rpfilter";
-      }
-    ];
+    assertions =
+      [
+        # This is approximately "checkReversePath -> kernelHasRPFilter",
+        # but the checkReversePath option can include non-boolean
+        # values.
+        {
+          assertion = cfg.checkReversePath == false || kernelHasRPFilter;
+          message = "This kernel does not support rpfilter";
+        }
+      ];
 
     networking.firewall.checkReversePath = mkIf (!kernelHasRPFilter) (mkDefault false);
 
@@ -328,7 +379,5 @@ in
         ExecStop = "@${stopScript} firewall-stop";
       };
     };
-
   };
-
 }

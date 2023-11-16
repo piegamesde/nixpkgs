@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, makeWrapper
-, dpkg
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper,
+  dpkg,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -18,14 +19,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-4iJghmSXsaijNCvYyrM3dEsqCDk6zeTU92oP5Qs6tOY=";
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   # This is an FHS specific assert depending on glibc location
-  checkFlags = [
-    "--skip=dependencies::resolve_test"
-  ];
+  checkFlags = [ "--skip=dependencies::resolve_test" ];
 
   postInstall = ''
     wrapProgram $out/bin/cargo-deb \

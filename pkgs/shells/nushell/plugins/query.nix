@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, rustPlatform
-, nushell
-, IOKit
-, CoreFoundation
-, nix-update-script
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  nushell,
+  IOKit,
+  CoreFoundation,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage {
@@ -15,7 +16,10 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-iQ7xr7NY/OQ5pVq2DFmdl/6F2NlUh3NBA9dk+e4gzRE=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ IOKit CoreFoundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    IOKit
+    CoreFoundation
+  ];
 
   cargoBuildFlags = [ "--package nu_plugin_query" ];
 

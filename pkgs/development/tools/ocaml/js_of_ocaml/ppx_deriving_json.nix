@@ -1,5 +1,8 @@
-{ buildDunePackage, js_of_ocaml-compiler
-, js_of_ocaml, ppxlib
+{
+  buildDunePackage,
+  js_of_ocaml-compiler,
+  js_of_ocaml,
+  ppxlib,
 }:
 
 buildDunePackage {
@@ -8,7 +11,10 @@ buildDunePackage {
   inherit (js_of_ocaml-compiler) version src;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ js_of_ocaml ppxlib ];
+  propagatedBuildInputs = [
+    js_of_ocaml
+    ppxlib
+  ];
 
   meta = builtins.removeAttrs js_of_ocaml-compiler.meta [ "mainProgram" ];
 }

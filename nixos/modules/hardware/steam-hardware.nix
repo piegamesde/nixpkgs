@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.hardware.steam-hardware;
-
 in
 
 {
@@ -13,14 +17,14 @@ in
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Enable udev rules for Steam hardware such as the Steam Controller, other supported controllers and the HTC Vive";
+      description =
+        lib.mdDoc
+          "Enable udev rules for Steam hardware such as the Steam Controller, other supported controllers and the HTC Vive";
     };
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [
-      pkgs.steamPackages.steam
-    ];
+    services.udev.packages = [ pkgs.steamPackages.steam ];
 
     # The uinput module needs to be loaded in order to trigger the udev rules
     # defined in the steam package for setting permissions on /dev/uinput.

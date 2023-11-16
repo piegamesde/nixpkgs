@@ -1,27 +1,28 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchPypi
-, hatch-fancy-pypi-readme
-, hatch-vcs
-, hatchling
-, importlib-metadata
-, importlib-resources
-, pyrsistent
-, pythonOlder
-, twisted
-, typing-extensions
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  importlib-metadata,
+  importlib-resources,
+  pyrsistent,
+  pythonOlder,
+  twisted,
+  typing-extensions,
 
-# optionals
-, fqdn
-, idna
-, isoduration
-, jsonpointer
-, rfc3339-validator
-, rfc3986-validator
-, rfc3987
-, uri-template
-, webcolors
+  # optionals
+  fqdn,
+  idna,
+  isoduration,
+  jsonpointer,
+  rfc3339-validator,
+  rfc3986-validator,
+  rfc3987,
+  uri-template,
+  webcolors,
 }:
 
 buildPythonPackage rec {
@@ -46,15 +47,16 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [
-    attrs
-    pyrsistent
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  propagatedBuildInputs =
+    [
+      attrs
+      pyrsistent
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
+      importlib-metadata
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   passthru.optional-dependencies = {
     format = [
@@ -79,18 +81,14 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    twisted
-  ];
+  nativeCheckInputs = [ twisted ];
 
   checkPhase = ''
     export JSON_SCHEMA_TEST_SUITE=json
     trial jsonschema
   '';
 
-  pythonImportsCheck = [
-    "jsonschema"
-  ];
+  pythonImportsCheck = [ "jsonschema" ];
 
   meta = with lib; {
     description = "An implementation of JSON Schema validation for Python";

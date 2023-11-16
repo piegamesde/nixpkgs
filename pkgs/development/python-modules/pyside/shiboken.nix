@@ -1,16 +1,19 @@
-{ lib, fetchFromGitHub, buildPythonPackage
-, cmake
-, fetchurl
-, isPy3k
-, libxml2
-, libxslt
-, pkg-config
-, pysideApiextractor
-, pysideGeneratorrunner
-, python
-, pythonAtLeast
-, qt4
-, sphinx
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  cmake,
+  fetchurl,
+  isPy3k,
+  libxml2,
+  libxslt,
+  pkg-config,
+  pysideApiextractor,
+  pysideGeneratorrunner,
+  python,
+  pythonAtLeast,
+  qt4,
+  sphinx,
 }:
 
 buildPythonPackage rec {
@@ -25,11 +28,25 @@ buildPythonPackage rec {
     sha256 = "0x2lyg52m6a0vn0665pgd1z1qrydglyfxxcggw6xzngpnngb6v5v";
   };
 
-  nativeBuildInputs = [ cmake pkg-config pysideApiextractor pysideGeneratorrunner sphinx qt4 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    pysideApiextractor
+    pysideGeneratorrunner
+    sphinx
+    qt4
+  ];
 
-  buildInputs = [ python libxml2 libxslt ];
+  buildInputs = [
+    python
+    libxml2
+    libxslt
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   preConfigure = ''
     cmakeFlagsArray=("-DCMAKE_INSTALL_PREFIX=$dev")

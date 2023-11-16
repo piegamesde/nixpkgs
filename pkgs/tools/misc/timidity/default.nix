@@ -1,6 +1,13 @@
-{ lib, stdenv, fetchurl
-, pkg-config, buildPackages
-, CoreAudio, alsa-lib, libjack2, ncurses
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  buildPackages,
+  CoreAudio,
+  alsa-lib,
+  libjack2,
+  ncurses,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,29 +25,26 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libjack2
     ncurses
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreAudio
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
 
-  configureFlags = [
-    "--enable-ncurses"
-    "lib_cv_va_copy=yes"
-    "lib_cv___va_copy=yes"
-  ] ++ lib.optionals stdenv.isLinux [
-    "--enable-audio=oss,alsa,jack"
-    "--enable-alsaseq"
-    "--with-default-output=alsa"
-    "lib_cv_va_val_copy=yes"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "--enable-audio=darwin,jack"
-    "lib_cv_va_val_copy=no"
-  ];
+  configureFlags =
+    [
+      "--enable-ncurses"
+      "lib_cv_va_copy=yes"
+      "lib_cv___va_copy=yes"
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      "--enable-audio=oss,alsa,jack"
+      "--enable-alsaseq"
+      "--with-default-output=alsa"
+      "lib_cv_va_val_copy=yes"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      "--enable-audio=darwin,jack"
+      "lib_cv_va_val_copy=no"
+    ];
 
-  makeFlags = [
-    "AR=${stdenv.cc.targetPrefix}ar"
-  ];
+  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
 
   instruments = fetchurl {
     url = "http://www.csee.umbc.edu/pub/midia/instruments.tar.gz";

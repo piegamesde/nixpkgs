@@ -1,6 +1,7 @@
-{ lib
-, flutter37
-, fetchFromGitHub
+{
+  lib,
+  flutter37,
+  fetchFromGitHub,
 }:
 
 flutter37.buildFlutterApplication {

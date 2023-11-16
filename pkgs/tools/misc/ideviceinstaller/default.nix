@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, usbmuxd
-, libimobiledevice
-, libzip
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  usbmuxd,
+  libimobiledevice,
+  libzip,
 }:
 
 stdenv.mkDerivation rec {
@@ -40,6 +41,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aristid infinisil ];
+    maintainers = with maintainers; [
+      aristid
+      infinisil
+    ];
   };
 }

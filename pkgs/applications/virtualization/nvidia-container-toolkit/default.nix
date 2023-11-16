@@ -1,13 +1,14 @@
-{ lib
-, glibc
-, fetchFromGitLab
-, makeWrapper
-, buildGoPackage
-, linkFarm
-, writeShellScript
-, containerRuntimePath
-, configTemplate
-, libnvidia-container
+{
+  lib,
+  glibc,
+  fetchFromGitLab,
+  makeWrapper,
+  buildGoPackage,
+  linkFarm,
+  writeShellScript,
+  containerRuntimePath,
+  configTemplate,
+  libnvidia-container,
 }:
 let
   isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [
@@ -37,14 +38,19 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/NVIDIA/nvidia-container-toolkit";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 
   preBuild = ''
     # replace the default hookDefaultFilePath to the $out path
     substituteInPlace go/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-container-runtime/main.go \
-      --replace '/usr/bin/nvidia-container-runtime-hook' '${placeholder "out"}/bin/nvidia-container-runtime-hook'
+      --replace '/usr/bin/nvidia-container-runtime-hook' '${
+        placeholder "out"
+      }/bin/nvidia-container-runtime-hook'
   '';
 
   postInstall = ''

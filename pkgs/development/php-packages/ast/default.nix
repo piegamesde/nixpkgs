@@ -1,8 +1,13 @@
-{ buildPecl, lib, fetchFromGitHub }:
+{
+  buildPecl,
+  lib,
+  fetchFromGitHub,
+}:
 
 let
   version = "1.1.0";
-in buildPecl {
+in
+buildPecl {
   inherit version;
   pname = "ast";
 

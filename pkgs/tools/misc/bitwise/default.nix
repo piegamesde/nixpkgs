@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ncurses, readline, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  readline,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bitwise";
@@ -11,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "18sz7bfpq83s2zhw7c35snz6k3b6rzad2mmfq2qwmyqwypbp1g7l";
   };
 
-  buildInputs = [ ncurses readline ];
+  buildInputs = [
+    ncurses
+    readline
+  ];
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with lib; {

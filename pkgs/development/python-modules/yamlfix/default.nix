@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, maison
-, pdm-pep517
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, ruyaml
-, setuptools
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  maison,
+  pdm-pep517,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  ruyaml,
+  setuptools,
 }:
 
 buildPythonPackage rec {
@@ -41,9 +42,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "yamlfix"
-  ];
+  pythonImportsCheck = [ "yamlfix" ];
 
   meta = with lib; {
     description = "Python YAML formatter that keeps your comments";

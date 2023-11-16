@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, asn1crypto
-, buildPythonPackage
-, fetchFromGitHub
-, openssl
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  asn1crypto,
+  buildPythonPackage,
+  fetchFromGitHub,
+  openssl,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -30,17 +31,11 @@ buildPythonPackage rec {
     done
   '';
 
-  propagatedBuildInputs = [
-    asn1crypto
-  ];
+  propagatedBuildInputs = [ asn1crypto ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "oscrypto"
-  ];
+  pythonImportsCheck = [ "oscrypto" ];
 
   doCheck = !stdenv.isDarwin;
 

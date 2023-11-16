@@ -1,9 +1,20 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, udev }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  udev,
+}:
 let
-  arch = if stdenv.isx86_64  then "x86_64"
-    else if stdenv.isi686    then "i686"
-    else throw "unsupported architecture";
-in stdenv.mkDerivation rec {
+  arch =
+    if stdenv.isx86_64 then
+      "x86_64"
+    else if stdenv.isi686 then
+      "i686"
+    else
+      throw "unsupported architecture";
+in
+stdenv.mkDerivation rec {
   pname = "sdrplay";
   version = "3.07.1";
 
@@ -14,7 +25,10 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ udev stdenv.cc.cc.lib ];
+  buildInputs = [
+    udev
+    stdenv.cc.cc.lib
+  ];
 
   unpackPhase = ''
     sh "$src" --noexec --target source
@@ -41,7 +55,9 @@ in stdenv.mkDerivation rec {
     description = "SDRplay API";
     longDescription = ''
       Proprietary library and api service for working with SDRplay devices. For documentation and licensing details see
-      https://www.sdrplay.com/docs/SDRplay_API_Specification_v${lib.concatStringsSep "." (lib.take 2 (builtins.splitVersion version))}.pdf
+      https://www.sdrplay.com/docs/SDRplay_API_Specification_v${
+        lib.concatStringsSep "." (lib.take 2 (builtins.splitVersion version))
+      }.pdf
     '';
     homepage = "https://www.sdrplay.com/downloads/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

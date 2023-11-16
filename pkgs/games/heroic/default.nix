@@ -1,19 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchYarnDeps
-, yarn
-, fixup_yarn_lock
-, nodejs
-, python3
-, makeWrapper
-, electron
-, gogdl
-, legendary-gl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  yarn,
+  fixup_yarn_lock,
+  nodejs,
+  python3,
+  makeWrapper,
+  electron,
+  gogdl,
+  legendary-gl,
 }:
 
-let appName = "heroic";
-in stdenv.mkDerivation rec {
+let
+  appName = "heroic";
+in
+stdenv.mkDerivation rec {
   pname = "heroic-unwrapped";
   version = "2.8.0";
 
@@ -62,34 +65,36 @@ in stdenv.mkDerivation rec {
 
   # --disable-gpu-compositing is to work around upstream bug
   # https://github.com/electron/electron/issues/32317
-  installPhase = let
-    binPlatform = if stdenv.isDarwin then "darwin" else "linux";
-  in ''
-    runHook preInstall
+  installPhase =
+    let
+      binPlatform = if stdenv.isDarwin then "darwin" else "linux";
+    in
+    ''
+      runHook preInstall
 
-    mkdir -p $out/share/{applications,${appName}}
-    cp -r . $out/share/${appName}
-    rm -rf $out/share/${appName}/{.devcontainer,.vscode,.husky,.idea,.github}
+      mkdir -p $out/share/{applications,${appName}}
+      cp -r . $out/share/${appName}
+      rm -rf $out/share/${appName}/{.devcontainer,.vscode,.husky,.idea,.github}
 
-    chmod -R u+w "$out/share/${appName}/public/bin" "$out/share/${appName}/build/bin"
-    rm -rf "$out/share/${appName}/public/bin" "$out/share/${appName}/build/bin"
-    mkdir -p "$out/share/${appName}/build/bin/${binPlatform}"
-    ln -s "${gogdl}/bin/gogdl" "${legendary-gl}/bin/legendary" "$out/share/${appName}/build/bin/${binPlatform}"
+      chmod -R u+w "$out/share/${appName}/public/bin" "$out/share/${appName}/build/bin"
+      rm -rf "$out/share/${appName}/public/bin" "$out/share/${appName}/build/bin"
+      mkdir -p "$out/share/${appName}/build/bin/${binPlatform}"
+      ln -s "${gogdl}/bin/gogdl" "${legendary-gl}/bin/legendary" "$out/share/${appName}/build/bin/${binPlatform}"
 
-    makeWrapper "${electron}/bin/electron" "$out/bin/heroic" \
-      --inherit-argv0 \
-      --add-flags --disable-gpu-compositing \
-      --add-flags $out/share/${appName} \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+      makeWrapper "${electron}/bin/electron" "$out/bin/heroic" \
+        --inherit-argv0 \
+        --add-flags --disable-gpu-compositing \
+        --add-flags $out/share/${appName} \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
 
-    substituteInPlace "$out/share/${appName}/flatpak/com.heroicgameslauncher.hgl.desktop" \
-      --replace "Exec=heroic-run" "Exec=heroic"
-    mkdir -p "$out/share/applications" "$out/share/icons/hicolor/512x512/apps"
-    ln -s "$out/share/${appName}/flatpak/com.heroicgameslauncher.hgl.desktop" "$out/share/applications"
-    ln -s "$out/share/${appName}/flatpak/com.heroicgameslauncher.hgl.png" "$out/share/icons/hicolor/512x512/apps"
+      substituteInPlace "$out/share/${appName}/flatpak/com.heroicgameslauncher.hgl.desktop" \
+        --replace "Exec=heroic-run" "Exec=heroic"
+      mkdir -p "$out/share/applications" "$out/share/icons/hicolor/512x512/apps"
+      ln -s "$out/share/${appName}/flatpak/com.heroicgameslauncher.hgl.desktop" "$out/share/applications"
+      ln -s "$out/share/${appName}/flatpak/com.heroicgameslauncher.hgl.png" "$out/share/icons/hicolor/512x512/apps"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     description = "A Native GOG and Epic Games Launcher for Linux, Windows and Mac";
@@ -97,7 +102,12 @@ in stdenv.mkDerivation rec {
     changelog = "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ aidalgol ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
     mainProgram = appName;
   };
 }

@@ -1,10 +1,17 @@
-{ lib, stdenv, makeWrapper, requireFile, unzip, jdk }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  requireFile,
+  unzip,
+  jdk,
+}:
 
 let
   version = "22.4.0.342.1212";
   fileVersion = "1032835-01";
 in
-  stdenv.mkDerivation {
+stdenv.mkDerivation {
 
   inherit version;
   pname = "sqlcl";
@@ -40,7 +47,10 @@ in
     sha256 = "0i4xsj502s465fgmlcqn80r8rqzr11mv74x9fzrlbqmkkh5c782k";
   };
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   unpackCmd = "unzip $curSrc";
 

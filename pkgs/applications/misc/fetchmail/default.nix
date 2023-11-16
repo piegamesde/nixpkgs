@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, openssl, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fetchmail";
@@ -9,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ShguXYk+mr5qw3rnHlQmUfzm1gYjT8c1wqquGGV+aeo=";
   };
 
-  buildInputs = [ openssl python3 ];
+  buildInputs = [
+    openssl
+    python3
+  ];
 
   configureFlags = [ "--with-ssl=${openssl.dev}" ];
 

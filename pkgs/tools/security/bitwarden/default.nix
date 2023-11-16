@@ -1,22 +1,23 @@
-{ lib
-, applyPatches
-, buildNpmPackage
-, dbus
-, electron_24
-, fetchFromGitHub
-, glib
-, gnome
-, gtk3
-, jq
-, libsecret
-, makeDesktopItem
-, makeWrapper
-, moreutils
-, nodejs_18
-, pkg-config
-, python3
-, rustPlatform
-, wrapGAppsHook
+{
+  lib,
+  applyPatches,
+  buildNpmPackage,
+  dbus,
+  electron_24,
+  fetchFromGitHub,
+  glib,
+  gnome,
+  gtk3,
+  jq,
+  libsecret,
+  makeDesktopItem,
+  makeWrapper,
+  moreutils,
+  nodejs_18,
+  pkg-config,
+  python3,
+  rustPlatform,
+  wrapGAppsHook,
 }:
 
 let
@@ -60,9 +61,7 @@ let
       (gnome.gnome-keyring.override { useWrappedDaemon = false; })
     ];
 
-    checkFlags = [
-      "--skip=password::password::tests::test"
-    ];
+    checkFlags = [ "--skip=password::password::tests::test" ];
 
     checkPhase = ''
       runHook preCheck
@@ -84,7 +83,6 @@ let
     desktopName = "Bitwarden";
     categories = [ "Utility" ];
   };
-
 in
 
 buildNpmPackage' {
@@ -92,9 +90,7 @@ buildNpmPackage' {
   inherit src version;
 
   makeCacheWritable = true;
-  npmBuildFlags = [
-    "--workspace apps/desktop"
-  ];
+  npmBuildFlags = [ "--workspace apps/desktop" ];
   npmDepsHash = "sha256-G8DEYPjEP3L4s0pr5n2ZTj8kkT0E7Po1BKhZ2hUdJuY=";
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -107,7 +103,9 @@ buildNpmPackage' {
   ];
 
   preBuild = ''
-    if [[ $(jq --raw-output '.devDependencies.electron' < package.json | grep -E --only-matching '^[0-9]+') != ${lib.escapeShellArg (lib.versions.major electron.version)} ]]; then
+    if [[ $(jq --raw-output '.devDependencies.electron' < package.json | grep -E --only-matching '^[0-9]+') != ${
+      lib.escapeShellArg (lib.versions.major electron.version)
+    } ]]; then
       echo 'ERROR: electron version mismatch'
       exit 1
     fi
@@ -158,7 +156,10 @@ buildNpmPackage' {
     inherit description;
     homepage = "https://bitwarden.com";
     license = lib.licenses.gpl3;
-    maintainers = with maintainers; [ amarshall kiwi ];
+    maintainers = with maintainers; [
+      amarshall
+      kiwi
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

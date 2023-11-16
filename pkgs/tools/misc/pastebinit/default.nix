@@ -1,7 +1,9 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, python3
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python3,
 }:
 
 stdenv.mkDerivation rec {
@@ -13,9 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0mw48fgm9lyh9d3pw997fccmglzsjccf2y347gxjas74wx6aira2";
   };
 
-  buildInputs = [
-    (python3.withPackages (p: [ p.distro ]))
-  ];
+  buildInputs = [ (python3.withPackages (p: [ p.distro ])) ];
 
   patchFlags = [ "-p0" ];
 

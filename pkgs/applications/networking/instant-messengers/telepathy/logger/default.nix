@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, dbus-glib, libxml2, sqlite, telepathy-glib, python3, pkg-config
-, dconf, makeWrapper, intltool, libxslt, gobject-introspection, dbus
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dbus-glib,
+  libxml2,
+  sqlite,
+  telepathy-glib,
+  python3,
+  pkg-config,
+  dconf,
+  makeWrapper,
+  intltool,
+  libxslt,
+  gobject-introspection,
+  dbus,
+  fetchpatch,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,11 +34,18 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    makeWrapper pkg-config intltool libxslt gobject-introspection
+    makeWrapper
+    pkg-config
+    intltool
+    libxslt
+    gobject-introspection
     python3
   ];
   buildInputs = [
-    dbus-glib libxml2 sqlite telepathy-glib
+    dbus-glib
+    libxml2
+    sqlite
+    telepathy-glib
     dbus
   ];
 

@@ -1,23 +1,24 @@
-{ clang
-, cmake
-, CoreFoundation
-, fetchFromGitHub
-, fetchurl
-, lib
-, lighthouse
-, nix-update-script
-, nodePackages
-, perl
-, pkg-config
-, postgresql
-, protobuf
-, rustPlatform
-, Security
-, sqlite
-, stdenv
-, SystemConfiguration
-, testers
-, unzip
+{
+  clang,
+  cmake,
+  CoreFoundation,
+  fetchFromGitHub,
+  fetchurl,
+  lib,
+  lighthouse,
+  nix-update-script,
+  nodePackages,
+  perl,
+  pkg-config,
+  postgresql,
+  protobuf,
+  rustPlatform,
+  Security,
+  sqlite,
+  stdenv,
+  SystemConfiguration,
+  testers,
+  unzip,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -35,9 +36,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-QVAFzV9sao8+eegI7bLfm+pPHyvDFhnADS80+nqqgtE=";
   };
 
-  patches = [
-    ./use-system-sqlite.patch
-  ];
+  patches = [ ./use-system-sqlite.patch ];
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -58,7 +57,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildFeatures = [ "modern" "gnosis" ];
+  buildFeatures = [
+    "modern"
+    "gnosis"
+  ];
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
@@ -68,13 +70,13 @@ rustPlatform.buildRustPackage rec {
     protobuf
   ];
 
-  buildInputs = [
-    sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Security
-    SystemConfiguration
-  ];
+  buildInputs =
+    [ sqlite ]
+    ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      Security
+      SystemConfiguration
+    ];
 
   depositContractSpec = fetchurl {
     url = "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
@@ -89,9 +91,7 @@ rustPlatform.buildRustPackage rec {
   LIGHTHOUSE_DEPOSIT_CONTRACT_SPEC_URL = "file://${depositContractSpec}";
   LIGHTHOUSE_DEPOSIT_CONTRACT_TESTNET_URL = "file://${testnetDepositContractSpec}";
 
-  cargoBuildFlags = [
-    "--package lighthouse"
-  ];
+  cargoBuildFlags = [ "--package lighthouse" ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -111,14 +111,15 @@ rustPlatform.buildRustPackage rec {
   ];
 
   # All of these tests require network access
-  checkFlags = [
-    "--skip service::tests::tests::test_dht_persistence"
-    "--skip time::test::test_reinsertion_updates_timeout"
-
-  ] ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
-    "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"
-    "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
-  ];
+  checkFlags =
+    [
+      "--skip service::tests::tests::test_dht_persistence"
+      "--skip time::test::test_reinsertion_updates_timeout"
+    ]
+    ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
+      "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"
+      "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
+    ];
 
   nativeCheckInputs = [
     nodePackages.ganache
@@ -138,6 +139,9 @@ rustPlatform.buildRustPackage rec {
     description = "Ethereum consensus client in Rust";
     homepage = "https://lighthouse.sigmaprime.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ centromere pmw ];
+    maintainers = with maintainers; [
+      centromere
+      pmw
+    ];
   };
 }

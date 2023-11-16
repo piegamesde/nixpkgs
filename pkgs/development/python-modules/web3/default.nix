@@ -1,26 +1,27 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, eth-abi
-, eth-account
-, eth-hash
-, eth-typing
-, eth-utils
-, eth-rlp
-, hexbytes
-, ipfshttpclient
-, jsonschema
-, lru-dict
-, protobuf
-, requests
-, typing-extensions
-, websockets
-# , eth-tester
-# , py-geth
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  eth-abi,
+  eth-account,
+  eth-hash,
+  eth-typing,
+  eth-utils,
+  eth-rlp,
+  hexbytes,
+  ipfshttpclient,
+  jsonschema,
+  lru-dict,
+  protobuf,
+  requests,
+  typing-extensions,
+  websockets,
+  # , eth-tester
+  # , py-geth
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -37,28 +38,27 @@ buildPythonPackage rec {
     hash = "sha256-p3Dpmb0BST1nbh42q/eK/DjQqoIPHvNr2KllRpTgFFw=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    eth-abi
-    eth-account
-    eth-hash
-    eth-rlp
-    eth-typing
-    eth-utils
-    hexbytes
-    ipfshttpclient
-    jsonschema
-    lru-dict
-    protobuf
-    requests
-    websockets
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ] ++ eth-hash.optional-dependencies.pycryptodome;
+  propagatedBuildInputs =
+    [
+      aiohttp
+      eth-abi
+      eth-account
+      eth-hash
+      eth-rlp
+      eth-typing
+      eth-utils
+      hexbytes
+      ipfshttpclient
+      jsonschema
+      lru-dict
+      protobuf
+      requests
+      websockets
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonRelaxDeps = true;
 
@@ -76,9 +76,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "types-protobuf==3.19.13" "types-protobuf"
   '';
 
-  pythonImportsCheck = [
-    "web3"
-  ];
+  pythonImportsCheck = [ "web3" ];
 
   meta = with lib; {
     description = "Web3 library for interactions";

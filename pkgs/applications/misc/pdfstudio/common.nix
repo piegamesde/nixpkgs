@@ -1,21 +1,22 @@
-{ pname
-, program
-, src
-, year
-, version
-, desktopName
-, longDescription
-, buildFHSEnv
-, extraBuildInputs ? [ ]
-, jdk
-, stdenv
-, lib
-, dpkg
-, makeDesktopItem
-, copyDesktopItems
-, autoPatchelfHook
-, sane-backends
-, cups
+{
+  pname,
+  program,
+  src,
+  year,
+  version,
+  desktopName,
+  longDescription,
+  buildFHSEnv,
+  extraBuildInputs ? [ ],
+  jdk,
+  stdenv,
+  lib,
+  dpkg,
+  makeDesktopItem,
+  copyDesktopItems,
+  autoPatchelfHook,
+  sane-backends,
+  cups,
 }:
 let
   thisPackage = stdenv.mkDerivation rec {
@@ -23,7 +24,7 @@ let
     strictDeps = true;
 
     buildInputs = [
-      sane-backends #for libsane.so.1
+      sane-backends # for libsane.so.1
     ] ++ extraBuildInputs;
 
     nativeBuildInputs = [
@@ -65,7 +66,6 @@ let
       runHook postInstall
     '';
   };
-
 in
 # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
 buildFHSEnv {

@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, nose
-, pamqp
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  nose,
+  pamqp,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +20,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ pamqp ];
-  nativeCheckInputs = [ mock nose ];
+  nativeCheckInputs = [
+    mock
+    nose
+  ];
 
   checkPhase = ''
     runHook preCheck
@@ -43,5 +47,4 @@ buildPythonPackage rec {
     # https://github.com/gmr/rabbitpy/issues/125
     broken = true;
   };
-
 }

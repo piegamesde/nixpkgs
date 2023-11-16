@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, unzip
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +25,10 @@ stdenv.mkDerivation rec {
       binaryBytecode
       binaryNativeCode
     ];
-    maintainers = with maintainers; [ grahamc swarren83 ];
+    maintainers = with maintainers; [
+      grahamc
+      swarren83
+    ];
   };
 
   nativeBuildInputs = [ unzip ];
@@ -33,9 +37,5 @@ stdenv.mkDerivation rec {
     inherit (nixosTests) gocd-server;
   };
 
-  buildCommand = "
-    unzip $src -d $out
-    mv $out/go-server-${version} $out/go-server
-    mkdir -p $out/go-server/conf
-  ";
+  buildCommand = "\n    unzip $src -d $out\n    mv $out/go-server-${version} $out/go-server\n    mkdir -p $out/go-server/conf\n  ";
 }

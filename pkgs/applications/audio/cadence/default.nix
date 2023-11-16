@@ -1,13 +1,14 @@
-{ lib
-, libjack2
-, fetchpatch
-, fetchFromGitHub
-, jack_capture
-, pkg-config
-, pulseaudioFull
-, qtbase
-, mkDerivation
-, python3
+{
+  lib,
+  libjack2,
+  fetchpatch,
+  fetchFromGitHub,
+  jack_capture,
+  pkg-config,
+  pulseaudioFull,
+  qtbase,
+  mkDerivation,
+  python3,
 }:
 #ladish missing, claudia can't work.
 #pulseaudio needs fixes (patchShebangs .pa ...)
@@ -38,26 +39,27 @@ mkDerivation rec {
   ];
 
   postPatch = ''
-    libjackso=$(realpath ${lib.makeLibraryPath [libjack2]}/libjack.so.0);
+    libjackso=$(realpath ${lib.makeLibraryPath [ libjack2 ]}/libjack.so.0);
     substituteInPlace ./src/jacklib.py --replace libjack.so.0 $libjackso
     substituteInPlace ./src/cadence.py --replace "/usr/bin/pulseaudio" \
-      "${lib.makeBinPath[pulseaudioFull]}/pulseaudio"
+      "${lib.makeBinPath [ pulseaudioFull ]}/pulseaudio"
     substituteInPlace ./c++/jackbridge/JackBridge.cpp --replace libjack.so.0 $libjackso
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     qtbase
     jack_capture
     pulseaudioFull
     (
-      (python3.withPackages (ps: with ps; [
-        pyqt5
-        dbus-python
-      ]))
+      (python3.withPackages (
+        ps:
+        with ps; [
+          pyqt5
+          dbus-python
+        ]
+      ))
     )
   ];
 
@@ -73,31 +75,32 @@ mkDerivation rec {
     let
       outRef = placeholder "out";
       prefix = "${outRef}/share/cadence/src";
-      scriptAndSource = lib.mapAttrs'
-        (script: source:
-          lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source)
-        )
-        {
-          "cadence" = "cadence.py";
-          "claudia" = "claudia.py";
-          "catarina" = "catarina.py";
-          "catia" = "catia.py";
-          "cadence-jacksettings" = "jacksettings.py";
-          "cadence-aloop-daemon" = "cadence_aloop_daemon.py";
-          "cadence-logs" = "logs.py";
-          "cadence-render" = "render.py";
-          "claudia-launcher" = "claudia_launcher.py";
-          "cadence-session-start" = "cadence_session_start.py";
-        };
+      scriptAndSource =
+        lib.mapAttrs'
+          (script: source: lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source))
+          {
+            "cadence" = "cadence.py";
+            "claudia" = "claudia.py";
+            "catarina" = "catarina.py";
+            "catia" = "catia.py";
+            "cadence-jacksettings" = "jacksettings.py";
+            "cadence-aloop-daemon" = "cadence_aloop_daemon.py";
+            "cadence-logs" = "logs.py";
+            "cadence-render" = "render.py";
+            "claudia-launcher" = "claudia_launcher.py";
+            "cadence-session-start" = "cadence_session_start.py";
+          };
     in
     lib.mapAttrsToList
       (script: source: ''
         rm -f ${script}
         makeQtWrapper ${source} ${script} \
-          --prefix PATH : "${lib.makeBinPath [
-            jack_capture # cadence-render
-            pulseaudioFull # cadence, cadence-session-start
-            ]}"
+          --prefix PATH : "${
+            lib.makeBinPath [
+              jack_capture # cadence-render
+              pulseaudioFull # cadence, cadence-session-start
+            ]
+          }"
       '')
       scriptAndSource;
 

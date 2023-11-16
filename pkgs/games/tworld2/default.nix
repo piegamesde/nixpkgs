@@ -1,8 +1,9 @@
-{ stdenv
-, lib
-, fetchurl
-, SDL
-, qt4
+{
+  stdenv,
+  lib,
+  fetchurl,
+  SDL,
+  qt4,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-USy2F4es0W3xT4aI254OQ02asJKNt3V0Y72LCbXYpfg=";
   };
 
-  buildInputs = [ SDL qt4 ];
+  buildInputs = [
+    SDL
+    qt4
+  ];
 
   enableParallelBuilding = true;
 

@@ -1,13 +1,15 @@
-{ lib, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, gettext
-, pkg-config
-, libxml2
-, gtk3
-, libportal-gtk3
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  gettext,
+  pkg-config,
+  libxml2,
+  gtk3,
+  libportal-gtk3,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -41,7 +43,9 @@ stdenv.mkDerivation rec {
     patchShebangs meson_install.sh
 
     # https://gitlab.gnome.org/World/gcolor3/merge_requests/151
-    substituteInPlace meson.build --replace "dependency(${"\n"}  'libportal'" "dependency(${"\n"}  'libportal-gtk3'"
+    substituteInPlace meson.build --replace "dependency(${"\n"}  'libportal'" "dependency(${
+      "\n"
+    }  'libportal-gtk3'"
     substituteInPlace src/gcolor3-color-selection.c --replace "libportal/portal-gtk3.h" "libportal-gtk3/portal-gtk3.h"
   '';
 

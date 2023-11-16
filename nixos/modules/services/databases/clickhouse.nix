@@ -1,9 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.clickhouse;
 in
-with lib;
-{
+with lib; {
 
   ###### interface
 
@@ -21,11 +25,8 @@ with lib;
           ClickHouse package to use.
         '';
       };
-
     };
-
   };
-
 
   ###### implementation
 
@@ -79,7 +80,5 @@ with lib;
 
     # startup requires a `/etc/localtime` which only if exists if `time.timeZone != null`
     time.timeZone = mkDefault "UTC";
-
   };
-
 }

@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pandoc
-, pandocfilters
-, pythonOlder
-, substituteAll
-, texlive
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pandoc,
+  pandocfilters,
+  pythonOlder,
+  substituteAll,
+  texlive,
 }:
 
 buildPythonPackage rec {
@@ -35,14 +36,15 @@ buildPythonPackage rec {
     pandocfilters
   ];
 
-  pythonImportsCheck = [
-    "pypandoc"
-  ];
+  pythonImportsCheck = [ "pypandoc" ];
 
   meta = with lib; {
     description = "Thin wrapper for pandoc";
     homepage = "https://github.com/JessicaTegner/pypandoc";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann bennofs ];
+    maintainers = with maintainers; [
+      sternenseemann
+      bennofs
+    ];
   };
 }

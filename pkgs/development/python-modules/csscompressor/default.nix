@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, fetchPypi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "csscompressor";
@@ -15,6 +19,6 @@ buildPythonPackage rec {
     description = "A python port of YUI CSS Compressor";
     homepage = "https://pypi.python.org/pypi/csscompressor";
     license = licenses.bsd3;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

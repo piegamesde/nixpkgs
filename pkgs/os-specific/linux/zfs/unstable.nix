@@ -1,9 +1,10 @@
-{ callPackage
-, kernel ? null
-, stdenv
-, linuxKernel
-, ...
-} @ args:
+{
+  callPackage,
+  kernel ? null,
+  stdenv,
+  linuxKernel,
+  ...
+}@args:
 
 let
   stdenv' = if kernel == null then stdenv else kernel.stdenv;
@@ -13,9 +14,7 @@ callPackage ./generic.nix args {
   # NOTE:
   #   zfs-2.1.9<=x<=2.1.10 is broken with aarch64-linux-6.2
   #   for future releases, please delete this condition.
-  kernelCompatible = if stdenv'.isx86_64
-    then kernel.kernelOlder "6.3"
-    else kernel.kernelOlder "6.2";
+  kernelCompatible = if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
   latestCompatibleLinuxPackages = linuxKernel.packages.linux_6_1;
 
   # this package should point to a version / git revision compatible with the latest kernel release

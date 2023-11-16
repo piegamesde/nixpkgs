@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
 
-, gtk3
-, curl
-, libxml2
+  gtk3,
+  curl,
+  libxml2,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,13 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J2Do1iAbE1GBC8co/4nxOzeGJQiPRc+21fgMDpzKX+A=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  makeFlags = [
-    "prefix=$(out)"
-  ];
+  makeFlags = [ "prefix=$(out)" ];
 
   buildInputs = [
     gtk3

@@ -1,6 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -20,5 +21,4 @@ buildPythonPackage rec {
     homepage = "https://funcy.readthedocs.org/";
     license = licenses.bsd3;
   };
-
 }

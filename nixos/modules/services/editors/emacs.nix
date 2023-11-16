@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -33,7 +38,6 @@ let
       Keywords=Text;Editor;
     '';
   };
-
 in
 {
 
@@ -61,7 +65,6 @@ in
         {var}`services.emacs.enable`.
       '';
     };
-
 
     package = mkOption {
       type = types.package;
@@ -94,9 +97,15 @@ in
       };
     } // optionalAttrs cfg.enable { wantedBy = [ "default.target" ]; };
 
-    environment.systemPackages = [ cfg.package editorScript desktopApplicationFile ];
+    environment.systemPackages = [
+      cfg.package
+      editorScript
+      desktopApplicationFile
+    ];
 
-    environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "${editorScript}/bin/emacseditor");
+    environment.variables.EDITOR = mkIf cfg.defaultEditor (
+      mkOverride 900 "${editorScript}/bin/emacseditor"
+    );
   };
 
   meta.doc = ./emacs.md;

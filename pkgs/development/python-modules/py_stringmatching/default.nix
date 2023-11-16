@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, numpy
-, pythonOlder
-, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  numpy,
+  pythonOlder,
+  six,
 }:
 
 buildPythonPackage rec {
@@ -25,13 +26,9 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
-  pythonImportsCheck = [
-    "py_stringmatching"
-  ];
+  pythonImportsCheck = [ "py_stringmatching" ];
 
   meta = with lib; {
     description = "Python string matching library including string tokenizers and string similarity measures";

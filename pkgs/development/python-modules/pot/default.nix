@@ -1,20 +1,21 @@
-{ lib
-, autograd
-, buildPythonPackage
-, cupy
-, cvxopt
-, cython
-, fetchPypi
-, matplotlib
-, numpy
-, tensorflow
-, pymanopt
-, pytestCheckHook
-, pythonOlder
-, scikit-learn
-, scipy
-, enableDimensionalityReduction ? false
-, enableGPU ? false
+{
+  lib,
+  autograd,
+  buildPythonPackage,
+  cupy,
+  cvxopt,
+  cython,
+  fetchPypi,
+  matplotlib,
+  numpy,
+  tensorflow,
+  pymanopt,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+  scipy,
+  enableDimensionalityReduction ? false,
+  enableGPU ? false,
 }:
 
 buildPythonPackage rec {
@@ -35,15 +36,16 @@ buildPythonPackage rec {
     cython
   ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ] ++ lib.optionals enableGPU [
-    cupy
-  ] ++ lib.optionals enableDimensionalityReduction [
-    autograd
-    pymanopt
-  ];
+  propagatedBuildInputs =
+    [
+      numpy
+      scipy
+    ]
+    ++ lib.optionals enableGPU [ cupy ]
+    ++ lib.optionals enableDimensionalityReduction [
+      autograd
+      pymanopt
+    ];
 
   nativeCheckInputs = [
     cvxopt
@@ -108,9 +110,7 @@ buildPythonPackage rec {
     "test/test_gromov.py"
     "test/test_helpers.py"
     "test/test_unbalanced.py"
-  ] ++ lib.optionals (!enableDimensionalityReduction) [
-    "test/test_dr.py"
-  ];
+  ] ++ lib.optionals (!enableDimensionalityReduction) [ "test/test_dr.py" ];
 
   pythonImportsCheck = [
     "ot"

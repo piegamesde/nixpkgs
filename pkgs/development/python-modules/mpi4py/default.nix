@@ -1,4 +1,12 @@
-{ lib, fetchPypi, fetchpatch, python, buildPythonPackage, mpi, openssh }:
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  python,
+  buildPythonPackage,
+  mpi,
+  openssh,
+}:
 
 buildPythonPackage rec {
   pname = "mpi4py";
@@ -39,7 +47,7 @@ buildPythonPackage rec {
     export OMPI_MCA_rmaps_base_oversubscribe=yes
   '';
 
-  setupPyBuildFlags = ["--mpicc=${mpi}/bin/mpicc"];
+  setupPyBuildFlags = [ "--mpicc=${mpi}/bin/mpicc" ];
 
   nativeBuildInputs = [ mpi ];
 

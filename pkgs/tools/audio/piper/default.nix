@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, espeak-ng
-, onnxruntime
-, pcaudiolib
-, piper-train
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  espeak-ng,
+  onnxruntime,
+  pcaudiolib,
+  piper-train,
 }:
 
 let

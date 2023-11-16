@@ -1,35 +1,36 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, dos2unix
-, pythonRelaxDepsHook
-, asn1crypto
-, astunparse
-, bincopy
-, bitstring
-, click
-, click-command-tree
-, click-option-group
-, cmsis-pack-manager
-, commentjson
-, crcmod
-, cryptography
-, deepmerge
-, fastjsonschema
-, hexdump
-, jinja2
-, libusbsio
-, oscrypto
-, pycryptodome
-, pylink-square
-, pyocd
-, pypemicro
-, pyserial
-, ruamel-yaml
-, sly
-, typing-extensions
-, pytestCheckHook
-, voluptuous
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dos2unix,
+  pythonRelaxDepsHook,
+  asn1crypto,
+  astunparse,
+  bincopy,
+  bitstring,
+  click,
+  click-command-tree,
+  click-option-group,
+  cmsis-pack-manager,
+  commentjson,
+  crcmod,
+  cryptography,
+  deepmerge,
+  fastjsonschema,
+  hexdump,
+  jinja2,
+  libusbsio,
+  oscrypto,
+  pycryptodome,
+  pylink-square,
+  pyocd,
+  pypemicro,
+  pyserial,
+  ruamel-yaml,
+  sly,
+  typing-extensions,
+  pytestCheckHook,
+  voluptuous,
 }:
 
 buildPythonPackage rec {
@@ -43,9 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-2UTgVHqFJqizJ6mDT7+PFec3bQexcBG6v8X0E5Ai4Hc=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [
     "bincopy"
@@ -59,9 +58,7 @@ buildPythonPackage rec {
     "typing-extensions"
   ];
 
-  pythonRemoveDeps = [
-    "pyocd-pemicro"
-  ];
+  pythonRemoveDeps = [ "pyocd-pemicro" ];
 
   propagatedBuildInputs = [
     asn1crypto
@@ -102,6 +99,9 @@ buildPythonPackage rec {
     description = "NXP Secure Provisioning SDK";
     homepage = "https://github.com/NXPmicro/spsdk";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

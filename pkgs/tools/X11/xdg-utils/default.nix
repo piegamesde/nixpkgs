@@ -1,9 +1,25 @@
-{ lib, stdenv, fetchFromGitLab, fetchFromGitHub, fetchpatch
-, file, libxslt, docbook_xml_dtd_412, docbook_xsl, xmlto
-, w3m, gnugrep, gnused, coreutils, xset, perlPackages
-, mimiSupport ? false, gawk
-, glib
-, withXdgOpenUsePortalPatch ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchFromGitHub,
+  fetchpatch,
+  file,
+  libxslt,
+  docbook_xml_dtd_412,
+  docbook_xsl,
+  xmlto,
+  w3m,
+  gnugrep,
+  gnused,
+  coreutils,
+  xset,
+  perlPackages,
+  mimiSupport ? false,
+  gawk,
+  glib,
+  withXdgOpenUsePortalPatch ? true,
+}:
 
 let
   # A much better xdg-open
@@ -14,10 +30,14 @@ let
     sha256 = "15gw2nyrqmdsdin8gzxihpn77grhk9l97jp7s7pr7sl4n9ya2rpj";
   };
 
-  perlPath = with perlPackages; makePerlPath [
-    NetDBus XMLTwig XMLParser X11Protocol
-  ];
-
+  perlPath =
+    with perlPackages;
+    makePerlPath [
+      NetDBus
+      XMLTwig
+      XMLParser
+      X11Protocol
+    ];
 in
 
 stdenv.mkDerivation rec {
@@ -46,36 +66,44 @@ stdenv.mkDerivation rec {
   ];
 
   # just needed when built from git
-  nativeBuildInputs = [ libxslt docbook_xml_dtd_412 docbook_xsl xmlto w3m ];
+  nativeBuildInputs = [
+    libxslt
+    docbook_xml_dtd_412
+    docbook_xsl
+    xmlto
+    w3m
+  ];
 
-  postInstall = lib.optionalString mimiSupport ''
-    cp ${mimisrc}/xdg-open $out/bin/xdg-open
-  '' + ''
-    sed  '2s#.#\
-    sed()   { ${gnused}/bin/sed     "$@"; }\
-    grep()  { ${gnugrep}/bin/grep   "$@"; }\
-    egrep() { ${gnugrep}/bin/egrep  "$@"; }\
-    file()  { ${file}/bin/file      "$@"; }\
-    awk()   { ${gawk}/bin/awk       "$@"; }\
-    xset()  { ${xset}/bin/xset      "$@"; }\
-    perl()  { PERL5LIB=${perlPath} ${perlPackages.perl}/bin/perl "$@"; }\
-    mimetype() { ${perlPackages.FileMimeInfo}/bin/mimetype "$@"; }\
-    PATH=$PATH:'$out'/bin:${coreutils}/bin\
-    &#' -i "$out"/bin/*
+  postInstall =
+    lib.optionalString mimiSupport ''
+      cp ${mimisrc}/xdg-open $out/bin/xdg-open
+    ''
+    + ''
+      sed  '2s#.#\
+      sed()   { ${gnused}/bin/sed     "$@"; }\
+      grep()  { ${gnugrep}/bin/grep   "$@"; }\
+      egrep() { ${gnugrep}/bin/egrep  "$@"; }\
+      file()  { ${file}/bin/file      "$@"; }\
+      awk()   { ${gawk}/bin/awk       "$@"; }\
+      xset()  { ${xset}/bin/xset      "$@"; }\
+      perl()  { PERL5LIB=${perlPath} ${perlPackages.perl}/bin/perl "$@"; }\
+      mimetype() { ${perlPackages.FileMimeInfo}/bin/mimetype "$@"; }\
+      PATH=$PATH:'$out'/bin:${coreutils}/bin\
+      &#' -i "$out"/bin/*
 
-    substituteInPlace $out/bin/xdg-open \
-      --replace "/usr/bin/printf" "${coreutils}/bin/printf" \
-      --replace "gdbus" "${glib}/bin/gdbus"
+      substituteInPlace $out/bin/xdg-open \
+        --replace "/usr/bin/printf" "${coreutils}/bin/printf" \
+        --replace "gdbus" "${glib}/bin/gdbus"
 
-    substituteInPlace $out/bin/xdg-mime \
-      --replace "/usr/bin/file" "${file}/bin/file"
+      substituteInPlace $out/bin/xdg-mime \
+        --replace "/usr/bin/file" "${file}/bin/file"
 
-    substituteInPlace $out/bin/xdg-email \
-      --replace "/bin/echo" "${coreutils}/bin/echo" \
-      --replace "gdbus" "${glib}/bin/gdbus"
+      substituteInPlace $out/bin/xdg-email \
+        --replace "/bin/echo" "${coreutils}/bin/echo" \
+        --replace "gdbus" "${glib}/bin/gdbus"
 
-    sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
-  '';
+      sed 's|\bwhich\b|type -P|g' -i "$out"/bin/*
+    '';
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/xdg-utils/";

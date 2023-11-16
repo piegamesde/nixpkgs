@@ -1,4 +1,9 @@
-{ lib, libgpiod, buildPythonPackage, fetchFromGitHub }:
+{
+  lib,
+  libgpiod,
+  buildPythonPackage,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "rpi-gpio2";
@@ -12,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-CNnej67yTh3C8n4cCA7NW97rlfIDrrlepRNDkv+BUeY=";
   };
 
-  propagatedBuildInputs = [
-    libgpiod
-  ];
+  propagatedBuildInputs = [ libgpiod ];
 
   # Disable checks because they need to run on the specific platform
   doCheck = false;

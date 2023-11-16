@@ -1,10 +1,10 @@
-{ openssl
-}:
+{ openssl }:
 
 { ... }:
 
-{ runtimeDependencies ? [ ]
-, ...
+{
+  runtimeDependencies ? [ ],
+  ...
 }:
 
 {

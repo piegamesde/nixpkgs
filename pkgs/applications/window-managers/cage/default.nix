@@ -1,9 +1,24 @@
-{ lib, stdenv, fetchFromGitHub
-, meson, ninja, pkg-config, wayland-scanner, scdoc, makeWrapper
-, wlroots, wayland, wayland-protocols, pixman, libxkbcommon
-, systemd, libGL, libX11, mesa
-, xwayland ? null
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  scdoc,
+  makeWrapper,
+  wlroots,
+  wayland,
+  wayland-protocols,
+  pixman,
+  libxkbcommon,
+  systemd,
+  libGL,
+  libX11,
+  mesa,
+  xwayland ? null,
+  nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,16 +32,27 @@ stdenv.mkDerivation rec {
     sha256 = "0vm96gxinhy48m3x9p1sfldyd03w3gk6iflb7n9kn06j1vqyswr6";
   };
 
-  depsBuildBuild = [
+  depsBuildBuild = [ pkg-config ];
+
+  nativeBuildInputs = [
+    meson
+    ninja
     pkg-config
+    wayland-scanner
+    scdoc
+    makeWrapper
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner scdoc makeWrapper ];
-
   buildInputs = [
-    wlroots wayland wayland-protocols pixman libxkbcommon
+    wlroots
+    wayland
+    wayland-protocols
+    pixman
+    libxkbcommon
     mesa # for libEGL headers
-    systemd libGL libX11
+    systemd
+    libGL
+    libX11
   ];
 
   # https://github.com/cage-kiosk/cage/issues/231
@@ -44,9 +70,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A Wayland kiosk that runs a single, maximized application";
-    homepage    = "https://www.hjdskes.nl/projects/cage/";
-    license     = licenses.mit;
-    platforms   = platforms.linux;
+    homepage = "https://www.hjdskes.nl/projects/cage/";
+    license = licenses.mit;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];
   };
 }

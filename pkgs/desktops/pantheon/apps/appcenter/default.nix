@@ -1,26 +1,27 @@
-{ lib
-, stdenv
-, nix-update-script
-, appstream
-, dbus
-, fetchFromGitHub
-, flatpak
-, glib
-, granite
-, gtk3
-, json-glib
-, libgee
-, libhandy
-, libsoup
-, libxml2
-, meson
-, ninja
-, packagekit
-, pkg-config
-, python3
-, vala
-, polkit
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  nix-update-script,
+  appstream,
+  dbus,
+  fetchFromGitHub,
+  flatpak,
+  glib,
+  granite,
+  gtk3,
+  json-glib,
+  libgee,
+  libhandy,
+  libsoup,
+  libxml2,
+  meson,
+  ninja,
+  packagekit,
+  pkg-config,
+  python3,
+  vala,
+  polkit,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -34,11 +35,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jtNPRsq33bIn3jy3F63UNrwrhaTBYbRYLDxyxgAXjIc=";
   };
 
-  patches = [
-    # Having a working nix packagekit backend will supersede this.
-    # https://github.com/NixOS/nixpkgs/issues/177946
-    ./disable-packagekit-backend.patch
-  ];
+  patches =
+    [
+      # Having a working nix packagekit backend will supersede this.
+      # https://github.com/NixOS/nixpkgs/issues/177946
+      ./disable-packagekit-backend.patch
+    ];
 
   nativeBuildInputs = [
     dbus # for pkg-config

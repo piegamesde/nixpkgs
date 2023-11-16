@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, perlPackages
-, makeWrapper
-, installShellFiles
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perlPackages,
+  makeWrapper,
+  installShellFiles,
 }:
 
 stdenv.mkDerivation rec {
@@ -29,13 +30,14 @@ stdenv.mkDerivation rec {
       --replace "LW_SSL_ENGINE=auto" "LW_SSL_ENGINE=SSLeay"
   '';
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   propagatedBuildInputs = [ perlPackages.NetSSLeay ];
 
-  buildInputs = [
-    perlPackages.perl
-  ];
+  buildInputs = [ perlPackages.perl ];
 
   installPhase = ''
     runHook preInstall

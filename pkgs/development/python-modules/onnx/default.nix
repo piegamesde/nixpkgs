@@ -1,23 +1,25 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cmake
-, fetchFromGitHub
-, gtest
-, nbval
-, numpy
-, parameterized
-, protobuf
-, pybind11
-, pytestCheckHook
-, pythonOlder
-, tabulate
-, typing-extensions
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cmake,
+  fetchFromGitHub,
+  gtest,
+  nbval,
+  numpy,
+  parameterized,
+  protobuf,
+  pybind11,
+  pytestCheckHook,
+  pythonOlder,
+  tabulate,
+  typing-extensions,
 }:
 
 let
   gtestStatic = gtest.override { static = true; };
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "onnx";
   version = "1.14.0";
   format = "setuptools";
@@ -67,7 +69,9 @@ in buildPythonPackage rec {
     # Set CMAKE_INSTALL_LIBDIR to lib explicitly, because otherwise it gets set
     # to lib64 and cmake incorrectly looks for the protobuf library in lib64
     export CMAKE_ARGS="-DCMAKE_INSTALL_LIBDIR=lib -DONNX_USE_PROTOBUF_SHARED_LIBS=ON"
-    export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${lib.getDev gtestStatic}/include"
+    export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${
+      lib.getDev gtestStatic
+    }/include"
     export ONNX_BUILD_TESTS=1
   '';
 
@@ -95,33 +99,36 @@ in buildPythonPackage rec {
     "onnx/examples"
   ];
 
-  disabledTests = [
-    # attempts to fetch data from web
-    "test_bvlc_alexnet_cpu"
-    "test_densenet121_cpu"
-    "test_inception_v1_cpu"
-    "test_inception_v2_cpu"
-    "test_resnet50_cpu"
-    "test_shufflenet_cpu"
-    "test_squeezenet_cpu"
-    "test_vgg19_cpu"
-    "test_zfnet512_cpu"
-  ] ++ lib.optionals stdenv.isAarch64 [
-    # AssertionError: Output 0 of test 0 in folder
-    "test__pytorch_converted_Conv2d_depthwise_padded"
-    "test__pytorch_converted_Conv2d_dilated"
-    "test_dft"
-    "test_dft_axis"
-    # AssertionError: Mismatch in test 'test_Conv2d_depthwise_padded'
-    "test_xor_bcast4v4d"
-    # AssertionError: assert 1 == 0
-    "test_ops_tested"
-  ];
+  disabledTests =
+    [
+      # attempts to fetch data from web
+      "test_bvlc_alexnet_cpu"
+      "test_densenet121_cpu"
+      "test_inception_v1_cpu"
+      "test_inception_v2_cpu"
+      "test_resnet50_cpu"
+      "test_shufflenet_cpu"
+      "test_squeezenet_cpu"
+      "test_vgg19_cpu"
+      "test_zfnet512_cpu"
+    ]
+    ++ lib.optionals stdenv.isAarch64 [
+      # AssertionError: Output 0 of test 0 in folder
+      "test__pytorch_converted_Conv2d_depthwise_padded"
+      "test__pytorch_converted_Conv2d_dilated"
+      "test_dft"
+      "test_dft_axis"
+      # AssertionError: Mismatch in test 'test_Conv2d_depthwise_padded'
+      "test_xor_bcast4v4d"
+      # AssertionError: assert 1 == 0
+      "test_ops_tested"
+    ];
 
-  disabledTestPaths = [
-    # Unexpected output fields from running code: {'stderr'}
-    "onnx/examples/np_array_tensorproto.ipynb"
-  ];
+  disabledTestPaths =
+    [
+      # Unexpected output fields from running code: {'stderr'}
+      "onnx/examples/np_array_tensorproto.ipynb"
+    ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -130,9 +137,7 @@ in buildPythonPackage rec {
     .setuptools-cmake-build/onnx_gtests
   '';
 
-  pythonImportsCheck = [
-    "onnx"
-  ];
+  pythonImportsCheck = [ "onnx" ];
 
   meta = with lib; {
     description = "Open Neural Network Exchange";

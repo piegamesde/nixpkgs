@@ -1,5 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-, python-lsp-server, isort
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-lsp-server,
+  isort,
 }:
 
 buildPythonPackage rec {
@@ -19,7 +23,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyls_isort" ];
 
   propagatedBuildInputs = [
-    isort python-lsp-server
+    isort
+    python-lsp-server
   ];
 
   meta = with lib; {

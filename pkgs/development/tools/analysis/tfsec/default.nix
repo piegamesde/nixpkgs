@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -34,6 +35,10 @@ buildGoModule rec {
     description = "Static analysis powered security scanner for terraform code";
     homepage = "https://github.com/aquasecurity/tfsec";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab marsam peterromfeldhk ];
+    maintainers = with maintainers; [
+      fab
+      marsam
+      peterromfeldhk
+    ];
   };
 }

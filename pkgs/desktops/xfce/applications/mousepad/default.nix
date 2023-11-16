@@ -1,11 +1,12 @@
-{ lib
-, mkXfceDerivation
-, gobject-introspection
-, glib
-, gtk3
-, gtksourceview4
-, gspell
-, polkit
+{
+  lib,
+  mkXfceDerivation,
+  gobject-introspection,
+  glib,
+  gtk3,
+  gtksourceview4,
+  gspell,
+  polkit,
 }:
 
 mkXfceDerivation {

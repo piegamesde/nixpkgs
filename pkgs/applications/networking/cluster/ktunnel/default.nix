@@ -1,4 +1,9 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 let
   version = "1.5.3";
 in
@@ -7,14 +12,15 @@ buildGoModule {
   inherit version;
 
   src = fetchFromGitHub {
-    owner  = "omrikiei";
-    repo   = "ktunnel";
-    rev    = "v${version}";
+    owner = "omrikiei";
+    repo = "ktunnel";
+    rev = "v${version}";
     sha256 = "sha256-7SWj9Emm78xpzdvJFKqpI5HVQi0ohbixkgXKGTy5C/A=";
   };
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
   ];
 
   vendorHash = "sha256-Q8t/NWGeUB1IpxdsxvyvbYh/adtcA4p+7bcCy9YFjsw=";

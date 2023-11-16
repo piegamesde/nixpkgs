@@ -1,15 +1,16 @@
-{ buildPythonApplication
-, poetry-core
-, yubikey-manager
-, fido2
-, mss
-, zxing_cpp
-, pillow
-, cryptography
+{
+  buildPythonApplication,
+  poetry-core,
+  yubikey-manager,
+  fido2,
+  mss,
+  zxing_cpp,
+  pillow,
+  cryptography,
 
-, src
-, version
-, meta
+  src,
+  version,
+  meta,
 }:
 
 buildPythonApplication {

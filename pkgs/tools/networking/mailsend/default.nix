@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mailsend";
@@ -9,12 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vl72vibFjvdQZcVRnq6N1VuuMUKShhlpayjSQrc0k/c=";
   };
 
-  buildInputs = [
-    openssl
-  ];
-  configureFlags = [
-    "--with-openssl=${openssl.dev}"
-  ];
+  buildInputs = [ openssl ];
+  configureFlags = [ "--with-openssl=${openssl.dev}" ];
 
   patches = [
     (fetchurl {

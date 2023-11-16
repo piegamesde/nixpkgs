@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, freezegun
-, isodate
-, lxml
-, pythonOlder
-, xmlsec
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  freezegun,
+  isodate,
+  lxml,
+  pythonOlder,
+  xmlsec,
 }:
 
 buildPythonPackage rec {
@@ -37,13 +38,9 @@ buildPythonPackage rec {
     xmlsec
   ];
 
-  nativeCheckInputs = [
-    freezegun
-  ];
+  nativeCheckInputs = [ freezegun ];
 
-  pythonImportsCheck = [
-    "onelogin.saml2"
-  ];
+  pythonImportsCheck = [ "onelogin.saml2" ];
 
   meta = with lib; {
     description = "OneLogin's SAML Python Toolkit";

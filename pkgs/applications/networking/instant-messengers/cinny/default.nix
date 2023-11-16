@@ -1,8 +1,16 @@
-{ lib, stdenv, fetchurl, writeText, jq, conf ? {} }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  jq,
+  conf ? { },
+}:
 
 let
   configOverrides = writeText "cinny-config-overrides.json" (builtins.toJSON conf);
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "cinny";
   version = "2.2.6";
 

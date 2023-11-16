@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, absl-py
-, cvxpy
-, jax
-, jaxlib
-, matplotlib
-, numpy
-, optax
-, scipy
-, scikit-learn
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  absl-py,
+  cvxpy,
+  jax,
+  jaxlib,
+  matplotlib,
+  numpy,
+  optax,
+  scipy,
+  scikit-learn,
 }:
 
 buildPythonPackage rec {
@@ -52,10 +53,11 @@ buildPythonPackage rec {
     "jaxopt.tree_util"
   ];
 
-  disabledTests = [
-    # Stack frame issue
-    "test_bisect"
-  ];
+  disabledTests =
+    [
+      # Stack frame issue
+      "test_bisect"
+    ];
 
   meta = with lib; {
     homepage = "https://jaxopt.github.io";

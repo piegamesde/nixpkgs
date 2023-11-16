@@ -1,7 +1,11 @@
-{ pkgs ? (import ./.. { }), nixpkgs ? { }}:
+{
+  pkgs ? (import ./.. { }),
+  nixpkgs ? { },
+}:
 let
   doc-support = import ./doc-support { inherit pkgs nixpkgs; };
-in pkgs.stdenv.mkDerivation {
+in
+pkgs.stdenv.mkDerivation {
   name = "nixpkgs-manual";
 
   nativeBuildInputs = with pkgs; [
@@ -14,7 +18,7 @@ in pkgs.stdenv.mkDerivation {
     xmlformat
   ];
 
-  src = pkgs.nix-gitignore.gitignoreSource [] ./.;
+  src = pkgs.nix-gitignore.gitignoreSource [ ] ./.;
 
   postPatch = ''
     ln -s ${doc-support} ./doc-support/result

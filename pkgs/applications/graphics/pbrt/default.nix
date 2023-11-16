@@ -1,4 +1,12 @@
-{lib, stdenv, fetchFromGitHub, flex, bison, cmake, zlib}:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  flex,
+  bison,
+  cmake,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   version = "2018-08-15";
@@ -6,18 +14,23 @@ stdenv.mkDerivation {
 
   src = fetchFromGitHub {
     rev = "86b5821308088deea70b207bc8c22219d0103d65";
-    owner  = "mmp";
-    repo   = "pbrt-v3";
+    owner = "mmp";
+    repo = "pbrt-v3";
     sha256 = "0f7ivsczba6zfk5f0bba1js6dcwf6w6jrkiby147qp1sx5k35cv8";
     fetchSubmodules = true;
   };
 
-  patches = [
-    # https://github.com/mmp/pbrt-v3/issues/196
-    ./openexr-cmake-3.12.patch
-  ];
+  patches =
+    [
+      # https://github.com/mmp/pbrt-v3/issues/196
+      ./openexr-cmake-3.12.patch
+    ];
 
-  nativeBuildInputs = [ flex bison cmake ];
+  nativeBuildInputs = [
+    flex
+    bison
+    cmake
+  ];
   buildInputs = [ zlib ];
 
   meta = with lib; {

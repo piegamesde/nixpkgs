@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, isPy3k
-, python
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  isPy3k,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -47,5 +48,4 @@ buildPythonPackage rec {
     license = licenses.lgpl21;
     maintainers = with maintainers; [ ];
   };
-
 }

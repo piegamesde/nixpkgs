@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, jre, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  jre,
+  makeWrapper,
+}:
 stdenv.mkDerivation rec {
   pname = "h2";
   version = "2.1.210";
@@ -8,7 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "0zcjblhjj98dsj954ia3by9vx5w7mix1dzi85jnvp18kxmbldmf4";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -24,7 +33,8 @@ stdenv.mkDerivation rec {
           echo "You have to provide the full java class path for the h2 tool you want to run. E.g. 'org.h2.tools.Server'"
         fi
       '';
-    in ''
+    in
+    ''
       mkdir -p $out $doc/share/doc/
       cp -R bin $out/
       cp -R docs $doc/share/doc/h2

@@ -1,4 +1,8 @@
-{ appimageTools, lib, fetchurl }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+}:
 let
   pname = "uhk-agent";
   version = "2.1.2";
@@ -12,10 +16,16 @@ let
     name = "${pname}-${version}";
     inherit src;
   };
-in appimageTools.wrapType2 {
+in
+appimageTools.wrapType2 {
   inherit pname version src;
 
-  extraPkgs = pkgs: with pkgs; [ polkit udev ];
+  extraPkgs =
+    pkgs:
+    with pkgs; [
+      polkit
+      udev
+    ];
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/${pname}

@@ -1,24 +1,25 @@
-{ stdenv
-, lib
-, fetchurl
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, libuuid
-, libunwind
-, libxkbcommon
-, icu
-, openssl
-, zlib
-, curl
-, at-spi2-core
-, at-spi2-atk
-, gnutar
-, atomEnv
-, libkrb5
-, libdrm
-, mesa
-, xorg
+{
+  stdenv,
+  lib,
+  fetchurl,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  libuuid,
+  libunwind,
+  libxkbcommon,
+  icu,
+  openssl,
+  zlib,
+  curl,
+  at-spi2-core,
+  at-spi2-atk,
+  gnutar,
+  atomEnv,
+  libkrb5,
+  libdrm,
+  mesa,
+  xorg,
 }:
 
 # from justinwoo/azuredatastudio-nix
@@ -34,8 +35,17 @@ let
     icon = "azuredatastudio";
     startupNotify = true;
     startupWMClass = "azuredatastudio";
-    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
-    mimeTypes = [ "text/plain" "inode/directory" "application/x-azuredatastudio-workspace" ];
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
+    mimeTypes = [
+      "text/plain"
+      "inode/directory"
+      "application/x-azuredatastudio-workspace"
+    ];
     keywords = [ "azuredatastudio" ];
     actions.new-empty-window = {
       name = "New Empty Window";
@@ -53,7 +63,12 @@ let
     icon = "azuredatastudio";
     startupNotify = true;
     startupWMClass = "azuredatastudio";
-    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
     mimeTypes = [ "x-scheme-handler/azuredatastudio" ];
     keywords = [ "azuredatastudio" ];
     noDisplay = true;
@@ -64,7 +79,10 @@ stdenv.mkDerivation rec {
   pname = "azuredatastudio";
   version = "1.35.1";
 
-  desktopItems = [ desktopItem urlHandlerDesktopItem ];
+  desktopItems = [
+    desktopItem
+    urlHandlerDesktopItem
+  ];
 
   src = fetchurl {
     name = "${pname}-${version}.tar.gz";
@@ -116,19 +134,17 @@ stdenv.mkDerivation rec {
 
   rpath = lib.concatStringsSep ":" [
     atomEnv.libPath
-    (
-      lib.makeLibraryPath [
-        libuuid
-        at-spi2-core
-        at-spi2-atk
-        stdenv.cc.cc.lib
-        libkrb5
-        libdrm
-        libxkbcommon
-        mesa
-        xorg.libxshmfence
-      ]
-    )
+    (lib.makeLibraryPath [
+      libuuid
+      at-spi2-core
+      at-spi2-atk
+      stdenv.cc.cc.lib
+      libkrb5
+      libdrm
+      libxkbcommon
+      mesa
+      xorg.libxshmfence
+    ])
     targetPath
     sqltoolsserviceRpath
   ];

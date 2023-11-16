@@ -1,9 +1,22 @@
-{ lib, stdenv, file, makeDesktopItem, cog32, spur32, spur64 ? "none" }:
+{
+  lib,
+  stdenv,
+  file,
+  makeDesktopItem,
+  cog32,
+  spur32,
+  spur64 ? "none",
+}:
 
 stdenv.mkDerivation rec {
   name = "pharo";
   src = ./pharo-vm.sh;
-  inherit cog32 spur32 spur64 file;
+  inherit
+    cog32
+    spur32
+    spur64
+    file
+  ;
   magic = ./magic;
   desktopItem = makeDesktopItem {
     inherit name;
@@ -51,10 +64,8 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.lukego ];
     # Pharo VM sources are packaged separately for darwin (OS X)
-    platforms = lib.filter
-      (system: with lib.systems.elaborate { inherit system; };
-         isUnix && !isDarwin)
-      lib.platforms.mesaPlatforms;
+    platforms =
+      lib.filter (system: with lib.systems.elaborate { inherit system; }; isUnix && !isDarwin)
+        lib.platforms.mesaPlatforms;
   };
 }
-

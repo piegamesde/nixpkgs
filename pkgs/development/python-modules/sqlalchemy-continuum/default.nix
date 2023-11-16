@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flask
-, flask-login
-, flask-sqlalchemy
-, flexmock
-, psycopg2
-, pymysql
-, pytestCheckHook
-, pythonOlder
-, sqlalchemy
-, sqlalchemy-i18n
-, sqlalchemy-utils
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  flask-login,
+  flask-sqlalchemy,
+  flexmock,
+  psycopg2,
+  pymysql,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
+  sqlalchemy-i18n,
+  sqlalchemy-utils,
 }:
 
 buildPythonPackage rec {
@@ -33,21 +34,11 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    flask = [
-      flask
-    ];
-    flask-login = [
-      flask-login
-    ];
-    flask-sqlalchemy = [
-      flask-sqlalchemy
-    ];
-    flexmock = [
-      flexmock
-    ];
-    i18n = [
-      sqlalchemy-i18n
-    ];
+    flask = [ flask ];
+    flask-login = [ flask-login ];
+    flask-sqlalchemy = [ flask-sqlalchemy ];
+    flexmock = [ flexmock ];
+    i18n = [ sqlalchemy-i18n ];
   };
 
   nativeCheckInputs = [
@@ -59,14 +50,13 @@ buildPythonPackage rec {
   # Indicate tests that we don't have a database server at hand
   DB = "sqlite";
 
-  disabledTestPaths = [
-    # Test doesn't support latest SQLAlchemy
-    "tests/plugins/test_flask.py"
-  ];
+  disabledTestPaths =
+    [
+      # Test doesn't support latest SQLAlchemy
+      "tests/plugins/test_flask.py"
+    ];
 
-  pythonImportsCheck = [
-    "sqlalchemy_continuum"
-  ];
+  pythonImportsCheck = [ "sqlalchemy_continuum" ];
 
   meta = with lib; {
     description = "Versioning and auditing extension for SQLAlchemy";

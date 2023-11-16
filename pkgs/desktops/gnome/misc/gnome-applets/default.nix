@@ -1,24 +1,26 @@
-{ lib, stdenv
-, fetchurl
-, gettext
-, itstool
-, libxml2
-, pkg-config
-, gnome-panel
-, gtk3
-, glib
-, libwnck
-, libgtop
-, libnotify
-, upower
-, wirelesstools
-, linuxPackages
-, adwaita-icon-theme
-, libgweather
-, gucharmap
-, tracker
-, polkit
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  itstool,
+  libxml2,
+  pkg-config,
+  gnome-panel,
+  gtk3,
+  glib,
+  libwnck,
+  libgtop,
+  libnotify,
+  upower,
+  wirelesstools,
+  linuxPackages,
+  adwaita-icon-theme,
+  libgweather,
+  gucharmap,
+  tracker,
+  polkit,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,7 +28,9 @@ stdenv.mkDerivation rec {
   version = "3.46.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "TwRjyoDzCUA4WzCcHmkCWIxx2XFQxlQOg083Tk0nrPc=";
   };
 

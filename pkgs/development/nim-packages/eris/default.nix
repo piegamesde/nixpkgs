@@ -1,10 +1,23 @@
-{ lib, buildNimPackage, fetchFromGitea, pkg-config
-, base32, coap, cbor, freedesktop_org, syndicate, tkrzw }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitea,
+  pkg-config,
+  base32,
+  coap,
+  cbor,
+  freedesktop_org,
+  syndicate,
+  tkrzw,
+}:
 
 buildNimPackage rec {
   pname = "eris";
   version = "20230201";
-  outputs = [ "bin" "out" ];
+  outputs = [
+    "bin"
+    "out"
+  ];
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "eris";

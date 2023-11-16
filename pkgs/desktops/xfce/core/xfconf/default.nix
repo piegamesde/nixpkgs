@@ -1,4 +1,10 @@
-{ lib, mkXfceDerivation, libxfce4util, gobject-introspection, vala }:
+{
+  lib,
+  mkXfceDerivation,
+  libxfce4util,
+  gobject-introspection,
+  vala,
+}:
 
 mkXfceDerivation {
   category = "xfce";
@@ -7,7 +13,10 @@ mkXfceDerivation {
 
   sha256 = "sha256-HS+FzzTTAH8lzBBai3ESdnuvvvZW/vAVSmGe57mwcoo=";
 
-  nativeBuildInputs = [ gobject-introspection vala ];
+  nativeBuildInputs = [
+    gobject-introspection
+    vala
+  ];
 
   buildInputs = [ libxfce4util ];
 

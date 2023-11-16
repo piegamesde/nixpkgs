@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "lndmon";
@@ -13,7 +18,9 @@ buildGoModule rec {
 
   vendorSha256 = "06if387b9m02ciqgcissih1x06l33djp87vgspwzz589f77vczk8";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) lnd; };
+  passthru.tests = {
+    inherit (nixosTests.prometheus-exporters) lnd;
+  };
 
   meta = with lib; {
     homepage = "https://github.com/lightninglabs/lndmon";

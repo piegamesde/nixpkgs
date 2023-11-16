@@ -1,14 +1,15 @@
-{ lib
-, aio-geojson-client
-, aiohttp
-, aresponses
-, mock
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pytz
-, pythonOlder
+{
+  lib,
+  aio-geojson-client,
+  aiohttp,
+  aresponses,
+  mock,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytz,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -38,9 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "aio_geojson_geonetnz_volcano"
-  ];
+  pythonImportsCheck = [ "aio_geojson_geonetnz_volcano" ];
 
   meta = with lib; {
     description = "Python module for accessing the GeoNet NZ Volcanic GeoJSON feeds";

@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchpatch
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, tdlib
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  tdlib,
 }:
 
 buildPythonPackage rec {
@@ -18,13 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-Na2NIiVgYexKbEqjN58hfkgxwFdCTL7Z7D3WEhL4wXA=";
   };
 
-  patches = [
-    # Search for the system library first, and fallback to the embedded one if the system was not found
-    (fetchpatch {
-      url = "https://github.com/alexander-akhmetov/python-telegram/commit/b0af0985910ebb8940cff1b92961387aad683287.patch";
-      hash = "sha256-ZqsntaiC2y9l034gXDMeD2BLO/RcsbBII8FomZ65/24=";
-    })
-  ];
+  patches =
+    [
+      # Search for the system library first, and fallback to the embedded one if the system was not found
+      (fetchpatch {
+        url = "https://github.com/alexander-akhmetov/python-telegram/commit/b0af0985910ebb8940cff1b92961387aad683287.patch";
+        hash = "sha256-ZqsntaiC2y9l034gXDMeD2BLO/RcsbBII8FomZ65/24=";
+      })
+    ];
 
   postPatch = ''
     # Remove bundled libtdjson
@@ -35,13 +37,9 @@ buildPythonPackage rec {
                 "\"${tdlib}/lib/libtdjson${stdenv.hostPlatform.extensions.sharedLibrary}\""
   '';
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
-  pythonImportsCheck = [
-    "telegram.client"
-  ];
+  pythonImportsCheck = [ "telegram.client" ];
 
   meta = with lib; {
     description = "Python client for the Telegram's tdlib";

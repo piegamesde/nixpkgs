@@ -1,6 +1,7 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
 }:
 
 buildGoModule rec {
@@ -19,17 +20,12 @@ buildGoModule rec {
   # Tests need docker
   doCheck = false;
 
-  ldflags = [
-    "-X github.com/bluenviron/mediamtx/internal/core.version=v${version}"
-  ];
+  ldflags = [ "-X github.com/bluenviron/mediamtx/internal/core.version=v${version}" ];
 
   meta = with lib; {
-    description =
-      "Ready-to-use RTSP server and RTSP proxy that allows to read and publish video and audio streams"
-    ;
+    description = "Ready-to-use RTSP server and RTSP proxy that allows to read and publish video and audio streams";
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
-
 }

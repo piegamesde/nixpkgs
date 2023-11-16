@@ -1,6 +1,17 @@
-{ alsa-lib, autoPatchelfHook, fetchurl, gtk3, libnotify
-, makeDesktopItem, makeWrapper, nss, lib, stdenv, udev, xdg-utils
-, xorg
+{
+  alsa-lib,
+  autoPatchelfHook,
+  fetchurl,
+  gtk3,
+  libnotify,
+  makeDesktopItem,
+  makeWrapper,
+  nss,
+  lib,
+  stdenv,
+  udev,
+  xdg-utils,
+  xorg,
 }:
 
 let
@@ -17,9 +28,9 @@ let
     categories = [ "Network" ];
   };
 
-  tarball = "Wavebox_${lib.replaceStrings ["."] ["_"] (toString version)}_linux_${bits}.tar.gz";
-
-in stdenv.mkDerivation {
+  tarball = "Wavebox_${lib.replaceStrings [ "." ] [ "_" ] (toString version)}_linux_${bits}.tar.gz";
+in
+stdenv.mkDerivation {
   pname = "wavebox";
   inherit version;
   src = fetchurl {
@@ -30,15 +41,28 @@ in stdenv.mkDerivation {
   # don't remove runtime deps
   dontPatchELF = true;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
-
-  buildInputs = with xorg; [
-    libXdmcp libXScrnSaver libXtst
-  ] ++ [
-    alsa-lib gtk3 nss
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
   ];
 
-  runtimeDependencies = [ (lib.getLib udev) libnotify ];
+  buildInputs =
+    with xorg;
+    [
+      libXdmcp
+      libXScrnSaver
+      libXtst
+    ]
+    ++ [
+      alsa-lib
+      gtk3
+      nss
+    ];
+
+  runtimeDependencies = [
+    (lib.getLib udev)
+    libnotify
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt/wavebox
@@ -61,7 +85,7 @@ in stdenv.mkDerivation {
     homepage = "https://wavebox.io";
     license = licenses.mpl20;
     maintainers = with maintainers; [ rawkode ];
-    platforms = ["x86_64-linux"];
-    hydraPlatforms = [];
+    platforms = [ "x86_64-linux" ];
+    hydraPlatforms = [ ];
   };
 }

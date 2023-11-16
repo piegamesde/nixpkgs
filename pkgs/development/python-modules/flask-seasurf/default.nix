@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, flask, mock, unittestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  isPy3k,
+  flask,
+  mock,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-SeaSurf";

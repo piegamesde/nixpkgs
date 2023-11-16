@@ -1,18 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nix-update-script
-, orjson
-, pandas
-, poetry-core
-, pytest-mock
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pythonRelaxDepsHook
-, requests
-, typer
-, websocket-client
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nix-update-script,
+  orjson,
+  pandas,
+  poetry-core,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  requests,
+  typer,
+  websocket-client,
 }:
 
 buildPythonPackage rec {
@@ -30,9 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-Koll0pod0vSW/F3veGTn8JYOMQI61REUW6Eh+TDJKNI=";
   };
 
-  pythonRelaxDeps = [
-    "typer"
-  ];
+  pythonRelaxDeps = [ "typer" ];
 
   nativeBuildInputs = [
     poetry-core
@@ -52,15 +51,11 @@ buildPythonPackage rec {
     pytest-mock
   ] ++ passthru.optional-dependencies.pandas;
 
-  pythonImportsCheck = [
-    "coinmetrics.api_client"
-  ];
+  pythonImportsCheck = [ "coinmetrics.api_client" ];
 
   passthru = {
     optional-dependencies = {
-      pandas = [
-        pandas
-      ];
+      pandas = [ pandas ];
     };
     updateScript = nix-update-script { };
   };

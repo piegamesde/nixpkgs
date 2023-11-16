@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchzip
-, unzip
-, autoPatchelfHook
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, lttng-ust
-, libkrb5
-, zlib
-, fontconfig
-, openssl
-, libX11
-, libICE
-, libSM
-, icu
+{
+  lib,
+  stdenv,
+  fetchzip,
+  unzip,
+  autoPatchelfHook,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  lttng-ust,
+  libkrb5,
+  zlib,
+  fontconfig,
+  openssl,
+  libX11,
+  libICE,
+  libSM,
+  icu,
 }:
 
 stdenv.mkDerivation rec {
@@ -73,21 +74,21 @@ stdenv.mkDerivation rec {
   '';
   dontStrip = true;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "ILSpy";
-    desktopName = "ILSpy";
-    exec = "ILSpy";
-    icon = "ILSpy";
-    comment = ".NET assembly browser and decompiler";
-    categories = [
-      "Development"
-    ];
-    keywords = [
-      ".net"
-      "il"
-      "assembly"
-    ];
-  }) ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "ILSpy";
+      desktopName = "ILSpy";
+      exec = "ILSpy";
+      icon = "ILSpy";
+      comment = ".NET assembly browser and decompiler";
+      categories = [ "Development" ];
+      keywords = [
+        ".net"
+        "il"
+        "assembly"
+      ];
+    })
+  ];
 
   meta = with lib; {
     description = ".NET assembly browser and decompiler";

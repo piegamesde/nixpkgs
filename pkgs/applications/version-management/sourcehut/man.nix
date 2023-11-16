@@ -1,9 +1,10 @@
-{ lib
-, fetchFromSourcehut
-, buildPythonPackage
-, srht
-, pygit2
-, python
+{
+  lib,
+  fetchFromSourcehut,
+  buildPythonPackage,
+  srht,
+  pygit2,
+  python,
 }:
 
 buildPythonPackage rec {

@@ -1,13 +1,14 @@
-{ lib
-, mkXfceDerivation
-, ffmpegthumbnailer
-, gdk-pixbuf
-, glib
-, freetype
-, libgsf
-, poppler
-, gst_all_1
-, libxfce4util
+{
+  lib,
+  mkXfceDerivation,
+  ffmpegthumbnailer,
+  gdk-pixbuf,
+  glib,
+  freetype,
+  libgsf,
+  poppler,
+  gst_all_1,
+  libxfce4util,
 }:
 
 # TODO: add libopenraw

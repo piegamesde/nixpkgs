@@ -1,10 +1,22 @@
-{ stdenv, fetchurl, fetchpatch, perl, file, nettools, iputils, iproute2, makeWrapper
-, coreutils, gnused, openldap ? null
-, buildPackages, lib
+{
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  perl,
+  file,
+  nettools,
+  iputils,
+  iproute2,
+  makeWrapper,
+  coreutils,
+  gnused,
+  openldap ? null,
+  buildPackages,
+  lib,
 
-# client and relay are end of life, remove after 4.4.3
-, withClient ? false
-, withRelay ? false
+  # client and relay are end of life, remove after 4.4.3
+  withClient ? false,
+  withRelay ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -24,24 +36,32 @@ stdenv.mkDerivation rec {
       ./set-hostname.patch
     ];
 
-  nativeBuildInputs = [ perl makeWrapper ];
+  nativeBuildInputs = [
+    perl
+    makeWrapper
+  ];
 
   buildInputs = [ openldap ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  configureFlags = [
-    "--enable-failover"
-    "--enable-execute"
-    "--enable-tracing"
-    "--enable-delayed-ack"
-    "--enable-dhcpv6"
-    "--enable-paranoia"
-    "--enable-early-chroot"
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ] ++ lib.optional stdenv.isLinux "--with-randomdev=/dev/random"
-    ++ lib.optionals (openldap != null) [ "--with-ldap" "--with-ldapcrypto" ]
+  configureFlags =
+    [
+      "--enable-failover"
+      "--enable-execute"
+      "--enable-tracing"
+      "--enable-delayed-ack"
+      "--enable-dhcpv6"
+      "--enable-paranoia"
+      "--enable-early-chroot"
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+    ]
+    ++ lib.optional stdenv.isLinux "--with-randomdev=/dev/random"
+    ++ lib.optionals (openldap != null) [
+      "--with-ldap"
+      "--with-ldapcrypto"
+    ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "BUILD_CC=$(CC_FOR_BUILD)";
 
   env.NIX_CFLAGS_COMPILE = builtins.toString [
@@ -67,20 +87,21 @@ stdenv.mkDerivation rec {
         --replace /sbin/ip ${iproute2}/sbin/ip
       wrapProgram "$out/sbin/dhclient-script" --prefix PATH : \
         "${nettools}/bin:${nettools}/sbin:${iputils}/bin:${coreutils}/bin:${gnused}/bin"
-    '' + lib.optionalString (!withClient) ''
+    ''
+    + lib.optionalString (!withClient) ''
       rm $out/sbin/{dhclient,dhclient-script,.dhclient-script-wrapped}
-    '' + lib.optionalString (!withRelay) ''
+    ''
+    + lib.optionalString (!withRelay) ''
       rm $out/sbin/dhcrelay
     '';
 
-  preConfigure =
-    ''
-      substituteInPlace configure --replace "/usr/bin/file" "${file}/bin/file"
-      sed -i "includes/dhcpd.h" \
-          -e "s|^ *#define \+_PATH_DHCLIENT_SCRIPT.*$|#define _PATH_DHCLIENT_SCRIPT \"$out/sbin/dhclient-script\"|g"
+  preConfigure = ''
+    substituteInPlace configure --replace "/usr/bin/file" "${file}/bin/file"
+    sed -i "includes/dhcpd.h" \
+        -e "s|^ *#define \+_PATH_DHCLIENT_SCRIPT.*$|#define _PATH_DHCLIENT_SCRIPT \"$out/sbin/dhclient-script\"|g"
 
-      export AR='${stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar'
-    '';
+    export AR='${stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar'
+  '';
 
   enableParallelBuilding = true;
 
@@ -92,11 +113,13 @@ stdenv.mkDerivation rec {
       provides a freely redistributable reference implementation of
       all aspects of DHCP, through a suite of DHCP tools: server,
       client, and relay agent.
-   '';
+    '';
 
     homepage = "https://www.isc.org/dhcp/";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    knownVulnerabilities = lib.optional (withClient || withRelay) "The client and relay component of the dhcp package have reached their end of life";
+    knownVulnerabilities =
+      lib.optional (withClient || withRelay)
+        "The client and relay component of the dhcp package have reached their end of life";
   };
 }

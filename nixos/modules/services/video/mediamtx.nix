@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.mediamtx;
   package = pkgs.mediamtx;
-  format = pkgs.formats.yaml {};
+  format = pkgs.formats.yaml { };
 in
 {
   options = {
@@ -21,9 +26,7 @@ in
 
         default = {
           logLevel = "info";
-          logDestinations = [
-            "stdout"
-          ];
+          logDestinations = [ "stdout" ];
           # we set this so when the user uses it, it just works (see LogsDirectory below). but it's not used by default.
           logFile = "/var/log/mediamtx/mediamtx.log";
         };
@@ -41,7 +44,7 @@ in
       env = mkOption {
         type = with types; attrsOf anything;
         description = lib.mdDoc "Extra environment variables for MediaMTX";
-        default = {};
+        default = { };
         example = {
           MTX_CONFKEY = "mykey";
         };
@@ -59,9 +62,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = with pkgs; [
-        ffmpeg
-      ];
+      path = with pkgs; [ ffmpeg ];
 
       serviceConfig = {
         DynamicUser = true;

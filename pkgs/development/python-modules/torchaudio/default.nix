@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cmake
-, pkg-config
-, ninja
-, pybind11
-, torch
-, cudaSupport ? false
-, cudaPackages
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  ninja,
+  pybind11,
+  torch,
+  cudaSupport ? false,
+  cudaPackages,
 }:
 
 buildPythonPackage rec {
@@ -31,22 +32,14 @@ buildPythonPackage rec {
     cmake
     pkg-config
     ninja
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.cudatoolkit
-  ];
-  buildInputs = [
-    pybind11
-  ] ++ lib.optionals cudaSupport [
-    cudaPackages.cudnn
-  ];
-  propagatedBuildInputs = [
-    torch
-  ];
+  ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
+  buildInputs = [ pybind11 ] ++ lib.optionals cudaSupport [ cudaPackages.cudnn ];
+  propagatedBuildInputs = [ torch ];
 
-  BUILD_SOX=0;
-  BUILD_KALDI=0;
-  BUILD_RNNT=0;
-  BUILD_CTC_DECODER=0;
+  BUILD_SOX = 0;
+  BUILD_KALDI = 0;
+  BUILD_RNNT = 0;
+  BUILD_CTC_DECODER = 0;
 
   dontUseCmakeConfigure = true;
 

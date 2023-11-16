@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.keyd;
@@ -12,7 +17,10 @@ in
       ids = mkOption {
         type = types.listOf types.string;
         default = [ "*" ];
-        example = [ "*" "-0123:0456" ];
+        example = [
+          "*"
+          "-0123:0456"
+        ];
         description = lib.mdDoc ''
           Device identifiers, as shown by {manpage}`keyd(1)`.
         '';
@@ -43,16 +51,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."keyd/default.conf".source = pkgs.runCommand "default.conf"
-      {
-        ids = ''
-          [ids]
-          ${concatStringsSep "\n" cfg.ids}
+    environment.etc."keyd/default.conf".source =
+      pkgs.runCommand "default.conf"
+        {
+          ids = ''
+            [ids]
+            ${concatStringsSep "\n" cfg.ids}
+          '';
+          passAsFile = [ "ids" ];
+        }
+        ''
+          cat $idsPath <(echo) ${settingsFormat.generate "keyd-main.conf" cfg.settings} >$out
         '';
-        passAsFile = [ "ids" ];
-      } ''
-      cat $idsPath <(echo) ${settingsFormat.generate "keyd-main.conf" cfg.settings} >$out
-    '';
 
     hardware.uinput.enable = lib.mkDefault true;
 
@@ -62,9 +72,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-      restartTriggers = [
-        config.environment.etc."keyd/default.conf".source
-      ];
+      restartTriggers = [ config.environment.etc."keyd/default.conf".source ];
 
       # this is configurable in 2.4.2, later versions seem to remove this option.
       # post-2.4.2 may need to set makeFlags in the derivation:

@@ -1,11 +1,13 @@
-{ lib, stdenv
-, makeWrapper
-, fetchFromGitHub
-, nixosTests
-, gradle
-, perl
-, jre
-, libpulseaudio
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchFromGitHub,
+  nixosTests,
+  gradle,
+  perl,
+  jre,
+  libpulseaudio,
 }:
 
 let
@@ -19,9 +21,7 @@ let
     sha256 = "sha256-gg8FHLkw964mYejXvK5GClTvTLGK3FyXR8Kkxjl/pRs=";
   };
 
-  patches = [
-    ./disable-beryx.patch
-  ];
+  patches = [ ./disable-beryx.patch ];
 
   postPatch = ''
     # disable gradle plugins with native code and their targets
@@ -34,8 +34,16 @@ let
   # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
-    inherit version src patches postPatch;
-    nativeBuildInputs = [ gradle perl ];
+    inherit
+      version
+      src
+      patches
+      postPatch
+    ;
+    nativeBuildInputs = [
+      gradle
+      perl
+    ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       # https://github.com/gradle/gradle/issues/4426
@@ -51,11 +59,21 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-ojwvs6j3R31723lfRlKdeyR5+txnetyK3foJTLqy28Q=";
   };
+in
+stdenv.mkDerivation rec {
+  inherit
+    pname
+    version
+    src
+    patches
+    postPatch
+  ;
 
-in stdenv.mkDerivation rec {
-  inherit pname version src patches postPatch;
-
-  nativeBuildInputs = [ gradle perl makeWrapper ];
+  nativeBuildInputs = [
+    gradle
+    perl
+    makeWrapper
+  ];
 
   buildPhase = ''
     export GRADLE_USER_HOME=$(mktemp -d)
@@ -84,7 +102,7 @@ in stdenv.mkDerivation rec {
     description = "Traditional roguelike game with pixel-art graphics and simple interface";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ fgaz ];

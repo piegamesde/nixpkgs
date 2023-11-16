@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook
-, cinnamon
-, glib
-, gsettings-desktop-schemas
-, gtk3
-, mate
-, xdg-desktop-portal
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wrapGAppsHook,
+  cinnamon,
+  glib,
+  gsettings-desktop-schemas,
+  gtk3,
+  mate,
+  xdg-desktop-portal,
 }:
 
 stdenv.mkDerivation rec {
@@ -42,9 +43,7 @@ stdenv.mkDerivation rec {
     xdg-desktop-portal
   ];
 
-  mesonFlags = [
-    "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
-  ];
+  mesonFlags = [ "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user" ];
 
   postPatch = ''
     chmod +x data/meson_install_schemas.py

@@ -1,14 +1,15 @@
-{ lib
-, azure-common
-, azure-core
-, buildPythonPackage
-, fetchPypi
-, isodate
-, msrestazure
-, pythonOlder
-, six
-, typing-extensions
-, uamqp
+{
+  lib,
+  azure-common,
+  azure-core,
+  buildPythonPackage,
+  fetchPypi,
+  isodate,
+  msrestazure,
+  pythonOlder,
+  six,
+  typing-extensions,
+  uamqp,
 }:
 
 buildPythonPackage rec {
@@ -37,9 +38,7 @@ buildPythonPackage rec {
   # Tests require dev-tools
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.servicebus"
-  ];
+  pythonImportsCheck = [ "azure.servicebus" ];
 
   meta = with lib; {
     description = "Microsoft Azure Service Bus Client Library";

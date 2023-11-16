@@ -1,18 +1,19 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, dataproperty
-, mbstrdecoder
-, pathvalidate
-, setuptools
-, tabledata
-, tcolorpy
-, typepy
-, pytestCheckHook
-, pyyaml
-, toml
-, elasticsearch
-, dominate
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  dataproperty,
+  mbstrdecoder,
+  pathvalidate,
+  setuptools,
+  tabledata,
+  tcolorpy,
+  typepy,
+  pytestCheckHook,
+  pyyaml,
+  toml,
+  elasticsearch,
+  dominate,
 }:
 
 buildPythonPackage rec {
@@ -35,7 +36,12 @@ buildPythonPackage rec {
     typepy
   ];
 
-  checkInputs = [ pyyaml toml elasticsearch dominate ];
+  checkInputs = [
+    pyyaml
+    toml
+    elasticsearch
+    dominate
+  ];
   nativeCheckInputs = [ pytestCheckHook ];
   # Circular dependency
   disabledTests = [

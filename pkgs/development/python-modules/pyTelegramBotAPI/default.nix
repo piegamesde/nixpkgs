@@ -1,19 +1,20 @@
-{ lib
-, aiohttp
-, aioredis
-, buildPythonPackage
-, coloredlogs
-, fastapi
-, fetchFromGitHub
-, pillow
-, psutil
-, pytestCheckHook
-, pythonOlder
-, redis
-, requests
-, ujson
-, uvicorn
-, watchdog
+{
+  lib,
+  aiohttp,
+  aioredis,
+  buildPythonPackage,
+  coloredlogs,
+  fastapi,
+  fetchFromGitHub,
+  pillow,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  requests,
+  ujson,
+  uvicorn,
+  watchdog,
 }:
 
 buildPythonPackage rec {
@@ -31,47 +32,24 @@ buildPythonPackage rec {
   };
 
   passthru.optional-dependencies = {
-    json = [
-      ujson
-    ];
-    PIL = [
-      pillow
-    ];
-    redis = [
-      redis
-    ];
-    aioredis = [
-      aioredis
-    ];
-    aiohttp = [
-      aiohttp
-    ];
-    fastapi = [
-      fastapi
-    ];
-    uvicorn = [
-      uvicorn
-    ];
-    psutil = [
-      psutil
-    ];
-    coloredlogs = [
-      coloredlogs
-    ];
-    watchdog = [
-      watchdog
-    ];
+    json = [ ujson ];
+    PIL = [ pillow ];
+    redis = [ redis ];
+    aioredis = [ aioredis ];
+    aiohttp = [ aiohttp ];
+    fastapi = [ fastapi ];
+    uvicorn = [ uvicorn ];
+    psutil = [ psutil ];
+    coloredlogs = [ coloredlogs ];
+    watchdog = [ watchdog ];
   };
 
   checkInputs = [
     pytestCheckHook
     requests
-  ] ++ passthru.optional-dependencies.watchdog
-  ++ passthru.optional-dependencies.aiohttp;
+  ] ++ passthru.optional-dependencies.watchdog ++ passthru.optional-dependencies.aiohttp;
 
-  pythonImportsCheck = [
-    "telebot"
-  ];
+  pythonImportsCheck = [ "telebot" ];
 
   meta = with lib; {
     description = "Python implementation for the Telegram Bot API";

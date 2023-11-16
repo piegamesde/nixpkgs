@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, buildGoPackage, git, which, removeReferencesTo, go }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoPackage,
+  git,
+  which,
+  removeReferencesTo,
+  go,
+}:
 
 buildGoPackage rec {
   pname = "quorum";
@@ -13,7 +21,10 @@ buildGoPackage rec {
     sha256 = "0xfdaqp9bj5dkw12gy19lxj73zh7w80j051xclsvnd41sfah86ll";
   };
 
-  buildInputs = [ git which ];
+  buildInputs = [
+    git
+    which
+  ];
 
   buildPhase = ''
     cd "go/src/$goPackagePath"
@@ -36,6 +47,6 @@ buildGoPackage rec {
     homepage = "https://www.goquorum.com/";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ mmahut ];
-    platforms = subtractLists ["aarch64-linux"] platforms.linux;
+    platforms = subtractLists [ "aarch64-linux" ] platforms.linux;
   };
 }

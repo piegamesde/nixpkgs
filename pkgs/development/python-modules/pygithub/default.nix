@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, deprecated
-, fetchFromGitHub
-, pynacl
-, pyjwt
-, pythonOlder
-, requests
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  deprecated,
+  fetchFromGitHub,
+  pynacl,
+  pyjwt,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {

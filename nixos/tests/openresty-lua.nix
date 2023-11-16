@@ -1,8 +1,7 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix (
+  { pkgs, lib, ... }:
   let
-    lualibs = [
-      pkgs.lua.pkgs.markdown
-    ];
+    lualibs = [ pkgs.lua.pkgs.markdown ];
 
     getPath = lib: type: "${lib}/share/lua/${pkgs.lua.luaversion}/?.${type}";
     getLuaPath = lib: getPath lib "lua";
@@ -10,37 +9,38 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
   in
   {
     name = "openresty-lua";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [ bbigras ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
 
     nodes = {
-      webserver = { pkgs, lib, ... }: {
-        services.nginx = {
-          enable = true;
-          package = pkgs.openresty;
+      webserver =
+        { pkgs, lib, ... }:
+        {
+          services.nginx = {
+            enable = true;
+            package = pkgs.openresty;
 
-          commonHttpConfig = ''
-            lua_package_path '${luaPath};;';
-          '';
+            commonHttpConfig = ''
+              lua_package_path '${luaPath};;';
+            '';
 
-          virtualHosts."default" = {
-            default = true;
-            locations."/" = {
-              extraConfig = ''
-                default_type text/html;
-                access_by_lua '
-                  local markdown = require "markdown"
-                  markdown("source")
-                ';
-              '';
+            virtualHosts."default" = {
+              default = true;
+              locations."/" = {
+                extraConfig = ''
+                  default_type text/html;
+                  access_by_lua '
+                    local markdown = require "markdown"
+                    markdown("source")
+                  ';
+                '';
+              };
             };
           };
         };
-      };
     };
 
-    testScript = { nodes, ... }:
+    testScript =
+      { nodes, ... }:
       ''
         url = "http://localhost"
 
@@ -52,4 +52,5 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
         )
         assert http_code.split("\n")[-1] == "200"
       '';
-  })
+  }
+)

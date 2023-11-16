@@ -1,21 +1,22 @@
-{ stdenv
-, lib
-, fetchurl
-, cmake
-, coreutils
-, curl
-, file
-, glibc
-, makeWrapper
-, nixosTests
-, protobuf
-, python3
-, sgx-sdk
-, shadow
-, systemd
-, util-linux
-, which
-, debug ? false
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  coreutils,
+  curl,
+  file,
+  glibc,
+  makeWrapper,
+  nixosTests,
+  protobuf,
+  python3,
+  sgx-sdk,
+  shadow,
+  systemd,
+  util-linux,
+  which,
+  debug ? false,
 }:
 stdenv.mkDerivation rec {
   inherit (sgx-sdk) version versionTag src;
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec {
         };
       };
     in
-    sgx-sdk.postUnpack + ''
+    sgx-sdk.postUnpack
+    + ''
       # Make sure we use the correct version of prebuilt DCAP
       grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
         || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
@@ -59,9 +61,7 @@ stdenv.mkDerivation rec {
     protobuf
   ];
 
-  hardeningDisable = lib.optionals debug [
-    "fortify"
-  ];
+  hardeningDisable = lib.optionals debug [ "fortify" ];
 
   postPatch = ''
     patchShebangs \
@@ -75,11 +75,7 @@ stdenv.mkDerivation rec {
   # Randomly fails if enabled
   enableParallelBuilding = false;
 
-  buildFlags = [
-    "psw_install_pkg"
-  ] ++ lib.optionals debug [
-    "DEBUG=1"
-  ];
+  buildFlags = [ "psw_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
   installFlags = [
     "-C linux/installer/common/psw/output"
@@ -162,7 +158,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel SGX Architectural Enclave Service Manager";
     homepage = "https://github.com/intel/linux-sgx";
-    maintainers = with maintainers; [ veehaitch citadelcore ];
+    maintainers = with maintainers; [
+      veehaitch
+      citadelcore
+    ];
     platforms = [ "x86_64-linux" ];
     license = with licenses; [ bsd3 ];
   };

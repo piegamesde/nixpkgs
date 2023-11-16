@@ -1,8 +1,19 @@
-{ lib, fetchurl, buildDunePackage, ocaml, dune-configurator, pkg-config
-, optint
-, fmt, rresult, bos, fpath, astring, alcotest
-, withFreestanding ? false
-, ocaml-freestanding
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  dune-configurator,
+  pkg-config,
+  optint,
+  fmt,
+  rresult,
+  bos,
+  fpath,
+  astring,
+  alcotest,
+  withFreestanding ? false,
+  ocaml-freestanding,
 }:
 
 buildDunePackage rec {
@@ -19,11 +30,7 @@ buildDunePackage rec {
 
   buildInputs = [ dune-configurator ];
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [
-    optint
-  ] ++ lib.optionals withFreestanding [
-    ocaml-freestanding
-  ];
+  propagatedBuildInputs = [ optint ] ++ lib.optionals withFreestanding [ ocaml-freestanding ];
 
   checkInputs = [
     alcotest

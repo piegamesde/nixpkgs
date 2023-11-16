@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, openblas
-, blas
-, lapack
-, openfst
-, icu
-, cmake
-, pkg-config
-, fetchFromGitHub
-, git
-, python3
-, Accelerate
+{
+  lib,
+  stdenv,
+  openblas,
+  blas,
+  lapack,
+  openfst,
+  icu,
+  cmake,
+  pkg-config,
+  fetchFromGitHub,
+  git,
+  python3,
+  Accelerate,
 }:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
@@ -70,15 +71,16 @@ stdenv.mkDerivation {
     export PATH=$(pwd)/bin:$PATH
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   buildInputs = [
     openblas
     openfst
     icu
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ Accelerate ];
 
   nativeBuildInputs = [
     cmake

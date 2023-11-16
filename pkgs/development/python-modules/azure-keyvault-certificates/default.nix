@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, azure-common
-, azure-core
-, msrest
-, msrestazure
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-core,
+  msrest,
+  msrestazure,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -28,16 +29,12 @@ buildPythonPackage rec {
     msrestazure
   ];
 
-  pythonNamespaces = [
-    "azure.keyvault"
-  ];
+  pythonNamespaces = [ "azure.keyvault" ];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.keyvault.certificates"
-  ];
+  pythonImportsCheck = [ "azure.keyvault.certificates" ];
 
   meta = with lib; {
     description = "Microsoft Azure Key Vault Certificates Client Library for Python";

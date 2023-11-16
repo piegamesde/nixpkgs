@@ -1,8 +1,22 @@
-{ lib, stdenv, makeWrapper, fetchurl, which, pkg-config
-, libjpeg
-, ocamlPackages
-, awscli2, curl, ffmpeg, youtube-dl
-, runtimePackages ? [ awscli2 curl ffmpeg youtube-dl ]
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  which,
+  pkg-config,
+  libjpeg,
+  ocamlPackages,
+  awscli2,
+  curl,
+  ffmpeg,
+  youtube-dl,
+  runtimePackages ? [
+    awscli2
+    curl
+    ffmpeg
+    youtube-dl
+  ],
 }:
 
 let
@@ -23,13 +37,16 @@ stdenv.mkDerivation {
       --prefix PATH : ${lib.makeBinPath runtimePackages}
   '';
 
-
   strictDeps = true;
 
-  nativeBuildInputs =
-    [ makeWrapper pkg-config which
-      ocamlPackages.ocaml ocamlPackages.findlib ocamlPackages.menhir
-    ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    which
+    ocamlPackages.ocaml
+    ocamlPackages.findlib
+    ocamlPackages.menhir
+  ];
 
   buildInputs = [
     libjpeg
@@ -39,7 +56,8 @@ stdenv.mkDerivation {
     ocamlPackages.duppy
     ocamlPackages.mm
     ocamlPackages.ocaml_pcre
-    ocamlPackages.menhir ocamlPackages.menhirLib
+    ocamlPackages.menhir
+    ocamlPackages.menhirLib
     ocamlPackages.camomile
     ocamlPackages.ocurl
     ocamlPackages.uri
@@ -96,8 +114,11 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Swiss-army knife for multimedia streaming";
     homepage = "https://www.liquidsoap.info/";
-    maintainers = with maintainers; [ dandellion ehmry ];
+    maintainers = with maintainers; [
+      dandellion
+      ehmry
+    ];
     license = licenses.gpl2Plus;
-    platforms = ocamlPackages.ocaml.meta.platforms or [];
+    platforms = ocamlPackages.ocaml.meta.platforms or [ ];
   };
 }

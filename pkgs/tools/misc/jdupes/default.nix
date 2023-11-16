@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jdupes";
@@ -6,8 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "jbruchon";
-    repo  = "jdupes";
-    rev   = "v${version}";
+    repo = "jdupes";
+    rev = "v${version}";
     sha256 = "sha256-nDyRaV49bLVHlyqKJ7hf6OBWOLCfmHrTeHryK091c3w=";
     # Unicode file names lead to different checksums on HFS+ vs. other
     # filesystems because of unicode normalisation. The testdir
@@ -35,14 +40,13 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ] ++ lib.optionals stdenv.isLinux [
-    "ENABLE_DEDUPE=1"
-    "STATIC_DEDUPE_H=1"
-  ] ++ lib.optionals stdenv.cc.isGNU [
-    "HARDEN=1"
-  ];
+  makeFlags =
+    [ "PREFIX=${placeholder "out"}" ]
+    ++ lib.optionals stdenv.isLinux [
+      "ENABLE_DEDUPE=1"
+      "STATIC_DEDUPE_H=1"
+    ]
+    ++ lib.optionals stdenv.cc.isGNU [ "HARDEN=1" ];
 
   enableParallelBuilding = true;
 

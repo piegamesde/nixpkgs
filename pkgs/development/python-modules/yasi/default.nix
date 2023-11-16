@@ -1,8 +1,9 @@
-{ lib
-, buildPythonApplication
-, colorama
-, fetchFromGitHub
-, pytestCheckHook
+{
+  lib,
+  buildPythonApplication,
+  colorama,
+  fetchFromGitHub,
+  pytestCheckHook,
 }:
 
 buildPythonApplication rec {
@@ -17,13 +18,9 @@ buildPythonApplication rec {
     hash = "sha256-xKhVTmh/vrtBkatxtk8R4yqbGroH0I+xTKNYUpuikt4=";
   };
 
-  propagatedBuildInputs = [
-    colorama
-  ];
+  propagatedBuildInputs = [ colorama ];
 
-  nativeBuildInputs = [
-    pytestCheckHook
-  ];
+  nativeBuildInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \

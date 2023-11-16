@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-storage
-, google-cloud-testutils
-, libcst
-, mock
-, pandas
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-storage,
+  google-cloud-testutils,
+  libcst,
+  mock,
+  pandas,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -33,15 +34,9 @@ buildPythonPackage rec {
   ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
-    libcst = [
-      libcst
-    ];
-    pandas = [
-      pandas
-    ];
-    storage = [
-      google-cloud-storage
-    ];
+    libcst = [ libcst ];
+    pandas = [ pandas ];
+    storage = [ google-cloud-storage ];
   };
 
   nativeCheckInputs = [
@@ -58,15 +53,17 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  disabledTestPaths = [
-    # requires credentials
-    "tests/system/gapic/v1beta1/test_system_tables_client_v1.py"
-  ];
+  disabledTestPaths =
+    [
+      # requires credentials
+      "tests/system/gapic/v1beta1/test_system_tables_client_v1.py"
+    ];
 
-  disabledTests = [
-    # requires credentials
-    "test_prediction_client_client_info"
-  ];
+  disabledTests =
+    [
+      # requires credentials
+      "test_prediction_client_client_info"
+    ];
 
   pythonImportsCheck = [
     "google.cloud.automl"

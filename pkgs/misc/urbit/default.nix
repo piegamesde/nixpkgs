@@ -1,6 +1,7 @@
-{ stdenv
-, lib
-, fetchzip
+{
+  stdenv,
+  lib,
+  fetchzip,
 }:
 
 let
@@ -14,12 +15,14 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/urbit/vere/releases/download/vere-v${version}/${platform}.tgz";
-    sha256 = {
-      x86_64-linux = "sha256-CX3KoB5NNZBfikARh0ikeKQocaGIhbWcZsTFWOFk5oI=";
-      aarch64-linux = "sha256-PHVh4ktUe2HIPyudiwEUNuAfwOu4yCI9lxgbjrIllSU=";
-      x86_64-darwin = "sha256-lACh1UYtGrZUw+dtR0Ye6zqdtgp7llV9EkUoGOi+V4c=";
-      aarch64-darwin = "sha256-IRVMIriFVEsv69yUCxsiUaEgIlc618tf9dHiz76D+ug=";
-    }.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
+    sha256 =
+      {
+        x86_64-linux = "sha256-CX3KoB5NNZBfikARh0ikeKQocaGIhbWcZsTFWOFk5oI=";
+        aarch64-linux = "sha256-PHVh4ktUe2HIPyudiwEUNuAfwOu4yCI9lxgbjrIllSU=";
+        x86_64-darwin = "sha256-lACh1UYtGrZUw+dtR0Ye6zqdtgp7llV9EkUoGOi+V4c=";
+        aarch64-darwin = "sha256-IRVMIriFVEsv69yUCxsiUaEgIlc618tf9dHiz76D+ug=";
+      }
+      .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
   };
 
   postInstall = ''
@@ -31,7 +34,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://urbit.org";
     description = "An operating function";
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     maintainers = [ maintainers.matthew-levan ];
     license = licenses.mit;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

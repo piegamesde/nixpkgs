@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -13,67 +18,69 @@ let
 
   sessionDbPath = "${stateDir}/session.db";
 
-  configFile = pkgs.writeText "ankisyncd.conf" (lib.generators.toINI {} {
-    sync_app = {
-      host = cfg.host;
-      port = cfg.port;
-      data_root = stateDir;
-      auth_db_path = authDbPath;
-      session_db_path = sessionDbPath;
+  configFile = pkgs.writeText "ankisyncd.conf" (
+    lib.generators.toINI { } {
+      sync_app = {
+        host = cfg.host;
+        port = cfg.port;
+        data_root = stateDir;
+        auth_db_path = authDbPath;
+        session_db_path = sessionDbPath;
 
-      base_url = "/sync/";
-      base_media_url = "/msync/";
-    };
-  });
+        base_url = "/sync/";
+        base_media_url = "/msync/";
+      };
+    }
+  );
 in
-  {
-    options.services.ankisyncd = {
-      enable = mkEnableOption (lib.mdDoc "ankisyncd");
+{
+  options.services.ankisyncd = {
+    enable = mkEnableOption (lib.mdDoc "ankisyncd");
 
-      package = mkOption {
-        type = types.package;
-        default = pkgs.ankisyncd;
-        defaultText = literalExpression "pkgs.ankisyncd";
-        description = lib.mdDoc "The package to use for the ankisyncd command.";
-      };
-
-      host = mkOption {
-        type = types.str;
-        default = "localhost";
-        description = lib.mdDoc "ankisyncd host";
-      };
-
-      port = mkOption {
-        type = types.port;
-        default = 27701;
-        description = lib.mdDoc "ankisyncd port";
-      };
-
-      openFirewall = mkOption {
-        default = false;
-        type = types.bool;
-        description = lib.mdDoc "Whether to open the firewall for the specified port.";
-      };
+    package = mkOption {
+      type = types.package;
+      default = pkgs.ankisyncd;
+      defaultText = literalExpression "pkgs.ankisyncd";
+      description = lib.mdDoc "The package to use for the ankisyncd command.";
     };
 
-    config = mkIf cfg.enable {
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    host = mkOption {
+      type = types.str;
+      default = "localhost";
+      description = lib.mdDoc "ankisyncd host";
+    };
 
-      environment.etc."ankisyncd/ankisyncd.conf".source = configFile;
+    port = mkOption {
+      type = types.port;
+      default = 27701;
+      description = lib.mdDoc "ankisyncd port";
+    };
 
-      systemd.services.ankisyncd = {
-        description = "ankisyncd - Anki sync server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        path = [ cfg.package ];
+    openFirewall = mkOption {
+      default = false;
+      type = types.bool;
+      description = lib.mdDoc "Whether to open the firewall for the specified port.";
+    };
+  };
 
-        serviceConfig = {
-          Type = "simple";
-          DynamicUser = true;
-          StateDirectory = name;
-          ExecStart = "${cfg.package}/bin/ankisyncd";
-          Restart = "always";
-        };
+  config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+
+    environment.etc."ankisyncd/ankisyncd.conf".source = configFile;
+
+    systemd.services.ankisyncd = {
+      description = "ankisyncd - Anki sync server";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      path = [ cfg.package ];
+
+      serviceConfig = {
+        Type = "simple";
+        DynamicUser = true;
+        StateDirectory = name;
+        ExecStart = "${cfg.package}/bin/ankisyncd";
+        Restart = "always";
       };
     };
-  }
+  };
+}

@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -9,7 +15,6 @@ let
   cfg = config.services.sickbeard;
   opt = options.services.sickbeard;
   sickbeard = cfg.package;
-
 in
 {
 
@@ -27,7 +32,7 @@ in
         default = pkgs.sickbeard;
         defaultText = literalExpression "pkgs.sickbeard";
         example = literalExpression "pkgs.sickrage";
-        description =lib.mdDoc ''
+        description = lib.mdDoc ''
           Enable `pkgs.sickrage` or `pkgs.sickgear`
           as an alternative to SickBeard
         '';
@@ -61,7 +66,6 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -76,19 +80,19 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == name) {
-      ${name}.gid = config.ids.gids.sickbeard;
-    };
+    users.groups = optionalAttrs (cfg.group == name) { ${name}.gid = config.ids.gids.sickbeard; };
 
     systemd.services.sickbeard = {
       description = "Sickbeard Server";
-      wantedBy    = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${sickbeard}/bin/${sickbeard.pname} --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${toString cfg.port}";
+        ExecStart = "${sickbeard}/bin/${sickbeard.pname} --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${
+            toString cfg.port
+          }";
       };
     };
   };

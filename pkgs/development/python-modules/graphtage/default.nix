@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, colorama
-, intervaltree
-, json5
-, pyyaml
-, scipy
-, tqdm
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  colorama,
+  intervaltree,
+  json5,
+  pyyaml,
+  scipy,
+  tqdm,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -40,13 +41,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "graphtage"
-  ];
+  pythonImportsCheck = [ "graphtage" ];
 
   meta = with lib; {
     description = "A utility to diff tree-like files such as JSON and XML";

@@ -1,7 +1,8 @@
-{ lib
-, python3
-, buildPythonPackage
-, fetchPypi
+{
+  lib,
+  python3,
+  buildPythonPackage,
+  fetchPypi,
 }:
 
 buildPythonPackage rec {
@@ -14,13 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-EDNATwO2N4jXVC5H1VmXqC9XGTnQo8vLvTEozRYZuj4=";
   };
 
-  patches = [
-    ./pyproject.toml.patch
-  ];
+  patches = [ ./pyproject.toml.patch ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     flet-core
@@ -35,9 +32,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "flet"
-  ];
+  pythonImportsCheck = [ "flet" ];
 
   meta = {
     description = "A framework that enables you to easily build realtime web, mobile, and desktop apps in Python";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dex";
@@ -13,7 +18,10 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ python3 ];
   nativeBuildInputs = [ python3.pkgs.sphinx ];
-  makeFlags = [ "PREFIX=$(out)" "VERSION=$(version)" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "VERSION=$(version)"
+  ];
 
   meta = with lib; {
     description = "A program to generate and execute DesktopEntry files of the Application type";

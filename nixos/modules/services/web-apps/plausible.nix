@@ -1,11 +1,16 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.services.plausible;
-
-in {
+in
+{
   options.services.plausible = {
     enable = mkEnableOption (lib.mdDoc "plausible");
 
@@ -47,7 +52,9 @@ in {
 
     database = {
       clickhouse = {
-        setup = mkEnableOption (lib.mdDoc "creating a clickhouse instance") // { default = true; };
+        setup = mkEnableOption (lib.mdDoc "creating a clickhouse instance") // {
+          default = true;
+        };
         url = mkOption {
           default = "http://localhost:8123/default";
           type = types.str;
@@ -57,7 +64,9 @@ in {
         };
       };
       postgres = {
-        setup = mkEnableOption (lib.mdDoc "creating a postgresql instance") // { default = true; };
+        setup = mkEnableOption (lib.mdDoc "creating a postgresql instance") // {
+          default = true;
+        };
         dbname = mkOption {
           default = "plausible";
           type = types.str;
@@ -164,7 +173,8 @@ in {
 
   config = mkIf cfg.enable {
     assertions = [
-      { assertion = cfg.adminUser.activate -> cfg.database.postgres.setup;
+      {
+        assertion = cfg.adminUser.activate -> cfg.database.postgres.setup;
         message = ''
           Unable to automatically activate the admin-user if no locally managed DB for
           postgres (`services.plausible.database.postgres.setup') is enabled!
@@ -172,13 +182,9 @@ in {
       }
     ];
 
-    services.postgresql = mkIf cfg.database.postgres.setup {
-      enable = true;
-    };
+    services.postgresql = mkIf cfg.database.postgres.setup { enable = true; };
 
-    services.clickhouse = mkIf cfg.database.clickhouse.setup {
-      enable = true;
-    };
+    services.clickhouse = mkIf cfg.database.clickhouse.setup { enable = true; };
 
     services.epmd.enable = true;
 
@@ -190,12 +196,14 @@ in {
           inherit (cfg.package.meta) description;
           documentation = [ "https://plausible.io/docs/self-hosting" ];
           wantedBy = [ "multi-user.target" ];
-          after = optional cfg.database.clickhouse.setup "clickhouse.service"
-          ++ optionals cfg.database.postgres.setup [
+          after =
+            optional cfg.database.clickhouse.setup "clickhouse.service"
+            ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
             ];
-          requires = optional cfg.database.clickhouse.setup "clickhouse.service"
+          requires =
+            optional cfg.database.clickhouse.setup "clickhouse.service"
             ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
@@ -231,12 +239,9 @@ in {
             SMTP_HOST_SSL_ENABLED = boolToString cfg.mail.smtp.enableSSL;
 
             SELFHOST = "true";
-          } // (optionalAttrs (cfg.mail.smtp.user != null) {
-            SMTP_USER_NAME = cfg.mail.smtp.user;
-          });
+          } // (optionalAttrs (cfg.mail.smtp.user != null) { SMTP_USER_NAME = cfg.mail.smtp.user; });
 
-          path = [ cfg.package ]
-            ++ optional cfg.database.postgres.setup config.services.postgresql.package;
+          path = [ cfg.package ] ++ optional cfg.database.postgres.setup config.services.postgresql.package;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
 
@@ -259,11 +264,15 @@ in {
             PrivateTmp = true;
             WorkingDirectory = "/var/lib/plausible";
             StateDirectory = "plausible";
-            LoadCredential = [
-              "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
-              "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
-              "RELEASE_COOKIE:${cfg.releaseCookiePath}"
-            ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"];
+            LoadCredential =
+              [
+                "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
+                "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
+                "RELEASE_COOKIE:${cfg.releaseCookiePath}"
+              ]
+              ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
+                "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
+              ];
           };
         };
       }

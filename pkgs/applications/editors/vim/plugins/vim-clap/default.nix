@@ -1,13 +1,14 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libgit2
-, zlib
-, stdenv
-, darwin
-, vimUtils
-, nix-update-script
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2,
+  zlib,
+  stdenv,
+  darwin,
+  vimUtils,
+  nix-update-script,
 }:
 
 let
@@ -39,17 +40,17 @@ let
       };
     };
 
-    nativeBuildInputs = [
-      pkg-config
-    ];
+    nativeBuildInputs = [ pkg-config ];
 
-    buildInputs = [
-      libgit2
-      zlib
-    ] ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.CoreFoundation
-      darwin.apple_sdk.frameworks.Security
-    ];
+    buildInputs =
+      [
+        libgit2
+        zlib
+      ]
+      ++ lib.optionals stdenv.isDarwin [
+        darwin.apple_sdk.frameworks.CoreFoundation
+        darwin.apple_sdk.frameworks.Security
+      ];
   };
 in
 
@@ -63,8 +64,6 @@ vimUtils.buildVimPluginFrom2Nix {
 
   passthru = {
     inherit maple;
-    updateScript = nix-update-script {
-      attrPath = "vimPlugins.vim-clap.maple";
-    };
+    updateScript = nix-update-script { attrPath = "vimPlugins.vim-clap.maple"; };
   };
 }

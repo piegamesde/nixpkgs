@@ -1,10 +1,11 @@
-{ pkgs
-, lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, ...
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  ...
 }:
 with lib;
 stdenv.mkDerivation rec {
@@ -16,34 +17,42 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+xiXEwSSxpt1/Eu9g57/L+Il/Av+a/mgGBQl/4LKR74=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+  ];
 
-  buildInputs = with pkgs;[
-    alsa-lib
-    at-spi2-atk
-    cairo
-    cups.lib
-    dbus.lib
-    expat
-    gdk-pixbuf
-    glib
-    gtk3
-    libdrm
-    libxkbcommon
-    mesa
-    nspr
-    nss
-    pango
-  ] ++ (with pkgs.xorg; [
-    libX11
-    libXcomposite
-    libXdamage
-    libXext
-    libXfixes
-    libXrandr
-    libxcb
-    libxshmfence
-  ]);
+  buildInputs =
+    with pkgs;
+    [
+      alsa-lib
+      at-spi2-atk
+      cairo
+      cups.lib
+      dbus.lib
+      expat
+      gdk-pixbuf
+      glib
+      gtk3
+      libdrm
+      libxkbcommon
+      mesa
+      nspr
+      nss
+      pango
+    ]
+    ++ (
+      with pkgs.xorg; [
+        libX11
+        libXcomposite
+        libXdamage
+        libXext
+        libXfixes
+        libXrandr
+        libxcb
+        libxshmfence
+      ]
+    );
 
   runtimeDependencies = with pkgs; [ eudev ];
 

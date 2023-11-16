@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchFromGitea
-, pkg-config
-, meson
-, ninja
-, wayland-scanner
-, wayland
-, pixman
-, wayland-protocols
-, libxkbcommon
-, scdoc
-, tllist
-, fcft
-, enableCairo ? true
-, svgSupport ? true
-, pngSupport ? true
-# Optional dependencies
-, cairo
-, libpng
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  pkg-config,
+  meson,
+  ninja,
+  wayland-scanner,
+  wayland,
+  pixman,
+  wayland-protocols,
+  libxkbcommon,
+  scdoc,
+  tllist,
+  fcft,
+  enableCairo ? true,
+  svgSupport ? true,
+  pngSupport ? true,
+  # Optional dependencies
+  cairo,
+  libpng,
 }:
 
 assert svgSupport -> enableCairo;
@@ -34,9 +35,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Va/Rm35jqxDlIfQdrpZ41qrW8YzWmm1LWra76AW1xUw=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     pkg-config
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
     libxkbcommon
     tllist
     fcft
-  ] ++ lib.optional enableCairo cairo
-    ++ lib.optional pngSupport libpng;
+  ] ++ lib.optional enableCairo cairo ++ lib.optional pngSupport libpng;
 
   mesonBuildType = "release";
 
@@ -67,8 +65,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Wayland-native application launcher, similar to rofi’s drun mode";
     homepage = "https://codeberg.org/dnkl/fuzzel";
-    license = with licenses; [ mit zlib ];
-    maintainers = with maintainers; [ fionera polykernel rodrgz ];
+    license = with licenses; [
+      mit
+      zlib
+    ];
+    maintainers = with maintainers; [
+      fionera
+      polykernel
+      rodrgz
+    ];
     platforms = with platforms; linux;
     changelog = "https://codeberg.org/dnkl/fuzzel/releases/tag/${version}";
   };

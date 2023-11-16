@@ -1,10 +1,11 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, gtk4
-, glib
-, gobject-introspection
-, pkg-config
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  gtk4,
+  glib,
+  gobject-introspection,
+  pkg-config,
 }:
 
 buildGoModule rec {

@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapGAppsHook
-, wrapQtAppsHook
-, gst_all_1
-, qtbase
-, qtmultimedia
-, qttools
-, qtwayland
-, zlib
-# only required when using poppler
-, poppler
-# only required when using mupdf
-, freetype
-, gumbo
-, jbig2dec
-, mupdf
-, openjpeg
-# choose renderer: mupdf or poppler or both (not recommended)
-, usePoppler ? false
-, useMupdf ? true
-, useExternalRenderer ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  gst_all_1,
+  qtbase,
+  qtmultimedia,
+  qttools,
+  qtwayland,
+  zlib,
+  # only required when using poppler
+  poppler,
+  # only required when using mupdf
+  freetype,
+  gumbo,
+  jbig2dec,
+  mupdf,
+  openjpeg,
+  # choose renderer: mupdf or poppler or both (not recommended)
+  usePoppler ? false,
+  useMupdf ? true,
+  useExternalRenderer ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -45,25 +46,25 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  buildInputs = [
-    gst_all_1.gst-libav
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    zlib
-    qtbase
-    qtmultimedia
-    qttools
-  ] ++ lib.optionals stdenv.isLinux [
-    qtwayland
-  ] ++ lib.optionals useMupdf [
-    freetype
-    gumbo
-    jbig2dec
-    mupdf
-    openjpeg
-  ] ++ lib.optionals usePoppler [
-    poppler
-  ];
+  buildInputs =
+    [
+      gst_all_1.gst-libav
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      zlib
+      qtbase
+      qtmultimedia
+      qttools
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ++ lib.optionals useMupdf [
+      freetype
+      gumbo
+      jbig2dec
+      mupdf
+      openjpeg
+    ]
+    ++ lib.optionals usePoppler [ poppler ];
 
   cmakeFlags = [
     "-DGIT_VERSION=OFF"
@@ -85,8 +86,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Modular multi screen pdf presentation viewer";
     homepage = "https://github.com/stiglers-eponym/BeamerPresenter";
-    license = with licenses; [ agpl3 gpl3Plus ];
+    license = with licenses; [
+      agpl3
+      gpl3Plus
+    ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ pacien dotlambda ];
+    maintainers = with maintainers; [
+      pacien
+      dotlambda
+    ];
   };
 }

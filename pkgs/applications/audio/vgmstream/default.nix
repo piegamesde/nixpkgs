@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config
-, mpg123, ffmpeg, libvorbis, libao, jansson, speex
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  mpg123,
+  ffmpeg,
+  libvorbis,
+  libao,
+  jansson,
+  speex,
 }:
 let
   vgmstreamVersion = "r1702-5596-00bdb165b";
@@ -17,9 +27,19 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = ./update.sh;
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ mpg123 ffmpeg libvorbis libao jansson speex ];
+  buildInputs = [
+    mpg123
+    ffmpeg
+    libvorbis
+    libao
+    jansson
+    speex
+  ];
 
   cmakeFlags = [
     # There's no nice way to build the audacious plugin without a circular dependency
@@ -34,9 +54,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A library for playback of various streamed audio formats used in video games";
-    homepage    = "https://vgmstream.org";
+    homepage = "https://vgmstream.org";
     maintainers = with maintainers; [ zane ];
-    license     = with licenses; isc;
-    platforms   = with platforms; unix;
+    license = with licenses; isc;
+    platforms = with platforms; unix;
   };
 }

@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, gssapi
-, krb5
-, ruamel-yaml
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, glibcLocales
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  gssapi,
+  krb5,
+  ruamel-yaml,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  glibcLocales,
 }:
 
 buildPythonPackage rec {
@@ -37,10 +38,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = [
-    # struct.error: unpack requires a buffer of 1 bytes
-    "test_credssp_invalid_client_authentication"
-  ];
+  disabledTests =
+    [
+      # struct.error: unpack requires a buffer of 1 bytes
+      "test_credssp_invalid_client_authentication"
+    ];
 
   LC_ALL = "en_US.UTF-8";
 

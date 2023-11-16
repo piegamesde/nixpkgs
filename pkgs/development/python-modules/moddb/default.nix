@@ -1,11 +1,12 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonRelaxDepsHook
-, beautifulsoup4
-, pyrate-limiter
-, requests
-, toolz
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonRelaxDepsHook,
+  beautifulsoup4,
+  pyrate-limiter,
+  requests,
+  toolz,
 }:
 
 buildPythonPackage rec {
@@ -20,9 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Pl/Wc0CL31+ZLFfy6yUfrZzsECifnEpWVGRHZVaFWG4=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -36,7 +35,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "moddb" ];
 
   doCheck = false; # Tests try to access the internet.
-
 
   meta = with lib; {
     description = "A Python scrapper to access ModDB mods, games and more as objects";

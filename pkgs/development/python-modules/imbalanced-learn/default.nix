@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, pandas
-, pytestCheckHook
-, scikit-learn
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pandas,
+  pytestCheckHook,
+  scikit-learn,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +19,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ scikit-learn ];
-  nativeCheckInputs = [ pytestCheckHook pandas ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pandas
+  ];
   preCheck = ''
     export HOME=$TMPDIR
   '';

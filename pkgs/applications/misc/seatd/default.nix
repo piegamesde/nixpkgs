@@ -1,11 +1,13 @@
-{ fetchFromSourcehut
-, lib
-, meson
-, ninja
-, pkg-config
-, scdoc
-, stdenv
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
+{
+  fetchFromSourcehut,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  stdenv,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,11 +21,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m8xoL90GI822FTgCXuVr3EejLAMUStkPKVoV7w8ayIE=";
   };
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config scdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    scdoc
+  ];
 
   buildInputs = lib.optionals systemdSupport [ systemd ];
 
@@ -35,10 +47,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A universal seat management library";
-    changelog   = "https://git.sr.ht/~kennylevinsen/seatd/refs/${version}";
-    homepage    = "https://sr.ht/~kennylevinsen/seatd/";
-    license     = licenses.mit;
-    platforms   = with platforms; freebsd ++ linux ++ netbsd;
+    changelog = "https://git.sr.ht/~kennylevinsen/seatd/refs/${version}";
+    homepage = "https://sr.ht/~kennylevinsen/seatd/";
+    license = licenses.mit;
+    platforms = with platforms; freebsd ++ linux ++ netbsd;
     maintainers = with maintainers; [ emantor ];
   };
 }

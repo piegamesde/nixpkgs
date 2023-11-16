@@ -1,13 +1,14 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pbr
-, requests
-, six
-, lxml
-, pytestCheckHook
-, pytest-cov
-, mock
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pbr,
+  requests,
+  six,
+  lxml,
+  pytestCheckHook,
+  pytest-cov,
+  mock,
 }:
 buildPythonPackage rec {
   pname = "pymaven-patch";
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [
-    "pymaven"
-  ];
+  pythonImportsCheck = [ "pymaven" ];
 
   meta = with lib; {
     description = "Python access to maven";

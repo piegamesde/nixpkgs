@@ -1,13 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, curl
-, gtest
-, libtorrent
-, ncurses
-, jsonRpcSupport ? true, nlohmann_json
-, xmlRpcSupport ? true, xmlrpc_c
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  curl,
+  gtest,
+  libtorrent,
+  ncurses,
+  jsonRpcSupport ? true,
+  nlohmann_json,
+  xmlRpcSupport ? true,
+  xmlrpc_c,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,29 +28,22 @@ stdenv.mkDerivation rec {
     inherit libtorrent;
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     curl
     libtorrent
     ncurses
-  ]
-  ++ lib.optional jsonRpcSupport nlohmann_json
-  ++ lib.optional xmlRpcSupport xmlrpc_c;
+  ] ++ lib.optional jsonRpcSupport nlohmann_json ++ lib.optional xmlRpcSupport xmlrpc_c;
 
-  cmakeFlags = [
-    "-DUSE_RUNTIME_CA_DETECTION=NO"
-  ]
-  ++ lib.optional (!jsonRpcSupport) "-DUSE_JSONRPC=NO"
-  ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO";
+  cmakeFlags =
+    [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
+    ++ lib.optional (!jsonRpcSupport) "-DUSE_JSONRPC=NO"
+    ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO";
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    gtest
-  ];
+  nativeCheckInputs = [ gtest ];
 
   prePatch = ''
     substituteInPlace src/main.cc \
@@ -63,7 +59,10 @@ stdenv.mkDerivation rec {
     description = "An ncurses client for libtorrent, ideal for use with screen, tmux, or dtach (jesec's fork)";
     homepage = "https://github.com/jesec/rtorrent";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ winter AndersonTorres ];
+    maintainers = with maintainers; [
+      winter
+      AndersonTorres
+    ];
     platforms = platforms.linux;
     mainProgram = "rtorrent";
   };

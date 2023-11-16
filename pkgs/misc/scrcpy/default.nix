@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchpatch
-, fetchurl
-, fetchFromGitHub
-, makeWrapper
-, meson
-, ninja
-, pkg-config
-, runtimeShell
-, installShellFiles
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  fetchFromGitHub,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  runtimeShell,
+  installShellFiles,
 
-, platform-tools
-, ffmpeg
-, libusb1
-, SDL2
+  platform-tools,
+  ffmpeg,
+  libusb1,
+  SDL2,
 }:
 
 let
@@ -52,25 +53,37 @@ stdenv.mkDerivation rec {
       --replace "SDL_RENDERER_ACCELERATED" "SDL_RENDERER_ACCELERATED || SDL_RENDERER_SOFTWARE"
   '';
 
-  nativeBuildInputs = [ makeWrapper meson ninja pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+    installShellFiles
+  ];
 
-  buildInputs = [ ffmpeg SDL2 libusb1 ];
+  buildInputs = [
+    ffmpeg
+    SDL2
+    libusb1
+  ];
 
   # Manually install the server jar to prevent Meson from "fixing" it
   preConfigure = ''
     echo -n > server/meson.build
   '';
 
-  postInstall = ''
-    mkdir -p "$out/share/scrcpy"
-    ln -s "${prebuilt_server}" "$out/share/scrcpy/scrcpy-server"
+  postInstall =
+    ''
+      mkdir -p "$out/share/scrcpy"
+      ln -s "${prebuilt_server}" "$out/share/scrcpy/scrcpy-server"
 
-    # runtime dep on `adb` to push the server
-    wrapProgram "$out/bin/scrcpy" --prefix PATH : "${platform-tools}/bin"
-  '' + lib.optionalString stdenv.isLinux ''
-    substituteInPlace $out/share/applications/scrcpy-console.desktop \
-      --replace "/bin/bash" "${runtimeShell}"
-  '';
+      # runtime dep on `adb` to push the server
+      wrapProgram "$out/bin/scrcpy" --prefix PATH : "${platform-tools}/bin"
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      substituteInPlace $out/share/applications/scrcpy-console.desktop \
+        --replace "/bin/bash" "${runtimeShell}"
+    '';
 
   meta = with lib; {
     description = "Display and control Android devices over USB or TCP/IP";
@@ -81,6 +94,10 @@ stdenv.mkDerivation rec {
     ];
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ deltaevo lukeadams msfjarvis ];
+    maintainers = with maintainers; [
+      deltaevo
+      lukeadams
+      msfjarvis
+    ];
   };
 }

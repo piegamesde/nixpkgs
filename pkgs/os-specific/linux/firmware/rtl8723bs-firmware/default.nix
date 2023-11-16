@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, linuxPackages }:
+{
+  lib,
+  stdenvNoCC,
+  linuxPackages,
+}:
 with lib;
 stdenvNoCC.mkDerivation {
   pname = "rtl8723bs-firmware";

@@ -1,23 +1,24 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, jinja2
-, lxml
-, mock
-, ncclient
-, netaddr
-, nose
-, ntc-templates
-, paramiko
-, pyparsing
-, pyserial
-, pythonOlder
-, pyyaml
-, scp
-, six
-, transitions
-, yamlordereddictloader
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jinja2,
+  lxml,
+  mock,
+  ncclient,
+  netaddr,
+  nose,
+  ntc-templates,
+  paramiko,
+  pyparsing,
+  pyserial,
+  pythonOlder,
+  pyyaml,
+  scp,
+  six,
+  transitions,
+  yamlordereddictloader,
 }:
 
 buildPythonPackage rec {
@@ -65,9 +66,7 @@ buildPythonPackage rec {
     nosetests -v -a unit --exclude=test_sw_put_ftp
   '';
 
-  pythonImportsCheck = [
-    "jnpr.junos"
-  ];
+  pythonImportsCheck = [ "jnpr.junos" ];
 
   meta = with lib; {
     changelog = "https://github.com/Juniper/py-junos-eznc/releases/tag/${version}";

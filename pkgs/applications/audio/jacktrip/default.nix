@@ -1,17 +1,20 @@
-{ lib, mkDerivation, fetchFromGitHub
-, pkg-config
-, help2man
-, qmake
-, alsa-lib
-, libjack2
-, dbus
-, qtbase
-, qttools
-, qtx11extras
-, meson
-, python3
-, rtaudio
-, ninja
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  help2man,
+  qmake,
+  alsa-lib,
+  libjack2,
+  dbus,
+  qtbase,
+  qttools,
+  qtx11extras,
+  meson,
+  python3,
+  rtaudio,
+  ninja,
 }:
 
 mkDerivation rec {
@@ -54,7 +57,11 @@ mkDerivation rec {
   meta = with lib; {
     description = "Multi-machine audio network performance over the Internet";
     homepage = "https://jacktrip.github.io/jacktrip/";
-    license = with licenses; [ gpl3 lgpl3 mit ];
+    license = with licenses; [
+      gpl3
+      lgpl3
+      mit
+    ];
     maintainers = [ maintainers.iwanb ];
     platforms = platforms.linux;
   };

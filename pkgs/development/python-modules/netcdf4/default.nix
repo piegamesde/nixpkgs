@@ -1,17 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, python
-, setuptools
-, numpy
-, zlib
-, netcdf
-, hdf5
-, curl
-, libjpeg
-, cython
-, cftime
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  python,
+  setuptools,
+  numpy,
+  zlib,
+  netcdf,
+  hdf5,
+  curl,
+  libjpeg,
+  cython,
+  cftime,
 }:
 
 buildPythonPackage rec {
@@ -26,7 +27,10 @@ buildPythonPackage rec {
     hash = "sha256-A4KwL/aiiEGfb/7IXexA9FH0G4dVVHFUxXXd2fD0rlM=";
   };
 
-  nativeBuildInputs = [ setuptools cython ];
+  nativeBuildInputs = [
+    setuptools
+    cython
+  ];
 
   propagatedBuildInputs = [
     cftime

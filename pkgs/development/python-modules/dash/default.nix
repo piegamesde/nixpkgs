@@ -1,22 +1,23 @@
-{ lib
-, buildPythonPackage
-, celery
-, dash-core-components
-, dash-html-components
-, dash-table
-, diskcache
-, fetchFromGitHub
-, flask
-, flask-compress
-, mock
-, multiprocess
-, plotly
-, psutil
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, redis
+{
+  lib,
+  buildPythonPackage,
+  celery,
+  dash-core-components,
+  dash-html-components,
+  dash-table,
+  diskcache,
+  fetchFromGitHub,
+  flask,
+  flask-compress,
+  mock,
+  multiprocess,
+  plotly,
+  psutil,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  redis,
 }:
 
 buildPythonPackage rec {
@@ -67,14 +68,13 @@ buildPythonPackage rec {
     "tests/integration"
   ];
 
-  disabledTests = [
-    # Failed: DID NOT RAISE <class 'ImportError'>
-    "test_missing_flask_compress_raises"
-  ];
+  disabledTests =
+    [
+      # Failed: DID NOT RAISE <class 'ImportError'>
+      "test_missing_flask_compress_raises"
+    ];
 
-  pythonImportsCheck = [
-    "dash"
-  ];
+  pythonImportsCheck = [ "dash" ];
 
   meta = with lib; {
     description = "Python framework for building analytical web applications";

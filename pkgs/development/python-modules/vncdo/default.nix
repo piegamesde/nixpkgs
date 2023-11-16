@@ -1,10 +1,13 @@
-{ lib, fetchFromGitHub
-, buildPythonPackage, isPy27
-, pillow
-, twisted
-, pexpect
-, nose
-, ptyprocess
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  isPy27,
+  pillow,
+  twisted,
+  pexpect,
+  nose,
+  ptyprocess,
 }:
 buildPythonPackage rec {
   pname = "vncdo";
@@ -34,5 +37,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ elitak ];
     platforms = with platforms; linux ++ darwin;
   };
-
 }

@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, wheel
-, packaging
-, ply
-, toml
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  wheel,
+  packaging,
+  ply,
+  toml,
 }:
 
 buildPythonPackage rec {
@@ -25,7 +26,11 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ packaging ply toml ];
+  propagatedBuildInputs = [
+    packaging
+    ply
+    toml
+  ];
 
   # There aren't tests
   doCheck = false;
@@ -34,8 +39,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Creates C++ bindings for Python modules";
-    homepage    = "https://riverbankcomputing.com/";
-    license     = licenses.gpl3Only;
+    homepage = "https://riverbankcomputing.com/";
+    license = licenses.gpl3Only;
     maintainers = with maintainers; [ nrdxp ];
   };
 }

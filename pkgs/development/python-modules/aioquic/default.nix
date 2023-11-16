@@ -1,12 +1,13 @@
-{ lib
-, fetchPypi
-, fetchpatch
-, buildPythonPackage
-, openssl
-, pylsqpack
-, certifi
-, pytestCheckHook
-, pyopenssl
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+  openssl,
+  pylsqpack,
+  certifi,
+  pytestCheckHook,
+  pyopenssl,
 }:
 
 buildPythonPackage rec {

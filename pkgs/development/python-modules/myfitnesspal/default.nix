@@ -1,20 +1,21 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, blessed
-, browser-cookie3
-, keyring
-, keyrings-alt
-, lxml
-, measurement
-, python-dateutil
-, requests
-, rich
-, typing-extensions
-, pytestCheckHook
-, mock
-, nose
-, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  blessed,
+  browser-cookie3,
+  keyring,
+  keyrings-alt,
+  lxml,
+  measurement,
+  python-dateutil,
+  requests,
+  rich,
+  typing-extensions,
+  pytestCheckHook,
+  mock,
+  nose,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -53,14 +54,13 @@ buildPythonPackage rec {
     sed -i -e "s/>=.*//" requirements.txt
   '';
 
-  disabledTests = [
-    # Integration tests require an account to be set
-    "test_integration"
-  ];
+  disabledTests =
+    [
+      # Integration tests require an account to be set
+      "test_integration"
+    ];
 
-  pythonImportsCheck = [
-    "myfitnesspal"
-  ];
+  pythonImportsCheck = [ "myfitnesspal" ];
 
   meta = with lib; {
     description = "Python module to access meal tracking data stored in MyFitnessPal";

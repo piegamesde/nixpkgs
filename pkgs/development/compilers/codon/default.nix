@@ -1,14 +1,15 @@
-{ cacert
-, cmake
-, fetchFromGitHub
-, git
-, lib
-, lld
-, ninja
-, nix-update-script
-, perl
-, python3
-, stdenv
+{
+  cacert,
+  cmake,
+  fetchFromGitHub,
+  git,
+  lib,
+  lld,
+  ninja,
+  nix-update-script,
+  perl,
+  python3,
+  stdenv,
 }:
 
 let
@@ -97,10 +98,11 @@ stdenv.mkDerivation {
 
   inherit src version;
 
-  patches = [
-    # Without the hash, CMake will try to replace the `.zip` file
-    ./Add-a-hash-to-the-googletest-binary.patch
-  ];
+  patches =
+    [
+      # Without the hash, CMake will try to replace the `.zip` file
+      ./Add-a-hash-to-the-googletest-binary.patch
+    ];
 
   nativeBuildInputs = [
     cmake

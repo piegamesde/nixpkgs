@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gflags, gtest, perl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gflags,
+  gtest,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glog";
@@ -17,9 +25,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ gflags ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
   # TODO: Re-enable Darwin tests once we're on a release that has https://github.com/google/glog/issues/709#issuecomment-960381653 fixed
   doCheck = !stdenv.isDarwin;
@@ -29,12 +35,14 @@ stdenv.mkDerivation rec {
 
   GTEST_FILTER =
     let
-      filteredTests = lib.optionals stdenv.hostPlatform.isMusl [
-        "Symbolize.SymbolizeStackConsumption"
-        "Symbolize.SymbolizeWithDemanglingStackConsumption"
-      ] ++ lib.optionals stdenv.hostPlatform.isStatic [
-        "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
-      ];
+      filteredTests =
+        lib.optionals stdenv.hostPlatform.isMusl [
+          "Symbolize.SymbolizeStackConsumption"
+          "Symbolize.SymbolizeWithDemanglingStackConsumption"
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isStatic [
+          "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
+        ];
     in
     lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}";
 
@@ -43,6 +51,9 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     description = "Library for application-level logging";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nh2 r-burns ];
+    maintainers = with maintainers; [
+      nh2
+      r-burns
+    ];
   };
 }

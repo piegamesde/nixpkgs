@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchzip
-, ant
-, jdk
-, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchzip,
+  ant,
+  jdk,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {
@@ -15,10 +16,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-Bdavj7RaI5CkWiOJY+TPRIRfNelfW5qdl/74J1KZPI0=";
   };
 
-  patches = [
-    # Sets javac encoding option on build.xml
-    ./0001-javac-encoding.diff
-  ];
+  patches =
+    [
+      # Sets javac encoding option on build.xml
+      ./0001-javac-encoding.diff
+    ];
 
   nativeBuildInputs = [
     ant

@@ -1,8 +1,9 @@
-{ lib
+{
+  lib,
 
-, buildPythonPackage
-, notmuch
-, python
+  buildPythonPackage,
+  notmuch,
+  python,
 }:
 
 buildPythonPackage {
@@ -10,7 +11,10 @@ buildPythonPackage {
 
   sourceRoot = notmuch.pythonSourceRoot;
 
-  buildInputs = [ python notmuch ];
+  buildInputs = [
+    python
+    notmuch
+  ];
 
   postPatch = ''
     sed -i -e '/CDLL/s@"libnotmuch\.@"${notmuch}/lib/libnotmuch.@' \
@@ -27,5 +31,4 @@ buildPythonPackage {
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];
   };
-
 }

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, jdk11, maven, javaPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk11,
+  maven,
+  javaPackages,
+}:
 
 let
   version = "0.10.1";
@@ -14,14 +21,17 @@ let
   deps = stdenv.mkDerivation {
     name = "gephi-${version}-deps";
     inherit src;
-    buildInputs = [ jdk11 maven ];
+    buildInputs = [
+      jdk11
+      maven
+    ];
     buildPhase = ''
       while mvn package -Dmaven.repo.local=$out/.m2 -Dmaven.wagon.rto=5000; [ $? = 1 ]; do
         echo "timeout, restart maven to continue downloading"
       done
     '';
     # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
-    installPhase = ''find $out/.m2 -type f -regex '.+\(\.lastUpdated\|resolver-status\.properties\|_remote\.repositories\)' -delete'';
+    installPhase = "find $out/.m2 -type f -regex '.+\\(\\.lastUpdated\\|resolver-status\\.properties\\|_remote\\.repositories\\)' -delete";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = "sha256-OdW4M5nGEkYkmHpRLM4cBQtk4SJII2uqM8TXb6y4eXk=";
@@ -33,7 +43,10 @@ stdenv.mkDerivation {
 
   inherit src;
 
-  buildInputs = [ jdk11 maven ];
+  buildInputs = [
+    jdk11
+    maven
+  ];
 
   buildPhase = ''
     # 'maven.repo.local' must be writable so copy it out of nix store
@@ -60,7 +73,7 @@ stdenv.mkDerivation {
     homepage = "https://gephi.org";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.gpl3;
     maintainers = [ maintainers.taeer ];

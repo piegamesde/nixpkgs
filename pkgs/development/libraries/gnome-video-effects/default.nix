@@ -1,10 +1,12 @@
-{ lib, stdenv
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, gettext
-, gnome
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {
@@ -12,15 +14,18 @@ stdenv.mkDerivation rec {
   version = "0.5.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1j6h98whgkcxrh30bwvnxvyqxrxchgpdgqhl0j71xz7x72dqxijd";
   };
 
-  patches = [
-    # Fix effectsdir in .pc file
-    # https://gitlab.gnome.org/GNOME/gnome-video-effects/commit/955404195ada606819974dd63c48956f25611e14
-    ./fix-pc-file.patch
-  ];
+  patches =
+    [
+      # Fix effectsdir in .pc file
+      # https://gitlab.gnome.org/GNOME/gnome-video-effects/commit/955404195ada606819974dd63c48956f25611e14
+      ./fix-pc-file.patch
+    ];
 
   nativeBuildInputs = [
     meson

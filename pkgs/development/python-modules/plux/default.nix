@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, stevedore
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  stevedore,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -19,13 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-zFwrRc93R4cXah7zYXjVLBIeBpDedsInxuyXOyBI8SA=";
   };
 
-  propagatedBuildInputs = [
-    stevedore
-  ];
+  propagatedBuildInputs = [ stevedore ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "plugin.core" ];
 

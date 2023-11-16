@@ -1,13 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
 
-# propagated
-, aiohttp
+  # propagated
+  aiohttp,
 
-# tests
-, pytest-asyncio
-, pytestCheckHook
+  # tests
+  pytest-asyncio,
+  pytestCheckHook,
 }:
 
 let
@@ -25,13 +26,9 @@ buildPythonPackage {
     hash = "sha256-Jf/zYnBHVl3TYxFy9Chy6qNH/eCroZkmUOEWfd62RIo=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  pythonImportsCheck = [
-    "pyoctoprintapi"
-  ];
+  pythonImportsCheck = [ "pyoctoprintapi" ];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -43,6 +40,6 @@ buildPythonPackage {
     homepage = "https://github.com/rfleming71/pyoctoprintapi";
     changelog = "https://github.com/rfleming71/pyoctoprintapi/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers= with maintainers; [ hexa ];
+    maintainers = with maintainers; [ hexa ];
   };
 }

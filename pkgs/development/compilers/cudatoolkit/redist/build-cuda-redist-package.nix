@@ -1,13 +1,13 @@
-{ lib
-, stdenv
-, backendStdenv
-, fetchurl
-, autoPatchelfHook
-, autoAddOpenGLRunpathHook
+{
+  lib,
+  stdenv,
+  backendStdenv,
+  fetchurl,
+  autoPatchelfHook,
+  autoAddOpenGLRunpathHook,
 }:
 
-pname:
-attrs:
+pname: attrs:
 
 let
   arch = "linux-x86_64";
@@ -16,10 +16,12 @@ backendStdenv.mkDerivation {
   inherit pname;
   inherit (attrs) version;
 
-  src = assert (lib.hasAttr arch attrs); fetchurl {
-    url = "https://developer.download.nvidia.com/compute/cuda/redist/${attrs.${arch}.relative_path}";
-    inherit (attrs.${arch}) sha256;
-  };
+  src =
+    assert (lib.hasAttr arch attrs);
+    fetchurl {
+      url = "https://developer.download.nvidia.com/compute/cuda/redist/${attrs.${arch}.relative_path}";
+      inherit (attrs.${arch}) sha256;
+    };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -30,19 +32,18 @@ backendStdenv.mkDerivation {
     autoAddOpenGLRunpathHook
   ];
 
-  buildInputs = [
-    # autoPatchelfHook will search for a libstdc++ and we're giving it
-    # one that is compatible with the rest of nixpkgs, even when
-    # nvcc forces us to use an older gcc
-    # NB: We don't actually know if this is the right thing to do
-    stdenv.cc.cc.lib
-  ];
+  buildInputs =
+    [
+      # autoPatchelfHook will search for a libstdc++ and we're giving it
+      # one that is compatible with the rest of nixpkgs, even when
+      # nvcc forces us to use an older gcc
+      # NB: We don't actually know if this is the right thing to do
+      stdenv.cc.cc.lib
+    ];
 
   # Picked up by autoPatchelf
   # Needed e.g. for libnvrtc to locate (dlopen) libnvrtc-builtins
-  appendRunpaths = [
-    "$ORIGIN"
-  ];
+  appendRunpaths = [ "$ORIGIN" ];
 
   dontBuild = true;
 

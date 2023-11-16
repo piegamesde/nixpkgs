@@ -1,18 +1,19 @@
-{ lib
-, aspectlib
-, buildPythonPackage
-, elasticsearch
-, fetchFromGitHub
-, fetchpatch
-, freezegun
-, git
-, mercurial
-, py-cpuinfo
-, pygal
-, pytest
-, pytestCheckHook
-, pythonOlder
-, isPy311
+{
+  lib,
+  aspectlib,
+  buildPythonPackage,
+  elasticsearch,
+  fetchFromGitHub,
+  fetchpatch,
+  freezegun,
+  git,
+  mercurial,
+  py-cpuinfo,
+  pygal,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  isPy311,
 }:
 
 buildPythonPackage rec {
@@ -37,17 +38,11 @@ buildPythonPackage rec {
     })
   ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    py-cpuinfo
-  ];
+  propagatedBuildInputs = [ py-cpuinfo ];
 
-  pythonImportsCheck = [
-    "pytest_benchmark"
-  ];
+  pythonImportsCheck = [ "pytest_benchmark" ];
 
   nativeCheckInputs = [
     aspectlib
@@ -63,19 +58,20 @@ buildPythonPackage rec {
     export PATH="$out/bin:$PATH"
   '';
 
-  disabledTests = [
-    # AttributeError: 'PluginImportFixer' object has no attribute 'find_spec'
-    "test_compare_1"
-    "test_compare_2"
-    "test_regression_checks"
-    "test_rendering"
-  ]
-  # tests are broken in 3.11
-  # https://github.com/ionelmc/pytest-benchmark/issues/231
-  ++ lib.optionals isPy311 [
-    "test_abort_broken"
-    "test_clonefunc"
-  ];
+  disabledTests =
+    [
+      # AttributeError: 'PluginImportFixer' object has no attribute 'find_spec'
+      "test_compare_1"
+      "test_compare_2"
+      "test_regression_checks"
+      "test_rendering"
+    ]
+    # tests are broken in 3.11
+    # https://github.com/ionelmc/pytest-benchmark/issues/231
+    ++ lib.optionals isPy311 [
+      "test_abort_broken"
+      "test_clonefunc"
+    ];
 
   meta = with lib; {
     changelog = "https://github.com/ionelmc/pytest-benchmark/blob/${src.rev}/CHANGELOG.rst";

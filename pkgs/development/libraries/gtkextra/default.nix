@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, gobject-introspection
-, file
-, gtk2
-, glib
-, cairo
-, atk
-, pango
-, libtiff
-, libpng
-, libjpeg
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  gobject-introspection,
+  file,
+  gtk2,
+  glib,
+  cairo,
+  atk,
+  pango,
+  libtiff,
+  libpng,
+  libjpeg,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,9 @@ stdenv.mkDerivation rec {
   version = "3.3.4";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/gtkextra/${lib.versions.majorMinor version}/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/project/gtkextra/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.gz";
     sha256 = "1mpihbyzhv3ymfim93l9xnxmzhwyqdba5xb4rdn5vggdg25766v5";
   };
 
@@ -28,9 +31,21 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/file" "${file}/bin/file"
   '';
 
-  nativeBuildInputs = [ gobject-introspection pkg-config ];
+  nativeBuildInputs = [
+    gobject-introspection
+    pkg-config
+  ];
 
-  buildInputs = [ gtk2 glib cairo atk pango libtiff libpng libjpeg ];
+  buildInputs = [
+    gtk2
+    glib
+    cairo
+    atk
+    pango
+    libtiff
+    libpng
+    libjpeg
+  ];
 
   meta = with lib; {
     homepage = "https://gtkextra.sourceforge.net/";

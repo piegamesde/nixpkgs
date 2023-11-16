@@ -1,10 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {
@@ -26,23 +27,20 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg
     sed -i "/--no-cov-on-fail/d" setup.cfg
   '';
 
-  disabledTestPaths = [
-    # Don't test the documentation
-    "docs/*.rst"
-  ];
+  disabledTestPaths =
+    [
+      # Don't test the documentation
+      "docs/*.rst"
+    ];
 
-  pythonImportsCheck = [
-    "semver"
-  ];
+  pythonImportsCheck = [ "semver" ];
 
   meta = with lib; {
     description = "Python package to work with Semantic Versioning (http://semver.org/)";

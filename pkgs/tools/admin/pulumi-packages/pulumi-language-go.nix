@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, pulumi
+{
+  lib,
+  buildGoModule,
+  pulumi,
 }:
 buildGoModule rec {
   pname = "pulumi-language-go";
@@ -10,9 +11,7 @@ buildGoModule rec {
 
   vendorHash = pulumi.sdkVendorHash;
 
-  subPackages = [
-    "go/pulumi-language-go"
-  ];
+  subPackages = [ "go/pulumi-language-go" ];
 
   ldflags = [
     "-s"

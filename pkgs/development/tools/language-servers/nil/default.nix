@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, nix, nix-update-script }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nil";
@@ -15,9 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   CFG_RELEASE = version;
 
-  nativeBuildInputs = [
-    (lib.getBin nix)
-  ];
+  nativeBuildInputs = [ (lib.getBin nix) ];
 
   # might be related to https://github.com/NixOS/nix/issues/5884
   preBuild = ''
@@ -30,7 +34,13 @@ rustPlatform.buildRustPackage rec {
     description = "Yet another language server for Nix";
     homepage = "https://github.com/oxalica/nil";
     changelog = "https://github.com/oxalica/nil/releases/tag/${version}";
-    license = with licenses; [ mit asl20 ];
-    maintainers = with maintainers; [ figsoda oxalica ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
+    maintainers = with maintainers; [
+      figsoda
+      oxalica
+    ];
   };
 }

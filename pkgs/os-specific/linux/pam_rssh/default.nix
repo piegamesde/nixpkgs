@@ -1,10 +1,11 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, pam
-, openssh
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  pam,
+  openssh,
 }:
 
 rustPlatform.buildRustPackage {
@@ -21,23 +22,20 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-/AQqjmAGgvnpVWyoK3ymZ1gNAhTSN30KQEiqv4G+zx8=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     openssl
     pam
   ];
 
-  checkFlags = [
-    # Fails because it tries finding authorized_keys in /home/$USER.
-    "--skip=tests::parse_user_authorized_keys"
-  ];
+  checkFlags =
+    [
+      # Fails because it tries finding authorized_keys in /home/$USER.
+      "--skip=tests::parse_user_authorized_keys"
+    ];
 
-  nativeCheckInputs = [
-    openssh
-  ];
+  nativeCheckInputs = [ openssh ];
 
   env.USER = "nixbld";
 

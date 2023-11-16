@@ -1,14 +1,15 @@
-{ lib
-, fetchurl
-, gnustep
-, llvmPackages_9
+{
+  lib,
+  fetchurl,
+  gnustep,
+  llvmPackages_9,
 }:
 
 let
   # Earlier llvm than 9 segfaults
   gnustep' = gnustep.override { llvmPackages = llvmPackages_9; };
-
-in gnustep'.gsmakeDerivation rec {
+in
+gnustep'.gsmakeDerivation rec {
   pname = "pikopixel";
   version = "1.0-b10";
 

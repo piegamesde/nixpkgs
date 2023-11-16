@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, stdenvNoCC
-, fetchurl
-, makeWrapper
-, jre_headless
-, gnugrep
-, coreutils
-, autoPatchelfHook
-, zlib
-, nixosTests
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
+  jre_headless,
+  gnugrep,
+  coreutils,
+  autoPatchelfHook,
+  zlib,
+  nixosTests,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -33,8 +34,15 @@ stdenvNoCC.mkDerivation rec {
       --replace 'bin/opensearch-keystore' "$out/bin/opensearch-keystore"
 
     wrapProgram $out/bin/opensearch \
-      --prefix PATH : "${lib.makeBinPath [ gnugrep coreutils ]}" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc.lib ]}:$out/plugins/opensearch-knn/lib/" \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          gnugrep
+          coreutils
+        ]
+      }" \
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [ stdenv.cc.cc.lib ]
+      }:$out/plugins/opensearch-knn/lib/" \
       --set JAVA_HOME "${jre_headless}"
 
     wrapProgram $out/bin/opensearch-plugin --set JAVA_HOME "${jre_headless}"

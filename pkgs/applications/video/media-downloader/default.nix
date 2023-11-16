@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, wrapQtAppsHook
-, qtbase
-, aria2
-, ffmpeg
-, python3
-, yt-dlp
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  wrapQtAppsHook,
+  qtbase,
+  aria2,
+  ffmpeg,
+  python3,
+  yt-dlp,
 }:
 
 stdenv.mkDerivation rec {
@@ -26,17 +27,17 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtbase
-  ];
+  buildInputs = [ qtbase ];
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [
+    "--prefix PATH : ${
+      lib.makeBinPath [
         aria2
         ffmpeg
         python3
         yt-dlp
-      ]}"
+      ]
+    }"
   ];
 
   meta = with lib; {

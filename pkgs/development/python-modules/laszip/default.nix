@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, scikit-build-core
-, distlib
-, pytestCheckHook
-, pyproject-metadata
-, pathspec
-, pybind11
-, cmake
-, LASzip
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  scikit-build-core,
+  distlib,
+  pytestCheckHook,
+  pyproject-metadata,
+  pathspec,
+  pybind11,
+  cmake,
+  LASzip,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
     LASzip
   ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
   preBuild = ''
     cd ..
@@ -55,4 +54,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ matthewcroughan ];
   };
 }
-

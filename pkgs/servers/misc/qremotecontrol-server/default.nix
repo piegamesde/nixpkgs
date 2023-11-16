@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchgit
-, qmake
-, wrapQtAppsHook
-, qtbase
-, xorg
+{
+  lib,
+  stdenv,
+  fetchgit,
+  qmake,
+  wrapQtAppsHook,
+  qtbase,
+  xorg,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AfFScec5/emG/f+yc5Zn37USIEWzGP/sBifE6Kx8d0E=";
   };
 
-  patches = [
-    ./0001-fix-qt5-build-include-QDataStream.patch
-  ];
+  patches = [ ./0001-fix-qt5-build-include-QDataStream.patch ];
 
   nativeBuildInputs = [
     qmake

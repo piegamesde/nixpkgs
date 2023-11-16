@@ -1,67 +1,116 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  nixosTests,
   # required
-, libiconv
-, libupnp
-, libuuid
-, pugixml
-, spdlog
-, sqlite
-, zlib
+  libiconv,
+  libupnp,
+  libuuid,
+  pugixml,
+  spdlog,
+  sqlite,
+  zlib,
   # options
-, enableMysql ? false
-, libmysqlclient
-, enableDuktape ? true
-, duktape
-, enableCurl ? true
-, curl
-, enableTaglib ? true
-, taglib
-, enableLibmagic ? true
-, file
-, enableLibmatroska ? true
-, libmatroska
-, libebml
-, enableAvcodec ? false
-, ffmpeg
-, enableLibexif ? true
-, libexif
-, enableExiv2 ? false
-, exiv2
-, enableFFmpegThumbnailer ? false
-, ffmpegthumbnailer
-, enableInotifyTools ? true
-, inotify-tools
+  enableMysql ? false,
+  libmysqlclient,
+  enableDuktape ? true,
+  duktape,
+  enableCurl ? true,
+  curl,
+  enableTaglib ? true,
+  taglib,
+  enableLibmagic ? true,
+  file,
+  enableLibmatroska ? true,
+  libmatroska,
+  libebml,
+  enableAvcodec ? false,
+  ffmpeg,
+  enableLibexif ? true,
+  libexif,
+  enableExiv2 ? false,
+  exiv2,
+  enableFFmpegThumbnailer ? false,
+  ffmpegthumbnailer,
+  enableInotifyTools ? true,
+  inotify-tools,
 }:
 
 let
-  libupnp' = libupnp.overrideAttrs (super: rec {
-    cmakeFlags = super.cmakeFlags or [ ] ++ [
-      "-Dblocking_tcp_connections=OFF"
-      "-Dreuseaddr=ON"
-    ];
-  });
+  libupnp' = libupnp.overrideAttrs (
+    super: rec {
+      cmakeFlags = super.cmakeFlags or [ ] ++ [
+        "-Dblocking_tcp_connections=OFF"
+        "-Dreuseaddr=ON"
+      ];
+    }
+  );
 
   options = [
-    { name = "AVCODEC"; enable = enableAvcodec; packages = [ ffmpeg ]; }
-    { name = "CURL"; enable = enableCurl; packages = [ curl ]; }
-    { name = "EXIF"; enable = enableLibexif; packages = [ libexif ]; }
-    { name = "EXIV2"; enable = enableExiv2; packages = [ exiv2 ]; }
-    { name = "FFMPEGTHUMBNAILER"; enable = enableFFmpegThumbnailer; packages = [ ffmpegthumbnailer ]; }
-    { name = "INOTIFY"; enable = enableInotifyTools; packages = [ inotify-tools ]; }
-    { name = "JS"; enable = enableDuktape; packages = [ duktape ]; }
-    { name = "MAGIC"; enable = enableLibmagic; packages = [ file ]; }
-    { name = "MATROSKA"; enable = enableLibmatroska; packages = [ libmatroska libebml ]; }
-    { name = "MYSQL"; enable = enableMysql; packages = [ libmysqlclient ]; }
-    { name = "TAGLIB"; enable = enableTaglib; packages = [ taglib ]; }
+    {
+      name = "AVCODEC";
+      enable = enableAvcodec;
+      packages = [ ffmpeg ];
+    }
+    {
+      name = "CURL";
+      enable = enableCurl;
+      packages = [ curl ];
+    }
+    {
+      name = "EXIF";
+      enable = enableLibexif;
+      packages = [ libexif ];
+    }
+    {
+      name = "EXIV2";
+      enable = enableExiv2;
+      packages = [ exiv2 ];
+    }
+    {
+      name = "FFMPEGTHUMBNAILER";
+      enable = enableFFmpegThumbnailer;
+      packages = [ ffmpegthumbnailer ];
+    }
+    {
+      name = "INOTIFY";
+      enable = enableInotifyTools;
+      packages = [ inotify-tools ];
+    }
+    {
+      name = "JS";
+      enable = enableDuktape;
+      packages = [ duktape ];
+    }
+    {
+      name = "MAGIC";
+      enable = enableLibmagic;
+      packages = [ file ];
+    }
+    {
+      name = "MATROSKA";
+      enable = enableLibmatroska;
+      packages = [
+        libmatroska
+        libebml
+      ];
+    }
+    {
+      name = "MYSQL";
+      enable = enableMysql;
+      packages = [ libmysqlclient ];
+    }
+    {
+      name = "TAGLIB";
+      enable = enableTaglib;
+      packages = [ taglib ];
+    }
   ];
 
   inherit (lib) flatten optionals;
-
 in
 stdenv.mkDerivation rec {
   pname = "gerbera";
@@ -80,12 +129,17 @@ stdenv.mkDerivation rec {
       --replace /usr/lib/mysql     ${lib.getLib libmysqlclient}/lib/mariadb
   '';
 
-  cmakeFlags = [
-    # systemd service will be generated alongside the service
-    "-DWITH_SYSTEMD=OFF"
-  ] ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options;
+  cmakeFlags =
+    [
+      # systemd service will be generated alongside the service
+      "-DWITH_SYSTEMD=OFF"
+    ]
+    ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options;
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     libiconv
@@ -97,7 +151,9 @@ stdenv.mkDerivation rec {
     zlib
   ] ++ flatten (builtins.catAttrs "packages" (builtins.filter (e: e.enable) options));
 
-  passthru.tests = { inherit (nixosTests) mediatomb; };
+  passthru.tests = {
+    inherit (nixosTests) mediatomb;
+  };
 
   meta = with lib; {
     homepage = "https://docs.gerbera.io/";

@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "glooctl";
@@ -25,7 +30,11 @@ buildGoModule rec {
       --zsh <($out/bin/glooctl completion zsh)
   '';
 
-  ldflags = [ "-s" "-w" "-X github.com/solo-io/gloo/pkg/version.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/solo-io/gloo/pkg/version.Version=${version}"
+  ];
 
   meta = with lib; {
     description = "glooctl is the unified CLI for Gloo";

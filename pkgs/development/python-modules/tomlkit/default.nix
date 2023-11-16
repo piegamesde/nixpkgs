@@ -1,11 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, enum34
-, functools32, typing ? null
-, pytestCheckHook
-, pyaml
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  enum34,
+  functools32,
+  typing ? null,
+  pytestCheckHook,
+  pyaml,
 }:
 
 buildPythonPackage rec {
@@ -18,7 +20,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    lib.optionals isPy27 [ enum34 functools32 ]
+    lib.optionals isPy27 [
+      enum34
+      functools32
+    ]
     ++ lib.optional isPy27 typing;
 
   nativeCheckInputs = [

@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, lua
-, readline
-, ncurses
-, lz4
-, tbox
-, xmake-core-sv
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  lua,
+  readline,
+  ncurses,
+  lz4,
+  tbox,
+  xmake-core-sv,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,9 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-m0LYY0gz9IhbBbiUKd1gBE3KmSMvYJYyC42Ff7M9Ku8=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     lua
@@ -43,4 +42,3 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ rewine ];
   };
 }
-

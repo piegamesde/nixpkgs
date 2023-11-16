@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, pkgs
-, numpy
-, scipy
-, mpi
-, enum34
-, protobuf
-, pip
-, python
-, swig
+{
+  lib,
+  buildPythonPackage,
+  pkgs,
+  numpy,
+  scipy,
+  mpi,
+  enum34,
+  protobuf,
+  pip,
+  python,
+  swig,
 }:
 
 let
@@ -17,9 +18,21 @@ in
 buildPythonPackage {
   inherit (cntk) name version src;
 
-  nativeBuildInputs = [ swig mpi ];
-  buildInputs = [ cntk mpi ];
-  propagatedBuildInputs = [ numpy scipy enum34 protobuf pip ];
+  nativeBuildInputs = [
+    swig
+    mpi
+  ];
+  buildInputs = [
+    cntk
+    mpi
+  ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    enum34
+    protobuf
+    pip
+  ];
 
   CNTK_LIB_PATH = "${cntk}/lib";
   CNTK_COMPONENT_VERSION = cntk.version;
@@ -54,7 +67,13 @@ buildPythonPackage {
   '';
 
   meta = {
-    inherit (cntk.meta) homepage description license maintainers platforms;
+    inherit (cntk.meta)
+      homepage
+      description
+      license
+      maintainers
+      platforms
+    ;
     # doesn't support Python 3.7
     broken = lib.versionAtLeast python.version "3.7";
   };

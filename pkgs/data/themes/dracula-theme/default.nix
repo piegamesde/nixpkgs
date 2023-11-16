@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk-engine-murrine }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk-engine-murrine,
+}:
 
 let
   themeName = "Dracula";
@@ -15,9 +20,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-q3/uBd+jPFhiVAllyhqf486Jxa0mnCDSIqcm/jwGtJA=";
   };
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   installPhase = ''
     runHook preInstall

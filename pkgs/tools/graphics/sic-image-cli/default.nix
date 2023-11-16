@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, nasm }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  nasm,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sic-image-cli";
@@ -13,7 +19,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-xYPSI0/I67vmMPRmJOlbDJ9gTdhViQmeo3XWGhWR91Y=";
 
-  nativeBuildInputs = [ installShellFiles nasm ];
+  nativeBuildInputs = [
+    installShellFiles
+    nasm
+  ];
 
   postBuild = ''
     cargo run --example gen_completions
@@ -28,7 +37,10 @@ rustPlatform.buildRustPackage rec {
     description = "Accessible image processing and conversion from the terminal";
     homepage = "https://github.com/foresterre/sic";
     changelog = "https://github.com/foresterre/sic/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
     mainProgram = "sic";
   };

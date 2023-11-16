@@ -13,7 +13,7 @@ let
     config = {
       allowUnsupportedSystem = true;
     };
-    overlays = [];
+    overlays = [ ];
   };
 in
 lib.recurseIntoAttrs {

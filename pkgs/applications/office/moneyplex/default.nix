@@ -1,10 +1,34 @@
-{ lib, stdenv, fetchurl, patchelf, coreutils, pcsclite
-, zlib, glib, gdk-pixbuf, gtk2, cairo, pango, libX11, atk, openssl
-, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  patchelf,
+  coreutils,
+  pcsclite,
+  zlib,
+  glib,
+  gdk-pixbuf,
+  gtk2,
+  cairo,
+  pango,
+  libX11,
+  atk,
+  openssl,
+  runtimeShell,
+}:
 
 let
   libPath = lib.makeLibraryPath [
-    stdenv.cc.cc zlib glib gdk-pixbuf gtk2 cairo pango libX11 atk openssl
+    stdenv.cc.cc
+    zlib
+    glib
+    gdk-pixbuf
+    gtk2
+    cairo
+    pango
+    libX11
+    atk
+    openssl
   ];
 
   src_i686 = {
@@ -22,17 +46,24 @@ stdenv.mkDerivation {
   pname = "moneyplex";
   version = "16.0.22424";
 
-  src = fetchurl (if stdenv.hostPlatform.system == "i686-linux" then src_i686
-                  else if stdenv.hostPlatform.system == "x86_64-linux" then src_x86_64
-                  else throw "moneyplex requires i686-linux or x86_64-linux");
+  src = fetchurl (
+    if stdenv.hostPlatform.system == "i686-linux" then
+      src_i686
+    else if stdenv.hostPlatform.system == "x86_64-linux" then
+      src_x86_64
+    else
+      throw "moneyplex requires i686-linux or x86_64-linux"
+  );
 
-
-  phases = [ "unpackPhase" "installPhase" "postInstall" ];
+  phases = [
+    "unpackPhase"
+    "installPhase"
+    "postInstall"
+  ];
 
   buildInputs = [ ];
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p "$out/opt/moneyplex"
     cp -r . $out/opt/moneyplex
 
@@ -63,8 +94,12 @@ stdenv.mkDerivation {
     if [ ! -d "\$MDIR/pcsc" ]; then
         ${coreutils}/bin/mkdir -p \$MDIR/pcsc
     fi
-    if [ ! -e "\$MDIR/pcsc/libpcsclite.so.1" ] || [ ! \`${coreutils}/bin/readlink -f "\$MDIR/pcsc/libpcsclite.so.1"\` -ef "${lib.getLib pcsclite}/lib/libpcsclite.so.1" ]; then
-        ${coreutils}/bin/ln -sf "${lib.getLib pcsclite}/lib/libpcsclite.so.1" "\$MDIR/pcsc/libpcsclite.so.1"
+    if [ ! -e "\$MDIR/pcsc/libpcsclite.so.1" ] || [ ! \`${coreutils}/bin/readlink -f "\$MDIR/pcsc/libpcsclite.so.1"\` -ef "${
+      lib.getLib pcsclite
+    }/lib/libpcsclite.so.1" ]; then
+        ${coreutils}/bin/ln -sf "${
+          lib.getLib pcsclite
+        }/lib/libpcsclite.so.1" "\$MDIR/pcsc/libpcsclite.so.1"
     fi
 
 
@@ -88,7 +123,7 @@ stdenv.mkDerivation {
     EOF
 
     chmod +x $out/bin/moneyplex
-    '';
+  '';
 
   postInstall = ''
     mkdir -p $out/share/icons
@@ -108,8 +143,7 @@ stdenv.mkDerivation {
     Categories=Application;
     StartupNotify=true
     EOF
-    '';
-
+  '';
 
   meta = with lib; {
     description = "Moneyplex online banking software";
@@ -119,5 +153,4 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     downloadPage = "http://matrica.de/download/download.html";
   };
-
 }

@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, fetchpatch
-, vala
-, meson
-, ninja
-, pkg-config
-, python3
-, libgee
-, gsettings-desktop-schemas
-, gnome
-, pantheon
-, wrapGAppsHook
-, gtk3
-, json-glib
-, glib
-, glib-networking
-, libhandy
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  fetchpatch,
+  vala,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  libgee,
+  gsettings-desktop-schemas,
+  gnome,
+  pantheon,
+  wrapGAppsHook,
+  gtk3,
+  json-glib,
+  glib,
+  glib-networking,
+  libhandy,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,22 +1,28 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, python3
-, freetype
-, expat
-, libxslt
-, gperf
-, dejavu_fonts
-, autoreconfHook
-, CoreFoundation
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  python3,
+  freetype,
+  expat,
+  libxslt,
+  gperf,
+  dejavu_fonts,
+  autoreconfHook,
+  CoreFoundation,
 }:
 
 stdenv.mkDerivation rec {
   pname = "fontconfig";
   version = "2.14.0";
 
-  outputs = [ "bin" "dev" "lib" "out" ]; # $out contains all the config
+  outputs = [
+    "bin"
+    "dev"
+    "lib"
+    "out"
+  ]; # $out contains all the config
 
   src = fetchurl {
     url = "https://www.freedesktop.org/software/fontconfig/release/${pname}-${version}.tar.xz";
@@ -31,28 +37,26 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    expat
-  ] ++ lib.optional stdenv.isDarwin CoreFoundation;
+  buildInputs = [ expat ] ++ lib.optional stdenv.isDarwin CoreFoundation;
 
-  propagatedBuildInputs = [
-    freetype
-  ];
+  propagatedBuildInputs = [ freetype ];
 
   postPatch = ''
     # Requires networking.
     sed -i '/check_PROGRAMS += test-crbug1004254/d' test/Makefile.am
   '';
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
-    "--with-cache-dir=/var/cache/fontconfig" # otherwise the fallback is in $out/
-    # just <1MB; this is what you get when loading config fails for some reason
-    "--with-default-fonts=${dejavu_fonts.minimal}"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
-  ];
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
+      "--with-cache-dir=/var/cache/fontconfig" # otherwise the fallback is in $out/
+      # just <1MB; this is what you get when loading config fails for some reason
+      "--with-default-fonts=${dejavu_fonts.minimal}"
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
+    ];
 
   enableParallelBuilding = true;
 

@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pyusb
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pyusb,
 }:
 
 buildPythonPackage rec {
@@ -17,16 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-enYhqtJnORKhBoZkZPISLCt9Ec5SN6txD3z0SXuPrQo=";
   };
 
-  propagatedBuildInputs = [
-    pyusb
-  ];
+  propagatedBuildInputs = [ pyusb ];
 
   # Module has no tests which are shipped and source is not tagged
   doCheck = false;
 
-  pythonImportsCheck = [
-    "temperusb"
-  ];
+  pythonImportsCheck = [ "temperusb" ];
 
   meta = with lib; {
     description = "Library to read TEMPer USB HID devices";

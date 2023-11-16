@@ -1,7 +1,8 @@
-{ lib
-, python3
-, fetchFromGitHub
-, pkgs
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  pkgs,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -28,9 +29,7 @@ python3.pkgs.buildPythonApplication rec {
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "zeekpkg"
-  ];
+  pythonImportsCheck = [ "zeekpkg" ];
 
   meta = with lib; {
     description = "Package manager for Zeek";

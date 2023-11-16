@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -30,7 +35,6 @@ let
     cat ${prayer}/etc/prayer.cf | grep -v http_port > $out
     cat ${prayerExtraCfg} >> $out
   '';
-
 in
 
 {
@@ -53,29 +57,28 @@ in
 
       extraConfig = mkOption {
         type = types.lines;
-        default = "" ;
+        default = "";
         description = lib.mdDoc ''
           Extra configuration. Contents will be added verbatim to the configuration file.
         '';
       };
     };
-
   };
-
 
   ###### implementation
 
   config = mkIf config.services.prayer.enable {
     environment.systemPackages = [ prayer ];
 
-    users.users.${prayerUser} =
-      { uid = config.ids.uids.prayer;
-        description = "Prayer daemon user";
-        home = stateDir;
-      };
+    users.users.${prayerUser} = {
+      uid = config.ids.uids.prayer;
+      description = "Prayer daemon user";
+      home = stateDir;
+    };
 
-    users.groups.${prayerGroup} =
-      { gid = config.ids.gids.prayer; };
+    users.groups.${prayerGroup} = {
+      gid = config.ids.gids.prayer;
+    };
 
     systemd.services.prayer = {
       wantedBy = [ "multi-user.target" ];

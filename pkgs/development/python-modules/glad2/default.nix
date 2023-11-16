@@ -1,6 +1,7 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -13,9 +14,7 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-7eFjn2nyugjx9JikCnB/NKYJ0k6y6g1sk2RomnmM99A=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    jinja2
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ jinja2 ];
 
   pythonImportsCheck = [ "glad" ];
 

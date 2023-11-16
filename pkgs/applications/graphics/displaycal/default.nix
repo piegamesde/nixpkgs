@@ -1,11 +1,12 @@
-{ lib
-, python3
-, fetchPypi
-, wrapGAppsHook
-, gtk3
-, librsvg
-, xorg
-, argyllcms
+{
+  lib,
+  python3,
+  fetchPypi,
+  wrapGAppsHook,
+  gtk3,
+  librsvg,
+  xorg,
+  argyllcms,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -34,16 +35,20 @@ python3.pkgs.buildPythonApplication rec {
     send2trash
   ];
 
-  buildInputs = [
-    gtk3
-    librsvg
-  ] ++ (with xorg; [
-    libX11
-    libXxf86vm
-    libXext
-    libXinerama
-    libXrandr
-  ]);
+  buildInputs =
+    [
+      gtk3
+      librsvg
+    ]
+    ++ (
+      with xorg; [
+        libX11
+        libXxf86vm
+        libXext
+        libXinerama
+        libXrandr
+      ]
+    );
 
   doCheck = false; # Tests try to access an X11 session and dbus in weird locations.
 

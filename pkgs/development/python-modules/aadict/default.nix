@@ -1,9 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, nose
-, coverage
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  nose,
+  coverage,
 }:
 
 buildPythonPackage rec {
@@ -16,7 +17,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ six ];
-  nativeCheckInputs = [ nose coverage ];
+  nativeCheckInputs = [
+    nose
+    coverage
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/metagriffin/aadict";

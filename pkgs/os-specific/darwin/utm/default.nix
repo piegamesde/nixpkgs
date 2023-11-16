@@ -1,8 +1,9 @@
-{ lib
-, undmg
-, makeWrapper
-, fetchurl
-, stdenvNoCC
+{
+  lib,
+  undmg,
+  makeWrapper,
+  fetchurl,
+  stdenvNoCC,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -14,7 +15,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-T3TA+CwddNtUL80xASRCSczGA2LLTwPEA2+jnc9m6jY=";
   };
 
-  nativeBuildInputs = [ undmg makeWrapper ];
+  nativeBuildInputs = [
+    undmg
+    makeWrapper
+  ];
 
   sourceRoot = ".";
   installPhase = ''

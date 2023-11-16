@@ -1,13 +1,14 @@
-{ lib
-, bleak
-, click
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytest-mock
-, pythonAtLeast
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  bleak,
+  click,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-mock,
+  pythonAtLeast,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -39,14 +40,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = lib.optionals (pythonAtLeast "3.11") [
-    # unittest.mock.InvalidSpecError: Cannot spec a Mock object.
-    "tests/test_light.py"
-  ];
+  disabledTestPaths =
+    lib.optionals (pythonAtLeast "3.11")
+      [
+        # unittest.mock.InvalidSpecError: Cannot spec a Mock object.
+        "tests/test_light.py"
+      ];
 
-  pythonImportsCheck = [
-    "pyzerproc"
-  ];
+  pythonImportsCheck = [ "pyzerproc" ];
 
   meta = with lib; {
     description = "Python library to control Zerproc Bluetooth LED smart string lights";

@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromRepoOrCz
-, copyPkgconfigItems
-, makePkgconfigItem
-, perl
-, texinfo
-, which
+{
+  lib,
+  stdenv,
+  fetchFromRepoOrCz,
+  copyPkgconfigItems,
+  makePkgconfigItem,
+  perl,
+  texinfo,
+  which,
 }:
 
 let
@@ -60,20 +61,21 @@ stdenv.mkDerivation rec {
     "--libpaths=${lib.getLib stdenv.cc.libc}/lib"
     # build cross compilers
     "--enable-cross"
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-    "--config-musl"
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ];
 
   preConfigure = ''
-    ${
-      if stdenv.isDarwin && ! isCleanVer version
-      then "echo 'not overwriting VERSION since it would upset ld'"
-      else "echo ${version} > VERSION"
-    }
+    ${if stdenv.isDarwin && !isCleanVer version then
+      "echo 'not overwriting VERSION since it would upset ld'"
+    else
+      "echo ${version} > VERSION"}
     configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
   '';
 
-  outputs = [ "out" "info" "man" ];
+  outputs = [
+    "out"
+    "info"
+    "man"
+  ];
 
   # Test segfault for static build
   doCheck = !stdenv.hostPlatform.isStatic;
@@ -109,7 +111,10 @@ stdenv.mkDerivation rec {
       With libtcc, you can use TCC as a backend for dynamic code generation.
     '';
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ joachifm AndersonTorres ];
+    maintainers = with maintainers; [
+      joachifm
+      AndersonTorres
+    ];
     platforms = platforms.unix;
     # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10199.html
     broken = stdenv.isDarwin && stdenv.isAarch64;

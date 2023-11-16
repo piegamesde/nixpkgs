@@ -1,13 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, swig2
-, openssl
-, typing
-, parameterized
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  swig2,
+  openssl,
+  typing,
+  parameterized,
 }:
-
 
 buildPythonPackage rec {
   version = "0.38.0";
@@ -41,8 +41,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ swig2 openssl ];
-  buildInputs = [ openssl parameterized ];
+  nativeBuildInputs = [
+    swig2
+    openssl
+  ];
+  buildInputs = [
+    openssl
+    parameterized
+  ];
 
   meta = with lib; {
     description = "A Python crypto and SSL toolkit";

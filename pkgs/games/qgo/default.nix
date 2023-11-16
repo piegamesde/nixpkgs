@@ -1,10 +1,11 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, qmake
-, qtbase
-, qtmultimedia
-, qttranslations
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtmultimedia,
+  qttranslations,
 }:
 
 mkDerivation {
@@ -42,5 +43,9 @@ mkDerivation {
     sed -i 's|@out@|'"''${out}"'|g' src/src.pro src/defines.h
   '';
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtmultimedia qttranslations ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qttranslations
+  ];
 }

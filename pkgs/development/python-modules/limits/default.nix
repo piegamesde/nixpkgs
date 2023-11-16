@@ -1,19 +1,20 @@
-{ lib
-, buildPythonPackage
-, deprecated
-, fetchFromGitHub
-, etcd3
-, hiro
-, packaging
-, pymemcache
-, pymongo
-, pytest-asyncio
-, pytest-lazy-fixture
-, pytestCheckHook
-, pythonOlder
-, redis
-, setuptools
-, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  deprecated,
+  fetchFromGitHub,
+  etcd3,
+  hiro,
+  packaging,
+  pymemcache,
+  pymongo,
+  pytest-asyncio,
+  pytest-lazy-fixture,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  setuptools,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {
@@ -66,9 +67,7 @@ buildPythonPackage rec {
     echo 'def get_versions(): return {"version": "${version}"}' > limits/_version.py
   '';
 
-  pythonImportsCheck = [
-    "limits"
-  ];
+  pythonImportsCheck = [ "limits" ];
 
   pytestFlagsArray = [
     # All other tests require a running Docker instance

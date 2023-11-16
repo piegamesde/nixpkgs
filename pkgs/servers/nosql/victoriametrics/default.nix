@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "VictoriaMetrics";
@@ -40,20 +46,29 @@ buildGoModule rec {
       --replace "time.NewTimer(time.Second * 10)" "time.NewTimer(time.Second * 120)" \
   '';
 
-  ldflags = [ "-s" "-w" "-X github.com/VictoriaMetrics/VictoriaMetrics/lib/buildinfo.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/VictoriaMetrics/VictoriaMetrics/lib/buildinfo.Version=${version}"
+  ];
 
   preCheck = ''
     # `lib/querytracer/tracer_test.go` expects `buildinfo.Version` to be unset
     export ldflags=''${ldflags//=${version}/=}
   '';
 
-  passthru.tests = { inherit (nixosTests) victoriametrics; };
+  passthru.tests = {
+    inherit (nixosTests) victoriametrics;
+  };
 
   meta = with lib; {
     homepage = "https://victoriametrics.com/";
     description = "fast, cost-effective and scalable time series database, long-term remote storage for Prometheus";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yorickvp ivan ];
+    maintainers = with maintainers; [
+      yorickvp
+      ivan
+    ];
     changelog = "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v${version}";
     mainProgram = "victoria-metrics";
   };

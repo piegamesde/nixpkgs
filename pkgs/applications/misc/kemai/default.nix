@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, magic-enum
-, spdlog
-, qtbase
-, qtconnectivity
-, qttools
-, qtlanguageserver
-, wrapQtAppsHook
-, libXScrnSaver
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  magic-enum,
+  spdlog,
+  qtbase,
+  qtconnectivity,
+  qttools,
+  qtlanguageserver,
+  wrapQtAppsHook,
+  libXScrnSaver,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -36,7 +37,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DUSE_CONAN=OFF" ];
   patches = [ ./000-cmake-disable-conan.diff ];
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   passthru = {
     updateScript = nix-update-script { };
@@ -47,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AlexandrePTJ/kemai";
     license = licenses.mit;
     maintainers = with maintainers; [ poelzi ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

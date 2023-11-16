@@ -1,7 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch
-, pkg-config
-, bison, flex
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  bison,
+  flex,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
 
@@ -13,17 +19,23 @@ stdenv.mkDerivation rec {
     sha256 = "1z2gpa5rbqb7jscqlf258k0b0jc7d2zkyipb5csjpj6d3sw45n4k";
   };
 
-  patches = [
-    # Pull patch pending upstream inclusion for -fno-common toolchains:
-    #   https://gitlab.com/esr/intercal/-/issues/4
-    (fetchpatch {
-      name = "fno-common.patch";
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lang/c-intercal/files/c-intercal-31.0-no-common.patch?id=a110a98b4de6f280d770ba3cc92a4612326205a3";
-      sha256 = "03523fc40042r2ryq5val27prlim8pld4950qqpawpism4w3y1p2";
-    })
-  ];
+  patches =
+    [
+      # Pull patch pending upstream inclusion for -fno-common toolchains:
+      #   https://gitlab.com/esr/intercal/-/issues/4
+      (fetchpatch {
+        name = "fno-common.patch";
+        url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lang/c-intercal/files/c-intercal-31.0-no-common.patch?id=a110a98b4de6f280d770ba3cc92a4612326205a3";
+        sha256 = "03523fc40042r2ryq5val27prlim8pld4950qqpawpism4w3y1p2";
+      })
+    ];
 
-  nativeBuildInputs = [ pkg-config bison flex makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    flex
+    makeWrapper
+  ];
 
   # Intercal invokes gcc, so we need an explicit PATH
   postInstall = ''

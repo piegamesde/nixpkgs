@@ -21,7 +21,7 @@ in
       };
 
       dates = mkOption {
-        default = ["03:45"];
+        default = [ "03:45" ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Specification (in the format described by
@@ -32,25 +32,22 @@ in
     };
   };
 
-
   ###### implementation
 
   config = {
     assertions = [
       {
         assertion = cfg.automatic -> config.nix.enable;
-        message = ''nix.optimise.automatic requires nix.enable'';
+        message = "nix.optimise.automatic requires nix.enable";
       }
     ];
 
-    systemd.services.nix-optimise = lib.mkIf config.nix.enable
-      { description = "Nix Store Optimiser";
-        # No point this if the nix daemon (and thus the nix store) is outside
-        unitConfig.ConditionPathIsReadWrite = "/nix/var/nix/daemon-socket";
-        serviceConfig.ExecStart = "${config.nix.package}/bin/nix-store --optimise";
-        startAt = optionals cfg.automatic cfg.dates;
-      };
-
+    systemd.services.nix-optimise = lib.mkIf config.nix.enable {
+      description = "Nix Store Optimiser";
+      # No point this if the nix daemon (and thus the nix store) is outside
+      unitConfig.ConditionPathIsReadWrite = "/nix/var/nix/daemon-socket";
+      serviceConfig.ExecStart = "${config.nix.package}/bin/nix-store --optimise";
+      startAt = optionals cfg.automatic cfg.dates;
+    };
   };
-
 }

@@ -1,8 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, asyncio-mqtt
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asyncio-mqtt,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -16,13 +17,9 @@ buildPythonPackage rec {
     sha256 = "0zqx00dacs59y4gjr4swrn46c7hrp8a1167bcl270333284m8mqm";
   };
 
-  propagatedBuildInputs = [
-    asyncio-mqtt
-  ];
+  propagatedBuildInputs = [ asyncio-mqtt ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Python wrapper for OpenZWave's MQTT daemon";

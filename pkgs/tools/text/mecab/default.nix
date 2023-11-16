@@ -1,9 +1,16 @@
-{ lib, stdenv, fetchurl, mecab-ipadic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mecab-ipadic,
+}:
 
 let
   mecab-base = import ./base.nix { inherit fetchurl; };
 in
-stdenv.mkDerivation (mecab-base // {
+stdenv.mkDerivation (
+  mecab-base
+  // {
     pname = "mecab";
     version = mecab-base.version;
 
@@ -18,4 +25,5 @@ stdenv.mkDerivation (mecab-base // {
       platforms = platforms.unix;
       maintainers = with maintainers; [ auntie ];
     };
-})
+  }
+)

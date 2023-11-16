@@ -1,16 +1,17 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-, qmake
-, wrapQtAppsHook
-, qtbase
-, pkg-config
-, lua
-, flam3
-, libxml2
-, libpng
-, libjpeg
-, lib
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qmake,
+  wrapQtAppsHook,
+  qtbase,
+  pkg-config,
+  lua,
+  flam3,
+  libxml2,
+  libpng,
+  libjpeg,
+  lib,
 }:
 
 stdenv.mkDerivation rec {
@@ -49,7 +50,11 @@ stdenv.mkDerivation rec {
       --replace "install_icons install_desktop" ""
   '';
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook pkg-config ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+    pkg-config
+  ];
 
   buildInputs = [
     qtbase
@@ -60,10 +65,11 @@ stdenv.mkDerivation rec {
     libjpeg
   ];
 
-  qmakeFlags = [
-    # Use pkg-config to correctly locate library paths
-    "CONFIG+=link_pkgconfig"
-  ];
+  qmakeFlags =
+    [
+      # Use pkg-config to correctly locate library paths
+      "CONFIG+=link_pkgconfig"
+    ];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

@@ -1,24 +1,25 @@
-{ lib
-, fetchPypi
-, pythonOlder
-, buildPythonPackage
-, qcodes
-, h5py
-, lazy-loader
-, matplotlib
-, numpy
-, pandas
-, versioningit
-, xarray
-, hickle
-, ipython
-, slack-sdk
-, hypothesis
-, pytest-xdist
-, pytest-mock
-, pyqtgraph
-, pyqt5
-, pytestCheckHook
+{
+  lib,
+  fetchPypi,
+  pythonOlder,
+  buildPythonPackage,
+  qcodes,
+  h5py,
+  lazy-loader,
+  matplotlib,
+  numpy,
+  pandas,
+  versioningit,
+  xarray,
+  hickle,
+  ipython,
+  slack-sdk,
+  hypothesis,
+  pytest-xdist,
+  pytest-mock,
+  pyqtgraph,
+  pyqt5,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -34,9 +35,7 @@ buildPythonPackage rec {
     sha256 = "sha256-pDR0Ws8cYQifftdE9dKcSzMxmouFo4tJmQvNanm6zyM=";
   };
 
-  nativeBuildInputs = [
-    versioningit
-  ];
+  nativeBuildInputs = [ versioningit ];
 
   propagatedBuildInputs = [
     qcodes
@@ -51,12 +50,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    qtplot = [
-      pyqtgraph
-    ];
-    slack = [
-      slack-sdk
-    ];
+    qtplot = [ pyqtgraph ];
+    slack = [ slack-sdk ];
   };
 
   nativeCheckInputs = [
@@ -69,10 +64,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "qcodes_loop" ];
 
-  disabledTestPaths = [
-    # test broken in 0.1.1, see https://github.com/QCoDeS/Qcodes_loop/pull/25
-    "src/qcodes_loop/tests/test_hdf5formatter.py"
-  ];
+  disabledTestPaths =
+    [
+      # test broken in 0.1.1, see https://github.com/QCoDeS/Qcodes_loop/pull/25
+      "src/qcodes_loop/tests/test_hdf5formatter.py"
+    ];
 
   postInstall = ''
     export HOME="$TMPDIR"

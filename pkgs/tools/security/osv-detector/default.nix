@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, osv-detector
-, testers
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  osv-detector,
+  testers,
 }:
 
 buildGoModule rec {

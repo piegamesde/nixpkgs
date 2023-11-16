@@ -1,10 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, llvmPackages
-, libxml2
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  llvmPackages,
+  libxml2,
+  zlib,
 }:
 
 let
@@ -46,14 +47,18 @@ stdenv.mkDerivation rec {
     llvmPackages.llvm.dev
   ];
 
-  buildInputs = [
-    libxml2
-    zlib
-  ] ++ (with llvmPackages; [
-    libclang
-    lld
-    llvm
-  ]);
+  buildInputs =
+    [
+      libxml2
+      zlib
+    ]
+    ++ (
+      with llvmPackages; [
+        libclang
+        lld
+        llvm
+      ]
+    );
 
   preBuild = ''
     export HOME=$TMPDIR;
@@ -76,10 +81,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://ziglang.org/";
-    description =
-      "General-purpose programming language and toolchain for maintaining robust, optimal, and reusable software";
+    description = "General-purpose programming language and toolchain for maintaining robust, optimal, and reusable software";
     license = licenses.mit;
-    maintainers = with maintainers; [ aiotter andrewrk AndersonTorres ];
+    maintainers = with maintainers; [
+      aiotter
+      andrewrk
+      AndersonTorres
+    ];
     platforms = platforms.unix;
   };
 }

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, postgresql, openssl, libkrb5, enableUnfree ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  postgresql,
+  openssl,
+  libkrb5,
+  enableUnfree ? true,
+}:
 
 # # To enable on NixOS:
 # config.services.postgresql = let
@@ -16,7 +25,11 @@ stdenv.mkDerivation rec {
   version = "2.11.0";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ postgresql openssl libkrb5 ];
+  buildInputs = [
+    postgresql
+    openssl
+    libkrb5
+  ];
 
   src = fetchFromGitHub {
     owner = "timescale";
@@ -25,7 +38,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CACOd3z3nPlAevtiRsLxBjZcaqygliibBq5Y2+jiuOA=";
   };
 
-  cmakeFlags = [ "-DSEND_TELEMETRY_DEFAULT=OFF" "-DREGRESS_CHECKS=OFF" "-DTAP_CHECKS=OFF" ]
+  cmakeFlags =
+    [
+      "-DSEND_TELEMETRY_DEFAULT=OFF"
+      "-DREGRESS_CHECKS=OFF"
+      "-DTAP_CHECKS=OFF"
+    ]
     ++ lib.optionals (!enableUnfree) [ "-DAPACHE_ONLY=ON" ]
     ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ];
 

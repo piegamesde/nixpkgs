@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, dunamai
-, fetchFromGitHub
-, jinja2
-, markupsafe
-, poetry-core
-, poetry
-, pytestCheckHook
-, pythonOlder
-, tomlkit
+{
+  lib,
+  buildPythonPackage,
+  dunamai,
+  fetchFromGitHub,
+  jinja2,
+  markupsafe,
+  poetry-core,
+  poetry,
+  pytestCheckHook,
+  pythonOlder,
+  tomlkit,
 }:
 
 buildPythonPackage rec {
@@ -25,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-YFbIQLIbedErdKiPlZf0+6qtZexuJ6Q6pzhy54vSK5Y=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     dunamai
@@ -52,9 +51,7 @@ buildPythonPackage rec {
     "test_integration"
   ];
 
-  pythonImportsCheck = [
-    "poetry_dynamic_versioning"
-  ];
+  pythonImportsCheck = [ "poetry_dynamic_versioning" ];
 
   meta = with lib; {
     description = "Plugin for Poetry to enable dynamic versioning based on VCS tags";

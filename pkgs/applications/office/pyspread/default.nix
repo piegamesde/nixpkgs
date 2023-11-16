@@ -1,10 +1,11 @@
-{ lib
-, python3
-, fetchPypi
-, copyDesktopItems
-, wrapQtAppsHook
-, qtsvg
-, makeDesktopItem
+{
+  lib,
+  python3,
+  fetchPypi,
+  copyDesktopItems,
+  wrapQtAppsHook,
+  qtsvg,
+  makeDesktopItem,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -21,9 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    qtsvg
-  ];
+  buildInputs = [ qtsvg ];
 
   propagatedBuildInputs = with python3.pkgs; [
     python-dateutil
@@ -47,7 +46,11 @@ python3.pkgs.buildPythonApplication rec {
       desktopName = "Pyspread";
       genericName = "Spreadsheet";
       comment = meta.description;
-      categories = [ "Office" "Development" "Spreadsheet" ];
+      categories = [
+        "Office"
+        "Development"
+        "Spreadsheet"
+      ];
     })
   ];
 

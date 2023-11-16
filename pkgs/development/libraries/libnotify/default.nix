@@ -1,26 +1,34 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, libxslt
-, docbook-xsl-ns
-, glib
-, gdk-pixbuf
-, gnome
-, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gobject-introspection
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  libxslt,
+  docbook-xsl-ns,
+  glib,
+  gdk-pixbuf,
+  gnome,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  gobject-introspection,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libnotify";
   version = "0.8.2";
 
-  outputs = [ "out" "man" "dev" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+  ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "xfTtPR+G5bEYx2QVqsuGGHPtPm8MazGBuCjPWE/FxhY=";
   };
 
@@ -41,9 +49,7 @@ stdenv.mkDerivation rec {
     libxslt
     docbook-xsl-ns
     glib # for glib-mkenums needed during the build
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-  ];
+  ] ++ lib.optionals withIntrospection [ gobject-introspection ];
 
   propagatedBuildInputs = [
     gdk-pixbuf

@@ -1,11 +1,12 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
 
-# since this is a dependency of pytest, we need to avoid
-# circular dependencies
-, jinja2
-, railroad-diagrams
+  # since this is a dependency of pytest, we need to avoid
+  # circular dependencies
+  jinja2,
+  railroad-diagrams,
 }:
 
 let
@@ -42,4 +43,4 @@ let
     };
   };
 in
-  pyparsing
+pyparsing

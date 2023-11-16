@@ -1,33 +1,34 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonAtLeast
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
-, duet
-, matplotlib
-, networkx
-, numpy
-, pandas
-, requests
-, scipy
-, sortedcontainers
-, sympy
-, tqdm
-, typing-extensions
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonAtLeast,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  duet,
+  matplotlib,
+  networkx,
+  numpy,
+  pandas,
+  requests,
+  scipy,
+  sortedcontainers,
+  sympy,
+  tqdm,
+  typing-extensions,
   # Contrib requirements
-, withContribRequires ? false
-, autoray ? null
-, opt-einsum
-, ply
-, pylatex ? null
-, pyquil ? null
-, quimb ? null
+  withContribRequires ? false,
+  autoray ? null,
+  opt-einsum,
+  ply,
+  pylatex ? null,
+  pyquil ? null,
+  quimb ? null,
   # test inputs
-, pytestCheckHook
-, freezegun
-, pytest-asyncio
+  pytestCheckHook,
+  freezegun,
+  pytest-asyncio,
 }:
 
 buildPythonPackage rec {
@@ -47,14 +48,15 @@ buildPythonPackage rec {
 
   sourceRoot = "source/${pname}";
 
-  patches = [
-    # https://github.com/quantumlib/Cirq/pull/5991
-    (fetchpatch {
-      url = "https://build.opensuse.org/public/source/openSUSE:Factory/python-cirq/cirq-pr5991-np1.24.patch?rev=8";
-      stripLen = 1;
-      hash = "sha256-d2FpaxM1PsPWT9ZM9v2gVrnLCy9zmvkkyAVgo85eL3U=";
-    })
-  ];
+  patches =
+    [
+      # https://github.com/quantumlib/Cirq/pull/5991
+      (fetchpatch {
+        url = "https://build.opensuse.org/public/source/openSUSE:Factory/python-cirq/cirq-pr5991-np1.24.patch?rev=8";
+        stripLen = 1;
+        hash = "sha256-d2FpaxM1PsPWT9ZM9v2gVrnLCy9zmvkkyAVgo85eL3U=";
+      })
+    ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -63,26 +65,28 @@ buildPythonPackage rec {
       --replace "numpy>=1.16,<1.24" "numpy"
   '';
 
-  propagatedBuildInputs = [
-    duet
-    matplotlib
-    networkx
-    numpy
-    pandas
-    requests
-    scipy
-    sortedcontainers
-    sympy
-    tqdm
-    typing-extensions
-  ] ++ lib.optionals withContribRequires [
-    autoray
-    opt-einsum
-    ply
-    pylatex
-    pyquil
-    quimb
-  ];
+  propagatedBuildInputs =
+    [
+      duet
+      matplotlib
+      networkx
+      numpy
+      pandas
+      requests
+      scipy
+      sortedcontainers
+      sympy
+      tqdm
+      typing-extensions
+    ]
+    ++ lib.optionals withContribRequires [
+      autoray
+      opt-einsum
+      ply
+      pylatex
+      pyquil
+      quimb
+    ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -111,7 +115,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/quantumlib/cirq";
     changelog = "https://github.com/quantumlib/Cirq/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger fab ];
+    maintainers = with maintainers; [
+      drewrisinger
+      fab
+    ];
     broken = (stdenv.isLinux && stdenv.isAarch64);
   };
 }

@@ -1,20 +1,21 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, fetchpatch
-, formulaic
-, click
-, num2words
-, numpy
-, scipy
-, pandas
-, nibabel
-, patsy
-, bids-validator
-, sqlalchemy
-, pytestCheckHook
-, versioneer
-, pythonRelaxDepsHook
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  fetchpatch,
+  formulaic,
+  click,
+  num2words,
+  numpy,
+  scipy,
+  pandas,
+  nibabel,
+  patsy,
+  bids-validator,
+  sqlalchemy,
+  pytestCheckHook,
+  versioneer,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
@@ -26,15 +27,16 @@ buildPythonPackage rec {
     hash = "sha256-OjWW08tyVDHkF0X3Pa+10HYD/7Gysp5DkEt9LaVxsdM=";
   };
 
-  patches = [
-    # remove after next release
-    (fetchpatch {
-      name = "fix-pybids-sqlalchemy-dep";
-      url = "https://github.com/bids-standard/pybids/commit/5f008dfc282394ef94a68d47dba37ceead9eac9a.patch";
-      hash = "sha256-gx6w35XqDBZ8cTGHeY/mz2xNQqza9E5z8bRJR7mbPcg=";
-      excludes = [ "pyproject.toml" ];  # not in PyPI dist
-    })
-  ];
+  patches =
+    [
+      # remove after next release
+      (fetchpatch {
+        name = "fix-pybids-sqlalchemy-dep";
+        url = "https://github.com/bids-standard/pybids/commit/5f008dfc282394ef94a68d47dba37ceead9eac9a.patch";
+        hash = "sha256-gx6w35XqDBZ8cTGHeY/mz2xNQqza9E5z8bRJR7mbPcg=";
+        excludes = [ "pyproject.toml" ]; # not in PyPI dist
+      })
+    ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, keyutils, pytest-runner, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  keyutils,
+  pytest-runner,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "keyutils";
@@ -17,7 +24,10 @@ buildPythonPackage rec {
   '';
 
   buildInputs = [ keyutils ];
-  nativeCheckInputs = [ pytest pytest-runner ];
+  nativeCheckInputs = [
+    pytest
+    pytest-runner
+  ];
 
   meta = {
     description = "A set of python bindings for keyutils";

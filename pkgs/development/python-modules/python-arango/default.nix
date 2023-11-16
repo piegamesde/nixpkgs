@@ -1,14 +1,15 @@
-{ lib
-, arangodb
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, pyjwt
-, pytest
-, mock
-, requests
-, requests-toolbelt
+{
+  lib,
+  arangodb,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  pyjwt,
+  pytest,
+  mock,
+  requests,
+  requests-toolbelt,
 }:
 
 let
@@ -128,9 +129,7 @@ buildPythonPackage rec {
     "test_replication_applier"
   ];
 
-  pythonImportsCheck = [
-    "arango"
-  ];
+  pythonImportsCheck = [ "arango" ];
 
   meta = with lib; {
     description = "Python Driver for ArangoDB";

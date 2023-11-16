@@ -39,7 +39,10 @@ import ./make-test-python.nix (
     name = "restic";
 
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ bbigras i077 ];
+      maintainers = [
+        bbigras
+        i077
+      ];
     };
 
     nodes = {
@@ -48,17 +51,34 @@ import ./make-test-python.nix (
         {
           services.restic.backups = {
             remotebackup = {
-              inherit passwordFile paths exclude pruneOpts backupPrepareCommand backupCleanupCommand;
+              inherit
+                passwordFile
+                paths
+                exclude
+                pruneOpts
+                backupPrepareCommand
+                backupCleanupCommand
+              ;
               repository = remoteRepository;
               initialize = true;
             };
             remote-from-file-backup = {
-              inherit passwordFile paths exclude pruneOpts;
+              inherit
+                passwordFile
+                paths
+                exclude
+                pruneOpts
+              ;
               initialize = true;
               repositoryFile = pkgs.writeText "repositoryFile" remoteFromFileRepository;
             };
             rclonebackup = {
-              inherit passwordFile paths exclude pruneOpts;
+              inherit
+                passwordFile
+                paths
+                exclude
+                pruneOpts
+              ;
               initialize = true;
               repository = rcloneRepository;
               rcloneConfig = {

@@ -1,13 +1,17 @@
 # CFS Zen Tweaks
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
 
   cfg = config.programs.cfs-zen-tweaks;
-
 in
 
 {
@@ -23,6 +27,12 @@ in
   config = mkIf cfg.enable {
     systemd.packages = [ pkgs.cfs-zen-tweaks ];
 
-    systemd.services.set-cfs-tweak.wantedBy = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target" ];
+    systemd.services.set-cfs-tweak.wantedBy = [
+      "multi-user.target"
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+      "suspend-then-hibernate.target"
+    ];
   };
 }

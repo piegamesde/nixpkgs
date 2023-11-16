@@ -1,6 +1,17 @@
-{ stdenv, lib, fetchurl, fetchpatch, cmake, gst_all_1, phonon, pkg-config
-, extra-cmake-modules, qttools, qtbase, qtx11extras
-, debug ? false
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  gst_all_1,
+  phonon,
+  pkg-config,
+  extra-cmake-modules,
+  qttools,
+  qtbase,
+  qtx11extras,
+  debug ? false,
 }:
 
 stdenv.mkDerivation rec {
@@ -35,17 +46,19 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   env.NIX_CFLAGS_COMPILE =
-    let gstPluginPaths =
-          lib.makeSearchPathOutput "lib" "/lib/gstreamer-1.0"
-          (with gst_all_1; [
-            gstreamer
-            gst-plugins-base
-            gst-plugins-good
-            gst-plugins-ugly
-            gst-plugins-bad
-            gst-libav
-          ]);
-    in toString [
+    let
+      gstPluginPaths = lib.makeSearchPathOutput "lib" "/lib/gstreamer-1.0" (
+        with gst_all_1; [
+          gstreamer
+          gst-plugins-base
+          gst-plugins-good
+          gst-plugins-ugly
+          gst-plugins-bad
+          gst-libav
+        ]
+      );
+    in
+    toString [
       # This flag should be picked up through pkg-config, but it isn't.
       "-I${gst_all_1.gstreamer.dev}/lib/gstreamer-1.0/include"
 
@@ -67,7 +80,5 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}"
-  ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ];
 }

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "plexwebsocket";
@@ -18,9 +24,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   # at least guarantee the module can be imported
-  pythonImportsCheck = [
-    "plexwebsocket"
-  ];
+  pythonImportsCheck = [ "plexwebsocket" ];
 
   meta = with lib; {
     homepage = "https://github.com/jjlawren/python-plexwebsocket/";

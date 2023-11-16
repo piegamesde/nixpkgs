@@ -1,17 +1,18 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, dtkwidget
-, deepin-gettext-tools
-, qt5integration
-, qmake
-, qtbase
-, qttools
-, qtx11extras
-, pkg-config
-, wrapQtAppsHook
-, udisks2-qt5
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  dtkwidget,
+  deepin-gettext-tools,
+  qt5integration,
+  qmake,
+  qtbase,
+  qttools,
+  qtx11extras,
+  pkg-config,
+  wrapQtAppsHook,
+  udisks2-qt5,
 }:
 
 stdenv.mkDerivation rec {
@@ -55,9 +56,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DVERSION=${version}" ];
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
-  qtWrapperArgs = [
-    "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
-  ];
+  qtWrapperArgs = [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
 
   meta = with lib; {
     description = "A simple graphical interface for creating file system in a block device";

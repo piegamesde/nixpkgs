@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, runtimeShell
-, fetchurl
-, autoPatchelfHook
-, wrapGAppsHook
-, dpkg
-, atomEnv
-, libuuid
-, libappindicator-gtk3
-, pulseaudio
-, at-spi2-atk
-, coreutils
-, gawk
-, xdg-utils
-, systemd
-, nodePackages
-, xar
-, cpio
-, makeWrapper
-, enableRectOverlay ? false
+{
+  lib,
+  stdenv,
+  runtimeShell,
+  fetchurl,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  dpkg,
+  atomEnv,
+  libuuid,
+  libappindicator-gtk3,
+  pulseaudio,
+  at-spi2-atk,
+  coreutils,
+  gawk,
+  xdg-utils,
+  systemd,
+  nodePackages,
+  xar,
+  cpio,
+  makeWrapper,
+  enableRectOverlay ? false,
 }:
 
 let
@@ -37,8 +38,15 @@ let
     downloadPage = "https://teams.microsoft.com/downloads";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ liff tricktron ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      liff
+      tricktron
+    ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -54,7 +62,12 @@ let
       hash = hashes.linux;
     };
 
-    nativeBuildInputs = [ dpkg autoPatchelfHook wrapGAppsHook nodePackages.asar ];
+    nativeBuildInputs = [
+      dpkg
+      autoPatchelfHook
+      wrapGAppsHook
+      nodePackages.asar
+    ];
 
     unpackCmd = "dpkg -x $curSrc .";
 
@@ -77,7 +90,6 @@ let
         --append-flags '--disable-namespace-sandbox --disable-setuid-sandbox'
       )
     '';
-
 
     buildPhase = ''
       runHook preBuild
@@ -108,9 +120,9 @@ let
       ln -s $out/opt/teams/teams $out/bin/
 
       ${lib.optionalString (!enableRectOverlay) ''
-      # Work-around screen sharing bug
-      # https://docs.microsoft.com/en-us/answers/questions/42095/sharing-screen-not-working-anymore-bug.html
-      rm $out/opt/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
+        # Work-around screen sharing bug
+        # https://docs.microsoft.com/en-us/answers/questions/42095/sharing-screen-not-working-anymore-bug.html
+        rm $out/opt/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
       ''}
 
       runHook postInstall
@@ -150,14 +162,18 @@ let
       hash = hashes.darwin;
     };
 
-    nativeBuildInputs = [ xar cpio makeWrapper ];
+    nativeBuildInputs = [
+      xar
+      cpio
+      makeWrapper
+    ];
 
     unpackPhase = ''
       xar -xf $src
       zcat < Teams_osx_app.pkg/Payload | cpio -i
     '';
 
-    sourceRoot = "Microsoft\ Teams.app";
+    sourceRoot = "Microsoft Teams.app";
     dontPatch = true;
     dontConfigure = true;
     dontBuild = true;
@@ -171,6 +187,4 @@ let
     '';
   };
 in
-if stdenv.isDarwin
-then darwin
-else linux
+if stdenv.isDarwin then darwin else linux

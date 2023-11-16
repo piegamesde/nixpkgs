@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools
-, cyrus_sasl
-, openldap
-, typing-extensions
-, gevent
-, tornado
-, trio
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  cyrus_sasl,
+  openldap,
+  typing-extensions,
+  gevent,
+  tornado,
+  trio,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -27,18 +28,14 @@ buildPythonPackage rec {
     hash = "sha256-UR/Ds5famD8kuDa6IIIyEv45eJuAcoygXef8XE+5Cxk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   buildInputs = [
     cyrus_sasl
     openldap
   ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   passthru.optional-dependencies = {
     gevent = [ gevent ];
@@ -46,9 +43,7 @@ buildPythonPackage rec {
     trio = [ trio ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTestPaths = [
     # requires running LDAP server
@@ -60,10 +55,11 @@ buildPythonPackage rec {
     "tests/test_pool.py"
   ];
 
-  disabledTests = [
-    # requires running LDAP server
-    "test_set_async_connect"
-  ];
+  disabledTests =
+    [
+      # requires running LDAP server
+      "test_set_async_connect"
+    ];
 
   pythonImportsCheck = [ "bonsai" ];
 

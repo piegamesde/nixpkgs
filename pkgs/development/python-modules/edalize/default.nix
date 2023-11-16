@@ -1,14 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, coreutils
-, jinja2
-, pandas
-, pyparsing
-, pytestCheckHook
-, pythonOlder
-, which
-, yosys
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  coreutils,
+  jinja2,
+  pandas,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  which,
+  yosys,
 }:
 
 buildPythonPackage rec {
@@ -31,9 +32,7 @@ buildPythonPackage rec {
     patchShebangs tests/mock_commands/vsim
   '';
 
-  propagatedBuildInputs = [
-    jinja2
-  ];
+  propagatedBuildInputs = [ jinja2 ];
 
   passthru.optional-dependencies = {
     reporting = [
@@ -48,9 +47,7 @@ buildPythonPackage rec {
     yosys
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "edalize"
-  ];
+  pythonImportsCheck = [ "edalize" ];
 
   disabledTestPaths = [
     "tests/test_questa_formal.py"

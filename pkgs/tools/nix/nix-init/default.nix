@@ -1,27 +1,26 @@
-{ lib
-, writeText
-, rustPlatform
-, fetchFromGitHub
-, curl
-, installShellFiles
-, makeBinaryWrapper
-, pkg-config
-, bzip2
-, libgit2_1_5
-, openssl
-, zlib
-, zstd
-, stdenv
-, darwin
-, spdx-license-list-data
-, nix
-, nurl
+{
+  lib,
+  writeText,
+  rustPlatform,
+  fetchFromGitHub,
+  curl,
+  installShellFiles,
+  makeBinaryWrapper,
+  pkg-config,
+  bzip2,
+  libgit2_1_5,
+  openssl,
+  zlib,
+  zstd,
+  stdenv,
+  darwin,
+  spdx-license-list-data,
+  nix,
+  nurl,
 }:
 
 let
-  get-nix-license = import ./get-nix-license.nix {
-    inherit lib writeText;
-  };
+  get-nix-license = import ./get-nix-license.nix { inherit lib writeText; };
 in
 
 rustPlatform.buildRustPackage rec {
@@ -44,25 +43,27 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    bzip2
-    curl
-    libgit2_1_5
-    openssl
-    zlib
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    darwin.apple_sdk.frameworks.CoreFoundation
-  ];
+  buildInputs =
+    [
+      bzip2
+      curl
+      libgit2_1_5
+      openssl
+      zlib
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+      darwin.apple_sdk.frameworks.CoreFoundation
+    ];
 
   buildNoDefaultFeatures = true;
 
-  checkFlags = [
-    # requires internet access
-    "--skip=lang::rust::tests"
-  ];
+  checkFlags =
+    [
+      # requires internet access
+      "--skip=lang::rust::tests"
+    ];
 
   postPatch = ''
     mkdir -p data
@@ -77,7 +78,12 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/nix-init \
-      --prefix PATH : ${lib.makeBinPath [ nix nurl ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          nurl
+        ]
+      }
     installManPage artifacts/nix-init.1
     installShellCompletion artifacts/nix-init.{bash,fish} --zsh artifacts/_nix-init
   '';
